@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Handbook: The Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #e2e8f0; /* slate-200 */
+        }
+        .font-bangers {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 2px;
+        }
+        #chat-container {
+            scrollbar-width: thin;
+            scrollbar-color: #475569 #e2e8f0;
+        }
+        .message-row {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 1rem;
+            gap: 0.75rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .message-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden; /* To keep the SVG contained */
+            border: 3px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chat-bubble {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 1.5rem;
+        }
+        .chat-bubble strong {
+            color: #4f46e5; /* indigo-700 */
+        }
+        .wise-mentor .chat-bubble {
+            background-color: #ffffff;
+            border: 2px solid #94a3b8;
+            border-bottom-left-radius: 0.5rem;
+        }
+        .new-mentor {
+            justify-content: flex-end;
+            flex-direction: row-reverse;
+        }
+        .new-mentor .chat-bubble {
+            background-color: #c7d2fe; /* indigo-200 */
+            border: 2px solid #818cf8; /* indigo-400 */
+            border-bottom-right-radius: 0.5rem;
+        }
+        .qa-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background-color: white;
+            border: 2px solid #cbd5e1;
+        }
+        .qa-option:hover:not(.disabled) {
+            background-color: #fde047; /* yellow-300 */
+            transform: scale(1.03);
+        }
+        .qa-option.correct {
+            background-color: #4ade80; /* green-400 */
+            color: white;
+            border-color: #22c55e; /* green-500 */
+        }
+        .qa-option.incorrect {
+            background-color: #f87171; /* red-400 */
+            color: white;
+            border-color: #ef4444; /* red-500 */
+        }
+        .qa-option.disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        .feedback-text {
+            font-weight: 700;
+            min-height: 1.5rem;
+            text-align: center;
+        }
+        .summary-list {
+            list-style-type: '✅ ';
+            padding-left: 1.5rem;
+        }
+        .summary-list li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-200 flex flex-col items-center justify-center min-h-screen p-2 sm:p-4">
+
+    <div class="w-full max-w-2xl mx-auto bg-slate-100 rounded-2xl shadow-2xl flex flex-col h-[90vh]">
+        <!-- Header -->
+        <header class="text-center p-4 border-b-4 border-slate-300">
+            <h1 class="font-bangers text-3xl sm:text-4xl text-blue-600">Mentor Chat</h1>
+            <p class="text-slate-600">The Complete Guide</p>
+        </header>
+
+        <!-- Chat Container -->
+        <main id="chat-container" class="flex-1 p-4 sm:p-6 overflow-y-auto flex flex-col gap-2">
+            <!-- Dialogue will be inserted here by JS -->
+        </main>
+    </div>
+
+    <script>
+        const dialogueData = [
+            // Section 1: Understanding Your Role
+            { speaker: 'new', type: 'text', content: "Hi! I'm ready to learn everything from the handbook. Where should we start?" },
+            { speaker: 'wise', type: 'text', content: "Excellent! Let's start with the most important thing: <strong>understanding your role</strong>. It's more than just being a guide." },
+            { speaker: 'wise', type: 'text', content: "Your core purpose is '<strong>成全他人</strong>' - to help others achieve their goals. It's about finding joy in their growth, not hitting personal metrics." },
+            { speaker: 'wise', type: 'text', content: "This requires a <strong>pure intention</strong> to help, and remember, this is a journey of <strong>mutual growth</strong>. You will learn as much as your mentee!" },
+            { speaker: 'new', type: 'text', content: "That's a beautiful way to put it. How do I put that philosophy into practice?" },
+            { speaker: 'wise', type: 'text', content: "<strong>Lead by example</strong> with a positive attitude. And crucially, <strong>respect their individual pace</strong>. Everyone has their own circumstances, so don't push too hard." },
+            { speaker: 'new', type: 'text', content: "What if I face challenges, like an unresponsive mentee?" },
+            { speaker: 'wise', type: 'text', content: "That's when you maintain a positive mindset and learn to '<strong>transform your thoughts</strong>' (轉念). It's a key skill." },
+            { speaker: 'wise', type: 'qa', question: "A mentee isn't progressing as fast as you'd like. What's the best mindset?", options: ["Push them harder to meet goals", "Focus on your own frustration", "Respect their pace and offer support"], correct: 2, feedback: "Perfect. Respecting their pace is fundamental to the core purpose." },
+            
+            // Section 2: Essential Soft Skills
+            { speaker: 'new', type: 'text', content: "Okay, I understand the philosophy. What about the essential soft skills I'll need?" },
+            { speaker: 'wise', type: 'text', content: "There are three pillars: <strong>Building Relationships</strong>, <strong>Skillful Communication</strong>, and <strong>Problem-Solving</strong>." },
+            { speaker: 'wise', type: 'text', content: "Let's start with relationships. The most important concept here is '<strong>陪伴</strong>' - companionship. Actively accompany your mentees, find <strong>common ground</strong>, and create a <strong>warm, cheerful atmosphere</strong>. Don't be an 'inspector'." },
+            { speaker: 'new', type: 'text', content: "So it's about making them feel like part of a big family?" },
+            { speaker: 'wise', type: 'text', content: "Exactly! And a huge part of that is <strong>active listening</strong>. Listen with <strong>empathy</strong>, offering support rather than immediate judgment or solutions." },
+            { speaker: 'new', type: 'text', content: "Now for communication. What does 'skillful' communication look like?" },
+            { speaker: 'wise', type: 'text', content: "It means providing <strong>clear, timely information</strong>. <strong>Sharing your own journey</strong> to connect with them. And using <strong>positive reinforcement</strong>—celebrate their small successes!" },
+            { speaker: 'wise', type: 'text', content: "For sensitive topics, use '<strong>strategic guidance</strong>'. Focus on underlying principles like compassion, and adapt your language to avoid confrontation. Understand their readiness first." },
+            { speaker: 'wise', type: 'qa', question: "When discussing a sensitive topic with a mentee, you should:", options: ["Avoid it completely to prevent discomfort", "Focus on principles and be gentle, gauging their readiness", "State the rules firmly to ensure compliance"], correct: 1, feedback: "That's the essence of skillful means! Gentle, principle-based guidance." },
+            { speaker: 'new', type: 'text', content: "And the third skill, problem-solving?" },
+            { speaker: 'wise', type: 'text', content: "This is about <strong>adaptability</strong>. Use '<strong>skillful means</strong>' to adapt to their situations. Be <strong>resourceful</strong>. And for new mentees, consider '<strong>strategic protection</strong>'—filter activities to prevent them from feeling overwhelmed." },
+
+            // Section 3: Practical Aspects
+            { speaker: 'new', type: 'text', content: "This is great. What about the more practical, day-to-day aspects?" },
+            { speaker: 'wise', type: 'text', content: "Good question. First, understand the '<strong>progression path</strong>' for mentees so you can see the big picture. Second, <strong>track their development thoughtfully</strong>." },
+            { speaker: 'new', type: 'text', content: "How do I track progress without making them feel pressured or 'examined'?" },
+            { speaker: 'wise', type: 'text', content: "Frame it as a <strong>joint effort</strong> for certification requirements. Use <strong>gentle reminders</strong>, not criticism. Focus on belonging, and participation will follow." },
+            { speaker: 'wise', type: 'text', content: "Also, encourage them to <strong>involve their family</strong> in activities to build a broader sense of community. And don't forget to <strong>leverage your own support systems</strong>!" },
+            { speaker: 'new', type: 'text', content: "Support systems? You mean other mentors?" },
+            { speaker: 'wise', type: 'text', content: "Yes! Rely on your <strong>team and peer mentors</strong>. Seek <strong>guidance from senior leaders</strong>. And use information platforms to ensure you're giving consistent, accurate answers." },
+            { speaker: 'wise', type: 'qa', question: "When tracking a mentee's participation, the best approach is to:", options: ["Publicly display their attendance to motivate them", "Frame it as a collaborative effort for requirements", "Frequently test them on their knowledge"], correct: 1, feedback: "Right! It's about support, not examination." },
+
+            // Section 4: Navigating Challenges
+            { speaker: 'new', type: 'text', content: "I'm a bit worried about the challenges, like not having enough time." },
+            { speaker: 'wise', type: 'text', content: "A very common challenge! For <strong>time constraints</strong>, prioritize, plan, and leverage your team. Use small pockets of 'downtime', like a commute, to connect." },
+            { speaker: 'new', type: 'text', content: "What if my mentee encounters <strong>external negativity</strong> about the organization from others?" },
+            { speaker: 'wise', type: 'text', content: "Counter it with <strong>fact-based responses</strong> from official sources. <strong>Reinforce the core values</strong>. Your own firm belief and <strong>personal conviction</strong> are incredibly influential here." },
+            { speaker: 'new', type: 'text', content: "My biggest fear is feeling frustrated or powerless myself." },
+            { speaker: 'wise', type: 'text', content: "It happens to everyone. It's a sign that you care. What do you think is the best way to handle that feeling?" },
+            { speaker: 'wise', type: 'qa', question: "If you feel frustrated or powerless as a mentor, what should you do?", options: ["Give up on the mentee", "Keep it to yourself and struggle alone", "Share with trusted peers and self-reflect"], correct: 2, feedback: "Yes! Never forget your own support system. A problem shared is a problem halved." },
+            { speaker: 'wise', type: 'text', content: "And always remember to engage in <strong>continuous learning</strong> for yourself. Attend talks, read, and reflect. It maintains your own inspiration and wisdom." },
+            
+            // Conclusion
+            { speaker: 'new', type: 'text', content: "This covers everything! I feel so much more confident now. Thank you for walking me through the whole handbook." },
+            { speaker: 'wise', type: 'text', content: "You're most welcome! Before you go, let's quickly summarize the key takeaways." },
+            { speaker: 'wise', type: 'summary', title: 'Key Takeaways for Mentors', points: [
+                "Your core purpose is <strong>'成全他人'</strong> (helping others achieve). Focus on their growth.",
+                "<strong>Companionship (陪伴)</strong> and <strong>Active Listening</strong> are the foundation of strong relationships.",
+                "Use <strong>Skillful Communication</strong>: be clear, positive, and strategic, especially with sensitive topics.",
+                "<strong>Lead by example</strong> and always <strong>respect the individual pace</strong> of your mentee.",
+                "When facing challenges, be <strong>adaptable</strong>, lean on your <strong>support system</strong>, and practice <strong>self-reflection</strong>.",
+                "Mentoring is a journey of <strong>mutual growth</strong> and <strong>continuous learning</strong> for you too!"
+            ]},
+            { speaker: 'wise', type: 'text', content: "You have all the tools. You're ready to guide with heart and wisdom." },
+        ];
+
+        // SVG Comic-style pictures for avatars
+        const wiseMentorSVG = `
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <circle cx="50" cy="50" r="50" fill="#a5b4fc"/>
+                    <path d="M 25,90 C 25,70 75,70 75,90" fill="#4338ca"/>
+                    <rect x="20" y="75" width="60" height="25" fill="#e0e7ff"/>
+                    <circle cx="50" cy="55" r="35" fill="#fecaca"/>
+                    <path d="M 20,60 Q 50,80 80,60" fill="none" stroke="#991b1b" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="35" cy="45" r="5" fill="#000"/>
+                    <circle cx="65" cy="45" r="5" fill="#000"/>
+                    <path d="M 15,40 C 30,10 70,10 85,40" fill="#4a5568"/>
+                </g>
+            </svg>`;
+        const newMentorSVG = `
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <circle cx="50" cy="50" r="50" fill="#6ee7b7"/>
+                    <path d="M 25,90 C 25,70 75,70 75,90" fill="#047857"/>
+                    <rect x="20" y="75" width="60" height="25" fill="#d1fae5"/>
+                    <circle cx="50" cy="55" r="35" fill="#fed7aa"/>
+                    <path d="M 30,65 Q 50,75 70,65" fill="none" stroke="#c2410c" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="35" cy="48" r="6" fill="#000"/>
+                    <circle cx="65" cy="48" r="6" fill="#000"/>
+                    <path d="M 25,35 C 40,20 60,20 75,35 C 70,45 60,40 50,45 C 40,40 30,45 25,35" fill="#ca8a04"/>
+                </g>
+            </svg>`;
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatContainer = document.getElementById('chat-container');
+            let currentMessageIndex = 0;
+
+            function showNextMessage() {
+                if (currentMessageIndex >= dialogueData.length) return;
+
+                const data = dialogueData[currentMessageIndex];
+                
+                const messageRow = document.createElement('div');
+                messageRow.className = 'message-row';
+
+                const avatar = document.createElement('div');
+                avatar.className = 'avatar';
+                avatar.innerHTML = data.speaker === 'wise' ? wiseMentorSVG : newMentorSVG;
+
+                const bubble = document.createElement('div');
+                bubble.className = 'chat-bubble';
+
+                if (data.type === 'text') {
+                    bubble.innerHTML = data.content;
+                } else if (data.type === 'qa') {
+                    let optionsHtml = data.options.map((opt, i) =>
+                        `<button class="qa-option w-full p-3 my-1 border-2 rounded-lg text-base" data-correct="${i === data.correct}">${opt}</button>`
+                    ).join('');
+                    
+                    bubble.innerHTML = `
+                        <p class="font-bold mb-2">${data.question}</p>
+                        <div class="qa-container">${optionsHtml}</div>
+                        <p class="feedback-text mt-2 text-sm"></p>
+                    `;
+                } else if (data.type === 'summary') {
+                    let pointsHtml = data.points.map(point => `<li>${point}</li>`).join('');
+                    bubble.innerHTML = `
+                        <h3 class="font-bold text-lg mb-2">${data.title}</h3>
+                        <ul class="summary-list">${pointsHtml}</ul>
+                    `;
+                }
+
+                messageRow.classList.add(data.speaker === 'wise' ? 'wise-mentor' : 'new-mentor');
+                messageRow.appendChild(avatar);
+                messageRow.appendChild(bubble);
+                
+                chatContainer.appendChild(messageRow);
+                
+                setTimeout(() => {
+                    messageRow.classList.add('visible');
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }, 100);
+
+                if (data.type === 'qa') {
+                    setupQaListeners(bubble, data.feedback);
+                } else {
+                    currentMessageIndex++;
+                    setTimeout(showNextMessage, 1500); // Slightly longer delay for reading
+                }
+            }
+
+            function setupQaListeners(bubble, feedback) {
+                const options = bubble.querySelectorAll('.qa-option');
+                const feedbackEl = bubble.querySelector('.feedback-text');
+                let answered = false;
+
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        if (answered) return;
+                        answered = true;
+
+                        const isCorrect = option.dataset.correct === 'true';
+
+                        if (isCorrect) {
+                            option.classList.add('correct');
+                            feedbackEl.textContent = feedback;
+                            feedbackEl.classList.add('text-green-600');
+                        } else {
+                            option.classList.add('incorrect');
+                            feedbackEl.textContent = 'Not quite, but good thinking!';
+                            feedbackEl.classList.add('text-red-600');
+                            bubble.querySelector('.qa-option[data-correct="true"]').classList.add('correct');
+                        }
+
+                        options.forEach(opt => opt.classList.add('disabled'));
+
+                        currentMessageIndex++;
+                        setTimeout(showNextMessage, 2000);
+                    });
+                });
+            }
+
+            // Start the conversation
+            showNextMessage();
+        });
+    </script>
+</body>
+</html>
