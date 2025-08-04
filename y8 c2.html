@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Flashcards: Properties of Materials</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Basic styling for the 3D flip effect */
+        .scene {
+            perspective: 1000px;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card-face-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">Properties of Materials</h1>
+        <p class="text-center text-gray-600 mb-6">Interactive Flashcards for Year 8 Chemistry</p>
+
+        <!-- Flashcard Scene -->
+        <div class="scene w-full h-96 md:h-[28rem] mb-6">
+            <div id="flashcard" class="card">
+                <!-- Card Front (Question) -->
+                <div id="card-front" class="card-face card-face-front bg-white rounded-xl shadow-lg p-6 text-center">
+                    <!-- Question content will be injected here -->
+                </div>
+                <!-- Card Back (Answer) -->
+                <div id="card-back" class="card-face card-face-back bg-blue-500 text-white rounded-xl shadow-lg p-6 text-center">
+                    <!-- Answer content will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
+            <button id="prevBtn" class="w-full sm:w-auto bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-lg transition-colors duration-300">Previous</button>
+            <button id="flipBtn" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300">Flip Card</button>
+            <button id="nextBtn" class="w-full sm:w-auto bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-lg transition-colors duration-300">Next</button>
+        </div>
+        
+        <div id="card-counter" class="text-center text-gray-500 mt-4"></div>
+
+    </div>
+
+    <script>
+        const flashcardsData = [
+            // Exercise 2.1A
+            {
+                topic: "2.1A Using the correct scientific term",
+                question: "Use the terms provided to label the diagrams.",
+                answer: "A: mixture<br>B: filtrate<br>C: solute (or solid)<br>D: solvent<br>E: solution",
+                note: "Please refer to the diagrams in your workbook for this question."
+            },
+            // Exercise 2.1B
+            {
+                topic: "2.1B What is the difference?",
+                question: "1. Explain the difference between the terms transparent and opaque.",
+                answer: "<strong>Transparent</strong> materials allow you to see through them clearly (e.g., clear plastic). <strong>Opaque</strong> materials do not allow light to pass through, so you cannot see through them (e.g., milk, metal)."
+            },
+            {
+                topic: "2.1B What is the difference?",
+                question: "2. Explain the difference between the terms dissolving and melting.",
+                answer: "<strong>Dissolving</strong> involves two substances: a solute that dissolves into a solvent. <strong>Melting</strong> involves only one substance changing from a solid to a liquid due to heat."
+            },
+            {
+                topic: "2.1B What is the difference?",
+                question: "3. Distinguish between the terms solute, solvent and solution.",
+                answer: "A <strong>solute</strong> is a substance that dissolves in a <strong>solvent</strong> to form a <strong>solution</strong>."
+            },
+            // Exercise 2.1C
+            {
+                topic: "2.1C Explaining observations",
+                question: "When 20 g of salt is added to a beaker containing 100 g of water, the salt dissolves. What is the mass of the solution now?",
+                answer: "120 g"
+            },
+            {
+                topic: "2.1C Explaining observations",
+                question: "Explain your answer for the total mass.",
+                answer: "Mass is conserved. When the salt dissolves, it doesn't disappear. Its mass is added to the mass of the water. So, 100 g (water) + 20 g (salt) = 120 g (solution)."
+            },
+            // Exercise 2.2A
+            {
+                topic: "2.2A Using the correct scientific term",
+                question: "Complete the sentence: A substance that will not dissolve in water is __________.",
+                answer: "insoluble"
+            },
+            {
+                topic: "2.2A Using the correct scientific term",
+                question: "Complete the sentence: Solution A has more solute particles in it than solution B. Solution A is more __________ than solution B.",
+                answer: "concentrated"
+            },
+            {
+                topic: "2.2A Using the correct scientific term",
+                question: "Complete the sentence: Sofia has added more and more copper sulfate to a beaker of water until no more will dissolve. She has made a __________ of copper sulfate.",
+                answer: "saturated solution"
+            },
+            {
+                topic: "2.2A Using the correct scientific term",
+                question: "Complete the sentence: Copper sulfate dissolves in water so it is said to be __________ in water.",
+                answer: "soluble"
+            },
+            {
+                topic: "2.2A Using the correct scientific term",
+                question: "Complete the sentence: Marcus has added 50 cm³ water to a solution of sodium chloride. He has __________ the solution.",
+                answer: "diluted"
+            },
+            // Exercise 2.2B
+            {
+                topic: "2.2B Solubility of three solutes",
+                question: "1. Which solute did Zara find was the most soluble?",
+                answer: "Solute A",
+                note: "Please refer to the results table in your workbook for this question."
+            },
+            {
+                topic: "2.2B Solubility of three solutes",
+                question: "2. Which solute did Zara find was the least soluble?",
+                answer: "Solute B",
+                note: "Please refer to the results table in your workbook for this question."
+            },
+            {
+                topic: "2.2B Solubility of three solutes",
+                question: "3. Do Arun's results agree with Zara's findings?",
+                answer: "Yes. Although the amounts are different, he found the same order of solubility (A > C > B).",
+                note: "Please refer to the results table in your workbook for this question."
+            },
+            {
+                topic: "2.2B Solubility of three solutes",
+                question: "4. Explain the difference in the readings that Zara and Arun got.",
+                answer: "Arun used more water in his investigation, which allowed more solute to dissolve.",
+                note: "Please refer to the results table in your workbook for this question."
+            },
+            {
+                topic: "2.2B Solubility of three solutes",
+                question: "5. Explain why Marcus's results are so different from Zara's and Arun's.",
+                answer: "Marcus did not conduct a fair test. He used different volumes of water for each solute, so he cannot reliably compare their solubilities.",
+                note: "Please refer to the results table in your workbook for this question."
+            },
+            // Exercise 2.2C
+            {
+                topic: "2.2C Making up a solution",
+                question: "How can you make a 100 cm³ solution that is half as concentrated as solution X?",
+                answer: "Add 50 cm³ of solution X to 50 cm³ of water."
+            },
+            {
+                topic: "2.2C Making up a solution",
+                question: "How can you make a 100 cm³ solution that is a quarter as concentrated as solution X?",
+                answer: "Add 25 cm³ of solution X to 75 cm³ of water."
+            },
+            {
+                topic: "2.2C Making up a solution",
+                question: "What steps can be taken to ensure solutions are made as accurately as possible?",
+                answer: "Use appropriate measuring equipment, like a measuring cylinder of a suitable size. Ensure you read the volume from the bottom of the meniscus at eye level."
+            },
+            // Exercise 2.3A
+            {
+                topic: "2.3A Dissolving salt",
+                question: "1. What was Sofia's prediction?",
+                answer: "Sofia predicted that the more water they used, the more salt would dissolve in it.",
+                note: "Please refer to the table and graph in your workbook for this section."
+            },
+            {
+                topic: "2.3A Dissolving salt",
+                question: "2. Which reading is plotted incorrectly on the graph?",
+                answer: "The reading for 20 cm³ of water (9 g of salt) is plotted incorrectly on the 25 cm³ line.",
+                note: "Please refer to the table and graph in your workbook for this section."
+            },
+            {
+                topic: "2.3A Dissolving salt",
+                question: "3. Which other point does not fit the pattern of the graph?",
+                answer: "The reading for 60 cm³ of water (26 g of salt) is an anomaly as it seems too high.",
+                note: "Please refer to the table and graph in your workbook for this section."
+            },
+            {
+                topic: "2.3A Dissolving salt",
+                question: "5. Describe what the graph shows.",
+                answer: "The graph shows a positive correlation: as the volume of water increases, the mass of salt that can be dissolved also increases.",
+                note: "Please refer to the table and graph in your workbook for this section."
+            },
+            {
+                topic: "2.3A Dissolving salt",
+                question: "6. Was Sofia's prediction correct?",
+                answer: "Yes, her prediction was correct.",
+                note: "Please refer to the table and graph in your workbook for this section."
+            },
+            // Exercise 2.3B
+            {
+                topic: "2.3B Comparing solubility",
+                question: "1. Name the independent variable in the investigation to compare the solubility of two salts.",
+                answer: "The type of salt (e.g., salt X and salt Y)."
+            },
+            {
+                topic: "2.3B Comparing solubility",
+                question: "2. Name the dependent variable.",
+                answer: "The amount of salt that dissolves (its solubility), measured in grams or number of spatulas."
+            },
+            {
+                topic: "2.3B Comparing solubility",
+                question: "3. List the control variables.",
+                answer: "The volume of water used and the temperature of the water."
+            },
+            // Exercise 2.3C
+            {
+                topic: "2.3C Comparing solubility",
+                question: "5. At what temperature do salts X and Y have the same solubility?",
+                answer: "80°C",
+                note: "Please refer to the solubility graph in your workbook."
+            },
+            {
+                topic: "2.3C Comparing solubility",
+                question: "6. Which salt is less soluble at 50°C?",
+                answer: "Salt Y",
+                note: "Please refer to the solubility graph in your workbook."
+            },
+            {
+                topic: "2.3C Comparing solubility",
+                question: "7. Describe what the graph shows about the solubility of salt X.",
+                answer: "The solubility of salt X increases with temperature until about 70°C, after which it levels off, meaning more heat doesn't dissolve more salt.",
+                note: "Please refer to the solubility graph in your workbook."
+            },
+            {
+                topic: "2.3C Comparing solubility",
+                question: "8. Describe what the graph shows about the solubility of salt Y.",
+                answer: "The solubility of salt Y increases steadily and at a constant rate as the temperature rises from 0°C to 100°C.",
+                note: "Please refer to the solubility graph in your workbook."
+            },
+            // Exercise 2.4A
+            {
+                topic: "2.4A Wordsearch",
+                question: "Find the science words in the grid.",
+                answer: `<img src="https://storage.googleapis.com/gemini-prod-us-west1-433550954932/images/84102952-1981-43b6-9922-834c8901a5e1" alt="Solved Wordsearch" class="max-w-full h-auto rounded-lg">`,
+                note: "This is the solved wordsearch puzzle."
+            },
+            // Exercise 2.4B
+            {
+                topic: "2.4B Paper chromatography",
+                question: "1. Why is the spot of drink placed above the water line at the start?",
+                answer: "To prevent the spot from dissolving directly into the solvent (water) at the bottom of the beaker, instead of being carried up the paper.",
+                note: "Please refer to the chromatogram diagrams in your workbook."
+            },
+            {
+                topic: "2.4B Paper chromatography",
+                question: "2. How many different colourings has the scientist found in the drink?",
+                answer: "Six.",
+                note: "Please refer to the chromatogram diagrams in your workbook."
+            },
+            {
+                topic: "2.4B Paper chromatography",
+                question: "3. Which dye in the drink is not on the permitted list?",
+                answer: "The third spot from the top is not present in the chromatogram of permitted chemicals.",
+                note: "Please refer to the chromatogram diagrams in your workbook."
+            },
+            {
+                topic: "2.4B Paper chromatography",
+                question: "4. Why should the scientist carry out further tests on this colouring?",
+                answer: "To confirm the result (reliability) and to identify the unknown substance to check if it is harmful."
+            },
+            // Exercise 2.4C
+            {
+                topic: "2.4C Chromatography with plant material",
+                question: "1. The drop of liquid from the flower petal did not move up the paper with the water. Explain why.",
+                answer: "This happened because the substance extracted from the petal was not soluble in water.",
+                note: "Please refer to the diagrams in your workbook."
+            },
+            {
+                topic: "2.4C Chromatography with plant material",
+                question: "2. What should Sofia try now?",
+                answer: "She should try a different solvent, such as ethanol.",
+                note: "Please refer to the diagrams in your workbook."
+            },
+            {
+                topic: "2.4C Chromatography with plant material",
+                question: "3. Label the final chromatogram.",
+                answer: "A: Support rod<br>B: Solvent front<br>C: Beaker<br>D: Chromatography paper<br>E: Starting line (pencil)<br>F: Solvent",
+                note: "Please refer to the diagrams in your workbook."
+            },
+            {
+                topic: "2.4C Chromatography with plant material",
+                question: "4. Why did Sofia dry the drops of liquid before she added more?",
+                answer: "To make the starting spot small and concentrated, which leads to a better separation of the dyes."
+            },
+            {
+                topic: "2.4C Chromatography with plant material",
+                question: "5. Is the colour from the petals pure or a mixture? How do you know?",
+                answer: "It is a mixture, because the original spot separated into several different spots of different substances."
+            },
+            {
+                topic: "2.4C Chromatography with plant material",
+                question: "6. Explain how the liquid was separated.",
+                answer: "The different substances in the mixture have different solubilities in the solvent. As the solvent moves up the paper, it carries the substances with it. The more soluble substances travel further up the paper, causing them to separate."
+            },
+            // Check your progress 2.1
+            {
+                topic: "Check your progress 2.1",
+                question: "Complete the sentence: A solute is a solid that ___ in a liquid. The liquid it dissolves into is called a ___ . Together they make a ___ . A solid that does not dissolve in a liquid is called ___ .",
+                answer: "A solute is a solid that <strong>dissolves</strong> in a liquid. The liquid it dissolves into is called a <strong>solvent</strong>. Together they make a <strong>solution</strong>. A solid that does not dissolve in a liquid is called <strong>insoluble</strong>."
+            },
+            {
+                topic: "Check your progress 2.1",
+                question: "Complete the sentence: When you measure the solubility of a solute you must use the same ___ and type of solvent at a given ___ .",
+                answer: "When you measure the solubility of a solute you must use the same <strong>volume</strong> and type of solvent at a given <strong>temperature</strong>."
+            },
+            // Check your progress 2.2
+            {
+                topic: "Check your progress 2.2",
+                question: "A mixture contains white, insoluble zinc carbonate. It is filtered. What is the name of the white solid left in the filter paper?",
+                answer: "Zinc carbonate.",
+                note: "Please refer to the table in 'Check your progress 2.2' in your workbook."
+            },
+            {
+                topic: "Check your progress 2.2",
+                question: "A mixture contains white, insoluble zinc carbonate in water. It is filtered. What is the colour of the filtrate?",
+                answer: "Colourless (the filtrate is water).",
+                note: "Please refer to the table in 'Check your progress 2.2' in your workbook."
+            },
+            {
+                topic: "Check your progress 2.2",
+                question: "Describe how you could obtain pure crystals of iron sulfate from a mixture of green, insoluble copper carbonate and green, soluble iron sulfate.",
+                answer: "1. Add the mixture to water and stir. The iron sulfate will dissolve.<br>2. Filter the mixture. The copper carbonate will be left on the filter paper.<br>3. Heat the green filtrate (iron sulfate solution) to evaporate some water, then let it cool to form crystals."
+            },
+            // Check your progress 2.3
+            {
+                topic: "Check your progress 2.3",
+                question: "What name is given to a solution when no more solute can be dissolved in it?",
+                answer: "A saturated solution."
+            },
+            {
+                topic: "Check your progress 2.3",
+                question: "Students investigated the solubility of copper sulfate from 20°C to 80°C. What range of temperatures did the students use?",
+                answer: "20°C to 80°C.",
+                note: "Please refer to the table and graph in 'Check your progress 2.3' in your workbook."
+            },
+            {
+                topic: "Check your progress 2.3",
+                question: "The temperatures used were 20, 30, 40, 50, 60, 70, and 80°C. What interval did they use for the temperatures?",
+                answer: "10°C.",
+                note: "Please refer to the table and graph in 'Check your progress 2.3' in your workbook."
+            },
+            {
+                topic: "Check your progress 2.3",
+                question: "Name a control variable the students should keep the same in their solubility investigation.",
+                answer: "The volume of water used.",
+                note: "Please refer to the table and graph in 'Check your progress 2.3' in your workbook."
+            },
+            {
+                topic: "Check your progress 2.3",
+                question: "Which is the independent variable in this investigation?",
+                answer: "The temperature of the water.",
+                note: "Please refer to the table and graph in 'Check your progress 2.3' in your workbook."
+            },
+            {
+                topic: "Check your progress 2.3",
+                question: "Identify any result from the table that does not fit the pattern on the graph.",
+                answer: "The point at 60°C (30 g). It is an anomaly because the mass dissolved is less than at 50°C, breaking the trend.",
+                note: "Please refer to the table and graph in 'Check your progress 2.3' in your workbook."
+            },
+            {
+                topic: "Check your progress 2.3",
+                question: "What conclusion can the students draw from their results about the solubility of copper sulfate?",
+                answer: "The hotter the water, the more copper sulfate will dissolve in it (solubility increases with temperature).",
+                note: "Please refer to the table and graph in 'Check your progress 2.3' in your workbook."
+            }
+        ];
+
+        let currentCardIndex = 0;
+        const card = document.getElementById('flashcard');
+        const cardFront = document.getElementById('card-front');
+        const cardBack = document.getElementById('card-back');
+        const flipBtn = document.getElementById('flipBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const cardCounter = document.getElementById('card-counter');
+
+        function updateCard() {
+            const data = flashcardsData[currentCardIndex];
+            
+            // Update Front
+            let frontHTML = `<h2 class="text-lg font-semibold text-indigo-700 mb-4">${data.topic}</h2>`;
+            frontHTML += `<div class="text-xl text-gray-800 flex-grow flex items-center justify-center"><p>${data.question}</p></div>`;
+            if (data.note) {
+                frontHTML += `<p class="text-sm text-gray-500 mt-4"><em>${data.note}</em></p>`;
+            }
+            cardFront.innerHTML = frontHTML;
+
+            // Update Back
+            let backHTML = `<h2 class="text-lg font-semibold text-white mb-4">Answer</h2>`;
+             backHTML += `<div class="text-lg flex-grow flex items-center justify-center"><p>${data.answer}</p></div>`;
+            cardBack.innerHTML = backHTML;
+
+            // Update counter
+            cardCounter.textContent = `Card ${currentCardIndex + 1} of ${flashcardsData.length}`;
+            
+            // Reset flip state
+            card.classList.remove('is-flipped');
+        }
+
+        flipBtn.addEventListener('click', () => {
+            card.classList.toggle('is-flipped');
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentCardIndex = (currentCardIndex + 1) % flashcardsData.length;
+            updateCard();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentCardIndex = (currentCardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+            updateCard();
+        });
+
+        // Initial load
+        updateCard();
+    </script>
+</body>
+</html>
