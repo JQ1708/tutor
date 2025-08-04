@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Materials Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .scene {
+            width: 100%;
+            height: 520px;
+            perspective: 1000px;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card__face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+        }
+        .card__face--front {
+            /* Gradients applied via Tailwind */
+        }
+        .card__face--back {
+            transform: rotateY(180deg);
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: auto;
+            cursor: default;
+        }
+        .card__face--back::-webkit-scrollbar { width: 5px; }
+        .card__face--back::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.5); border-radius: 10px; }
+        .card__face--back h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; width: 100%; }
+        .card__face--back ul { list-style-type: none; padding-left: 0; width: 100%; text-align: left; }
+        .card__face--back li { margin-bottom: 0.5rem; font-size: 0.9rem; line-height: 1.5; }
+        .card__face--back li strong { font-weight: 600; color: rgba(255, 255, 255, 0.9); }
+        
+        .formula-box { background-color: rgba(0, 0, 0, 0.2); padding: 0.5rem 1rem; border-radius: 0.75rem; margin-top: 0.5rem; font-size: 1rem; font-weight: 600; width: 100%; text-align: center; font-family: 'Courier New', Courier, monospace; }
+        .diagram { width: 90%; max-width: 250px; margin: 0.5rem auto; background: rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 0.5rem; display: none; }
+        .diagram.visible { display: block; }
+        
+        /* Interactive Buttons */
+        .interactive-buttons { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+        .interactive-btn { background-color: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.5); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; cursor: pointer; }
+        .interactive-btn:hover { background-color: rgba(255, 255, 255, 0.4); }
+
+        /* Quiz Section */
+        .quiz-section { display: none; width: 100%; margin-top: 0.75rem; background-color: rgba(0,0,0,0.15); padding: 0.75rem; border-radius: 1rem; }
+        .quiz-section.visible { display: block; }
+        .quiz-question { font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .quiz-option { background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem; border-radius: 0.5rem; text-align: left; transition: all 0.2s; }
+        .quiz-option:hover { background-color: rgba(255,255,255,0.2); }
+        .quiz-feedback { margin-top: 0.5rem; font-weight: 600; height: 1.25rem; }
+        .feedback-correct { color: #a7f3d0; }
+        .feedback-incorrect { color: #fecaca; }
+        
+        /* Navigation */
+        .navigation-controls { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; background-color: rgba(255, 255, 255, 0.9); padding: 0.75rem 1.5rem; border-radius: 999px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 50; }
+        .nav-btn { background: #4f46e5; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 999px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; }
+        .nav-btn:hover { background: #4338ca; }
+        .nav-btn:disabled { background: #a5b4fc; cursor: not-allowed; }
+
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Properties of Materials Flashcards</h1>
+            <p class="text-lg text-gray-600 mt-2">Click a card to flip, then use the buttons to learn and test yourself!</p>
+        </header>
+
+        <div id="card-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Card 1: What is a Solution? -->
+            <div class="scene" id="card-0">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-cyan-500 to-blue-500">
+                        <i class="fa-solid fa-flask-vial fa-4x mb-4"></i><h2 class="text-2xl font-bold">What is a Solution?</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-blue-500 to-cyan-500">
+                        <h3>What is a Solution?</h3>
+                        <ul>
+                            <li><strong>Solute:</strong> The substance that dissolves (e.g., sugar).</li>
+                            <li><strong>Solvent:</strong> The liquid it dissolves in (e.g., water).</li>
+                            <li><strong>Solution:</strong> The mixture formed when a solute dissolves in a solvent.</li>
+                            <li>Solutions are **transparent** (you can see through them), but not always colourless.</li>
+                        </ul>
+                        <div class="diagram">
+                           <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><g transform="translate(20,0)"><circle cx="25" cy="70" r="10" fill="#A0522D"/><text x="25" y="95" text-anchor="middle" font-size="10" fill="white">Solute</text></g><g transform="translate(60,0)"><path d="M10 20 V 80 H 70 V 20" fill="none" stroke="white" stroke-width="2"/><path d="M10 30 H 70" stroke="lightblue" /><path d="M10 40 H 70" stroke="lightblue" /><path d="M10 50 H 70" stroke="lightblue" /><path d="M10 60 H 70" stroke="lightblue" /><path d="M10 70 H 70" stroke="lightblue" /><text x="40" y="95" text-anchor="middle" font-size="10" fill="white">Solvent</text></g><g transform="translate(140,0)"><path d="M10 20 V 80 H 70 V 20" fill="none" stroke="white" stroke-width="2"/><path d="M10 30 H 70" stroke="lightblue" /><path d="M10 40 H 70" stroke="lightblue" /><path d="M10 50 H 70" stroke="lightblue" /><path d="M10 60 H 70" stroke="lightblue" /><path d="M10 70 H 70" stroke="lightblue" /><circle cx="25" cy="45" r="3" fill="#A0522D"/><circle cx="55" cy="65" r="3" fill="#A0522D"/><circle cx="40" cy="35" r="3" fill="#A0522D"/><text x="40" y="95" text-anchor="middle" font-size="10" fill="white">Solution</text></g></svg>
+                        </div>
+                        <div class="interactive-buttons">
+                            <button class="interactive-btn show-diagram-btn">Show Example</button>
+                            <button class="interactive-btn show-quiz-btn">Test Me!</button>
+                        </div>
+                        <div class="quiz-section" data-correct="B">
+                            <p class="quiz-question">In a cup of coffee, the coffee powder is the...</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-option="A">A) Solvent</button>
+                                <button class="quiz-option" data-option="B">B) Solute</button>
+                            </div>
+                            <p class="quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Conservation of Mass -->
+            <div class="scene" id="card-1">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-emerald-500 to-green-600">
+                        <i class="fa-solid fa-weight-scale fa-4x mb-4"></i><h2 class="text-2xl font-bold">Conservation of Mass</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-green-600 to-emerald-500">
+                        <h3>Conservation of Mass</h3>
+                        <ul>
+                            <li>When a solute dissolves, its particles spread out but they don't disappear.</li>
+                            <li>No mass is lost during dissolving. The total mass is **conserved**.</li>
+                        </ul>
+                        <div class="formula-box">Mass of Solute + Mass of Solvent = Mass of Solution</div>
+                        <div class="diagram">
+                           <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><text x="100" y="20" text-anchor="middle" font-size="10" fill="white">5g Salt + 100g Water = 105g Solution</text><g transform="translate(0, 30)"><rect x="10" y="10" width="40" height="40" fill="#ccc"/><text x="30" y="35" text-anchor="middle" font-size="10" fill="black">5g</text></g><text x="65" y="55" font-size="20" fill="white">+</text><g transform="translate(80, 30)"><rect x="10" y="10" width="40" height="40" fill="#87CEEB"/><text x="30" y="35" text-anchor="middle" font-size="10" fill="black">100g</text></g><text x="135" y="55" font-size="20" fill="white">=</text><g transform="translate(150, 30)"><rect x="10" y="10" width="40" height="40" fill="#add8e6"/><text x="30" y="35" text-anchor="middle" font-size="10" fill="black">105g</text></g></svg>
+                        </div>
+                        <div class="interactive-buttons">
+                            <button class="interactive-btn show-diagram-btn">Show Example</button>
+                            <button class="interactive-btn show-quiz-btn">Test Me!</button>
+                        </div>
+                        <div class="quiz-section" data-correct="B">
+                            <p class="quiz-question">If you dissolve 10g of sugar in 200g of water, what is the final mass?</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-option="A">A) 200g</button>
+                                <button class="quiz-option" data-option="B">B) 210g</button>
+                            </div>
+                            <p class="quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Concentration -->
+            <div class="scene" id="card-2">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-violet-500 to-purple-600">
+                        <i class="fa-solid fa-cubes-stacked fa-4x mb-4"></i><h2 class="text-2xl font-bold">Concentration</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-purple-600 to-violet-500">
+                        <h3>Concentration</h3>
+                        <ul>
+                            <li><strong>Concentrated Solution:</strong> Contains a large amount of solute in the solvent.</li>
+                            <li><strong>Dilute Solution:</strong> Contains a small amount of solute in the solvent.</li>
+                        </ul>
+                        <div class="diagram">
+                           <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><g><path d="M10 10 V 80 H 90 V 10" fill="none" stroke="white" stroke-width="2"/><circle cx="30" cy="30" r="4" fill="yellow"/><circle cx="70" cy="60" r="4" fill="yellow"/><text x="50" y="95" text-anchor="middle" font-size="10" fill="white">Dilute</text></g><g transform="translate(100,0)"><path d="M10 10 V 80 H 90 V 10" fill="none" stroke="white" stroke-width="2"/><circle cx="25" cy="25" r="4" fill="yellow"/><circle cx="45" cy="65" r="4" fill="yellow"/><circle cx="75" cy="45" r="4" fill="yellow"/><circle cx="60" cy="20" r="4" fill="yellow"/><circle cx="30" cy="50" r="4" fill="yellow"/><circle cx="70" cy="70" r="4" fill="yellow"/><text x="50" y="95" text-anchor="middle" font-size="10" fill="white">Concentrated</text></g></svg>
+                        </div>
+                        <div class="interactive-buttons">
+                            <button class="interactive-btn show-diagram-btn">Show Example</button>
+                            <button class="interactive-btn show-quiz-btn">Test Me!</button>
+                        </div>
+                        <div class="quiz-section" data-correct="A">
+                            <p class="quiz-question">To make a solution more dilute, you should add more...</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-option="A">A) Solvent</button>
+                                <button class="quiz-option" data-option="B">B) Solute</button>
+                            </div>
+                            <p class="quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Solubility -->
+            <div class="scene" id="card-3">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-rose-500 to-red-600">
+                        <i class="fa-solid fa-gem fa-4x mb-4"></i><h2 class="text-2xl font-bold">Solubility</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-red-600 to-rose-500">
+                        <h3>Solubility</h3>
+                        <ul>
+                           <li><strong>Soluble:</strong> A substance that CAN dissolve in a solvent (e.g., salt in water).</li>
+                           <li><strong>Insoluble:</strong> A substance that CANNOT dissolve in a solvent (e.g., sand in water).</li>
+                           <li><strong>Saturated Solution:</strong> A solution that cannot dissolve any more solute at that temperature.</li>
+                        </ul>
+                        <div class="diagram">
+                           <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M10 10 V 80 H 90 V 10" fill="none" stroke="white" stroke-width="2"/><circle cx="25" cy="25" r="3" fill="white"/><circle cx="45" cy="65" r="3" fill="white"/><circle cx="75" cy="45" r="3" fill="white"/><circle cx="60" cy="20" r="3" fill="white"/><circle cx="30" cy="50" r="3" fill="white"/><rect x="30" y="70" width="40" height="10" fill="white" opacity="0.7"/><text x="50" y="95" text-anchor="middle" font-size="10" fill="white">Saturated</text></svg>
+                        </div>
+                        <div class="interactive-buttons">
+                            <button class="interactive-btn show-diagram-btn">Show Example</button>
+                            <button class="interactive-btn show-quiz-btn">Test Me!</button>
+                        </div>
+                        <div class="quiz-section" data-correct="B">
+                            <p class="quiz-question">If you add sand to water and stir, the sand is...</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-option="A">A) Soluble</button>
+                                <button class="quiz-option" data-option="B">B) Insoluble</button>
+                            </div>
+                            <p class="quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Temperature & Solubility -->
+            <div class="scene" id="card-4">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-amber-500 to-orange-500 text-gray-800">
+                        <i class="fa-solid fa-temperature-high fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Temperature & Solubility</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-orange-500 to-amber-500 text-gray-800">
+                        <h3 class="text-gray-800">Temperature & Solubility</h3>
+                        <ul class="text-gray-800">
+                            <li>For most solid solutes, solubility **increases** as the temperature of the solvent increases.</li>
+                            <li>This means you can dissolve more sugar in hot water than in cold water.</li>
+                        </ul>
+                        <div class="diagram">
+                          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="10,90 10,10 90,10" fill="none" stroke="#333" stroke-width="2"/><text x="0" y="50" font-family="Poppins" font-size="6" fill="#333" transform="rotate(-90 0 50)">Solubility</text><text x="50" y="98" font-family="Poppins" font-size="6" fill="#333" text-anchor="middle">Temperature</text><path d="M 20 80 C 40 50, 60 40, 80 20" fill="none" stroke="red" stroke-width="2.5"/></svg>
+                        </div>
+                        <div class="interactive-buttons">
+                            <button class="interactive-btn show-diagram-btn">Show Example</button>
+                            <button class="interactive-btn show-quiz-btn">Test Me!</button>
+                        </div>
+                        <div class="quiz-section" data-correct="A">
+                            <p class="quiz-question">You can dissolve more salt in...</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-option="A">A) Hot water</button>
+                                <button class="quiz-option" data-option="B">B) Cold water</button>
+                            </div>
+                            <p class="quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 6: Planning Investigations -->
+            <div class="scene" id="card-5">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-lime-500 to-green-500">
+                        <i class="fa-solid fa-list-check fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Planning Investigations</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-green-500 to-lime-500">
+                        <h3>Planning Investigations</h3>
+                        <ul>
+                            <li><strong>Independent Variable:</strong> The one thing you **change** on purpose.</li>
+                            <li><strong>Dependent Variable:</strong> The thing you **measure** to see the effect.</li>
+                            <li><strong>Control Variables:</strong> The things you keep the **same** to make it a fair test.</li>
+                        </ul>
+                        <div class="diagram">
+                            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><text x="100" y="20" text-anchor="middle" font-size="9" fill="white">Investigating Temperature's effect on dissolving time</text><g><rect x="10" y="30" width="50" height="60" fill="none" stroke="white" stroke-width="2" /><text x="35" y="45" text-anchor="middle" font-size="8" fill="white">Change</text><text x="35" y="60" text-anchor="middle" font-size="8" fill="white" font-weight="bold">Temperature</text><text x="35" y="75" text-anchor="middle" font-size="8" fill="white">(Independent)</text></g><g transform="translate(70,0)"><rect x="10" y="30" width="50" height="60" fill="none" stroke="white" stroke-width="2" /><text x="35" y="45" text-anchor="middle" font-size="8" fill="white">Measure</text><text x="35" y="60" text-anchor="middle" font-size="8" fill="white" font-weight="bold">Time</text><text x="35" y="75" text-anchor="middle" font-size="8" fill="white">(Dependent)</text></g><g transform="translate(140,0)"><rect x="10" y="30" width="50" height="60" fill="none" stroke="white" stroke-width="2" /><text x="35" y="45" text-anchor="middle" font-size="8" fill="white">Keep Same</text><text x="35" y="60" text-anchor="middle" font-size="8" fill="white" font-weight="bold">Volume</text><text x="35" y="75" text-anchor="middle" font-size="8" fill="white">(Control)</text></g></svg>
+                        </div>
+                        <div class="interactive-buttons">
+                            <button class="interactive-btn show-diagram-btn">Show Example</button>
+                            <button class="interactive-btn show-quiz-btn">Test Me!</button>
+                        </div>
+                        <div class="quiz-section" data-correct="B">
+                            <p class="quiz-question">The variable you measure in an experiment is called the...</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-option="A">A) Control variable</button>
+                                <button class="quiz-option" data-option="B">B) Dependent variable</button>
+                            </div>
+                            <p class="quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7: Paper Chromatography -->
+            <div class="scene" id="card-6">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-fuchsia-500 to-pink-500">
+                        <i class="fa-solid fa-palette fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Paper Chromatography</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-pink-500 to-fuchsia-500">
+                        <h3>Paper Chromatography</h3>
+                        <ul>
+                            <li>A technique used to **separate dissolved substances**, like the different coloured inks in a pen.</li>
+                            <li>It works because different substances have different solubilities in the solvent.</li>
+                        </ul>
+                        <div class="diagram">
+                           <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 V 90 H 150 V 10" fill="none" stroke="white" stroke-width="2"/><path d="M50 80 H 150" stroke="lightblue" stroke-width="10"/><rect x="90" y="20" width="20" height="60" fill="#eee"/><circle cx="100" cy="75" r="5" fill="black"/><path d="M100 70 L 100 50" stroke="blue" stroke-width="3"/><path d="M100 50 L 100 30" stroke="red" stroke-width="3"/></svg>
+                        </div>
+                        <div class="interactive-buttons">
+                            <button class="interactive-btn show-diagram-btn">Show Example</button>
+                            <button class="interactive-btn show-quiz-btn">Test Me!</button>
+                        </div>
+                        <div class="quiz-section" data-correct="A">
+                            <p class="quiz-question">Chromatography separates substances based on their...</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-option="A">A) Solubility</button>
+                                <button class="quiz-option" data-option="B">B) Mass</button>
+                            </div>
+                            <p class="quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8: Interpreting Chromatograms -->
+            <div class="scene" id="card-7">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-sky-500 to-indigo-500">
+                        <i class="fa-solid fa-magnifying-glass-chart fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Interpreting Chromatograms</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-indigo-500 to-sky-500">
+                        <h3>Interpreting Chromatograms</h3>
+                        <ul>
+                            <li><strong>Pure Substance:</strong> Shows only **one spot**.</li>
+                            <li><strong>Mixture:</strong> Shows **multiple spots** at different heights.</li>
+                            <li>The **higher** a spot travels, the **more soluble** the substance is in the solvent.</li>
+                        </ul>
+                        <div class="diagram">
+                           <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="180" height="80" fill="#eee"/><line x1="10" y1="80" x2="190" y2="80" stroke="black" stroke-width="1"/><circle cx="50" cy="30" r="6" fill="red"/><text x="50" y="95" text-anchor="middle" font-size="8" fill="white">Pure</text><circle cx="100" cy="60" r="6" fill="blue"/><circle cx="100" cy="40" r="6" fill="yellow"/><text x="100" y="95" text-anchor="middle" font-size="8" fill="white">Mixture</text><circle cx="150" cy="30" r="6" fill="red"/><text x="150" y="95" text-anchor="middle" font-size="8" fill="white">Pure</text></svg>
+                        </div>
+                        <div class="interactive-buttons">
+                            <button class="interactive-btn show-diagram-btn">Show Example</button>
+                            <button class="interactive-btn show-quiz-btn">Test Me!</button>
+                        </div>
+                        <div class="quiz-section" data-correct="B">
+                            <p class="quiz-question">In a chromatogram, the least soluble substance will be...</p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-option="A">A) Highest up the paper</button>
+                                <button class="quiz-option" data-option="B">B) Lowest down the paper</button>
+                            </div>
+                            <p class="quiz-feedback"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="navigation-controls">
+        <button id="prev-btn" class="nav-btn">Previous</button>
+        <button id="next-btn" class="nav-btn">Next</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            const scenes = document.querySelectorAll('.scene');
+            let currentCardIndex = 0;
+
+            // --- Card Flipping Logic ---
+            cards.forEach(card => {
+                card.addEventListener('click', function (event) {
+                    if (event.target.closest('.interactive-buttons') || event.target.closest('.quiz-section')) {
+                        return;
+                    }
+                    this.classList.toggle('is-flipped');
+                });
+            });
+
+            // --- Button Logic ---
+            document.querySelectorAll('.card__face--back').forEach(backFace => {
+                const diagram = backFace.querySelector('.diagram');
+                const showDiagramBtn = backFace.querySelector('.show-diagram-btn');
+                const quiz = backFace.querySelector('.quiz-section');
+                const showQuizBtn = backFace.querySelector('.show-quiz-btn');
+                const feedbackEl = backFace.querySelector('.quiz-feedback');
+
+                if (showDiagramBtn && diagram) {
+                    showDiagramBtn.addEventListener('click', () => {
+                        diagram.classList.toggle('visible');
+                        showDiagramBtn.textContent = diagram.classList.contains('visible') ? 'Hide Example' : 'Show Example';
+                    });
+                }
+
+                if (showQuizBtn && quiz) {
+                    showQuizBtn.addEventListener('click', () => {
+                        quiz.classList.toggle('visible');
+                        showQuizBtn.textContent = quiz.classList.contains('visible') ? 'Hide Quiz' : 'Test Me!';
+                    });
+                }
+
+                if (quiz) {
+                    const correctAnswer = quiz.dataset.correct;
+                    const options = quiz.querySelectorAll('.quiz-option');
+                    options.forEach(option => {
+                        option.addEventListener('click', () => {
+                            feedbackEl.classList.remove('feedback-correct', 'feedback-incorrect');
+                            if (option.dataset.option === correctAnswer) {
+                                feedbackEl.textContent = 'Correct!';
+                                feedbackEl.classList.add('feedback-correct');
+                            } else {
+                                feedbackEl.textContent = 'Not quite, try again!';
+                                feedbackEl.classList.add('feedback-incorrect');
+                            }
+                        });
+                    });
+                }
+            });
+            
+            // --- Navigation Logic ---
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            function updateNavButtons() {
+                prevBtn.disabled = currentCardIndex === 0;
+                nextBtn.disabled = currentCardIndex === scenes.length - 1;
+            }
+
+            function navigateToCard(index) {
+                if (index < 0 || index >= scenes.length) return;
+                currentCardIndex = index;
+                scenes[currentCardIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                updateNavButtons();
+            }
+
+            prevBtn.addEventListener('click', () => {
+                // Find the previous visible card
+                let prevIndex = -1;
+                for (let i = currentCardIndex - 1; i >= 0; i--) {
+                    if (scenes[i].offsetParent !== null) { // Check if element is visible
+                        prevIndex = i;
+                        break;
+                    }
+                }
+                if (prevIndex !== -1) navigateToCard(prevIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                 // Find the next visible card
+                let nextIndex = -1;
+                for (let i = currentCardIndex + 1; i < scenes.length; i++) {
+                     if (scenes[i].offsetParent !== null) { // Check if element is visible
+                        nextIndex = i;
+                        break;
+                    }
+                }
+                if (nextIndex !== -1) navigateToCard(nextIndex);
+            });
+
+            updateNavButtons();
+        });
+    </script>
+</body>
+</html>
