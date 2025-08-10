@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indices, Roots & Rational Numbers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+            min-height: calc(100vh - 40px);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        .progress-bar {
+            background: #f0f2f5;
+            height: 12px;
+            margin: 25px 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress {
+            background: linear-gradient(90deg, #4ecdc4, #56e85f);
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .content {
+            padding: 40px 30px;
+            min-height: 600px;
+        }
+        
+        .screen {
+            display: none;
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .menu-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            font-size: 2.2em;
+            font-weight: 600;
+        }
+        
+        .subtopic-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 35px 30px;
+            margin: 25px 0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+        
+        .subtopic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .subtopic-card:hover::before {
+            left: 100%;
+        }
+        
+        .subtopic-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+        
+        .subtopic-card.completed {
+            background: linear-gradient(135deg, #4ecdc4, #56e85f);
+        }
+        
+        .subtopic-card.locked {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .subtopic-card.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .subtopic-card h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .subtopic-card p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        
+        .lock-icon {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 2.5em;
+            opacity: 0.7;
+        }
+        
+        .completion-status {
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        
+        /* Fraction styling */
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            position: relative;
+            margin: 0 2px;
+        }
+        
+        .numerator {
+            display: block;
+            font-size: 0.8em;
+            line-height: 1;
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 2px;
+        }
+        
+        .denominator {
+            display: block;
+            font-size: 0.8em;
+            line-height: 1;
+            padding-top: 2px;
+        }
+        
+        /* Slides Styling */
+        .slide-container h2 {
+            color: #667eea;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .slide {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            border-left: 6px solid #667eea;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        
+        .slide h3 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 2em;
+            font-weight: 600;
+        }
+        
+        .key-point {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #2196f3;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        
+        .key-point strong {
+            color: #1565c0;
+        }
+        
+        .example-box {
+            background: linear-gradient(135deg, #fff3e0, #fce4ec);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #ff9800;
+        }
+        
+        .example-box h4 {
+            color: #e65100;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .example-box p {
+            margin: 8px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        /* Quiz Styling */
+        .question-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .question-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .attempts-counter {
+            background: #fff3cd;
+            color: #856404;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 2px solid #ffeaa7;
+        }
+        
+        .question-text {
+            font-size: 1.6em;
+            margin-bottom: 35px;
+            color: #2c3e50;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+        
+        .option-btn {
+            background: #f8f9fa;
+            border: 3px solid #dee2e6;
+            border-radius: 15px;
+            padding: 25px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .option-btn:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .option-btn.correct {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .option-btn.wrong {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .feedback {
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        .feedback.correct {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.wrong {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        /* Buttons */
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        
+        /* Results Screen */
+        .results-container {
+            text-align: center;
+            animation: celebration 0.6s ease;
+        }
+        
+        @keyframes celebration {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .results-title {
+            color: #4ecdc4;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        
+        .score-display {
+            font-size: 2.2em;
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                min-height: calc(100vh - 20px);
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .header p {
+                font-size: 1.1em;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Indices, Roots & Rational Numbers</h1>
+            <p>Master the fundamentals of mathematical indices and number types</p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="overallProgress" style="width: 0%"></div>
+        </div>
+        
+        <div class="content">
+            <!-- Menu Screen -->
+            <div class="screen active" id="menuScreen">
+                <h2 class="menu-title">Choose Your Learning Path</h2>
+                
+                <div class="subtopic-card" id="topic1Card" onclick="startSubtopic(1)">
+                    <h3>🔢 Indices and Index Laws</h3>
+                    <p>Learn about positive, negative, and zero indices with multiplication and division rules</p>
+                    <div class="completion-status" id="topic1Status"></div>
+                </div>
+                
+                <div class="subtopic-card locked" id="topic2Card" onclick="startSubtopic(2)">
+                    <h3>🎯 Rational & Irrational Numbers</h3>
+                    <p>Understand the difference between rational and irrational numbers</p>
+                    <div class="lock-icon">🔒</div>
+                    <div class="completion-status" id="topic2Status"></div>
+                </div>
+                
+                <div class="subtopic-card locked" id="topic3Card" onclick="startSubtopic(3)">
+                    <h3>📐 Estimating Surds</h3>
+                    <p>Master square roots, cube roots, and surd estimation techniques</p>
+                    <div class="lock-icon">🔒</div>
+                    <div class="completion-status" id="topic3Status"></div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCorrect">0</div>
+                        <div class="stat-label">Questions Correct</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalQuestions">90</div>
+                        <div class="stat-label">Total Questions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="overallScore">0%</div>
+                        <div class="stat-label">Overall Score</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slides Screen -->
+            <div class="screen" id="slidesScreen">
+                <div class="slide-container" id="slideContent"></div>
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="showMenu()">← Back to Menu</button>
+                    <button class="btn" onclick="startQuiz()">Start Quiz! 🎯</button>
+                </div>
+            </div>
+            
+            <!-- Game Screen -->
+            <div class="screen" id="gameScreen">
+                <div class="question-card">
+                    <div class="question-header">
+                        <div class="question-number" id="questionNumber">Question 1/30</div>
+                        <div class="attempts-counter" id="attemptsCounter">Attempts: 0/2</div>
+                    </div>
+                    
+                    <div class="question-text" id="questionText"></div>
+                    
+                    <div class="options-grid" id="optionsGrid"></div>
+                    
+                    <div class="feedback" id="feedback" style="display: none;"></div>
+                    
+                    <div class="btn-container">
+                        <button class="btn btn-secondary" onclick="showMenu()">← Back to Menu</button>
+                        <button class="btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+                        <button class="btn btn-success" id="completeBtn" onclick="completeSubtopic()" style="display: none;">Complete Topic! 🎉</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Screen -->
+            <div class="screen" id="resultsScreen">
+                <div class="results-container">
+                    <h2 class="results-title">🎉 Congratulations! 🎉</h2>
+                    <div class="score-display" id="finalScore"></div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="correctAnswers">0</div>
+                            <div class="stat-label">Correct Answers</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalAttempts">0</div>
+                            <div class="stat-label">Total Attempts</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="accuracy">0%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-container">
+                        <button class="btn" onclick="showMenu()">← Back to Menu</button>
+                        <button class="btn btn-success" onclick="nextSubtopic()">Next Topic →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let currentSubtopic = 1;
+        let currentQuestionIndex = 0;
+        let currentAttempts = 0;
+        let score = 0;
+        let totalAttempts = 0;
+        let questionsToAsk = [];
+        let incorrectQuestions = [];
+        let isRetakeMode = false;
+        let currentShuffledOptions = [];
+        let currentCorrectIndex = 0;
+        let retakeCompletedQuestions = new Set(); // Track which retake questions have been answered correctly
+        
+        let gameData = {
+            1: { completed: false, score: 0, totalCorrect: 0 },
+            2: { completed: false, score: 0, totalCorrect: 0 },
+            3: { completed: false, score: 0, totalCorrect: 0 }
+        };
+
+        // Helper function to create fraction display
+        function createFraction(numerator, denominator) {
+            return `<span class="fraction"><span class="numerator">${numerator}</span><span class="denominator">${denominator}</span></span>`;
+        }
+
+        // Function to shuffle options and track correct answer
+        function shuffleOptions(options, correctIndex) {
+            const shuffled = [...options];
+            const correctAnswer = shuffled[correctIndex];
+            
+            // Fisher-Yates shuffle
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            
+            // Find new position of correct answer
+            const newCorrectIndex = shuffled.findIndex(option => option === correctAnswer);
+            
+            return { shuffledOptions: shuffled, newCorrectIndex };
+        }
+
+        // Question data for each subtopic
+        const questionData = {
+            1: [ // Indices and Index Laws (30 questions)
+                {
+                    question: "What is the value of 2³?",
+                    options: ["8", "4", "6", "12"],
+                    correct: 0,
+                    explanation: "2³ = 2 × 2 × 2 = 8"
+                },
+                {
+                    question: "What is the value of 5⁰?",
+                    options: ["1", "0", "5", "25"],
+                    correct: 0,
+                    explanation: "Any number to the power of 0 equals 1"
+                },
+                {
+                    question: "Simplify: 3² × 3⁴",
+                    options: ["3⁶", "3⁸", "9⁶", "81"],
+                    correct: 0,
+                    explanation: "When multiplying powers with the same base, add the indices: 3² × 3⁴ = 3⁶"
+                },
+                {
+                    question: "What is 2⁻³?",
+                    options: [createFraction("1", "8"), createFraction("1", "6"), "-8", "8"],
+                    correct: 0,
+                    explanation: "2⁻³ = " + createFraction("1", "2³") + " = " + createFraction("1", "8")
+                },
+                {
+                    question: "Simplify: (4²)³",
+                    options: ["4⁶", "4⁵", "64", "4⁹"],
+                    correct: 0,
+                    explanation: "When raising a power to a power, multiply the indices: (4²)³ = 4⁶"
+                },
+                {
+                    question: "What is 10⁻²?",
+                    options: ["0.01", "0.1", "-100", "100"],
+                    correct: 0,
+                    explanation: "10⁻² = " + createFraction("1", "10²") + " = " + createFraction("1", "100") + " = 0.01"
+                },
+                {
+                    question: "Simplify: 8^" + createFraction("1", "3"),
+                    options: ["2", "1", "3", "8"],
+                    correct: 0,
+                    explanation: "8^" + createFraction("1", "3") + " is the cube root of 8. Since 2³ = 8, therefore 8^" + createFraction("1", "3") + " = 2"
+                },
+                {
+                    question: "What is 16^" + createFraction("1", "2") + "?",
+                    options: ["4", "2", "8", "16"],
+                    correct: 0,
+                    explanation: "16^" + createFraction("1", "2") + " is the square root of 16. Since 4² = 16, therefore 16^" + createFraction("1", "2") + " = 4"
+                },
+                {
+                    question: "Simplify: 6³ ÷ 6²",
+                    options: ["6", "6⁵", "36", "216"],
+                    correct: 0,
+                    explanation: "When dividing powers with the same base, subtract the indices: 6³ ÷ 6² = 6¹ = 6"
+                },
+                {
+                    question: "What is (-3)²?",
+                    options: ["9", "-9", "-6", "6"],
+                    correct: 0,
+                    explanation: "(-3)² = (-3) × (-3) = 9 (negative × negative = positive)"
+                },
+                {
+                    question: "Simplify: (2³)²",
+                    options: ["2⁶", "2⁵", "32", "16"],
+                    correct: 0,
+                    explanation: "(2³)² = 2³ˣ² = 2⁶"
+                },
+                {
+                    question: "What is 4⁻¹?",
+                    options: [createFraction("1", "4"), createFraction("1", "2"), "-4", "4"],
+                    correct: 0,
+                    explanation: "4⁻¹ = " + createFraction("1", "4¹") + " = " + createFraction("1", "4")
+                },
+                {
+                    question: "Simplify: 5² × 5⁻¹",
+                    options: ["5", "5³", "25", "1"],
+                    correct: 0,
+                    explanation: "5² × 5⁻¹ = 5²⁺⁽⁻¹⁾ = 5¹ = 5"
+                },
+                {
+                    question: "What is 27^" + createFraction("1", "3") + "?",
+                    options: ["3", "9", "27", "81"],
+                    correct: 0,
+                    explanation: "27^" + createFraction("1", "3") + " is the cube root of 27. Since 3³ = 27, therefore 27^" + createFraction("1", "3") + " = 3"
+                },
+                {
+                    question: "Simplify: (3⁻²)³",
+                    options: ["3⁻⁶", "3⁻¹", "3⁶", createFraction("1", "27")],
+                    correct: 0,
+                    explanation: "(3⁻²)³ = 3⁻²ˣ³ = 3⁻⁶"
+                },
+                {
+                    question: "What is 100^" + createFraction("1", "2") + "?",
+                    options: ["10", "50", "200", "25"],
+                    correct: 0,
+                    explanation: "100^" + createFraction("1", "2") + " = √100 = 10"
+                },
+                {
+                    question: "Simplify: 7⁰ × 7³",
+                    options: ["7³", "7⁴", "343", "1"],
+                    correct: 0,
+                    explanation: "7⁰ × 7³ = 1 × 7³ = 7³ (since any number to the power 0 equals 1)"
+                },
+                {
+                    question: "What is (-2)³?",
+                    options: ["-8", "8", "-6", "6"],
+                    correct: 0,
+                    explanation: "(-2)³ = (-2) × (-2) × (-2) = -8"
+                },
+                {
+                    question: "Simplify: 9^" + createFraction("1", "2") + " × 9^" + createFraction("1", "2"),
+                    options: ["9", "3", "18", "81"],
+                    correct: 0,
+                    explanation: "9^" + createFraction("1", "2") + " × 9^" + createFraction("1", "2") + " = 9^" + createFraction("1", "2") + "⁺" + createFraction("1", "2") + " = 9¹ = 9"
+                },
+                {
+                    question: "What is 32^" + createFraction("1", "5") + "?",
+                    options: ["2", "4", "8", "6.4"],
+                    correct: 0,
+                    explanation: "32^" + createFraction("1", "5") + " is the 5th root of 32. Since 2⁵ = 32, therefore 32^" + createFraction("1", "5") + " = 2"
+                },
+                {
+                    question: "Simplify: (5³)⁻¹",
+                    options: ["5⁻³", "5³", createFraction("1", "125"), "125"],
+                    correct: 0,
+                    explanation: "(5³)⁻¹ = 5³ˣ⁽⁻¹⁾ = 5⁻³"
+                },
+                {
+                    question: "What is 64^" + createFraction("2", "3") + "?",
+                    options: ["16", "8", "32", "4"],
+                    correct: 0,
+                    explanation: "64^" + createFraction("2", "3") + " = (64^" + createFraction("1", "3") + ")² = (∛64)² = 4² = 16"
+                },
+                {
+                    question: "Simplify: 3⁻² ÷ 3⁻⁴",
+                    options: ["3²", "3⁻⁶", "3⁶", "9"],
+                    correct: 0,
+                    explanation: "3⁻² ÷ 3⁻⁴ = 3⁻²⁻⁽⁻⁴⁾ = 3⁻²⁺⁴ = 3² = 9"
+                },
+                {
+                    question: "What is 125^" + createFraction("2", "3") + "?",
+                    options: ["25", "50", "75", "15"],
+                    correct: 0,
+                    explanation: "125^" + createFraction("2", "3") + " = (125^" + createFraction("1", "3") + ")² = (∛125)² = 5² = 25"
+                },
+                {
+                    question: "Simplify: (8⁻¹)^" + createFraction("2", "3"),
+                    options: ["8^⁻" + createFraction("2", "3"), createFraction("1", "4"), "2⁻²", createFraction("1", "8")],
+                    correct: 0,
+                    explanation: "(8⁻¹)^" + createFraction("2", "3") + " = 8⁻¹ˣ" + createFraction("2", "3") + " = 8^⁻" + createFraction("2", "3")
+                },
+                {
+                    question: "What is 216^" + createFraction("1", "3") + "?",
+                    options: ["6", "72", "108", "8"],
+                    correct: 0,
+                    explanation: "216^" + createFraction("1", "3") + " = ∛216 = 6 (since 6³ = 216)"
+                },
+                {
+                    question: "Simplify: (2⁴ × 2⁻²) ÷ 2³",
+                    options: ["2⁻¹", "2", "4", createFraction("1", "2")],
+                    correct: 0,
+                    explanation: "(2⁴ × 2⁻²) ÷ 2³ = 2⁴⁻²⁻³ = 2⁻¹ = " + createFraction("1", "2")
+                },
+                {
+                    question: "What is 49^" + createFraction("3", "2") + "?",
+                    options: ["343", "147", "98", "49"],
+                    correct: 0,
+                    explanation: "49^" + createFraction("3", "2") + " = (49^" + createFraction("1", "2") + ")³ = (√49)³ = 7³ = 343"
+                },
+                {
+                    question: "Simplify: 6² × 6⁻³ × 6⁴",
+                    options: ["6³", "6⁹", "6⁻¹", "216"],
+                    correct: 0,
+                    explanation: "6² × 6⁻³ × 6⁴ = 6²⁺⁽⁻³⁾⁺⁴ = 6³"
+                },
+                {
+                    question: "What is 81^" + createFraction("3", "4") + "?",
+                    options: ["27", "243", "9", "54"],
+                    correct: 0,
+                    explanation: "81^" + createFraction("3", "4") + " = (81^" + createFraction("1", "4") + ")³ = (⁴√81)³ = 3³ = 27"
+                }
+            ],
+            2: [ // Rational and Irrational Numbers (30 questions)
+                {
+                    question: "Which of the following is a rational number?",
+                    options: [createFraction("3", "4"), "π", "√2", "√3"],
+                    correct: 0,
+                    explanation: createFraction("3", "4") + " is rational because it can be expressed as a fraction of two integers"
+                },
+                {
+                    question: "Which of the following is an irrational number?",
+                    options: ["√7", "0.5", createFraction("2", "3"), "0.25"],
+                    correct: 0,
+                    explanation: "√7 is irrational because 7 is not a perfect square"
+                },
+                {
+                    question: "Is 0.333... (0.3̄) rational or irrational?",
+                    options: ["Rational", "Irrational", "Neither", "Cannot tell"],
+                    correct: 0,
+                    explanation: "0.333... = " + createFraction("1", "3") + ", so it's rational (recurring decimals are rational)"
+                },
+                {
+                    question: "Which number is irrational?",
+                    options: ["√10", "√9", "√16", "√25"],
+                    correct: 0,
+                    explanation: "√10 is irrational because 10 is not a perfect square"
+                },
+                {
+                    question: "What type of number is -5?",
+                    options: ["Rational", "Natural", "Irrational", "Imaginary"],
+                    correct: 0,
+                    explanation: "-5 can be written as " + createFraction("-5", "1") + ", making it rational"
+                },
+                {
+                    question: "Which of these is NOT a rational number?",
+                    options: ["√2", "7", "0", createFraction("-3", "5")],
+                    correct: 0,
+                    explanation: "√2 ≈ 1.414... is an infinite non-repeating decimal, making it irrational"
+                },
+                {
+                    question: "Is π (pi) rational or irrational?",
+                    options: ["Irrational", "Rational", "Sometimes rational", "Neither"],
+                    correct: 0,
+                    explanation: "π is irrational - it cannot be expressed exactly as a fraction"
+                },
+                {
+                    question: "What type of decimal is 0.75?",
+                    options: ["Terminating", "Recurring", "Irrational", "Infinite"],
+                    correct: 0,
+                    explanation: "0.75 = " + createFraction("3", "4") + ", which is a terminating decimal and rational"
+                },
+                {
+                    question: "Which statement is true about √4?",
+                    options: ["It equals 2", "It's irrational", "It's imaginary", "It's undefined"],
+                    correct: 0,
+                    explanation: "√4 = 2, which is a rational number"
+                },
+                {
+                    question: "Is 5.666... (5.6̄) rational or irrational?",
+                    options: ["Rational", "Irrational", "Neither", "Cannot determine"],
+                    correct: 0,
+                    explanation: "5.666... = 5" + createFraction("2", "3") + " = " + createFraction("17", "3") + ", making it rational"
+                },
+                {
+                    question: "What is √(-1) called?",
+                    options: ["Imaginary", "Rational", "Irrational", "Real"],
+                    correct: 0,
+                    explanation: "√(-1) = i, the imaginary unit"
+                },
+                {
+                    question: "Which is true about the product of two irrational numbers?",
+                    options: ["Can be rational", "Always rational", "Always irrational", "Always negative"],
+                    correct: 0,
+                    explanation: "Example: √2 × √2 = 2 (rational), but √2 × √3 = √6 (irrational)"
+                },
+                {
+                    question: "Is 0 rational or irrational?",
+                    options: ["Rational", "Irrational", "Neither", "Both"],
+                    correct: 0,
+                    explanation: "0 = " + createFraction("0", "1") + ", so it's rational"
+                },
+                {
+                    question: "What type of number is ∛8?",
+                    options: ["Rational", "Irrational", "Imaginary", "Complex"],
+                    correct: 0,
+                    explanation: "∛8 = 2, which is rational"
+                },
+                {
+                    question: "Which decimal represents an irrational number?",
+                    options: ["0.101001000...", "0.25", "0.333...", "0.121212..."],
+                    correct: 0,
+                    explanation: "0.101001000... is non-terminating and non-repeating, making it irrational"
+                },
+                {
+                    question: "Is √(" + createFraction("9", "16") + ") rational or irrational?",
+                    options: ["Rational", "Irrational", "Neither", "Complex"],
+                    correct: 0,
+                    explanation: "√(" + createFraction("9", "16") + ") = " + createFraction("√9", "√16") + " = " + createFraction("3", "4") + ", which is rational"
+                },
+                {
+                    question: "What can you say about √n where n is a perfect square?",
+                    options: ["Always rational", "Always irrational", "Sometimes rational", "Always negative"],
+                    correct: 0,
+                    explanation: "If n is a perfect square, then √n is always a whole number, hence rational"
+                },
+                {
+                    question: "Which is an example of a rational number between 0 and 1?",
+                    options: [createFraction("1", "3"), "√0.5", createFraction("π", "4"), createFraction("√2", "2")],
+                    correct: 0,
+                    explanation: createFraction("1", "3") + " ≈ 0.333... is rational and between 0 and 1"
+                },
+                {
+                    question: "Is the sum of a rational and irrational number rational or irrational?",
+                    options: ["Always irrational", "Always rational", "Sometimes rational", "Depends on numbers"],
+                    correct: 0,
+                    explanation: "The sum of a rational and irrational number is always irrational"
+                },
+                {
+                    question: "What type of number is 0.142857142857...?",
+                    options: ["Rational", "Terminating decimal", "Irrational", "Integer"],
+                    correct: 0,
+                    explanation: "This is a repeating decimal, so it's rational (it equals " + createFraction("1", "7") + ")"
+                },
+                {
+                    question: "Which statement about ∛7 is correct?",
+                    options: ["It's irrational", "It's rational", "It equals 2.33...", "It's an integer"],
+                    correct: 0,
+                    explanation: "∛7 is irrational because 7 is not a perfect cube"
+                },
+                {
+                    question: "Is every integer a rational number?",
+                    options: ["Yes", "No", "Sometimes", "Only positive ones"],
+                    correct: 0,
+                    explanation: "Every integer n can be written as " + createFraction("n", "1") + ", making it rational"
+                },
+                {
+                    question: "What is the relationship between natural numbers and rational numbers?",
+                    options: ["Natural ⊂ Rational", "They're the same", "Rational ⊂ Natural", "No relationship"],
+                    correct: 0,
+                    explanation: "All natural numbers are rational, but not all rationals are natural"
+                },
+                {
+                    question: "Which number is both real and irrational?",
+                    options: ["√5", createFraction("3", "4"), "√-1", "0"],
+                    correct: 0,
+                    explanation: "√5 is real (can be plotted on number line) and irrational (not expressible as fraction)"
+                },
+                {
+                    question: "Is " + createFraction("22", "7") + " equal to π?",
+                    options: ["No, it's an approximation", "Yes, exactly", "Sometimes", "Only in geometry"],
+                    correct: 0,
+                    explanation: createFraction("22", "7") + " ≈ 3.142857... is rational, but π is irrational, so they're not equal"
+                },
+                {
+                    question: "What happens when you multiply √2 by √8?",
+                    options: ["Result is rational", "Result is irrational", "Result is imaginary", "Result is undefined"],
+                    correct: 0,
+                    explanation: "√2 × √8 = √16 = 4, which is rational"
+                },
+                {
+                    question: "Which set contains only irrational numbers?",
+                    options: ["π, e, √7", "√2, √3, √4", createFraction("1", "2") + ", " + createFraction("1", "3") + ", " + createFraction("1", "4"), "0, 1, -1"],
+                    correct: 0,
+                    explanation: "π, e, and √7 are all irrational numbers"
+                },
+                {
+                    question: "Is the quotient of two irrational numbers always irrational?",
+                    options: ["Sometimes", "Always", "Never", "Only if positive"],
+                    correct: 0,
+                    explanation: "Example: √8 ÷ √2 = √4 = 2 (rational), but √2 ÷ √3 = √(" + createFraction("2", "3") + ") (irrational)"
+                },
+                {
+                    question: "What type of number is √(" + createFraction("1", "4") + ")?",
+                    options: ["Rational", "Irrational", "Complex", "Imaginary"],
+                    correct: 0,
+                    explanation: "√(" + createFraction("1", "4") + ") = " + createFraction("1", "2") + " = 0.5, which is rational"
+                },
+                {
+                    question: "Which property do all rational numbers share?",
+                    options: ["They can be written as fractions", "They're integers", "They're positive", "They're whole numbers"],
+                    correct: 0,
+                    explanation: "All rational numbers can be expressed as " + createFraction("a", "b") + " where a and b are integers and b ≠ 0"
+                }
+            ],
+            3: [ // Estimating Surds (30 questions)
+                {
+                    question: "Which two consecutive integers is √10 between?",
+                    options: ["3 and 4", "2 and 3", "4 and 5", "1 and 2"],
+                    correct: 0,
+                    explanation: "Since 3² = 9 < 10 < 16 = 4², therefore 3 < √10 < 4"
+                },
+                {
+                    question: "Estimate √50 to the nearest integer.",
+                    options: ["7", "6", "8", "9"],
+                    correct: 0,
+                    explanation: "7² = 49 and 8² = 64. Since 50 is closer to 49, √50 ≈ 7"
+                },
+                {
+                    question: "Which is the best approximation of √20?",
+                    options: ["4.5", "4.2", "4.7", "5.1"],
+                    correct: 0,
+                    explanation: "4² = 16 and 5² = 25. √20 ≈ 4.47, so 4.5 is the best approximation"
+                },
+                {
+                    question: "Between which integers is √30?",
+                    options: ["5 and 6", "4 and 5", "6 and 7", "3 and 4"],
+                    correct: 0,
+                    explanation: "5² = 25 < 30 < 36 = 6², so 5 < √30 < 6"
+                },
+                {
+                    question: "What is ∛8?",
+                    options: ["2", "3", "4", "1"],
+                    correct: 0,
+                    explanation: "∛8 = 2 because 2³ = 8"
+                },
+                {
+                    question: "Which is closest to √75?",
+                    options: ["8.7", "8.5", "9.1", "7.8"],
+                    correct: 0,
+                    explanation: "8² = 64 and 9² = 81. √75 ≈ 8.66, so 8.7 is closest"
+                },
+                {
+                    question: "Estimate ∛20 to one decimal place.",
+                    options: ["2.7", "2.5", "3.0", "2.3"],
+                    correct: 0,
+                    explanation: "2³ = 8 and 3³ = 27. Since 20 is closer to 27, ∛20 ≈ 2.7"
+                },
+                {
+                    question: "Which is the best estimate for √99?",
+                    options: ["9.9", "9.8", "10.2", "9.5"],
+                    correct: 0,
+                    explanation: "10² = 100, so √99 is just under 10. √99 ≈ 9.95"
+                },
+                {
+                    question: "Between which integers is ∛50?",
+                    options: ["3 and 4", "2 and 3", "4 and 5", "1 and 2"],
+                    correct: 0,
+                    explanation: "3³ = 27 < 50 < 64 = 4³, so 3 < ∛50 < 4"
+                },
+                {
+                    question: "What is √144?",
+                    options: ["12", "11", "13", "14"],
+                    correct: 0,
+                    explanation: "√144 = 12 because 12² = 144"
+                },
+                {
+                    question: "Estimate √85 to the nearest integer.",
+                    options: ["9", "8", "10", "7"],
+                    correct: 0,
+                    explanation: "9² = 81 and 10² = 100. Since 85 is closer to 81, √85 ≈ 9"
+                },
+                {
+                    question: "Which is closest to ∛100?",
+                    options: ["4.6", "4.3", "5.0", "3.8"],
+                    correct: 0,
+                    explanation: "4³ = 64 and 5³ = 125. ∛100 ≈ 4.64, so 4.6 is closest"
+                },
+                {
+                    question: "Between which integers is √45?",
+                    options: ["6 and 7", "5 and 6", "7 and 8", "4 and 5"],
+                    correct: 0,
+                    explanation: "6² = 36 < 45 < 49 = 7², so 6 < √45 < 7"
+                },
+                {
+                    question: "What is the approximate value of √200?",
+                    options: ["14.1", "13.5", "15.2", "12.8"],
+                    correct: 0,
+                    explanation: "14² = 196 and 15² = 225. √200 ≈ 14.14, so 14.1 is closest"
+                },
+                {
+                    question: "Estimate ∛64.",
+                    options: ["4", "3", "5", "2"],
+                    correct: 0,
+                    explanation: "∛64 = 4 because 4³ = 64"
+                },
+                {
+                    question: "Which is the best approximation of √125?",
+                    options: ["11.2", "10.8", "11.7", "12.1"],
+                    correct: 0,
+                    explanation: "11² = 121 and 12² = 144. √125 ≈ 11.18, so 11.2 is closest"
+                },
+                {
+                    question: "Between which integers is √70?",
+                    options: ["8 and 9", "7 and 8", "6 and 7", "9 and 10"],
+                    correct: 0,
+                    explanation: "8² = 64 < 70 < 81 = 9², so 8 < √70 < 9"
+                },
+                {
+                    question: "What is ∛125?",
+                    options: ["5", "4", "6", "3"],
+                    correct: 0,
+                    explanation: "∛125 = 5 because 5³ = 125"
+                },
+                {
+                    question: "Estimate √150 to one decimal place.",
+                    options: ["12.2", "12.5", "12.8", "11.8"],
+                    correct: 0,
+                    explanation: "12² = 144 and 13² = 169. √150 ≈ 12.25, so 12.2 is closest"
+                },
+                {
+                    question: "Which is closest to √300?",
+                    options: ["17.3", "17.9", "18.5", "16.8"],
+                    correct: 0,
+                    explanation: "17² = 289 and 18² = 324. √300 ≈ 17.32, so 17.3 is closest"
+                },
+                {
+                    question: "Between which integers is ∛200?",
+                    options: ["5 and 6", "4 and 5", "6 and 7", "3 and 4"],
+                    correct: 0,
+                    explanation: "5³ = 125 < 200 < 216 = 6³, so 5 < ∛200 < 6"
+                },
+                {
+                    question: "What is the approximate value of √500?",
+                    options: ["22.4", "21.8", "23.1", "21.2"],
+                    correct: 0,
+                    explanation: "22² = 484 and 23² = 529. √500 ≈ 22.36, so 22.4 is closest"
+                },
+                {
+                    question: "Estimate ∛400 to one decimal place.",
+                    options: ["7.4", "7.2", "7.6", "6.8"],
+                    correct: 0,
+                    explanation: "7³ = 343 and 8³ = 512. ∛400 ≈ 7.37, so 7.4 is closest"
+                },
+                {
+                    question: "Which is the best estimate for √180?",
+                    options: ["13.4", "13.0", "14.1", "12.6"],
+                    correct: 0,
+                    explanation: "13² = 169 and 14² = 196. √180 ≈ 13.42, so 13.4 is closest"
+                },
+                {
+                    question: "Between which integers is √95?",
+                    options: ["9 and 10", "8 and 9", "10 and 11", "7 and 8"],
+                    correct: 0,
+                    explanation: "9² = 81 < 95 < 100 = 10², so 9 < √95 < 10"
+                },
+                {
+                    question: "What is ∛216?",
+                    options: ["6", "5", "7", "4"],
+                    correct: 0,
+                    explanation: "∛216 = 6 because 6³ = 216"
+                },
+                {
+                    question: "Estimate √250 to the nearest integer.",
+                    options: ["16", "15", "17", "14"],
+                    correct: 0,
+                    explanation: "15² = 225 and 16² = 256. Since 250 is closer to 256, √250 ≈ 16"
+                },
+                {
+                    question: "Which is closest to ∛750?",
+                    options: ["9.1", "8.8", "9.5", "8.5"],
+                    correct: 0,
+                    explanation: "9³ = 729 and 10³ = 1000. ∛750 ≈ 9.08, so 9.1 is closest"
+                },
+                {
+                    question: "Between which integers is √120?",
+                    options: ["10 and 11", "9 and 10", "11 and 12", "8 and 9"],
+                    correct: 0,
+                    explanation: "10² = 100 < 120 < 121 = 11², so 10 < √120 < 11"
+                },
+                {
+                    question: "What is the approximate value of √800?",
+                    options: ["28.3", "27.8", "29.1", "27.2"],
+                    correct: 0,
+                    explanation: "28² = 784 and 29² = 841. √800 ≈ 28.28, so 28.3 is closest"
+                }
+            ]
+        };
+
+        // Slide content for each subtopic
+        const slideContent = {
+            1: {
+                title: "Indices and Index Laws",
+                slides: [
+                    {
+                        title: "What are Indices?",
+                        content: `
+                        <div class="key-point">
+                            <strong>Index (or Power):</strong> A small number written above and to the right of a base number.
+                        </div>
+                        <div class="example-box">
+                            <h4>Examples:</h4>
+                            <p>• 2³ means 2 × 2 × 2 = 8</p>
+                            <p>• 5² means 5 × 5 = 25</p>
+                            <p>• 10⁴ means 10 × 10 × 10 × 10 = 10,000</p>
+                        </div>
+                        <div class="key-point">
+                            <strong>Special Cases:</strong><br>
+                            • Any number to the power 0 equals 1 (e.g., 7⁰ = 1)<br>
+                            • Any number to the power 1 equals itself (e.g., 9¹ = 9)
+                        </div>`
+                    },
+                    {
+                        title: "Negative Indices",
+                        content: `
+                        <div class="key-point">
+                            <strong>Negative Index Rule:</strong> a⁻ⁿ = ${createFraction("1", "aⁿ")}
+                        </div>
+                        <div class="example-box">
+                            <h4>Examples:</h4>
+                            <p>• 2⁻³ = ${createFraction("1", "2³")} = ${createFraction("1", "8")}</p>
+                            <p>• 5⁻² = ${createFraction("1", "5²")} = ${createFraction("1", "25")}</p>
+                            <p>• 10⁻¹ = ${createFraction("1", "10")} = 0.1</p>
+                        </div>
+                        <div class="key-point">
+                            Remember: Negative indices create fractions, not negative numbers!
+                        </div>`
+                    },
+                    {
+                        title: "Index Laws for Multiplication and Division",
+                        content: `
+                        <div class="key-point">
+                            <strong>Multiplication Rule:</strong> aᵐ × aⁿ = aᵐ⁺ⁿ<br>
+                            <strong>Division Rule:</strong> aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>
+                            <strong>Power Rule:</strong> (aᵐ)ⁿ = aᵐˣⁿ
+                        </div>
+                        <div class="example-box">
+                            <h4>Examples:</h4>
+                            <p>• 3² × 3⁴ = 3²⁺⁴ = 3⁶</p>
+                            <p>• 5⁷ ÷ 5³ = 5⁷⁻³ = 5⁴</p>
+                            <p>• (2³)² = 2³ˣ² = 2⁶</p>
+                        </div>`
+                    },
+                    {
+                        title: "Fractional Indices",
+                        content: `
+                        <div class="key-point">
+                            <strong>Fractional Index Rule:</strong> a^${createFraction("1", "n")} = ⁿ√a<br>
+                            <strong>Mixed Fractional Rule:</strong> a^${createFraction("m", "n")} = (ⁿ√a)ᵐ
+                        </div>
+                        <div class="example-box">
+                            <h4>Examples:</h4>
+                            <p>• 16^${createFraction("1", "2")} = √16 = 4</p>
+                            <p>• 8^${createFraction("1", "3")} = ∛8 = 2</p>
+                            <p>• 27^${createFraction("2", "3")} = (∛27)² = 3² = 9</p>
+                        </div>`
+                    }
+                ]
+            },
+            2: {
+                title: "Rational and Irrational Numbers",
+                slides: [
+                    {
+                        title: "What are Rational Numbers?",
+                        content: `
+                        <div class="key-point">
+                            <strong>Rational Number:</strong> A number that can be written as a fraction ${createFraction("a", "b")} where a and b are integers and b ≠ 0.
+                        </div>
+                        <div class="example-box">
+                            <h4>Examples of Rational Numbers:</h4>
+                            <p>• ${createFraction("3", "4")} = 0.75 (terminating decimal)</p>
+                            <p>• ${createFraction("1", "3")} = 0.333... (recurring decimal)</p>
+                            <p>• 5 = ${createFraction("5", "1")} (integers are rational)</p>
+                            <p>• -2 = ${createFraction("-2", "1")} (negative numbers too)</p>
+                            <p>• 0 = ${createFraction("0", "1")} (zero is rational)</p>
+                        </div>`
+                    },
+                    {
+                        title: "What are Irrational Numbers?",
+                        content: `
+                        <div class="key-point">
+                            <strong>Irrational Number:</strong> A number that cannot be written as a fraction. Its decimal expansion is infinite and non-repeating.
+                        </div>
+                        <div class="example-box">
+                            <h4>Examples of Irrational Numbers:</h4>
+                            <p>• √2 = 1.41421356... (non-repeating)</p>
+                            <p>• π = 3.14159265... (famous constant)</p>
+                            <p>• √3, √5, √6, √7, √8... (non-perfect square roots)</p>
+                            <p>• e = 2.71828... (mathematical constant)</p>
+                        </div>`
+                    },
+                    {
+                        title: "How to Identify Rational vs Irrational",
+                        content: `
+                        <div class="key-point">
+                            <strong>Quick Tests:</strong>
+                        </div>
+                        <div class="example-box">
+                            <h4>Rational if:</h4>
+                            <p>• It's an integer (5, -3, 0)</p>
+                            <p>• It's a terminating decimal (0.75, 0.2)</p>
+                            <p>• It's a recurring decimal (0.333..., 0.142857142857...)</p>
+                            <p>• Square root of a perfect square (√9 = 3, √16 = 4)</p>
+                        </div>
+                        <div class="example-box">
+                            <h4>Irrational if:</h4>
+                            <p>• Square root of non-perfect square (√2, √3, √5)</p>
+                            <p>• Famous constants (π, e)</p>
+                            <p>• Non-terminating, non-repeating decimal</p>
+                        </div>`
+                    },
+                    {
+                        title: "Properties and Operations",
+                        content: `
+                        <div class="key-point">
+                            <strong>Important Properties:</strong>
+                        </div>
+                        <div class="example-box">
+                            <h4>Addition & Subtraction:</h4>
+                            <p>• Rational + Rational = Rational</p>
+                            <p>• Rational + Irrational = Irrational</p>
+                            <p>• Irrational + Irrational = Could be either!</p>
+                            <p>Example: √2 + √2 = 2√2 (irrational), but √2 + (-√2) = 0 (rational)</p>
+                        </div>
+                        <div class="example-box">
+                            <h4>Multiplication & Division:</h4>
+                            <p>• Rational × Irrational = Irrational (except when rational = 0)</p>
+                            <p>• Irrational × Irrational = Could be either!</p>
+                            <p>Example: √2 × √2 = 2 (rational), but √2 × √3 = √6 (irrational)</p>
+                        </div>`
+                    }
+                ]
+            },
+            3: {
+                title: "Estimating Surds",
+                slides: [
+                    {
+                        title: "What is a Surd?",
+                        content: `
+                        <div class="key-point">
+                            <strong>Surd:</strong> A square root (or cube root) of a number that is not a perfect square (or cube). Surds are irrational numbers.
+                        </div>
+                        <div class="example-box">
+                            <h4>Examples:</h4>
+                            <p>• √2, √3, √5, √6, √7, √8... are surds</p>
+                            <p>• √4 = 2, √9 = 3, √16 = 4... are NOT surds (perfect squares)</p>
+                            <p>• ∛2, ∛3, ∛5, ∛6, ∛7... are surds</p>
+                            <p>• ∛8 = 2, ∛27 = 3... are NOT surds (perfect cubes)</p>
+                        </div>`
+                    },
+                    {
+                        title: "Estimating Square Roots",
+                        content: `
+                        <div class="key-point">
+                            <strong>Strategy:</strong> Use perfect squares as reference points.
+                        </div>
+                        <div class="example-box">
+                            <h4>Perfect Squares to Remember:</h4>
+                            <p>1² = 1, 2² = 4, 3² = 9, 4² = 16, 5² = 25</p>
+                            <p>6² = 36, 7² = 49, 8² = 64, 9² = 81, 10² = 100</p>
+                            <p>11² = 121, 12² = 144, 13² = 169, 14² = 196, 15² = 225</p>
+                        </div>
+                        <div class="example-box">
+                            <h4>Example: Estimate √50</h4>
+                            <p>• 7² = 49 < 50 < 64 = 8²</p>
+                            <p>• So 7 < √50 < 8</p>
+                            <p>• Since 50 is very close to 49, √50 ≈ 7.1</p>
+                        </div>`
+                    },
+                    {
+                        title: "Estimating Cube Roots",
+                        content: `
+                        <div class="key-point">
+                            <strong>Strategy:</strong> Use perfect cubes as reference points.
+                        </div>
+                        <div class="example-box">
+                            <h4>Perfect Cubes to Remember:</h4>
+                            <p>1³ = 1, 2³ = 8, 3³ = 27, 4³ = 64, 5³ = 125</p>
+                            <p>6³ = 216, 7³ = 343, 8³ = 512, 9³ = 729, 10³ = 1000</p>
+                        </div>
+                        <div class="example-box">
+                            <h4>Example: Estimate ∛50</h4>
+                            <p>• 3³ = 27 < 50 < 64 = 4³</p>
+                            <p>• So 3 < ∛50 < 4</p>
+                            <p>• Since 50 is closer to 64 than 27, ∛50 ≈ 3.7</p>
+                        </div>`
+                    },
+                    {
+                        title: "Advanced Estimation Techniques",
+                        content: `
+                        <div class="key-point">
+                            <strong>Linear Interpolation:</strong> For more accurate estimates.
+                        </div>
+                        <div class="example-box">
+                            <h4>Example: Estimate √75 more precisely</h4>
+                            <p>• 8² = 64 and 9² = 81</p>
+                            <p>• 75 is (75-64)/(81-64) = 11/17 of the way from 64 to 81</p>
+                            <p>• So √75 ≈ 8 + (11/17) ≈ 8 + 0.65 ≈ 8.65</p>
+                            <p>• (Actual value: √75 ≈ 8.66)</p>
+                        </div>
+                        <div class="key-point">
+                            <strong>Using Calculator Strategically:</strong><br>
+                            Even when calculators are allowed, estimation helps you check if your answer makes sense!
+                        </div>`
+                    }
+                ]
+            }
+        };
+
+        // Initialize game
+        function initializeGame() {
+            updateProgressBar();
+            updateMenuStats();
+            showMenu();
+        }
+
+        function showMenu() {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('menuScreen').classList.add('active');
+            updateMenuDisplay();
+        }
+
+        function updateMenuDisplay() {
+            // Update topic cards based on completion status
+            for (let i = 1; i <= 3; i++) {
+                const card = document.getElementById(`topic${i}Card`);
+                const status = document.getElementById(`topic${i}Status`);
+                
+                if (gameData[i].completed) {
+                    card.classList.add('completed');
+                    card.classList.remove('locked');
+                    status.innerHTML = `<span style="color: white;">✅ Completed - ${gameData[i].score}%</span>`;
+                } else if (i === 1 || gameData[i-1].completed) {
+                    card.classList.remove('locked');
+                    card.querySelector('.lock-icon')?.remove();
+                } else {
+                    card.classList.add('locked');
+                }
+            }
+        }
+
+        function updateProgressBar() {
+            const totalCompleted = Object.values(gameData).filter(topic => topic.completed).length;
+            const progressPercent = (totalCompleted / 3) * 100;
+            document.getElementById('overallProgress').style.width = progressPercent + '%';
+        }
+
+        function updateMenuStats() {
+            const totalCorrect = Object.values(gameData).reduce((sum, topic) => sum + topic.totalCorrect, 0);
+            const overallScore = totalCorrect > 0 ? Math.round((totalCorrect / 90) * 100) : 0;
+            
+            document.getElementById('totalCorrect').textContent = totalCorrect;
+            document.getElementById('overallScore').textContent = overallScore + '%';
+        }
+
+        function startSubtopic(topicNum) {
+            if (topicNum > 1 && !gameData[topicNum - 1].completed) {
+                return; // Topic is locked
+            }
+            
+            currentSubtopic = topicNum;
+            showSlides();
+        }
+
+        function showSlides() {
+            const slides = slideContent[currentSubtopic].slides;
+            let slideHTML = `<h2>${slideContent[currentSubtopic].title}</h2>`;
+            
+            slides.forEach((slide, index) => {
+                slideHTML += `
+                    <div class="slide">
+                        <h3>${slide.title}</h3>
+                        ${slide.content}
+                    </div>
+                `;
+            });
+            
+            document.getElementById('slideContent').innerHTML = slideHTML;
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('slidesScreen').classList.add('active');
+        }
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            currentAttempts = 0;
+            score = 0;
+            totalAttempts = 0;
+            incorrectQuestions = [];
+            isRetakeMode = false;
+            retakeCompletedQuestions = new Set();
+            
+            // Initialize questions to ask (all 30 questions)
+            questionsToAsk = [...Array(30).keys()];
+            
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('gameScreen').classList.add('active');
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questions = questionData[currentSubtopic];
+            const questionIndex = questionsToAsk[currentQuestionIndex];
+            const question = questions[questionIndex];
+            
+            // Shuffle options for this question
+            const shuffleResult = shuffleOptions(question.options, question.correct);
+            currentShuffledOptions = shuffleResult.shuffledOptions;
+            currentCorrectIndex = shuffleResult.newCorrectIndex;
+            
+            if (isRetakeMode) {
+                document.getElementById('questionNumber').textContent = `Retake ${currentQuestionIndex + 1}/${questionsToAsk.length}`;
+            } else {
+                document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1}/${questionsToAsk.length}`;
+            }
+            
+            document.getElementById('attemptsCounter').textContent = `Attempts: ${currentAttempts}/2`;
+            document.getElementById('questionText').innerHTML = question.question;
+            
+            // Create options with shuffled order
+            const optionsGrid = document.getElementById('optionsGrid');
+            optionsGrid.innerHTML = '';
+            
+            currentShuffledOptions.forEach((option, index) => {
+                const optionBtn = document.createElement('div');
+                optionBtn.className = 'option-btn';
+                optionBtn.innerHTML = option;
+                optionBtn.onclick = () => selectAnswer(index);
+                optionsGrid.appendChild(optionBtn);
+            });
+            
+            // Reset feedback and buttons
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('completeBtn').style.display = 'none';
+        }
+
+        function selectAnswer(selectedIndex) {
+            const questions = questionData[currentSubtopic];
+            const questionIndex = questionsToAsk[currentQuestionIndex];
+            const question = questions[questionIndex];
+            const options = document.querySelectorAll('.option-btn');
+            const feedback = document.getElementById('feedback');
+            
+            currentAttempts++;
+            totalAttempts++;
+            
+            // Disable all options
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                opt.disabled = true;
+            });
+            
+            if (selectedIndex === currentCorrectIndex) {
+                // Correct answer
+                options[selectedIndex].classList.add('correct');
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `🎉 Correct! ${question.explanation}`;
+                feedback.style.display = 'block';
+                score++;
+                
+                // If in retake mode, mark this question as completed
+                if (isRetakeMode) {
+                    retakeCompletedQuestions.add(questionIndex);
+                }
+                
+                // Show next button or complete button
+                if (currentQuestionIndex < questionsToAsk.length - 1) {
+                    document.getElementById('nextBtn').style.display = 'inline-block';
+                } else {
+                    // Check if we need to start retake mode or complete
+                    if (incorrectQuestions.length > 0 && !isRetakeMode) {
+                        // Start retake mode for incorrect questions
+                        startRetakeMode();
+                        return;
+                    } else if (isRetakeMode && retakeCompletedQuestions.size < questionsToAsk.length) {
+                        // In retake mode but haven't completed all retake questions correctly yet
+                        // Continue with retake
+                        document.getElementById('nextBtn').style.display = 'inline-block';
+                    } else {
+                        // All done - can complete
+                        document.getElementById('completeBtn').style.display = 'inline-block';
+                    }
+                }
+            } else {
+                // Wrong answer
+                options[selectedIndex].classList.add('wrong');
+                
+                feedback.className = 'feedback wrong';
+                
+                if (currentAttempts < 2) {
+                    feedback.innerHTML = `❌ Incorrect. Try again! You have ${2 - currentAttempts} attempt(s) left.`;
+                    feedback.style.display = 'block';
+                    
+                    // Re-enable options after a delay
+                    setTimeout(() => {
+                        options.forEach(opt => {
+                            opt.style.pointerEvents = 'auto';
+                            opt.disabled = false;
+                            opt.classList.remove('wrong');
+                        });
+                        feedback.style.display = 'none';
+                    }, 2000);
+                } else {
+                    // Out of attempts
+                    if (!isRetakeMode) {
+                        // Add to incorrect questions for later retake
+                        incorrectQuestions.push(questionIndex);
+                    }
+                    
+                    // Show correct answer
+                    feedback.innerHTML = `❌ Incorrect. ${question.explanation}`;
+                    feedback.style.display = 'block';
+                    
+                    // Show next button or complete button
+                    if (currentQuestionIndex < questionsToAsk.length - 1) {
+                        document.getElementById('nextBtn').style.display = 'inline-block';
+                    } else {
+                        // Check if we need to start retake mode or complete
+                        if (incorrectQuestions.length > 0 && !isRetakeMode) {
+                            // Start retake mode for incorrect questions
+                            startRetakeMode();
+                            return;
+                        } else if (isRetakeMode && retakeCompletedQuestions.size < questionsToAsk.length) {
+                            // In retake mode but haven't completed all retake questions correctly yet
+                            // Continue with retake by cycling through remaining questions
+                            document.getElementById('nextBtn').style.display = 'inline-block';
+                        } else {
+                            // All done - can complete
+                            document.getElementById('completeBtn').style.display = 'inline-block';
+                        }
+                    }
+                }
+            }
+            
+            // Update attempts counter
+            document.getElementById('attemptsCounter').textContent = `Attempts: ${currentAttempts}/2`;
+        }
+
+        function startRetakeMode() {
+            // Switch to retake mode
+            isRetakeMode = true;
+            questionsToAsk = [...incorrectQuestions];
+            currentQuestionIndex = 0;
+            currentAttempts = 0;
+            retakeCompletedQuestions.clear();
+            
+            // Show feedback about starting retake
+            const feedback = document.getElementById('feedback');
+            feedback.className = 'feedback wrong';
+            feedback.innerHTML = `📚 Now retaking questions you answered incorrectly. You must get them right to complete this level!`;
+            feedback.style.display = 'block';
+            
+            setTimeout(() => {
+                showQuestion();
+            }, 3000);
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            currentAttempts = 0;
+            
+            // If in retake mode and we've completed all questions but haven't gotten them all right,
+            // cycle back to the beginning of questions not yet completed correctly
+            if (isRetakeMode && currentQuestionIndex >= questionsToAsk.length) {
+                if (retakeCompletedQuestions.size < questionsToAsk.length) {
+                    // Find questions that haven't been answered correctly yet
+                    const remainingQuestions = questionsToAsk.filter(qIndex => !retakeCompletedQuestions.has(qIndex));
+                    if (remainingQuestions.length > 0) {
+                        questionsToAsk = [...remainingQuestions];
+                        currentQuestionIndex = 0;
+                    } else {
+                        // All retake questions completed correctly
+                        document.getElementById('completeBtn').style.display = 'inline-block';
+                        return;
+                    }
+                } else {
+                    // All retake questions completed correctly
+                    document.getElementById('completeBtn').style.display = 'inline-block';
+                    return;
+                }
+            }
+            
+            // Re-enable option buttons
+            document.querySelectorAll('.option-btn').forEach(opt => {
+                opt.style.pointerEvents = 'auto';
+                opt.disabled = false;
+                opt.classList.remove('correct', 'wrong', 'selected');
+            });
+            
+            showQuestion();
+        }
+
+        function completeSubtopic() {
+            let totalQuestions = 30;
+            let correctQuestions = score;
+            
+            // Calculate percentage based on unique questions answered correctly
+            // In retake mode, we only count questions as correct if they were answered correctly at least once
+            if (isRetakeMode) {
+                // Count original correct answers plus retake correct answers
+                const uniqueCorrectQuestions = new Set();
+                
+                // Add originally correct questions (score from first attempt)
+                let originalCorrect = score - retakeCompletedQuestions.size;
+                for (let i = 0; i < originalCorrect; i++) {
+                    uniqueCorrectQuestions.add(i);
+                }
+                
+                // Add retake correct questions
+                retakeCompletedQuestions.forEach(qIndex => {
+                    uniqueCorrectQuestions.add(qIndex);
+                });
+                
+                correctQuestions = uniqueCorrectQuestions.size;
+            }
+            
+            const percentage = Math.round((correctQuestions / totalQuestions) * 100);
+            
+            // Update game data
+            gameData[currentSubtopic].completed = true;
+            gameData[currentSubtopic].score = percentage;
+            gameData[currentSubtopic].totalCorrect = correctQuestions;
+            
+            // Show results
+            document.getElementById('finalScore').innerHTML = `${percentage}% - ${correctQuestions}/${totalQuestions} Questions Correct!`;
+            document.getElementById('correctAnswers').textContent = correctQuestions;
+            document.getElementById('totalAttempts').textContent = totalAttempts;
+            document.getElementById('accuracy').textContent = Math.round((correctQuestions / totalAttempts) * 100) + '%';
+            
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('resultsScreen').classList.add('active');
+            
+            updateProgressBar();
+            updateMenuStats();
+        }
+
+        function nextSubtopic() {
+            if (currentSubtopic < 3) {
+                startSubtopic(currentSubtopic + 1);
+            } else {
+                showMenu();
+            }
+        }
+
+        // Initialize the game when page loads
+        window.onload = initializeGame;
+    </script>
+</body>
+</html>
