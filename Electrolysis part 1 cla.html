@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrolysis Adventure - IGCSE Chemistry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px #fff; }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px #fff, 0 0 30px #667eea; }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .level-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .level-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: transform 0.5s;
+            transform: rotate(45deg) translate(-100%, -100%);
+        }
+
+        .level-card:hover::before {
+            transform: rotate(45deg) translate(100%, 100%);
+        }
+
+        .level-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .level-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .level-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .level-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .game-area {
+            display: none;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin: 20px 0;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: scale(1.02);
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .simulation {
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        .electrode {
+            width: 25px;
+            height: 250px;
+            border-radius: 12px;
+            position: absolute;
+            top: 75px;
+        }
+
+        .anode {
+            background: #ff6b6b;
+            right: 80px;
+        }
+
+        .cathode {
+            background: #4ecdc4;
+            left: 80px;
+        }
+
+        .electrolyte {
+            width: 500px;
+            height: 200px;
+            background: rgba(100, 200, 255, 0.3);
+            border: 3px solid #64c8ff;
+            border-radius: 20px;
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ion {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cation {
+            background: #ff9999;
+            color: #fff;
+        }
+
+        .anion {
+            background: #99ccff;
+            color: #fff;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .electron {
+            width: 10px;
+            height: 10px;
+            background: #ffeb3b;
+            border-radius: 50%;
+            position: absolute;
+            animation: move-electron 2s linear infinite;
+        }
+
+        @keyframes move-electron {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .back-btn {
+            background: #6c757d;
+            margin: 10px;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border-radius: 15px;
+        }
+
+        .memory-card {
+            width: 120px;
+            height: 120px;
+            margin: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+
+        .memory-card.flipped {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+        }
+
+        .card-content {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            line-height: 1.2;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+
+        .equation-builder {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .equation-parts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .equation-part {
+            padding: 10px 15px;
+            background: #667eea;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .equation-part:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .equation-display {
+            min-height: 60px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .mnemonic-card {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2d3436;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .reactivity-series {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .metal-item {
+            background: linear-gradient(90deg, #ff7675, #74b9ff);
+            margin: 5px 0;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metal-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .completion-badge {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 20px;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 20px auto;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .interactive-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .interactive-table th,
+        .interactive-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .interactive-table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .interactive-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .gas-test {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gas-test:hover {
+            transform: scale(1.1);
+            background: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .level-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ Electrolysis Adventure ⚡</h1>
+            <p>Master IGCSE Chemistry through Interactive Learning!</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="score" id="overallScore">Overall Progress: 0/8 Modules Completed</div>
+        </div>
+
+        <div id="levelSelector" class="level-selector">
+            <div class="level-card" onclick="startLevel(1)">
+                <span class="level-icon">🔬</span>
+                <h3>Level 1: Electrolysis Principles</h3>
+                <p>Learn the fundamental concepts, key terms, and basic setup of electrolytic cells.</p>
+            </div>
+
+            <div class="level-card" onclick="startLevel(2)">
+                <span class="level-icon">🧪</span>
+                <h3>Level 2: Charge Transfer Simulation</h3>
+                <p>Interactive simulation showing electron and ion movement during electrolysis.</p>
+            </div>
+
+            <div class="level-card" onclick="startLevel(3)">
+                <span class="level-icon">🔥</span>
+                <h3>Level 3: Molten Compounds</h3>
+                <p>Explore electrolysis of molten binary ionic compounds with virtual experiments.</p>
+            </div>
+
+            <div class="level-card" onclick="startLevel(4)">
+                <span class="level-icon">💧</span>
+                <h3>Level 4: Aqueous Solutions</h3>
+                <p>Master electrolysis of sodium chloride brine and dilute sulfuric acid.</p>
+            </div>
+
+            <div class="level-card" onclick="startLevel(5)">
+                <span class="level-icon">🧬</span>
+                <h3>Level 5: Advanced Aqueous</h3>
+                <p>Extended tier concepts: concentration effects and reactivity series.</p>
+            </div>
+
+            <div class="level-card" onclick="startLevel(6)">
+                <span class="level-icon">⚖️</span>
+                <h3>Level 6: Half Equations</h3>
+                <p>Build and balance ionic half-equations with drag-and-drop interface.</p>
+            </div>
+
+            <div class="level-card" onclick="startLevel(7)">
+                <span class="level-icon">🎯</span>
+                <h3>Level 7: Memory Master</h3>
+                <p>Test your knowledge with memory games and mnemonic devices.</p>
+            </div>
+
+            <div class="level-card" onclick="startLevel(8)">
+                <span class="level-icon">🏆</span>
+                <h3>Level 8: Final Challenge</h3>
+                <p>Comprehensive quiz covering all electrolysis concepts.</p>
+            </div>
+        </div>
+
+        <!-- Level 1: Electrolysis Principles -->
+        <div id="level1" class="game-area">
+            <button class="btn back-btn" onclick="goBack()">← Back to Menu</button>
+            <h2>🔬 Level 1: Electrolysis Principles</h2>
+            
+            <div class="mnemonic-card">
+                💡 PANIC Mnemonic: <strong>P</strong>ositive is <strong>A</strong>node, <strong>N</strong>egative <strong>I</strong>s <strong>C</strong>athode
+            </div>
+
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>What is electrolysis?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">The process of heating ionic compounds</div>
+                        <div class="option" onclick="selectOption(this, true)">The process in which a molten ionic compound is broken down by an electric current</div>
+                        <div class="option" onclick="selectOption(this, false)">The process of dissolving compounds in water</div>
+                        <div class="option" onclick="selectOption(this, false)">The process of mixing different chemicals</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Why can't solid ionic compounds undergo electrolysis?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">They are too hard</div>
+                        <div class="option" onclick="selectOption(this, true)">They have no free ions that can move and carry charge - ions are fixed in place</div>
+                        <div class="option" onclick="selectOption(this, false)">They don't contain ions</div>
+                        <div class="option" onclick="selectOption(this, false)">They are not conductive</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Match the terms with their definitions:</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+                        <div style="background: #f0f8ff; padding: 15px; border-radius: 10px;">
+                            <strong>Terms:</strong><br>
+                            • Electrode<br>
+                            • Electrolyte<br>
+                            • Anode<br>
+                            • Cathode<br>
+                            • Anion<br>
+                            • Cation
+                        </div>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 10px;">
+                            <strong>Definitions:</strong><br>
+                            • Rod that conducts electricity<br>
+                            • Ionic compound in molten/dissolved solution<br>
+                            • Positive electrode<br>
+                            • Negative electrode<br>
+                            • Negatively charged ion<br>
+                            • Positively charged ion
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>What happens at each electrode?</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: #ffe6e6; padding: 20px; border-radius: 15px; text-align: center;">
+                            <h4>🔴 CATHODE (Negative)</h4>
+                            <p><strong>Cations</strong> are attracted here</p>
+                            <p><strong>REDUCTION</strong> occurs (gain electrons)</p>
+                            <p>Produces: <strong>Metals or Hydrogen gas</strong></p>
+                        </div>
+                        <div style="background: #e6f3ff; padding: 20px; border-radius: 15px; text-align: center;">
+                            <h4>🔵 ANODE (Positive)</h4>
+                            <p><strong>Anions</strong> are attracted here</p>
+                            <p><strong>OXIDATION</strong> occurs (lose electrons)</p>
+                            <p>Produces: <strong>Non-metals</strong> (except hydrogen)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="completeLevel(1)">Complete Level 1 🎉</button>
+        </div>
+
+        <!-- Level 2: Charge Transfer Simulation -->
+        <div id="level2" class="game-area">
+            <button class="btn back-btn" onclick="goBack()">← Back to Menu</button>
+            <h2>⚡ Level 2: Charge Transfer Simulation</h2>
+            
+            <div class="simulation" id="chargeSimulation">
+                <div class="electrode cathode" id="cathode">
+                    <div style="text-align: center; color: white; margin-top: 15px; font-size: 1.1em; font-weight: bold;">CATHODE (-)</div>
+                    <div style="text-align: center; color: white; margin-top: 10px; font-size: 0.9em;">Reduction</div>
+                    <div style="text-align: center; color: white; margin-top: 5px; font-size: 0.8em;">Cations →</div>
+                </div>
+                <div class="electrode anode" id="anode">
+                    <div style="text-align: center; color: white; margin-top: 15px; font-size: 1.1em; font-weight: bold;">ANODE (+)</div>
+                    <div style="text-align: center; color: white; margin-top: 10px; font-size: 0.9em;">Oxidation</div>
+                    <div style="text-align: center; color: white; margin-top: 5px; font-size: 0.8em;">← Anions</div>
+                </div>
+                <div class="electrolyte" id="electrolyte">
+                    <div class="ion cation" style="top: 40px; left: 80px;">Na+</div>
+                    <div class="ion cation" style="top: 120px; left: 200px;">Na+</div>
+                    <div class="ion cation" style="top: 80px; left: 350px;">Na+</div>
+                    <div class="ion anion" style="top: 60px; left: 400px;">Cl-</div>
+                    <div class="ion anion" style="top: 140px; left: 120px;">Cl-</div>
+                    <div class="ion anion" style="top: 100px; left: 280px;">Cl-</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <button class="btn" onclick="startAnimation()">🎬 Start Animation</button>
+                <button class="btn" onclick="resetAnimation()">🔄 Reset</button>
+            </div>
+
+            <div class="mnemonic-card">
+                🧠 Remember: <strong>Electrons flow from NEGATIVE to POSITIVE terminal</strong><br>
+                But conventional current flows from POSITIVE to NEGATIVE!
+            </div>
+
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>In the external circuit, what are the charge carriers?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">Ions</div>
+                        <div class="option" onclick="selectOption(this, true)">Electrons</div>
+                        <div class="option" onclick="selectOption(this, false)">Protons</div>
+                        <div class="option" onclick="selectOption(this, false)">Neutrons</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>In the electrolyte, what are the charge carriers?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">Ions</div>
+                        <div class="option" onclick="selectOption(this, false)">Electrons</div>
+                        <div class="option" onclick="selectOption(this, false)">Atoms</div>
+                        <div class="option" onclick="selectOption(this, false)">Molecules</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Complete the sodium chloride electrolysis equations:</h3>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                        <p><strong>At the cathode:</strong> Na<sup>+</sup> + e<sup>-</sup> → Na (Reduction)</p>
+                        <p><strong>At the anode:</strong> 2Cl<sup>-</sup> → Cl<sub>2</sub> + 2e<sup>-</sup> (Oxidation)</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="completeLevel(2)">Complete Level 2 🎉</button>
+        </div>
+
+        <!-- Level 3: Molten Compounds -->
+        <div id="level3" class="game-area">
+            <button class="btn back-btn" onclick="goBack()">← Back to Menu</button>
+            <h2>🔥 Level 3: Molten Compounds</h2>
+            
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>Virtual Experiment: Molten Lead(II) Bromide</h3>
+                    <div style="background: linear-gradient(135deg, #ff9a9e, #fecfef); padding: 25px; border-radius: 15px; margin: 20px 0;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div style="text-align: center;">
+                                <h4>🔴 ANODE (+)</h4>
+                                <div style="background: rgba(255,255,255,0.3); padding: 15px; border-radius: 10px; margin: 10px 0;">
+                                    <p><strong>Bromide ions (Br⁻) migrate here</strong></p>
+                                    <p>Each loses one electron</p>
+                                    <p>2Br⁻ → Br₂ + 2e⁻</p>
+                                    <p><span style="color: #8B4513;">Brown bromine gas bubbles!</span></p>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <h4>🔵 CATHODE (-)</h4>
+                                <div style="background: rgba(255,255,255,0.3); padding: 15px; border-radius: 10px; margin: 10px 0;">
+                                    <p><strong>Lead ions (Pb²⁺) migrate here</strong></p>
+                                    <p>Each gains two electrons</p>
+                                    <p>Pb²⁺ + 2e⁻ → Pb</p>
+                                    <p><span style="color: #696969;">Grey lead metal deposits!</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Binary Ionic Compound Rule:</h3>
+                    <div class="mnemonic-card">
+                        📝 Binary ionic compounds always produce their corresponding elements:<br>
+                        <strong>Cathode = Metal, Anode = Non-metal</strong>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Practice: Molten Potassium Chloride</h3>
+                    <p>What products form at each electrode?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">Anode: Oxygen, Cathode: Potassium</div>
+                        <div class="option" onclick="selectOption(this, true)">Anode: Chlorine gas, Cathode: Potassium metal</div>
+                        <div class="option" onclick="selectOption(this, false)">Anode: Hydrogen, Cathode: Chlorine</div>
+                        <div class="option" onclick="selectOption(this, false)">Anode: Potassium, Cathode: Chlorine</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Interactive: Build Your Understanding</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                        <div class="memory-card" onclick="flipCard(this)">
+                            <div class="card-content">PbBr₂</div>
+                        </div>
+                        <div class="memory-card" onclick="flipCard(this)">
+                            <div class="card-content">CaCl₂</div>
+                        </div>
+                        <div class="memory-card" onclick="flipCard(this)">
+                            <div class="card-content">MgO</div>
+                        </div>
+                        <div class="memory-card" onclick="flipCard(this)">
+                            <div class="card-content">NaBr</div>
+                        </div>
+                    </div>
+                    <p><em>Click each compound to see what it produces!</em></p>
+                </div>
+            </div>
+
+            <button class="btn" onclick="completeLevel(3)">Complete Level 3 🎉</button>
+        </div>
+
+        <!-- Level 4: Aqueous Solutions Basic -->
+        <div id="level4" class="game-area">
+            <button class="btn back-btn" onclick="goBack()">← Back to Menu</button>
+            <h2>💧 Level 4: Aqueous Solutions</h2>
+
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>Electrolysis of Aqueous Sodium Chloride (Brine)</h3>
+                    <div style="background: linear-gradient(135deg, #a8edea, #fed6e3); padding: 25px; border-radius: 15px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; text-align: center;">
+                            <div style="background: rgba(255,0,0,0.1); padding: 15px; border-radius: 10px;">
+                                <h4>🔴 ANODE (+)</h4>
+                                <p><strong>Chlorine Gas (Cl₂)</strong></p>
+                                <p>2Cl⁻ → Cl₂ + 2e⁻</p>
+                                <div class="gas-test" onclick="showGasTest('chlorine')">Test: Damp litmus paper</div>
+                            </div>
+                            <div style="background: rgba(0,255,0,0.1); padding: 15px; border-radius: 10px;">
+                                <h4>💧 SOLUTION</h4>
+                                <p><strong>Sodium Hydroxide (NaOH)</strong></p>
+                                <p>Na⁺ + OH⁻ remain</p>
+                                <p>Used for soap & detergents!</p>
+                            </div>
+                            <div style="background: rgba(0,0,255,0.1); padding: 15px; border-radius: 10px;">
+                                <h4>🔵 CATHODE (-)</h4>
+                                <p><strong>Hydrogen Gas (H₂)</strong></p>
+                                <p>2H⁺ + 2e⁻ → H₂</p>
+                                <div class="gas-test" onclick="showGasTest('hydrogen')">Test: Lit splint</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.5); border-radius: 10px;">
+                            <h4>🏭 Industrial Uses:</h4>
+                            <p><strong>Chlorine:</strong> Bleach production | <strong>Hydrogen:</strong> Margarine production | <strong>NaOH:</strong> Soap & detergents</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Why H⁺ instead of Na⁺ at cathode?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">Sodium is heavier</div>
+                        <div class="option" onclick="selectOption(this, true)">H⁺ ions are less reactive than sodium ions</div>
+                        <div class="option" onclick="selectOption(this, false)">There are more H⁺ ions</div>
+                        <div class="option" onclick="selectOption(this, false)">Sodium doesn't conduct electricity</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Electrolysis of Dilute Sulfuric Acid</h3>
+                    <div style="background: linear-gradient(135deg, #ffecd2, #fcb69f); padding: 25px; border-radius: 15px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.3); padding: 20px; border-radius: 10px; text-align: center;">
+                                <h4>🔴 ANODE (+)</h4>
+                                <p><strong>Oxygen Gas (O₂)</strong></p>
+                                <p>4OH⁻ → O₂ + 2H₂O + 4e⁻</p>
+                                <div class="gas-test" onclick="showGasTest('oxygen')">Test: Glowing splint</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.3); padding: 20px; border-radius: 10px; text-align: center;">
+                                <h4>🔵 CATHODE (-)</h4>
+                                <p><strong>Hydrogen Gas (H₂)</strong></p>
+                                <p>2H⁺ + 2e⁻ → H₂</p>
+                                <div class="gas-test" onclick="showGasTest('hydrogen')">Test: Lit splint</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.5); border-radius: 10px; text-align: center;">
+                            <p><strong>📊 Volume Ratio:</strong> H₂ : O₂ = 2 : 1 (Twice as much hydrogen produced!)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Gas Tests - Click to Practice!</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div class="gas-test" onclick="showGasTest('hydrogen')" style="background: #3498db; padding: 20px; border-radius: 15px;">
+                            <h4>Hydrogen (H₂)</h4>
+                            <p>Lit splint → Squeaky pop!</p>
+                        </div>
+                        <div class="gas-test" onclick="showGasTest('oxygen')" style="background: #e74c3c; padding: 20px; border-radius: 15px;">
+                            <h4>Oxygen (O₂)</h4>
+                            <p>Glowing splint → Relights!</p>
+                        </div>
+                        <div class="gas-test" onclick="showGasTest('chlorine')" style="background: #f39c12; padding: 20px; border-radius: 15px;">
+                            <h4>Chlorine (Cl₂)</h4>
+                            <p>Damp litmus → Red then white!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="completeLevel(4)">Complete Level 4 🎉</button>
+        </div>
+
+        <!-- Level 5: Advanced Aqueous Solutions -->
+        <div id="level5" class="game-area">
+            <button class="btn back-btn" onclick="goBack()">← Back to Menu</button>
+            <h2>🧬 Level 5: Advanced Aqueous Solutions (Extended Tier)</h2>
+
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>🌊 Water Dissociation</h3>
+                    <div class="mnemonic-card">
+                        H₂O ⇌ H⁺ + OH⁻<br>
+                        <strong>Water always provides H⁺ and OH⁻ ions in aqueous solutions!</strong>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>⚖️ Reactivity Series - Which gets discharged?</h3>
+                    <div class="reactivity-series">
+                        <div class="metal-item" style="background: linear-gradient(90deg, #e74c3c, #c0392b);">Most Reactive: K, Na, Ca, Mg, Al</div>
+                        <div class="metal-item" style="background: linear-gradient(90deg, #f39c12, #d68910);">HYDROGEN</div>
+                        <div class="metal-item" style="background: linear-gradient(90deg, #27ae60, #229954);">Least Reactive: Cu, Ag</div>
+                    </div>
+                    <div class="mnemonic-card">
+                        📝 <strong>Above hydrogen:</strong> H₂ gas produced at cathode<br>
+                        📝 <strong>Below hydrogen:</strong> Metal deposited at cathode
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>🧪 Concentration Effects at Anode</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: #e8f5e8; padding: 20px; border-radius: 15px;">
+                            <h4>🔸 Concentrated Halide Solutions</h4>
+                            <p><strong>Halogen gas produced</strong></p>
+                            <p>Cl⁻, Br⁻, I⁻ → Cl₂, Br₂, I₂</p>
+                            <p><em>Example: Concentrated BaCl₂ → Cl₂ gas</em></p>
+                        </div>
+                        <div style="background: #fff3e0; padding: 20px; border-radius: 15px;">
+                            <h4>🔹 Dilute Halide Solutions</h4>
+                            <p><strong>Oxygen gas produced</strong></p>
+                            <p>4OH⁻ → O₂ + 2H₂O + 4e⁻</p>
+                            <p><em>Example: Dilute BaCl₂ → O₂ gas</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>⚗️ Copper Sulfate Electrolysis</h3>
+                    <div style="background: linear-gradient(135deg, #74b9ff, #0984e3); color: white; padding: 25px; border-radius: 15px;">
+                        <h4>With Graphite Electrodes:</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                                <h5>🔴 ANODE (+)</h5>
+                                <p>OH⁻ discharged (not SO₄²⁻)</p>
+                                <p>4OH⁻ → O₂ + 2H₂O + 4e⁻</p>
+                                <p><strong>Oxygen gas bubbles!</strong></p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                                <h5>🔵 CATHODE (-)</h5>
+                                <p>Cu²⁺ discharged (not H⁺)</p>
+                                <p>Cu²⁺ + 2e⁻ → Cu</p>
+                                <p><strong>Copper deposits!</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>🔄 Copper Electrodes Magic</h3>
+                    <div style="background: linear-gradient(135deg, #fd79a8, #fdcb6e); padding: 25px; border-radius: 15px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.3); padding: 15px; border-radius: 10px; text-align: center;">
+                                <h4>📈 CATHODE GAINS MASS</h4>
+                                <p>Cu²⁺ + 2e⁻ → Cu</p>
+                                <p>Copper deposits on electrode</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.3); padding: 15px; border-radius: 10px; text-align: center;">
+                                <h4>📉 ANODE LOSES MASS</h4>
+                                <p>Cu → Cu²⁺ + 2e⁻</p>
+                                <p>Copper dissolves from electrode</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; text-align: center; background: rgba(255,255,255,0.3); padding: 15px; border-radius: 10px;">
+                            <p><strong>⚖️ Mass gained = Mass lost</strong></p>
+                            <p><strong>🔄 Cu²⁺ concentration stays constant!</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>📊 Quick Reference Table</h3>
+                    <table class="interactive-table">
+                        <thead>
+                            <tr>
+                                <th>Aqueous Solution</th>
+                                <th>Anode Product</th>
+                                <th>Cathode Product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="highlightRow(this)">
+                                <td>Concentrated NaCl</td>
+                                <td>Chlorine gas</td>
+                                <td>Hydrogen gas</td>
+                            </tr>
+                            <tr onclick="highlightRow(this)">
+                                <td>Dilute NaCl</td>
+                                <td>Oxygen gas</td>
+                                <td>Hydrogen gas</td>
+                            </tr>
+                            <tr onclick="highlightRow(this)">
+                                <td>CuSO₄ (graphite electrodes)</td>
+                                <td>Oxygen gas</td>
+                                <td>Copper metal</td>
+                            </tr>
+                            <tr onclick="highlightRow(this)">
+                                <td>Dilute H₂SO₄</td>
+                                <td>Oxygen gas</td>
+                                <td>Hydrogen gas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <button class="btn" onclick="completeLevel(5)">Complete Level 5 🎉</button>
+        </div>
+
+        <!-- Level 6: Half Equations -->
+        <div id="level6" class="game-area">
+            <button class="btn back-btn" onclick="goBack()">← Back to Menu</button>
+            <h2>⚖️ Level 6: Ionic Half Equations</h2>
+
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>🧠 OIL RIG & RED CAT AN OX</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="mnemonic-card" style="background: linear-gradient(135deg, #ff9a9e, #fecfef);">
+                            <strong>OIL RIG</strong><br>
+                            <strong>O</strong>xidation <strong>I</strong>s <strong>L</strong>oss (of electrons)<br>
+                            <strong>R</strong>eduction <strong>I</strong>s <strong>G</strong>ain (of electrons)
+                        </div>
+                        <div class="mnemonic-card" style="background: linear-gradient(135deg, #a8edea, #fed6e3);">
+                            <strong>RED CAT AN OX</strong><br>
+                            <strong>RED</strong>uction at <strong>CAT</strong>hode<br>
+                            <strong>AN</strong>ode for <strong>OX</strong>idation
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>🎯 Interactive Equation Builder</h3>
+                    <div class="equation-builder">
+                        <h4>Build the half-equation for: Li⁺ + e⁻ → Li</h4>
+                        <div class="equation-parts" id="equationParts">
+                            <div class="equation-part" onclick="addToBuild(this)">Li⁺</div>
+                            <div class="equation-part" onclick="addToBuild(this)">+</div>
+                            <div class="equation-part" onclick="addToBuild(this)">e⁻</div>
+                            <div class="equation-part" onclick="addToBuild(this)">→</div>
+                            <div class="equation-part" onclick="addToBuild(this)">Li</div>
+                        </div>
+                        <div class="equation-display" id="equationDisplay">
+                            Click parts above to build equation
+                        </div>
+                        <button class="btn" onclick="checkEquation()">Check Equation ✓</button>
+                        <button class="btn" onclick="clearEquation()">Clear 🗑️</button>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>⚡ Half-Equations Reference</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: #e8f5e8; padding: 20px; border-radius: 15px;">
+                            <h4>🔴 OXIDATION (Anode)</h4>
+                            <p><strong>Lose electrons (e⁻)</strong></p>
+                            <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                                <p>2Br⁻ → Br₂ + 2e⁻</p>
+                                <p>2Cl⁻ → Cl₂ + 2e⁻</p>
+                                <p>4OH⁻ → O₂ + 2H₂O + 4e⁻</p>
+                            </div>
+                        </div>
+                        <div style="background: #e3f2fd; padding: 20px; border-radius: 15px;">
+                            <h4>🔵 REDUCTION (Cathode)</h4>
+                            <p><strong>Gain electrons (e⁻)</strong></p>
+                            <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                                <p>Li⁺ + e⁻ → Li</p>
+                                <p>Cu²⁺ + 2e⁻ → Cu</p>
+                                <p>2H⁺ + 2e⁻ → H₂</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>🧪 Complete Electrolysis Equations</h3>
+                    <table class="interactive-table">
+                        <thead>
+                            <tr>
+                                <th>Electrolysis of</th>
+                                <th>Anode Reaction (Oxidation)</th>
+                                <th>Cathode Reaction (Reduction)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="highlightRow(this)">
+                                <td>Molten PbBr₂</td>
+                                <td>2Br⁻ → Br₂ + 2e⁻</td>
+                                <td>Pb²⁺ + 2e⁻ → Pb</td>
+                            </tr>
+                            <tr onclick="highlightRow(this)">
+                                <td>Concentrated NaCl</td>
+                                <td>2Cl⁻ → Cl₂ + 2e⁻</td>
+                                <td>2H⁺ + 2e⁻ → H₂</td>
+                            </tr>
+                            <tr onclick="highlightRow(this)">
+                                <td>Dilute H₂SO₄</td>
+                                <td>4OH⁻ → O₂ + 2H₂O + 4e⁻</td>
+                                <td>2H⁺ + 2e⁻ → H₂</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="question">
+                    <h3>🎲 Challenge: Balance These Equations</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="background: #f0f8ff; padding: 15px; border-radius: 10px; border-left: 4px solid #4CAF50;">
+                            <p><strong>Al³⁺ + ___e⁻ → Al</strong></p>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, false)">1</div>
+                                <div class="option" onclick="selectOption(this, false)">2</div>
+                                <div class="option" onclick="selectOption(this, true)">3</div>
+                                <div class="option" onclick="selectOption(this, false)">4</div>
+                            </div>
+                        </div>
+                        <div style="background: #f0f8ff; padding: 15px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                            <p><strong>___OH⁻ → O₂ + ___H₂O + ___e⁻</strong></p>
+                            <div class="options">
+                                <div class="option" onclick="selectOption(this, true)">4, 2, 4</div>
+                                <div class="option" onclick="selectOption(this, false)">2, 1, 2</div>
+                                <div class="option" onclick="selectOption(this, false)">6, 3, 6</div>
+                                <div class="option" onclick="selectOption(this, false)">1, 1, 1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="completeLevel(6)">Complete Level 6 🎉</button>
+        </div>
+
+        <!-- Level 7: Memory Master -->
+        <div id="level7" class="game-area">
+            <button class="btn back-btn" onclick="goBack()">← Back to Menu</button>
+            <h2>🎯 Level 7: Memory Master</h2>
+
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>🃏 Memory Card Game</h3>
+                    <p>Match the concepts with their definitions!</p>
+                    <div id="memoryGame" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0;">
+                        <!-- Memory cards will be generated by JavaScript -->
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button class="btn" onclick="startMemoryGame()">🎮 Start Memory Game</button>
+                        <button class="btn" onclick="resetMemoryGame()">🔄 Reset Game</button>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>🧠 Mnemonic Collection</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div class="mnemonic-card">
+                            <strong>PANIC</strong> - <strong>P</strong>ositive is <strong>A</strong>node, <strong>N</strong>egative <strong>I</strong>s <strong>C</strong>athode
+                        </div>
+                        <div class="mnemonic-card">
+                            <strong>OIL RIG</strong> - <strong>O</strong>xidation <strong>I</strong>s <strong>L</strong>oss, <strong>R</strong>eduction <strong>I</strong>s <strong>G</strong>ain
+                        </div>
+                        <div class="mnemonic-card">
+                            <strong>RED CAT AN OX</strong> - <strong>RED</strong>uction at <strong>CAT</strong>hode, <strong>AN</strong>ode for <strong>OX</strong>idation
+                        </div>
+                        <div class="mnemonic-card">
+                            <strong>Gas Tests</strong> - H₂: squeaky pop, O₂: relights splint, Cl₂: bleaches litmus
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>🎪 Quick Fire Round!</h3>
+                    <div id="quickFire" style="text-align: center;">
+                        <div id="quickQuestion" style="font-size: 1.5em; margin: 20px 0; padding: 20px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border-radius: 15px;">
+                            Click Start to begin!
+                        </div>
+                        <div id="quickOptions" class="options">
+                            <!-- Quick fire options will be populated by JavaScript -->
+                        </div>
+                        <div style="margin: 20px 0;">
+                            <button class="btn" onclick="startQuickFire()">⚡ Start Quick Fire</button>
+                            <div id="quickScore" style="margin-top: 10px; font-size: 1.2em; font-weight: bold;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>🏆 Master Challenge</h3>
+                    <p>Can you complete all these in under 2 minutes?</p>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
+                        <ol style="line-height: 2;">
+                            <li>Name the three products of brine electrolysis</li>
+                            <li>Write the half-equation for copper reduction</li>
+                            <li>What gas test identifies hydrogen?</li>
+                            <li>Which electrode do cations migrate to?</li>
+                            <li>What happens to electrode mass during copper electrolysis?</li>
+                        </ol>
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button class="btn" onclick="startMasterChallenge()">🎯 Start Master Challenge</button>
+                        <div id="challengeTimer" style="font-size: 2em; margin: 10px 0; color: #e74c3c;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="completeLevel(7)">Complete Level 7 🎉</button>
+        </div>
+
+        <!-- Level 8: Final Challenge -->
+        <div id="level8" class="game-area">
+            <button class="btn back-btn" onclick="goBack()">← Back to Menu</button>
+            <h2>🏆 Level 8: Final Challenge</h2>
+
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>🎓 Comprehensive Assessment</h3>
+                    <div id="finalQuiz">
+                        <!-- Final quiz questions will be populated by JavaScript -->
+                    </div>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <button class="btn" onclick="startFinalQuiz()">🚀 Begin Final Challenge</button>
+                        <div id="finalScore" style="margin: 20px 0; font-size: 1.5em;"></div>
+                        <div id="finalTimer" style="font-size: 2em; color: #e74c3c; margin: 10px 0;"></div>
+                    </div>
+                </div>
+
+                <div id="completionCertificate" style="display: none; text-align: center; background: linear-gradient(135deg, #FFD700, #FFA500); padding: 40px; border-radius: 20px; margin: 30px 0;">
+                    <div class="completion-badge">🏆</div>
+                    <h2>🎉 Congratulations! 🎉</h2>
+                    <h3>You have mastered IGCSE Electrolysis!</h3>
+                    <p style="margin: 20px 0; font-size: 1.2em;">You have successfully completed all 8 levels and demonstrated comprehensive understanding of:</p>
+                    <ul style="text-align: left; max-width: 600px; margin: 20px auto; line-height: 1.8;">
+                        <li>✅ Electrolysis principles and terminology</li>
+                        <li>✅ Charge transfer mechanisms</li>
+                        <li>✅ Molten compound electrolysis</li>
+                        <li>✅ Aqueous solution electrolysis</li>
+                        <li>✅ Advanced concepts and reactivity series</li>
+                        <li>✅ Ionic half-equations and balancing</li>
+                        <li>✅ Gas tests and industrial applications</li>
+                        <li>✅ Problem-solving and critical thinking</li>
+                    </ul>
+                    <div style="margin: 30px 0;">
+                        <button class="btn" onclick="downloadCertificate()">📜 Download Certificate</button>
+                        <button class="btn" onclick="restartCourse()">🔄 Restart Course</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentLevel = 0;
+        let completedLevels = [];
+        let totalScore = 0;
+        let memoryCards = [];
+        let flippedCards = [];
+        let quickFireQuestions = [];
+        let quickFireIndex = 0;
+        let quickFireScore = 0;
+        let equationBuild = [];
+        let timers = {};
+
+        // Memory game data
+        const memoryData = [
+            {term: "Anode", definition: "Positive electrode"},
+            {term: "Cathode", definition: "Negative electrode"},
+            {term: "Cation", definition: "Positive ion"},
+            {term: "Anion", definition: "Negative ion"},
+            {term: "Oxidation", definition: "Loss of electrons"},
+            {term: "Reduction", definition: "Gain of electrons"},
+            {term: "Electrolyte", definition: "Ionic compound solution"},
+            {term: "Electrode", definition: "Conducting rod"}
+        ];
+
+        // Quick fire questions
+        const quickFireData = [
+            {
+                question: "Which electrode is positive?",
+                options: ["Anode", "Cathode", "Electrolyte", "Battery"],
+                correct: 0
+            },
+            {
+                question: "What gas test identifies hydrogen?",
+                options: ["Glowing splint", "Lit splint - squeaky pop", "Damp litmus paper", "Limewater"],
+                correct: 1
+            },
+            {
+                question: "Where does reduction occur?",
+                options: ["Anode", "Cathode", "Solution", "Battery"],
+                correct: 1
+            },
+            {
+                question: "What is produced at cathode in brine electrolysis?",
+                options: ["Chlorine", "Hydrogen", "Oxygen", "Sodium"],
+                correct: 1
+            },
+            {
+                question: "Which ions migrate to the anode?",
+                options: ["Cations", "Anions", "Electrons", "Atoms"],
+                correct: 1
+            }
+        ];
+
+        // Final quiz questions
+        const finalQuizData = [
+            {
+                question: "Complete the equation: 2Cl⁻ → Cl₂ + ___",
+                options: ["e⁻", "2e⁻", "3e⁻", "4e⁻"],
+                correct: 1,
+                explanation: "Each Cl⁻ loses one electron, so 2Cl⁻ loses 2e⁻"
+            },
+            {
+                question: "Why is hydrogen produced instead of sodium at the cathode in brine electrolysis?",
+                options: ["Sodium is heavier", "H⁺ is less reactive than Na⁺", "More H⁺ ions present", "Sodium doesn't conduct"],
+                correct: 1,
+                explanation: "Hydrogen is less reactive than sodium, so H⁺ ions are preferentially discharged"
+            },
+            {
+                question: "What happens to electrode mass during copper sulfate electrolysis with copper electrodes?",
+                options: ["Both increase", "Both decrease", "Cathode gains, anode loses", "No change"],
+                correct: 2,
+                explanation: "Copper deposits on cathode (gains mass) while dissolving from anode (loses mass)"
+            },
+            {
+                question: "In dilute vs concentrated halide solutions, what differs at the anode?",
+                options: ["Nothing", "Dilute produces halogen, concentrated produces oxygen", "Concentrated produces halogen, dilute produces oxygen", "Different metals produced"],
+                correct: 2,
+                explanation: "Concentrated halide solutions produce the halogen gas, dilute solutions produce oxygen"
+            },
+            {
+                question: "What is the volume ratio of hydrogen to oxygen in dilute sulfuric acid electrolysis?",
+                options: ["1:1", "2:1", "1:2", "3:1"],
+                correct: 1,
+                explanation: "The equation 2H₂O → 2H₂ + O₂ shows twice as much hydrogen is produced"
+            }
+        ];
+
+        // Initialize the application
+        function init() {
+            updateProgress();
+        }
+
+        // Level management functions
+        function startLevel(levelNum) {
+            currentLevel = levelNum;
+            document.getElementById('levelSelector').style.display = 'none';
+            document.getElementById('level' + levelNum).style.display = 'block';
+            
+            // Initialize level-specific content
+            if (levelNum === 7) {
+                generateMemoryGame();
+            } else if (levelNum === 8) {
+                // Final level initialization
+            }
+        }
+
+        function completeLevel(levelNum) {
+            if (!completedLevels.includes(levelNum)) {
+                completedLevels.push(levelNum);
+                totalScore++;
+                updateProgress();
+                
+                // Show completion animation
+                showCompletionAnimation(levelNum);
+                
+                // Check if all levels completed
+                if (completedLevels.length === 8) {
+                    showFinalCompletion();
+                }
+            }
+            
+            setTimeout(() => {
+                goBack();
+            }, 2000);
+        }
+
+        function goBack() {
+            // Hide all level areas
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById('level' + i).style.display = 'none';
+            }
+            document.getElementById('levelSelector').style.display = 'grid';
+            currentLevel = 0;
+        }
+
+        function updateProgress() {
+            const progressPercent = (completedLevels.length / 8) * 100;
+            document.getElementById('progressFill').style.width = progressPercent + '%';
+            document.getElementById('overallScore').textContent = `Overall Progress: ${completedLevels.length}/8 Modules Completed`;
+        }
+
+        function showCompletionAnimation(level) {
+            // Create floating success message
+            const message = document.createElement('div');
+            message.innerHTML = `🎉 Level ${level} Complete! 🎉`;
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, #4CAF50, #45a049);
+                color: white;
+                padding: 20px 40px;
+                border-radius: 25px;
+                font-size: 1.5em;
+                font-weight: bold;
+                z-index: 1000;
+                animation: bounce 1s ease-in-out;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            `;
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 2000);
+        }
+
+        // Quiz interaction functions
+        function selectOption(element, isCorrect) {
+            const options = element.parentNode.querySelectorAll('.option');
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                element.innerHTML += ' ✅';
+            } else {
+                element.classList.add('incorrect');
+                element.innerHTML += ' ❌';
+                
+                // Show the correct answer
+                options.forEach(opt => {
+                    if (opt.onclick && opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                        opt.innerHTML += ' ✅ (Correct answer)';
+                    }
+                });
+            }
+        }
+
+        // Animation functions
+        function startAnimation() {
+            const simulation = document.getElementById('chargeSimulation');
+            const ions = simulation.querySelectorAll('.ion');
+            
+            // Create multiple electrons flowing
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const electron = document.createElement('div');
+                    electron.className = 'electron';
+                    electron.style.position = 'absolute';
+                    electron.style.top = '140px';
+                    electron.style.left = '105px';
+                    electron.style.width = '15px';
+                    electron.style.height = '15px';
+                    electron.style.background = '#ffeb3b';
+                    electron.style.borderRadius = '50%';
+                    electron.style.boxShadow = '0 0 15px #ffeb3b';
+                    electron.style.zIndex = '10';
+                    simulation.appendChild(electron);
+                    
+                    // Animate electron flow from cathode to anode through external circuit
+                    electron.animate([
+                        { left: '105px', top: '140px' },
+                        { left: '105px', top: '60px' },
+                        { left: '550px', top: '60px' },
+                        { left: '570px', top: '60px' },
+                        { left: '570px', top: '140px' }
+                    ], {
+                        duration: 2500,
+                        easing: 'ease-in-out'
+                    });
+                    
+                    // Remove electron after animation
+                    setTimeout(() => {
+                        if (electron.parentNode) {
+                            electron.remove();
+                        }
+                    }, 3000);
+                }, i * 400);
+            }
+            
+            // Animate ion movement with larger distances
+            ions.forEach((ion, index) => {
+                setTimeout(() => {
+                    if (ion.classList.contains('cation')) {
+                        // Na+ moves toward cathode (left)
+                        ion.style.transition = 'transform 2s ease-in-out';
+                        ion.style.transform = 'translateX(-120px)';
+                    } else {
+                        // Cl- moves toward anode (right)
+                        ion.style.transition = 'transform 2s ease-in-out';
+                        ion.style.transform = 'translateX(120px)';
+                    }
+                }, index * 250);
+            });
+            
+            // Add visual effects to electrodes
+            setTimeout(() => {
+                const cathode = document.getElementById('cathode');
+                const anode = document.getElementById('anode');
+                
+                cathode.style.boxShadow = '0 0 25px #4ecdc4';
+                anode.style.boxShadow = '0 0 25px #ff6b6b';
+                
+                setTimeout(() => {
+                    cathode.style.boxShadow = 'none';
+                    anode.style.boxShadow = 'none';
+                }, 1500);
+            }, 1000);
+        }
+
+        function resetAnimation() {
+            const ions = document.querySelectorAll('.ion');
+            ions.forEach(ion => {
+                ion.style.transform = 'translateX(0)';
+                ion.style.transition = 'none';
+            });
+            
+            const electrons = document.querySelectorAll('.electron');
+            electrons.forEach(e => e.remove());
+        }
+
+        // Gas test functions
+        function showGasTest(gas) {
+            let message = '';
+            let color = '';
+            
+            switch(gas) {
+                case 'hydrogen':
+                    message = '🔥 Lit splint approaches... *SQUEAKY POP!* 💥\nHydrogen confirmed!';
+                    color = '#3498db';
+                    break;
+                case 'oxygen':
+                    message = '✨ Glowing splint approaches... *RELIGHTS BRIGHTLY!* 🔥\nOxygen confirmed!';
+                    color = '#e74c3c';
+                    break;
+                case 'chlorine':
+                    message = '📝 Damp litmus paper... *TURNS RED THEN WHITE!* 🤍\nChlorine confirmed!';
+                    color = '#f39c12';
+                    break;
+            }
+            
+            const testResult = document.createElement('div');
+            testResult.innerHTML = message;
+            testResult.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: ${color};
+                color: white;
+                padding: 25px;
+                border-radius: 15px;
+                font-size: 1.2em;
+                font-weight: bold;
+                z-index: 1000;
+                text-align: center;
+                white-space: pre-line;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+                animation: pulse 0.5s ease-in-out;
+            `;
+            document.body.appendChild(testResult);
+            
+            setTimeout(() => {
+                testResult.remove();
+            }, 3000);
+        }
+
+        // Card flip functions
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+            const content = card.querySelector('.card-content');
+            const originalText = content.getAttribute('data-original') || content.textContent;
+            
+            if (!content.getAttribute('data-original')) {
+                content.setAttribute('data-original', content.textContent);
+            }
+            
+            if (card.classList.contains('flipped')) {
+                // Show what this compound produces
+                const compound = originalText;
+                let products = '';
+                
+                switch(compound) {
+                    case 'PbBr₂':
+                        products = 'Anode: Br₂<br>Cathode: Pb';
+                        break;
+                    case 'CaCl₂':
+                        products = 'Anode: Cl₂<br>Cathode: Ca';
+                        break;
+                    case 'MgO':
+                        products = 'Anode: O₂<br>Cathode: Mg';
+                        break;
+                    case 'NaBr':
+                        products = 'Anode: Br₂<br>Cathode: Na';
+                        break;
+                    default:
+                        products = 'Click to see products';
+                }
+                
+                content.innerHTML = products;
+                card.style.fontSize = '0.8em';
+            } else {
+                content.innerHTML = originalText;
+                card.style.fontSize = '1em';
+            }
+        }
+
+        // Equation builder functions
+        function addToBuild(element) {
+            equationBuild.push(element.textContent);
+            updateEquationDisplay();
+        }
+
+        function updateEquationDisplay() {
+            const display = document.getElementById('equationDisplay');
+            if (equationBuild.length === 0) {
+                display.textContent = 'Click parts above to build equation';
+                display.style.color = '#666';
+            } else {
+                display.textContent = equationBuild.join(' ');
+                display.style.color = '#333';
+            }
+        }
+
+        function checkEquation() {
+            const built = equationBuild.join(' ');
+            const correct = 'Li⁺ + e⁻ → Li';
+            const display = document.getElementById('equationDisplay');
+            
+            if (built === correct) {
+                display.style.background = '#d4edda';
+                display.style.color = '#155724';
+                display.innerHTML = built + ' ✅ Correct!';
+            } else {
+                display.style.background = '#f8d7da';
+                display.style.color = '#721c24';
+                display.innerHTML = built + ' ❌ Try again!';
+            }
+            
+            setTimeout(() => {
+                display.style.background = 'white';
+                display.style.color = '#333';
+            }, 2000);
+        }
+
+        function clearEquation() {
+            equationBuild = [];
+            updateEquationDisplay();
+            const display = document.getElementById('equationDisplay');
+            display.style.background = 'white';
+            display.style.color = '#666';
+        }
+
+        // Memory game functions
+        function generateMemoryGame() {
+            const gameArea = document.getElementById('memoryGame');
+            gameArea.innerHTML = '';
+            memoryCards = [];
+            flippedCards = [];
+            
+            // Create pairs
+            const pairs = [];
+            memoryData.forEach(item => {
+                pairs.push({type: 'term', value: item.term, match: item.definition});
+                pairs.push({type: 'definition', value: item.definition, match: item.term});
+            });
+            
+            // Shuffle pairs
+            for (let i = pairs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+            }
+            
+            // Create cards
+            pairs.forEach((pair, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.innerHTML = `<div class="card-content">${pair.value}</div>`;
+                card.onclick = () => flipMemoryCard(card, pair, index);
+                gameArea.appendChild(card);
+                memoryCards.push({element: card, data: pair, index: index, flipped: false});
+            });
+        }
+
+        function startMemoryGame() {
+            generateMemoryGame();
+            // Hide all cards initially
+            memoryCards.forEach(card => {
+                card.element.style.background = '#667eea';
+                card.element.querySelector('.card-content').style.opacity = '0';
+            });
+        }
+
+        function flipMemoryCard(cardElement, cardData, cardIndex) {
+            const card = memoryCards[cardIndex];
+            
+            if (card.flipped || flippedCards.length >= 2) return;
+            
+            // Flip the card
+            card.flipped = true;
+            card.element.style.background = '#764ba2';
+            card.element.querySelector('.card-content').style.opacity = '1';
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                setTimeout(() => {
+                    checkMemoryMatch();
+                }, 1000);
+            }
+        }
+
+        function checkMemoryMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.data.value === card2.data.match || card1.data.match === card2.data.value) {
+                // Match found
+                card1.element.style.background = '#4CAF50';
+                card2.element.style.background = '#4CAF50';
+                card1.element.innerHTML += ' ✅';
+                card2.element.innerHTML += ' ✅';
+            } else {
+                // No match
+                card1.flipped = false;
+                card2.flipped = false;
+                card1.element.style.background = '#667eea';
+                card2.element.style.background = '#667eea';
+                card1.element.querySelector('.card-content').style.opacity = '0';
+                card2.element.querySelector('.card-content').style.opacity = '0';
+            }
+            
+            flippedCards = [];
+        }
+
+        function resetMemoryGame() {
+            generateMemoryGame();
+        }
+
+        // Quick fire functions
+        function startQuickFire() {
+            quickFireIndex = 0;
+            quickFireScore = 0;
+            quickFireQuestions = [...quickFireData];
+            showQuickFireQuestion();
+        }
+
+        function showQuickFireQuestion() {
+            if (quickFireIndex >= quickFireQuestions.length) {
+                document.getElementById('quickQuestion').innerHTML = `🎉 Quick Fire Complete! Score: ${quickFireScore}/${quickFireQuestions.length}`;
+                document.getElementById('quickOptions').innerHTML = '';
+                return;
+            }
+            
+            const question = quickFireQuestions[quickFireIndex];
+            document.getElementById('quickQuestion').innerHTML = question.question;
+            
+            const optionsHtml = question.options.map((option, index) => 
+                `<div class="option" onclick="answerQuickFire(${index})">${option}</div>`
+            ).join('');
+            
+            document.getElementById('quickOptions').innerHTML = optionsHtml;
+            document.getElementById('quickScore').innerHTML = `Score: ${quickFireScore}/${quickFireIndex}`;
+        }
+
+        function answerQuickFire(selectedIndex) {
+            const question = quickFireQuestions[quickFireIndex];
+            const options = document.querySelectorAll('#quickOptions .option');
+            
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (selectedIndex === question.correct) {
+                options[selectedIndex].classList.add('correct');
+                quickFireScore++;
+            } else {
+                options[selectedIndex].classList.add('incorrect');
+                options[question.correct].classList.add('correct');
+            }
+            
+            quickFireIndex++;
+            setTimeout(() => {
+                showQuickFireQuestion();
+            }, 1500);
+        }
+
+        // Master challenge functions
+        function startMasterChallenge() {
+            let timeLeft = 120; // 2 minutes
+            const timerElement = document.getElementById('challengeTimer');
+            
+            const countdown = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    timerElement.textContent = '⏰ Time\'s up!';
+                }
+                
+                timeLeft--;
+            }, 1000);
+            
+            timers.masterChallenge = countdown;
+        }
+
+        // Final quiz functions
+        function startFinalQuiz() {
+            let currentQuestion = 0;
+            let finalScore = 0;
+            let timeLeft = 300; // 5 minutes
+            
+            const timerElement = document.getElementById('finalTimer');
+            const scoreElement = document.getElementById('finalScore');
+            const quizArea = document.getElementById('finalQuiz');
+            
+            function showFinalQuestion() {
+                if (currentQuestion >= finalQuizData.length) {
+                    clearInterval(timers.finalQuiz);
+                    showFinalResults(finalScore);
+                    return;
+                }
+                
+                const question = finalQuizData[currentQuestion];
+                quizArea.innerHTML = `
+                    <div class="question">
+                        <h3>Question ${currentQuestion + 1}/5</h3>
+                        <p>${question.question}</p>
+                        <div class="options">
+                            ${question.options.map((option, index) => 
+                                `<div class="option" onclick="answerFinalQuestion(${index})">${option}</div>`
+                            ).join('')}
+                        </div>
+                        <div id="explanation" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 10px; display: none;">
+                            <strong>Explanation:</strong> <span id="explanationText"></span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            window.answerFinalQuestion = function(selectedIndex) {
+                const question = finalQuizData[currentQuestion];
+                const options = document.querySelectorAll('#finalQuiz .option');
+                const explanation = document.getElementById('explanation');
+                const explanationText = document.getElementById('explanationText');
+                
+                options.forEach(opt => opt.style.pointerEvents = 'none');
+                
+                if (selectedIndex === question.correct) {
+                    options[selectedIndex].classList.add('correct');
+                    finalScore++;
+                } else {
+                    options[selectedIndex].classList.add('incorrect');
+                    options[question.correct].classList.add('correct');
+                }
+                
+                explanation.style.display = 'block';
+                explanationText.textContent = question.explanation;
+                
+                currentQuestion++;
+                scoreElement.textContent = `Score: ${finalScore}/${currentQuestion}`;
+                
+                setTimeout(() => {
+                    showFinalQuestion();
+                }, 3000);
+            };
+            
+            // Start timer
+            const countdown = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.textContent = `⏰ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    showFinalResults(finalScore);
+                }
+                
+                timeLeft--;
+            }, 1000);
+            
+            timers.finalQuiz = countdown;
+            showFinalQuestion();
+        }
+
+        function showFinalResults(score) {
+            const percentage = (score / finalQuizData.length) * 100;
+            let grade = '';
+            let message = '';
+            
+            if (percentage >= 90) {
+                grade = 'A*';
+                message = 'Outstanding! You have mastered electrolysis!';
+            } else if (percentage >= 80) {
+                grade = 'A';
+                message = 'Excellent work! You have a strong understanding!';
+            } else if (percentage >= 70) {
+                grade = 'B';
+                message = 'Good job! You understand most concepts well!';
+            } else if (percentage >= 60) {
+                grade = 'C';
+                message = 'Fair work! Review some concepts and try again!';
+            } else {
+                grade = 'D';
+                message = 'Keep studying! Review the materials and retake!';
+            }
+            
+            document.getElementById('finalQuiz').innerHTML = `
+                <div style="text-align: center; padding: 30px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 20px;">
+                    <h2>🎓 Final Results</h2>
+                    <div style="font-size: 3em; margin: 20px 0;">${grade}</div>
+                    <h3>Score: ${score}/${finalQuizData.length} (${percentage.toFixed(1)}%)</h3>
+                    <p style="font-size: 1.2em; margin: 20px 0;">${message}</p>
+                    <button class="btn" onclick="completeLevel(8)" style="background: #4CAF50; margin-top: 20px;">Complete Course! 🏆</button>
+                </div>
+            `;
+        }
+
+        function showFinalCompletion() {
+            document.getElementById('completionCertificate').style.display = 'block';
+        }
+
+        function downloadCertificate() {
+            // Create a simple certificate
+            const certificateContent = `
+                🏆 CERTIFICATE OF COMPLETION 🏆
+                
+                This certifies that you have successfully completed
+                IGCSE Chemistry: Electrolysis Adventure
+                
+                Mastering all 8 levels:
+                ✅ Electrolysis Principles
+                ✅ Charge Transfer Simulation  
+                ✅ Molten Compounds
+                ✅ Aqueous Solutions
+                ✅ Advanced Aqueous Solutions
+                ✅ Ionic Half Equations
+                ✅ Memory Master
+                ✅ Final Challenge
+                
+                Completion Date: ${new Date().toLocaleDateString()}
+                Final Score: ${totalScore}/8 Modules
+                
+                Congratulations on mastering IGCSE Electrolysis!
+            `;
+            
+            const element = document.createElement('a');
+            const file = new Blob([certificateContent], { type: 'text/plain' });
+            element.href = URL.createObjectURL(file);
+            element.download = 'IGCSE_Electrolysis_Certificate.txt';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function restartCourse() {
+            completedLevels = [];
+            totalScore = 0;
+            updateProgress();
+            goBack();
+            document.getElementById('completionCertificate').style.display = 'none';
+        }
+
+        function highlightRow(row) {
+            // Remove previous highlights
+            const rows = document.querySelectorAll('.interactive-table tr');
+            rows.forEach(r => r.style.background = '');
+            
+            // Highlight selected row
+            row.style.background = '#e3f2fd';
+            
+            setTimeout(() => {
+                row.style.background = '';
+            }, 2000);
+        }
+
+        // Initialize the application when page loads
+        window.onload = init;
+        
+        // Add some CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% { transform: translate(-50%, -50%) translateY(0); }
+                40% { transform: translate(-50%, -50%) translateY(-30px); }
+                60% { transform: translate(-50%, -50%) translateY(-15px); }
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
