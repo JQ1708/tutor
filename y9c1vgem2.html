@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Story of Photosynthesis & The Carbon Cycle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .section-title {
+            border-left: 5px solid #22c55e;
+            padding-left: 1rem;
+        }
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .interactive-diagram-button {
+            transition: all 0.3s ease;
+        }
+        .interactive-diagram-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .hotspot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: rgba(34, 197, 94, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .hotspot:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .hotspot-info {
+            position: absolute;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .hotspot:hover + .hotspot-info {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-green-600">The Power of Plants</h1>
+            <p class="text-sm text-gray-500">An Interactive Journey into Photosynthesis and the Carbon Cycle</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Introduction Section -->
+        <section class="text-center mb-20">
+            <div class="fade-in-element">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">It all starts with sunlight.</h2>
+                <p class="max-w-3xl mx-auto text-lg text-slate-600">
+                    Have you ever wondered how a tiny seed grows into a giant tree? Or where the oxygen we breathe comes from? The answer is a remarkable process that powers almost all life on Earth. Scroll down to begin the journey.
+                </p>
+            </div>
+        </section>
+
+        <!-- 1.1 Photosynthesis -->
+        <section class="mb-24">
+            <div class="fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">Chapter 1: The Green Machine</h2>
+                <p class="text-lg mb-8 max-w-4xl">
+                    Plants are nature's amazing chemists. They perform a process called <b>photosynthesis</b>, which literally means "making with light". They take simple ingredients from their environment—water, carbon dioxide, and sunlight—and turn them into their own food, releasing the oxygen we need to survive as a byproduct.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 overflow-hidden fade-in-element">
+                <h3 class="text-2xl font-bold text-center mb-4">The Recipe for Life</h3>
+                <div class="flex justify-center items-center bg-green-50 p-6 rounded-lg mb-8">
+                    <p class="text-xl md:text-2xl font-semibold text-center text-slate-700">
+                        Carbon Dioxide + Water <span class="text-green-600 mx-2"> --(Light & Chlorophyll)--> </span> Glucose + Oxygen
+                    </p>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-center mb-6">Interactive Photosynthesis</h3>
+                <p class="text-center text-slate-500 mb-6">Click the button below to see the process in action!</p>
+
+                <!-- Interactive Photosynthesis Diagram -->
+                <div id="interactive-photo" class="relative w-full max-w-xl mx-auto h-96 bg-sky-100 rounded-lg overflow-hidden">
+                    <!-- Ground -->
+                    <div class="absolute bottom-0 left-0 w-full h-1/4 bg-yellow-800/60"></div>
+                    <!-- Plant -->
+                    <div id="plant" class="absolute bottom-1/4 left-1/2 -translate-x-1/2">
+                        <div class="w-4 h-48 bg-green-700 rounded-t-lg"></div>
+                        <div id="leaf1" class="absolute top-10 -left-16 w-20 h-8 bg-green-600 rounded-full -rotate-45 transition-transform duration-500"></div>
+                        <div id="leaf2" class="absolute top-20 -right-16 w-20 h-8 bg-green-600 rounded-full rotate-45 transition-transform duration-500"></div>
+                    </div>
+                    <!-- Sun -->
+                    <div id="sun" class="absolute top-4 right-4 w-16 h-16 bg-yellow-400 rounded-full"></div>
+                    <!-- Sun Rays -->
+                    <div id="sun-rays" class="absolute top-16 right-16 w-px h-0 bg-yellow-400 transition-all duration-1000 origin-top" style="transform: rotate(45deg);"></div>
+                    <!-- Water Droplets -->
+                    <div id="water-drop" class="absolute bottom-4 left-1/4 w-4 h-4 bg-blue-500 rounded-full opacity-0 transition-all duration-1000"></div>
+                    <!-- CO2 Particles -->
+                    <div id="co2-particle" class="absolute top-1/2 right-4 w-3 h-3 bg-slate-500 rounded-full opacity-0 transition-all duration-1000"></div>
+                    <!-- Oxygen Bubbles -->
+                    <div id="oxygen-bubble" class="absolute top-1/2 left-1/4 w-3 h-3 border-2 border-cyan-400 rounded-full opacity-0 transition-all duration-1000"></div>
+                    <!-- Glucose -->
+                    <div id="glucose-particle" class="absolute top-16 left-1/2 w-4 h-4 bg-pink-400 rounded-sm opacity-0 transition-all duration-500 -translate-x-1/2"></div>
+                </div>
+                 <div class="text-center mt-6">
+                    <button id="start-photo-btn" class="interactive-diagram-button bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg">Start Photosynthesis</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.2 Leaf Structure & Minerals -->
+        <section class="mb-24">
+            <div class="fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">Chapter 2: The Food Factory</h2>
+                <p class="text-lg mb-8 max-w-4xl">
+                    Photosynthesis doesn't just happen anywhere in the plant. It primarily occurs in the leaves, which are perfectly designed for this job. Let's take a microscopic look inside a leaf to see its specialized layers.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 overflow-hidden fade-in-element">
+                <h3 class="text-2xl font-bold text-center mb-6">Anatomy of a Leaf</h3>
+                <p class="text-center text-slate-500 mb-6">Hover over the '+' hotspots to learn about each part.</p>
+                <!-- Interactive Leaf Diagram -->
+                <div class="relative w-full max-w-3xl mx-auto h-[400px] md:h-[450px]">
+                    <!-- Leaf Layers -->
+                    <div class="absolute top-0 left-0 w-full h-[10%] bg-green-200/50 rounded-t-lg flex items-center justify-center text-sm font-semibold text-green-800">Waxy Cuticle</div>
+                    <div class="absolute top-[10%] left-0 w-full h-[15%] bg-green-300/60 flex items-center justify-center text-sm font-semibold text-green-800">Upper Epidermis</div>
+                    <div class="absolute top-[25%] left-0 w-full h-[35%] bg-green-400/70 flex items-center justify-center text-sm font-semibold text-green-800">Palisade Layer</div>
+                    <div class="absolute top-[60%] left-0 w-full h-[25%] bg-green-300/50 flex items-center justify-center text-sm font-semibold text-green-800">Spongy Layer</div>
+                    <div class="absolute bottom-0 left-0 w-full h-[15%] bg-green-300/60 rounded-b-lg flex items-center justify-center text-sm font-semibold text-green-800">Lower Epidermis</div>
+                    <!-- Vein -->
+                    <div class="absolute top-[25%] left-1/2 -translate-x-1/2 w-8 h-[60%] bg-orange-200 rounded-lg"></div>
+                    <!-- Stomata -->
+                    <div class="absolute bottom-[10%] left-1/4 w-12 h-4 bg-white rounded-full border-2 border-green-500"></div>
+                     <div class="absolute bottom-[10%] right-1/4 w-12 h-4 bg-white rounded-full border-2 border-green-500"></div>
+
+                    <!-- Hotspots -->
+                    <div class="hotspot" style="top: 5%; left: 50%;">+</div>
+                    <div class="hotspot-info" style="top: 12%; left: 50%; transform: translateX(-50%);"><b>Waxy Cuticle:</b> A waterproof layer that prevents the leaf from losing too much water.</div>
+
+                    <div class="hotspot" style="top: 35%; left: 20%;">+</div>
+                    <div class="hotspot-info" style="top: 42%; left: 20%; transform: translateX(-50%);"><b>Palisade Layer:</b> Tightly packed cells full of chloroplasts. This is where most photosynthesis happens.</div>
+                    
+                    <div class="hotspot" style="top: 70%; left: 60%;">+</div>
+                    <div class="hotspot-info" style="top: 77%; left: 60%; transform: translateX(-50%);"><b>Spongy Layer:</b> Has large air spaces to allow gases like CO₂ to diffuse easily through the leaf.</div>
+                    
+                     <div class="hotspot" style="bottom: 9%; left: 26%;">+</div>
+                    <div class="hotspot-info" style="bottom: 16%; left: 26%; transform: translateX(-50%);"><b>Stomata:</b> Tiny pores that open and close to let CO₂ in and O₂ out.</div>
+                </div>
+                
+                <div class="mt-12 fade-in-element">
+                    <h3 class="text-2xl font-bold mb-4">Essential Minerals</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-slate-50 p-6 rounded-lg">
+                            <h4 class="text-xl font-bold text-teal-600 mb-2">Magnesium (Mg)</h4>
+                            <p>This mineral is vital because it forms the central part of the <b>chlorophyll</b> molecule. Without magnesium, the plant can't make chlorophyll, its leaves turn yellow, and it can't photosynthesise effectively.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-lg">
+                            <h4 class="text-xl font-bold text-sky-600 mb-2">Nitrates (NO₃⁻)</h4>
+                            <p>Plants need nitrogen from nitrates to build <b>proteins</b>. Proteins are essential for creating new cells, which means they are crucial for growth. A lack of nitrates leads to stunted growth and weak, pale leaves.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.3 Carbon Cycle -->
+        <section class="mb-24">
+            <div class="fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">Chapter 3: The Carbon Journey</h2>
+                <p class="text-lg mb-8 max-w-4xl">
+                    Carbon is the building block of life. Every living thing—from the smallest bacterium to the largest whale—is made of carbon. But carbon doesn't just stay in one place. It is constantly moving between the atmosphere, oceans, land, and living organisms in a grand, continuous process known as the <b>carbon cycle</b>.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 overflow-hidden fade-in-element">
+                 <h3 class="text-2xl font-bold text-center mb-6">The Great Carbon Exchange</h3>
+                <p class="text-center text-slate-500 mb-8">This diagram shows the main pathways carbon takes as it moves through our planet's systems.</p>
+                
+                <!-- NEW Static Carbon Cycle Diagram -->
+                <div class="w-full max-w-4xl mx-auto">
+                    <svg viewBox="0 0 800 500" class="w-full h-auto">
+                        <!-- Definitions for markers -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#4b5563" />
+                            </marker>
+                        </defs>
+
+                        <!-- Reservoirs -->
+                        <g>
+                            <rect x="300" y="10" width="200" height="60" rx="10" fill="#a5f3fc"/>
+                            <text x="400" y="45" font-family="Poppins, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Atmosphere (CO₂)</text>
+                        </g>
+                        <g>
+                            <rect x="50" y="220" width="180" height="60" rx="10" fill="#bbf7d0"/>
+                            <text x="140" y="255" font-family="Poppins, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Plants</text>
+                        </g>
+                        <g>
+                            <rect x="570" y="220" width="180" height="60" rx="10" fill="#fed7aa"/>
+                            <text x="660" y="255" font-family="Poppins, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Animals</text>
+                        </g>
+                        <g>
+                            <rect x="300" y="430" width="200" height="60" rx="10" fill="#d4c29e"/>
+                            <text x="400" y="465" font-family="Poppins, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Decomposers</text>
+                        </g>
+                        <g>
+                            <rect x="50" y="350" width="180" height="60" rx="10" fill="#6b7280"/>
+                            <text x="140" y="385" font-family="Poppins, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Fossil Fuels</text>
+                        </g>
+
+                        <!-- Arrows and Labels -->
+                        <!-- Photosynthesis -->
+                        <path d="M350,75 C250,120 200,180 140,215" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="220" y="150" font-family="Poppins, sans-serif" font-size="14" fill="#334155" transform="rotate(-30 220,150)">Photosynthesis</text>
+
+                        <!-- Plant Respiration -->
+                        <path d="M160,215 C180,150 280,95 320,75" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="210" y="120" font-family="Poppins, sans-serif" font-size="14" fill="#334155" transform="rotate(30 210,120)">Respiration</text>
+
+                        <!-- Animal Respiration -->
+                        <path d="M620,215 C580,150 500,95 480,75" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="550" y="120" font-family="Poppins, sans-serif" font-size="14" fill="#334155" transform="rotate(-30 550,120)">Respiration</text>
+
+                        <!-- Feeding -->
+                        <path d="M235,250 H 565" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="400" y="240" font-family="Poppins, sans-serif" font-size="14" text-anchor="middle" fill="#334155">Feeding</text>
+
+                        <!-- Decomposition (from plants) -->
+                        <path d="M140,285 V 350 C 140,400 300,425 350,425" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="220" y="380" font-family="Poppins, sans-serif" font-size="14" fill="#334155">Decomposition</text>
+
+                        <!-- Decomposition (from animals) -->
+                        <path d="M660,285 V 350 C 660,400 500,425 450,425" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                         <text x="560" y="380" font-family="Poppins, sans-serif" font-size="14" fill="#334155">Decomposition</text>
+
+                        <!-- Decomposer Respiration -->
+                        <path d="M400,425 V 75" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                         <text x="410" y="300" font-family="Poppins, sans-serif" font-size="14" fill="#334155">Respiration</text>
+
+                        <!-- Fossil Fuel Formation -->
+                        <path d="M200,285 C250,320 200,345 140,345" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="200" y="310" font-family="Poppins, sans-serif" font-size="12" fill="#334155" transform="rotate(15 200,310)">Fossilization</text>
+
+                        <!-- Combustion -->
+                        <path d="M140,345 C50,150 250,75 300,75" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="150" y="180" font-family="Poppins, sans-serif" font-size="14" fill="#ef4444" font-weight="bold">Combustion</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.4 Climate Change -->
+        <section class="mb-12">
+            <div class="fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title">Chapter 4: An Unbalanced Cycle</h2>
+                <p class="text-lg mb-8 max-w-4xl">
+                    For thousands of years, the carbon cycle was relatively balanced. However, human activities, especially since the Industrial Revolution, have disrupted this balance. By burning vast quantities of <b>fossil fuels</b> (coal, oil, and gas), we are releasing carbon that was locked away for millions of years back into the atmosphere at an unprecedented rate.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 overflow-hidden fade-in-element">
+                    <h3 class="text-2xl font-bold mb-4">The Enhanced Greenhouse Effect</h3>
+                    <p class="mb-4">Carbon dioxide is a <b>greenhouse gas</b>. It acts like a blanket, trapping heat from the sun and keeping our planet warm enough for life. But by adding extra CO₂ to the atmosphere, we are making the blanket thicker, trapping too much heat and causing global temperatures to rise. This is called <b>climate change</b>.</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>More extreme weather (storms, droughts)</li>
+                        <li>Rising sea levels from melting ice and expanding oceans</li>
+                        <li>Disruption to ecosystems and farming</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 overflow-hidden fade-in-element">
+                    <h3 class="text-2xl font-bold mb-4">Echoes from the Past</h3>
+                    <p class="mb-4">Earth's climate has changed before. About 66 million years ago, a massive asteroid struck the planet. The impact threw enormous amounts of dust and debris into the atmosphere, blocking out the sun.</p>
+                    <!-- Asteroid Impact Animation -->
+                    <div id="asteroid-impact" class="relative w-full h-48 bg-gray-800 rounded-lg overflow-hidden">
+                        <div class="absolute bottom-0 left-0 w-full h-1/4 bg-blue-400"></div> <!-- Earth surface -->
+                        <div id="asteroid" class="absolute -top-8 -right-8 w-8 h-8 bg-orange-400 rounded-full" style="transition: all 1.5s ease-in;"></div>
+                        <div id="dust-cloud" class="absolute top-0 left-0 w-full h-full bg-black/70 backdrop-blur-sm" style="opacity: 0; transition: opacity 2s ease-out 1.5s;"></div>
+                        <p id="impact-text" class="absolute inset-0 flex items-center justify-center text-white text-lg font-bold text-center p-4" style="opacity: 0; transition: opacity 1s ease-out 3.5s;">Sunlight blocked, causing a global winter and mass extinction.</p>
+                    </div>
+                    <p class="mt-4 text-sm text-slate-600">This ancient event shows how dramatically the climate can change when the atmosphere is altered, leading to the extinction of the dinosaurs.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // --- Scroll Animation ---
+        const fadeElements = document.querySelectorAll('.fade-in-element');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- Interactive Photosynthesis ---
+        const startPhotoBtn = document.getElementById('start-photo-btn');
+        startPhotoBtn.addEventListener('click', () => {
+            // Reset animations
+            const elementsToReset = ['sun-rays', 'water-drop', 'co2-particle', 'oxygen-bubble', 'glucose-particle'];
+            elementsToReset.forEach(id => {
+                const el = document.getElementById(id);
+                el.style.transition = 'none';
+                if(id === 'sun-rays') el.style.height = '0';
+                else el.style.opacity = '0';
+            });
+            
+            // Force reflow
+            void startPhotoBtn.offsetWidth;
+
+            // Start new animations
+            setTimeout(() => {
+                const sunRays = document.getElementById('sun-rays');
+                sunRays.style.transition = 'height 1s ease-out';
+                sunRays.style.height = '150px';
+
+                const waterDrop = document.getElementById('water-drop');
+                waterDrop.style.transition = 'all 1.5s ease-in';
+                waterDrop.style.opacity = '1';
+                waterDrop.style.transform = 'translateY(-150px)';
+
+                const co2Particle = document.getElementById('co2-particle');
+                co2Particle.style.transition = 'all 1.5s ease-in';
+                co2Particle.style.opacity = '1';
+                co2Particle.style.transform = 'translateX(-150px)';
+                
+                setTimeout(() => {
+                    document.getElementById('glucose-particle').style.opacity = '1';
+                    const oxygenBubble = document.getElementById('oxygen-bubble');
+                    oxygenBubble.style.transition = 'all 1.5s ease-out';
+                    oxygenBubble.style.opacity = '1';
+                    oxygenBubble.style.transform = 'translateY(-100px) translateX(50px)';
+                }, 1500);
+
+            }, 100);
+        });
+        
+        // --- Asteroid Impact ---
+        const asteroidObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const asteroid = document.getElementById('asteroid');
+                    const dustCloud = document.getElementById('dust-cloud');
+                    const impactText = document.getElementById('impact-text');
+
+                    // Reset
+                    asteroid.style.transition = 'none';
+                    dustCloud.style.transition = 'none';
+                    impactText.style.transition = 'none';
+                    asteroid.style.transform = 'translate(0, 0)';
+                    dustCloud.style.opacity = '0';
+                    impactText.style.opacity = '0';
+
+                    // Animate
+                    setTimeout(() => {
+                         asteroid.style.transition = 'all 1.5s ease-in';
+                         dustCloud.style.transition = 'opacity 2s ease-out 1.5s';
+                         impactText.style.transition = 'opacity 1s ease-out 3.5s';
+                         asteroid.style.transform = 'translate(-200px, 200px)';
+                         dustCloud.style.opacity = '1';
+                         impactText.style.opacity = '1';
+                    }, 500);
+                    
+                    observer.unobserve(entry.target); // Animate only once
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        asteroidObserver.observe(document.getElementById('asteroid-impact'));
+
+    </script>
+</body>
+</html>

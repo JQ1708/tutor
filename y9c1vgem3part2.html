@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Worksheet: Year 9 Science (Set 2)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* A slightly different background */
+        }
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            perspective: 1000px;
+            min-height: 250px; /* Increased height for more content */
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .flip-card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.5rem 2rem;
+            border-radius: 0.75rem;
+            overflow-y: auto;
+        }
+        .flip-card-front {
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+        }
+        .flip-card-back {
+            background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .flip-card-back ul { list-style-type: disc; padding-left: 20px; }
+        .flip-card-back ol { list-style-type: decimal; padding-left: 20px; }
+        .flip-card-back li { margin-bottom: 0.75rem; }
+        .flip-card-back strong { color: #c7d2fe; }
+        .question-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #4f46e5;
+        }
+        .question-text {
+            margin-top: 0.5rem;
+            font-weight: 500;
+            color: #334155;
+        }
+        .diagram-note {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-800">
+
+    <div class="container mx-auto px-4 py-10">
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-extrabold text-slate-900">Year 9 Science Interactive Worksheet</h1>
+            <p class="text-xl text-slate-600 mt-3">Learner's Book Questions & Answers</p>
+            <p class="text-md text-slate-500 mt-1">Click on a card to reveal the answer.</p>
+        </header>
+
+        <main>
+            <!-- Unit 1 -->
+            <section id="unit1" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 1: Photosynthesis and the Carbon Cycle</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Card 1.1 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 1.1</p>
+                                <p class="question-text">Match the correct word to each description: a) Gas used in photosynthesis, b) Gas made in photosynthesis, c) Where plants get water, d) Green pigment, e) Tiny holes in a leaf.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <ul class="mt-3">
+                                    <li>a) <strong>carbon dioxide</strong></li>
+                                    <li>b) <strong>oxygen</strong></li>
+                                    <li>c) <strong>soil</strong></li>
+                                    <li>d) <strong>chlorophyll</strong></li>
+                                    <li>e) <strong>stomata</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 1.2 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 1.2</p>
+                                <p class="question-text">For Marcus's seaweed experiment: a) What variable to change? b) Three variables to keep the same? c) What to measure?</p>
+                                <p class="diagram-note">(Please refer to worksheet for diagram)</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <ul class="mt-3">
+                                    <li>a) <strong>The type of seaweed.</strong></li>
+                                    <li>b) Any three from: <strong>the temperature, the light intensity, the size of the seaweed piece, the time.</strong></li>
+                                    <li>c) <strong>The volume of gas collected</strong> (after a set time).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 1.3 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 1.3</p>
+                                <p class="question-text">Questions about a farmer's fertiliser experiment graph.</p>
+                                <p class="diagram-note">(Please refer to worksheet for graph)</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <ul class="mt-3">
+                                    <li>a) <strong>4 tonnes per hectare.</strong></li>
+                                    <li>b) Adding more than 60 kg/ha gives only a small yield increase, so the <strong>cost of extra fertiliser likely outweighs the benefit.</strong></li>
+                                    <li>c) Wheat plants use nitrate to make <strong>proteins</strong>, which are needed for growth and producing grains.</li>
+                                    <li>d) Results could differ due to different soil nitrate levels, other mineral deficiencies, soil water retention, shade, or temperature.</li>
+                                    <li>e) <strong>Magnesium</strong>, which is needed for making chlorophyll.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 1.4 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 1.4</p>
+                                <p class="question-text">Questions about the carbon cycle diagram.</p>
+                                <p class="diagram-note">(Please refer to worksheet for diagram)</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <p class="mt-3"><strong>a) Matching letters:</strong></p>
+                                <ul>
+                                    <li>i) Carbon in fossil fuels: <strong>D</strong></li>
+                                    <li>ii) Carbon compounds in plants: <strong>B</strong></li>
+                                    <li>iii) Carbon dioxide in the air: <strong>A</strong></li>
+                                    <li>iv) Carbon compounds in animals: <strong>C</strong></li>
+                                </ul>
+                                <p class="mt-3"><strong>b) Matching numbers:</strong></p>
+                                <ul>
+                                    <li>i) feeding: <strong>3</strong></li>
+                                    <li>ii) combustion: <strong>2</strong></li>
+                                    <li>iii) photosynthesis: <strong>1</strong></li>
+                                </ul>
+                                <p class="mt-3"><strong>c) Carbon compound in plants:</strong> glucose, starch, protein, etc.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 1.5 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 1.5</p>
+                                <p class="question-text">Questions about climate change impacts and mass extinctions.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <p class="mt-3"><strong>a) Predicted impacts of climate change:</strong></p>
+                                <ul>
+                                    <li><strong>Sea level will rise.</strong></li>
+                                    <li><strong>There will be more extreme weather events.</strong></li>
+                                </ul>
+                                <p class="mt-3"><strong>b) Mass extinctions:</strong></p>
+                                <ul>
+                                    <li>i) A mass extinction is when <strong>many species of organisms are completely destroyed.</strong></li>
+                                    <li>ii) An asteroid collision can cause them by: throwing dust into the atmosphere, blocking sunlight, and stopping photosynthesis, which collapses food chains. It also causes immediate destruction from heat, pressure waves, and tsunamis.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            
+            <!-- Unit 2 -->
+            <section id="unit2" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 2: Properties of Materials</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Card 2.1 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 2.1</p>
+                                <p class="question-text">Questions about trends in Group 1 metals (e.g., Sodium).</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <ul class="mt-3">
+                                    <li>a) Melting point of Rubidium: <strong>Below 63°C.</strong></li>
+                                    <li>b) Boiling point of Rubidium: <strong>Below 688°C.</strong></li>
+                                    <li>c) Gas produced with water: <strong>hydrogen.</strong></li>
+                                    <li>d) Reaction of Rubidium with water: <strong>More vigorous/violent than potassium.</strong></li>
+                                    <li>e) Mass numbers: Li=7, Na=23, K=39, Rb=85.</li>
+                                    <li>f) Mass number is the sum of <strong>protons and neutrons.</strong></li>
+                                    <li>g) Sodium atom diagram: Nucleus, 3 shells with electron structure <strong>2,8,1.</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2.2 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 2.2</p>
+                                <p class="question-text">Draw a diagram to show the arrangement of electrons in a fluorine ion (F⁻).</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <p class="mt-3">The diagram should show a nucleus, and two electron shells with the structure <strong>2,8</strong> (gaining one electron to the original 2,7 structure).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2.3 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 2.3</p>
+                                <p class="question-text">a) Why is a fluorine ion more stable than a fluorine atom? b) Which element is most reactive in Group 1?</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <ul class="mt-3">
+                                    <li>a) A fluorine ion is more stable because its <strong>outer (highest energy level) shell of electrons is full.</strong></li>
+                                    <li>b) The most reactive element in Group 1 is <strong>Francium (Fr).</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2.4 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 2.4</p>
+                                <p class="question-text">Identify the bonding in these substances: Sodium chloride, Methane (CH₄), Carbon dioxide, Magnesium oxide, Lithium fluoride.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <ul class="mt-3">
+                                    <li>a) Sodium chloride: <strong>ionic</strong></li>
+                                    <li>b) Methane (CH₄): <strong>covalent</strong></li>
+                                    <li>c) Carbon dioxide: <strong>covalent</strong></li>
+                                    <li>d) Magnesium oxide: <strong>ionic</strong></li>
+                                    <li>e) Lithium fluoride: <strong>ionic</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2.5 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <p class="question-title">Check Your Progress 2.5</p>
+                                <p class="question-text">a) What holds the ions together in sodium chloride? b) What does this mean for its melting and boiling points?</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="font-bold text-xl">Answer</p>
+                                <ul class="mt-3">
+                                    <li>a) The <strong>strong electrostatic forces</strong> between the positive sodium ions (Na⁺) and the negative chloride ions (Cl⁻).</li>
+                                    <li>b) The melting and boiling points will be <strong>high</strong> because these electrostatic forces are strong and require a lot of energy to overcome.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 3 -->
+            <section id="unit3" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 3: Forces and Energy</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 3.1-3.2</p><p class="question-text">Density and Heat/Temperature questions.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>3.1:</strong> The correct order of liquids by density is B (least dense), A, D, C (most dense).</li><li><strong>3.2:</strong> A block of iron has a density of 60g / 50cm³ = <strong>1.2 g/cm³</strong>. It will <strong>sink</strong> in water.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 3.3-3.6</p><p class="question-text">Questions on energy and its transfer.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>3.3:</strong> Beaker Y has more heat (more particles). Average energy is the same (same temperature).</li><li><strong>3.4:</strong> Units: Temperature (°C), Heat (J).</li><li><strong>3.5:</strong> Energy is conserved. Wasted energy = 50J - 5J = <strong>45J</strong>.</li><li><strong>3.6:</strong> Temperature of the ball decreases, water increases.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 3.7-3.12</p><p class="question-text">Questions on thermal energy transfer.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>3.7:</strong> Thermal energy moves from B to A, C to A, and C to B.</li><li><strong>3.9:</strong> Conduction. Metal is a good conductor.</li><li><strong>3.10:</strong> Convection. Heated air becomes less dense and rises.</li><li><strong>3.11:</strong> The black car is hotter. Black is a good absorber of radiation.</li><li><strong>3.12:</strong> Evaporation. It removes thermal energy from the skin.</li></ul></div></div></div>
+                </div>
+            </section>
+            
+            <!-- Unit 4 -->
+            <section id="unit4" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 4: Maintaining Life</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 4.1-4.2</p><p class="question-text">Human excretory system and plant water transport.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>4.1:</strong> a) kidney, b) ureter, c) urea, d) bladder, e) urethra, f) urine.</li><li><strong>4.2:</strong> Water is taken up by root hairs, flows through xylem vessels, changes from liquid to gas in leaves, and diffuses out through stomata.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 4.3</p><p class="question-text">Interpreting data from a plant transpiration experiment.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li>a) balance</li><li>b) 3g</li><li>c) 945 - 808 = <strong>137g</strong></li><li>d) 137 / 6 = <strong>22.8 g/day</strong></li><li>e) From the <strong>plant</strong>. The uncovered plant lost much more mass.</li><li>f) Water vapour diffused out of the leaves (transpiration) and condensed inside the bag.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 4.4</p><p class="question-text">Diet and health during pregnancy.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li>a) Needs more <strong>protein</strong> for fetal growth, <strong>calcium</strong> for bones, and <strong>iron</strong> for haemoglobin.</li><li>b) Example foods: fish (protein), yoghurt (calcium), meat (iron).</li><li>c) Normal diet usually has enough fat.</li><li>d) Smoking risks: <strong>Carbon monoxide</strong> reduces oxygen transport, and nicotine is addictive and harms blood vessels, increasing the risk of low birthweight.</li></ul></div></div></div>
+                </div>
+            </section>
+            
+            <!-- Unit 5 -->
+            <section id="unit5" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 5: Reactivity</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 5.1</p><p class="question-text">Displacement reactions and reactivity.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li>a) A reaction is shown by a colour change.</li><li>b) More reactive aluminium displaces less reactive copper.</li><li>c) Zinc + Lead nitrate -> Zinc nitrate + Lead.</li><li>d) Copper is less reactive than sodium, so no reaction.</li><li>e) Aluminium is the most reactive.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 5.2</p><p class="question-text">Predicting reactions and making salts.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li>a) No reaction (lead is less reactive than magnesium).</li><li>b) Reaction occurs: Iron + Lead nitrate -> Iron nitrate + Lead.</li><li>c) Calcium carbonate + Hydrochloric acid -> Calcium chloride + Water + Carbon dioxide.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 5.3-5.4</p><p class="question-text">Making various salts.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>5.3:</strong> a) Test for hydrogen: a lit splint gives a 'squeaky pop'. b) Zinc sulfate. c) Reaction stops when fizzing stops. d) Zinc + Sulfuric acid -> Zinc sulfate + hydrogen.</li><li><strong>5.4:</strong> Preparing potassium chloride via titration: a) Burette. b) Hydrochloric acid. c) Use charcoal to decolorize, filter, then evaporate to get crystals.</li></ul></div></div></div>
+                </div>
+            </section>
+            
+            <!-- Unit 6 -->
+            <section id="unit6" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 6: Sound and Space</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 6.1-6.4</p><p class="question-text">Sound waves and interference.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>6.1:</strong> The wave with the highest pitch is B.</li><li><strong>6.2:</strong> a) Loudness increases. b) Pitch increases. c) Pitch increases.</li><li><strong>6.3:</strong> a) B. b) C.</li><li><strong>6.4:</strong> a) Constructive interference: waves align, amplitude doubles. b) Destructive interference: waves misalign, amplitude is zero.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 6.5-6.7</p><p class="question-text">Formation of the Moon, Nebulae, and Tectonics.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>6.5:</strong> a) Collision theory: Mars-sized object hit Earth, debris formed Moon. b) Evidence: Moon's low density, once-molten surface.</li><li><strong>6.6:</strong> a) i) Nebula: cloud of dust/gas. ii) Stellar nursery: where stars form. b) Newly formed stars are smaller and emit less light, often blocked by dust.</li><li><strong>6.7:</strong> Evidence for plate tectonics: continents fit together, similar fossils on different continents, magnetic alignment in rocks.</li></ul></div></div></div>
+                </div>
+            </section>
+            
+            <!-- Unit 7 -->
+            <section id="unit7" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 7: Genes and Inheritance</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 7.1-7.2</p><p class="question-text">Chromosomes, Genes, DNA, and Gametes.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>7.1:</strong> Fill blanks: chromosomes, genes, DNA.</li><li><strong>7.2:</strong> Table completion: Nucleus (both), Gametes (both), Can swim (sperm), 23 chromosomes (both in humans), X or Y (sperm).</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 7.3</p><p class="question-text">Variation in bean pods.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li>a) Total beans = 112. Mean = 112 / 20 = <strong>5.6</strong>.</li><li>b) Tally chart completion.</li><li>c) Bar chart should be drawn correctly based on tally.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 7.4</p><p class="question-text">Antibiotic resistance.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li>a) Antibiotic: a substance that kills bacteria.</li><li>b) The percentage of penicillin-resistant pneumonia has increased.</li><li>c) This happens because resistant bacteria survive treatment and reproduce, passing on resistance genes. Over time, the resistant population grows.</li></ul></div></div></div>
+                </div>
+            </section>
+            
+            <!-- Unit 8 -->
+            <section id="unit8" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 8: Rates of Reaction</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 8.1</p><p class="question-text">Factors affecting reaction rate.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li>a) Powdered marble has a larger surface area, so more particles are exposed to the acid, leading to more frequent collisions and a faster reaction.</li><li>b) Test for CO₂: bubble through limewater, which will turn milky.</li><li>c) Calcium chloride.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 8.2-8.3</p><p class="question-text">Reaction rates and graphs.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>8.2:</strong> a) Mg + H₂SO₄ -> MgSO₄ + H₂. b) Test for H₂: lit splint gives a 'squeaky pop'. c) Warming the acid and stirring.</li><li><strong>8.3:</strong> a) 85-90s. b) 230-250s. c) Rate is fast at start, then slows, then stops. d) Increasing temperature increases the rate. e) Higher temp -> particles have more energy -> move faster -> more frequent and energetic collisions.</li></ul></div></div></div>
+                </div>
+            </section>
+            
+            <!-- Unit 9 -->
+            <section id="unit9" class="mb-16">
+                <h2 class="text-4xl font-bold border-b-4 border-violet-500 pb-3 mb-10 text-slate-800">Unit 9: Electricity</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 9.1-9.4</p><p class="question-text">Current and voltage in circuits.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>9.1:</strong> a) 1.2 + 1.2 = 2.4A. b) i) 6 / 3 = 2A. ii) A₁ = A₂ + A₃ + A₄.</li><li><strong>9.2:</strong> a) Ammeter in series. b) Voltmeter in parallel.</li><li><strong>9.3-9.4:</strong> In a series circuit, adding more lamps decreases current and brightness. In a parallel circuit, adding more lamps increases total current.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 9.5-9.7</p><p class="question-text">Resistance and Ohm's Law.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>9.5:</strong> a) R = V / I. b) ohms/Ω.</li><li><strong>9.6:</strong> a) R = 12V / 2A = 6Ω. b) V = 0.5A * 18Ω = 9V. c) I = 6V / 4Ω = 1.5A.</li><li><strong>9.7:</strong> a) Variable resistor. b) Current decreases because resistance increases.</li></ul></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><p class="question-title">Check Your Progress 9.8-9.9</p><p class="question-text">Comparing circuits and circuit design.</p></div><div class="flip-card-back"><p class="font-bold text-xl">Answers</p><ul class="mt-3"><li><strong>9.8:</strong> a) A and C. b) B. c) A.</li><li><strong>9.9:</strong> Circuit diagram should show three parallel branches across a cell. Each branch has a switch. Branch 1: lamp, ammeter. Branch 2: lamp, variable resistor. Branch 3: buzzer.</li></ul></div></div></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.flip-card');
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.querySelector('.flip-card-inner').classList.toggle('flipped');
+            });
+        });
+    </script>
+
+</body>
+</html>

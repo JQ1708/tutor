@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Worksheet: Year 9 Science (Complete)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            perspective: 1000px;
+            min-height: 220px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .flip-card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            overflow-y: auto;
+        }
+        .flip-card-front {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        .flip-card-back {
+            background-color: #4f46e5;
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .flip-card-back ul { list-style-type: disc; padding-left: 20px; }
+        .flip-card-back ol { list-style-type: decimal; padding-left: 20px; }
+        .flip-card-back li { margin-bottom: 0.5rem; }
+        .flip-card-back table { width: 100%; margin-top: 1rem; border-collapse: collapse; }
+        .flip-card-back th, .flip-card-back td { border: 1px solid #a5b4fc; padding: 0.5rem; text-align: left; }
+        .flip-card-back th { background-color: #6366f1; }
+    </style>
+</head>
+<body class="antialiased text-slate-800">
+
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-slate-900">Year 9 Science Interactive Worksheet</h1>
+            <p class="text-lg text-slate-600 mt-2">Click on any card to flip it and reveal the answer.</p>
+        </header>
+
+        <main>
+            <!-- Unit 1 -->
+            <section id="unit1" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 1: Photosynthesis and the carbon cycle</h2>
+                
+                <!-- Topic 1.1 -->
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 1.1: Photosynthesis</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.1A, Q1</p>
+                                    <p class="mt-2 font-medium">What should Arun keep the same for all three sets of apparatus?</p>
+                                    <p class="text-xs text-gray-400 mt-4 italic">(Please refer to worksheet diagram)</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answer</p>
+                                    <p class="mt-2">The type of plant, the mass of the plant, the temperature.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.1A, Q2</p>
+                                    <p class="mt-2 font-medium">Complete Arun's results table.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answer</p>
+                                    <table><thead><tr><th>Apparatus</th><th>Amount of light</th><th>Volume of gas (cm³)</th></tr></thead><tbody><tr><td>A</td><td>high</td><td>18.3</td></tr><tr><td>B</td><td>low</td><td>7.2</td></tr><tr><td>C</td><td>none</td><td>0.5</td></tr></tbody></table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.1A, Q3</p>
+                                    <p class="mt-2 font-medium">What conclusion can Arun make?</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answer</p>
+                                    <p class="mt-2">Plants photosynthesise faster when they have more light.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.1B, Q1-6</p>
+                                    <p class="mt-2 font-medium">Questions on the effect of different colours of light on photosynthesis.</p>
+                                    <p class="text-xs text-gray-400 mt-4 italic">(Please refer to worksheet for diagrams and full questions)</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <ol>
+                                        <li><strong>Changed variable:</strong> The colour of the light / cellophane.</li>
+                                        <li><strong>Measured variable:</strong> The number of bubbles produced in one minute.</li>
+                                        <li><strong>Controlled variables:</strong> Light intensity, type/quantity of water plant, temperature.</li>
+                                        <li><strong>Results Table:</strong> (white mean: 12, red mean: 11, green mean: 5, blue mean: 10).</li>
+                                        <li><strong>Bar Chart:</strong> Should reflect the mean values.</li>
+                                        <li><strong>Conclusion:</strong> Plants photosynthesise fastest in white light.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.1C, Q1-2</p>
+                                    <p class="mt-2 font-medium">Write a hypothesis and plan an experiment about CO2 and photosynthesis rate.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answer</p>
+                                    <p><strong>Hypothesis Example:</strong> Water plants give off more bubbles per minute when they are given more carbon dioxide.</p>
+                                    <p><strong>Plan should include:</strong> Independent/dependent/control variables, detailed method, diagram, results chart, and a prediction.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Other topics for Unit 1 -->
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 1.2: More about photosynthesis</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.2A, Q1-7</p>
+                                    <p class="mt-2 font-medium">Questions about Sofia's duckweed experiment with fertiliser.</p>
+                                    <p class="text-xs text-gray-400 mt-4 italic">(Please refer to worksheet for diagrams and full questions)</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <ol>
+                                        <li>A: 0, B: 1, C: 2, D: 3, E: 4</li>
+                                        <li>Variable changed: quantity of fertiliser.</li>
+                                        <li>Variables to keep same: light intensity, volume of water, temperature.</li>
+                                        <li>Results: A:5, B:9, C:10, D:8, E:0 plants.</li>
+                                        <li>Bar chart should display the results.</li>
+                                        <li>Conclusion: Fertiliser helps growth, but too much is harmful.</li>
+                                        <li>Improvement: Use three sets of dishes for each quantity.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.2B, Q1-6</p>
+                                    <p class="mt-2 font-medium">Questions about testing a variegated leaf for starch.</p>
+                                    <p class="text-xs text-gray-400 mt-4 italic">(Please refer to worksheet for diagrams)</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <ol>
+                                        <li>Green substance: Chlorophyll.</li>
+                                        <li>Prediction explanation: Chlorophyll is needed for photosynthesis to produce starch.</li>
+                                        <li>Why boil in water? To break down cell membranes.</li>
+                                        <li>Why use hot alcohol? To remove chlorophyll.</li>
+                                        <li>Diagram: The originally green parts should be shaded blue-black.</li>
+                                        <li>What turns blue-black? Starch.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.2C, Q1-10</p>
+                                    <p class="mt-2 font-medium">Questions about the floating leaf discs experiment.</p>
+                                    <p class="text-xs text-gray-400 mt-4 italic">(Please refer to worksheet for diagrams)</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <ol>
+                                        <li>Gas produced: Oxygen.</li>
+                                        <li>Bubbles on underside: Most stomata are there.</li>
+                                        <li>How time depends on bubbles: More bubbles make the disc float faster (buoyancy).</li>
+                                        <li>Hypothesis: Leaves photosynthesise faster in bright light.</li>
+                                        <li>Independent variable: Light intensity.</li>
+                                        <li>Anomalous results: 3 (bright) and 44 (dim).</li>
+                                        <li>Mean times: Bright ≈ 13s, Dim ≈ 71s.</li>
+                                        <li>Why times vary: Uncontrolled variables (e.g., uneven bubble formation).</li>
+                                        <li>Conclusion: Leaf discs rise faster in bright light.</li>
+                                        <li>Explanation: More light energy means faster photosynthesis and quicker oxygen production.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 1.3 & 1.4: Carbon Cycle & Climate Change</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.3, Q1-6</p>
+                                    <p class="mt-2 font-medium">Questions on the carbon cycle diagram and indicator experiment.</p>
+                                    <p class="text-xs text-gray-400 mt-4 italic">(Please refer to worksheet for diagrams)</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <ol>
+                                        <li>Diagram labels: R for respiration, P for photosynthesis, etc.</li>
+                                        <li>Why a bung? To prevent gas exchange with the air.</li>
+                                        <li>Controlled variables: Temperature, volume of indicator.</li>
+                                        <li>Results: A: red→red, B: red→yellow, C: red→purple, D: red→red.</li>
+                                        <li>Explanation: B: Respiration adds CO2. C: Photosynthesis removes CO2.</li>
+                                        <li>Importance of plants: They remove CO2 via photosynthesis, balancing the cycle.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 1.4, Q1-6</p>
+                                    <p class="mt-2 font-medium">Interpreting graphs about climate change.</p>
+                                    <p class="text-xs text-gray-400 mt-4 italic">(Please refer to worksheet for graphs)</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <ol>
+                                        <li>Graph matches: CO2 (C), Sea level (A), Sea ice (B).</li>
+                                        <li>Graph A description: Sea level has risen by ~230 mm since 1880.</li>
+                                        <li>Graph B differences: In 2017-18, sea ice covered a smaller area and for fewer months.</li>
+                                        <li>Extra data needed: Data for more years to confirm the trend.</li>
+                                        <li>Human activities: Burning fossil fuels increases atmospheric CO2.</li>
+                                        <li>Why graph wiggles: Seasonal changes in photosynthesis in the Northern Hemisphere.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 2 -->
+            <section id="unit2" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 2: Properties of materials</h2>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 2.1 - 2.4</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 2.1, Q1-11</p>
+                                    <p class="mt-2 font-medium">Atomic structure and the Periodic Table.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <ol>
+                                        <li>12</li>
+                                        <li>14</li>
+                                        <li>Aluminium</li>
+                                        <li>Neon</li>
+                                        <li>Atomic no: 5, Mass no: 11, Protons: 5, Neutrons: 6, Electrons: 5</li>
+                                        <li>a: 6, b: 6, c: 6, d: 6p 6n</li>
+                                        <li>Table completion (e.g., Beryllium: P=4, N=5, E=4, Struct=2,2).</li>
+                                        <li>Atomic no. increases by 1. Mass no. generally increases.</li>
+                                        <li>Calcium and argon.</li>
+                                        <li>Helium, nitrogen, oxygen, or neon.</li>
+                                        <li>Potassium: P=19, N=20, E=19, Struct=2,8,8,1.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 2.2, Q1-9</p>
+                                    <p class="mt-2 font-medium">Trends in groups within the Periodic Table.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>2.2A:</strong> 1. Protons increase. 2. Mass no. increases. 3. Sodium: P=11, N=12, E=11. 4. 2,8,1. 5. Same outer electrons. 6. Potassium: P=19, N=20, E=19. 7. 2,8,8,1. 8. All have 1 outer electron. 9. Atoms get larger down the group.</p>
+                                    <p><strong>2.2B & C:</strong> Trends in Group 1 vs Group 7 (melting/boiling points, reactivity) are generally opposite. Group 1 becomes more reactive down the group, Group 7 becomes less reactive.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 2.3, Q1-5</p>
+                                    <p class="mt-2 font-medium">Why elements react to form compounds (ions).</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>2.3A:</strong> 1. Outer shell is highest energy level. 2. Diagram: nucleus, 1 shell, 2 electrons. 3. Li+. 4. Diagram: 2 shells, 2,8. 5. F-.</p>
+                                    <p><strong>2.3B & C:</strong> Ions form to achieve a stable, full outer shell by losing or gaining electrons. For CaCl₂, one calcium atom (loses 2e-) reacts with two chlorine atoms (each gains 1e-).</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 2.4, Q1-8</p>
+                                    <p class="mt-2 font-medium">Simple, giant, ionic, and covalent structures.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>2.4A:</strong> 1. Ionic bonding (lattice). 2. Strong forces within molecules. 3. Substance B. 4. Substance A. 5. Ionic. 6. Covalent. 7. Graphite/Silicon dioxide.</p>
+                                    <p><strong>2.4B & C:</strong> Ionic compounds (e.g., MgO) have high melting points due to strong forces in the lattice. Covalent molecules (e.g., Ammonia) have low melting points due to weak intermolecular forces. Diamond is hard (rigid 3D lattice), graphite is soft (layers slide).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Unit 3 -->
+            <section id="unit3" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 3: Forces and energy</h2>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 3.1 - 3.6</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                         <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 3.1, Q1-4</p>
+                                    <p class="mt-2 font-medium">Density.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>3.1A:</strong> 1. gas. 2. B. 3. R. 4. Density < 1.0 g/cm³.</p>
+                                    <p><strong>3.1B:</strong> 1. mass of a certain volume. 2. density = mass/volume. 3. a: 1.0, b: 8.5, c: 0.56 g/cm³. 4. a: 8 cm³, b: 8.9 g/cm³.</p>
+                                    <p><strong>3.1C:</strong> 1. Polyethylene, polypropylene, cellulose acetate/PVC. 2. Mass < 250g. 3. Ship's average density (steel+air) is less than water.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 3.2 & 3.3</p>
+                                    <p class="mt-2 font-medium">Heat, Temperature & Conservation of Energy.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>3.2:</strong> Heat is total energy, temperature is average energy. Heating a solid makes particles vibrate faster. A larger block has more heat at the same temperature.</p>
+                                    <p><strong>3.3:</strong> Energy is conserved (cannot be created/destroyed). Input energy = output energy. Sankey diagram for a device should show useful and wasted energy outputs summing to 100%.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 3.4 - 3.6</p>
+                                    <p class="mt-2 font-medium">Thermal Energy Transfer & Cooling.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>3.4:</strong> Thermal energy transfers from higher to lower temperature.</p>
+                                    <p><strong>3.5:</strong> Conduction (solids), Convection (fluids), Radiation (can travel through vacuum). Metals are good conductors; wood is an insulator. White surfaces reflect radiation.</p>
+                                    <p><strong>3.6:</strong> Evaporation (liquid to gas) causes cooling because the highest-energy particles escape, lowering the average energy (temperature) of the remaining liquid. A fan speeds up evaporation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 4 -->
+            <section id="unit4" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 4: Maintaining life</h2>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 4.1 - 4.4</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 4.1 & 4.2</p>
+                                    <p class="mt-2 font-medium">Plants and Water & Transpiration.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>4.1:</strong> Root hairs increase surface area for water uptake. Water moves up the xylem. As temperature increases, rate of water transport increases.</p>
+                                    <p><strong>4.2:</strong> Covering soil prevents evaporation from it. Higher temperatures increase the rate of water loss (transpiration) from leaves.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 4.3, Q1-4</p>
+                                    <p class="mt-2 font-medium">Excretion in humans.</p>
+                                    <p class="text-xs text-gray-400 mt-4 italic">(Please refer to worksheet for diagram)</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <ol>
+                                        <li>Fill blanks: excretory, urea, urine.</li>
+                                        <li>Diagram labelling: kidney, ureter, bladder, urethra.</li>
+                                        <li>Functions: Kidney (filters blood), Ureter (carries urine to bladder), Bladder (stores urine), Urethra (expels urine).</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 4.4, Q1-5</p>
+                                    <p class="mt-2 font-medium">Keeping a fetus healthy.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>4.4A:</strong> There is no clear correlation between female mass and pregnancy length in the given data.</p>
+                                    <p><strong>4.4B:</strong> The data suggests caffeine intake has no significant effect on mean birthweight.</p>
+                                    <p><strong>4.4C:</strong> There is a correlation between smoking during pregnancy and an increased risk of low birthweight.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Unit 5 -->
+            <section id="unit5" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 5: Reactivity</h2>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 5.1 - 5.5</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 5.1 & 5.2</p>
+                                    <p class="mt-2 font-medium">Reactivity and Displacement Reactions.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>5.1:</strong> A more reactive metal will displace a less reactive metal from its salt solution (e.g., Zinc + Copper Sulfate → Zinc Sulfate + Copper). You can use displacement reactions to determine a reactivity series.</p>
+                                    <p><strong>5.2:</strong> The reactivity series can be used to predict reactions. Carbon is used to extract iron from its ore because it is more reactive than iron. The Thermite reaction (aluminium + iron oxide) is a displacement reaction that produces molten iron.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 5.3 & 5.4</p>
+                                    <p class="mt-2 font-medium">Making Salts.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>5.3:</strong> Salts are made from acids: Hydrochloric acid → chlorides, Sulfuric acid → sulfates, Nitric acid → nitrates. A metal more reactive than hydrogen will react with an acid to make a salt and hydrogen gas.</p>
+                                    <p><strong>5.4:</strong> Other ways to make salts: Acid + Base (e.g., copper oxide), Acid + Carbonate (e.g., copper carbonate), Acid + Alkali (titration). Steps include reaction, filtration (to remove excess solid), and evaporation/crystallisation.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 5.5, Q1-10</p>
+                                    <p class="mt-2 font-medium">Rearranging Atoms (Conservation of Mass).</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p>Atoms are rearranged in a chemical reaction, not created or destroyed. The law of conservation of mass states that the total mass of reactants equals the total mass of products. If mass seems to be lost, it's often because a gas has escaped. If mass seems to be gained, it's often because a gas from the air (like oxygen) has reacted.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 6 -->
+            <section id="unit6" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 6: Sound and space</h2>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 6.1 - 6.5</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 6.1 & 6.2</p>
+                                    <p class="mt-2 font-medium">Loudness, Pitch & Interference of Sound.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>6.1:</strong> Loudness is related to amplitude (bigger amplitude = louder). Pitch is related to frequency (higher frequency = higher pitch).</p>
+                                    <p><strong>6.2:</strong> Interference happens when waves meet. Constructive interference (reinforcement) makes sound louder. Destructive interference (cancellation) makes sound quieter or silent.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 6.3 & 6.4</p>
+                                    <p class="mt-2 font-medium">Formation of the Moon & Nebulae.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>6.3:</strong> The leading theory for the Moon's formation is the giant-impact hypothesis (collision theory): a Mars-sized object called Theia collided with early Earth, and the debris formed the Moon.</p>
+                                    <p><strong>6.4:</strong> A nebula is a giant cloud of dust and gas (mostly hydrogen) in space. Some are stellar nurseries where stars are born due to gravitational collapse.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 6.5, Q1-3</p>
+                                    <p class="mt-2 font-medium">Tectonics.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p>Tectonic plates are large pieces of Earth's crust that move slowly. This movement is driven by convection currents in the mantle. Evidence includes fossil distribution, earthquake/volcano patterns, and magnetic striping on the ocean floor. This movement causes continental drift.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 7 -->
+            <section id="unit7" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 7: Genes and inheritance</h2>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 7.1 - 7.4</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 7.1 & 7.2</p>
+                                    <p class="mt-2 font-medium">Chromosomes, Genes, DNA & Gametes.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>7.1:</strong> Chromosomes are found in the nucleus and are made of DNA. Genes are sections of DNA that contain instructions for traits.</p>
+                                    <p><strong>7.2:</strong> Gametes are sex cells (egg and sperm). They are specialised for fertilisation. Sperm have tails for swimming; eggs have food reserves.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 7.3 & 7.4</p>
+                                    <p class="mt-2 font-medium">Variation & Natural Selection.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>7.3:</strong> Variation refers to the differences between individuals in a species. It can be recorded and displayed in tables and charts (e.g., bar charts, frequency diagrams).</p>
+                                    <p><strong>7.4:</strong> Natural selection is the process where organisms with variations best suited to their environment are more likely to survive and reproduce. They pass on these advantageous genes, leading to evolution over time (e.g., camouflage, woolly mammoths' fur).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 8 -->
+            <section id="unit8" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 8: Rates of reaction</h2>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 8.1 - 8.4</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 8.1, Q1-7</p>
+                                    <p class="mt-2 font-medium">Measuring and explaining the rate of reaction.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p>The rate of reaction is fastest at the start and slows down as reactants are used up. This can be seen from the gradient of a graph of product formed vs. time. The reaction stops when one reactant is completely used. The rate decreases because the concentration of reactants decreases, leading to fewer collisions per second.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 8.2, 8.3 & 8.4</p>
+                                    <p class="mt-2 font-medium">Factors affecting reaction rate.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>Surface Area (8.2):</strong> Increasing surface area (e.g., powder vs. lump) increases reaction rate because more reactant particles are exposed for collisions.</p>
+                                    <p><strong>Temperature (8.3):</strong> Increasing temperature increases reaction rate because particles move faster (more frequent collisions) and have more energy (more successful collisions).</p>
+                                    <p><strong>Concentration (8.4):</strong> Increasing concentration increases reaction rate because there are more reactant particles in the same volume, leading to more frequent collisions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 9 -->
+            <section id="unit9" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-2 border-indigo-500 pb-2 mb-8 text-slate-800">Unit 9: Electricity</h2>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-6">Topic 9.1 - 9.4</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 9.1 & 9.2</p>
+                                    <p class="mt-2 font-medium">Parallel Circuits, Current & Voltage.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p><strong>9.1:</strong> In a parallel circuit, there is more than one path for the current. The total current from the source is the sum of the currents in the separate branches.</p>
+                                    <p><strong>9.2:</strong> In a parallel circuit, the voltage across each branch is the same as the voltage of the source.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 9.3, Q1-4</p>
+                                    <p class="mt-2 font-medium">Resistance and Ohm's Law.</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p>Resistance (in ohms, Ω) is the opposition to current flow. Ohm's Law states: Voltage = Current × Resistance (V=IR). You can rearrange this to find any of the three values if you know the other two (e.g., R = V/I).</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <p class="text-sm font-semibold text-indigo-600">Exercise 9.4, Q1-6</p>
+                                    <p class="mt-2 font-medium">Practical Circuits (Variable Resistors).</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <p class="font-bold text-lg">Answers</p>
+                                    <p>A variable resistor allows you to change the resistance in a circuit. Increasing the resistance will decrease the current (for a fixed voltage), which can be used to dim a lamp or change the speed of a motor. They can be connected in series or parallel depending on the desired effect.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.flip-card');
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.querySelector('.flip-card-inner').classList.toggle('flipped');
+            });
+        });
+    </script>
+
+</body>
+</html>
