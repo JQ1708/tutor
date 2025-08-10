@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Electrochemistry Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .electroplating-simulator {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            margin: 20px 0;
+        }
+
+        .electrode-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .electrode {
+            width: 100px;
+            height: 200px;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .anode {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            border: 3px solid #e17055;
+        }
+
+        .cathode {
+            background: linear-gradient(135deg, #81ecec, #74b9ff);
+            border: 3px solid #0984e3;
+        }
+
+        .electrode:hover {
+            transform: scale(1.05);
+        }
+
+        .electron-flow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 2px;
+            background: #fff;
+        }
+
+        .electron {
+            width: 20px;
+            height: 20px;
+            background: #ff7675;
+            border-radius: 50%;
+            position: absolute;
+            top: -9px;
+            animation: moveElectron 2s linear infinite;
+        }
+
+        @keyframes moveElectron {
+            0% { left: -10px; }
+            100% { left: 190px; }
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            margin: 20px 0;
+        }
+
+        .quiz-question {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .quiz-option {
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(10px);
+        }
+
+        .quiz-option.correct {
+            background: #00b894;
+        }
+
+        .quiz-option.incorrect {
+            background: #e17055;
+        }
+
+        .fuel-cell-simulator {
+            background: linear-gradient(135deg, #55a3ff, #003d82);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            margin: 20px 0;
+        }
+
+        .fuel-cell-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .fuel-input, .air-input, .water-output {
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fuel-input {
+            background: #ff6b6b;
+        }
+
+        .air-input {
+            background: #4ecdc4;
+        }
+
+        .water-output {
+            background: #45b7d1;
+        }
+
+        .fuel-input:hover, .air-input:hover, .water-output:hover {
+            transform: scale(1.1);
+        }
+
+        .reaction-animation {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .molecule {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 10px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.2);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .card-flip {
+            background: transparent;
+            width: 300px;
+            height: 200px;
+            perspective: 1000px;
+            margin: 20px auto;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .card-flip:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-weight: bold;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .navigation {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .nav-btn {
+            padding: 15px 30px;
+            margin: 0 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5em;
+            color: white;
+            margin: 20px 0;
+        }
+
+        .advantages-disadvantages {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .advantage-card, .disadvantage-card {
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .advantage-card {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+        }
+
+        .disadvantage-card {
+            background: linear-gradient(135deg, #e17055, #d63031);
+            color: white;
+        }
+
+        .interactive-equation {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .equation-part {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .equation-part:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.1);
+        }
+
+        .completion-celebration {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: explode 1s ease-out infinite;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(20); opacity: 0; }
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .advantages-disadvantages {
+                grid-template-columns: 1fr;
+            }
+            
+            .electrode-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .electron-flow {
+                width: 100px;
+                height: 100px;
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ Electrochemistry Adventure ⚡</h1>
+            <p>Master the Applications of Electrolysis with Interactive Learning!</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="score-display" id="scoreDisplay">Score: 0/0</div>
+        </div>
+
+        <!-- Section 1: Introduction -->
+        <div class="section active" id="section1">
+            <h2>🚀 Welcome to Your Electrochemistry Journey!</h2>
+            <p style="font-size: 1.2em; margin: 20px 0;">Ready to explore the amazing world of electroplating and fuel cells? Click through the interactive elements and answer questions to unlock the next sections!</p>
+            
+            <div class="card-flip">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <h3>What is Electrolysis?</h3>
+                        <p>Hover to reveal!</p>
+                    </div>
+                    <div class="card-back">
+                        <p>The process of using electricity to break down compounds or coat metals with other metals!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Electroplating Introduction -->
+        <div class="section" id="section2">
+            <h2>🔬 What is Electroplating?</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;">Electroplating is a process where the surface of one metal is coated with a layer of a different metal.</p>
+            
+            <div class="electroplating-simulator">
+                <h3>🧪 Interactive Electroplating Setup</h3>
+                <p>Click on the electrodes to learn about their roles!</p>
+                
+                <div class="electrode-container">
+                    <div class="electrode anode tooltip" onclick="showElectrodeInfo('anode')">
+                        <div class="tooltiptext">Anode (+): Made from pure metal that will be plated</div>
+                        <div style="text-align: center; padding-top: 80px; color: #333; font-weight: bold;">ANODE<br>(+)</div>
+                    </div>
+                    
+                    <div class="electron-flow">
+                        <div class="electron"></div>
+                        <div class="electron" style="animation-delay: 1s;"></div>
+                    </div>
+                    
+                    <div class="electrode cathode tooltip" onclick="showElectrodeInfo('cathode')">
+                        <div class="tooltiptext">Cathode (-): Object to be electroplated</div>
+                        <div style="text-align: center; padding-top: 80px; color: #333; font-weight: bold;">CATHODE<br>(-)</div>
+                    </div>
+                </div>
+                
+                <div id="electrodeInfo" style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 10px; display: none;"></div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">Which electrode is made from the pure metal that will coat the object?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkAnswer(this, true, 'anode-quiz')">Anode (positive electrode)</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'anode-quiz')">Cathode (negative electrode)</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'anode-quiz')">Both electrodes</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'anode-quiz')">Neither electrode</button>
+                </div>
+                <div id="anode-quiz-feedback" style="margin-top: 15px; display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Section 3: Electroplating Example -->
+        <div class="section" id="section3">
+            <h2>🔧 Electroplating Iron with Tin Example</h2>
+            
+            <div class="interactive-equation">
+                <h3>Click the equation parts to understand the process:</h3>
+                <div style="margin: 20px 0;">
+                    <div class="equation-part tooltip" onclick="showEquationInfo('tin-oxidation')">
+                        <div class="tooltiptext">At the anode: Tin loses electrons (oxidation)</div>
+                        Sn(s) → Sn²⁺(aq) + 2e⁻
+                    </div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <div class="equation-part tooltip" onclick="showEquationInfo('tin-reduction')">
+                        <div class="tooltiptext">At the cathode: Tin ions gain electrons (reduction)</div>
+                        Sn²⁺(aq) + 2e⁻ → Sn(s)
+                    </div>
+                </div>
+                <div id="equationInfo" style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 10px; display: none;"></div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">In the tin electroplating example, what happens at the cathode?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'cathode-quiz')">Tin atoms lose electrons</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, true, 'cathode-quiz')">Tin ions gain electrons to form tin atoms</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'cathode-quiz')">Iron atoms dissolve</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'cathode-quiz')">Nothing happens</button>
+                </div>
+                <div id="cathode-quiz-feedback" style="margin-top: 15px; display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Section 4: Uses of Electroplating -->
+        <div class="section" id="section4">
+            <h2>💎 Why Do We Use Electroplating?</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0;">
+                <div class="card-flip">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h3>🛡️ Corrosion Resistance</h3>
+                        </div>
+                        <div class="card-back">
+                            <p><strong>Galvanising:</strong> Zinc coating on iron and steel<br><strong>Chrome/Nickel plating:</strong> Protects from damage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-flip">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h3>✨ Improved Appearance</h3>
+                        </div>
+                        <div class="card-back">
+                            <p><strong>Silver plating:</strong> Cutlery and jewelry<br>Makes items look shiny and attractive!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">What is galvanising?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'galvanizing-quiz')">Silver plating on jewelry</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, true, 'galvanizing-quiz')">Zinc coating on iron and steel</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'galvanizing-quiz')">Chrome plating on cars</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'galvanizing-quiz')">Gold plating on electronics</button>
+                </div>
+                <div id="galvanizing-quiz-feedback" style="margin-top: 15px; display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Section 5: Fuel Cells Introduction -->
+        <div class="section" id="section5">
+            <h2>⚡ Hydrogen Fuel Cells</h2>
+            
+            <div class="fuel-cell-simulator">
+                <h3>🚗 Interactive Fuel Cell</h3>
+                <p>A fuel cell is an electrochemical cell where fuel donates electrons at one electrode and oxygen gains electrons at the other.</p>
+                
+                <div class="fuel-cell-diagram">
+                    <div class="fuel-input tooltip" onclick="showFuelInfo('hydrogen')">
+                        <div class="tooltiptext">H₂ → 2H⁺ + 2e⁻</div>
+                        H₂ Fuel
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <h4>⚡ ELECTRICITY ⚡</h4>
+                        <div class="reaction-animation">
+                            <div class="molecule">H₂</div>
+                            <div class="molecule">+</div>
+                            <div class="molecule">O₂</div>
+                            <div class="molecule">→</div>
+                            <div class="molecule">H₂O</div>
+                        </div>
+                    </div>
+                    
+                    <div class="air-input tooltip" onclick="showFuelInfo('oxygen')">
+                        <div class="tooltiptext">O₂ + 4H⁺ + 4e⁻ → 2H₂O</div>
+                        O₂ (Air)
+                    </div>
+                </div>
+                
+                <div class="water-output" style="margin: 20px auto; width: fit-content;">
+                    💧 Water Output (Only Product!)
+                </div>
+                
+                <div id="fuelInfo" style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 10px; display: none;"></div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">What is the overall equation for a hydrogen fuel cell?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'fuel-equation-quiz')">H₂ + O₂ → H₂O₂</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, true, 'fuel-equation-quiz')">2H₂ + O₂ → 2H₂O</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'fuel-equation-quiz')">H₂ + 2O₂ → H₂O₃</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'fuel-equation-quiz')">4H₂ + O₂ → 2H₂O₂</button>
+                </div>
+                <div id="fuel-equation-quiz-feedback" style="margin-top: 15px; display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Section 6: Advantages and Disadvantages -->
+        <div class="section" id="section6">
+            <h2>⚖️ Fuel Cells vs Petrol Engines</h2>
+            
+            <div class="advantages-disadvantages">
+                <div class="advantage-card">
+                    <h3>✅ ADVANTAGES</h3>
+                    <ul style="text-align: left; margin: 20px 0;">
+                        <li>🔄 Renewable (hydrogen from water)</li>
+                        <li>🌿 No pollution (only water produced)</li>
+                        <li>⚡ More energy per kilogram</li>
+                        <li>🔧 No moving parts = no power loss</li>
+                        <li>🤫 Quieter than petrol engines</li>
+                    </ul>
+                </div>
+                
+                <div class="disadvantage-card">
+                    <h3>❌ DISADVANTAGES</h3>
+                    <ul style="text-align: left; margin: 20px 0;">
+                        <li>🏭 Hydrogen production may use fossil fuels</li>
+                        <li>⚡ Electrolysis needs lots of electricity</li>
+                        <li>💰 Expensive materials</li>
+                        <li>🔥 Hydrogen is flammable/explosive</li>
+                        <li>🥶 Less efficient in cold temperatures</li>
+                        <li>⛽ Few hydrogen filling stations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">Which is NOT an advantage of hydrogen fuel cells over petrol engines?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'disadvantage-quiz')">They produce only water</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'disadvantage-quiz')">They are quieter</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, true, 'disadvantage-quiz')">They are cheaper to produce</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'disadvantage-quiz')">They release more energy per kilogram</button>
+                </div>
+                <div id="disadvantage-quiz-feedback" style="margin-top: 15px; display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Section 7: Final Challenge -->
+        <div class="section" id="section7">
+            <h2>🏆 Final Challenge!</h2>
+            
+            <div class="quiz-container">
+                <div class="quiz-question">Extended Tier Challenge: Which half-equation shows reduction in tin electroplating?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'final-quiz')">Sn(s) → Sn²⁺(aq) + 2e⁻</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, true, 'final-quiz')">Sn²⁺(aq) + 2e⁻ → Sn(s)</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'final-quiz')">Fe(s) → Fe²⁺(aq) + 2e⁻</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false, 'final-quiz')">2H⁺ + 2e⁻ → H₂</button>
+                </div>
+                <div id="final-quiz-feedback" style="margin-top: 15px; display: none;"></div>
+            </div>
+
+            <div style="margin: 30px 0; padding: 20px; background: linear-gradient(135deg, #00b894, #00a085); border-radius: 15px; color: white;">
+                <h3>🎯 Key Takeaways Summary:</h3>
+                <ul style="margin: 20px 0; text-align: left;">
+                    <li><strong>Electroplating:</strong> Coating one metal with another using electrolysis</li>
+                    <li><strong>Anode:</strong> Pure metal that gets oxidized (loses electrons)</li>
+                    <li><strong>Cathode:</strong> Object being plated, where reduction occurs (gains electrons)</li>
+                    <li><strong>Uses:</strong> Corrosion resistance (galvanising) and improved appearance</li>
+                    <li><strong>Fuel Cells:</strong> Convert chemical energy to electrical energy</li>
+                    <li><strong>Hydrogen + Oxygen → Water + Electricity</strong></li>
+                    <li><strong>Advantages:</strong> Clean, renewable, efficient, quiet</li>
+                    <li><strong>Disadvantages:</strong> Expensive, storage issues, infrastructure challenges</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Completion Section -->
+        <div class="section" id="completion" style="display: none;">
+            <div class="completion-celebration">
+                <h2>🎉 Congratulations! 🎉</h2>
+                <p style="font-size: 1.3em; margin: 20px 0;">You've mastered Applications of Electrolysis!</p>
+                <div id="finalScore" style="font-size: 1.5em; margin: 20px 0;"></div>
+                <p>You're now ready to tackle IGCSE Chemistry questions on electroplating and fuel cells!</p>
+                
+                <!-- Fireworks animation -->
+                <div style="position: relative; height: 100px;">
+                    <div class="firework" style="top: 20px; left: 20%;"></div>
+                    <div class="firework" style="top: 40px; left: 80%; animation-delay: 0.3s;"></div>
+                    <div class="firework" style="top: 60px; left: 50%; animation-delay: 0.6s;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="changeSection(-1)" disabled>Previous</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSection(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 7;
+        let score = 0;
+        let totalQuestions = 0;
+        const answeredQuestions = new Set();
+
+        function updateProgress() {
+            const progress = (currentSection / totalSections) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('scoreDisplay').textContent = `Score: ${score}/${totalQuestions} | Section ${currentSection}/${totalSections}`;
+        }
+
+        function changeSection(direction) {
+            document.getElementById(`section${currentSection}`).classList.remove('active');
+            
+            currentSection += direction;
+            
+            if (currentSection > totalSections) {
+                document.getElementById('completion').style.display = 'block';
+                document.getElementById('finalScore').textContent = `Final Score: ${score}/${totalQuestions} (${Math.round((score/totalQuestions)*100)}%)`;
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('prevBtn').textContent = 'Restart';
+                document.getElementById('prevBtn').disabled = false;
+                return;
+            }
+            
+            if (currentSection < 1) {
+                // Restart functionality
+                currentSection = 1;
+                score = 0;
+                totalQuestions = 0;
+                answeredQuestions.clear();
+                document.getElementById('completion').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('prevBtn').textContent = 'Previous';
+                
+                // Reset all quiz feedback
+                const feedbacks = document.querySelectorAll('[id$="-feedback"]');
+                feedbacks.forEach(feedback => {
+                    feedback.style.display = 'none';
+                    feedback.innerHTML = '';
+                });
+                
+                // Reset all quiz options
+                const options = document.querySelectorAll('.quiz-option');
+                options.forEach(option => {
+                    option.classList.remove('correct', 'incorrect');
+                    option.disabled = false;
+                });
+            }
+            
+            document.getElementById(`section${currentSection}`).classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSection === 1;
+            document.getElementById('nextBtn').disabled = false;
+            
+            updateProgress();
+        }
+
+        function checkAnswer(element, isCorrect, quizId) {
+            if (answeredQuestions.has(quizId)) return;
+            
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById(quizId + '-feedback');
+            
+            options.forEach(option => option.disabled = true);
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.innerHTML = '✅ Correct! Well done!';
+                feedback.style.color = '#00b894';
+                score++;
+            } else {
+                element.classList.add('incorrect');
+                // Find and highlight the correct answer
+                options.forEach(option => {
+                    if (option.onclick.toString().includes('true')) {
+                        option.classList.add('correct');
+                    }
+                });
+                feedback.innerHTML = '❌ Not quite right. The correct answer is highlighted in green.';
+                feedback.style.color = '#e17055';
+            }
+            
+            totalQuestions++;
+            answeredQuestions.add(quizId);
+            feedback.style.display = 'block';
+            updateProgress();
+        }
+
+        function showElectrodeInfo(type) {
+            const infoDiv = document.getElementById('electrodeInfo');
+            let info = '';
+            
+            if (type === 'anode') {
+                info = `
+                    <h4>🔴 Anode (Positive Electrode)</h4>
+                    <p><strong>Made from:</strong> Pure metal that will be plated onto the object</p>
+                    <p><strong>Process:</strong> Oxidation - metal atoms lose electrons</p>
+                    <p><strong>Example:</strong> Pure tin electrode in tin plating</p>
+                `;
+            } else {
+                info = `
+                    <h4>🔵 Cathode (Negative Electrode)</h4>
+                    <p><strong>What it is:</strong> The object to be electroplated</p>
+                    <p><strong>Process:</strong> Reduction - metal ions gain electrons</p>
+                    <p><strong>Example:</strong> Iron strip being coated with tin</p>
+                `;
+            }
+            
+            infoDiv.innerHTML = info;
+            infoDiv.style.display = 'block';
+        }
+
+        function showEquationInfo(type) {
+            const infoDiv = document.getElementById('equationInfo');
+            let info = '';
+            
+            if (type === 'tin-oxidation') {
+                info = `
+                    <h4>⚡ Oxidation at Anode</h4>
+                    <p><strong>Sn(s) → Sn²⁺(aq) + 2e⁻</strong></p>
+                    <p>Tin atoms lose 2 electrons each to form tin ions in solution</p>
+                    <p>This happens at the positive electrode (anode)</p>
+                `;
+            } else {
+                info = `
+                    <h4>⚡ Reduction at Cathode</h4>
+                    <p><strong>Sn²⁺(aq) + 2e⁻ → Sn(s)</strong></p>
+                    <p>Tin ions gain 2 electrons each to form solid tin atoms</p>
+                    <p>These tin atoms deposit on the iron strip (cathode)</p>
+                `;
+            }
+            
+            infoDiv.innerHTML = info;
+            infoDiv.style.display = 'block';
+        }
+
+        function showFuelInfo(type) {
+            const infoDiv = document.getElementById('fuelInfo');
+            let info = '';
+            
+            if (type === 'hydrogen') {
+                info = `
+                    <h4>🔥 Hydrogen Fuel Input</h4>
+                    <p><strong>Reaction:</strong> H₂ → 2H⁺ + 2e⁻</p>
+                    <p>Hydrogen molecules split into protons and electrons</p>
+                    <p>Electrons flow through external circuit to generate electricity</p>
+                `;
+            } else {
+                info = `
+                    <h4>💨 Oxygen from Air</h4>
+                    <p><strong>Reaction:</strong> O₂ + 4H⁺ + 4e⁻ → 2H₂O</p>
+                    <p>Oxygen combines with protons and electrons to form water</p>
+                    <p>This is the only chemical product - completely clean!</p>
+                `;
+            }
+            
+            infoDiv.innerHTML = info;
+            infoDiv.style.display = 'block';
+        }
+
+        // Initialize the application
+        updateProgress();
+
+        // Add some interactive animations
+        setInterval(() => {
+            const electrons = document.querySelectorAll('.electron');
+            electrons.forEach(electron => {
+                electron.style.background = electron.style.background === 'rgb(255, 118, 117)' ? '#74b9ff' : '#ff7675';
+            });
+        }, 1000);
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSection > 1) {
+                changeSection(-1);
+            } else if (e.key === 'ArrowRight' && currentSection < totalSections) {
+                changeSection(1);
+            }
+        });
+
+        // Add click sound effects (optional - using Web Audio API)
+        function playClickSound() {
+            if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+                const audioContext = new (AudioContext || webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            }
+        }
+
+        // Add click sound to interactive elements
+        document.querySelectorAll('.quiz-option, .nav-btn, .electrode, .equation-part').forEach(element => {
+            element.addEventListener('click', playClickSound);
+        });
+
+        // Add particles animation for celebration
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                background: #ffd700;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1000;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${window.innerHeight}px;
+                animation: floatUp 3s linear forwards;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 3000);
+        }
+
+        // Add CSS for floating particles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-${window.innerHeight + 100}px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Trigger particle animation on completion
+        function celebrateCompletion() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(createParticle, i * 100);
+            }
+        }
+
+        // Enhanced completion check
+        const originalChangeSection = changeSection;
+        changeSection = function(direction) {
+            if (currentSection === totalSections && direction === 1) {
+                celebrateCompletion();
+            }
+            originalChangeSection(direction);
+        };
+
+        // Add touch support for mobile
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > 50) { // Minimum swipe distance
+                if (diff > 0 && currentSection < totalSections) {
+                    changeSection(1); // Swipe left = next
+                } else if (diff < 0 && currentSection > 1) {
+                    changeSection(-1); // Swipe right = previous
+                }
+            }
+        });
+
+        // Add progress saving (using sessionStorage since localStorage is not available)
+        function saveProgress() {
+            const progress = {
+                currentSection,
+                score,
+                totalQuestions,
+                answeredQuestions: Array.from(answeredQuestions)
+            };
+            try {
+                sessionStorage.setItem('electrochemistryProgress', JSON.stringify(progress));
+            } catch (e) {
+                // Fallback if sessionStorage is not available
+                console.log('Progress saving not available');
+            }
+        }
+
+        function loadProgress() {
+            try {
+                const saved = sessionStorage.getItem('electrochemistryProgress');
+                if (saved) {
+                    const progress = JSON.parse(saved);
+                    currentSection = progress.currentSection || 1;
+                    score = progress.score || 0;
+                    totalQuestions = progress.totalQuestions || 0;
+                    progress.answeredQuestions?.forEach(q => answeredQuestions.add(q));
+                    
+                    // Update UI
+                    document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+                    document.getElementById(`section${currentSection}`).classList.add('active');
+                    updateProgress();
+                }
+            } catch (e) {
+                console.log('Progress loading not available');
+            }
+        }
+
+        // Auto-save progress
+        const originalCheckAnswer = checkAnswer;
+        checkAnswer = function(...args) {
+            originalCheckAnswer(...args);
+            saveProgress();
+        };
+
+        // Load progress on page load
+        window.addEventListener('load', loadProgress);
+    </script>
+</body>
+</html>
