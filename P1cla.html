@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Learning Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-content {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .formula {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 2px;
+        }
+
+        .diagram {
+            background: #f0f8ff;
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .interactive-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .interactive-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Card color themes */
+        .card-forces { border-color: #e74c3c; }
+        .card-forces .card-icon { background: #e74c3c; }
+
+        .card-effects { border-color: #f39c12; }
+        .card-effects .card-icon { background: #f39c12; }
+
+        .card-diagrams { border-color: #9b59b6; }
+        .card-diagrams .card-icon { background: #9b59b6; }
+
+        .card-speed { border-color: #3498db; }
+        .card-speed .card-icon { background: #3498db; }
+
+        .card-graphs { border-color: #2ecc71; }
+        .card-graphs .card-icon { background: #2ecc71; }
+
+        .card-moments { border-color: #e67e22; }
+        .card-moments .card-icon { background: #e67e22; }
+
+        .card-pressure { border-color: #1abc9c; }
+        .card-pressure .card-icon { background: #1abc9c; }
+
+        .card-fluids { border-color: #34495e; }
+        .card-fluids .card-icon { background: #34495e; }
+
+        .card-diffusion { border-color: #8e44ad; }
+        .card-diffusion .card-icon { background: #8e44ad; }
+
+        /* Animation classes */
+        .bounce {
+            animation: bounce 0.6s;
+        }
+
+        .slide-right {
+            animation: slideRight 1s;
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        .pulse-animation {
+            animation: pulseAnim 1s infinite;
+        }
+
+        .rotate-clockwise {
+            animation: rotateClockwise 2s ease-in-out;
+        }
+
+        .rotate-counterclockwise {
+            animation: rotateCounterClockwise 2s ease-in-out;
+        }
+
+        .rotate-balanced {
+            animation: rotateBalanced 3s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+            40%, 43% { transform: translate3d(0,-15px,0); }
+            70% { transform: translate3d(0,-7px,0); }
+            90% { transform: translate3d(0,-2px,0); }
+        }
+
+        @keyframes slideRight {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @keyframes pulseAnim {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes rotateClockwise {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(45deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes rotateCounterClockwise {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(-45deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes rotateBalanced {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-15deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .demo-area {
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .calculator {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .calculator input {
+            width: 80px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .calculator button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .quiz-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .quiz-question {
+            color: white;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid transparent;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: white;
+        }
+
+        .quiz-option.correct {
+            background: #27ae60;
+            border-color: #2ecc71;
+        }
+
+        .quiz-option.incorrect {
+            background: #e74c3c;
+            border-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Physics Learning Cards</h1>
+            <p>Year 8 Forces, Motion & Pressure</p>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Card 1: Balanced & Unbalanced Forces -->
+            <div class="card card-forces">
+                <div class="card-header">
+                    <div class="card-icon">⚖️</div>
+                    <div class="card-title">Balanced & Unbalanced Forces</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>Force:</strong> A push, pull, or twist on an object. Unit: <span class="highlight">Newton (N)</span></p>
+                    
+                    <div class="diagram">
+                        <h4>🔴 Balanced Forces</h4>
+                        <div class="demo-area" id="balanced-demo">
+                            ← 5N 📦 5N →
+                        </div>
+                        <p>Equal size, opposite direction = <span class="highlight">No change in movement</span></p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>🟢 Unbalanced Forces</h4>
+                        <div class="demo-area" id="unbalanced-demo">
+                            ← 3N 📦 7N →
+                        </div>
+                        <p>Unequal forces = <span class="highlight">Always cause change in movement</span></p>
+                    </div>
+
+                    <button class="interactive-button" onclick="demoForces()">🎯 Demo Forces</button>
+                </div>
+            </div>
+
+            <!-- Card 2: Effects of Unbalanced Forces -->
+            <div class="card card-effects">
+                <div class="card-header">
+                    <div class="card-icon">🏃</div>
+                    <div class="card-title">Effects of Unbalanced Forces</div>
+                </div>
+                <div class="card-content">
+                    <p>Unbalanced forces change motion in <span class="highlight">3 ways:</span></p>
+                    
+                    <div class="diagram">
+                        <h4>🚀 Speeding Up (Acceleration)</h4>
+                        <div class="demo-area" id="speed-demo">
+                            → 🚗 →
+                        </div>
+                        <p>Force same direction as movement</p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>🛑 Slowing Down (Deceleration)</h4>
+                        <div class="demo-area" id="slow-demo">
+                            ← 🚗 →
+                        </div>
+                        <p>Force opposite to movement</p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>🌍 Changing Direction</h4>
+                        <div class="demo-area" id="direction-demo">
+                            🌍 ↻ ☀️
+                        </div>
+                        <p>Force at angle to movement</p>
+                    </div>
+
+                    <button class="interactive-button" onclick="demoMotion()">🎬 See Motion</button>
+                </div>
+            </div>
+
+            <!-- Card 3: Force Diagrams -->
+            <div class="card card-diagrams">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Force Diagrams</div>
+                </div>
+                <div class="card-content">
+                    <p>Simple drawings showing forces on objects using <span class="highlight">arrows</span></p>
+                    
+                    <div class="diagram">
+                        <h4>Arrow Rules:</h4>
+                        <p><strong>Direction:</strong> Shows force direction</p>
+                        <p><strong>Length:</strong> Shows force magnitude</p>
+                        <p>Longer arrow = Bigger force</p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>Force Diagram Example:</h4>
+                        <div class="demo-area" id="diagram-demo">
+                            ←——— 📦 ———→
+                        </div>
+                        <p>Same length arrows = balanced forces</p>
+                    </div>
+
+                    <button class="interactive-button" onclick="demoDiagrams()">✏️ Draw Forces</button>
+                </div>
+            </div>
+
+            <!-- Card 4: Speed & Calculation -->
+            <div class="card card-speed">
+                <div class="card-header">
+                    <div class="card-icon">💨</div>
+                    <div class="card-title">Speed & Its Calculation</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>Speed:</strong> How fast an object moves</p>
+                    <p>Unit: <span class="highlight">metres per second (m/s)</span></p>
+                    
+                    <div class="formula">
+                        <h4>📐 Key Formulas:</h4>
+                        <p><strong>Speed = Distance ÷ Time</strong></p>
+                        <p><strong>Distance = Speed × Time</strong></p>
+                        <p><strong>Time = Distance ÷ Speed</strong></p>
+                    </div>
+
+                    <div class="calculator" id="speed-calc" style="display: none;">
+                        <h4>Speed Calculator</h4>
+                        <p>Distance: <input type="number" id="distance" placeholder="meters"> m</p>
+                        <p>Time: <input type="number" id="time" placeholder="seconds"> s</p>
+                        <button onclick="calculateSpeed()">Calculate</button>
+                        <div id="speed-result" style="margin-top: 10px; font-weight: bold; color: #007bff;"></div>
+                    </div>
+
+                    <button class="interactive-button" onclick="showCalculator()">🧮 Speed Calculator</button>
+                </div>
+            </div>
+
+            <!-- Card 5: Distance-Time Graphs -->
+            <div class="card card-graphs">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <div class="card-title">Distance-Time Graphs</div>
+                </div>
+                <div class="card-content">
+                    <p>Visual way to describe an object's journey</p>
+                    
+                    <div class="diagram">
+                        <h4>Graph Axes:</h4>
+                        <p><strong>Y-axis (↑):</strong> Distance from start</p>
+                        <p><strong>X-axis (→):</strong> Time taken</p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>Line Meanings:</h4>
+                        <div class="demo-area" id="graph-demo">
+                            📊 Click to see graph types!
+                        </div>
+                        <p><strong>Steeper line =</strong> <span class="highlight">Faster speed</span></p>
+                    </div>
+
+                    <button class="interactive-button" onclick="demoGraphs()">📊 Interactive Graph</button>
+                </div>
+            </div>
+
+            <!-- Card 6: Turning Forces (Moments) -->
+            <div class="card card-moments">
+                <div class="card-header">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">Turning Forces (Moments)</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>Key Terms:</strong></p>
+                    <p><span class="highlight">Pivot:</span> Point object turns around</p>
+                    <p><span class="highlight">Lever:</span> Object that turns</p>
+                    <p><span class="highlight">Moment:</span> Turning effect of force</p>
+                    
+                    <div class="formula">
+                        <h4>📐 Moment Formula:</h4>
+                        <p><strong>Moment (Nm) = Force (N) × Distance (m)</strong></p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>⚖️ Turning Forces Demo:</h4>
+                        <div class="demo-area" id="balance-demo">
+                            <div style="position: relative; display: inline-block;">
+                                <div style="font-size: 40px;">🔧</div>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; color: #333;">⚪</div>
+                            </div>
+                        </div>
+                        <p>Watch the spanner turn around the pivot!</p>
+                    </div>
+
+                    <button class="interactive-button" onclick="demoMoments()">🎪 Balance Demo</button>
+                </div>
+            </div>
+
+            <!-- Card 7: Pressure -->
+            <div class="card card-pressure">
+                <div class="card-header">
+                    <div class="card-icon">👇</div>
+                    <div class="card-title">Pressure</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>Pressure:</strong> Amount of force pushing on a certain area</p>
+                    
+                    <div class="formula">
+                        <h4>📐 Pressure Formula:</h4>
+                        <p><strong>Pressure (N/m²) = Force (N) ÷ Area (m²)</strong></p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>Pressure Examples:</h4>
+                        <div class="demo-area" id="pressure-demo">
+                            🔪 vs 🐪
+                        </div>
+                        <p>Small area = High pressure | Large area = Low pressure</p>
+                    </div>
+
+                    <button class="interactive-button" onclick="demoPressure()">🔬 Pressure Demo</button>
+                </div>
+            </div>
+
+            <!-- Card 8: Pressure in Liquids & Gases -->
+            <div class="card card-fluids">
+                <div class="card-header">
+                    <div class="card-icon">💧</div>
+                    <div class="card-title">Pressure in Liquids & Gases</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>Cause:</strong> Moving particles collide with surfaces</p>
+                    
+                    <div class="diagram">
+                        <h4>🌊 Liquid Pressure:</h4>
+                        <div class="demo-area" id="liquid-demo">
+                            💧💧💧 Deeper = More Pressure
+                        </div>
+                        <p><span class="highlight">Increases with depth</span></p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>💨 Gas Pressure:</h4>
+                        <div class="demo-area" id="gas-demo">
+                            💨 More particles = More pressure
+                        </div>
+                        <p>More particles or heat = Higher pressure</p>
+                    </div>
+
+                    <button class="interactive-button" onclick="demoFluids()">🌊 Fluid Demo</button>
+                </div>
+            </div>
+
+            <!-- Card 9: Diffusion -->
+            <div class="card card-diffusion">
+                <div class="card-header">
+                    <div class="card-icon">🌪️</div>
+                    <div class="card-title">Diffusion</div>
+                </div>
+                <div class="card-content">
+                    <p><strong>Diffusion:</strong> Movement from <span class="highlight">high concentration</span> to <span class="highlight">low concentration</span></p>
+                    
+                    <div class="diagram">
+                        <h4>Where it happens:</h4>
+                        <p>💧 <strong>Liquids</strong> and 💨 <strong>Gases</strong></p>
+                    </div>
+
+                    <div class="diagram">
+                        <h4>🎯 Diffusion Demo:</h4>
+                        <div class="demo-area" id="diffusion-demo">
+                            🔴🔴🔴 | | | ⚪⚪⚪
+                        </div>
+                        <p>Particles spread out evenly over time</p>
+                    </div>
+
+                    <button class="interactive-button" onclick="demoDiffusion()">🎪 Diffusion Animation</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Quiz Section -->
+        <div class="quiz-section">
+            <h2 style="color: white; text-align: center; margin-bottom: 20px;">🧠 Quick Quiz</h2>
+            <div class="quiz-question">What happens when forces are balanced on an object?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectAnswer(this, false)">The object speeds up</div>
+                <div class="quiz-option" onclick="selectAnswer(this, true)">No change in movement</div>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">The object changes direction</div>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">The object slows down</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple working functions
+        function demoForces() {
+            const balanced = document.getElementById('balanced-demo');
+            const unbalanced = document.getElementById('unbalanced-demo');
+            
+            balanced.classList.add('bounce');
+            setTimeout(() => {
+                unbalanced.classList.add('slide-right');
+            }, 500);
+            
+            setTimeout(() => {
+                balanced.classList.remove('bounce');
+                unbalanced.classList.remove('slide-right');
+            }, 2000);
+        }
+
+        function demoMotion() {
+            const speedDemo = document.getElementById('speed-demo');
+            const slowDemo = document.getElementById('slow-demo');
+            const directionDemo = document.getElementById('direction-demo');
+            
+            speedDemo.classList.add('slide-right');
+            setTimeout(() => {
+                slowDemo.classList.add('shake');
+            }, 600);
+            setTimeout(() => {
+                directionDemo.classList.add('pulse-animation');
+            }, 1200);
+            
+            setTimeout(() => {
+                speedDemo.classList.remove('slide-right');
+                slowDemo.classList.remove('shake');
+                directionDemo.classList.remove('pulse-animation');
+            }, 3000);
+        }
+
+        function demoDiagrams() {
+            const diagramDemo = document.getElementById('diagram-demo');
+            diagramDemo.innerHTML = '←— 📦 ————→';
+            diagramDemo.classList.add('bounce');
+            
+            setTimeout(() => {
+                diagramDemo.innerHTML = '←——— 📦 ———→';
+                diagramDemo.classList.remove('bounce');
+            }, 2000);
+        }
+
+        function showCalculator() {
+            const calc = document.getElementById('speed-calc');
+            if (calc.style.display === 'none') {
+                calc.style.display = 'block';
+            } else {
+                calc.style.display = 'none';
+            }
+        }
+
+        function calculateSpeed() {
+            const distance = document.getElementById('distance').value;
+            const time = document.getElementById('time').value;
+            const result = document.getElementById('speed-result');
+            
+            if (distance && time && time > 0) {
+                const speed = (distance / time).toFixed(2);
+                result.innerHTML = `Speed = ${speed} m/s`;
+                result.style.color = '#27ae60';
+            } else {
+                result.innerHTML = 'Please enter valid numbers!';
+                result.style.color = '#e74c3c';
+            }
+        }
+
+        function demoGraphs() {
+            const graphDemo = document.getElementById('graph-demo');
+            const examples = [
+                '📊 Horizontal line = Stationary',
+                '📊 Upward slope = Moving away',
+                '📊 Downward slope = Moving back',
+                '📊 Steeper = Faster speed!'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                graphDemo.innerHTML = examples[i];
+                graphDemo.classList.add('bounce');
+                
+                setTimeout(() => {
+                    graphDemo.classList.remove('bounce');
+                }, 500);
+                
+                i++;
+                if (i >= examples.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        graphDemo.innerHTML = '📊 Click to see graph types!';
+                    }, 1000);
+                }
+            }, 1500);
+        }
+
+        function demoMoments() {
+            const balanceDemo = document.getElementById('balance-demo');
+            
+            // Step 1: Show unbalanced moment (clockwise rotation)
+            balanceDemo.innerHTML = `
+                <div style="position: relative; display: inline-block;">
+                    <div id="spanner1" style="font-size: 40px; color: #e74c3c;">🔧</div>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; color: #333;">⚪</div>
+                    <div style="position: absolute; top: -10px; right: -10px; font-size: 16px;">⬇️</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: #e74c3c;">Clockwise rotation!</div>
+                </div>
+            `;
+            
+            // Apply rotation animation
+            setTimeout(() => {
+                document.getElementById('spanner1').classList.add('rotate-clockwise');
+            }, 100);
+            
+            // Step 2: Show opposite unbalanced moment (counterclockwise)
+            setTimeout(() => {
+                balanceDemo.innerHTML = `
+                    <div style="position: relative; display: inline-block;">
+                        <div id="spanner2" style="font-size: 40px; color: #f39c12;">🔧</div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; color: #333;">⚪</div>
+                        <div style="position: absolute; top: -10px; left: -10px; font-size: 16px;">⬇️</div>
+                        <div style="margin-top: 10px; font-size: 12px; color: #f39c12;">Counterclockwise rotation!</div>
+                    </div>
+                `;
+                setTimeout(() => {
+                    document.getElementById('spanner2').classList.add('rotate-counterclockwise');
+                }, 100);
+            }, 2500);
+            
+            // Step 3: Show balanced moments (gentle oscillation)
+            setTimeout(() => {
+                balanceDemo.innerHTML = `
+                    <div style="position: relative; display: inline-block;">
+                        <div id="spanner3" style="font-size: 40px; color: #27ae60;">🔧</div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; color: #333;">⚪</div>
+                        <div style="position: absolute; top: -10px; left: -15px; font-size: 12px;">⬇️5N</div>
+                        <div style="position: absolute; top: -10px; right: -15px; font-size: 12px;">⬇️5N</div>
+                        <div style="margin-top: 10px; font-size: 12px; color: #27ae60;">Balanced - small oscillation</div>
+                    </div>
+                `;
+                setTimeout(() => {
+                    document.getElementById('spanner3').classList.add('rotate-balanced');
+                }, 100);
+            }, 5000);
+            
+            // Step 4: Reset to original
+            setTimeout(() => {
+                balanceDemo.innerHTML = `
+                    <div style="position: relative; display: inline-block;">
+                        <div style="font-size: 40px;">🔧</div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; color: #333;">⚪</div>
+                    </div>
+                `;
+            }, 8500);
+        }
+
+        function demoPressure() {
+            const pressureDemo = document.getElementById('pressure-demo');
+            const examples = [
+                '🔪 Small area = HIGH pressure',
+                '🐪 Large feet = LOW pressure'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                pressureDemo.innerHTML = examples[i];
+                pressureDemo.classList.add('pulse-animation');
+                
+                setTimeout(() => {
+                    pressureDemo.classList.remove('pulse-animation');
+                }, 800);
+                
+                i++;
+                if (i >= examples.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        pressureDemo.innerHTML = '🔪 vs 🐪';
+                    }, 1000);
+                }
+            }, 2000);
+        }
+
+        function demoFluids() {
+            const liquidDemo = document.getElementById('liquid-demo');
+            const gasDemo = document.getElementById('gas-demo');
+            
+            liquidDemo.innerHTML = '💧 💧💧 💧💧💧 (Deeper!)';
+            liquidDemo.classList.add('slide-right');
+            
+            setTimeout(() => {
+                gasDemo.innerHTML = '💨💨💨 (More particles!)';
+                gasDemo.classList.add('pulse-animation');
+            }, 1000);
+            
+            setTimeout(() => {
+                liquidDemo.classList.remove('slide-right');
+                gasDemo.classList.remove('pulse-animation');
+                liquidDemo.innerHTML = '💧💧💧 Deeper = More Pressure';
+                gasDemo.innerHTML = '💨 More particles = More pressure';
+            }, 3000);
+        }
+
+        function demoDiffusion() {
+            const diffusionDemo = document.getElementById('diffusion-demo');
+            const stages = [
+                '🔴🔴🔴 | | | ⚪⚪⚪',
+                '🔴🔴 | 🔴 | ⚪ | ⚪⚪',
+                '🔴 | 🔴 | 🔴⚪ | ⚪ | ⚪',
+                '🔴 🔴 🔴 ⚪ ⚪ ⚪ (Mixed!)'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                diffusionDemo.innerHTML = stages[i];
+                diffusionDemo.classList.add('bounce');
+                
+                setTimeout(() => {
+                    diffusionDemo.classList.remove('bounce');
+                }, 500);
+                
+                i++;
+                if (i >= stages.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        diffusionDemo.innerHTML = '🔴🔴🔴 | | | ⚪⚪⚪';
+                    }, 2000);
+                }
+            }, 1500);
+        }
+
+        function selectAnswer(option, isCorrect) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                if (opt === option) {
+                    opt.classList.add(isCorrect ? 'correct' : 'incorrect');
+                } else if (!isCorrect && opt.textContent === 'No change in movement') {
+                    opt.classList.add('correct');
+                }
+            });
+            
+            setTimeout(() => {
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                    opt.style.pointerEvents = 'auto';
+                });
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

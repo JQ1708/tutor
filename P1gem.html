@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Physics Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .scene {
+            width: 100%;
+            height: 480px; /* Increased height for diagrams */
+            perspective: 1000px;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card__face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+        }
+        .card__face--front {
+            /* Gradients applied via Tailwind */
+        }
+        .card__face--back {
+            transform: rotateY(180deg);
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: auto;
+        }
+        .card__face--back::-webkit-scrollbar {
+            width: 5px;
+        }
+        .card__face--back::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.5);
+            border-radius: 10px;
+        }
+        .card__face--back h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            width: 100%;
+        }
+        .card__face--back ul {
+            list-style-type: none;
+            padding-left: 0;
+            width: 100%;
+            text-align: left;
+        }
+        .card__face--back li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+         .card__face--back li strong {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+         }
+        /* -- New style for formulas -- */
+        .formula-box {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        /* -- Style for diagrams -- */
+        .diagram {
+            width: 90%;
+            max-width: 250px;
+            margin: 0.5rem auto;
+            background: rgba(255,255,255,0.1);
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Forces & Energy Flashcards</h1>
+            <p class="text-lg text-gray-600 mt-2">Click on any card to flip it over and see the details!</p>
+        </header>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Card 1: Balanced & Unbalanced Forces -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-blue-500 to-blue-600">
+                        <i class="fa-solid fa-scale-balanced fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Balanced & Unbalanced Forces</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-blue-600 to-blue-500">
+                        <h3>Balanced & Unbalanced Forces</h3>
+                        <div class="diagram">
+                            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><rect x="75" y="40" width="50" height="30" fill="#fff" stroke="#333" stroke-width="2"/><text x="100" y="58" font-family="Poppins" font-size="10" fill="#333" text-anchor="middle">Box</text><line x1="100" y1="40" x2="100" y2="10" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/><text x="100" y="5" font-family="Poppins" font-size="8" fill="white" text-anchor="middle">Upthrust</text><line x1="100" y1="70" x2="100" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/><text x="100" y="105" font-family="Poppins" font-size="8" fill="white" text-anchor="middle">Weight</text><defs><marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="0" refY="1.75" orient="auto"><polygon points="0 0, 5 1.75, 0 3.5" fill="#333"/></marker></defs></svg>
+                        </div>
+                        <ul>
+                            <li><strong>Force:</strong> A push, pull, or twist. Measured in <strong>Newtons (N)</strong>.</li>
+                            <li><strong>Balanced Forces:</strong> Equal in size, opposite in direction. Cause <strong>no change in movement</strong>.</li>
+                            <li><strong>Unbalanced Forces:</strong> Unequal in size or not opposite. <strong>Always cause a change in movement</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Effects of Unbalanced Forces -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-green-500 to-green-600">
+                        <i class="fa-solid fa-rocket fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Effects of Unbalanced Forces</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-green-600 to-green-500">
+                        <h3>Effects of Unbalanced Forces</h3>
+                        <div class="diagram">
+                           <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="15" fill="#fff"/><line x1="50" y1="50" x2="110" y2="50" stroke="white" stroke-width="2" marker-end="url(#arrowhead-white)"/><text x="80" y="45" font-family="Poppins" font-size="8" fill="white" text-anchor="middle">Motion</text><line x1="50" y1="50" x2="150" y2="50" stroke="#333" stroke-width="4" marker-end="url(#arrowhead)"/><text x="120" y="65" font-family="Poppins" font-size="8" fill="white" text-anchor="middle">Unbalanced Force</text><defs><marker id="arrowhead-white" markerWidth="5" markerHeight="3.5" refX="0" refY="1.75" orient="auto"><polygon points="0 0, 5 1.75, 0 3.5" fill="white"/></marker></defs></svg>
+                        </div>
+                        <p class="w-full text-center mb-2 text-sm">An unbalanced force changes an object's motion by:</p>
+                        <ul>
+                            <li><strong>1. Speeding Up:</strong> Force in same direction as motion.</li>
+                            <li><strong>2. Slowing Down:</strong> Force in opposite direction to motion.</li>
+                            <li><strong>3. Changing Direction:</strong> Force at an angle to motion.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Force Diagrams -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-purple-500 to-purple-600">
+                        <i class="fa-solid fa-arrows-up-down-left-right fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Force Diagrams</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-purple-600 to-purple-500">
+                        <h3>Force Diagrams</h3>
+                        <div class="diagram">
+                            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><rect x="75" y="40" width="50" height="30" fill="#fff" stroke="#333" stroke-width="2"/><line x1="125" y1="55" x2="175" y2="55" stroke="#333" stroke-width="4" marker-end="url(#arrowhead)"/><text x="150" y="50" font-family="Poppins" font-size="8" fill="white" text-anchor="middle">Push (Large)</text><line x1="75" y1="55" x2="45" y2="55" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/><text x="60" y="50" font-family="Poppins" font-size="8" fill="white" text-anchor="middle">Friction (Small)</text></svg>
+                        </div>
+                        <ul>
+                            <li><strong>Arrows:</strong> Represent forces.</li>
+                            <li><strong>Arrow Direction:</strong> Shows the force's direction.</li>
+                            <li><strong>Arrow Length:</strong> Represents the force's size. A longer arrow means a bigger force.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Speed -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-red-500 to-red-600">
+                        <i class="fa-solid fa-gauge-high fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Speed & Its Calculation</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-red-600 to-red-500">
+                        <h3>Speed & Its Calculation</h3>
+                         <div class="diagram">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 90,90 10,90" fill="none" stroke="white" stroke-width="2"/><line x1="10" y1="50" x2="90" y2="50" stroke="white" stroke-width="1"/><text x="50" y="38" font-family="Poppins" font-size="12" fill="white" text-anchor="middle">D</text><text x="30" y="78" font-family="Poppins" font-size="12" fill="white" text-anchor="middle">S</text><text x="70" y="78" font-family="Poppins" font-size="12" fill="white" text-anchor="middle">T</text></svg>
+                        </div>
+                        <ul>
+                            <li><strong>Speed:</strong> How fast an object moves. Unit: <strong>m/s</strong>.</li>
+                            <li><strong>Distance:</strong> How far it moves. Unit: <strong>m</strong>.</li>
+                            <li><strong>Time:</strong> How long it takes. Unit: <strong>s</strong>.</li>
+                        </ul>
+                        <div class="formula-box">Speed = Distance / Time</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Distance-Time Graphs -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-yellow-500 to-yellow-600 text-gray-800">
+                        <i class="fa-solid fa-chart-line fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Distance-Time Graphs</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-yellow-600 to-yellow-500 text-gray-800">
+                        <h3 class="text-gray-800">Distance-Time Graphs</h3>
+                        <div class="diagram">
+                           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="10,90 10,10 90,10" fill="none" stroke="#333" stroke-width="2"/><text x="5" y="50" font-family="Poppins" font-size="8" fill="#333" transform="rotate(-90 5 50)">Distance</text><text x="50" y="98" font-family="Poppins" font-size="8" fill="#333" text-anchor="middle">Time</text><polyline points="10,90 30,60 60,60 90,10" fill="none" stroke="red" stroke-width="2.5"/></svg>
+                        </div>
+                        <ul class="text-gray-800">
+                            <li><strong>Horizontal Line:</strong> Stationary.</li>
+                            <li><strong>Upward Slope:</strong> Constant speed away from start.</li>
+                            <li><strong>Downward Slope:</strong> Constant speed back to start.</li>
+                            <li><strong>Steepness:</strong> Steeper line = faster speed.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 6: Moments -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-pink-500 to-pink-600">
+                        <i class="fa-solid fa-rotate fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Turning Forces (Moments)</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-pink-600 to-pink-500">
+                        <h3>Turning Forces (Moments)</h3>
+                        <div class="diagram">
+                            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M20 50 H 180" stroke="white" stroke-width="4"/><polygon points="95,50 105,50 100,60" fill="white"/><line x1="50" y1="50" x2="50" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/><text x="40" y="90" fill="white" font-size="8">Force</text><line x1="100" y1="55" x2="50" y2="55" stroke="white" stroke-dasharray="2"/><text x="75" y="65" fill="white" font-size="8">Distance</text></svg>
+                        </div>
+                        <ul>
+                            <li><strong>Pivot:</strong> The point an object turns around.</li>
+                            <li><strong>Moment:</strong> The turning effect of a force.</li>
+                            <li><strong>Balancing:</strong> Clockwise moment = Anticlockwise moment.</li>
+                        </ul>
+                        <div class="formula-box">Moment = Force × Distance</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7: Pressure -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-indigo-500 to-indigo-600">
+                        <i class="fa-solid fa-down-left-and-up-right-to-center fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Pressure</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-indigo-600 to-indigo-500">
+                        <h3>Pressure</h3>
+                        <div class="diagram">
+                            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="30" width="40" height="20" fill="white"/><line x1="50" y1="30" x2="50" y2="10" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/><text x="50" y="5" fill="white" font-size="8" text-anchor="middle">Force</text><rect x="20" y="50" width="60" height="10" fill="#aaa"/><text x="50" y="70" fill="white" font-size="8" text-anchor="middle">Large Area = Low Pressure</text><rect x="135" y="30" width="10" height="20" fill="white"/><line x1="140" y1="30" x2="140" y2="10" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/><text x="140" y="5" fill="white" font-size="8" text-anchor="middle">Force</text><rect x="130" y="50" width="20" height="10" fill="#aaa"/><text x="140" y="70" fill="white" font-size="8" text-anchor="middle">Small Area = High Pressure</text></svg>
+                        </div>
+                        <ul>
+                            <li><strong>Pressure:</strong> Force pushing on a certain area.</li>
+                            <li><strong>High Pressure:</strong> Large force or a small area (sharp knife).</li>
+                            <li><strong>Low Pressure:</strong> Small force or a large area (snowshoes).</li>
+                        </ul>
+                        <div class="formula-box">Pressure = Force / Area</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8: Pressure in Liquids & Gases -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-teal-500 to-teal-600">
+                        <i class="fa-solid fa-water fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Pressure in Liquids & Gases</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-teal-600 to-teal-500">
+                        <h3>Pressure in Liquids & Gases</h3>
+                        <div class="diagram">
+                            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M60 10 V 90 H 140 V 10" fill="none" stroke="white" stroke-width="2"/><path d="M60 30 H 140" stroke="white" stroke-dasharray="2,2"/><text x="100" y="25" fill="white" font-size="8" text-anchor="middle">Low Pressure</text><text x="100" y="75" fill="white" font-size="8" text-anchor="middle">High Pressure</text><line x1="140" y1="40" x2="160" y2="40" stroke="cyan" stroke-width="3" marker-end="url(#arrowhead-cyan)"/><line x1="140" y1="80" x2="180" y2="80" stroke="cyan" stroke-width="3" marker-end="url(#arrowhead-cyan)"/><defs><marker id="arrowhead-cyan" markerWidth="5" markerHeight="3.5" refX="0" refY="1.75" orient="auto"><polygon points="0 0, 5 1.75, 0 3.5" fill="cyan"/></marker></defs></svg>
+                        </div>
+                         <ul>
+                            <li><strong>Cause:</strong> Moving particles colliding with surfaces.</li>
+                            <li><strong>In Liquids:</strong> Pressure increases with depth.</li>
+                            <li><strong>In Gases:</strong> Pressure increases with more particles or higher temperature.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 9: Diffusion -->
+            <div class="scene">
+                <div class="card">
+                    <div class="card__face card__face--front bg-gradient-to-br from-orange-500 to-orange-600">
+                        <i class="fa-solid fa-wind fa-4x mb-4"></i>
+                        <h2 class="text-2xl font-bold">Diffusion</h2>
+                    </div>
+                    <div class="card__face card__face--back bg-gradient-to-br from-orange-600 to-orange-500">
+                        <h3>Diffusion</h3>
+                        <div class="diagram">
+                            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="180" height="80" fill="none" stroke="white" stroke-width="2"/><line x1="100" y1="10" x2="100" y2="90" stroke="white" stroke-dasharray="4,4"/><circle cx="40" cy="30" r="3" fill="cyan"/><circle cx="60" cy="70" r="3" fill="cyan"/><circle cx="30" cy="60" r="3" fill="cyan"/><circle cx="70" cy="40" r="3" fill="cyan"/><circle cx="50" cy="50" r="3" fill="cyan"/><path d="M 105 50 C 125 30, 145 70, 165 50" stroke="cyan" stroke-width="1" fill="none" marker-end="url(#arrowhead-cyan)"/><text x="50" y="95" fill="white" font-size="8" text-anchor="middle">High Concentration</text><text x="150" y="95" fill="white" font-size="8" text-anchor="middle">Low Concentration</text></svg>
+                        </div>
+                        <ul>
+                            <li><strong>Definition:</strong> Particles moving from a high concentration area to a low concentration area.</li>
+                            <li><strong>Happens In:</strong> Liquids and gases.</li>
+                            <li><strong>Faster When:</strong> Temperature is higher.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('click', function () {
+                this.classList.toggle('is-flipped');
+            });
+        });
+    </script>
+
+</body>
+</html>
