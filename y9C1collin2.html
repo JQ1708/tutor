@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Math Challenge: Indices, Roots & Rational Numbers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-y: auto; /* Allow vertical scrolling if content overflows */
+        }
+        .slide-content {
+            min-height: 400px;
+        }
+        .game-container {
+            min-height: 600px;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .locked-level {
+            filter: grayscale(1) blur(2px);
+            cursor: not-allowed;
+        }
+        .correct {
+            animation: correct-pulse 0.5s;
+        }
+        .incorrect {
+            animation: incorrect-shake 0.5s;
+        }
+        @keyframes correct-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(4, 120, 87, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(4, 120, 87, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(4, 120, 87, 0); }
+        }
+        @keyframes incorrect-shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+    <div id="app-container" class="w-full h-full max-w-5xl mx-auto p-4 flex flex-col">
+
+        <!-- Level Selection Screen -->
+        <div id="level-selection" class="flex flex-col items-center justify-center h-full">
+            <h1 class="text-5xl font-bold mb-2 text-cyan-400">Math Challenge</h1>
+            <p class="text-xl mb-12 text-gray-300">Indices, Roots & Rational Numbers</p>
+            <div id="levels-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                <!-- Level cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Presentation & Game Screen -->
+        <div id="main-view" class="hidden flex-col h-full w-full">
+            
+            <!-- Presentation Slides View -->
+            <div id="presentation-view" class="w-full bg-gray-800 rounded-xl p-8 shadow-2xl flex-grow flex flex-col justify-between my-8">
+                <div>
+                    <h2 id="slide-topic" class="text-3xl font-bold text-cyan-400 mb-4"></h2>
+                    <div id="slide-content" class="text-lg text-gray-200 space-y-4 slide-content">
+                        <!-- Slide content will be inserted here -->
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <button id="prev-slide-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Previous</button>
+                    <span id="slide-counter" class="text-gray-400"></span>
+                    <div>
+                        <button id="next-slide-btn" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg mr-2">Next</button>
+                        <button id="start-game-btn" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg">Start Quiz!</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game View -->
+            <div id="game-view" class="hidden w-full bg-gray-800 rounded-xl p-8 shadow-2xl flex-grow flex flex-col game-container my-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 id="game-topic" class="text-2xl font-bold text-cyan-400"></h2>
+                    <button id="back-to-levels-btn" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg">End Quiz</button>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-700 rounded-full h-4 mb-4">
+                    <div id="progress-bar" class="bg-green-500 h-4 rounded-full" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-sm text-gray-400 mb-6">
+                    <span id="progress-text">Question 1/50</span>
+                    <span id="retries-text">Retries: 0</span>
+                </div>
+
+                <!-- Question -->
+                <div class="bg-gray-900 p-6 rounded-lg mb-6 text-center">
+                    <p id="question-text" class="text-2xl font-semibold"></p>
+                </div>
+
+                <!-- Options -->
+                <div id="options-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 flex-grow">
+                    <!-- Option buttons will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for results/messages -->
+        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+            <div class="bg-gray-800 rounded-xl p-8 shadow-2xl text-center max-w-md w-full">
+                <h3 id="modal-title" class="text-3xl font-bold text-cyan-400 mb-4"></h3>
+                <p id="modal-text" class="text-lg mb-6"></p>
+                <button id="modal-btn" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg">Continue</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- DATA ---
+        // Data for slides and questions for each level.
+        const levelsData = [
+            {
+                title: "Indices",
+                description: "Master positive, negative, and zero indices and the laws of multiplication and division.",
+                unlocked: true,
+                slides: [
+                    {
+                        title: "What are Indices?",
+                        content: `<p>An index (or power) tells us how many times to multiply a number by itself.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 text-center">
+                                      <p class="text-2xl">
+                                          <span class="text-cyan-400 text-4xl font-bold">3<sup>4</sup></span> = 3 × 3 × 3 × 3 = <span class="text-green-400 text-4xl font-bold">81</span>
+                                      </p>
+                                      <p class="mt-2">Here, 3 is the <span class="font-bold text-cyan-400">base</span> and 4 is the <span class="font-bold text-cyan-400">index</span>.</p>
+                                  </div>`
+                    },
+                    {
+                        title: "The Zero Index",
+                        content: `<p>Any number (except 0) to the power of zero is always 1.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 text-center space-y-2">
+                                      <p class="text-2xl"><span class="text-cyan-400">7<sup>0</sup></span> = <span class="text-green-400 font-bold">1</span></p>
+                                      <p class="text-2xl"><span class="text-cyan-400">99<sup>0</sup></span> = <span class="text-green-400 font-bold">1</span></p>
+                                      <p class="text-2xl"><span class="text-cyan-400">x<sup>0</sup></span> = <span class="text-green-400 font-bold">1</span> (for x ≠ 0)</p>
+                                  </div>`
+                    },
+                    {
+                        title: "Negative & Fractional Indices",
+                        content: `<p>A negative index means 'reciprocal'. A fractional index means 'root'.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 text-center space-y-4">
+                                      <p class="text-2xl">
+                                          <span class="text-cyan-400 text-4xl font-bold">2<sup>-3</sup></span> = <sup>1</sup>&frasl;<sub>2<sup>3</sup></sub> = <sup>1</sup>&frasl;<sub>8</sub>
+                                      </p>
+                                      <p class="text-2xl">
+                                          <span class="text-cyan-400 text-4xl font-bold">9<sup>1/2</sup></span> = √9 = <span class="text-green-400 font-bold">3</span>
+                                      </p>
+                                       <p class="text-2xl">
+                                          <span class="text-cyan-400 text-4xl font-bold">8<sup>2/3</sup></span> = (∛8)² = 2² = <span class="text-green-400 font-bold">4</span>
+                                      </p>
+                                  </div>`
+                    },
+                    {
+                        title: "Index Laws: Power of a Power",
+                        content: `<p>When raising a power to another power, multiply the indices.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 space-y-4">
+                                      <p class="text-xl"><span class="font-bold text-cyan-400">Power Rule:</span> (a<sup>m</sup>)<sup>n</sup> = a<sup>m×n</sup> <br>
+                                          <span class="text-2xl ml-4">(5<sup>2</sup>)<sup>3</sup> = 5<sup>2×3</sup> = 5<sup>6</sup></span></p>
+                                      <p class="text-xl"><span class="font-bold text-cyan-400">Combined:</span> (2a<sup>3</sup>)<sup>2</sup> = 2<sup>2</sup>(a<sup>3</sup>)<sup>2</sup> = 4a<sup>6</sup></p>
+                                  </div>`
+                    },
+                ],
+                questions: [
+                    // Medium Difficulty (20 questions)
+                    { q: "What is the value of 4⁻²?", o: ["-8", "1/16", "1/8", "-16", "0.0625", "Both 1/16 and 0.0625"], a: "Both 1/16 and 0.0625" },
+                    { q: "What is the value of 64¹ᐟ²?", o: ["32", "128", "8", "6", "4", "1/8"], a: "8" },
+                    { q: "What is the value of 27¹ᐟ³?", o: ["9", "3", "81", "1/3", "1/9", "6"], a: "3" },
+                    { q: "Simplify 10⁻⁴ × 10²", o: ["10⁻²", "10⁻⁶", "100⁻²", "10⁻⁸", "10²", "100⁻⁸"], a: "10⁻²" },
+                    { q: "Simplify 8⁵ ÷ 8⁻²", o: ["8³", "8⁻¹⁰", "8⁷", "1³", "8⁻⁷", "1⁷"], a: "8⁷" },
+                    { q: "What is (2/3)⁻²?", o: ["-4/9", "4/9", "9/4", "-9/4", "4/6", "6/9"], a: "9/4" },
+                    { q: "Simplify (x³)⁵", o: ["x⁸", "x²", "x¹⁵", "5x³", "3x⁵", "x³⁵"], a: "x¹⁵" },
+                    { q: "What is the value of 100⁰ + 100¹ᐟ²?", o: ["101", "10", "11", "51", "1", "150"], a: "11" },
+                    { q: "Which is equivalent to 1/36?", o: ["6²", "6⁻²", "36⁻¹", "Both 6⁻² and 36⁻¹", "1/6²", "All of the above"], a: "All of the above" },
+                    { q: "Simplify 2³ × 4²", o: ["8⁵", "2⁷", "2⁸", "2⁹", "6⁵", "8⁶"], a: "2⁷" },
+                    { q: "What is the value of 16³ᐟ⁴?", o: ["12", "6", "4", "8", "32", "2"], a: "8" },
+                    { q: "Simplify (2x²)³", o: ["2x⁵", "6x⁶", "8x⁶", "8x⁵", "2x⁶", "6x⁵"], a: "8x⁶" },
+                    { q: "If 3ˣ = 1/9, what is x?", o: ["-2", "2", "1/2", "-1/2", "3", "-3"], a: "-2" },
+                    { q: "What is the value of 5⁻¹ + 5⁰?", o: ["0", "1", "1.2", "6/5", "5", "Both 1.2 and 6/5"], a: "Both 1.2 and 6/5" },
+                    { q: "Simplify (a⁻⁴ / a²)⁻¹", o: ["a⁻⁶", "a⁶", "a⁻²", "a²", "a⁻³", "a³"], a: "a⁶" },
+                    { q: "What is 0.04¹ᐟ²?", o: ["0.02", "0.2", "0.0016", "2", "0.4", "0.08"], a: "0.2" },
+                    { q: "Simplify 3x⁻² × 4x⁵", o: ["12x³", "7x³", "12x⁻¹⁰", "7x⁻¹⁰", "12x⁷", "7x⁷"], a: "12x³" },
+                    { q: "What is the value of 8⁻¹ᐟ³?", o: ["-2", "1/2", "-1/2", "2", "1/24", "24"], a: "1/2" },
+                    { q: "If 2⁵ × 2ʸ = 2², what is y?", o: ["-3", "3", "2.5", "0.4", "7", "-7"], a: "-3" },
+                    { q: "Simplify (9a⁶)¹ᐟ²", o: ["3a³", "3a⁴", "4.5a³", "4.5a⁶", "3a¹²", "9a³"], a: "3a³" },
+                    // Hard Difficulty (20 questions)
+                    { q: "What is the value of (27/8)²ᐟ³?", o: ["9/4", "4/9", "3/2", "2/3", "6/4", "27/8"], a: "9/4" },
+                    { q: "Simplify (81x⁸y⁻⁴)¹ᐟ⁴", o: ["3x²y⁻¹", "9x⁴y⁻²", "3x⁴y", "9x²y", "3x²y", "81x²y⁻¹"], a: "3x²y⁻¹" },
+                    { q: "If 4ˣ = 8, what is x?", o: ["2", "1/2", "3/2", "2/3", "4", "0.5"], a: "3/2" },
+                    { q: "Solve for x: 5ˣ⁺¹ = 0.2", o: ["-1", "-2", "0", "1", "2", "-1/2"], a: "-2" },
+                    { q: "What is the value of 2⁻³ + 4⁻¹?", o: ["1/12", "6⁻⁴", "3/8", "1/6", "1/4", "5/8"], a: "3/8" },
+                    { q: "Simplify (x¹ᐟ² × x¹ᐟ³) / x¹ᐟ⁶", o: ["x¹ᐟ³", "x²ᐟ³", "x¹", "x⁵ᐟ⁶", "x¹ᐟ⁶", "x"], a: "x²ᐟ³" },
+                    { q: "If (x⁻³)⁻² = 64, what is x?", o: ["2", "4", "8", "1/2", "√2", "1/4"], a: "√2" },
+                    { q: "What is the value of (5⁰ - 5⁻²) / 2?", o: ["-12/25", "12/25", "24/25", "1", "0", "13/25"], a: "12/25" },
+                    { q: "Simplify √(x⁹) / x²", o: ["x⁷", "x⁴·⁵", "x²·⁵", "x³", "x⁶·⁵", "x³·⁵"], a: "x²·⁵" },
+                    { q: "If 100ˣ = 1000, what is x?", o: ["10", "1", "1.5", "0.5", "3", "2/3"], a: "1.5" },
+                    { q: "What is the value of (1/81)⁻⁰·⁷⁵?", o: ["27", "9", "1/27", "1/9", "3", "81"], a: "27" },
+                    { q: "Simplify (16/x¹²)⁻¹ᐟ⁴", o: ["2/x³", "x³/2", "2x³", "x¹²/2", "4/x³", "x³/4"], a: "x³/2" },
+                    { q: "Solve for n: 9ⁿ⁻¹ = 27²", o: ["4", "3", "2.5", "3.5", "2", "5"], a: "4" },
+                    { q: "What is the value of (2⁻¹ + 3⁻¹)⁻¹?", o: ["5", "1/5", "6/5", "5/6", "-5", "1/6"], a: "6/5" },
+                    { q: "If 2ˣ = 0.125, what is x?", o: ["-2", "-3", "-4", "1/8", "8", "-1"], a: "-3" },
+                    { q: "Simplify (a³b⁻²) / (ab)⁻¹", o: ["a⁴/b", "a²/b³", "a⁴b⁻³", "a²b", "a⁴b", "a²b⁻³"], a: "a⁴/b" },
+                    { q: "What is the value of 7² - 7¹ + 7⁰?", o: ["42", "43", "49", "55", "57", "41"], a: "43" },
+                    { q: "If y = 5, what is y⁻² × y³?", o: ["1/5", "5", "25", "1/25", "1", "10"], a: "5" },
+                    { q: "Simplify (32a¹⁰)¹ᐟ⁵", o: ["2a²", "2a⁵", "160a⁵⁰", "2a¹⁰", "32a²", "2a"], a: "2a²" },
+                    { q: "What is the value of 25⁻¹·⁵?", o: ["-37.5", "1/75", "1/125", "125", "-125", "1/250"], a: "1/125" },
+                    // Very Hard Difficulty (10 questions)
+                    { q: "Solve for x: 4ˣ - 6(2ˣ) + 8 = 0. What is the sum of possible values of x?", o: ["0", "1", "2", "3", "4", "5"], a: "3" },
+                    { q: "If 3ˣ = 5, what is the value of 3ˣ⁺²?", o: ["10", "15", "25", "30", "45", "50"], a: "45" },
+                    { q: "Simplify: (x² - y²) / (x¹ᐟ² - y¹ᐟ²)", o: ["x¹ᐟ² + y¹ᐟ²", "(x+y)(x¹ᐟ²+y¹ᐟ²)", "x+y", "x-y", "x³/² + y³/²", "1"], a: "(x+y)(x¹ᐟ²+y¹ᐟ²)" },
+                    { q: "If 2ˣ = 3 and 3ʸ = 4, what is the value of xy?", o: ["1", "2", "3", "4", "5", "6"], a: "2" },
+                    { q: "What is the units digit of 3¹⁰⁰?", o: ["1", "3", "7", "9", "0", "5"], a: "1" },
+                    { q: "Solve for x: (√3)ˣ = 9⁻¹", o: ["-1", "-2", "-3", "-4", "1", "2"], a: "-4" },
+                    { q: "If x = 2 + √3, what is the value of x + 1/x?", o: ["2√3", "4", "2", "√3", "1", "0"], a: "4" },
+                    { q: "Find the value of (16⁻¹ᐟ²)⁻¹ᐟ²", o: ["2", "1/2", "4", "1/4", "√2", "1/√2"], a: "√2" },
+                    { q: "If aᵇ = 1/8, which of these could be (a, b)?", o: ["(2, 3)", "(2, -3)", "(8, -1)", "Both (2,-3) and (8,-1)", "(1/2, -3)", "All of the above"], a: "Both (2,-3) and (8,-1)" },
+                    { q: "Simplify [ (x²)³ / x⁻¹ ]⁻¹", o: ["x⁻⁷", "x⁷", "x⁻⁵", "x⁵", "x⁻⁶", "x⁶"], a: "x⁻⁷" },
+                ]
+            },
+            {
+                title: "Rational & Irrational Numbers",
+                description: "Understand the difference between numbers that can and cannot be written as fractions.",
+                unlocked: false,
+                slides: [
+                    {
+                        title: "Rational Numbers",
+                        content: `<p>A rational number is any number that can be written as a fraction <sup>a</sup>&frasl;<sub>b</sub>, where 'a' and 'b' are integers and 'b' is not zero.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4">
+                                    <p class="text-xl">This includes:</p>
+                                    <ul class="list-disc list-inside ml-4 mt-2">
+                                        <li>Integers: <span class="text-cyan-400">-3, 0, 5</span></li>
+                                        <li>Fractions: <span class="text-cyan-400">1/2, -7/3</span></li>
+                                        <li>Terminating Decimals: <span class="text-cyan-400">0.25 (which is 1/4)</span></li>
+                                        <li>Recurring Decimals: <span class="text-cyan-400">0.333... (which is 1/3)</span></li>
+                                    </ul>
+                                  </div>`
+                    },
+                    {
+                        title: "Irrational Numbers",
+                        content: `<p>An irrational number CANNOT be written as a simple fraction. Their decimal representation goes on forever without repeating.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4">
+                                    <p class="text-xl">Famous examples include:</p>
+                                    <ul class="list-disc list-inside ml-4 mt-2">
+                                        <li>Pi (π): <span class="text-cyan-400">3.14159...</span></li>
+                                        <li>Square roots of non-square numbers (surds): <span class="text-cyan-400">√2, √3, √5</span></li>
+                                        <li>Cube roots of non-cube numbers: <span class="text-cyan-400">∛10</span></li>
+                                    </ul>
+                                  </div>`
+                    },
+                ],
+                questions: [
+                    // Medium Difficulty (20 questions)
+                    { q: "Which of the following is a surd?", o: ["√49", "√50", "∛64", "√1.44", "√9/16", "∛-1"], a: "√50" },
+                    { q: "The product of two different irrational numbers is...", o: ["Always rational", "Always irrational", "Can be rational or irrational", "Always an integer", "Always zero", "Always a surd"], a: "Can be rational or irrational" },
+                    { q: "Which number is rational?", o: ["√20", "π + 1", "√2 × √8", "√2 + √8", "e", "(√5)²"], a: "√2 × √8" },
+                    { q: "Is 22/7 an exact value for π?", o: ["Yes", "No, it's a rational approximation", "No, π is exactly 3.14", "Yes, they are the same", "No, π is an integer", "No, π is a surd"], a: "No, it's a rational approximation" },
+                    { q: "Which statement is always true?", o: ["surd + surd = surd", "surd × surd = surd", "rational + surd = surd", "surd / surd = surd", "surd² = surd", "All are true"], a: "rational + surd = surd" },
+                    { q: "Which set contains only integers?", o: ["{-2, 0.5, 3}", "{√4, -5, 0}", "{1/3, 2/3, 1}", "{π, 1, 2}", "{-1, √2, 3}", "{0, 0.5, 1}"], a: "{√4, -5, 0}" },
+                    { q: "The number 0.123123... is:", o: ["Irrational", "Rational", "An integer", "A surd", "Terminating", "Neither rational nor irrational"], a: "Rational" },
+                    { q: "Which of these is NOT a real number?", o: ["√-9", "√9", "-√9", "∛-8", "π", "0"], a: "√-9" },
+                    { q: "If a circle has a rational radius, its area is...", o: ["Always rational", "Always irrational", "Always an integer", "Sometimes rational", "π", "A surd"], a: "Always irrational" },
+                    { q: "Which of the following is a rational number between 4 and 5?", o: ["√15", "√26", "4.5", "π + 1", "√20", "All of the above"], a: "4.5" },
+                    { q: "Is √1000 a surd?", o: ["Yes", "No, it's an integer", "No, it simplifies to 10√10", "Yes, because 1000 is not a square", "Both C and D", "No, it's rational"], a: "Both C and D" },
+                    { q: "Which calculation results in a rational number?", o: ["(√3 + 1)²", "√3 × √5", "(2√2)²", "π - π", "√8 - √2", "Both (2√2)² and π - π"], a: "Both (2√2)² and π - π" },
+                    { q: "Is the number -√121 rational or irrational?", o: ["Rational", "Irrational", "Neither", "Integer", "Surd", "Both Rational and Integer"], a: "Both Rational and Integer" },
+                    { q: "The sum of a rational number and an irrational number is...", o: ["Always rational", "Always irrational", "Sometimes rational", "An integer", "Zero", "π"], a: "Always irrational" },
+                    { q: "What type of number is 1.414?", o: ["Irrational", "Rational", "The exact value of √2", "A surd", "An integer", "A recurring decimal"], a: "Rational" },
+                    { q: "Which of these is a recurring decimal?", o: ["1/5", "1/6", "1/8", "1/10", "π", "√2"], a: "1/6" },
+                    { q: "The diagonal of a square with integer side length is always...", o: ["An integer", "Rational", "Irrational", "A surd", "Both Irrational and a surd", "A fraction"], a: "Both Irrational and a surd" },
+                    { q: "Which of these numbers is NOT a surd?", o: ["√18", "√27", "√36", "√45", "√54", "√63"], a: "√36" },
+                    { q: "If x is a prime number, then √x is...", o: ["Always rational", "Always irrational", "Always an integer", "Sometimes rational", "A fraction", "Zero"], a: "Always irrational" },
+                    { q: "Which of the following is finite?", o: ["The set of integers", "The set of rational numbers", "The decimal expansion of 1/3", "The decimal expansion of π", "The set of natural numbers", "None of the above"], a: "None of the above" },
+                    // Hard Difficulty (20 questions)
+                    { q: "Which of the following is rational?", o: ["(√5-1)(√5+1)", "√5 - 1", "√5 + 1", "(√5+1)²", "√5 / √2", "π"], a: "(√5-1)(√5+1)" },
+                    { q: "If the area of a square is 18, its perimeter is...", o: ["Rational", "Irrational", "An integer", "12", "A terminating decimal", "A recurring decimal"], a: "Irrational" },
+                    { q: "Which statement is false?", o: ["√2 × √18 is rational", "√2 + √18 is irrational", "√18 / √2 is rational", "(√2+√18)² is rational", "1/√2 is irrational", "All are true"], a: "(√2+√18)² is rational" },
+                    { q: "If 1/x = √2, then x is...", o: ["Rational", "Irrational", "An integer", "A surd", "Both irrational and a surd", "√2"], a: "Both irrational and a surd" },
+                    { q: "Which of these is the largest?", o: ["3√2", "2√3", "√17", "4", "√8 + √2", "√19"], a: "√19" },
+                    { q: "The number 0.123456789101112... is:", o: ["Rational and recurring", "Rational and terminating", "Irrational", "An integer", "A surd", "π"], a: "Irrational" },
+                    { q: "If a and b are surds, a/b can be...", o: ["An integer", "A surd", "A rational fraction", "All of the above", "Only a surd", "Never an integer"], a: "All of the above" },
+                    { q: "Which number is equivalent to (√3 + √2)²?", o: ["5", "5 + 2√6", "13", "5 + √6", "1", "25"], a: "5 + 2√6" },
+                    { q: "Is the solution to x² = 10 rational or irrational?", o: ["Rational", "Irrational", "Integer", "Fraction", "Both", "Neither"], a: "Irrational" },
+                    { q: "If a circle's circumference is 8π, its radius is...", o: ["Rational", "Irrational", "A surd", "π", "An integer", "Both rational and an integer"], a: "Both rational and an integer" },
+                    { q: "Which of the following is a rational number?", o: ["(3-√7)(3+√7)", "√10", "5√2", "2π", "√3 + 1", "e²"], a: "(3-√7)(3+√7)" },
+                    { q: "Let x = 0.4545... Which fraction is equal to x?", o: ["45/100", "9/20", "5/11", "45/90", "1/2", "4/9"], a: "5/11" },
+                    { q: "Which of these is NOT a surd?", o: ["∛30", "∛125", "√30", "√125", "√50", "∛50"], a: "∛125" },
+                    { q: "If x = √2 and y = √8, which of these is rational?", o: ["x+y", "y-x", "x*y", "x/y", "Both x*y and x/y", "All of the above"], a: "Both x*y and x/y" },
+                    { q: "The value of 1 / (√2 - 1) is...", o: ["√2 + 1", "√2 - 1", "1 - √2", "Rational", "An integer", "A fraction"], a: "√2 + 1" },
+                    { q: "Which set contains rational, integer, and irrational numbers?", o: ["{√4, 3/2, √5}", "{π, 3, 4}", "{-1, 0.5, √9}", "{√2, √3, √4}", "{0, 1, 2}", "{1/2, 1/3, 1/4}"], a: "{√4, 3/2, √5}" },
+                    { q: "If a² is irrational, then a must be...", o: ["Rational", "Irrational", "An integer", "A surd", "Cannot be determined", "Zero"], a: "Irrational" },
+                    { q: "Which of the following is closest to 1?", o: ["√0.8", "√1.3", "√0.9", "√1.2", "√0.5", "√1.5"], a: "√0.9" },
+                    { q: "Is it possible for an irrational number raised to an irrational power to be rational?", o: ["Yes", "No", "Only if the base is π", "Only if the power is π", "Only if they are equal", "Never"], a: "Yes" },
+                    { q: "The number (∛5)³ is...", o: ["A surd", "Irrational", "Rational", "An integer", "Both Rational and an Integer", "A fraction"], a: "Both Rational and an Integer" },
+                    // Very Hard Difficulty (10 questions)
+                    { q: "If x = 1/(2-√3), what is x?", o: ["2+√3", "2-√3", "A fraction", "An integer", "Negative", "A surd"], a: "2+√3" },
+                    { q: "If 0.1ẋẏ = 4/33, what are x and y?", o: ["x=1, y=2", "x=2, y=1", "x=4, y=3", "x=3, y=4", "x=1, y=5", "x=5, y=1"], a: "x=2, y=1" },
+                    { q: "Which of these numbers has a terminating decimal representation?", o: ["7/12", "8/15", "9/20", "10/21", "11/24", "12/28"], a: "9/20" },
+                    { q: "If x and y are positive integers, for which equation must z be irrational?", o: ["z = x/y", "z² = x", "z = x+y", "z = xy", "z = x-y", "z = 0"], a: "z² = x" },
+                    { q: "The golden ratio φ ≈ 1.618... is a solution to x²-x-1=0. Is φ rational or irrational?", o: ["Rational", "Irrational", "An integer", "A recurring decimal", "A terminating decimal", "A fraction"], a: "Irrational" },
+                    { q: "If log₂(10) is irrational, what does this imply?", o: ["10 is not a power of 2", "10 is prime", "2 is prime", "All logarithms are irrational", "10 is even", "All are true"], a: "10 is not a power of 2" },
+                    { q: "Which of the following is a transcendental number?", o: ["√2", "∛5", "φ", "e", "√9", "1.5"], a: "e" },
+                    { q: "How many rational numbers are there between 0 and 1?", o: ["0", "1", "2", "100", "Finite", "Infinite"], a: "Infinite" },
+                    { q: "If a/b is a rational number in simplest form, what can be said about the prime factors of b for a/b to be a terminating decimal?", o: ["Only 2s and 3s", "Only 3s and 5s", "Only 2s and 5s", "Any prime factor", "Only 7s", "b must be 1"], a: "Only 2s and 5s" },
+                    { q: "The number e (Euler's number) is...", o: ["An integer", "A rational number", "A surd", "A transcendental number", "A recurring decimal", "A terminating decimal"], a: "A transcendental number" },
+                ]
+            },
+            {
+                title: "Estimating Surds",
+                description: "Learn to approximate the value of square and cube roots without a calculator.",
+                unlocked: false,
+                slides: [
+                    {
+                        title: "What is a Surd?",
+                        content: `<p>A surd is the square root of a number that is not a perfect square (or a cube root of a non-cube number). Surds are irrational numbers.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 text-center">
+                                      <p class="text-2xl">Examples: <span class="text-cyan-400 font-bold">√2, √55, ∛20</span></p>
+                                      <p class="text-2xl mt-2">Not Surds: <span class="text-green-400 font-bold">√4 (=2), ∛27 (=3)</span></p>
+                                  </div>`
+                    },
+                    {
+                        title: "Estimating Square Roots",
+                        content: `<p>To estimate a surd like <span class="text-cyan-400">√55</span>, find the two perfect squares it lies between.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4">
+                                      <p class="text-xl">We know <span class="text-green-400">7² = 49</span> and <span class="text-green-400">8² = 64</span>.</p>
+                                      <p class="text-xl mt-2">Since 55 is between 49 and 64, <span class="text-cyan-400">√55</span> must be between <span class="text-green-400">7 and 8</span>.</p>
+                                      <p class="text-xl mt-2">55 is closer to 49, so √55 will be closer to 7 (around 7.4).</p>
+                                  </div>`
+                    },
+                    {
+                        title: "Estimating Cube Roots",
+                        content: `<p>Similarly, to estimate <span class="text-cyan-400">∛20</span>, find the two perfect cubes it lies between.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4">
+                                      <p class="text-xl">We know <span class="text-green-400">2³ = 8</span> and <span class="text-green-400">3³ = 27</span>.</p>
+                                      <p class="text-xl mt-2">Since 20 is between 8 and 27, <span class="text-cyan-400">∛20</span> must be between <span class="text-green-400">2 and 3</span>.</p>
+                                      <p class="text-xl mt-2">20 is closer to 27, so ∛20 will be closer to 3 (around 2.7).</p>
+                                  </div>`
+                    },
+                ],
+                questions: [
+                    // Medium Difficulty (20 questions)
+                    { q: "Which is the best estimate for √70?", o: ["8.1", "8.4", "8.6", "8.9", "7.9", "8.0"], a: "8.4" },
+                    { q: "Which is the best estimate for √150?", o: ["11.8", "12.0", "12.2", "12.5", "12.8", "11.5"], a: "12.2" },
+                    { q: "Which is the best estimate for ∛40?", o: ["3.1", "3.4", "3.7", "3.9", "4.1", "3.0"], a: "3.4" },
+                    { q: "Which is the best estimate for ∛300?", o: ["6.1", "6.3", "6.5", "6.7", "6.9", "7.1"], a: "6.7" },
+                    { q: "The area of a square is 105 cm². Estimate its side length to 1 d.p.", o: ["10.0 cm", "10.1 cm", "10.2 cm", "10.3 cm", "10.4 cm", "10.5 cm"], a: "10.2 cm" },
+                    { q: "The volume of a cube is 200 in³. Estimate its edge length to 1 d.p.", o: ["5.6 in", "5.8 in", "6.0 in", "6.2 in", "5.4 in", "6.4 in"], a: "5.8 in" },
+                    { q: "Which is larger: √30 or 5.5?", o: ["√30", "5.5", "They are equal", "Cannot be determined", "Both are rational", "Both are irrational"], a: "5.5" },
+                    { q: "Which is smaller: ∛120 or 4.9?", o: ["∛120", "4.9", "They are equal", "Cannot be determined", "Both are rational", "Both are irrational"], a: "∛120" },
+                    { q: "Order from smallest to largest: 5, √26, ∛120", o: ["∛120, 5, √26", "5, √26, ∛120", "√26, 5, ∛120", "5, ∛120, √26", "∛120, √26, 5", "√26, ∛120, 5"], a: "∛120, 5, √26" },
+                    { q: "A good estimate for √10 + √20 is:", o: ["~7.0", "~7.3", "~7.6", "~7.9", "~8.1", "~6.8"], a: "~7.6" },
+                    { q: "If x = √60, which value is closest to x?", o: ["7.5", "7.6", "7.7", "7.8", "7.9", "8.0"], a: "7.7" },
+                    { q: "Which integer is closest to the value of √200?", o: ["13", "14", "15", "16", "12", "10"], a: "14" },
+                    { q: "Which integer is closest to the value of ∛500?", o: ["6", "7", "8", "9", "10", "5"], a: "8" },
+                    { q: "Estimate the perimeter of a square with area 40 m².", o: ["~24.6 m", "~25.3 m", "~25.9 m", "~26.5 m", "~24.0 m", "~28.0 m"], a: "~25.3 m" },
+                    { q: "Which of these is between 10 and 11?", o: ["√99", "√120", "√122", "∛1000", "∛1400", "√10.5"], a: "√120" },
+                    { q: "A better estimate for √5 is:", o: ["2.1", "2.2", "2.3", "2.4", "2.5", "2.0"], a: "2.2" },
+                    { q: "Which is the best approximation for √1.2?", o: ["1.0", "1.1", "1.2", "1.4", "1.5", "0.9"], a: "1.1" },
+                    { q: "The value of √40 is approximately halfway between:", o: ["6.1 and 6.2", "6.2 and 6.3", "6.3 and 6.4", "6.4 and 6.5", "6.0 and 6.1", "6.5 and 6.6"], a: "6.3 and 6.4" },
+                    { q: "Estimate the value of 2√10.", o: ["~6.0", "~6.1", "~6.2", "~6.3", "~6.4", "~6.5"], a: "~6.3" },
+                    { q: "Is 8.2² greater or less than 67?", o: ["Greater", "Less", "Equal", "Cannot be determined", "Irrational", "Rational"], a: "Greater" },
+                    // Hard Difficulty (20 questions)
+                    { q: "Which is larger: 2√5 or 3√2?", o: ["2√5", "3√2", "They are equal", "Cannot be determined", "Both are rational", "Both are integers"], a: "2√5" },
+                    { q: "Which is smaller: 4√3 or 3√5?", o: ["4√3", "3√5", "They are equal", "Cannot be determined", "Both are rational", "Both are integers"], a: "3√5" },
+                    { q: "Estimate the value of √50 - √18 to 1 d.p.", o: ["~2.6", "~2.8", "~3.0", "~3.2", "~2.4", "~3.4"], a: "~2.8" },
+                    { q: "A cube has volume 150 cm³. Estimate the total surface area.", o: ["~169 cm²", "~173 cm²", "~177 cm²", "~181 cm²", "~165 cm²", "~185 cm²"], a: "~173 cm²" },
+                    { q: "Which is closer to 7: √48 or √50?", o: ["√48", "√50", "They are equidistant", "Cannot be determined", "Neither", "Both"], a: "√50" },
+                    { q: "Estimate the value of (√10)² - √10.", o: ["~6.2", "~6.5", "~6.8", "~7.1", "~5.9", "~7.4"], a: "~6.8" },
+                    { q: "The diagonal of a square is √70 cm. Estimate its area.", o: ["30 cm²", "35 cm²", "40 cm²", "45 cm²", "25 cm²", "50 cm²"], a: "35 cm²" },
+                    { q: "Which is a better estimate for √160: 12.6 or 12.7?", o: ["12.6", "12.7", "They are equally good", "Neither is good", "12.5", "12.8"], a: "12.6" },
+                    { q: "Estimate the value of 1/√17 to 2 d.p.", o: ["~0.22", "~0.24", "~0.26", "~0.28", "~0.20", "~0.30"], a: "~0.24" },
+                    { q: "Which of the following is closest to 10?", o: ["3√10", "4√6", "5√4", "6√3", "7√2", "All are 10"], a: "7√2" },
+                    { q: "Estimate the value of ∛10000.", o: ["~20.0", "~20.8", "~21.5", "~22.2", "~20.5", "~22.5"], a: "~21.5" },
+                    { q: "A right-angled triangle has shorter sides of √5 cm and √10 cm. Estimate its hypotenuse.", o: ["~3.5 cm", "~3.7 cm", "~3.9 cm", "~4.1 cm", "~3.3 cm", "~4.3 cm"], a: "~3.9 cm" },
+                    { q: "Which is larger: √5 + √5 or √10?", o: ["√5 + √5", "√10", "They are equal", "Cannot be determined", "One is rational", "Both are integers"], a: "√5 + √5" },
+                    { q: "Estimate the solution to x³ = 700.", o: ["~8.3", "~8.5", "~8.7", "~8.9", "~8.1", "~9.1"], a: "~8.9" },
+                    { q: "Which value is closest to ∛(√800)?", o: ["3.0", "3.2", "3.4", "3.6", "2.8", "3.8"], a: "3.0" },
+                    { q: "Estimate the side length of a square whose diagonal is 10.", o: ["~6.8", "~7.1", "~7.4", "~7.7", "~6.5", "~7.9"], a: "~7.1" },
+                    { q: "If 10ˣ = 800, a good estimate for x is:", o: ["~2.7", "~2.8", "~2.9", "~3.0", "~2.6", "~3.1"], a: "~2.9" },
+                    { q: "Estimate the value of π√10.", o: ["~9.5", "~9.9", "~10.2", "~10.5", "~9.1", "~10.9"], a: "~9.9" },
+                    { q: "Which is smaller: ∛20 or √5?", o: ["∛20", "√5", "They are equal", "Cannot be determined", "One is rational", "Both are integers"], a: "√5" },
+                    { q: "Estimate the mean of √15, √20, and √30.", o: ["~4.2", "~4.4", "~4.6", "~4.8", "~4.0", "~5.0"], a: "~4.6" },
+                    // Very Hard Difficulty (10 questions)
+                    { q: "Estimate the value of 2^√5.", o: ["~4.1", "~4.4", "~4.7", "~5.0", "~3.8", "~5.3"], a: "~4.7" },
+                    { q: "Which is larger: ∛100 or √20?", o: ["∛100", "√20", "They are equal", "Cannot be determined", "One is rational", "Both are integers"], a: "∛100" },
+                    { q: "Estimate the value of (√5 + √3) / (√5 - √3).", o: ["~3.9", "~4.2", "~4.5", "~4.9", "~3.6", "~5.2"], a: "~3.9" },
+                    { q: "A sphere has a volume of 100π cm³. Estimate its radius.", o: ["~4.0 cm", "~4.2 cm", "~4.4 cm", "~4.6 cm", "~3.8 cm", "~4.8 cm"], a: "~4.2 cm" },
+                    { q: "Estimate the solution to xˣ = 100.", o: ["~3.2", "~3.4", "~3.6", "~3.8", "~3.0", "~4.0"], a: "~3.6" },
+                    { q: "Which is closer to √50: 7 or 15/√3?", o: ["7", "15/√3", "They are equidistant", "Cannot be determined", "Neither", "Both"], a: "7" },
+                    { q: "Estimate the value of log₂(10).", o: ["~3.1", "~3.3", "~3.5", "~3.7", "~2.9", "~3.9"], a: "~3.3" },
+                    { q: "A pendulum of length L meters has a period of T = 2π√(L/9.8) seconds. Estimate T if L = 2m.", o: ["~2.8s", "~3.0s", "~3.2s", "~3.4s", "~2.6s", "~3.6s"], a: "~2.8s" },
+                    { q: "Estimate the value of the golden ratio, φ = (1+√5)/2.", o: ["~1.52", "~1.62", "~1.72", "~1.82", "~1.42", "~1.92"], a: "~1.62" },
+                    { q: "Which is larger: e^π or π^e? (e≈2.7, π≈3.1)", o: ["e^π", "π^e", "They are equal", "Cannot be determined", "One is rational", "Both are integers"], a: "e^π" },
+                ]
+            }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const levelSelectionScreen = document.getElementById('level-selection');
+        const levelsGrid = document.getElementById('levels-grid');
+        const mainView = document.getElementById('main-view');
+        
+        const presentationView = document.getElementById('presentation-view');
+        const slideTopic = document.getElementById('slide-topic');
+        const slideContent = document.getElementById('slide-content');
+        const prevSlideBtn = document.getElementById('prev-slide-btn');
+        const nextSlideBtn = document.getElementById('next-slide-btn');
+        const slideCounter = document.getElementById('slide-counter');
+        const startGameBtn = document.getElementById('start-game-btn');
+
+        const gameView = document.getElementById('game-view');
+        const gameTopic = document.getElementById('game-topic');
+        const backToLevelsBtn = document.getElementById('back-to-levels-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const retriesText = document.getElementById('retries-text');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const modalBtn = document.getElementById('modal-btn');
+
+        // --- GAME STATE ---
+        let currentLevelIndex = 0;
+        let currentSlideIndex = 0;
+        let currentQuestionIndex = 0;
+        let questionsToRetry = [];
+        let questionAttempts = {};
+        let score = 0;
+        let isRetryRound = false;
+
+        // --- FUNCTIONS ---
+
+        // Initialization
+        function init() {
+            renderLevelCards();
+            backToLevelsBtn.addEventListener('click', showLevelSelection);
+        }
+
+        // Render Level Selection Screen
+        function renderLevelCards() {
+            levelsGrid.innerHTML = '';
+            levelsData.forEach((level, index) => {
+                const isLocked = !level.unlocked;
+                const card = document.createElement('div');
+                card.className = `bg-gray-800 p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 text-center ${isLocked ? 'locked-level' : 'cursor-pointer'}`;
+                card.innerHTML = `
+                    <div class="text-5xl mb-4">${isLocked ? '🔒' : ['📚', '🔢', '📈'][index]}</div>
+                    <h2 class="text-2xl font-bold text-cyan-400 mb-2">${level.title}</h2>
+                    <p class="text-gray-400">${level.description}</p>
+                `;
+                if (!isLocked) {
+                    card.addEventListener('click', () => startLevel(index));
+                }
+                levelsGrid.appendChild(card);
+            });
+        }
+
+        // Start a Level (Show Presentation)
+        function startLevel(index) {
+            currentLevelIndex = index;
+            currentSlideIndex = 0;
+            levelSelectionScreen.classList.add('hidden');
+            mainView.classList.remove('hidden');
+            mainView.classList.add('flex');
+            gameView.classList.add('hidden');
+            presentationView.classList.remove('hidden');
+            
+            showSlide();
+
+            prevSlideBtn.addEventListener('click', navigateSlide(-1));
+            nextSlideBtn.addEventListener('click', navigateSlide(1));
+            startGameBtn.onclick = () => {
+                presentationView.classList.add('hidden');
+                gameView.classList.remove('hidden');
+                startGame();
+            };
+        }
+
+        // Presentation Logic
+        function showSlide() {
+            const level = levelsData[currentLevelIndex];
+            const slide = level.slides[currentSlideIndex];
+            slideTopic.textContent = level.title;
+            slideContent.innerHTML = `
+                <h3 class="text-2xl font-semibold mb-4">${slide.title}</h3>
+                ${slide.content}
+            `;
+            slideCounter.textContent = `Slide ${currentSlideIndex + 1} / ${level.slides.length}`;
+            prevSlideBtn.disabled = currentSlideIndex === 0;
+            prevSlideBtn.classList.toggle('opacity-50', prevSlideBtn.disabled);
+            nextSlideBtn.style.display = currentSlideIndex === level.slides.length - 1 ? 'none' : 'inline-block';
+            startGameBtn.style.display = currentSlideIndex === level.slides.length - 1 ? 'inline-block' : 'none';
+        }
+
+        function navigateSlide(direction) {
+            return () => {
+                currentSlideIndex += direction;
+                showSlide();
+            };
+        }
+
+        // Game Logic
+        function startGame() {
+            const level = levelsData[currentLevelIndex];
+            gameTopic.textContent = `${level.title} Quiz`;
+            currentQuestionIndex = 0;
+            score = 0;
+            questionsToRetry = [];
+            questionAttempts = {};
+            isRetryRound = false;
+            displayQuestion();
+            updateProgress();
+        }
+
+        function displayQuestion() {
+            let question;
+            if (isRetryRound) {
+                question = questionsToRetry[currentQuestionIndex];
+            } else {
+                question = levelsData[currentLevelIndex].questions[currentQuestionIndex];
+            }
+
+            if (!question) {
+                if (questionsToRetry.length > 0) {
+                    startRetryRound();
+                } else {
+                    levelComplete();
+                }
+                return;
+            }
+
+            questionText.innerHTML = question.q; // Use innerHTML to render superscripts etc.
+            optionsGrid.innerHTML = '';
+            question.o.forEach(optionText => {
+                const button = document.createElement('button');
+                button.className = 'option-btn bg-gray-700 hover:bg-cyan-700 text-white font-semibold py-4 px-2 rounded-lg text-lg';
+                button.innerHTML = optionText;
+                button.onclick = () => checkAnswer(button, optionText, question.a);
+                optionsGrid.appendChild(button);
+            });
+            updateProgress();
+        }
+
+        function checkAnswer(button, selectedAnswer, correctAnswer) {
+            Array.from(optionsGrid.children).forEach(btn => btn.disabled = true);
+
+            const questionKey = questionText.textContent;
+            questionAttempts[questionKey] = (questionAttempts[questionKey] || 0) + 1;
+
+            if (selectedAnswer === correctAnswer) {
+                button.classList.add('bg-green-600', 'correct');
+                if (!isRetryRound) {
+                    score++;
+                }
+                if (questionsToRetry.some(q => q.q === questionKey)) {
+                    questionsToRetry = questionsToRetry.filter(q => q.q !== questionKey);
+                }
+                setTimeout(nextQuestion, 1000);
+            } else {
+                button.classList.add('bg-red-600', 'incorrect');
+                Array.from(optionsGrid.children).forEach(btn => {
+                    if (btn.textContent === correctAnswer) {
+                        btn.classList.add('bg-green-600');
+                    }
+                });
+                
+                if (questionAttempts[questionKey] < 2 && !isRetryRound) {
+                    if (!questionsToRetry.some(q => q.q === questionKey)) {
+                       questionsToRetry.push(levelsData[currentLevelIndex].questions[currentQuestionIndex]);
+                    }
+                }
+                setTimeout(nextQuestion, 2000);
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            const totalQuestions = isRetryRound ? questionsToRetry.length : levelsData[currentLevelIndex].questions.length;
+
+            if (currentQuestionIndex >= totalQuestions) {
+                if (!isRetryRound && questionsToRetry.length > 0) {
+                    startRetryRound();
+                } else {
+                    levelComplete();
+                }
+            } else {
+                displayQuestion();
+            }
+        }
+        
+        function startRetryRound() {
+            isRetryRound = true;
+            currentQuestionIndex = 0;
+            showModal("Retry Round!", `You have ${questionsToRetry.length} question(s) to answer correctly to pass this level. Let's try them again!`, displayQuestion);
+        }
+
+        function levelComplete() {
+            if (questionsToRetry.length > 0) {
+                 showModal("Level Incomplete", `You didn't manage to correct all your mistakes. You can try the quiz again to unlock the next level!`, showLevelSelection);
+            } else {
+                const nextLevelIndex = currentLevelIndex + 1;
+                if (nextLevelIndex < levelsData.length) {
+                    levelsData[nextLevelIndex].unlocked = true;
+                    showModal("Level Complete!", `Great job! You've unlocked the '${levelsData[nextLevelIndex].title}' topic.`, showLevelSelection);
+                } else {
+                    showModal("Congratulations!", "You have completed all the challenges. Excellent work!", showLevelSelection);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const level = levelsData[currentLevelIndex];
+            let total, current;
+
+            if (isRetryRound) {
+                total = questionsToRetry.length;
+                current = currentQuestionIndex;
+                retriesText.textContent = `Mistakes to retry: ${questionsToRetry.length}`;
+                progressText.textContent = `Correcting Mistake ${current + 1}/${total}`;
+            } else {
+                total = level.questions.length;
+                current = currentQuestionIndex;
+                retriesText.textContent = `Mistakes to retry: ${questionsToRetry.length}`;
+                progressText.textContent = `Question ${current + 1}/${total}`;
+            }
+            
+            const progressPercentage = total > 0 ? ((current) / total) * 100 : 0;
+            progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        function showLevelSelection() {
+            modal.classList.add('hidden');
+            mainView.classList.add('hidden');
+            levelSelectionScreen.classList.remove('hidden');
+            renderLevelCards(); 
+        }
+
+        function showModal(title, text, callback) {
+            modalTitle.textContent = title;
+            modalText.textContent = text;
+            modal.classList.remove('hidden');
+            modalBtn.onclick = () => {
+                modal.classList.add('hidden');
+                if (callback) callback();
+            };
+        }
+
+        // --- START APP ---
+        init();
+
+    </script>
+</body>
+</html>
