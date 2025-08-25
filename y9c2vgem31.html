@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互动翻卡教材：材料的性质</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .card-container {
+            perspective: 1000px;
+        }
+        .card {
+            position: relative;
+            width: 100%;
+            min-height: 200px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-front {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        .card-back {
+            background-color: #4f46e5;
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .card-content {
+             text-align: left;
+             width: 100%;
+        }
+        .card-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .card-content li {
+            margin-bottom: 8px;
+        }
+        .card-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #e0e7ff;
+            color: #4338ca;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .topic-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #312e81;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #c7d2fe;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-bold text-center text-slate-800 mb-4">Year 9 Science Interactive Worksheet</h1>
+        <p class="text-center text-slate-600 mb-10">Topic 2: Properties of Materials</p>
+
+        <!-- Topic 2.1 -->
+        <h2 class="topic-title">2.1 Atomic structure and the Periodic Table</h2>
+        <div id="cards-2-1" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Cards for Topic 2.1 will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Topic 2.2 -->
+        <h2 class="topic-title">2.2 Trends in Groups within the Periodic Table</h2>
+        <div id="cards-2-2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Cards for Topic 2.2 will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Topic 2.3 -->
+        <h2 class="topic-title">2.3 Why elements react to form compounds</h2>
+        <div id="cards-2-3" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Cards for Topic 2.3 will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Topic 2.4 -->
+        <h2 class="topic-title">2.4 Simple and Giant structures</h2>
+        <div id="cards-2-4" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Cards for Topic 2.4 will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const cardData = [
+            // Topic 2.1 Data
+            { topic: '2.1', q: '1. What is the atomic number for magnesium?', a: '12' },
+            { topic: '2.1', q: '2. What is the mass number for nitrogen?', a: '14' },
+            { topic: '2.1', q: '3. Which element has the atomic number 13?', a: 'Aluminium' },
+            { topic: '2.1', q: '4. Which element has the mass number 20?', a: 'Neon' },
+            { topic: '2.1', q: '5. Complete these numbers for a boron atom.', a: 'Atomic number = 5<br>Mass number = 11<br>Number of protons = 5<br>Number of neutrons = 6<br>Number of electrons = 5' },
+            { topic: '2.1', q: '6. The element carbon has an atomic number of 6 and a mass number of 12.<br>a) How many protons does a carbon atom have?<br>b) How many electrons does a carbon atom have?<br>c) How many neutrons does a carbon atom have?<br>d) Draw and label the structure of an atom of carbon.', a: 'a) 6<br>b) 6<br>c) 6<br>d) Please refer to the diagram in the answer key, which shows a nucleus with 6 protons and 6 neutrons, and electrons arranged in shells.' },
+            { topic: '2.1', q: '7. Complete the table for phosphorus and calcium.', a: '<b>Phosphorus:</b><br>Atomic number: 15<br>Mass number: 31<br>Protons: 15<br>Neutrons: 16<br>Electrons: 15<br>Electronic structure: 2,8,5<br><br><b>Calcium:</b><br>Atomic number: 20<br>Mass number: 40<br>Protons: 20<br>Neutrons: 20<br>Electrons: 20<br>Electronic structure: 2,8,8' },
+            { topic: '2.1', q: '8. As you move along the row in the Periodic Table from left to right, and then along to the next row, the atomic number and the mass number change. Describe these changes.', a: '<b>The atomic number:</b> increases by 1 every time you move along to the next element.<br><br><b>The mass number:</b> increases in most cases (except between argon and potassium where it decreases by 1), but the increase is not by a fixed number each time.' },
+            { topic: '2.1', q: '9. Which two elements have the same mass number?', a: 'Calcium and Argon (both have a mass number of 40).' },
+            { topic: '2.1', q: '10. Name an element that is a gas and has the same number of neutrons as protons.', a: 'Helium, Nitrogen, Oxygen, or Neon.' },
+            { topic: '2.1', q: '11. Complete the table and identify the element: <br>Atomic number: ?<br>Mass number: ?<br>Number of protons: 19<br>Number of neutrons: 20<br>Number of electrons: ?<br>Electronic structure: ?', a: '<b>Element:</b> Potassium<br><b>Atomic number:</b> 19<br><b>Mass number:</b> 39<br><b>Number of protons:</b> 19<br><b>Number of neutrons:</b> 20<br><b>Number of electrons:</b> 19<br><b>Electronic structure:</b> 2,8,8,1' },
+            
+            // Topic 2.2 Data
+            { topic: '2.2', q: '1. What can you say about the number of protons in Lithium, Sodium, and Potassium, as you look down Group 1?', a: 'The number of protons increases as you go down the group.' },
+            { topic: '2.2', q: '2. What can you say about the mass number of these three metals as you look down the group?', a: 'The mass number increases as you go down the group.' },
+            { topic: '2.2', q: '3. The diagram shows the structure of the sodium atom. Complete these numbers for sodium. (Refer to the diagram)', a: 'Atomic number = 11<br>Mass number = 23<br>Number of protons = 11<br>Number of neutrons = 12<br>Number of electrons = 11' },
+            { topic: '2.2', q: '4. Write the electronic structure of sodium.', a: '2,8,1' },
+            { topic: '2.2', q: '5. What is similar about the structures of an atom of lithium and an atom of sodium?', a: 'They both have one electron in their outer shell. They also both have 2 electrons in the inner shell.' },
+            { topic: '2.2', q: '6. The diagram shows the structure of the potassium atom. Complete these numbers for potassium. (Refer to the diagram)', a: 'Atomic number = 19<br>Mass number = 39<br>Number of protons = 19<br>Number of neutrons = 20<br>Number of electrons = 19' },
+            { topic: '2.2', q: '7. Write the electronic structure of potassium.', a: '2,8,8,1' },
+            { topic: '2.2', q: '8. Compare the structure of the atoms of Lithium, Sodium, and Potassium in Group 1. What is similar about their structure?', a: 'All three atoms have one electron in their outer shell and two electrons in their inner shell.' },
+            { topic: '2.2', q: '9. What is different about the three atoms? State two differences.', a: '1. The atoms get larger (have more electron shells) as you go down the group.<br>2. The atoms have a larger mass (more protons and neutrons) as you go down the group.' },
+            { topic: '2.2', q: '10. Explain what is meant by a \'group\' in the Periodic Table.', a: 'A group in the Periodic Table is a vertical column of elements.' },
+            { topic: '2.2', q: '11. Using the data for Group 7:<br>a) What trends can you see?<br>b) Is iodine\'s melting point higher or lower than bromine\'s?<br>c) Is iodine a solid, liquid or gas at room temp?<br>d) Is iodine\'s boiling point higher or lower than astatine\'s?<br>e) Is astatine more or less reactive than iodine?', a: 'a) Trends down Group 7: melting points increase, boiling points increase, and reactivity decreases.<br>b) Higher.<br>c) Solid. Its melting point is expected to be well above room temperature.<br>d) Lower. The boiling point increases down the group.<br>e) Less reactive.' },
+            { topic: '2.2', q: '12. As the atomic numbers in Group 1 increase, what happens to the melting point?', a: 'The melting point decreases.' },
+            { topic: '2.2', q: '13. As the atomic numbers in Group 7 increase, what happens to the melting point?', a: 'The melting point increases.' },
+            { topic: '2.2', q: '14. Compare the trends in boiling points in Group 1 and Group 7.', a: 'In Group 1, the boiling point decreases as the atomic number increases. In Group 7, the boiling point increases as the atomic number increases.' },
+            { topic: '2.2', q: '15. Describe how reactivity relates to the size of the atoms in each group.', a: '<b>In Group 1:</b> The most reactive element has the largest atom.<br><b>In Group 7:</b> The most reactive element has the smallest atom.' },
+            { topic: '2.2', q: '16. Predict the properties of Rubidium (Group 1) and Iodine (Group 7).', a: '<b>Rubidium (Group 1):</b><br>Reactivity: More reactive than potassium.<br>Melting point: Lower than potassium.<br>Boiling point: Lower than potassium.<br><br><b>Iodine (Group 7):</b><br>Reactivity: Less reactive than bromine.<br>Melting point: Higher than bromine.<br>Boiling point: Higher than bromine.' },
+
+            // Topic 2.3 Data
+            { topic: '2.3', q: '1. This diagram shows the structure of a lithium atom. Label the electron shell with the highest energy level. (Refer to the diagram)', a: 'The outer shell of the atom should be labelled as the highest energy level.' },
+            { topic: '2.3', q: '2. Draw a diagram to show the structure of a lithium ion.', a: 'Please refer to the answer key. The diagram should show a nucleus and one shell containing two electrons.' },
+            { topic: '2.3', q: '3. The symbol for a lithium atom is Li. What is the symbol for a lithium ion?', a: 'Li⁺' },
+            { topic: '2.3', q: '4. This diagram shows the structure of a fluorine atom. Draw a diagram to show the structure of a fluorine ion. (Refer to the diagram)', a: 'Please refer to the answer key. The diagram should show a nucleus and two shells, with an electron structure of 2,8.' },
+            { topic: '2.3', q: '5. The symbol for a fluorine atom is F. What is the symbol for a fluorine ion?', a: 'F⁻' },
+            { topic: '2.3', q: '6. Using the information provided, draw atoms and ions of sodium and chlorine.', a: 'Please refer to the diagrams in the answer key. <br><b>Sodium atom:</b> 2,8,1<br><b>Sodium ion:</b> 2,8<br><b>Chlorine atom:</b> 2,8,7<br><b>Chlorine ion:</b> 2,8,8' },
+            { topic: '2.3', q: '7. How are the electrons in an atom held in place?', a: 'The electrons are held in place by the electrostatic forces of attraction between the positive protons in the nucleus and the negative electrons.' },
+            { topic: '2.3', q: '8. Why are ions formed?', a: 'Ions are formed because atoms gain or lose electrons to achieve a full outer shell, which makes them more stable.' },
+            { topic: '2.3', q: '9. Draw diagrams for Calcium and Chlorine atoms and ions, and explain why the formula for calcium chloride is CaCl₂.', a: 'Please refer to the diagrams in the answer key.<br><br><b>Explanation:</b> A calcium atom has two electrons in its outer shell. It loses these two electrons to become stable, forming a Ca²⁺ ion. A chlorine atom has seven electrons in its outer shell and needs to gain one electron to become stable, forming a Cl⁻ ion. Therefore, two chlorine atoms are needed to accept the two electrons lost from one calcium atom. This is why the formula is CaCl₂.' },
+            
+            // Topic 2.4 Data
+            { topic: '2.4', q: '1. Look at the diagrams for Substance A and B. What type of bonding do you think Substance A has? Give a reason. (Refer to the diagram)', a: 'Ionic bonding. The particles are arranged in a regular, repeating, giant lattice structure.' },
+            { topic: '2.4', q: '2. Label Substance B to show where there are strong forces. (Refer to the diagram)', a: 'The strong forces are the covalent bonds within each molecule (between the central atom and the four surrounding atoms).' },
+            { topic: '2.4', q: '3. Which substance has bonds where electrons are shared?', a: 'Substance B (covalent bonding involves sharing electrons).' },
+            { topic: '2.4', q: '4. Which substance has a lattice structure?', a: 'Substance A.' },
+            { topic: '2.4', q: '5. A substance when dissolved in water conducts electricity. What type of bonding does it have?', a: 'Ionic bonding.' },
+            { topic: '2.4', q: '6. Some giant structures are called macromolecules. What type of bonding do they have?', a: 'Covalent bonding.' },
+            { topic: '2.4', q: '7. Give an example of a macromolecule.', a: 'Diamond, graphite, or silicon dioxide.' },
+            { topic: '2.4', q: '8. Calcium chloride is an ionic compound that is solid at room temperature. What does that tell you about its melting and boiling points?', a: 'It has high melting and boiling points.' },
+            { topic: '2.4', q: '9. Is Substance X (Melting point -182°C, Boiling point -161°C) a solid, liquid or gas at room temperature?', a: 'A gas.' },
+            { topic: '2.4', q: '10. List the substances from the table that are solids at room temperature.', a: 'Potassium chloride, calcium chloride, and magnesium oxide.' },
+            { topic: '2.4', q: '11. List the substances, other than Substance Y, that have simple molecules with covalent bonds.', a: 'Ammonia and bromine.' },
+            { topic: '2.4', q: '12. Suggest what Substance Y is. Give a reason for your suggestion.', a: 'Water. Its melting point is 0°C and its boiling point is 100°C.' },
+            { topic: '2.4', q: '13. Which substance, other than Substance Y, is a liquid at room temperature?', a: 'Bromine.' },
+            { topic: '2.4', q: '14. Explain why magnesium oxide has high melting and boiling points.', a: 'Magnesium oxide is an ionic compound with strong electrostatic forces of attraction between its ions in a giant lattice. A large amount of energy is needed to overcome these forces.' },
+            { topic: '2.4', q: '15. Explain why ammonia has low melting and boiling points.', a: 'Ammonia has a simple molecular structure. While the covalent bonds within the molecules are strong, the forces between the molecules (intermolecular forces) are weak and require little energy to overcome.' },
+            { topic: '2.4', q: '16. Which of the diagrams represents the structure of diamond and which represents graphite? (Refer to the diagram)', a: 'The structure on the left represents diamond. The structure on the right represents graphite.' },
+            { topic: '2.4', q: '17. Graphite is a very soft material. Explain how its structure is related to its properties.', a: 'Graphite is made of layers of carbon atoms. The bonds within the layers are strong, but the forces between the layers are weak. This allows the layers to slide over one another easily, making graphite soft and slippery.' },
+            { topic: '2.4', q: '18. Diamond is the hardest material on Earth. Explain how its structure is related to its properties.', a: 'In diamond, each carbon atom is strongly bonded to four other carbon atoms in a rigid, giant three-dimensional lattice. There are no weak forces, which makes the entire structure extremely hard and strong.' }
+        ];
+
+        function createCard(data) {
+            const topicKey = data.topic.replace('.', '-');
+            const container = document.getElementById(`cards-${topicKey}`);
+            if (!container) return;
+
+            const cardContainer = document.createElement('div');
+            cardContainer.className = 'card-container h-full';
+
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const front = document.createElement('div');
+            front.className = 'card-face card-front';
+            front.innerHTML = `<div class="card-tag">Question</div><div class="card-content">${data.q}</div>`;
+
+            const back = document.createElement('div');
+            back.className = 'card-face card-back';
+            back.innerHTML = `<div class="card-tag">Answer</div><div class="card-content">${data.a}</div>`;
+
+            card.appendChild(front);
+            card.appendChild(back);
+            cardContainer.appendChild(card);
+            container.appendChild(cardContainer);
+
+            card.addEventListener('click', () => {
+                card.classList.toggle('is-flipped');
+            });
+        }
+
+        cardData.forEach(createCard);
+    </script>
+
+</body>
+</html>

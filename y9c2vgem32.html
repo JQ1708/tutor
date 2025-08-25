@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互动翻卡教材：综合科学练习</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .card-container {
+            perspective: 1000px;
+        }
+        .card {
+            position: relative;
+            width: 100%;
+            min-height: 220px; /* Increased height for better spacing */
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-front {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        .card-back {
+            background-color: #1e40af; /* Darker blue for contrast */
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .card-content {
+             text-align: left;
+             width: 100%;
+        }
+        .card-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .card-content li {
+            margin-bottom: 8px;
+        }
+        .card-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #dbeafe;
+            color: #1d4ed8;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .topic-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #93c5fd;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-bold text-center text-slate-800 mb-4">Year 9 Science Interactive Worksheet</h1>
+        <p class="text-center text-slate-600 mb-10">Check Your Progress</p>
+
+        <!-- Topic 2 -->
+        <h2 class="topic-title">Topic 2: Properties of Materials</h2>
+        <div id="cards-2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Cards for Topic 2 will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Topic 9 -->
+        <h2 class="topic-title">Topic 9: Electricity</h2>
+        <div id="cards-9" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Cards for Topic 9 will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const cardData = [
+            // Topic 2 Data
+            { topic: '2.1', q: '2.1 a) Predict the melting point of sodium.', a: 'Below 180°C and above 63°C.' },
+            { topic: '2.1', q: '2.1 b) Predict the boiling point of potassium.', a: 'Below 883°C and above 688°C.' },
+            { topic: '2.1', q: '2.1 c) The elements all react with water to produce a gas. Name the gas.', a: 'Hydrogen.' },
+            { topic: '2.1', q: '2.1 d) Use the information to predict the reaction between sodium and water.', a: 'More bubbles of gas and more heat will be generated than with lithium, but less than with potassium.' },
+            { topic: '2.1', q: '2.1 e) Match the mass numbers (23, 7, 39, 85) with the elements (lithium, sodium, potassium, rubidium).', a: 'Lithium: 7<br>Sodium: 23<br>Potassium: 39<br>Rubidium: 85' },
+            { topic: '2.1', q: '2.1 f) What does the mass number tell you about the atom of each element?', a: 'The number of protons plus the number of neutrons.' },
+            { topic: '2.1', q: '2.1 g) Sodium has the electronic structure 2,8,1. Draw a diagram to show this.', a: 'Please refer to the diagram in the answer key. It should show a nucleus, three shells, and the electron structure 2,8,1.' },
+            { topic: '2.2', q: '2.2 a) Draw a diagram to show the electronic structure of a fluorine ion.', a: 'Please refer to the diagram in the answer key. It should be the same as the fluorine atom but with one additional electron in the outer shell (2,8).' },
+            { topic: '2.2', q: '2.2 b) Why is a fluorine ion more stable than a fluorine atom?', a: 'A fluorine ion is more stable because its outer (highest energy level) shell of electrons is full.' },
+            { topic: '2.2', q: '2.2 c) The symbol for a fluorine atom is F. Write the symbol for a fluorine ion.', a: 'F⁻' },
+            { topic: '2.3', q: '2.3 a) When a metal joins with a non-metal to form a compound.', a: 'Ionic' },
+            { topic: '2.3', q: '2.3 b) When two atoms share electrons.', a: 'Covalent' },
+            { topic: '2.3', q: '2.3 c) When two non-metals join together.', a: 'Covalent' },
+            { topic: '2.3', q: '2.3 d) When a compound is dissolved in water and conducts electricity.', a: 'Ionic' },
+            { topic: '2.3', q: '2.3 e) When atoms gain or lose electrons.', a: 'Ionic' },
+            { topic: '2.4', q: '2.4 Write the formula for a molecule of methane.', a: 'CH₄' },
+            { topic: '2.5', q: '2.5 a) What holds the lattice of sodium chloride together?', a: 'The strong electrostatic forces between the positive sodium ions and the negative chlorine ions.' },
+            { topic: '2.5', q: '2.5 b) What does this lattice structure tell you about the melting and boiling points of sodium chloride?', a: 'The melting and boiling points will be high because the electrostatic forces are strong.' },
+
+            // Topic 9 Data
+            { topic: '9.1', q: '1 a) Calculate the reading on ammeter A₁. (Refer to diagram)', a: '2.4 A (1.2 A + 1.2 A)' },
+            { topic: '9.1', q: '1 b i) Calculate the reading on ammeter A₄. (Refer to diagram)', a: '2 A (6 A / 3 lamps)' },
+            { topic: '9.1', q: '1 b ii) Write an equation linking the readings on all four ammeters.', a: 'A₁ = A₂ + A₃ + A₄' },
+            { topic: '9.2', q: '2 a) Describe how to connect an ammeter to measure the current through a lamp and a resistor in series.', a: 'Connect the ammeter in series with the other components.' },
+            { topic: '9.2', q: '2 b) Describe how to connect a voltmeter to measure the voltage across the resistor.', a: 'Connect the voltmeter in parallel across the resistor.' },
+            { topic: '9.3', q: '3 a) Describe the effect of adding another identical lamp in series on the brightness of the lamps.', a: 'The brightness decreases.' },
+            { topic: '9.3', q: '3 b) ...on the current in the circuit.', a: 'The current decreases.' },
+            { topic: '9.3', q: '3 c) ...on the voltage across one of the lamps.', a: 'The voltage decreases.' },
+            { topic: '9.4', q: '4 a) State the effect on the current when adding another cell in series.', a: 'The current increases.' },
+            { topic: '9.4', q: '4 b) State the effect on the current when adding another resistor in parallel.', a: 'The current increases.' },
+            { topic: '9.5', q: '5 a) Write an equation to calculate resistance from voltage and current.', a: 'resistance = voltage / current' },
+            { topic: '9.5', q: '5 b) State the unit of resistance.', a: 'Ohms (Ω)' },
+            { topic: '9.6', q: '6 a) Calculate R when V = 12 V and I = 2 A.', a: 'R = V / I = 12 / 2 = 6 Ω' },
+            { topic: '9.6', q: '6 b) Calculate V when I = 0.5 A and R = 18 Ω.', a: 'V = I * R = 0.5 * 18 = 9 V' },
+            { topic: '9.6', q: '6 c) Calculate I when V = 6 V and R = 4 Ω.', a: 'I = V / R = 6 / 4 = 1.5 A' },
+            { topic: '9.7', q: '7 a) Name the component labelled X. (Refer to diagram)', a: 'Variable resistor.' },
+            { topic: '9.7', q: '7 b) Explain what happens to the reading on the ammeter when the value of X is increased.', a: 'The current decreases because the increased resistance makes it more difficult for the current to flow.' },
+            { topic: '9.8', q: '8 a) Which two circuits have two ammeters that show the same current? (Refer to diagram)', a: 'A and C' },
+            { topic: '9.8', q: '8 b) Which circuit can control the brightness of two lamps by adjusting one component?', a: 'B' },
+            { topic: '9.8', q: '8 c) Which circuit can control the brightness of two lamps separately?', a: 'A' },
+            { topic: '9.9', q: '9. Draw a circuit diagram where: two lamps and a buzzer can each be switched on and off separately, the current through one lamp can be measured, and the brightness of the other lamp can be changed.', a: 'Please refer to the answer key. The diagram should have three parallel branches. One with a lamp, switch, and ammeter. Another with a lamp, switch, and variable resistor. The third with a buzzer and a switch.' }
+        ];
+
+        function createCard(data) {
+            // Group cards by the main topic number (e.g., '2' or '9')
+            const topicKey = data.topic.split('.')[0];
+            const container = document.getElementById(`cards-${topicKey}`);
+            if (!container) return;
+
+            const cardContainer = document.createElement('div');
+            cardContainer.className = 'card-container h-full';
+
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const front = document.createElement('div');
+            front.className = 'card-face card-front';
+            front.innerHTML = `<div class="card-tag">Question</div><div class="card-content">${data.q}</div>`;
+
+            const back = document.createElement('div');
+            back.className = 'card-face card-back';
+            back.innerHTML = `<div class="card-tag">Answer</div><div class="card-content">${data.a}</div>`;
+
+            card.appendChild(front);
+            card.appendChild(back);
+            cardContainer.appendChild(card);
+            container.appendChild(cardContainer);
+
+            card.addEventListener('click', () => {
+                card.classList.toggle('is-flipped');
+            });
+        }
+
+        cardData.forEach(createCard);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The World of Atoms: An Interactive Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .scroll-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .interactive-atom-electron {
+            transition: transform 0.8s ease-in-out;
+        }
+        .interactive-atom-electron.transfer {
+            transform: translate(140px, 0px);
+        }
+        .interactive-atom-h1.share {
+             transform: translate(65px, -35px);
+        }
+        .interactive-atom-h2.share {
+             transform: translate(65px, 35px);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header Section -->
+    <header class="h-screen flex flex-col items-center justify-center text-center p-8 bg-gradient-to-b from-gray-900 to-indigo-900">
+        <div class="scroll-section">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">The World of Atoms</h1>
+            <p class="text-xl md:text-2xl text-indigo-300 mb-8">An Interactive Journey into Atomic Structure and Chemical Bonding</p>
+            <p class="text-lg">Scroll down to begin your exploration.</p>
+            <svg class="w-10 h-10 mx-auto mt-12 animate-bounce text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-16 md:py-24 space-y-24 md:space-y-32">
+
+        <!-- Section 1: Atomic Structure -->
+        <section class="scroll-section grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-4xl font-bold text-indigo-400 mb-4">1. The Anatomy of an Atom</h2>
+                <p class="text-lg text-gray-300 leading-relaxed">
+                    Every element is made of tiny particles called atoms. They are the fundamental building blocks of matter. While incredibly small, they are composed of even smaller subatomic particles: <strong>protons</strong>, <strong>neutrons</strong>, and <strong>electrons</strong>. The central part, the <strong>nucleus</strong>, contains the protons and neutrons, while the electrons orbit this core in distinct energy levels or <strong>shells</strong>.
+                </p>
+            </div>
+            <div class="p-8 bg-gray-800 rounded-2xl">
+                <!-- Simplified Atom Diagram -->
+                <svg viewBox="0 0 200 200" class="w-full h-auto">
+                    <circle cx="100" cy="100" r="80" stroke="#4f46e5" stroke-width="2" fill="none" stroke-dasharray="4"/>
+                    <circle cx="100" cy="100" r="50" stroke="#4f46e5" stroke-width="2" fill="none" stroke-dasharray="4"/>
+                    <!-- Nucleus -->
+                    <circle cx="100" cy="100" r="20" fill="#a78bfa"/>
+                    <text x="100" y="105" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Nucleus</text>
+                    <!-- Electrons -->
+                    <circle cx="100" cy="50" r="5" fill="#60a5fa"><animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="5s" repeatCount="indefinite"/></circle>
+                    <circle cx="100" cy="20" r="5" fill="#60a5fa"><animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="8s" repeatCount="indefinite"/></circle>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Section 2: Numbers of the Elements -->
+        <section class="scroll-section">
+            <h2 class="text-4xl font-bold text-center text-indigo-400 mb-12">2. Identifying Elements</h2>
+            <div class="grid md:grid-cols-2 gap-8 text-center">
+                <div class="bg-gray-800 p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-3">Atomic Number (Z)</h3>
+                    <p class="text-gray-300">This is the number of <strong>protons</strong> in the nucleus. It's the unique ID for each element. An atom's identity is defined solely by its atomic number.</p>
+                    <div class="mt-6 text-5xl font-bold text-indigo-400">6 → Carbon</div>
+                </div>
+                <div class="bg-gray-800 p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-3">Mass Number (A)</h3>
+                    <p class="text-gray-300">This is the total number of <strong>protons and neutrons</strong> in the nucleus. To find the number of neutrons, simply subtract the atomic number from the mass number.</p>
+                     <div class="mt-6 text-xl font-mono text-indigo-400">Neutrons = A - Z</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Electron Arrangement -->
+        <section class="scroll-section text-center">
+            <h2 class="text-4xl font-bold text-indigo-400 mb-4">3. Electron Shells</h2>
+            <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-12">Electrons are not randomly placed; they occupy specific energy levels called shells. These shells fill up from the inside out, and the arrangement of electrons, known as the <strong>electronic structure</strong>, dictates how an atom behaves chemically.</p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="bg-gray-800 p-6 rounded-xl w-64">
+                    <p class="text-xl font-bold">1st Shell</p>
+                    <p class="text-3xl text-indigo-400 font-bold mt-2">Max 2 e⁻</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl w-64">
+                    <p class="text-xl font-bold">2nd Shell</p>
+                    <p class="text-3xl text-indigo-400 font-bold mt-2">Max 8 e⁻</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl w-64">
+                    <p class="text-xl font-bold">3rd Shell</p>
+                    <p class="text-3xl text-indigo-400 font-bold mt-2">Max 8 e⁻</p>
+                    <p class="text-xs text-gray-400">(for first 20 elements)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Group 1 Alkali Metals -->
+        <section class="scroll-section">
+            <h2 class="text-4xl font-bold text-center text-indigo-400 mb-12">4. Group 1: The Alkali Metals</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                 <div class="p-8 bg-gray-800 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4">Reaction with Water</h3>
+                    <p class="text-gray-400 mb-6">Alkali metals are extremely reactive, especially with water. Their reactivity increases as you go down the group. Click the buttons to see what happens!</p>
+                    <div id="beaker" class="relative w-full h-64 bg-blue-900/50 border-b-4 border-x-4 border-blue-400 rounded-b-3xl overflow-hidden">
+                         <!-- Water surface -->
+                        <div class="absolute top-1/4 w-full h-3/4 bg-gradient-to-b from-blue-500 to-blue-700"></div>
+                        <div class="absolute top-1/4 w-full h-2 bg-blue-300 opacity-50"></div>
+                        <!-- Bubbles container -->
+                        <div id="bubbles" class="absolute inset-0"></div>
+                        <!-- Flame container -->
+                        <div id="flame" class="absolute top-0 left-1/2 w-16 h-24 -translate-x-1/2 opacity-0 transition-opacity">
+                            <div class="absolute bottom-0 w-full h-full rounded-t-full bg-orange-500 blur-md"></div>
+                            <div class="absolute bottom-0 w-2/3 h-2/3 left-1/6 rounded-t-full bg-yellow-400 blur-sm"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-around mt-6">
+                        <button onclick="react('Li')" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Lithium (Li)</button>
+                        <button onclick="react('Na')" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Sodium (Na)</button>
+                        <button onclick="react('K')" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">Potassium (K)</button>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-bold text-indigo-400 mb-4">Why the Trend?</h3>
+                    <p class="text-lg text-gray-300 leading-relaxed mb-4">All Group 1 elements have <strong>one electron</strong> in their outermost shell. They are desperate to lose this electron to achieve a stable, full inner shell.</p>
+                    <p class="text-lg text-gray-300 leading-relaxed">As you go down the group, the atoms get larger. The outermost electron is further from the positive nucleus and is shielded by more inner shells. This makes it <strong>easier to lose</strong>, hence the increased reactivity.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Ionic Bonding -->
+        <section class="scroll-section">
+            <h2 class="text-4xl font-bold text-center text-indigo-400 mb-12">5. Ionic Bonding: The Transfer</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-bold text-indigo-400 mb-4">Metal Meets Non-Metal</h3>
+                    <p class="text-lg text-gray-300 leading-relaxed mb-4">When a reactive metal like Sodium (Na) meets a reactive non-metal like Chlorine (Cl), the metal doesn't just lose its electron—it <strong>transfers</strong> it to the non-metal.</p>
+                    <p class="text-lg text-gray-300 leading-relaxed">This creates a positive ion (Na⁺) and a negative ion (Cl⁻). The powerful <strong>electrostatic attraction</strong> between these opposite charges forms a strong ionic bond.</p>
+                    <button id="transferBtn" class="mt-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg">Trigger Electron Transfer</button>
+                </div>
+                <div class="p-8 bg-gray-800 rounded-2xl">
+                    <p class="text-center mb-4 font-semibold">Na (2,8,1) + Cl (2,8,7) → Na⁺[2,8] Cl⁻[2,8,8]</p>
+                    <svg viewBox="0 0 400 200" class="w-full h-auto">
+                        <!-- Sodium Atom -->
+                        <g id="sodium-atom">
+                            <circle cx="100" cy="100" r="60" stroke="#a78bfa" stroke-width="1" fill="none"/>
+                            <circle cx="100" cy="100" r="40" stroke="#a78bfa" stroke-width="1" fill="none"/>
+                            <circle cx="100" cy="100" r="15" fill="#a78bfa"/>
+                            <text x="100" y="104" text-anchor="middle" fill="white" font-size="10">Na</text>
+                             <circle class="interactive-atom-electron" cx="40" cy="100" r="5" fill="#fde047"/>
+                        </g>
+                        <!-- Chlorine Atom -->
+                        <g id="chlorine-atom">
+                             <circle cx="300" cy="100" r="70" stroke="#34d399" stroke-width="1" fill="none"/>
+                             <circle cx="300" cy="100" r="50" stroke="#34d399" stroke-width="1" fill="none"/>
+                             <circle cx="300" cy="100" r="15" fill="#34d399"/>
+                             <text x="300" y="104" text-anchor="middle" fill="white" font-size="10">Cl</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Covalent Bonding -->
+        <section class="scroll-section">
+            <h2 class="text-4xl font-bold text-center text-indigo-400 mb-12">6. Covalent Bonding: The Partnership</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                 <div class="p-8 bg-gray-800 rounded-2xl order-last md:order-first">
+                    <p class="text-center mb-4 font-semibold">O (2,6) + 2H (1) → H₂O</p>
+                    <svg viewBox="0 0 400 200" class="w-full h-auto">
+                        <!-- Oxygen Atom -->
+                        <g id="oxygen-atom">
+                            <circle cx="200" cy="100" r="50" stroke="#f472b6" stroke-width="1" fill="none"/>
+                            <circle cx="200" cy="100" r="15" fill="#f472b6"/>
+                            <text x="200" y="104" text-anchor="middle" fill="white" font-size="10">O</text>
+                        </g>
+                        <!-- Hydrogen Atoms -->
+                        <g>
+                           <circle class="interactive-atom-h1" cx="100" cy="65" r="30" stroke="#60a5fa" stroke-width="1" fill="none"/>
+                           <circle class="interactive-atom-h1" cx="100" cy="65" r="10" fill="#60a5fa"/>
+                           <text class="interactive-atom-h1" x="100" y="69" text-anchor="middle" fill="white" font-size="10">H</text>
+                        </g>
+                         <g>
+                           <circle class="interactive-atom-h2" cx="100" cy="135" r="30" stroke="#60a5fa" stroke-width="1" fill="none"/>
+                           <circle class="interactive-atom-h2" cx="100" cy="135" r="10" fill="#60a5fa"/>
+                           <text class="interactive-atom-h2" x="100" y="139" text-anchor="middle" fill="white" font-size="10">H</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="order-first md:order-last">
+                    <h3 class="text-3xl font-bold text-indigo-400 mb-4">Sharing is Caring</h3>
+                    <p class="text-lg text-gray-300 leading-relaxed mb-4">When two non-metals bond, they don't transfer electrons. Instead, they <strong>share</strong> them. Each atom contributes electrons to form shared pairs, creating a strong covalent bond that holds them together in a discrete unit called a <strong>molecule</strong>.</p>
+                    <p class="text-lg text-gray-300 leading-relaxed">In water (H₂O), oxygen shares electrons with two hydrogen atoms so that all three atoms achieve a stable, full outer shell.</p>
+                    <button id="shareBtn" class="mt-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg">Form Water Molecule</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-8 mt-16 border-t border-gray-800">
+        <p class="text-gray-500">End of Interactive Lesson.</p>
+    </footer>
+
+    <script>
+        // Scroll Animation Logic
+        const sections = document.querySelectorAll('.scroll-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Interactive Alkali Metal Reaction
+        const bubblesContainer = document.getElementById('bubbles');
+        const flame = document.getElementById('flame');
+        let bubbleInterval;
+
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'absolute bottom-0 w-2 h-2 bg-blue-300 rounded-full animate-bubble';
+            bubble.style.left = `${Math.random() * 90 + 5}%`;
+            bubble.style.animation = `bubble-rise ${Math.random() * 3 + 2}s linear forwards`;
+            bubblesContainer.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 5000);
+        }
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes bubble-rise {
+                0% { transform: translateY(0); opacity: 1; }
+                100% { transform: translateY(-200px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function react(metal) {
+            clearInterval(bubbleInterval);
+            flame.style.opacity = 0;
+            bubblesContainer.innerHTML = '';
+
+            let bubbleRate, showFlame = false;
+            if (metal === 'Li') bubbleRate = 200;
+            if (metal === 'Na') bubbleRate = 100;
+            if (metal === 'K') {
+                bubbleRate = 50;
+                showFlame = true;
+            }
+            
+            bubbleInterval = setInterval(createBubble, bubbleRate);
+            if (showFlame) {
+                setTimeout(() => flame.style.opacity = 1, 500);
+            }
+            
+            setTimeout(() => {
+                clearInterval(bubbleInterval);
+                if(showFlame) flame.style.opacity = 0;
+            }, 4000);
+        }
+
+        // Interactive Bonding Diagrams
+        const transferBtn = document.getElementById('transferBtn');
+        const electronToTransfer = document.querySelector('.interactive-atom-electron');
+        transferBtn.addEventListener('click', () => {
+            electronToTransfer.classList.toggle('transfer');
+            setTimeout(() => {
+                 transferBtn.textContent = electronToTransfer.classList.contains('transfer') ? 'Reset Transfer' : 'Trigger Electron Transfer';
+            }, 800);
+        });
+
+        const shareBtn = document.getElementById('shareBtn');
+        const h1 = document.querySelector('.interactive-atom-h1');
+        const h2 = document.querySelector('.interactive-atom-h2');
+        shareBtn.addEventListener('click', () => {
+            h1.classList.toggle('share');
+            h2.classList.toggle('share');
+             setTimeout(() => {
+                 shareBtn.textContent = h1.classList.contains('share') ? 'Separate Atoms' : 'Form Water Molecule';
+            }, 800);
+        });
+
+    </script>
+
+</body>
+</html>

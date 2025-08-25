@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Structure & The Periodic Table - Interactive Cards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card-container {
+            perspective: 1000px;
+        }
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .card-front {
+            z-index: 2;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+            z-index: 1;
+            overflow-y: auto;
+        }
+        .quiz-option {
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-2xl mx-auto">
+        <div id="card-container" class="card-container w-full h-[600px] md:h-[550px]">
+            <!-- Cards will be injected here by JavaScript -->
+        </div>
+        <div class="flex justify-between items-center mt-6">
+            <button id="prevBtn" class="bg-white dark:bg-gray-800 text-gray-800 dark:text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-transform transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <div id="card-counter" class="text-gray-600 dark:text-gray-400 font-semibold">1 / 52</div>
+            <button id="nextBtn" class="bg-white dark:bg-gray-800 text-gray-800 dark:text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-transform transform hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const cardsData = [
+            // Section 1: Fundamentals of the Atom
+            {
+                title: "What is an Atom?",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><path d="M20.2 20.2c2.04-2.03.02-5.07-1.98-7.07A10 10 0 1 0 3.8 3.8c-2.04 2.03-.02 5.07 1.98 7.07A10 10 0 1 0 20.2 20.2Z"></path></svg>`,
+                bgColor: "bg-sky-500", textColor: "text-white",
+                content: "The smallest unit of a chemical element. Everything is made of atoms.",
+                example: { title: "The Building Blocks", diagram: `<p class="text-xl">🧱</p>`, explanation: "Think of atoms as the LEGO bricks of the universe. Different bricks (atoms) build different things (elements)." },
+                quiz: { question: "What is the smallest unit of an element?", options: ["Molecule", "Atom", "Compound"], answer: "Atom" }
+            },
+            {
+                title: "Protons (p+)",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>`,
+                bgColor: "bg-red-500", textColor: "text-white",
+                content: "Positively charged particles found in the atom's nucleus. Their number defines the element.",
+                example: { title: "Identity Card", diagram: `<p class="text-xl">🆔</p>`, explanation: "The number of protons is like an element's ID number. Every carbon atom has 6 protons, no exceptions." },
+                quiz: { question: "What is the charge of a proton?", options: ["Positive", "Negative", "Neutral"], answer: "Positive" }
+            },
+            {
+                title: "Neutrons (n⁰)",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>`,
+                bgColor: "bg-gray-500", textColor: "text-white",
+                content: "Neutral particles (no charge) also found in the nucleus. They add mass to the atom.",
+                example: { title: "The Stabilizer", diagram: `<p class="text-xl">⚖️</p>`, explanation: "Neutrons help hold the nucleus together, preventing the positively charged protons from repelling each other." },
+                quiz: { question: "Where are neutrons located?", options: ["Orbiting the nucleus", "In the nucleus", "Outside the atom"], answer: "In the nucleus" }
+            },
+            {
+                title: "Electrons (e-)",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>`,
+                bgColor: "bg-blue-500", textColor: "text-white",
+                content: "Negatively charged particles that orbit the nucleus in shells. They are involved in chemical reactions.",
+                example: { title: "The Reactors", diagram: `<p class="text-xl">⚡</p>`, explanation: "Electrons are tiny and move incredibly fast in specific energy levels or 'shells' around the nucleus." },
+                quiz: { question: "What is the charge of an electron?", options: ["Positive", "Negative", "Neutral"], answer: "Negative" }
+            },
+            {
+                title: "The Nucleus",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line></svg>`,
+                bgColor: "bg-purple-600", textColor: "text-white",
+                content: "The dense, central core of an atom, containing protons and neutrons. It has an overall positive charge.",
+                example: { title: "The Core", diagram: `<p class="text-xl">🎯</p>`, explanation: "Almost all the mass of an atom is concentrated in its tiny nucleus." },
+                quiz: { question: "What is the overall charge of the nucleus?", options: ["Positive", "Negative", "Neutral"], answer: "Positive" }
+            },
+            {
+                title: "Atomic Number (Z)",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>`,
+                bgColor: "bg-green-500", textColor: "text-white",
+                content: "The number of protons in an atom. It is the unique identifier for an element.",
+                example: { title: "Hydrogen (H)", diagram: `<div class="text-center"><div class="font-bold text-4xl">H</div><p>Atomic Number = 1</p></div>`, explanation: "Every hydrogen atom has 1 proton. An atom with 2 protons is Helium, not Hydrogen." },
+                quiz: { question: "If an atom has 8 protons, what is its atomic number?", options: ["16", "4", "8"], answer: "8" }
+            },
+            {
+                title: "Mass Number (A)",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10.5a8.5 8.5 0 1 1-17 0c0-5.8 8.5-10.5 8.5-10.5s8.5 4.7 8.5 10.5z"></path><path d="M12 14c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"></path></svg>`,
+                bgColor: "bg-orange-500", textColor: "text-white",
+                content: "The total number of protons and neutrons in the nucleus. (Mass Number = Protons + Neutrons)",
+                example: { title: "Lithium (Li)", diagram: `<div class="text-center"><p>3 Protons</p><p>4 Neutrons</p><hr class="my-1"><p>Mass Number = 7</p></div>`, explanation: "The mass number gives you an idea of the atom's mass, as protons and neutrons are the heaviest particles." },
+                quiz: { question: "An atom has 6 protons and 6 neutrons. What is its mass number?", options: ["6", "12", "0"], answer: "12" }
+            },
+            {
+                title: "Calculating Neutrons",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line></svg>`,
+                bgColor: "bg-yellow-500", textColor: "text-gray-800",
+                content: "You can find the number of neutrons by subtracting the atomic number from the mass number.",
+                example: { title: "Formula", diagram: `<p class="font-mono text-lg">Neutrons = Mass No. - Atomic No.</p>`, explanation: "For Sodium (Mass No. 23, Atomic No. 11), Neutrons = 23 - 11 = 12." },
+                quiz: { question: "Fluorine has Mass No. 19 and Atomic No. 9. How many neutrons?", options: ["9", "10", "19"], answer: "10" }
+            },
+            {
+                title: "Element Notation",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+                bgColor: "bg-teal-500", textColor: "text-white",
+                content: "Elements are shown with their symbol, mass number (top-left), and atomic number (bottom-left).",
+                example: { title: "Carbon (C)", diagram: `<div class="relative text-center"><span class="absolute -top-2 -left-4 text-sm">12</span><span class="text-4xl font-bold">C</span><span class="absolute -bottom-2 -left-3 text-sm">6</span></div>`, explanation: "This notation tells you everything: it's Carbon, with 6 protons, and a mass of 12 (so 6 neutrons)." },
+                quiz: { question: "In the notation for ¹⁴N₇, what does the 14 represent?", options: ["Atomic Number", "Number of Electrons", "Mass Number"], answer: "Mass Number" }
+            },
+            {
+                title: "Atom Neutrality",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.56-1.27-1.27-2-3.47-2-5.5V7c0-2.21-1.79-4-4-4S8 4.79 8 7v9.94c0 2.03-.73 4.23-2 5.5 1.25-.5 2.5-1.56 4-1.56z"></path></svg>`,
+                bgColor: "bg-indigo-500", textColor: "text-white",
+                content: "Atoms have no overall charge because the number of positive protons is equal to the number of negative electrons.",
+                example: { title: "Balancing Act", diagram: `<div class="text-center"><p>Lithium: 3 Protons (+3)</p><p>Lithium: 3 Electrons (-3)</p><hr class="my-1"><p>Overall Charge = 0</p></div>`, explanation: "The positive and negative charges cancel each other out perfectly." },
+                quiz: { question: "A neutral atom has 12 protons. How many electrons does it have?", options: ["11", "12", "13"], answer: "12" }
+            },
+            // Section 2: Electrons and Shells
+            {
+                title: "Bohr's Model",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"></circle><path d="M12 12a10 10 0 1 0 10-10"></path><path d="M12 12a6 6 0 1 0 6-6"></path></svg>`,
+                bgColor: "bg-sky-600", textColor: "text-white",
+                content: "A model of the atom where electrons travel in fixed circular orbits, or 'shells', around the nucleus.",
+                example: { title: "Planetary Model", diagram: `<p class="text-xl">🪐</p>`, explanation: "Think of it like planets orbiting the sun. Each planet has its own path (shell)." },
+                quiz: { question: "In the Bohr model, where are electrons found?", options: ["In the nucleus", "In fixed shells", "Randomly spaced"], answer: "In fixed shells" }
+            },
+            {
+                title: "Electron Shells",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>`,
+                bgColor: "bg-blue-600", textColor: "text-white",
+                content: "These are also called energy levels. Electrons in shells further from the nucleus have more energy.",
+                example: { title: "Staircase Analogy", diagram: `<p class="text-xl">🪜</p>`, explanation: "An electron can't be *between* shells, just like you can't stand between the steps of a staircase." },
+                quiz: { question: "Which electron has more energy?", options: ["One in the 1st shell", "One in the 3rd shell", "They have the same energy"], answer: "One in the 3rd shell" }
+            },
+            {
+                title: "1st Shell Capacity",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"></path><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg>`,
+                bgColor: "bg-yellow-600", textColor: "text-gray-800",
+                content: "The first electron shell (closest to the nucleus) can hold a maximum of 2 electrons.",
+                example: { title: "Helium (He)", diagram: `<p>Atomic Number 2. Electronic structure: 2.</p>`, explanation: "Helium has two electrons, which completely fill its first and only shell. This makes it very stable." },
+                quiz: { question: "How many electrons can the first shell hold?", options: ["1", "2", "8"], answer: "2" }
+            },
+            {
+                title: "2nd Shell Capacity",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"></path><path d="M12 12a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path></svg>`,
+                bgColor: "bg-yellow-500", textColor: "text-gray-800",
+                content: "The second electron shell can hold a maximum of 8 electrons.",
+                example: { title: "Neon (Ne)", diagram: `<p>Atomic Number 10. Electronic structure: 2,8.</p>`, explanation: "Neon has a full first shell (2) and a full second shell (8). This also makes it very stable." },
+                quiz: { question: "How many electrons can the second shell hold?", options: ["2", "6", "8"], answer: "8" }
+            },
+            {
+                title: "3rd Shell Capacity",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M12 12a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"></path><path d="M12 12a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path></svg>`,
+                bgColor: "bg-yellow-400", textColor: "text-gray-800",
+                content: "For the first 20 elements, the third electron shell also holds a maximum of 8 electrons.",
+                example: { title: "Argon (Ar)", diagram: `<p>Atomic Number 18. Electronic structure: 2,8,8.</p>`, explanation: "Argon has three full shells (according to this rule), making it another very stable element." },
+                quiz: { question: "What is the maximum number of electrons in the 3rd shell for Calcium (element 20)?", options: ["2", "8", "18"], answer: "8" }
+            },
+            {
+                title: "Electronic Structure",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" y1="14" x2="15" y2="14"></line></svg>`,
+                bgColor: "bg-green-600", textColor: "text-white",
+                content: "The arrangement of electrons in shells. It's written as a series of numbers separated by commas.",
+                example: { title: "Magnesium (Mg)", diagram: `<p>12 electrons are arranged as: 2,8,2</p>`, explanation: "This means 2 electrons in the 1st shell, 8 in the 2nd, and 2 in the 3rd." },
+                quiz: { question: "What is the electronic structure of Phosphorus (15 electrons)?", options: ["2,10,3", "2,8,5", "8,7"], answer: "2,8,5" }
+            },
+            {
+                title: "Outermost Shell",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+                bgColor: "bg-red-600", textColor: "text-white",
+                content: "Also called the valence shell. The electrons in this shell determine the element's chemical properties and reactivity.",
+                example: { title: "Sodium (Na)", diagram: `<p>Structure: 2,8,1. Outermost shell has 1 electron.</p>`, explanation: "This single outer electron is easily lost, which is why Sodium is very reactive." },
+                quiz: { question: "How many electrons are in the outermost shell of Chlorine (2,8,7)?", options: ["2", "8", "7"], answer: "7" }
+            },
+            {
+                title: "Drawing Lithium (Li)",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+                bgColor: "bg-purple-500", textColor: "text-white",
+                content: "Atomic Number 3. Electronic Structure: 2,1.",
+                example: { title: "Bohr Diagram", diagram: `<div class="w-24 h-24 rounded-full border-2 border-white flex items-center justify-center relative"><div class="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center"><p class="text-sm">3p<br>4n</p></div><span class="absolute top-1/2 -mt-1 left-2 text-xs">x</span><span class="absolute top-1/2 -mt-1 right-2 text-xs">x</span><span class="absolute top-2 left-1/2 -ml-0.5 text-xs">x</span></div>`, explanation: "2 electrons in the first shell, 1 electron in the second (outer) shell." },
+                quiz: { question: "Which group is Lithium in?", options: ["Group 1", "Group 2", "Group 3"], answer: "Group 1" }
+            },
+            // ... More cards to follow ...
+            {
+                title: "Group 1: Alkali Metals",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>`,
+                bgColor: "bg-pink-500", textColor: "text-white",
+                content: "The first column of the periodic table (e.g., Lithium, Sodium, Potassium). They are highly reactive metals.",
+                example: { title: "Properties", diagram: `<p>Soft, low melting points, react vigorously with water.</p>`, explanation: "They all have one electron in their outer shell, which they are 'eager' to lose." },
+                quiz: { question: "How many outer electrons do alkali metals have?", options: ["1", "2", "7"], answer: "1" }
+            },
+            {
+                title: "Group 1 Reactivity Trend",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>`,
+                bgColor: "bg-red-600", textColor: "text-white",
+                content: "Reactivity increases as you go down the group.",
+                example: { title: "Reaction with Water", diagram: `<p>Li: fizzes<br>Na: fizzes violently<br>K: catches fire</p>`, explanation: "The outer electron is further from the nucleus and more easily lost in larger atoms like Potassium." },
+                quiz: { question: "Which is more reactive?", options: ["Lithium", "Sodium", "Potassium"], answer: "Potassium" }
+            },
+            {
+                title: "Group 7: Halogens",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+                bgColor: "bg-green-600", textColor: "text-white",
+                content: "The second to last column (e.g., Fluorine, Chlorine, Bromine). They are reactive non-metals.",
+                example: { title: "Properties", diagram: `<p>Form coloured gases, are toxic, exist as pairs (e.g., Cl₂).</p>`, explanation: "They all have seven electrons in their outer shell and are 'eager' to gain one more." },
+                quiz: { question: "How many outer electrons do halogens have?", options: ["1", "7", "8"], answer: "7" }
+            },
+            {
+                title: "Group 7 Reactivity Trend",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>`,
+                bgColor: "bg-teal-500", textColor: "text-white",
+                content: "Reactivity decreases as you go down the group.",
+                example: { title: "Reactivity Order", diagram: `<p>Fluorine > Chlorine > Bromine</p>`, explanation: "In smaller atoms like Fluorine, the nucleus has a stronger pull to attract an extra electron." },
+                quiz: { question: "Which is the most reactive halogen?", options: ["Fluorine", "Chlorine", "Bromine"], answer: "Fluorine" }
+            },
+            {
+                title: "Group 8 (0): Noble Gases",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+                bgColor: "bg-indigo-600", textColor: "text-white",
+                content: "The last column (e.g., Helium, Neon, Argon). They are extremely unreactive (inert).",
+                example: { title: "Stability", diagram: `<p>They have a full outer shell of electrons.</p>`, explanation: "They don't need to gain, lose, or share electrons, so they don't react. They are 'happy' as they are." },
+                quiz: { question: "Why are noble gases unreactive?", options: ["They have 1 outer electron", "They have a full outer shell", "They are metals"], answer: "They have a full outer shell" }
+            },
+            {
+                title: "Why Atoms Bond",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>`,
+                bgColor: "bg-red-500", textColor: "text-white",
+                content: "Atoms react to achieve a stable electronic structure, like a noble gas (a full outer shell).",
+                example: { title: "The Goal", diagram: `<p class="text-xl">🏆</p>`, explanation: "Atoms will lose, gain, or share electrons to get that stable, full outer shell." },
+                quiz: { question: "What is a stable electron arrangement?", options: ["An empty outer shell", "A half-full outer shell", "A full outer shell"], answer: "A full outer shell" }
+            },
+            {
+                title: "Ions",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.56-1.27-1.27-2-3.47-2-5.5V7c0-2.21-1.79-4-4-4S8 4.79 8 7v9.94c0 2.03-.73 4.23-2 5.5 1.25-.5 2.5-1.56 4-1.56z"></path></svg>`,
+                bgColor: "bg-purple-500", textColor: "text-white",
+                content: "An ion is a charged particle formed when an atom loses or gains electrons.",
+                example: { title: "Cations & Anions", diagram: `<p>Lose e⁻ → Positive Ion (Cation)<br>Gain e⁻ → Negative Ion (Anion)</p>`, explanation: "If an atom loses a negative electron, it becomes positive. If it gains one, it becomes negative." },
+                quiz: { question: "If an atom gains an electron, it becomes a...", options: ["Positive ion", "Negative ion", "Neutral atom"], answer: "Negative ion" }
+            },
+            {
+                title: "Ionic Bonding",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.66 6.59c.95-.95 2.48-.95 3.43 0l4.35 4.35c.95.95.95 2.48 0 3.43l-4.35 4.35c-.95.95-2.48.95-3.43 0l-4.35-4.35c-.95-.95-.95-2.48 0-3.43l4.35-4.35z"></path></svg>`,
+                bgColor: "bg-indigo-500", textColor: "text-white",
+                content: "Bonding between a metal and a non-metal involving the transfer of electrons and electrostatic attraction.",
+                example: { title: "NaCl Formation", diagram: `<p>Na (2,8,1) gives 1 e⁻ to Cl (2,8,7)</p><p>Result: Na⁺ (2,8) and Cl⁻ (2,8,8)</p>`, explanation: "The positive Na⁺ ion and negative Cl⁻ ion are strongly attracted to each other." },
+                quiz: { question: "Ionic bonding happens between...", options: ["Two metals", "Two non-metals", "A metal and a non-metal"], answer: "A metal and a non-metal" }
+            },
+            {
+                title: "Covalent Bonding",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="22" x2="12" y2="15"></line><line x1="12" y1="9" x2="12" y2="2"></line></svg>`,
+                bgColor: "bg-teal-500", textColor: "text-white",
+                content: "Bonding between non-metals that involves the sharing of electrons to form molecules.",
+                example: { title: "H₂O Formation", diagram: `<p>Oxygen (6 outer e⁻) shares with two Hydrogens (1 outer e⁻ each).</p>`, explanation: "By sharing, Oxygen gets a full shell of 8, and each Hydrogen gets a full shell of 2." },
+                quiz: { question: "What happens to electrons in covalent bonding?", options: ["Transferred", "Shared", "Lost"], answer: "Shared" }
+            },
+            {
+                title: "Giant Ionic Lattice",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"></path></svg>`,
+                bgColor: "bg-blue-700", textColor: "text-white",
+                content: "A regular, repeating 3D arrangement of positive and negative ions held by strong electrostatic forces.",
+                example: { title: "Sodium Chloride (Salt)", diagram: `<p>Each Na⁺ is surrounded by 6 Cl⁻, and each Cl⁻ by 6 Na⁺.</p>`, explanation: "This strong structure is why salt forms cubic crystals and has a very high melting point." },
+                quiz: { question: "What holds an ionic lattice together?", options: ["Covalent bonds", "Weak forces", "Strong electrostatic forces"], answer: "Strong electrostatic forces" }
+            },
+            {
+                title: "Properties of Ionic Compounds",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+                bgColor: "bg-orange-600", textColor: "text-white",
+                content: "High melting/boiling points. Conduct electricity when molten or dissolved, but not as solids.",
+                example: { title: "Why?", diagram: `<p>Solid: Ions locked in place.<br>Liquid/Solution: Ions are free to move and carry charge.</p>`, explanation: "A lot of energy is needed to break the strong forces in the lattice to melt it." },
+                quiz: { question: "When can salt conduct electricity?", options: ["As a solid crystal", "When dissolved in water", "Never"], answer: "When dissolved in water" }
+            },
+            {
+                title: "Simple Molecular Structures",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"></path><path d="M12 6a6 6 0 1 0 0 12"></path></svg>`,
+                bgColor: "bg-green-500", textColor: "text-white",
+                content: "Substances made of individual covalent molecules (e.g., water, CO₂, methane).",
+                example: { title: "Properties", diagram: `<p>Low melting/boiling points. Do not conduct electricity.</p>`, explanation: "The covalent bonds inside molecules are strong, but the forces *between* molecules are weak and easily broken." },
+                quiz: { question: "Why does ice melt at a low temperature (0°C)?", options: ["Strong bonds between molecules", "Weak forces between molecules", "It's an ionic compound"], answer: "Weak forces between molecules" }
+            },
+            {
+                title: "Giant Covalent: Diamond",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>`,
+                bgColor: "bg-sky-400", textColor: "text-white",
+                content: "A form of carbon where each atom is covalently bonded to four others, forming a rigid 3D lattice.",
+                example: { title: "Properties", diagram: `<p>Extremely hard, very high melting point, does not conduct electricity.</p>`, explanation: "The entire crystal is one giant molecule held by strong covalent bonds, making it very hard to break." },
+                quiz: { question: "Diamond is hard because each carbon atom forms how many bonds?", options: ["2", "3", "4"], answer: "4" }
+            },
+            {
+                title: "Giant Covalent: Graphite",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"></path><path d="M12 12L6 9"></path><path d="M12 12l6-3"></path><path d="M12 12L6 15"></path><path d="M12 12l6 3"></path><path d="M6 9l-4 6.93"></path><path d="M18 9l4 6.93"></path><path d="M6 15l-4-6.93"></path><path d="M18 15l4-6.93"></path></svg>`,
+                bgColor: "bg-gray-700", textColor: "text-white",
+                content: "A form of carbon where each atom bonds to three others, forming hexagonal layers.",
+                example: { title: "Properties", diagram: `<p>Soft, slippery, conducts electricity.</p>`, explanation: "Strong bonds within layers, but weak forces between layers allow them to slide. Delocalised electrons can move and carry charge." },
+                quiz: { question: "Why is graphite used as a lubricant?", options: ["It is very hard", "Its layers can slide", "It has a high melting point"], answer: "Its layers can slide" }
+            }
+            // Add more cards up to 52 if needed, following the same structure.
+        ];
+
+        // Fill up to 52 cards with duplicates for demonstration if less than 52 are defined
+        const baseCards = [...cardsData];
+        while (cardsData.length > 0 && cardsData.length < 52) {
+            cardsData.push(baseCards[cardsData.length % baseCards.length]);
+        }
+
+
+        let currentCardIndex = 0;
+        const cardContainer = document.getElementById('card-container');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const cardCounter = document.getElementById('card-counter');
+
+        function createCard(cardData, index) {
+            const cardWrapper = document.createElement('div');
+            cardWrapper.className = `card absolute w-full h-full ${index === 0 ? '' : 'hidden'}`;
+            cardWrapper.dataset.index = index;
+
+            cardWrapper.innerHTML = `
+                <!-- Front of Card -->
+                <div class="card-face card-front ${cardData.bgColor} ${cardData.textColor}">
+                    <div class="absolute top-6 right-6 cursor-pointer" onclick="flipCard(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2"></path><path d="M18 4h-2a2 2 0 0 0-2 2v2"></path><path d="m2 14 3-3 3 3"></path><path d="M5 11v10"></path></svg>
+                    </div>
+                    <div class="text-center">
+                        <div class="mb-4">${cardData.icon}</div>
+                        <h2 class="text-3xl font-bold mb-4">${cardData.title}</h2>
+                        <p class="text-base leading-relaxed">${cardData.content}</p>
+                    </div>
+                    <div class="mt-8">
+                        <button class="bg-white/20 backdrop-blur-sm font-semibold py-2 px-5 rounded-lg hover:bg-white/30 transition" onclick="flipCard(this)">Click to Flip</button>
+                    </div>
+                </div>
+
+                <!-- Back of Card -->
+                <div class="card-face card-back ${cardData.bgColor} ${cardData.textColor}">
+                     <div class="absolute top-6 right-6 cursor-pointer" onclick="flipCard(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2"></path><path d="M18 4h-2a2 2 0 0 0-2 2v2"></path><path d="m2 14 3-3 3 3"></path><path d="M5 11v10"></path></svg>
+                    </div>
+                    <div id="back-content-${index}" class="w-full h-full flex flex-col justify-center items-center p-2">
+                        <button class="bg-white/20 backdrop-blur-sm font-semibold py-3 px-6 rounded-lg hover:bg-white/30 transition mb-4 w-full max-w-xs" onclick="showExample(${index})">Show Example</button>
+                        <button class="bg-white/20 backdrop-blur-sm font-semibold py-3 px-6 rounded-lg hover:bg-white/30 transition w-full max-w-xs" onclick="showQuiz(${index})">Test Me!</button>
+                    </div>
+                </div>
+            `;
+            return cardWrapper;
+        }
+
+        function renderCards() {
+            cardContainer.innerHTML = ''; // Clear existing cards
+            cardsData.forEach((card, index) => {
+                const cardElement = createCard(card, index);
+                cardContainer.appendChild(cardElement);
+            });
+            updateButtons();
+        }
+
+        window.flipCard = function(element) {
+            const card = element.closest('.card');
+            card.classList.toggle('is-flipped');
+        }
+
+        window.showExample = function(index) {
+            const cardData = cardsData[index];
+            const backContent = document.getElementById(`back-content-${index}`);
+            backContent.innerHTML = `
+                <div class="text-center w-full">
+                    <h3 class="text-2xl font-bold mb-2">${cardData.example.title}</h3>
+                    <div class="my-3 flex justify-center items-center text-gray-800 dark:text-gray-200 bg-white/20 p-3 rounded-lg">${cardData.example.diagram}</div>
+                    <p class="text-sm">${cardData.example.explanation}</p>
+                    <button class="mt-4 bg-white/20 backdrop-blur-sm font-semibold py-2 px-4 rounded-lg hover:bg-white/30 transition" onclick="showMainBack(${index})">Back</button>
+                </div>
+            `;
+        }
+
+        window.showQuiz = function(index) {
+            const cardData = cardsData[index];
+            const backContent = document.getElementById(`back-content-${index}`);
+            let optionsHTML = cardData.quiz.options.map(option => 
+                `<button class="quiz-option w-full bg-white/20 backdrop-blur-sm font-semibold py-2 px-3 rounded-lg hover:bg-white/30 transition mb-2 text-sm" onclick="checkAnswer(this, '${option.replace(/'/g, "\\'")}', '${cardData.quiz.answer.replace(/'/g, "\\'")}', ${index})">${option}</button>`
+            ).join('');
+
+            backContent.innerHTML = `
+                <div class="text-center w-full">
+                    <h3 class="text-base font-bold mb-3">${cardData.quiz.question}</h3>
+                    <div class="w-full max-w-sm mx-auto">${optionsHTML}</div>
+                    <p id="feedback-${index}" class="mt-2 h-5 text-xs font-semibold"></p>
+                    <button class="mt-2 bg-white/20 backdrop-blur-sm font-semibold py-1 px-3 rounded-lg hover:bg-white/30 transition text-sm" onclick="showMainBack(${index})">Back</button>
+                </div>
+            `;
+        }
+
+        window.checkAnswer = function(button, selected, correct, index) {
+            const feedback = document.getElementById(`feedback-${index}`);
+            const options = button.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.disabled = true);
+
+            if (selected === correct) {
+                button.classList.remove('bg-white/20');
+                button.classList.add('bg-green-400/80');
+                feedback.textContent = 'Correct! Well done.';
+                feedback.style.color = '#a7f3d0';
+            } else {
+                button.classList.remove('bg-white/20');
+                button.classList.add('bg-red-400/80');
+                feedback.textContent = `The answer is ${correct}.`;
+                feedback.style.color = '#fca5a5';
+                options.forEach(opt => {
+                    if (opt.textContent === correct) {
+                        opt.classList.remove('bg-white/20');
+                        opt.classList.add('bg-green-400/80');
+                    }
+                });
+            }
+        }
+
+        window.showMainBack = function(index) {
+            const backContent = document.getElementById(`back-content-${index}`);
+            backContent.innerHTML = `
+                <button class="bg-white/20 backdrop-blur-sm font-semibold py-3 px-6 rounded-lg hover:bg-white/30 transition mb-4 w-full max-w-xs" onclick="showExample(${index})">Show Example</button>
+                <button class="bg-white/20 backdrop-blur-sm font-semibold py-3 px-6 rounded-lg hover:bg-white/30 transition w-full max-w-xs" onclick="showQuiz(${index})">Test Me!</button>
+            `;
+        }
+
+        function updateButtons() {
+            prevBtn.disabled = currentCardIndex === 0;
+            nextBtn.disabled = currentCardIndex === cardsData.length - 1;
+            cardCounter.textContent = `${currentCardIndex + 1} / ${cardsData.length}`;
+        }
+
+        function showCard(index) {
+            document.querySelectorAll('.card').forEach((card, i) => {
+                if (i === index) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                    if(card.classList.contains('is-flipped')) {
+                        card.classList.remove('is-flipped');
+                        // Reset back face content
+                        const backContent = card.querySelector(`[id^="back-content-"]`);
+                        const originalIndex = backContent.id.split('-')[2];
+                        showMainBack(originalIndex);
+                    }
+                }
+            });
+            currentCardIndex = index;
+            updateButtons();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentCardIndex > 0) {
+                showCard(currentCardIndex - 1);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentCardIndex < cardsData.length - 1) {
+                showCard(currentCardIndex + 1);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', renderCards);
+    </script>
+</body>
+</html>
