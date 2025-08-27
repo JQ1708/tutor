@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometri Koordinat - Coordinate Geometry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            line-height: 1.4;
+        }
+
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 0;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 100%);
+            color: white;
+            padding: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-height: 120px;
+        }
+
+        .chapter-badge {
+            width: 120px;
+            height: 120px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .chapter-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-titles {
+            flex: 1;
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-subtitle {
+            font-size: 24px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* Section 6.1 */
+        .section-header {
+            background: #d0d0d0;
+            padding: 15px 20px;
+            margin: 0;
+            border-left: 5px solid #666;
+        }
+
+        .section-number {
+            font-size: 24px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Nota Imbasan Box */
+        .nota-box {
+            margin: 30px 20px;
+            border: 3px dotted #333;
+            padding: 20px;
+            background: white;
+            position: relative;
+        }
+
+        .nota-header {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #333;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .nota-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+        }
+
+        .coordinate-diagram {
+            flex: 1;
+            text-align: center;
+            margin-right: 30px;
+        }
+
+        .coordinate-diagram img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .formula {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .formula-text {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        /* Exercise Section */
+        .exercise-section {
+            padding: 20px;
+        }
+
+        .exercise-number {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .exercise-instruction {
+            margin-bottom: 5px;
+        }
+
+        .exercise-instruction-en {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Example Section */
+        .example-section {
+            margin: 20px 0;
+        }
+
+        .contoh-badge {
+            background: #333;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .example-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .example-problem {
+            flex: 1;
+            border: 2px dashed #999;
+            padding: 15px;
+            background: #fafafa;
+        }
+
+        .problem-statement {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .solution-header {
+            font-weight: bold;
+            margin: 10px 0 5px 0;
+            font-style: italic;
+        }
+
+        .solution-steps {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+        }
+
+        .solution-line {
+            margin: 3px 0;
+        }
+
+        /* Practice Problems */
+        .practice-grid {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .practice-column {
+            flex: 1;
+            border: 1px solid #ccc;
+            min-height: 120px;
+            padding: 15px;
+        }
+
+        .practice-column:not(:last-child) {
+            border-right: none;
+        }
+
+        .practice-problem {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Page number */
+        .page-number {
+            position: fixed;
+            left: 20px;
+            bottom: 50%;
+            background: #333;
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .bab-label {
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+            background: #333;
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            position: fixed;
+            left: 20px;
+            bottom: calc(50% + 50px);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <div class="header">
+            <div class="chapter-badge">
+                <img src="hexagonalbadge.png" alt="Bab 6 Badge">
+            </div>
+            <div class="header-titles">
+                <div class="header-title">Geometri Koordinat</div>
+                <div class="header-subtitle">Coordinate Geometry</div>
+            </div>
+        </div>
+
+        <!-- Section 6.1 Header -->
+        <div class="section-header">
+            <span class="section-number">6.1</span>
+            <span class="section-title">Jarak di antara Dua Titik</span>
+            <div class="section-subtitle">Distance between Two Points</div>
+        </div>
+
+        <!-- Nota Imbasan Box -->
+        <div class="nota-box">
+            <div class="nota-header">Nota Imbasan</div>
+            <div class="nota-content">
+                <div class="coordinate-diagram">
+                    <img src="coordinatediagram.png" alt="Coordinate System Diagram">
+                </div>
+                <div class="formula">
+                    <div class="formula-text">
+                        AB = √[(x₂ - x₁)² + (y₂ - y₁)²]
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise Section -->
+        <div class="exercise-section">
+            <div class="exercise-number">1.</div>
+            <div class="exercise-instruction">Cari jarak di antara setiap pasangan titik yang berikut.</div>
+            <div class="exercise-instruction-en">Find the distance between each of the following pairs of points.</div>
+
+            <!-- Example -->
+            <div class="example-section">
+                <div class="contoh-badge">CONTOH</div>
+                
+                <div class="example-content">
+                    <div class="example-problem">
+                        <div class="problem-statement">A(-1, 5), B(4, -7)</div>
+                        <div class="solution-header">Penyelesaian:</div>
+                        <div class="solution-steps">
+                            <div class="solution-line">AB = √[(x₂ - x₁)² + (y₂ - y₁)²]</div>
+                            <div class="solution-line">&nbsp;&nbsp;&nbsp;= √[(-1 - 4)² + [5 - (-7)]²]</div>
+                            <div class="solution-line">&nbsp;&nbsp;&nbsp;= √[(-5)² + 12²]</div>
+                            <div class="solution-line">&nbsp;&nbsp;&nbsp;= √169</div>
+                            <div class="solution-line">&nbsp;&nbsp;&nbsp;= 13 unit</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Problems -->
+            <div class="practice-grid">
+                <div class="practice-column">
+                    <div class="practice-problem">(a) P(2, -3), Q(-4, 5)</div>
+                </div>
+                <div class="practice-column">
+                    <div class="practice-problem">(b) R(-2, 1), S(3, 13)</div>
+                </div>
+                <div class="practice-column">
+                    <div class="practice-problem">(c) T(1, 8), U(4, -2)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Elements -->
+    <div class="bab-label">BAB</div>
+    <div class="page-number">6</div>
+</body>
+</html>
