@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IGCSE Chemistry Paper 4 — Questions & Answers (HTML conversion)</title>
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#111827;
+  --muted:#9ca3af;
+  --text:#e5e7eb;
+  --accent:#60a5fa;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial}
+.container{max-width:1100px;margin:24px auto;padding:0 16px}
+.header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+h1{font-size:1.6rem;margin:0}
+.tools{display:flex;gap:8px;align-items:center}
+button{background:var(--card);border:1px solid #1f2937;color:var(--text);padding:8px 12px;border-radius:10px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+input[type="search"]{background:var(--card);border:1px solid #1f2937;color:var(--text);padding:8px 12px;border-radius:10px;min-width:260px}
+.toc{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:12px;margin:16px 0}
+.toc h2{margin:0 0 8px 0;font-size:1.1rem;color:var(--muted)}
+.toc ul{margin:0;padding-left:18px;columns:2;column-gap:24px}
+.toc li{margin:4px 0}
+.toc a{color:#c7d2fe;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.qa{background:var(--card);border:1px solid #1f2937;border-radius:16px;margin:14px 0;overflow:hidden}
+details > summary{cursor:pointer;padding:14px 18px;background:#0b1220}
+summary .qtitle{font-weight:600}
+.meta{color:var(--muted);font-weight:400}
+.qbody{padding:16px 18px}
+.qbody h4.ans{margin:8px 0 4px 0;color:#a7f3d0}
+.qbody h5.part{margin:10px 0 4px 0;color:#93c5fd}
+.qbody h6.subpart{margin:8px 0 4px 0;color:#fde68a}
+.qbody ul{margin:8px 0 10px 20px}
+.qbody li{margin:4px 0}
+.qbody pre{background:#0b1220;border:1px solid #1f2937;padding:10px;border-radius:12px;overflow:auto}
+.qbody .diagrams{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:10px}
+.qbody figure{margin:0}
+.qbody img{width:100%;height:auto;border-radius:8px;border:1px solid #1f2937}
+.diagram-note{color:var(--muted);font-style:italic;margin-top:8px}
+footer{margin:24px 0;color:var(--muted);font-size:0.9rem}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>IGCSE Chemistry — Paper 4 | Questions & Answers</h1>
+      <div class="tools">
+        <input id="q" type="search" placeholder="Search text..." oninput="doSearch()">
+        <span id="hits" style="color:#9ca3af;"></span>
+        <button onclick="toggleAll(true)">Open all</button>
+        <button onclick="toggleAll(false)">Close all</button>
+      </div>
+    </div>
+    <div class="toc">
+      <h2>Contents</h2>
+      <ul>
+        <li><a href='#q1'>Question 1 <span class='meta'>(0620/43_Summer_2017_Q2)</span></a></li><li><a href='#q2'>Question 2 <span class='meta'>(0620/42_Winter_2017_Q3)</span></a></li><li><a href='#q3'>Question 3 <span class='meta'>(0620/41_Winter_2017_Q5)</span></a></li><li><a href='#q4'>Question 4 <span class='meta'>(0620/42_Winter_2017_Q5)</span></a></li><li><a href='#q5'>Question 5 <span class='meta'>(0620/43_Winter_2017_Q5)</span></a></li><li><a href='#q6'>Question 6 <span class='meta'>(0620/41_Summer_2018_Q5)</span></a></li><li><a href='#q7'>Question 7 <span class='meta'>(0620/41_Winter_2018_Q5)</span></a></li><li><a href='#q8'>Question 8 <span class='meta'>(0620/43_Summer_2019_Q5)</span></a></li><li><a href='#q9'>Question 9 <span class='meta'>(0620/42_Winter_2019_Q2)</span></a></li><li><a href='#q10'>Question 10 <span class='meta'>(0620/43_Winter_2019_Q4)</span></a></li><li><a href='#q11'>Question 11 <span class='meta'>(0620/41_Winter_2019_Q7)</span></a></li><li><a href='#q12'>Question 12 <span class='meta'>(0620/43_Summer_2020_Q2)</span></a></li><li><a href='#q13'>Question 13 <span class='meta'>(0620/41_Summer_2020_Q3)</span></a></li><li><a href='#q14'>Question 14 <span class='meta'>(0620/43_Summer_2020_Q3)</span></a></li><li><a href='#q15'>Question 15 <span class='meta'>(0620/42_Summer_2020_Q4)</span></a></li><li><a href='#q16'>Question 16 <span class='meta'>(0620/42_Summer_2020_Q6)</span></a></li><li><a href='#q17'>Question 17 <span class='meta'>(0620/43_Winter_2020_Q3)</span></a></li><li><a href='#q18'>Question 18 <span class='meta'>(0620/41_Winter_2020_Q5)</span></a></li><li><a href='#q19'>Question 19 <span class='meta'>(0620/42_Summer_2021_Q3)</span></a></li><li><a href='#q20'>Question 20 <span class='meta'>(0620/41_Summer_2021_Q4)</span></a></li><li><a href='#q21'>Question 21 <span class='meta'>(0620/43_Summer_2021_Q4)</span></a></li><li><a href='#q22'>Question 22 <span class='meta'>(0620/42_Summer_2021_Q5)</span></a></li><li><a href='#q23'>Question 23 <span class='meta'>(0620/42_Winter_2021_Q4)</span></a></li><li><a href='#q24'>Question 24 <span class='meta'>(0620/43_Summer_2022_Q4)</span></a></li><li><a href='#q25'>Question 25 <span class='meta'>(0620/41_Summer_2022_Q5)</span></a></li><li><a href='#q26'>Question 26 <span class='meta'>(0620/41_Winter_2022_Q3)</span></a></li><li><a href='#q27'>Question 27 <span class='meta'>(0620/41_Winter_2022_Q5)</span></a></li><li><a href='#q28'>Question 28 <span class='meta'>(0620/42_Winter_2022_Q5)</span></a></li><li><a href='#q29'>Question 29 <span class='meta'>(0620/43_Winter_2022_Q6)</span></a></li><li><a href='#q30'>Question 30 <span class='meta'>(0620/41_Summer_2023_Q5)</span></a></li><li><a href='#q31'>Question 31 <span class='meta'>(0620/43_Summer_2023_Q5)</span></a></li><li><a href='#q32'>Question 32 <span class='meta'>(0620/41_Winter_2023_Q5)</span></a></li><li><a href='#q33'>Question 33 <span class='meta'>(0620/42_Winter_2023_Q2)</span></a></li><li><a href='#q34'>Question 34 <span class='meta'>(0620/42_Winter_2023_Q5)</span></a></li>
+      </ul>
+    </div>
+    
+    <section id="q1" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 1 <span class='meta'>(0620/43_Summer_2017_Q2)</span></span></summary>
+        <div class="qbody">
+          <p>Cyclopropane is a colourless gas. It reacts with bromine at room temperature as shown in the</p>
+<p>equation.</p>
+<p>(Refer to the diagram in the original document for the chemical equation.)</p>
+<h5 class="part">(a) (i) What is the empirical formula of cyclopropane?</h5>
+<h4 class="ans">Answer</h4>
+<p>CH₂</p>
+<h5 class="part">(a) (ii) What colour change, if any, would you see when cyclopropane is bubbled into</h5>
+<p>aqueous bromine?</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Initial colour: orange</li>
+<li>Final colour: colourless/none</li>
+</ul>
+<h5 class="part">(b) The reaction of cyclopropane with bromine is exothermic.</h5>
+<h5 class="part">(b) (i) Complete the energy level diagram for this reaction by adding the product of the</h5>
+<p>reaction and labelling the energy change, ΔH.</p>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>An approximately horizontal line is drawn to the right of and below the reactant line.</li>
+<li>The energy change (ΔH) is shown with a correctly placed arrow, starting level with the</li>
+</ul>
+<p>reactants and finishing level with the products, and is labelled.</p>
+<h5 class="part">(b) (ii) Propene also reacts with bromine. Use the bond energies in the table to calculate the</h5>
+<p>energy change, ΔH, for the reaction.</p>
+<p>(Refer to the table in the original document for bond energies.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy required to break bonds = 3624 kJ/mol</li>
+<li>Energy given out when bonds are made = 3738 kJ/mol</li>
+<li>Energy change (ΔH) = -114 kJ/mol</li>
+</ul>
+<h5 class="part">(c) The boiling point of bromine is 59°C and the boiling point of iodine is 184°C. Explain</h5>
+<p>why iodine has a higher boiling point than bromine.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The explanation relates to the (attractive) forces between molecules.</li>
+</ul>
+<br>
+<br>
+<ul>
+<li>These forces of attraction are stronger in iodine compared to bromine.</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q2" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 2 <span class='meta'>(0620/42_Winter_2017_Q3)</span></span></summary>
+        <div class="qbody">
+          <p>The chemical equation for the complete combustion of ethanol, C₂H₅OH, is shown. The energy</p>
+<p>released is 1280 kJ per mole.</p>
+<p>(Refer to the diagram in the original document for the partial energy level diagram.)</p>
+<h5 class="part">(a) Complete the energy level diagram to show the products of the reaction and the overall</h5>
+<p>energy change of the reaction.</p>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Exothermic mark: A horizontal line representing the energy of the products is drawn</li>
+</ul>
+<p>below the energy of the reactants.</p>
+<ul>
+<li>Label of products mark: The product line is labelled with 2CO₂ + 3H₂O.</li>
+<li>A vertical arrow for the heat of reaction is drawn in the correct direction (downwards),</li>
+</ul>
+<p>starting from the reactant energy level and finishing at the product energy level.</p>
+<h5 class="part">(b) What does X represent?</h5>
+<h4 class="ans">Answer</h4>
+<p>Activation energy / Eₐ</p>
+<h5 class="part">(c) Use the bond energies in the table to determine the energy change, ΔH, for the complete</h5>
+<p>combustion of one mole of methanol.</p>
+<p>(Refer to the table in the original document for bond energies.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy needed to break bonds (M1): 5600 kJ</li>
+<li>Energy released when bonds are formed (M2): 6900 kJ</li>
+<li>Energy change for 2 moles (M3): 5600 - 6900 = -1300 kJ</li>
+<li>Energy change for 1 mole (M4): -650 kJ/mol</li>
+</ul>
+<h5 class="part">(d) Dodecane is an alkane containing 12 carbon atoms. Ethanol can be manufactured</h5>
+<p>from dodecane in a two-stage process.</p>
+<h5 class="part">(d) (i) Name the process which occurs in stage 1.</h5>
+<h4 class="ans">Answer</h4>
+<p>Cracking</p>
+<h5 class="part">(d) (ii) Write a chemical equation for the reaction which occurs in stage 1.</h5>
+<h4 class="ans">Answer</h4>
+<p>C₁₂H₂₆ → 3C₂H₄ + C₆H₁₄</p>
+<h5 class="part">(d) (iii) State two conditions needed for stage 2 (ethene reacts with steam).</h5>
+<h4 class="ans">Answer</h4>
+<p>1. Phosphoric acid (catalyst)</p>
+<br>
+<br>
+<p>2. Heat / High temperature</p>
+<h5 class="part">(d) (iv) Name the type of reaction which occurs in stage 2.</h5>
+<h4 class="ans">Answer</h4>
+<p>Addition / Hydration</p>
+<h5 class="part">(d) (v) Suggest how to test the purity of the ethanol produced.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Measure its boiling point.</li>
+<li>Compare it to the known data book value.</li>
+</ul>
+<h5 class="part">(e) Ethanol can also be manufactured by the fermentation of glucose, C₆H₁₂O₆.</h5>
+<h5 class="part">(e) (i) State two conditions needed for the fermentation of glucose.</h5>
+<h4 class="ans">Answer</h4>
+<p>Any two from:</p>
+<ul>
+<li>37°C</li>
+<li>Anaerobic conditions</li>
+<li>Glucose in aqueous solution</li>
+<li>Presence of yeast</li>
+</ul>
+<h5 class="part">(e) (ii) Complete the chemical equation for the fermentation of glucose.</h5>
+<h4 class="ans">Answer</h4>
+<p>C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂</p>
+<h5 class="part">(e) (iii) Suggest why the concentration of ethanol produced by fermentation does not</h5>
+<p>exceed 15%.</p>
+<h4 class="ans">Answer</h4>
+<p>The yeast is killed by the high concentration of ethanol.</p>
+<h5 class="part">(e) (iv) Give one other disadvantage of manufacturing ethanol by fermentation.</h5>
+<h4 class="ans">Answer</h4>
+<p>It is a slow rate of reaction.</p>
+<h5 class="part">(e) (v) Give one advantage, other than cost, of manufacturing ethanol by fermentation.</h5>
+<h4 class="ans">Answer</h4>
+<p>It uses renewable resources / does not use a finite resource.</p>
+<h5 class="part">(e) (vi) Suggest the name of a process to obtain ethanol from a mixture of ethanol and</h5>
+<p>water.</p>
+<h4 class="ans">Answer</h4>
+<p>Fractional distillation</p>
+<h5 class="part">(f) Ethane-1,2-diol has a given structure.</h5>
+<br>
+<br>
+<p>(Refer to the diagram in the original document.)</p>
+<h5 class="part">(f) (i) Write the empirical formula of ethane-1,2-diol.</h5>
+<h4 class="ans">Answer</h4>
+<p>CH₃O</p>
+<h5 class="part">(f) (ii) Explain why ethane-1,2-diol cannot undergo addition polymerisation.</h5>
+<h4 class="ans">Answer</h4>
+<p>It has no (C=C) double bonds.</p>
+<h5 class="part">(f) (iii) Draw the condensation polymer formed between ethane-1,2-diol and molecule Y.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>The structure shows at least two alternating units with a correctly displayed ester link, and</p>
+<p>continuation bonds.</p>
+<h5 class="part">(f) (iv) Name the type of condensation polymer formed.</h5>
+<h4 class="ans">Answer</h4>
+<p>Polyester</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q3" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 3 <span class='meta'>(0620/41_Winter_2017_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) Solid copper(II) carbonate undergoes thermal decomposition.</h5>
+<h5 class="part">(a) (i) State the colour change of the solid seen during the reaction.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Start colour: green</li>
+<li>End colour: black</li>
+</ul>
+<h5 class="part">(a) (ii) Write a chemical equation for the thermal decomposition of copper(II)</h5>
+<p>carbonate.</p>
+<h4 class="ans">Answer</h4>
+<p>CuCO₃ → CuO + CO₂</p>
+<h5 class="part">(b) Copper(II) carbonate reacts with dilute nitric acid to form copper(II) nitrate.</h5>
+<h5 class="part">(b) (i) Describe tests for copper(II) ions and nitrate ions.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Copper(II) ions: Add aqueous sodium hydroxide, which gives a blue precipitate.</li>
+<li>Nitrate ions: Add aluminium foil and aqueous sodium hydroxide, then warm. Ammonia</li>
+</ul>
+<p>gas is given off, which turns damp red litmus paper blue.</p>
+<h5 class="part">(b) (ii) Balance the chemical equation for the thermal decomposition of copper(II)</h5>
+<p>nitrate.</p>
+<br>
+<br>
+<h4 class="ans">Answer</h4>
+<p>2Cu(NO₃)₂ → 2CuO + 4NO₂ + 1O₂</p>
+<h5 class="part">(c) Nitrogen dioxide, NO₂, exists in equilibrium with dinitrogen tetroxide, N₂O₄.</h5>
+<p>2NO₂(g) ⇌ N₂O₄(g)</p>
+<p>(brown) (colourless)</p>
+<h5 class="part">(c) (i) The pressure in a gas syringe containing the equilibrium mixture was increased.</h5>
+<p>State how the colour of the gas changed and explain your answer.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The gas becomes paler.</li>
+<li>The equilibrium moves to the right.</li>
+<li>This is because there are fewer moles of gas on the right side.</li>
+</ul>
+<h5 class="part">(c) (ii) A sealed tube of the mixture at equilibrium was cooled, and the contents became</h5>
+<p>paler. Suggest an explanation.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The equilibrium moved to the right (more N₂O₄ was formed).</li>
+<li>This indicates the forward reaction is exothermic.</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q4" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 4 <span class='meta'>(0620/42_Winter_2017_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) The interconversion between yellow aqueous potassium chromate(VI) and orange aqueous</h5>
+<p>potassium dichromate(VI) is a reversible reaction dependent on pH.</p>
+<p>2K₂CrO₄ + H₂SO₄ ⇌ K₂Cr₂O₇ + K₂SO₄ + H₂O</p>
+<p>(yellow) (orange)</p>
+<p>Explain what you would see if sulfuric acid and then sodium hydroxide were added to</p>
+<p>solution Y (an equilibrium mixture).</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Adding sulfuric acid: The equilibrium moves to the right because the concentration of</li>
+</ul>
+<p>acid has increased. The solution turns more orange.</p>
+<ul>
+<li>Adding sodium hydroxide: The equilibrium moves to the left because sodium hydroxide</li>
+</ul>
+<p>reacts with/neutralises the sulfuric acid. The solution turns more yellow.</p>
+<h5 class="part">(b) Hydrogen is manufactured from methane and steam.</h5>
+<p>CH₄(g) + H₂O(g) ⇌ CO(g) + 3H₂(g)</p>
+<h5 class="part">(b) (i) What volume of hydrogen is produced from 100 cm³ of methane if the yield is</h5>
+<p>70%?</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Expected volume of hydrogen = 300 cm³</li>
+<li>70% of 300 cm³ = 210 cm³</li>
+</ul>
+<br>
+<br>
+<h5 class="part">(b) (ii) If the pressure is increased, the yield of hydrogen is less than 70%. Explain why.</h5>
+<h4 class="ans">Answer</h4>
+<p>There are fewer moles/molecules of gas on the left-hand side, so increasing pressure shifts</p>
+<p>the equilibrium to the left.</p>
+<h5 class="part">(b) (iii) If the temperature is decreased, the yield of hydrogen decreases. What does</h5>
+<p>this indicate?</p>
+<h4 class="ans">Answer</h4>
+<p>The forward reaction is endothermic.</p>
+<h5 class="part">(b) (iv) Why is a catalyst used in this reaction?</h5>
+<h4 class="ans">Answer</h4>
+<p>It increases the rate of reaction.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q5" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 5 <span class='meta'>(0620/43_Winter_2017_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) Name the products formed when sodium nitrate is heated.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Sodium nitrite / Sodium nitrate(III) / NaNO₂</li>
+<li>Oxygen / O₂</li>
+</ul>
+<h5 class="part">(a) (ii) Write a chemical equation for the thermal decomposition of copper(II) nitrate,</h5>
+<p>Cu(NO₃)₂.</p>
+<h4 class="ans">Answer</h4>
+<p>2Cu(NO₃)₂ → 2CuO + 4NO₂ + O₂</p>
+<h5 class="part">(b) The equilibrium between dinitrogen tetroxide (N₂O₄, colourless) and nitrogen dioxide (NO₂,</h5>
+<p>brown) is shown.</p>
+<p>N₂O₄(g) ⇌ 2NO₂(g)</p>
+<h5 class="part">(b) (i) In chemistry, what is meant by the term equilibrium?</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>It is a reversible reaction where the rate of the forward reaction equals the rate of the</li>
+</ul>
+<p>backward reaction.</p>
+<ul>
+<li>The concentration of all reactants and products becomes constant.</li>
+</ul>
+<h5 class="part">(b) (ii) If the equilibrium mixture is heated, a darker brown colour is seen. What does</h5>
+<p>this indicate? Explain.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The forward reaction is endothermic.</li>
+<li>The increased temperature causes the equilibrium to shift to the right (in the</li>
+</ul>
+<p>endothermic direction) to form more nitrogen dioxide.</p>
+<br>
+<br>
+<h5 class="part">(b) (iii) Suggest what you would see if the pressure on the equilibrium mixture were</h5>
+<p>increased. Explain.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The mixture would become less brown / lighter / paler.</li>
+<li>The equilibrium shifts in the direction of fewer molecules/moles, which is to the left.</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q6" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 6 <span class='meta'>(0620/41_Summer_2018_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) What is meant by the term catalyst?</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>A substance which increases the rate of a reaction.</li>
+<li>Without being used up itself / remains chemically unchanged at the end of the reaction.</li>
+</ul>
+<h5 class="part">(a) (ii) Give one other chemical property shown by transition elements which is not</h5>
+<p>shown by Group I elements.</p>
+<h4 class="ans">Answer</h4>
+<p>They have variable oxidation states.</p>
+<h5 class="part">(b) Give two physical properties shown by transition elements which are not shown by</h5>
+<p>Group I elements.</p>
+<h4 class="ans">Answer</h4>
+<p>Any two from:</p>
+<ul>
+<li>Higher melting/boiling point</li>
+<li>Harder / Stronger</li>
+<li>Denser</li>
+</ul>
+<h5 class="part">(c) The energy level diagram shows the reaction between zinc and dilute sulfuric acid.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h5 class="part">(c) (i) Complete the diagram by adding the formulae of the products. Include state</h5>
+<p>symbols.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>ZnSO₄(aq)</li>
+<li>H₂(g)</li>
+</ul>
+<h5 class="part">(c) (ii) Draw an arrow on the diagram to represent the activation energy.</h5>
+<h4 class="ans">Answer</h4>
+<p>A labelled arrow is drawn pointing upwards from the reactant level to the peak of the curve.</p>
+<h5 class="part">(c) (iii) Is the reaction endothermic or exothermic? Explain your answer.</h5>
+<h4 class="ans">Answer</h4>
+<p>Exothermic, because the products are at a lower energy level than the reactants.</p>
+<br>
+<br>
+<h5 class="part">(d) On the diagram, add the energy profile for the catalysed reaction.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>A curve with a lower 'hump' (activation energy) is drawn, starting from the reactants line.</p>
+<h5 class="part">(e) A student electrolyses aqueous copper(II) sulfate using carbon electrodes.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h5 class="part">(e) (i) Write an ionic half-equation for the reaction at the negative electrode (cathode).</h5>
+<p>Include state symbols.</p>
+<h4 class="ans">Answer</h4>
+<p>Cu²⁺(aq) + 2e⁻ → Cu(s)</p>
+<h5 class="part">(e) (ii) Describe what the student observes at the negative electrode.</h5>
+<h4 class="ans">Answer</h4>
+<p>A pink/brown solid/deposit forms.</p>
+<h5 class="part">(e) (iii) Give two other observations which the student makes during the electrolysis.</h5>
+<h4 class="ans">Answer</h4>
+<p>1. Bubbles/fizzing (at the anode).</p>
+<p>2. The solution becomes paler / less blue / colourless.</p>
+<h5 class="part">(e) (iv) What difference would be observed at the positive electrode if concentrated</h5>
+<p>aqueous copper(II) chloride were used instead?</p>
+<h4 class="ans">Answer</h4>
+<p>A green gas would be seen (at the anode).</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q7" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 7 <span class='meta'>(0620/41_Winter_2018_Q5)</span></span></summary>
+        <div class="qbody">
+          <p>Hydrogen gas reacts with iodine gas in a reversible reaction.</p>
+<p>H₂(g) + I₂(g) ⇌ 2HI(g)</p>
+<h5 class="part">(a) What is meant by the term equilibrium?</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The forward and backward reactions occur at equal rates.</li>
+<li>The concentration of all substances remains constant.</li>
+</ul>
+<h5 class="part">(b) The graphs show how pressure affects the yield of hydrogen iodide at two different</h5>
+<p>temperatures.</p>
+<p>(Refer to the graph in the original document.)</p>
+<h5 class="part">(b) (i) Explain why the yield at 500°C does not change as the pressure is increased.</h5>
+<h4 class="ans">Answer</h4>
+<p>There is an equal/same number of moles of gas on each side of the equation.</p>
+<h5 class="part">(b) (ii) What can you conclude from the difference in the yield of hydrogen iodide at the</h5>
+<br>
+<br>
+<p>two temperatures shown? Explain your answer.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The forward reaction is exothermic (or the reverse is endothermic).</li>
+<li>The yield is lower at a higher temperature, meaning the equilibrium moves to the left at</li>
+</ul>
+<p>higher temperatures.</p>
+<h5 class="part">(c) The graph shows how the concentration of HI changes over time.</h5>
+<p>(Refer to the graph in the original document.)</p>
+<h5 class="part">(c) (i) When is the rate of reaction fastest?</h5>
+<h4 class="ans">Answer</h4>
+<p>At the start/beginning.</p>
+<h5 class="part">(c) (ii) Draw a graph on the same axes to show how the concentration of HI changes in</h5>
+<p>the presence of a catalyst.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The new line is steeper than the original line and starts at the origin.</li>
+<li>The new line reaches the same final volume/concentration as the original line.</li>
+</ul>
+<h5 class="part">(d) A mixture of hydrogen and iodine gas is allowed to reach equilibrium.</h5>
+<h5 class="part">(d) (i) State and explain the effect of increasing the pressure on the rate of the forward</h5>
+<p>reaction.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The rate becomes faster.</li>
+<li>There are more particles per unit volume.</li>
+<li>This leads to more collisions per second / a greater collision rate.</li>
+</ul>
+<h5 class="part">(d) (ii) State and explain the effect of increasing the temperature on the rate of the</h5>
+<p>reverse reaction.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The reaction becomes faster.</li>
+<li>Particles have more energy and move faster, leading to more collisions per second.</li>
+<li>A greater proportion of these collisions have energy greater than the activation energy,</li>
+</ul>
+<p>meaning more collisions are successful.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q8" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 8 <span class='meta'>(0620/43_Summer_2019_Q5)</span></span></summary>
+        <div class="qbody">
+          <p>Carboxylic acids react with alcohols to form esters in a reversible reaction.</p>
+<p>CH₃COOH + CH₃CH₂OH ⇌ CH₃COOCH₂CH₃ + H₂O</p>
+<h5 class="part">(a) (i) What is the name of the ester formed in this reaction?</h5>
+<br>
+<br>
+<h4 class="ans">Answer</h4>
+<p>Ethyl ethanoate</p>
+<h5 class="part">(a) (ii) Draw the structure of the ester formed. Show all atoms and bonds.</h5>
+<h4 class="ans">Answer</h4>
+<p>(Refer to the diagram in the original document for the correct displayed formula of ethyl</p>
+<p>ethanoate.)</p>
+<h5 class="part">(b) The reaction is exothermic. Draw an energy level diagram for this reaction.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The right-hand side (products) energy level is lower than the left-hand side (reactants).</li>
+<li>Reactants and products are correctly labelled.</li>
+<li>The energy change (ΔH) is shown as a vertical line with a downward arrow from the</li>
+</ul>
+<p>reactant level to the product level.</p>
+<h5 class="part">(c) Concentrated sulfuric acid is a catalyst. What is meant by the term catalyst?</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>A substance that increases the rate of a reaction.</li>
+<li>Without being used up or chemically changed at the end.</li>
+</ul>
+<h5 class="part">(d) Explain why increasing the temperature increases the rate of reaction.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Particles/molecules gain more kinetic energy and move faster.</li>
+<li>This leads to more frequent collisions (more collisions per second).</li>
+<li>A greater proportion of the colliding particles have sufficient energy (equal to or greater</li>
+</ul>
+<p>than the activation energy) to react.</p>
+<h5 class="part">(e) The reaction reaches equilibrium.</h5>
+<h5 class="part">(e) (i) State and explain the effect of increasing the temperature on the amount of ester</h5>
+<p>at equilibrium.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Less ester is formed.</li>
+<li>The equilibrium moves to the left because the forward reaction is exothermic.</li>
+</ul>
+<h5 class="part">(e) (ii) State and explain the effect of removing water from the mixture on the amount</h5>
+<p>of ester at equilibrium.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>More ester is formed.</li>
+<li>The equilibrium moves to the right to replace the water that was removed.</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q9" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 9 <span class='meta'>(0620/42_Winter_2019_Q2)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) What percentage of clean, dry air is N₂?</h5>
+<h4 class="ans">Answer</h4>
+<p>78%</p>
+<h5 class="part">(b) Name the process used to separate O₂ from clean, dry air.</h5>
+<h4 class="ans">Answer</h4>
+<p>Fractional distillation</p>
+<h5 class="part">(c) State one major adverse effect of the pollutant SO₂.</h5>
+<h4 class="ans">Answer</h4>
+<p>Acid rain</p>
+<h5 class="part">(d) Describe how oxides of nitrogen form in a car engine.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Nitrogen and oxygen (from the air) react together.</li>
+<li>This happens due to the high temperatures inside the engine.</li>
+</ul>
+<h5 class="part">(e) Identify the products and catalyst in a catalytic converter.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Products: Nitrogen (N₂) and Carbon dioxide (CO₂)</li>
+<li>Catalyst: Platinum</li>
+</ul>
+<h5 class="part">(f) Write a chemical equation to show the incomplete combustion of methane.</h5>
+<h4 class="ans">Answer</h4>
+<p>2CH₄ + 3O₂ → 2CO + 4H₂O</p>
+<p>(Note: other balanced equations for incomplete combustion are possible, e.g., producing C)</p>
+<h5 class="part">(g) The scheme shows part of the carbon cycle.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h5 class="part">(g) (i) State the scientific terms for process A and process B.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>A: Photosynthesis</li>
+<li>B: Respiration</li>
+</ul>
+<h5 class="part">(g) (ii) Complete the diagram to show the complex carbohydrate formed from three units of</h5>
+<p>glucose.</p>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>The diagram shows three glucose units linked by two -O- glycosidic bonds, with continuation</p>
+<p>bonds.</p>
+<br>
+<br>
+<h5 class="part">(g) (iii) State two ways that complex carbohydrates can be broken down into simple</h5>
+<p>sugars.</p>
+<h4 class="ans">Answer</h4>
+<p>1. Using acid (and heat) / hydrolysis</p>
+<p>2. Using enzymes</p>
+<h5 class="part">(g) (iv) Name a suitable technique for separating and identifying the individual sugars</h5>
+<p>formed.</p>
+<h4 class="ans">Answer</h4>
+<p>Chromatography</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q10" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 10 <span class='meta'>(0620/43_Winter_2019_Q4)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) A phosphorus molecule contains four phosphorus atoms only. What is its formula?</h5>
+<h4 class="ans">Answer</h4>
+<p>P₄</p>
+<h5 class="part">(b) (i) Write a chemical equation for the reaction between phosphorus and chlorine to</h5>
+<p>produce phosphorus(III) chloride, PCl₃.</p>
+<h4 class="ans">Answer</h4>
+<p>P₄ + 6Cl₂ → 4PCl₃</p>
+<h5 class="part">(b) (ii) Complete the dot-and-cross diagram for PCl₃.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>The diagram shows 3 bonding pairs and 1 lone pair on the central P atom, and 6 non-bonding</p>
+<p>electrons on each of the 3 Cl atoms.</p>
+<h5 class="part">(c) Gaseous PCl₃ reacts with gaseous Cl₂ to form gaseous PCl₅.</h5>
+<p>PCl₃(g) + Cl₂(g) → PCl₅(g)</p>
+<h5 class="part">(c) (i) Use the bond energies in the table to calculate the energy change of the reaction.</h5>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy needed to break bonds: 243 kJ (just Cl-Cl)</li>
+<li>Energy released when bonds are formed: 652 kJ (2 x P-Cl)</li>
+<li>Energy change: 243 - 652 = -409 kJ/mol</li>
+</ul>
+<h5 class="part">(c) (ii) Is the reaction exothermic or endothermic? Explain.</h5>
+<h4 class="ans">Answer</h4>
+<p>Exothermic, because the overall energy change has a negative sign OR more energy is</p>
+<p>released when bonds form than is absorbed to break bonds.</p>
+<h5 class="part">(d) State and explain the effect on the position of equilibrium if the pressure is</h5>
+<p>increased.</p>
+<br>
+<br>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The equilibrium shifts to the right.</li>
+<li>There are fewer moles of gas on the right side.</li>
+</ul>
+<h5 class="part">(e) Balance the chemical equation for the reaction between water and calcium</h5>
+<p>phosphide, Ca₃P₂.</p>
+<h4 class="ans">Answer</h4>
+<p>Ca₃P₂ + 6H₂O → 3Ca(OH)₂ + 2PH₃</p>
+<h5 class="part">(f) (i) State the formula of the ammonium ion.</h5>
+<h4 class="ans">Answer</h4>
+<p>NH₄⁺</p>
+<h5 class="part">(f) (ii) Suggest the formula of phosphonium iodide.</h5>
+<h4 class="ans">Answer</h4>
+<p>PH₄I</p>
+<h5 class="part">(g) What is the formula of calcium phosphate?</h5>
+<h4 class="ans">Answer</h4>
+<p>Ca₃(PO₄)₂</p>
+<h5 class="part">(h) A compound of phosphorus and hydrogen has the composition: P, 93.94%; H, 6.06%.</h5>
+<h5 class="part">(h) (i) Calculate the empirical formula.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Moles: P = 93.94/31 = 3.03; H = 6.06/1 = 6.06</li>
+<li>Ratio: 1 : 2</li>
+<li>Empirical formula = PH₂</li>
+</ul>
+<h5 class="part">(h) (ii) The compound has a relative molecular mass of 66. Deduce the molecular</h5>
+<p>formula.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Mass of PH₂ = 31 + 2 = 33</li>
+<li>66 / 33 = 2</li>
+<li>Molecular formula = P₂H₄</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q11" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 11 <span class='meta'>(0620/41_Winter_2019_Q7)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) Describe how ethanol suitable for use as a fuel can be manufactured from sugars</h5>
+<p>such as glucose.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Equation: C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂</li>
+</ul>
+<br>
+<br>
+<ul>
+<li>Conditions: Any three from: anaerobic, 30-40°C, yeast, aqueous glucose.</li>
+<li>Purification Process: Fractional distillation.</li>
+</ul>
+<h5 class="part">(b) Use the bond energies in the table to calculate the energy change for the complete</h5>
+<p>combustion of ethanol.</p>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy to break bonds: 4728 kJ</li>
+<li>Energy released by making bonds: 6004 kJ</li>
+<li>Energy change: 4728 - 6004 = -1276 kJ/mol</li>
+</ul>
+<h5 class="part">(c) (i) What is meant by the term catalyst?</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>A substance that speeds up a chemical reaction.</li>
+<li>It is not used up or remains unchanged at the end of the reaction.</li>
+</ul>
+<h5 class="part">(c) (ii) Complete the dot-and-cross diagram for ethanal, CH₃CHO.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>The diagram shows 4 electrons in the C=O double bond, all single bonds correct, and all</p>
+<p>atoms having full outer shells (C/O=8, H=2).</p>
+<h5 class="part">(c) (iii) Suggest why ethanal (b.p. 20°C) has a lower boiling point than ethanol (b.p.</h5>
+<p>78°C).</p>
+<h4 class="ans">Answer</h4>
+<p>The (attractive) forces between molecules are weaker in ethanal.</p>
+<h5 class="part">(d) Ethene gas reacts with steam to form gaseous ethanol in an exothermic equilibrium.</h5>
+<p>C₂H₄(g) + H₂O(g) ⇌ C₂H₅OH(g)</p>
+<h5 class="part">(d) (i) State and explain the effect of increasing the pressure on the position of</h5>
+<p>equilibrium.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The equilibrium moves to the right.</li>
+<li>There are fewer moles/molecules of gas on the right side.</li>
+</ul>
+<h5 class="part">(d) (ii) State and explain the effect of increasing the pressure on the rate of the</h5>
+<p>reaction.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The reaction rate increases.</li>
+<li>The particles/molecules are closer together, leading to more collisions per second.</li>
+</ul>
+<h5 class="part">(d) (iii) State and explain the effect of increasing the temperature on the position of</h5>
+<br>
+<br>
+<p>equilibrium.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The equilibrium moves to the left.</li>
+<li>The forward reaction is exothermic, so the system opposes the temperature increase by</li>
+</ul>
+<p>favouring the endothermic (backward) reaction.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q12" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 12 <span class='meta'>(0620/43_Summer_2020_Q2)</span></span></summary>
+        <div class="qbody">
+          <p>Ammonia is manufactured by the Haber process.</p>
+<p>N₂(g) + 3H₂(g) ⇌ 2NH₃(g)</p>
+<h5 class="part">(a) (i) State what is meant by the symbol ⇌.</h5>
+<h4 class="ans">Answer</h4>
+<p>Reversible reaction.</p>
+<h5 class="part">(a) (ii) State one source of hydrogen used in the manufacture of ammonia.</h5>
+<h4 class="ans">Answer</h4>
+<p>Hydrocarbons (reacting with steam) or methane.</p>
+<h5 class="part">(b) Use the data in the table to deduce the effect on the percentage yield of ammonia.</h5>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Increasing the pressure: increases the yield.</li>
+<li>Increasing the temperature: decreases the yield.</li>
+</ul>
+<h5 class="part">(c) Explain, in terms of particles, what happens to the rate of this reaction when the</h5>
+<p>temperature is increased.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Particles have more energy and move faster.</li>
+<li>This results in more frequent collisions (greater collision rate).</li>
+<li>A greater proportion of particles/collisions have sufficient energy (the activation energy)</li>
+</ul>
+<p>to react, making more collisions successful.</p>
+<h5 class="part">(d) Ammonia is used to produce nitric acid.</h5>
+<p>4NH₃ + 5O₂ → 4NO + 6H₂O</p>
+<h5 class="part">(d) (i) Identify what is oxidised in stage 1. Give a reason.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Substance oxidised: N in NH₃</li>
+<li>Reason: The oxidation state of N increases from -3 to +2 / it gains oxygen / it loses</li>
+</ul>
+<p>hydrogen.</p>
+<h5 class="part">(d) (ii) The predicted yield of NO is 512g. The actual yield is 384g. Calculate the</h5>
+<br>
+<br>
+<p>percentage yield.</p>
+<h4 class="ans">Answer</h4>
+<p>(384 / 512) * 100 = 75%</p>
+<h5 class="part">(d) (iii) Which major environmental problem does NO₂ cause?</h5>
+<h4 class="ans">Answer</h4>
+<p>Acid rain.</p>
+<h5 class="part">(d) (iv) Calculate the volume of O₂ gas (at r.t.p.) needed to produce 1260g of HNO₃.</h5>
+<p>4NO₂ + 2H₂O + O₂ → 4HNO₃</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Mᵣ of HNO₃ = 63</li>
+<li>Moles of HNO₃ = 1260 / 63 = 20 mol</li>
+<li>Moles of O₂ = 20 / 4 = 5 mol</li>
+<li>Volume of O₂ = 5 × 24 = 120 dm³</li>
+</ul>
+<h5 class="part">(e) The reaction in stage 3 is exothermic. Complete the energy level diagram.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The horizontal product energy line is at a lower level than the reactant line.</li>
+<li>The product line is labelled.</li>
+<li>A vertical arrow points downwards from the reactant level to the product level.</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q13" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 13 <span class='meta'>(0620/41_Summer_2020_Q3)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) Name one sulfur-containing ore used to obtain sulfur dioxide.</h5>
+<h4 class="ans">Answer</h4>
+<p>Zinc blende (or other valid ore like galena, pyrite).</p>
+<h5 class="part">(b) The next stage is the equilibrium reaction:</h5>
+<p>2SO₂(g) + O₂(g) ⇌ 2SO₃(g)</p>
+<h5 class="part">(b) (i) Describe two features of an equilibrium.</h5>
+<h4 class="ans">Answer</h4>
+<p>1. The reaction is reversible.</p>
+<p>2. The rate of the forward reaction equals the rate of the reverse reaction.</p>
+<h5 class="part">(b) (ii) Name the catalyst used in this stage.</h5>
+<h4 class="ans">Answer</h4>
+<p>Vanadium(V) oxide.</p>
+<h5 class="part">(b) (iii) Why is a catalyst used?</h5>
+<h4 class="ans">Answer</h4>
+<p>It increases the rate of reaction.</p>
+<br>
+<br>
+<h5 class="part">(b) (iv) Explain, in terms of particles, why a high temperature increases the rate of this</h5>
+<p>reaction.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Particles gain more kinetic energy.</li>
+<li>The rate of collisions increases.</li>
+<li>A higher proportion of particles have energy greater than the activation energy (E > Eₐ).</li>
+</ul>
+<h5 class="part">(b) (v) A moderate temperature of 450°C is used. What does this suggest about the</h5>
+<p>forward reaction?</p>
+<h4 class="ans">Answer</h4>
+<p>It is exothermic.</p>
+<h5 class="part">(b) (vi) Calculate the percentage by mass of sulfur in sulfur trioxide, SO₃.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Mᵣ of SO₃ = 32 + (3 × 16) = 80</li>
+<li>Percentage S = (32 / 80) × 100 = 40%</li>
+</ul>
+<h5 class="part">(c) Name the solid product formed when concentrated sulfuric acid dehydrates</h5>
+<p>hydrated copper(II) sulfate crystals and sucrose.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Hydrated copper(II) sulfate: Anhydrous copper(II) sulfate</li>
+<li>Sucrose: Carbon</li>
+</ul>
+<h5 class="part">(d) When propan-1-ol is heated with concentrated sulfuric acid, an unsaturated</h5>
+<p>hydrocarbon (Mᵣ = 42) is formed.</p>
+<h5 class="part">(d) (i) What is meant by the term unsaturated?</h5>
+<h4 class="ans">Answer</h4>
+<p>It contains a C=C double bond / not all C-C bonds are single.</p>
+<h5 class="part">(d) (ii) Write the chemical equation for this reaction.</h5>
+<h4 class="ans">Answer</h4>
+<p>CH₃CH₂CH₂OH → C₃H₆ + H₂O</p>
+<h5 class="part">(d) (iii) Name the unsaturated hydrocarbon formed.</h5>
+<h4 class="ans">Answer</h4>
+<p>Propene.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q14" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 14 <span class='meta'>(0620/43_Summer_2020_Q3)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) State why chlorine-35 and chlorine-37 have the same chemical properties.</h5>
+<br>
+<br>
+<h4 class="ans">Answer</h4>
+<p>They have the same number of electrons / the same electronic configuration.</p>
+<h5 class="part">(a) (ii) Complete the table for atoms and ions of chlorine.</h5>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>³⁵Cl atom: 17 electrons, 18 neutrons, 17 protons</li>
+<li>³⁷Cl⁻ ion: 18 electrons, 20 neutrons, 17 protons</li>
+</ul>
+<h5 class="part">(b) (i) State the type of reaction shown: Cl₂ + 2NaBr → 2NaCl + Br₂</h5>
+<h4 class="ans">Answer</h4>
+<p>Displacement / Redox.</p>
+<h5 class="part">(b) (ii) Why is there no reaction between iodine and aqueous sodium bromide?</h5>
+<h4 class="ans">Answer</h4>
+<p>Iodine is less reactive than bromine.</p>
+<h5 class="part">(c) Complete the dot-and-cross diagram for magnesium chloride.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The magnesium ion has an outer shell with eight electrons (crosses).</li>
+<li>The chloride ion has an outer shell with seven dots and one cross.</li>
+<li>The chloride ion has a charge of 1-, and the magnesium ion has a charge of 2+.</li>
+</ul>
+<h5 class="part">(d) Calculate the energy change for the reaction: H₂ + Cl₂ → 2HCl</h5>
+<p>(Refer to the table in the original document for bond energies.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy needed to break bonds: 436 + 243 = 679 kJ</li>
+<li>Energy released when bonds formed: 2 × 432 = 864 kJ</li>
+<li>Energy change: 679 - 864 = -185 kJ/mol</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q15" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 15 <span class='meta'>(0620/42_Summer_2020_Q4)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) What is meant by the term catalyst?</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>A substance that speeds up a reaction / increases the rate.</li>
+<li>It remains chemically unchanged at the end of the reaction / is not used up.</li>
+</ul>
+<h5 class="part">(b) What happens to the rate of this reaction as time increases? Explain why.</h5>
+<p>(Refer to the graph in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The rate decreases.</li>
+<li>The concentration of the reactant (hydrogen peroxide) decreases, so particles are</li>
+</ul>
+<p>further apart.</p>
+<br>
+<br>
+<ul>
+<li>This leads to fewer collisions per unit time / a lower collision frequency.</li>
+<li>The reaction stops because all the hydrogen peroxide is used up.</li>
+</ul>
+<h5 class="part">(c) Sketch a graph on the axes in (b) for the reaction using powdered manganese(IV)</h5>
+<p>oxide.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The new graph has a steeper initial gradient.</li>
+<li>It reaches the same final volume of oxygen.</li>
+</ul>
+<h5 class="part">(d) In terms of particles, explain what happens to the rate of this reaction when the</h5>
+<p>temperature is increased.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Particles gain kinetic energy and move faster.</li>
+<li>There is a greater number of collisions with energy equal to or greater than the activation</li>
+</ul>
+<p>energy.</p>
+<ul>
+<li>Therefore, more collisions are successful / fruitful.</li>
+</ul>
+<h5 class="part">(e) Calculate the concentration of aqueous hydrogen peroxide.</h5>
+<p>2H₂O₂(aq) → 2H₂O(l) + O₂(g)</p>
+<p>25.0 cm³ of H₂O₂ forms 48.0 cm³ of O₂ at r.t.p.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Moles of oxygen: 48.0 / 24000 = 0.002 mol</li>
+<li>Moles of hydrogen peroxide: 0.002 × 2 = 0.004 mol</li>
+<li>Concentration of H₂O₂: 0.004 / (25/1000) = 0.16 mol/dm³</li>
+</ul>
+<h5 class="part">(f) Write a chemical equation for the decomposition of potassium chlorate(V), KClO₃.</h5>
+<h4 class="ans">Answer</h4>
+<p>2KClO₃ → 2KCl + 3O₂</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q16" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 16 <span class='meta'>(0620/42_Summer_2020_Q6)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) Propane reacts with chlorine in a photochemical reaction. What type of reaction</h5>
+<p>is this?</p>
+<h4 class="ans">Answer</h4>
+<p>Substitution.</p>
+<h5 class="part">(a) (ii) What condition is needed for this photochemical reaction to occur?</h5>
+<h4 class="ans">Answer</h4>
+<p>Ultraviolet light / UV radiation.</p>
+<h5 class="part">(a) (iii) Draw two structural isomers of compounds with the formula C₃H₇Cl.</h5>
+<h4 class="ans">Answer</h4>
+<br>
+<br>
+<p>1. 1-chloropropane</p>
+<p>2. 2-chloropropane</p>
+<p>(Correct displayed formulas are required.)</p>
+<h5 class="part">(b) (i) Propene reacts with chlorine in an addition reaction. State why this is an addition</h5>
+<p>reaction.</p>
+<h4 class="ans">Answer</h4>
+<p>Only one product is formed / the double bond becomes a single bond / two molecules join to</p>
+<p>make one molecule.</p>
+<h5 class="part">(b) (ii) Calculate the energy change for the reaction between propene and chlorine.</h5>
+<p>(Refer to the table in the original document for bond energies.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy required to break bonds: 854 kJ</li>
+<li>Energy given out when bonds form: 1025 kJ</li>
+<li>Overall energy change: 854 - 1025 = -171 kJ/mol</li>
+</ul>
+<h5 class="part">(c) (i) Name the homologous series for the structures: C=C, -OH, -COOH.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>C=C: Alkene</li>
+<li>-OH: Alcohols / Alkanols</li>
+<li>-COOH: Carboxylic acids / Alkanoic acids</li>
+</ul>
+<h5 class="part">(c) (ii) What would you observe when compound A is added to aqueous bromine and aqueous</h5>
+<p>sodium carbonate?</p>
+<p>(Compound A contains C=C, -OH, and -COOH groups.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Aqueous bromine: Turns from orange to colourless / is decolourised.</li>
+<li>Aqueous sodium carbonate: Bubbles / fizzing / effervescence.</li>
+</ul>
+<h5 class="part">(d) (i) Draw one repeat unit of the addition polymer formed from compound A.</h5>
+<p>(Refer to the structure of compound A in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>The drawing shows the C=C bond having opened to form a single C-C bond in the polymer</p>
+<p>backbone, with continuation bonds.</p>
+<h5 class="part">(d) (ii) What type of condensation polymer is formed from compound A?</h5>
+<h4 class="ans">Answer</h4>
+<p>Polyester.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q17" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 17 <span class='meta'>(0620/43_Winter_2020_Q3)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) Complete the dot-and-cross diagram for a molecule of nitrogen, N₂.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<br>
+<br>
+<p>The diagram shows a triple covalent bond (6 shared electrons) between the two nitrogen</p>
+<p>atoms, and one lone pair (2 non-bonding electrons) on each nitrogen atom.</p>
+<h5 class="part">(b) (i) Describe how nitrogen is obtained for the Haber process.</h5>
+<h4 class="ans">Answer</h4>
+<p>From the fractional distillation of liquid air.</p>
+<h5 class="part">(b) (ii) Give the essential reaction conditions and write a chemical equation for the</h5>
+<p>Haber process.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Chemical equation: N₂ + 3H₂ ⇌ 2NH₃</li>
+<li>Reaction conditions:</li>
+</ul>
+<p>○ Pressure: 200 atmospheres</p>
+<p>○ Temperature: 450 °C</p>
+<p>○ Catalyst: Iron</p>
+<h5 class="part">(c) (i) State the meaning of the term catalyst.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>A substance that speeds up a reaction / increases the rate.</li>
+<li>It remains chemically unchanged at the end of the reaction.</li>
+</ul>
+<h5 class="part">(c) (ii) State the meaning of the term oxidation.</h5>
+<h4 class="ans">Answer</h4>
+<p>Gain of oxygen / loss of hydrogen / loss of electrons / increase in oxidation state.</p>
+<h5 class="part">(c) (iii) Complete the table for the reaction: 4NH₃(g) + 5O₂(g) ⇌ 4NO(g) + 6H₂O(g)</h5>
+<p>(The forward reaction is exothermic.)</p>
+<h4 class="ans">Answer</h4>
+<pre>
+| Change | Effect on rate of forward reaction | Effect on equilibrium yield of NO(g) |
+| :--- | :--- | :--- |
+| Increasing the temperature | increase | decrease |
+| Increasing the pressure | increase | decrease |
+</pre>
+<h5 class="part">(d) Write a chemical equation for the reaction of nitrogen dioxide with oxygen and</h5>
+<p>water to produce nitric acid.</p>
+<h4 class="ans">Answer</h4>
+<p>4NO₂ + O₂ + 2H₂O → 4HNO₃</p>
+<h5 class="part">(e) Calculate the percentage by mass of nitrogen in ammonium nitrate, NH₄NO₃.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Mᵣ of NH₄NO₃ = 80</li>
+<li>Mass of N = 2 × 14 = 28</li>
+<li>Percentage N = (28 / 80) × 100 = 35%</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q18" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 18 <span class='meta'>(0620/41_Winter_2020_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) State what is meant by the term electrolysis.</h5>
+<h4 class="ans">Answer</h4>
+<p>The breakdown of an ionic compound, in a molten or aqueous state, by the passage of</p>
+<p>electricity.</p>
+<h5 class="part">(a) (ii) Explain why inert electrodes are used.</h5>
+<h4 class="ans">Answer</h4>
+<p>So they do not react with the electrolyte or products.</p>
+<h5 class="part">(a) (iii) Name the products formed at each electrode during the electrolysis of dilute</h5>
+<p>sulfuric acid.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Negative electrode: Hydrogen (gas)</li>
+<li>Positive electrode: Oxygen (gas)</li>
+</ul>
+<h5 class="part">(a) (iv) Write an ionic half-equation for the reaction at the negative electrode.</h5>
+<h4 class="ans">Answer</h4>
+<p>2H⁺ + 2e⁻ → H₂</p>
+<h5 class="part">(b) (i) Write the chemical equation for the combustion of sulfur to form sulfur dioxide</h5>
+<p>(Stage 1 of Contact process).</p>
+<h4 class="ans">Answer</h4>
+<p>S + O₂ → SO₂</p>
+<h5 class="part">(b) (ii) Explain what is meant by the term equilibrium.</h5>
+<p>2SO₂(g) + O₂(g) ⇌ 2SO₃(g)</p>
+<h4 class="ans">Answer</h4>
+<p>The rate of the forward reaction is equal to the rate of the reverse reaction, and the</p>
+<p>concentrations of reactants and products are constant.</p>
+<h5 class="part">(b) (iii) Explain what the energy level diagram shows about the energy changes in the forward</h5>
+<p>reaction.</p>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The reaction is exothermic / heat energy is released.</li>
+<li>The products have lower energy than the reactants.</li>
+</ul>
+<h5 class="part">(c) What does oleum react with in stage 4 to form sulfuric acid?</h5>
+<h4 class="ans">Answer</h4>
+<p>Water / H₂O</p>
+<h5 class="part">(d) A sample of sulfuric acid has a concentration of 0.75 mol/dm³. Calculate the</h5>
+<br>
+<br>
+<p>concentration in g/dm³.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Mᵣ of H₂SO₄ = 98</li>
+<li>Concentration = 0.75 × 98 = 73.5 g/dm³</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q19" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 19 <span class='meta'>(0620/42_Summer_2021_Q3)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) Name the type of reaction that takes place when sodium hydrogencarbonate is heated.</h5>
+<p>2NaHCO₃ → Na₂CO₃ + H₂O + CO₂</p>
+<h4 class="ans">Answer</h4>
+<p>(Thermal) decomposition.</p>
+<h5 class="part">(b) Calculate the volume of carbon dioxide formed at r.t.p. when 12.6g of NaHCO₃ is</h5>
+<p>heated.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Mass of one mole of NaHCO₃: 84 g</li>
+<li>Moles of NaHCO₃ used: 12.6 / 84 = 0.15 mol</li>
+<li>Moles of CO₂ formed: 0.15 / 2 = 0.075 mol</li>
+<li>Volume of CO₂ formed: 0.075 × 24.0 = 1.8 dm³</li>
+</ul>
+<h5 class="part">(c) Write the formula of calcium hydroxide and the white precipitate that forms when</h5>
+<p>limewater turns milky.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Calcium hydroxide: Ca(OH)₂</li>
+<li>White precipitate: CaCO₃</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q20" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 20 <span class='meta'>(0620/41_Summer_2021_Q4)</span></span></summary>
+        <div class="qbody">
+          <p>Dinitrogen tetroxide decomposes into nitrogen dioxide in a reversible reaction.</p>
+<p>N₂O₄(g) ⇌ 2NO₂(g)</p>
+<p>(colourless) (brown)</p>
+<h5 class="part">(a) State what is meant by the term equilibrium.</h5>
+<h4 class="ans">Answer</h4>
+<p>The rate of the forward reaction equals the rate of the reverse reaction, and the</p>
+<p>concentrations of reactants and products are constant.</p>
+<h5 class="part">(b) The plunger of the gas syringe is pushed in. The mixture initially turns darker</h5>
+<p>brown, then lighter brown as the equilibrium shifts left.</p>
+<h5 class="part">(b) (i) Explain why the mixture initially turns darker brown.</h5>
+<h4 class="ans">Answer</h4>
+<p>The concentration of nitrogen dioxide increases because the particles are forced closer</p>
+<br>
+<br>
+<p>together in a smaller volume.</p>
+<h5 class="part">(b) (ii) Explain why the position of equilibrium shifts to the left.</h5>
+<h4 class="ans">Answer</h4>
+<p>There are fewer moles of gas on the left-hand side, so the equilibrium shifts to relieve the</p>
+<p>increased pressure.</p>
+<h5 class="part">(c) The forward reaction is endothermic.</h5>
+<h5 class="part">(c) (i) State what happens to the position of equilibrium when the temperature is</h5>
+<p>increased.</p>
+<h4 class="ans">Answer</h4>
+<p>It shifts to the right.</p>
+<h5 class="part">(c) (ii) State what happens to the rate of the forward and backward reactions when the</h5>
+<p>temperature is increased.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Rate of the forward reaction: increase / faster</li>
+<li>Rate of the backward reaction: increase / faster</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q21" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 21 <span class='meta'>(0620/43_Summer_2021_Q4)</span></span></summary>
+        <div class="qbody">
+          <p>Hydrogen iodide decomposes into iodine and hydrogen in a reversible reaction.</p>
+<p>2HI(g) ⇌ I₂(g) + H₂(g)</p>
+<p>(colourless) (purple) (colourless)</p>
+<h5 class="part">(a) State what is meant by the term equilibrium.</h5>
+<h4 class="ans">Answer</h4>
+<p>The rate of the forward reaction equals the rate of the reverse reaction, and the</p>
+<p>concentrations of reactants and products are constant.</p>
+<h5 class="part">(b) The plunger of the gas syringe is pushed in. The position of equilibrium does not</h5>
+<p>change, but the mixture turns darker purple.</p>
+<h5 class="part">(b) (i) Explain why the position of equilibrium does not change.</h5>
+<h4 class="ans">Answer</h4>
+<p>There is the same number of gas moles on both sides of the equilibrium.</p>
+<h5 class="part">(b) (ii) Suggest why the colour turns darker purple.</h5>
+<h4 class="ans">Answer</h4>
+<p>The concentration of iodine increases as the particles are forced closer together in a smaller</p>
+<p>volume.</p>
+<h5 class="part">(c) The forward reaction is endothermic.</h5>
+<h5 class="part">(c) (i) State what happens to the position of equilibrium when the temperature is</h5>
+<br>
+<br>
+<p>decreased.</p>
+<h4 class="ans">Answer</h4>
+<p>It shifts to the left.</p>
+<h5 class="part">(c) (ii) State what happens to the rate of the forward and backward reactions when the</h5>
+<p>temperature is decreased.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Rate of the forward reaction: decrease / slower</li>
+<li>Rate of the backward reaction: decrease / slower</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q22" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 22 <span class='meta'>(0620/42_Summer_2021_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) Write the chemical equation for the reaction between lithium and nitrogen.</h5>
+<h4 class="ans">Answer</h4>
+<p>6Li + N₂ → 2Li₃N</p>
+<h5 class="part">(a) (ii) Complete the diagram to show the electronic structure of the nitride ion.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The diagram shows a new octet of 8 electrons (5 crosses and 3 dots) in the second shell.</li>
+<li>The ion has a charge of 3-.</li>
+</ul>
+<h5 class="part">(b) (i) Calculate the energy change for the reaction between nitrogen and fluorine.</h5>
+<p>N≡N + 3F-F → 2NF₃</p>
+<p>(Refer to the table in the original document for bond energies.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy taken in to break bonds: [945 + (3 × 160)] = 1425 kJ</li>
+<li>Energy released when bonds are formed: (2 × 3 × 300) = 1800 kJ</li>
+<li>Energy change: 1425 - 1800 = -375 kJ/mol</li>
+</ul>
+<h5 class="part">(b) (ii) Is this reaction endothermic or exothermic? Explain.</h5>
+<h4 class="ans">Answer</h4>
+<p>Exothermic, because more energy is released in bond formation than is used in bond</p>
+<p>breaking.</p>
+<h5 class="part">(b) (iii) Complete the dot-and-cross diagram for NF₃.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The central N atom has 1 bonding pair with each of the 3 F atoms.</li>
+<li>There is 1 lone pair (2 non-bonding dots) on the N atom.</li>
+<li>Each F atom has 3 lone pairs (6 non-bonding crosses).</li>
+</ul>
+<h5 class="part">(c) Explain why lithium nitride (m.p. 813°C) has a much higher melting point than</h5>
+<br>
+<br>
+<p>nitrogen trifluoride (m.p. -206°C).</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Lithium nitride has strong electrostatic forces of attraction between ions (ionic bonds).</li>
+<li>Nitrogen trifluoride has weak intermolecular forces of attraction between molecules.</li>
+<li>The attraction between particles in Li₃N is much stronger and requires more energy to</li>
+</ul>
+<p>overcome.</p>
+<h5 class="part">(d) (i) Calculate the percentage by mass of nitrogen in ammonium nitrate, NH₄NO₃.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Mᵣ of NH₄NO₃ = 80</li>
+<li>Mass of N = 2 × 14 = 28</li>
+<li>Percentage N = (28 / 80) × 100 = 35%</li>
+</ul>
+<h5 class="part">(d) (ii) State a use of ammonium nitrate in agriculture.</h5>
+<h4 class="ans">Answer</h4>
+<p>Fertiliser.</p>
+<h5 class="part">(d) (iii) State the name of a compound that will displace ammonia from ammonium</h5>
+<p>nitrate.</p>
+<h4 class="ans">Answer</h4>
+<p>Calcium hydroxide (or any strong base).</p>
+<h5 class="part">(e) (i) Define the term base.</h5>
+<h4 class="ans">Answer</h4>
+<p>A proton acceptor.</p>
+<h5 class="part">(e) (ii) Suggest the pH of aqueous ammonia.</h5>
+<h4 class="ans">Answer</h4>
+<p>Any value between 7 and 11 (e.g., pH 9 or 10).</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q23" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 23 <span class='meta'>(0620/42_Winter_2021_Q4)</span></span></summary>
+        <div class="qbody">
+          <p>Chlorine reacts with carbon monoxide to produce phosgene gas in an exothermic reaction.</p>
+<p>Cl₂(g) + CO(g) ⇌ COCl₂(g)</p>
+<h5 class="part">(a) Explain why the reaction is exothermic in terms of bond breaking and bond making.</h5>
+<h4 class="ans">Answer</h4>
+<p>More energy is released when making bonds in the products than is required to break the</p>
+<p>bonds in the reactants.</p>
+<h5 class="part">(b) (i) Complete the energy level diagram for this reaction.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<br>
+<br>
+<ul>
+<li>A horizontal line is drawn below the reactant energy level and labelled COCl₂(g).</li>
+<li>An upward arrow labelled 'A' or 'activation energy' is drawn from the reactant level to the</li>
+</ul>
+<p>peak of the curve.</p>
+<ul>
+<li>A downward arrow labelled 'ΔH' is drawn from the reactant level to the product level.</li>
+</ul>
+<h5 class="part">(b) (ii) State why a catalyst is used.</h5>
+<h4 class="ans">Answer</h4>
+<p>To increase the rate of reaction.</p>
+<h5 class="part">(c) Describe and explain the effect on the position of equilibrium when:</h5>
+<h5 class="part">(c) (i) the pressure is increased.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The equilibrium shifts to the right-hand side.</li>
+<li>There are fewer moles of gas on the right-hand side.</li>
+</ul>
+<h5 class="part">(c) (ii) the temperature is increased.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The equilibrium shifts to the left-hand side.</li>
+<li>The forward reaction is exothermic.</li>
+</ul>
+<h5 class="part">(d) Use the information to calculate the energy of the bond in carbon monoxide, CO.</h5>
+<p>(Refer to the table in the original document for bond energies and ΔH = -230 kJ/mol.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy released = (2 × 400) + 745 = 1545 kJ</li>
+<li>-230 = [240 + E(C≡O)] - 1545</li>
+<li>E(C≡O) = -230 + 1545 - 240 = 1075 kJ/mol</li>
+</ul>
+<h5 class="part">(e) Complete the dot-and-cross diagram for COCl₂.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>The diagram shows all single bonding dot-and-cross pairs correct, the C=O double bond</p>
+<p>correct, and the complete diagram is correct with full outer shells.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q24" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 24 <span class='meta'>(0620/43_Summer_2022_Q4)</span></span></summary>
+        <div class="qbody">
+          <p>Ethanol is made from ethene and steam in an exothermic equilibrium.</p>
+<p>C₂H₄(g) + H₂O(g) ⇌ C₂H₅OH(g)</p>
+<h5 class="part">(a) State what is meant by the term catalyst.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>A substance which increases the rate of a reaction.</li>
+<li>It remains chemically unchanged or unaffected at the end of the reaction.</li>
+</ul>
+<br>
+<br>
+<h5 class="part">(b) Complete the table.</h5>
+<h4 class="ans">Answer</h4>
+<pre>
+| Change | Effect on rate of forward reaction | Effect on equilibrium yield of C₂H₅OH(g) |
+| :--- | :--- | :--- |
+| increasing the temperature | increases | decreases |
+| decreasing the pressure | decreases | decreases |
+</pre>
+<h5 class="part">(c) (i) State the general formula of alcohols.</h5>
+<h4 class="ans">Answer</h4>
+<p>C�H₂�₊₁OH</p>
+<h5 class="part">(c) (ii) State two general characteristics of all homologous series.</h5>
+<h4 class="ans">Answer</h4>
+<p>1. They have the same or similar chemical properties/reactions.</p>
+<p>2. They contain the same functional group.</p>
+<p>(Other valid answers: consecutive members differ by CH₂, physical properties show</p>
+<p>trends.)</p>
+<h5 class="part">(c) (iii) Draw and name an isomer of propan-1-ol.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Structure: Displayed formula for propan-2-ol.</li>
+<li>Name: Propan-2-ol</li>
+</ul>
+<h5 class="part">(d) (i) Name the ester X.</h5>
+<p>(Refer to the structure in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>Ethyl butanoate.</p>
+<h5 class="part">(d) (ii) Name the alcohol and carboxylic acid that produce ester X.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Alcohol: Ethanol</li>
+<li>Carboxylic acid: Butanoic acid</li>
+</ul>
+<h5 class="part">(e) Calculate the empirical formula of ester Y (C, 58.82%; H, 9.80%; O, 31.37%).</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Moles: C=4.90, H=9.80, O=1.96</li>
+<li>Ratio: 2.5 : 5 : 1 or 5 : 10 : 2</li>
+<li>Empirical formula = C₅H₁₀O₂</li>
+</ul>
+<h5 class="part">(f) Ester Z has empirical formula C₃H₆O and Mᵣ = 116. Calculate the molecular formula.</h5>
+<h4 class="ans">Answer</h4>
+<br>
+<br>
+<ul>
+<li>Mass of C₃H₆O = 58</li>
+<li>116 / 58 = 2</li>
+<li>Molecular formula = C₆H₁₂O₂</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q25" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 25 <span class='meta'>(0620/41_Summer_2022_Q5)</span></span></summary>
+        <div class="qbody">
+          <p>Ethanoic acid is manufactured from methanol and carbon monoxide.</p>
+<p>CH₃OH(g) + CO(g) ⇌ CH₃COOH(g)</p>
+<h5 class="part">(a) State two characteristics of an equilibrium.</h5>
+<h4 class="ans">Answer</h4>
+<p>1. The rate of the forward reaction equals the rate of the reverse reaction.</p>
+<p>2. The concentrations of reactants and products are constant.</p>
+<h5 class="part">(b) Why is the manufacture not carried out at temperatures below 300°C or above</h5>
+<p>300°C?</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Below 300°C: The reaction is too slow.</li>
+<li>Above 300°C: The yield of ethanoic acid is too low (since the forward reaction is</li>
+</ul>
+<p>exothermic).</p>
+<h5 class="part">(c) Complete the table.</h5>
+<h4 class="ans">Answer</h4>
+<pre>
+| Change | Effect on rate of forward reaction | Effect on equilibrium yield of CH₃COOH(g) |
+| :--- | :--- | :--- |
+| adding a catalyst | increases | no change |
+| decreasing the pressure | decreases | decreases |
+</pre>
+<h5 class="part">(d) Suggest a suitable catalyst for the reaction and give a reason.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Suitable catalyst: Cobalt</li>
+<li>Reason: It is a transition element.</li>
+</ul>
+<h5 class="part">(e) State the general formula of the carboxylic acids homologous series.</h5>
+<h4 class="ans">Answer</h4>
+<p>C�H₂�₊₁COOH (or C�H₂�O₂)</p>
+<h5 class="part">(f) Draw the structure of the carboxylic acid containing three carbon atoms.</h5>
+<h4 class="ans">Answer</h4>
+<p>Displayed formula for propanoic acid, showing the -COOH group fully displayed.</p>
+<h5 class="part">(g) (i) Name the ester X, CH₃CH₂CH₂COOCH₃.</h5>
+<h4 class="ans">Answer</h4>
+<br>
+<br>
+<p>Methyl butanoate.</p>
+<h5 class="part">(g) (ii) Name the carboxylic acid and alcohol that produce ester X.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Carboxylic acid: Butanoic acid</li>
+<li>Alcohol: Methanol</li>
+</ul>
+<h5 class="part">(h) Calculate the empirical formula of ester Y (C, 48.65%; H, 8.11%; O, 43.24%).</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Moles: C=4.05, H=8.11, O=2.70</li>
+<li>Ratio: 1.5 : 3 : 1 or 3 : 6 : 2</li>
+<li>Empirical formula = C₃H₆O₂</li>
+</ul>
+<h5 class="part">(i) Ester Z has empirical formula C₂H₄O and Mᵣ = 88. Determine the molecular formula.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Mass of C₂H₄O = 44</li>
+<li>88 / 44 = 2</li>
+<li>Molecular formula = C₄H₈O₂</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q26" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 26 <span class='meta'>(0620/41_Winter_2022_Q3)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) Name the industrial process used to make ammonia.</h5>
+<h4 class="ans">Answer</h4>
+<p>Haber (process).</p>
+<h5 class="part">(b) State the raw material from which nitrogen is obtained.</h5>
+<h4 class="ans">Answer</h4>
+<p>Air.</p>
+<h5 class="part">(c) State what is meant by the symbol ⇌.</h5>
+<h4 class="ans">Answer</h4>
+<p>Reversible reaction.</p>
+<h5 class="part">(d) State the temperature and pressure used in this industrial process.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Temperature: 450 °C</li>
+<li>Pressure: 200 atm</li>
+</ul>
+<h5 class="part">(e) Name the catalyst used.</h5>
+<h4 class="ans">Answer</h4>
+<p>Iron / Fe.</p>
+<br>
+<br>
+<h5 class="part">(f) The forward reaction is exothermic. State and explain the effect on the position of</h5>
+<p>equilibrium when:</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Temperature is reduced: Equilibrium moves to the right-hand side because the reaction</li>
+</ul>
+<p>is exothermic.</p>
+<ul>
+<li>Pressure is reduced: Equilibrium moves to the left-hand side because there are more</li>
+</ul>
+<p>gaseous moles on the left-hand side.</p>
+<h5 class="part">(g) Explain, in terms of particles, what happens to the rate of reaction when the</h5>
+<p>temperature is reduced.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The rate decreases because particles have less energy.</li>
+<li>Fewer collisions occur per second.</li>
+<li>A smaller proportion of particles/collisions have energy equal to or above the activation</li>
+</ul>
+<p>energy.</p>
+<h5 class="part">(h) Give the formula of the compound formed when sulfuric acid reacts with ammonia.</h5>
+<h4 class="ans">Answer</h4>
+<p>(NH₄)₂SO₄</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q27" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 27 <span class='meta'>(0620/41_Winter_2022_Q5)</span></span></summary>
+        <div class="qbody">
+          <p>Ethene reacts with bromine: C₂H₄ + Br₂ → C₂H₄Br₂</p>
+<h5 class="part">(a) Write the general formula of alkenes.</h5>
+<h4 class="ans">Answer</h4>
+<p>C�H₂�</p>
+<h5 class="part">(b) Describe the colour change seen when ethene is bubbled through aqueous</h5>
+<p>bromine.</p>
+<h4 class="ans">Answer</h4>
+<p>From orange to colourless.</p>
+<h5 class="part">(c) Name this type of organic reaction.</h5>
+<h4 class="ans">Answer</h4>
+<p>Addition.</p>
+<h5 class="part">(d) (i) Complete the energy profile diagram for this exothermic reaction.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>A horizontal line for the products (C₂H₄Br₂) is drawn below the energy level of the</li>
+</ul>
+<p>reactants.</p>
+<br>
+<br>
+<ul>
+<li>An upward arrow labelled 'A' shows the activation energy.</li>
+<li>A downward arrow shows the overall energy change for the reaction.</li>
+</ul>
+<h5 class="part">(d) (ii) Use the bond energies in the table to calculate the energy change in this reaction.</h5>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy needed to break bonds: (4×410) + 610 + 190 = 2440 kJ</li>
+<li>Energy released in making bonds: (4×410) + 350 + (2×290) = 2570 kJ</li>
+<li>Energy change: 2440 - 2570 = -130 kJ/mol</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q28" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 28 <span class='meta'>(0620/42_Winter_2022_Q5)</span></span></summary>
+        <div class="qbody">
+          <p>Ethane reacts with chlorine: C₂H₆(g) + Cl₂(g) → C₂H₅Cl(l) + HCl(g)</p>
+<h5 class="part">(a) Write the general formula of alkanes.</h5>
+<h4 class="ans">Answer</h4>
+<p>C�H₂�₊₂</p>
+<h5 class="part">(b) State why this reaction is described as a photochemical reaction.</h5>
+<h4 class="ans">Answer</h4>
+<p>It needs ultraviolet (light) to start.</p>
+<h5 class="part">(c) State the name of this type of organic reaction.</h5>
+<h4 class="ans">Answer</h4>
+<p>Substitution.</p>
+<h5 class="part">(d) Name the other product besides chloroethane.</h5>
+<h4 class="ans">Answer</h4>
+<p>Hydrogen chloride.</p>
+<h5 class="part">(e) The energy profile diagram is shown.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h5 class="part">(e) (i) Name the energy change labelled A.</h5>
+<h4 class="ans">Answer</h4>
+<p>Activation energy.</p>
+<h5 class="part">(e) (ii) Name the energy change labelled B.</h5>
+<h4 class="ans">Answer</h4>
+<p>Energy (change) of reaction / Enthalpy change.</p>
+<h5 class="part">(e) (iii) State how the energy profile diagram shows this is an exothermic reaction.</h5>
+<h4 class="ans">Answer</h4>
+<p>The energy of the products is lower than the energy of the reactants.</p>
+<h5 class="part">(f) Use the bond energies in the table to calculate the energy change in this reaction.</h5>
+<br>
+<br>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy needed to break bonds: (6×410) + 350 + 240 = 3050 kJ</li>
+<li>Energy released in making bonds: (5×410) + 350 + 340 + 430 = 3170 kJ</li>
+<li>Energy change: 3050 - 3170 = -120 kJ/mol</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q29" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 29 <span class='meta'>(0620/43_Winter_2022_Q6)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) Use the bond energies to calculate the energy change for the reaction: CH₂ClCH₂Cl →</h5>
+<p>CH₂=CHCl + HCl</p>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy needed to break bonds: 2670 kJ</li>
+<li>Energy released when bonds form: 2610 kJ</li>
+<li>Energy change: 2670 - 2610 = +60 kJ/mol</li>
+</ul>
+<h5 class="part">(a) (ii) Is this reaction exothermic or endothermic? Give a reason.</h5>
+<h4 class="ans">Answer</h4>
+<p>Endothermic, because the overall energy change has a positive sign OR less energy is</p>
+<p>released when bonds form than is absorbed to break bonds.</p>
+<h5 class="part">(b) (i) State the number of monomer units shown in the synthetic polymer.</h5>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<p>2</p>
+<h5 class="part">(b) (ii) Name and draw the structure of the monomer used to make this polymer.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Name: But-1-ene</li>
+<li>Structure: Displayed formula of but-1-ene.</li>
+</ul>
+<h5 class="part">(b) (iii) State the empirical formula of the polymer.</h5>
+<h4 class="ans">Answer</h4>
+<p>CH₂</p>
+<h5 class="part">(c) (i) Name the type of reaction in which proteins are broken down into amino acids.</h5>
+<h4 class="ans">Answer</h4>
+<p>Hydrolysis.</p>
+<h5 class="part">(c) (ii) Name two types of substance used to break down proteins.</h5>
+<h4 class="ans">Answer</h4>
+<p>1. Acids</p>
+<p>2. Enzymes</p>
+<br>
+<br>
+<h5 class="part">(c) (iii) Name the process and substance used to separate and identify amino acids.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Process: Chromatography</li>
+<li>Substance: Locating agent</li>
+<li>Value: Rƒ value</li>
+</ul>
+<h5 class="part">(d) (i) Name a synthetic polyamide.</h5>
+<h4 class="ans">Answer</h4>
+<p>Nylon.</p>
+<h5 class="part">(d) (ii) Identify the two functional groups in the monomers used to produce synthetic</h5>
+<p>polyamides.</p>
+<h4 class="ans">Answer</h4>
+<p>1. Carboxylic acid (-COOH)</p>
+<p>2. Amine (-NH₂)</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q30" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 30 <span class='meta'>(0620/41_Summer_2023_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) State what is meant by the term electrolysis.</h5>
+<h4 class="ans">Answer</h4>
+<p>The breakdown of an ionic compound, in a molten or aqueous state, by the passage of</p>
+<p>electricity.</p>
+<h5 class="part">(a) (ii) State why graphite is suitable for use as an electrode.</h5>
+<h4 class="ans">Answer</h4>
+<p>Graphite is inert AND it conducts electricity.</p>
+<h5 class="part">(a) (iii) Write an ionic half-equation for the formation of hydrogen at the cathode.</h5>
+<h4 class="ans">Answer</h4>
+<p>2H⁺ + 2e⁻ → H₂</p>
+<h5 class="part">(a) (iv) Name the particle responsible for charge transfer in the wires.</h5>
+<h4 class="ans">Answer</h4>
+<p>Electrons.</p>
+<h5 class="part">(a) (v) Name the particle responsible for charge transfer in aqueous potassium</h5>
+<p>bromide.</p>
+<h4 class="ans">Answer</h4>
+<p>Ions.</p>
+<h5 class="part">(a) (vi) Name the products formed during the electrolysis of dilute aqueous potassium</h5>
+<p>bromide.</p>
+<br>
+<br>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>At the anode: Oxygen</li>
+<li>At the cathode: Hydrogen</li>
+</ul>
+<h5 class="part">(b) (i) Name the aluminium compound in purified bauxite.</h5>
+<h4 class="ans">Answer</h4>
+<p>Aluminium oxide.</p>
+<h5 class="part">(b) (ii) State two reasons why cryolite is used in this electrolysis.</h5>
+<h4 class="ans">Answer</h4>
+<p>Any two from:</p>
+<ul>
+<li>Acts as a solvent.</li>
+<li>Lowers the operating temperature.</li>
+<li>Increases conductivity.</li>
+</ul>
+<h5 class="part">(b) (iii) Explain why the carbon anode has to be replaced regularly.</h5>
+<h4 class="ans">Answer</h4>
+<p>The carbon anode reacts with the oxygen produced to form carbon dioxide.</p>
+<h5 class="part">(c) (i) Write the symbol equation for the overall reaction in a hydrogen-oxygen fuel cell.</h5>
+<h4 class="ans">Answer</h4>
+<p>2H₂ + O₂ → 2H₂O</p>
+<h5 class="part">(c) (ii) State one advantage of using hydrogen-oxygen fuel cells instead of petrol.</h5>
+<h4 class="ans">Answer</h4>
+<p>No carbon dioxide is evolved / It is more efficient / Water is the only product.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q31" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 31 <span class='meta'>(0620/43_Summer_2023_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) State what is meant by the term electrolyte.</h5>
+<h4 class="ans">Answer</h4>
+<p>An ionic compound that, when molten or in aqueous solution, conducts electricity.</p>
+<h5 class="part">(a) (ii) State the term for the Roman numeral (II) in copper(II) sulfate.</h5>
+<h4 class="ans">Answer</h4>
+<p>Oxidation number / Oxidation state.</p>
+<h5 class="part">(a) (iii) State what happens to the colour of aqueous copper(II) sulfate during</h5>
+<p>electrolysis.</p>
+<h4 class="ans">Answer</h4>
+<p>It fades / becomes colourless.</p>
+<h5 class="part">(a) (iv) Write an ionic half-equation for the formation of copper at the cathode.</h5>
+<h4 class="ans">Answer</h4>
+<br>
+<br>
+<p>Cu²⁺ + 2e⁻ → Cu</p>
+<h5 class="part">(a) (v) Give the formula of the ion that forms oxygen at the anode.</h5>
+<h4 class="ans">Answer</h4>
+<p>OH⁻</p>
+<h5 class="part">(b) What happens to the anode if the electrolysis of aqueous copper(II) sulfate is</h5>
+<p>repeated using copper electrodes?</p>
+<h4 class="ans">Answer</h4>
+<p>The anode dissolves / gets smaller.</p>
+<h5 class="part">(c) (i) Name the substances used to electroplate a spoon with silver.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Anode: Silver</li>
+<li>Cathode: Spoon</li>
+<li>Electrolyte: Aqueous solution of silver nitrate</li>
+</ul>
+<h5 class="part">(c) (ii) State two reasons why spoons are electroplated.</h5>
+<h4 class="ans">Answer</h4>
+<p>1. To prevent corrosion / rusting.</p>
+<p>2. To improve appearance.</p>
+<h5 class="part">(d) (i) State one adverse effect of carbon dioxide and carbon monoxide.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Carbon dioxide: (Increased) global warming.</li>
+<li>Carbon monoxide: Toxic / poisonous.</li>
+</ul>
+<h5 class="part">(d) (ii) State one disadvantage of using hydrogen-oxygen fuel cells compared to petrol.</h5>
+<h4 class="ans">Answer</h4>
+<p>It requires high pressure to store hydrogen gas.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q32" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 32 <span class='meta'>(0620/41_Winter_2023_Q5)</span></span></summary>
+        <div class="qbody">
+          <p>Methane reacts with steam to produce hydrogen gas.</p>
+<p>CH₄(g) + H₂O(g) ⇌ CO(g) + 3H₂(g) ΔH = +200 kJ/mol</p>
+<h5 class="part">(a) State two features of an equilibrium.</h5>
+<h4 class="ans">Answer</h4>
+<p>1. The rate of the forward reaction equals the rate of the reverse reaction.</p>
+<p>2. The concentrations of reactants and products are no longer changing.</p>
+<h5 class="part">(b) State and explain what happens to the concentration of hydrogen when:</h5>
+<br>
+<br>
+<h5 class="part">(b) (i) the pressure is increased.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The concentration decreases.</li>
+<li>The position of equilibrium shifts to the left because there are fewer moles of gas on the</li>
+</ul>
+<p>left-hand side.</p>
+<h5 class="part">(b) (ii) the temperature is increased.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The concentration increases.</li>
+<li>The position of equilibrium shifts to the right because the forward reaction is</li>
+</ul>
+<p>endothermic.</p>
+<h5 class="part">(b) (iii) a catalyst is used.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>There is no change in concentration.</li>
+<li>Catalysts do not affect the position of equilibrium.</li>
+</ul>
+<h5 class="part">(c) (i) Name a greenhouse gas found in clean, dry air.</h5>
+<h4 class="ans">Answer</h4>
+<p>Carbon dioxide.</p>
+<h5 class="part">(c) (ii) Explain how greenhouse gases cause global warming.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Greenhouse gases absorb thermal energy (infrared radiation) emitted from the Earth's</li>
+</ul>
+<p>surface.</p>
+<ul>
+<li>They prevent this thermal energy from escaping into space.</li>
+<li>An increase in the amount of greenhouse gas results in a higher atmospheric</li>
+</ul>
+<p>temperature.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q33" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 33 <span class='meta'>(0620/42_Winter_2023_Q2)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) (i) Complete Table 2.1.</h5>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<pre>
+| | Protons | Neutrons | Electrons |
+| :--- | :--- | :--- | :--- |
+| ⁵⁹Co | 27 | 32 | 27 |
+| ⁶⁵Cu²⁺ | 29 | 36 | 27 |
+</pre>
+<h5 class="part">(a) (ii) Calculate the relative atomic mass of copper.</h5>
+<p>(⁶³Cu: 70% abundance; ⁶⁵Cu: 30% abundance)</p>
+<br>
+<br>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>[(63 × 70) + (65 × 30)] / 100</li>
+<li>= [4410 + 1950] / 100 = 6360 / 100 = 63.6</li>
+</ul>
+<h5 class="part">(b) State two other physical properties of copper and cobalt that are different from</h5>
+<p>lithium.</p>
+<h4 class="ans">Answer</h4>
+<p>1. (High) density</p>
+<p>2. (High) melting point</p>
+<h5 class="part">(c) (i) Define the term water of crystallisation.</h5>
+<h4 class="ans">Answer</h4>
+<p>Water molecules that are chemically bonded into a crystal structure.</p>
+<h5 class="part">(c) (ii) State the colour and formula of hydrated cobalt(II) chloride crystals.</h5>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Colour: Pink</li>
+<li>Formula: CoCl₂·6H₂O</li>
+</ul>
+<h5 class="part">(c) (iii) State the colour change seen when water is added to anhydrous copper(II)</h5>
+<p>sulfate.</p>
+<h4 class="ans">Answer</h4>
+<p>From white to blue.</p>
+<h5 class="part">(c) (iv) State how this colour change can be reversed.</h5>
+<h4 class="ans">Answer</h4>
+<p>By heating the hydrated copper(II) sulfate.</p>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <section id="q34" class="qa">
+      <details>
+        <summary><span class="qtitle">Question 34 <span class='meta'>(0620/42_Winter_2023_Q5)</span></span></summary>
+        <div class="qbody">
+          <h5 class="part">(a) State the term used for the transfer of thermal energy during a reaction.</h5>
+<h4 class="ans">Answer</h4>
+<p>Enthalpy change (of reaction).</p>
+<h5 class="part">(b) Tetrachloromethane gas reacts with steam in an exothermic reversible reaction.</h5>
+<p>CCl₄(g) + 2H₂O(g) ⇌ CO₂(g) + 4HCl(g)</p>
+<h5 class="part">(b) (i) State what happens to the rate of the forward reaction if the concentration of</h5>
+<p>CCl₄ is increased. Explain your answer.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The rate of reaction increases.</li>
+<li>There are more CCl₄ particles per unit volume.</li>
+</ul>
+<br>
+<br>
+<ul>
+<li>Therefore, the frequency of collisions between CCl₄ and H₂O particles increases.</li>
+</ul>
+<h5 class="part">(b) (ii) State what happens to the position of equilibrium when the pressure is</h5>
+<p>increased. Explain your answer.</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>The position of equilibrium moves to the left-hand side.</li>
+<li>There are more gaseous moles/molecules on the right-hand side.</li>
+</ul>
+<h5 class="part">(b) (iii) On Fig. 5.1, insert the formulae, and draw arrows for activation energy (Eₐ) and</h5>
+<p>enthalpy change (ΔH).</p>
+<p>(Refer to the diagram in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Labels: CCl₄(g) + 2H₂O(g) on the reactant line and CO₂(g) + 4HCl(g) on the product line.</li>
+<li>Activation Energy: An upward arrow labelled Eₐ from the energy level of reactants to the</li>
+</ul>
+<p>top of the 'hump'.</p>
+<ul>
+<li>Energy Change: A downward arrow labelled ΔH starting from the energy level of</li>
+</ul>
+<p>reactants and finishing at the energy level of products.</p>
+<h5 class="part">(b) (iv) Define the term activation energy.</h5>
+<h4 class="ans">Answer</h4>
+<p>The minimum energy that colliding particles must have in order to react.</p>
+<h5 class="part">(b) (v) State one way the activation energy of a reaction can be changed.</h5>
+<h4 class="ans">Answer</h4>
+<p>By adding a catalyst.</p>
+<h5 class="part">(c) Use the bond energies and ΔH = -130 kJ/mol to calculate the H-Cl bond energy.</h5>
+<p>(Refer to the table in the original document.)</p>
+<h4 class="ans">Answer</h4>
+<ul>
+<li>Energy needed to break bonds: [(4 × 340) + (4 × 460)] = 3200 kJ/mol</li>
+<li>Energy released from CO₂ bonds: 2 × 805 = 1610 kJ/mol</li>
+<li>Calculation: 3200 - (1610 + E(4H-Cl)) = -130</li>
+</ul>
+<p>○ E(4H-Cl) = 3200 + 130 - 1610 = 1720 kJ/mol</p>
+<ul>
+<li>H-Cl bond energy: 1720 / 4 = 430 kJ/mol</li>
+</ul>
+          <div class='diagram-note'>No diagram extracted for this question (text-only).</div>
+        </div>
+      </details>
+    </section>
+    
+    <footer>
+      <p>This HTML was generated with text & image extraction from the provided PDF. Images are attached per question when detectable on the corresponding PDF pages.</p>
+    </footer>
+  </div>
+<script>
+function toggleAll(open=true){
+  document.querySelectorAll('details').forEach(d=>{ d.open = open; });
+}
+function doSearch(){
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const blocks = document.querySelectorAll('.qa');
+  let hits=0;
+  blocks.forEach(b=>{
+    const text = b.innerText.toLowerCase();
+    const match = q==='' ? true : text.includes(q);
+    b.style.display = match ? '' : 'none';
+    if(match) hits++;
+  });
+  document.getElementById('hits').textContent = (q===''? '': hits+' match'+(hits==1?'':'es'));
+}
+</script>
+</body>
+</html>
