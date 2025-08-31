@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Math: Interactive Revision Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-pixel {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .gradient-text {
+            background-image: linear-gradient(to right, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tap to Reveal Cards */
+        .reveal-card .back {
+            display: none;
+            transform: rotateY(180deg);
+        }
+        .reveal-card.is-revealed .front {
+            transform: rotateY(-180deg);
+        }
+        .reveal-card.is-revealed .back {
+            display: flex; /* Use flex for centering */
+            transform: rotateY(0deg);
+        }
+        .reveal-card .front, .reveal-card .back {
+            backface-visibility: hidden;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        /* Game Styles */
+        .option-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .option-btn.correct { animation: correct-pulse 0.5s ease-in-out; background-color: #10B981 !important; color: white !important; border-color: #059669 !important; }
+        .option-btn.incorrect { animation: incorrect-shake 0.5s ease-in-out; background-color: #EF4444 !important; color: white !important; border-color: #DC2626 !important; }
+        @keyframes correct-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        @keyframes incorrect-shake { 0%, 100% { transform: translateX(0); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); } 20%, 40%, 60%, 80% { transform: translateX(5px); } }
+        .locked-level { filter: grayscale(1); cursor: not-allowed; }
+        .game-screen { display: none; }
+        .game-screen.active { display: flex; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex flex-col items-center justify-center text-center p-8">
+        <h1 class="font-extrabold text-5xl md:text-7xl lg:text-8xl tracking-tighter">
+            <span class="gradient-text">Master The Numbers</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg md:text-xl text-gray-400">Your ultimate interactive guide to Negative Numbers, Indices, and Roots. Scroll down to begin your revision journey.</p>
+        <a href="#topic-1" class="mt-12 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105">Let's Start</a>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:px-8">
+
+        <!-- Topic 1: Multiplying & Dividing Integers -->
+        <section id="topic-1" class="py-20">
+            <h2 class="scroll-animate font-extrabold text-4xl md:text-6xl tracking-tighter text-center mb-12"><span class="gradient-text">1. Multiplying & Dividing Integers</span></h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="scroll-animate bg-gray-800 p-6 rounded-2xl border border-green-500/30 text-center"><p class="text-3xl font-bold text-green-400 mb-2">(+) &times; (+) = (+)</p><p>Positive &times; Positive = Positive</p></div>
+                <!-- Card 2 -->
+                <div class="scroll-animate bg-gray-800 p-6 rounded-2xl border border-red-500/30 text-center"><p class="text-3xl font-bold text-red-400 mb-2">(&minus;) &times; (+) = (&minus;)</p><p>Negative &times; Positive = Negative</p></div>
+                <!-- Card 3 -->
+                <div class="scroll-animate bg-gray-800 p-6 rounded-2xl border border-red-500/30 text-center"><p class="text-3xl font-bold text-red-400 mb-2">(+) &times; (&minus;) = (&minus;)</p><p>Positive &times; Negative = Negative</p></div>
+                <!-- Card 4 -->
+                <div class="scroll-animate bg-gray-800 p-6 rounded-2xl border border-green-500/30 text-center"><p class="text-3xl font-bold text-green-400 mb-2">(&minus;) &times; (&minus;) = (+)</p><p>Negative &times; Negative = Positive</p></div>
+            </div>
+            <p class="scroll-animate text-center mt-8 text-xl text-gray-400">The rules for division are <strong class="text-purple-400">exactly the same!</strong> Same signs = Positive. Different signs = Negative.</p>
+            
+            <h3 class="scroll-animate text-2xl font-bold text-center mt-16 mb-8">Test Your Knowledge</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                 <!-- Example 1 -->
+                <div class="scroll-animate reveal-card bg-gray-800 rounded-2xl h-40 flex items-center justify-center cursor-pointer p-4 perspective-[1000px]"><div class="front w-full h-full flex flex-col items-center justify-center text-center"><p class="text-3xl font-mono">-4 &times; (-5)</p><span class="mt-2 text-sm text-gray-500">(Tap to Reveal)</span></div><div class="back w-full h-full items-center justify-center text-center"><p class="text-5xl font-bold text-green-400">20</p></div></div>
+                 <!-- Example 2 -->
+                <div class="scroll-animate reveal-card bg-gray-800 rounded-2xl h-40 flex items-center justify-center cursor-pointer p-4 perspective-[1000px]"><div class="front w-full h-full flex flex-col items-center justify-center text-center"><p class="text-3xl font-mono">-72 &divide; 8</p><span class="mt-2 text-sm text-gray-500">(Tap to Reveal)</span></div><div class="back w-full h-full items-center justify-center text-center"><p class="text-5xl font-bold text-red-400">-9</p></div></div>
+                 <!-- Example 3 -->
+                <div class="scroll-animate reveal-card bg-gray-800 rounded-2xl h-40 flex items-center justify-center cursor-pointer p-4 perspective-[1000px]"><div class="front w-full h-full flex flex-col items-center justify-center text-center"><p class="text-3xl font-mono">-3 &times; 2 &times; (-5)</p><span class="mt-2 text-sm text-gray-500">(Tap to Reveal)</span></div><div class="back w-full h-full items-center justify-center text-center"><p class="text-5xl font-bold text-green-400">30</p></div></div>
+            </div>
+        </section>
+
+        <!-- Topic 2: Squares, Cubes & Roots -->
+        <section id="topic-2" class="py-20">
+            <h2 class="scroll-animate font-extrabold text-4xl md:text-6xl tracking-tighter text-center mb-12"><span class="gradient-text">2. Squares, Cubes & Roots</span></h2>
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Squares & Roots -->
+                <div class="scroll-animate bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                    <h3 class="text-2xl font-bold text-purple-400 mb-4">Squares & Square Roots</h3>
+                    <p class="mb-4">Squaring a positive OR negative number gives a <strong class="text-green-400">positive</strong> result.</p>
+                    <p class="font-mono text-lg bg-gray-900 p-3 rounded-md">(-7)² = (-7) &times; (-7) = 49</p>
+                    <p class="mt-6 mb-4">A positive number has <strong class="text-yellow-400">TWO</strong> square roots (one positive, one negative).</p>
+                    <p class="font-mono text-lg bg-gray-900 p-3 rounded-md">The square roots of 49 are 7 and -7.</p>
+                    <p class="mt-6 mb-4 text-red-400 font-bold">You CANNOT find the square root of a negative number.</p>
+                </div>
+                 <!-- Cubes & Roots -->
+                <div class="scroll-animate bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
+                    <h3 class="text-2xl font-bold text-pink-400 mb-4">Cubes & Cube Roots</h3>
+                    <p class="mb-4">Cubing a negative number gives a <strong class="text-red-400">negative</strong> result.</p>
+                    <p class="font-mono text-lg bg-gray-900 p-3 rounded-md">(-4)³ = (-4) &times; (-4) &times; (-4) = -64</p>
+                    <p class="mt-6 mb-4">You <strong class="text-green-400">CAN</strong> find the cube root of a negative number.</p>
+                    <p class="font-mono text-lg bg-gray-900 p-3 rounded-md">³√-64 = -4</p>
+                </div>
+            </div>
+             <h3 class="scroll-animate text-2xl font-bold text-center mt-16 mb-8">Watch Out For Brackets!</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="scroll-animate reveal-card bg-gray-800 rounded-2xl h-48 flex items-center justify-center cursor-pointer p-4 perspective-[1000px]"><div class="front w-full h-full flex flex-col items-center justify-center text-center"><p class="text-4xl font-mono">(-6)²</p><p class="mt-2 text-gray-400">"Square the number -6"</p><span class="mt-2 text-sm text-gray-500">(Tap to Reveal)</span></div><div class="back w-full h-full items-center justify-center text-center flex-col"><p class="text-md font-mono">(-6) &times; (-6)</p><p class="text-5xl font-bold text-green-400">36</p></div></div>
+                <div class="scroll-animate reveal-card bg-gray-800 rounded-2xl h-48 flex items-center justify-center cursor-pointer p-4 perspective-[1000px]"><div class="front w-full h-full flex flex-col items-center justify-center text-center"><p class="text-4xl font-mono">-6²</p><p class="mt-2 text-gray-400">"Square 6, then make it negative"</p><span class="mt-2 text-sm text-gray-500">(Tap to Reveal)</span></div><div class="back w-full h-full items-center justify-center text-center flex-col"><p class="text-md font-mono">-(6 &times; 6)</p><p class="text-5xl font-bold text-red-400">-36</p></div></div>
+            </div>
+        </section>
+
+        <!-- Topic 3: The Index Laws -->
+        <section id="topic-3" class="py-20">
+             <h2 class="scroll-animate font-extrabold text-4xl md:text-6xl tracking-tighter text-center mb-12"><span class="gradient-text">3. The Index Laws</span></h2>
+             <div class="space-y-6">
+                <!-- Law 1 -->
+                <div class="scroll-animate bg-gray-800/50 p-6 rounded-2xl border border-gray-700"><h3 class="text-xl font-bold text-purple-400">1. Multiplication Law: <span class="font-mono">aᵐ &times; aⁿ = aᵐ⁺ⁿ</span></h3><p>When multiplying powers with the same base, ADD the indices.</p><p class="font-mono mt-2 text-green-400">e.g., 5² &times; 5⁴ = 5²⁺⁴ = 5⁶</p></div>
+                <!-- Law 2 -->
+                <div class="scroll-animate bg-gray-800/50 p-6 rounded-2xl border border-gray-700"><h3 class="text-xl font-bold text-purple-400">2. Division Law: <span class="font-mono">aᵐ &divide; aⁿ = aᵐ⁻ⁿ</span></h3><p>When dividing powers with the same base, SUBTRACT the indices.</p><p class="font-mono mt-2 text-green-400">e.g., 7⁹ &divide; 7³ = 7⁹⁻³ = 7⁶</p></div>
+                <!-- Law 3 -->
+                <div class="scroll-animate bg-gray-800/50 p-6 rounded-2xl border border-gray-700"><h3 class="text-xl font-bold text-purple-400">3. Power of a Power Law: <span class="font-mono">(aᵐ)ⁿ = aᵐˣⁿ</span></h3><p>To find the power of a power, MULTIPLY the indices.</p><p class="font-mono mt-2 text-green-400">e.g., (3⁴)² = 3⁴ˣ² = 3⁸</p></div>
+                <!-- Law 4 -->
+                <div class="scroll-animate bg-gray-800/50 p-6 rounded-2xl border border-gray-700"><h3 class="text-xl font-bold text-purple-400">4. Zero Index Law: <span class="font-mono">a⁰ = 1</span></h3><p>Anything (except 0) to the power of zero is ALWAYS 1.</p><p class="font-mono mt-2 text-green-400">e.g., 89⁰ = 1</p></div>
+             </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz-section" class="py-20">
+            <h2 class="scroll-animate font-pixel text-3xl md:text-5xl text-center mb-12"><span class="gradient-text">The Ultimate Challenge</span></h2>
+            <div id="quiz-container" class="w-full max-w-4xl mx-auto">
+                 <!-- Level Select Screen -->
+                <div id="level-select-screen" class="game-screen active flex-col items-center">
+                    <p class="text-center text-lg mb-8">Complete each level to unlock the next. You must correct your mistakes before you can advance!</p>
+                    <div class="grid md:grid-cols-3 gap-8 w-full">
+                        <div id="level-1-card" class="bg-gray-800 p-6 rounded-2xl text-center border-2 border-blue-500 shadow-lg cursor-pointer transition duration-300 transform hover:scale-105" onclick="startGame(0)"><h3 class="font-pixel text-xl text-blue-400 mb-2">Level 1</h3><p class="text-lg font-semibold mb-4">Multiplying & Dividing Integers</p><div id="level-1-status" class="text-sm font-bold text-yellow-300">UNLOCKED</div></div>
+                        <div id="level-2-card" class="bg-gray-800 p-6 rounded-2xl text-center border-2 border-gray-600 shadow-lg transition duration-300 locked-level"><h3 class="font-pixel text-xl text-gray-500 mb-2">Level 2</h3><p class="text-lg font-semibold mb-4 text-gray-400">Squares, Cubes & Roots</p><div id="level-2-status" class="text-sm font-bold text-red-500">LOCKED</div></div>
+                        <div id="level-3-card" class="bg-gray-800 p-6 rounded-2xl text-center border-2 border-gray-600 shadow-lg transition duration-300 locked-level"><h3 class="font-pixel text-xl text-gray-500 mb-2">Level 3</h3><p class="text-lg font-semibold mb-4 text-gray-400">The Index Laws</p><div id="level-3-status" class="text-sm font-bold text-red-500">LOCKED</div></div>
+                    </div>
+                </div>
+                 <!-- Game Screen -->
+                <div id="game-screen" class="game-screen flex-col">
+                    <div class="w-full bg-gray-800 p-6 rounded-2xl shadow-2xl border-2 border-purple-500">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 id="topic-title" class="font-pixel text-md md:text-xl text-purple-400">Topic Title</h2>
+                            <div class="flex space-x-4">
+                                <div id="question-counter" class="text-lg font-bold text-gray-300">1 / 100</div>
+                                <div id="score-tracker" class="text-lg font-bold"><span class="text-green-400">C: 0</span> | <span class="text-red-400">W: 0</span></div>
+                            </div>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-4 mb-6"><div id="progress-bar" class="bg-green-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+                        <div class="bg-gray-900 p-8 rounded-lg min-h-[120px] flex items-center justify-center text-center mb-6"><p id="question-text" class="text-xl md:text-3xl font-bold">Question text goes here...</p></div>
+                        <div id="options-container" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+                        <div class="text-center mt-4 h-8"><p id="feedback-text" class="text-lg font-semibold"></p></div>
+                    </div>
+                </div>
+                <!-- Correction Screen -->
+                <div id="correction-screen" class="game-screen flex-col">
+                    <div class="w-full bg-gray-800 p-6 rounded-2xl shadow-2xl border-2 border-yellow-500">
+                        <h2 class="font-pixel text-2xl md:text-3xl text-yellow-300 mb-4 text-center">Correction Time!</h2>
+                        <p class="text-center text-gray-300 mb-6">Let's fix those mistakes. Answer correctly to clear the question.</p>
+                        <div id="correction-list" class="space-y-6 max-h-[60vh] overflow-y-auto p-2"></div>
+                        <div class="text-center mt-6"><button id="finish-correction-btn" onclick="finishCorrections()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 transform hover:scale-105 shadow-lg hidden">Level Complete!</button></div>
+                    </div>
+                </div>
+                 <!-- Final Screen -->
+                <div id="final-screen" class="game-screen flex-col items-center text-center">
+                    <h1 class="font-pixel text-4xl md:text-5xl text-green-400 mb-4">QUEST COMPLETE!</h1>
+                    <p class="text-2xl text-gray-200 mb-8">You have mastered all the challenges!</p>
+                    <button onclick="showGameScreen('level-select-screen'); resetGame();" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-2xl transition duration-300 transform hover:scale-105 shadow-lg">Play Again</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center p-8 text-gray-500 border-t border-gray-800">
+        <p>IGCSE Math Interactive Guide</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Scroll Animation Observer ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+
+            // --- Tap to Reveal Logic ---
+             document.querySelectorAll('.reveal-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('is-revealed');
+                });
+            });
+        });
+
+        // --- GAME SCRIPT ---
+        const gameQuestions = [
+            // Subtopic 1: Multiplying & Dividing Integers (100 questions)
+            [
+                { q: "3 × (-4)", a: "-12", o: ["12", "7", "-7", "1", "-1"] }, { q: "-5 × 6", a: "-30", o: ["30", "11", "-11", "1", "-1"] }, { q: "-8 × (-2)", a: "16", o: ["-16", "-10", "10", "6", "-6"] }, { q: "9 × 2", a: "18", o: ["-18", "11", "7", "29", "92"] }, { q: "10 ÷ (-5)", a: "-2", o: ["2", "5", "-5", "15", "-15"] }, { q: "-12 ÷ 3", a: "-4", o: ["4", "-9", "9", "15", "-15"] }, { q: "-14 ÷ (-7)", a: "2", o: ["-2", "-21", "21", "-7", "7"] }, { q: "20 ÷ 4", a: "5", o: ["-5", "16", "24", "4", "80"] }, { q: "-1 × 10", a: "-10", o: ["10", "9", "-9", "11", "-11"] }, { q: "0 × (-5)", a: "0", o: ["-5", "5", "1", "-1", "Error"] },
+                { q: "-30 ÷ (-10)", a: "3", o: ["-3", "-300", "300", "-20", "20"] }, { q: "56 ÷ (-8)", a: "-7", o: ["7", "-6", "6", "48", "-48"] }, { q: "-11 × (-3)", a: "33", o: ["-33", "-14", "14", "-8", "8"] }, { q: "45 ÷ (-9)", a: "-5", o: ["5", "-4", "4", "36", "-36"] }, { q: "-7 × 8", a: "-56", o: ["56", "1", "-1", "15", "-15"] }, { q: "(-5)²", a: "25", o: ["-25", "-10", "10", "52", "-52"] }, { q: "(-1)³", a: "-1", o: ["1", "-3", "3", "0", "111"] }, { q: "100 ÷ (-25)", a: "-4", o: ["4", "75", "-75", "-125", "125"] }, { q: "-6 × 0", a: "0", o: ["-6", "6", "1", "-1", "Undefined"] }, { q: "-9 × 5", a: "-45", o: ["45", "-4", "4", "14", "-14"] },
+                { q: "2 × (-3) × 4", a: "-24", o: ["24", "3", "-3", "12", "-12"] }, { q: "-1 × 5 × (-6)", a: "30", o: ["-30", "0", "-11", "11", "-1"] }, { q: "-2 × (-2) × (-2)", a: "-8", o: ["8", "-4", "4", "-6", "6"] }, { q: "10 × (-2) × 3", a: "-60", o: ["60", "11", "-11", "5", "15"] }, { q: "-3 × (-4) × (-1)", a: "-12", o: ["12", "8", "-8", "-7", "7"] }, { q: "81 ÷ (-9)", a: "-9", o: ["9", "72", "-72", "90", "-90"] }, { q: "(-15) × (-2)", a: "30", o: ["-30", "-17", "17", "-13", "13"] }, { q: "-72 ÷ 8", a: "-9", o: ["9", "-8", "8", "64", "-64"] }, { q: "-13 × 2", a: "-26", o: ["26", "-11", "11", "-15", "15"] }, { q: "144 ÷ (-12)", a: "-12", o: ["12", "-132", "132", "156", "-156"] },
+                { q: "-20 × (-5)", a: "100", o: ["-100", "-25", "25", "-15", "15"] }, { q: "121 ÷ 11", a: "11", o: ["-11", "110", "-110", "132", "-132"] }, { q: "-10 × (-10)", a: "100", o: ["-100", "0", "-20", "20", "1"] }, { q: "96 ÷ (-12)", a: "-8", o: ["8", "-7", "7", "108", "-108"] }, { q: "(-4)²", a: "16", o: ["-16", "-8", "8", "42", "-42"] }, { q: "-4²", a: "-16", o: ["16", "-8", "8", "4", "-4"] }, { q: "(-2)³", a: "-8", o: ["8", "-6", "6", "-4", "4"] }, { q: "-2³", a: "-8", o: ["8", "-6", "6", "23", "-23"] }, { q: "-100 ÷ (-5)", a: "20", o: ["-20", "-95", "95", "-500", "500"] }, { q: "(-11) × 10", a: "-110", o: ["110", "-1", "1", "21", "-21"] },
+                { q: "5 × (-5) × (-5)", a: "125", o: ["-125", "-5", "5", "-15", "15"] }, { q: "(-1)⁵", a: "-1", o: ["1", "5", "-5", "-15", "15"] }, { q: "(-1)⁶", a: "1", o: ["-1", "6", "-6", "16", "-16"] }, { q: "-60 ÷ 5", a: "-12", o: ["12", "-10", "10", "-55", "55"] }, { q: "25 × (-4)", a: "-100", o: ["100", "21", "-21", "29", "-29"] }, { q: "1000 ÷ (-100)", a: "-10", o: ["10", "-900", "900", "1100", "-1100"] }, { q: "(-8) × (-12)", a: "96", o: ["-96", "-20", "20", "4", "-4"] }, { q: "What is -5 × -5?", a: "25", o: ["-25", "0", "-10", "10", "-1"] }, { q: "An even number of negative factors gives a...", a: "Positive product", o: ["Negative product", "Zero", "Even product", "Odd product", "Depends"] }, { q: "An odd number of negative factors gives a...", a: "Negative product", o: ["Positive product", "Zero", "Even product", "Odd product", "Depends"] },
+                { q: "-15 × 20", a: "-300", o: ["300", "5", "-5", "35", "-35"] }, { q: "300 ÷ (-15)", a: "-20", o: ["20", "285", "-285", "315", "-315"] }, { q: "-50 × (-10)", a: "500", o: ["-500", "-60", "60", "-40", "40"] }, { q: "-169 ÷ 13", a: "-13", o: ["13", "-156", "156", "-182", "182"] }, { q: "12 × (-12)", a: "-144", o: ["144", "0", "1", "-1", "24"] }, { q: "(-1)¹⁰", a: "1", o: ["-1", "10", "-10", "0", "100"] }, { q: "(-1)⁹⁹", a: "-1", o: ["1", "99", "-99", "0", "-199"] }, { q: "32 ÷ (-2)", a: "-16", o: ["16", "30", "-30", "34", "-34"] }, { q: "-200 ÷ (-20)", a: "10", o: ["-10", "-180", "180", "-220", "220"] }, { q: "11 × (-11)", a: "-121", o: ["121", "0", "22", "-22", "1"] },
+                { q: "-5 × -6 ÷ -3", a: "-10", o: ["10", "30", "-30", "-13", "13"] }, { q: "40 ÷ -2 × -3", a: "60", o: ["-60", "-20", "20", "-17", "17"] }, { q: "-100 ÷ -10 ÷ -2", a: "-5", o: ["5", "10", "-10", "-22", "22"] }, { q: "(-6 + 2) × 3", a: "-12", o: ["12", "-18", "18", "-8", "8"] }, { q: "5 × (-8 - 2)", a: "-50", o: ["50", "-30", "30", "-10", "10"] }, { q: "(-20 ÷ -5) + 3", a: "7", o: ["1", "4", "-4", "-12", "12"] }, { q: "(3 - 10) × -1", a: "7", o: ["-7", "-13", "13", "30", "-30"] }, { q: "(-5 - 3) × (-2 + 7)", a: "-40", o: ["40", "-16", "16", "30", "-30"] }, { q: "(10 - 2) × (3 - 5)", a: "-16", o: ["16", "-24", "24", "-40", "40"] }, { q: "A stock drops $5 each day for 4 days. What is the total change?", a: "-$20", o: ["$20", "-$1", "$1", "$9", "-$9"] },
+                { q: "A submarine at -100m dives another 50m. What is its new depth?", a: "-150m", o: ["-50m", "50m", "150m", "0m", "-2m"] }, { q: "(-10)² ÷ (-5)", a: "-20", o: ["20", "100", "-100", "-50", "50"] }, { q: "-3³ + 10", a: "-17", o: ["37", "19", "-19", "1", "7"] }, { q: "(-2 - 3)³", a: "-125", o: ["125", "-25", "25", "-15", "15"] }, { q: "100 - (-10)²", a: "0", o: ["200", "-200", "10", "-10", "120"] }, { q: "The temperature was -4°C. It dropped by 8°C. What is it now?", a: "-12°C", o: ["4°C", "-4°C", "12°C", "8°C", "-8°C"] }, { q: "You owe $50. You pay back $20. What is your balance?", a: "-$30", o: ["$30", "-$70", "$70", "$2.5", "-$2.5"] }, { q: "A plane at 1000m descends 1200m. What is its altitude?", a: "-200m", o: ["200m", "2200m", "-2200m", "0m", "2000m"] }, { q: "(-5) × (-5) × (-5) × (-5)", a: "625", o: ["-625", "-20", "20", "25", "-25"] }, { q: "(-100 ÷ 2) + (-50 ÷ 2)", a: "-75", o: ["-25", "25", "75", "150", "-150"] }
+            ],
+            [
+                { q: "5²", a: "25", o: ["-25", "10", "3", "7", "5.2"] }, { q: "(-6)²", a: "36", o: ["-36", "-12", "12", "-6", "6"] }, { q: "√49", a: "7", o: ["-7", "Both 7 and -7", "24.5", "49", "98"] }, { q: "2³", a: "8", o: ["-8", "6", "-6", "5", "2.3"] }, { q: "(-3)³", a: "-27", o: ["27", "-9", "9", "-6", "6"] }, { q: "³√64", a: "4", o: ["-4", "8", "-8", "16", "21.3"] }, { q: "³√-8", a: "-2", o: ["2", "-4", "4", "Not possible", "-8"] }, { q: "What are the square roots of 100?", a: "10 and -10", o: ["10 only", "-10 only", "50", "20", "None"] }, { q: "1²", a: "1", o: ["-1", "2", "0", "11", "1.2"] }, { q: "(-1)²", a: "1", o: ["-1", "-2", "2", "0", "-12"] },
+                { q: "√1", a: "1", o: ["-1", "Both 1 and -1", "0", "0.5", "1.1"] }, { q: "1³", a: "1", o: ["-1", "3", "-3", "0", "13"] }, { q: "(-1)³", a: "-1", o: ["1", "3", "-3", "0", "-13"] }, { q: "³√1", a: "1", o: ["-1", "0", "0.33", "3", "111"] }, { q: "³√-1", a: "-1", o: ["1", "0", "Not possible", "-3", "3"] }, { q: "-8²", a: "-64", o: ["64", "-16", "16", "8", "-8"] }, { q: "10³", a: "1000", o: ["-1000", "30", "-30", "100", "10.3"] }, { q: "√121", a: "11", o: ["-11", "Both 11 and -11", "12.1", "60.5", "111"] }, { q: "³√-125", a: "-5", o: ["5", "-15", "15", "-25", "25"] }, { q: "What is √(-25)?", a: "Not possible", o: ["5", "-5", "Both 5 and -5", "-12.5", "2.5"] },
+                { q: "The square of -9 is:", a: "81", o: ["-81", "-18", "18", "9", "-9"] }, { q: "The cube of -4 is:", a: "-64", o: ["64", "-12", "12", "-16", "16"] }, { q: "What number squared gives 64?", a: "8 or -8", o: ["8 only", "-8 only", "32", "16", "4"] }, { q: "What number cubed gives -27?", a: "-3", o: ["3", "9", "-9", "Both 3 and -3", "None"] }, { q: "15²", a: "225", o: ["-225", "30", "150", "1.5", "22.5"] }, { q: "√225", a: "15", o: ["-15", "Both 15 and -15", "22.5", "112.5", "25"] }, { q: "A positive number has how many square roots?", a: "Two", o: ["One", "Zero", "Infinite", "Depends on the number", "Four"] }, { q: "A negative number has how many real square roots?", a: "Zero", o: ["One", "Two", "Infinite", "Depends", "Four"] }, { q: "A negative number has how many cube roots?", a: "One", o: ["Zero", "Two", "Infinite", "Depends", "Three"] }, { q: "³√-1000", a: "-10", o: ["10", "-100", "100", "Not possible", "-333"] },
+                { q: "(-20)²", a: "400", o: ["-400", "-40", "40", "-200", "200"] }, { q: "What are the square roots of 144?", a: "12 and -12", o: ["12 only", "-12 only", "72", "24", "None"] }, { q: "5³", a: "125", o: ["-125", "15", "-15", "25", "5.3"] }, { q: "The square of any non-zero integer is always...", a: "Positive", o: ["Negative", "The same", "Bigger", "Odd", "Even"] }, { q: "√400", a: "20", o: ["-20", "Both 20 and -20", "40", "100", "200"] }, { q: "³√-216", a: "-6", o: ["6", "-12", "12", "-36", "36"] }, { q: "If x² = 9, what is x?", a: "3 or -3", o: ["3 only", "-3 only", "4.5", "18", "81"] }, { q: "If x³ = -64, what is x?", a: "-4", o: ["4", "8", "-8", "Both 4 and -4", "16"] }, { q: "√81 + ³√-8", a: "7", o: ["11", "9", "-2", "13", "5"] }, { q: "(-10)² - 100", a: "0", o: ["200", "-200", "10", "-10", "1"] },
+                { q: "√169", a: "13", o: ["-13", "Both 13 and -13", "16.9", "14", "12"] }, { q: "Result of cubing a negative number?", a: "Always negative", o: ["Always positive", "Sometimes negative", "Zero", "Not possible", "Imaginary"] }, { q: "30²", a: "900", o: ["-900", "60", "300", "3", "90"] }, { q: "√900", a: "30", o: ["-30", "Both 30 and -30", "450", "90", "3"] }, { q: "³√343", a: "7", o: ["-7", "49", "9", "14", "34.3"] }, { q: "³√-729", a: "-9", o: ["9", "-27", "27", "-81", "81"] }, { q: "Which is larger, (-11)² or 120?", a: "(-11)²", o: ["120", "They are equal", "Cannot be determined", "-11", "11"] }, { q: "Which is smaller, (-5)³ or -100?", a: "(-5)³", o: ["-100", "They are equal", "Cannot be determined", "-5", "5"] }, { q: "√1 + ³√-1", a: "0", o: ["1", "-1", "2", "-2", "Undefined"] }, { q: "(-4)² + (-2)³", a: "8", o: ["24", "-24", "16", "-8", "0"] },
+                { q: "40²", a: "1600", o: ["-1600", "80", "400", "4", "160"] }, { q: "(-10)³", a: "-1000", o: ["1000", "-30", "30", "-100", "100"] }, { q: "√1600", a: "40", o: ["-40", "Both 40 & -40", "400", "800", "160"] }, { q: "³√-8000", a: "-20", o: ["20", "-200", "200", "-800", "800"] }, { q: "√100 - √81", a: "1", o: ["19", "-1", "-19", "10", "9"] }, { q: "√64 + √36", a: "14", o: ["2", "100", "10", "50", "28"] }, { q: "5² + √25", a: "30", o: ["20", "10", "35", "50", "0"] }, { q: "³√-27 × 2²", a: "-12", o: ["12", "-18", "18", "36", "-36"] }, { q: "√49 - ³√-1", a: "8", o: ["6", "7", "-7", "-6", "-8"] }, { q: "Which is greater: √144 or ³√1000?", a: "√144", o: ["³√1000", "They are equal", "Cannot tell", "144", "1000"] },
+                { q: "Which is smaller: -10² or (-10)²?", a: "-10²", o: ["(-10)²", "They are equal", "Cannot tell", "100", "-100"] }, { q: "√25 × √4", a: "10", o: ["20", "50", "100", "7", "3"] }, { q: "³√-64 ÷ ³√8", a: "-2", o: ["2", "-4", "4", "8", "-8"] }, { q: "(√81)²", a: "81", o: ["9", "-9", "18", "162", "8.1"] }, { q: "(³√-27)³", a: "-27", o: ["-3", "3", "9", "-9", "27"] }, { q: "√(-3)²", a: "3", o: ["-3", "9", "-9", "Not possible", "1.5"] }, { q: "√196", a: "14", o: ["-14", "Both 14 & -14", "16", "19.6", "98"] }, { q: "³√512", a: "8", o: ["-8", "16", "-16", "64", "51.2"] }, { q: "If x³ = -1, what is x²?", a: "1", o: ["-1", "2", "-2", "0", "Not possible"] }, { q: "√9 + √16", a: "7", o: ["√25", "5", "12", "25", "1"] }
+            ],
+            [
+                { q: "2³ × 2⁴", a: "2⁷", o: ["2¹²", "4⁷", "4¹²", "2¹", "2.7"] }, { q: "5⁶ × 5²", a: "5⁸", o: ["5¹²", "25⁸", "10⁸", "5⁴", "5.8"] }, { q: "10⁵ × 10", a: "10⁶", o: ["10⁵", "100⁵", "10⁴", "10⁵⁰", "10.6"] }, { q: "7⁹ ÷ 7³", a: "7⁶", o: ["7³", "1⁶", "7¹²", "7²⁷", "7.6"] }, { q: "8⁵ ÷ 8⁴", a: "8¹", o: ["8⁹", "1¹", "8", "1", "8.1"] }, { q: "6⁷ ÷ 6", a: "6⁶", o: ["6⁷", "6⁸", "1⁶", "6", "7"] }, { q: "(3²)³", a: "3⁶", o: ["3⁵", "9⁶", "3⁸", "9⁵", "3.6"] }, { q: "(5⁴)²", a: "5⁸", o: ["5⁶", "25⁸", "5¹⁶", "25⁶", "5.8"] }, { q: "12⁰", a: "1", o: ["0", "12", "-1", "1.2", "Undefined"] }, { q: "(-99)⁰", a: "1", o: ["0", "-99", "-1", "99", "Error"] },
+                { q: "45¹", a: "45", o: ["1", "0", "4.5", "46", "44"] }, { q: "a³ × a⁵", a: "a⁸", o: ["a¹⁵", "2a⁸", "2a¹⁵", "a²", "a.8"] }, { q: "b¹⁰ ÷ b²", a: "b⁸", o: ["b⁵", "b¹²", "1⁸", "b²⁰", "b.8"] }, { q: "(c⁷)³", a: "c²¹", o: ["c¹⁰", "3c²¹", "c³⁴³", "c⁴", "c.21"] }, { q: "2³ × 2", a: "2⁴", o: ["2³", "4³", "4⁴", "2²", "2.4"] }, { q: "10⁹ ÷ 10³", a: "10⁶", o: ["10³", "1⁶", "10¹²", "10²⁷", "10.6"] }, { q: "(9³)⁰", a: "1", o: ["9³", "9⁰", "0", "9", "3"] }, { q: "7² × 7³", a: "7⁵", o: ["7⁶", "49⁵", "14⁵", "7¹", "7.5"] }, { q: "4⁶ ÷ 4⁶", a: "4⁰", o: ["4¹", "4¹²", "1", "0", "4"] }, { q: "x × x²", a: "x³", o: ["x²", "2x³", "2x²", "x", "x.3"] },
+                { q: "3² × 3⁴ × 3", a: "3⁷", o: ["3⁶", "3⁸", "9⁷", "27⁷", "3.7"] }, { q: "5⁸ ÷ 5² ÷ 5³", a: "5³", o: ["5⁷", "5¹³", "5²", "1³", "5.3"] }, { q: "((2²)²)²", a: "2⁸", o: ["2⁶", "2¹⁶", "16⁸", "2⁴", "2.8"] }, { q: "a⁵ × a / a²", a: "a⁴", o: ["a³", "a⁸", "a²", "a⁶", "a.4"] }, { q: "Write 9 as a power of 3", a: "3²", o: ["3³", "3¹", "9¹", "2³", "3.2"] }, { q: "Write 8 as a power of 2", a: "2³", o: ["2⁴", "2²", "8¹", "3²", "2.3"] }, { q: "Simplify 2³ × 4", a: "2⁵", o: ["8³", "2⁶", "8⁵", "2⁷", "2.5"] }, { q: "Simplify 3² × 9", a: "3⁴", o: ["27²", "3⁵", "27⁴", "3³", "3.4"] }, { q: "Simplify 1000 ÷ 10²", a: "10¹", o: ["10⁵", "10", "100", "10³", "10.1"] }, { q: "Which is bigger: 2⁶ or 6²?", a: "2⁶", o: ["6²", "They are equal", "Cannot compare", "26", "62"] },
+                { q: "Which is bigger: 3⁴ or 4³?", a: "3⁴", o: ["4³", "They are equal", "Cannot compare", "34", "43"] }, { q: "Missing power: 5² × 5^? = 5⁹", a: "7", o: ["11", "4.5", "18", "5", "9"] }, { q: "Missing power: 10^? ÷ 10⁴ = 10³", a: "7", o: ["1", "12", "0.75", "10", "4"] }, { q: "Missing power: (4³)^? = 4¹²", a: "4", o: ["9", "15", "36", "3", "12"] }, { q: "3³ × 3⁰", a: "3³", o: ["3⁰", "1", "0", "9³", "3.3"] }, { q: "8⁷ / 8⁶", a: "8", o: ["1", "8¹³", "8.1", "1⁶", "6"] }, { q: "(x³y²)²", a: "x⁶y⁴", o: ["x⁵y⁴", "x⁶y²", "x⁵y²", "x⁹y⁴", "xy"] }, { q: "2⁴ × 5⁴", a: "10⁴", o: ["10⁸", "10¹⁶", "7⁸", "Cannot simplify", "(2×5)⁸"] }, { q: "Why can't you simplify 5³ + 5² with index laws?", a: "It's addition", o: ["Bases are different", "Indices are different", "You can", "5 is prime", "It's subtraction"] }, { q: "Simplify 16 ÷ 2³", a: "2", o: ["2⁷", "8¹", "2¹", "8⁷", "2.1"] },
+                { q: "Simplify 25 × 5³", a: "5⁵", o: ["125⁵", "5⁶", "125⁸", "25³", "5.5"] }, { q: "(2⁵ × 2³) ÷ 2⁴", a: "2⁴", o: ["2¹¹", "2⁷", "2¹", "2¹⁹", "2.4"] }, { q: "y¹⁰ × y⁻³", a: "y⁷", o: ["y¹³", "y⁻³⁰", "y⁻⁷", "Cannot do", "y.7"] }, { q: "(4²)³ ÷ 4", a: "4⁵", o: ["4⁶", "4⁴", "4⁷", "4¹", "4.5"] }, { q: "What is half of 2¹⁰?", a: "2⁹", o: ["1¹⁰", "2⁵", "1⁵", "2⁹.⁵", "10"] }, { q: "100 × 10³", a: "10⁵", o: ["10⁶", "100⁵", "1000³", "10⁴", "10.5"] }, { q: "(a⁴b)² × a³b", a: "a¹¹b³", o: ["a⁹b³", "a¹¹b²", "a⁸b³", "a¹⁴b⁴", "ab"] }, { q: "Which is NOT 10⁶?", a: "10³ + 10³", o: ["10⁴×10²", "10²×10²×10²", "(10³)³", "1,000,000", "1000²"] }, { q: "(3⁴ × 3) / 3²", a: "3³", o: ["3⁷", "3²", "3⁴", "3⁶", "3.3"] }, { q: "If 2ⁿ = 32, find n.", a: "5", o: ["4", "6", "16", "30", "3.2"] },
+                { q: "(x⁵/x²)³", a: "x⁹", o: ["x⁶", "x¹⁰", "x³⁰", "x¹", "x.9"] }, { q: "Simplify 27 * 3²", a: "3⁵", o: ["3⁶", "81²", "9⁵", "3⁷", "3.5"] }, { q: "Simplify 64 / 4²", a: "4", o: ["4⁴", "16²", "4³", "4¹", "4.1"] }, { q: "If 3ⁿ = 81, find n.", a: "4", o: ["3", "5", "9", "27", "8.1"] }, { q: "If 5ⁿ = 1, find n.", a: "0", o: ["1", "-1", "5", "0.2", "Not possible"] }, { q: "Which is smallest: 2⁵, 3³, 4², 5¹?", a: "5¹", o: ["2⁵", "3³", "4²", "Cannot tell", "1"] }, { q: "4³ × 4⁻¹", a: "4²", o: ["4⁴", "4⁻³", "16", "1", "4.2"] }, { q: "100² ÷ 1000", a: "10", o: ["100", "1", "10⁴", "10000", "10.1"] }, { q: "(5²)³ / 5⁴", a: "5²", o: ["5¹⁰", "5¹", "5⁵", "25", "5.2"] }, { q: "2² + 2³", a: "12", o: ["2⁵", "2⁶", "4⁵", "10", "22"] },
+                { q: "x⁻⁵ × x⁷", a: "x²", o: ["x¹²", "x⁻¹²", "x⁻³⁵", "x", "x.2"] }, { q: "y³ ÷ y⁻²", a: "y⁵", o: ["y¹", "y⁻⁶", "y⁻¹", "y", "y.5"] }, { q: "(z⁻²)³", a: "z⁻⁶", o: ["z¹", "z⁻⁵", "z⁶", "z⁸", "z.6"] }, { q: "Simplify 8² * 2²", a: "2⁸", o: ["16⁴", "2¹⁰", "2¹²", "4⁸", "2.8"] }, { q: "If 4ⁿ = 64, find n.", a: "3", o: ["2", "4", "8", "16", "6.4"] }, { q: "What is 1/3 of 3¹²?", a: "3¹¹", o: ["1¹²", "3⁴", "1⁴", "3¹¹.¹", "12"] }, { q: "If 10ⁿ = 0.01, find n.", a: "-2", o: ["2", "-1", "1", "0.1", "100"] }, { q: "(x/y)³", a: "x³/y³", o: ["x³y³", "x³/y", "x/y³", "3xy", "xy3"] }, { q: "2⁻¹", a: "0.5", o: ["-2", "2", "-0.5", "1", "1/2"] }, { q: "4⁻²", a: "1/16", o: ["-16", "-8", "16", "8", "-4"] }
+            ]
+        ];
+
+        const topicTitles = [ "Multiplying & Dividing Integers", "Squares, Cubes & Roots", "The Index Laws" ];
+        let currentLevel = 0, currentQuestionIndex = 0, attempts = 0, incorrectQuestions = [], completedLevels = [false, false, false], correctionMode = false, currentCorrectionIndex = 0;
+        let correctCount = 0, wrongCount = 0;
+        
+        function showGameScreen(screenId) {
+            document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+        function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[array[i], array[j]] = [array[j], array[i]]; } return array; }
+        function resetGame() { completedLevels = [false, false, false]; updateLevelSelectScreen(); }
+        function startGame(level) {
+            if (level > 0 && !completedLevels[level - 1]) return;
+            currentLevel = level; currentQuestionIndex = 0; incorrectQuestions = []; correctionMode = false;
+            correctCount = 0; wrongCount = 0; updateScoreDisplay();
+            document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth' });
+            showGameScreen('game-screen'); loadQuestion();
+        }
+        function updateScoreDisplay() {
+            document.getElementById('score-tracker').innerHTML = `<span class="text-green-400">C: ${correctCount}</span> | <span class="text-red-400">W: ${wrongCount}</span>`;
+        }
+        function loadQuestion() {
+            attempts = 0; document.getElementById('feedback-text').textContent = '';
+            const levelQuestions = gameQuestions[currentLevel], question = levelQuestions[currentQuestionIndex];
+            document.getElementById('topic-title').textContent = topicTitles[currentLevel];
+            document.getElementById('question-counter').textContent = `${currentQuestionIndex + 1} / ${levelQuestions.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / levelQuestions.length) * 100}%`;
+            document.getElementById('question-text').innerHTML = question.q.replace(/\[|\]/g, '').replace(/√/g, '&radic;').replace(/\³/g, '³').replace(/\²/g, '²');
+            const options = shuffle([...question.o, question.a]);
+            const optionsContainerEl = document.getElementById('options-container'); optionsContainerEl.innerHTML = '';
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn bg-gray-700 hover:bg-purple-600 text-white font-bold py-4 px-2 rounded-lg text-lg transition duration-300 border-2 border-gray-600';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option.toString() === question.a.toString(), button);
+                optionsContainerEl.appendChild(button);
+            });
+        }
+        function checkAnswer(isCorrect, button) {
+            const feedbackText = document.getElementById('feedback-text');
+            const optionButtons = document.querySelectorAll('#game-screen .option-btn');
+            optionButtons.forEach(btn => btn.disabled = true);
+            if (isCorrect) {
+                button.classList.add('correct'); feedbackText.textContent = "Correct! Well done!"; feedbackText.style.color = '#10B981';
+                correctCount++; updateScoreDisplay();
+                setTimeout(nextQuestion, 1500);
+            } else {
+                button.classList.add('incorrect'); attempts++;
+                if (attempts < 2) {
+                    feedbackText.textContent = "Not quite, Kaavish. Try one more time!"; feedbackText.style.color = '#FBBF24';
+                    setTimeout(() => {
+                        button.classList.remove('incorrect'); button.disabled = true;
+                        optionButtons.forEach(btn => { if (!btn.disabled) btn.disabled = false; });
+                        for(let btn of optionButtons) { if(btn !== button) btn.disabled = false; }
+                    }, 1500);
+                } else {
+                    feedbackText.textContent = "Incorrect, Kaavish. We'll review this later."; feedbackText.style.color = '#EF4444';
+                    incorrectQuestions.push(currentQuestionIndex); 
+                    wrongCount++; updateScoreDisplay();
+                    setTimeout(nextQuestion, 1500);
+                }
+            }
+        }
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < gameQuestions[currentLevel].length) { loadQuestion(); } else { endLevel(); }
+        }
+        function endLevel() { if (incorrectQuestions.length > 0) { loadCorrections(); } else { levelComplete(); } }
+        function levelComplete() {
+            completedLevels[currentLevel] = true; updateLevelSelectScreen();
+            if (completedLevels.every(c => c)) { showGameScreen('final-screen'); } else { showGameScreen('level-select-screen'); }
+        }
+        function loadCorrections() {
+            correctionMode = true; currentCorrectionIndex = 0;
+            showGameScreen('correction-screen'); document.getElementById('finish-correction-btn').classList.add('hidden');
+            displayCorrectionQuestion();
+        }
+        function displayCorrectionQuestion() {
+            const correctionListEl = document.getElementById('correction-list'); correctionListEl.innerHTML = '';
+            const qIndex = incorrectQuestions[currentCorrectionIndex], question = gameQuestions[currentLevel][qIndex];
+            const container = document.createElement('div'); container.className = 'bg-gray-900 p-6 rounded-lg';
+            const qText = document.createElement('p'); qText.className = 'text-2xl font-bold mb-4';
+            qText.innerHTML = `Q: ${question.q.replace(/\[|\]/g, '').replace(/√/g, '&radic;').replace(/\³/g, '³').replace(/\²/g, '²')}`;
+            container.appendChild(qText);
+            const optionsContainer = document.createElement('div'); optionsContainer.className = 'grid grid-cols-2 gap-3 mt-4';
+            const options = shuffle([...question.o, question.a]);
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn bg-gray-700 hover:bg-yellow-600 text-white font-bold py-3 px-2 rounded-lg text-md transition duration-300 border-2 border-gray-600';
+                button.textContent = option;
+                button.onclick = () => checkCorrectionAnswer(option.toString() === question.a.toString(), button, optionsContainer);
+                optionsContainer.appendChild(button);
+            });
+            container.appendChild(optionsContainer); correctionListEl.appendChild(container);
+        }
+        function checkCorrectionAnswer(isCorrect, button, container) {
+            const allButtons = container.querySelectorAll('.option-btn');
+            allButtons.forEach(btn => btn.disabled = true);
+            if (isCorrect) {
+                button.classList.add('correct'); setTimeout(nextCorrection, 1500);
+            } else {
+                button.classList.add('incorrect');
+                const qIndex = incorrectQuestions[currentCorrectionIndex], question = gameQuestions[currentLevel][qIndex];
+                allButtons.forEach(btn => { if (btn.textContent === question.a.toString()) { btn.classList.add('correct'); } });
+                setTimeout(nextCorrection, 2500);
+            }
+        }
+        function nextCorrection() {
+            currentCorrectionIndex++;
+            if (currentCorrectionIndex < incorrectQuestions.length) { displayCorrectionQuestion(); } 
+            else { document.getElementById('correction-list').innerHTML = `<p class="text-2xl text-green-400 text-center">All corrected!</p>`; document.getElementById('finish-correction-btn').classList.remove('hidden'); }
+        }
+        function finishCorrections() { levelComplete(); }
+        function updateLevelSelectScreen() {
+            for(let i = 0; i < completedLevels.length; i++) {
+                const card = document.getElementById(`level-${i + 1}-card`), status = document.getElementById(`level-${i + 1}-status`);
+                if (completedLevels[i]) { status.textContent = "COMPLETED!"; status.classList.remove('text-red-500', 'text-yellow-300'); status.classList.add('text-green-500'); }
+                const nextLevel = i + 1;
+                if (nextLevel < completedLevels.length) {
+                    const nextCard = document.getElementById(`level-${nextLevel + 1}-card`), nextStatus = document.getElementById(`level-${nextLevel + 1}-status`), nextTitle = nextCard.querySelector('h3'), nextText = nextCard.querySelector('p');
+                    if(completedLevels[i]) {
+                        nextCard.classList.remove('locked-level'); nextCard.classList.add('cursor-pointer'); nextCard.setAttribute('onclick', `startGame(${nextLevel})`); nextCard.style.borderColor = '#3B82F6';
+                        nextTitle.classList.remove('text-gray-500'); nextTitle.classList.add('text-blue-400'); nextText.classList.remove('text-gray-400');
+                        nextStatus.textContent = 'UNLOCKED'; nextStatus.classList.remove('text-red-500'); nextStatus.classList.add('text-yellow-300');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
