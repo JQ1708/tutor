@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Year 8 - Integers Interactive Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .topic-button.active {
+            background-color: #10B981; /* Emerald 500 */
+            color: white;
+            font-weight: 600;
+        }
+        .topic-button.locked {
+            background-color: #4B5563; /* Gray 600 */
+            cursor: not-allowed;
+        }
+        .option-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .slide-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #10B981;
+            margin-bottom: 1rem;
+            border-left: 4px solid #10B981;
+            padding-left: 0.75rem;
+        }
+        .slide-content p, .slide-content li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .slide-content pre {
+            background-color: #1F2937;
+            color: #D1D5DB;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .slide-content .key-term {
+            font-weight: 600;
+            color: #60A5FA; /* Blue 400 */
+        }
+        .quiz-container {
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-4xl mx-auto">
+        <header class="text-center mb-6 relative">
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight">IGCSE Year 8 Mathematics</h1>
+            <h2 class="text-2xl md:text-3xl font-semibold text-emerald-400 mt-2">Topic: Integers</h2>
+            <button id="unlock-btn" class="absolute top-0 right-0 p-2 text-gray-400 hover:text-white transition-colors" title="Unlock All Levels">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </button>
+        </header>
+
+        <nav id="topic-nav" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-6">
+            <!-- Topic buttons will be inserted here by JS -->
+        </nav>
+
+        <main id="content-area" class="bg-gray-800 p-6 md:p-8 rounded-2xl shadow-2xl min-h-[500px]">
+            <!-- Content for topics, quizzes, corrections will be loaded here -->
+        </main>
+    </div>
+
+    <script>
+        const studentName = "Raydon";
+        
+        // Quiz data structured by sub-topic
+        const quizData = {
+            factors: {
+                title: "Factors, Multiples & Primes",
+                unlocked: true,
+                questions: [
+                    { q: "Which of the following is a prime number?", o: ["9", "15", "21", "29", "33", "27"], a: "29" },
+                    { q: "What are all the factors of 18?", o: ["1, 2, 3, 6, 9, 18", "1, 2, 4, 9, 18", "2, 3, 6, 9", "1, 18", "1, 2, 3, 4, 6, 9", "1, 3, 6, 9, 18"], a: "1, 2, 3, 6, 9, 18" },
+                    { q: "What is the Lowest Common Multiple (LCM) of 12 and 18?", o: ["6", "12", "18", "36", "72", "24"], a: "36" },
+                    { q: "What is the Highest Common Factor (HCF) of 18 and 24?", o: ["2", "3", "6", "9", "12", "18"], a: "6" },
+                    { q: "Which number is the product of prime factors 2² x 3 x 5?", o: ["30", "50", "60", "75", "120", "40"], a: "60" },
+                    { q: "Write 120 as a product of its prime factors.", o: ["2² x 3 x 10", "2³ x 3 x 5", "2 x 3 x 4 x 5", "4 x 3 x 10", "2 x 60", "2³ x 15"], a: "2³ x 3 x 5" },
+                    { q: "What is the HCF of 45 and 75?", o: ["3", "5", "9", "15", "25", "45"], a: "15" },
+                    { q: "What is the LCM of 90 and 140?", o: ["1260", "900", "1400", "180", "230", "630"], a: "1260" },
+                    { q: "If a number's prime factorization is 2 x 3³ x 5, what is the number?", o: ["150", "180", "210", "240", "270", "300"], a: "270" },
+                    { q: "What is the HCF of two distinct prime numbers, p and q?", o: ["p", "q", "p*q", "1", "p+q", "0"], a: "1" },
+                    { q: "Which of these is a composite number?", o: ["13", "23", "31", "47", "51", "59"], a: "51" },
+                    { q: "Find the first three common multiples of 4 and 6.", o: ["4, 6, 8", "12, 18, 24", "12, 24, 36", "6, 12, 18", "8, 12, 16", "24, 30, 36"], a: "12, 24, 36" },
+                    { q: "Write 200 as a product of prime factors.", o: ["2³ x 5²", "2² x 5³", "2 x 100", "4 x 50", "2 x 5 x 20", "2² x 50"], a: "2³ x 5²" },
+                    { q: "What is the LCM of 7 and 9?", o: ["1", "7", "9", "16", "63", "81"], a: "63" },
+                    { q: "What is the HCF of 56 and 70?", o: ["7", "8", "14", "28", "56", "1"], a: "14" },
+                    { q: "The sum of the first five prime numbers is:", o: ["18", "26", "28", "30", "32", "2+3+5+7+9=26"], a: "28" },
+                    { q: "Which number is NOT a factor of 150?", o: ["2", "3", "5", "6", "10", "4"], a: "4" },
+                    { q: "Express 330 in prime factor form.", o: ["3 x 11 x 10", "2 x 3 x 5 x 11", "2 x 5 x 33", "6 x 5 x 11", "3 x 110", "2 x 165"], a: "2 x 3 x 5 x 11" },
+                    { q: "Find the HCF of 396 and 168.", o: ["4", "6", "8", "12", "24", "36"], a: "12" },
+                    { q: "Find the LCM of 34 and 58.", o: ["986", "1972", "58", "34", "1", "2"], a: "986" },
+                    { q: "How many prime numbers are between 50 and 60?", o: ["None", "1", "2", "3", "4", "5"], a: "2" },
+                    { q: "What is the smallest number that is a multiple of both 10 and 12?", o: ["120", "60", "40", "30", "20", "1"], a: "60" },
+                    { q: "If HCF(x, y) = 1, what can you say about x and y?", o: ["Both are prime", "One is prime", "They are co-prime", "They are even", "They are odd", "One is a multiple of the other"], a: "They are co-prime" },
+                    { q: "The prime factorization of 96 is:", o: ["2⁴ x 6", "2 x 48", "2⁵ x 3", "2³ x 12", "3 x 32", "2⁴ x 3²"], a: "2⁵ x 3" },
+                    { q: "What is the LCM of 45 and 75?", o: ["15", "45", "75", "150", "225", "375"], a: "225" },
+                    { q: "Two bells ring together. One rings every 6 minutes, the other every 8 minutes. After how many minutes will they ring together again?", o: ["8", "12", "14", "24", "36", "48"], a: "24" },
+                    { q: "What is the largest 2-digit prime number?", o: ["91", "93", "97", "99", "89", "95"], a: "97" },
+                    { q: "Find the HCF of 2³, 2⁵, and 2².", o: ["2³", "2⁵", "2¹⁰", "2²", "2", "1"], a: "2²" },
+                    { q: "Find the LCM of 2³, 2⁵, and 2².", o: ["2³", "2⁵", "2¹⁰", "2²", "2", "1"], a: "2⁵" },
+                    { q: "The product of two numbers is 180. If their HCF is 3, what is their LCM?", o: ["180", "90", "60", "30", "177", "540"], a: "60" },
+                    { q: "Which is the only even prime number?", o: ["0", "1", "2", "4", "6", "None"], a: "2" },
+                    { q: "What is the HCF of 180 and 54?", o: ["9", "18", "27", "54", "6", "3"], a: "18" },
+                    { q: "What is the LCM of 180 and 54?", o: ["180", "270", "540", "9720", "54", "1080"], a: "540" },
+                    { q: "Find the smallest number which when divided by 20 and 25 leaves a remainder of 5 in each case.", o: ["100", "105", "125", "500", "505", "95"], a: "105" },
+                    { q: "What are the prime factors of 49?", o: ["1, 49", "7", "7, 7", "1, 7, 49", "4, 9", "It is prime"], a: "7, 7" },
+                    { q: "What is the HCF of 1001 and 4004?", o: ["7", "11", "13", "143", "1001", "1"], a: "1001" },
+                    { q: "What is the sum of all factors of 20?", o: ["20", "31", "40", "42", "50", "1,2,4,5,10,20=42"], a: "42" },
+                    { q: "What is the LCM of 3, 5, and 7?", o: ["1", "15", "21", "35", "105", "210"], a: "105" },
+                    { q: "A red light flashes every 12 seconds, a blue light every 18 seconds. If they flash together, after how long will they flash together again?", o: ["12s", "18s", "30s", "36s", "60s", "216s"], a: "36s" },
+                    { q: "How many factors does a prime number have?", o: ["0", "1", "2", "3", "Infinite", "Depends on the number"], a: "2" },
+                    { q: "The number 1 is:", o: ["Prime", "Composite", "Both", "Neither prime nor composite", "Even", "Odd"], a: "Neither prime nor composite" },
+                    { q: "Find the HCF of 450 and 60.", o: ["10", "15", "30", "60", "90", "450"], a: "30" },
+                    { q: "Find the LCM of 450 and 60.", o: ["900", "450", "1800", "2700", "60", "30"], a: "900" },
+                    { q: "What is the smallest 3-digit number that is a multiple of 11?", o: ["100", "101", "110", "111", "121", "99"], a: "110" },
+                    { q: "Which of the following numbers is divisible by 3?", o: ["121", "134", "153", "164", "175", "181"], a: "153" },
+                    { q: "A number has prime factors 2², 3², and 5. What is the number?", o: ["120", "150", "180", "210", "360", "900"], a: "180" },
+                    { q: "The HCF of two numbers is 15 and their LCM is 90. If one number is 45, what is the other number?", o: ["15", "30", "45", "60", "90", "1350"], a: "30" },
+                    { q: "Which of these is a factor of every number?", o: ["0", "1", "2", "10", "Itself", "-1"], a: "1" },
+                    { q: "The number 91 is:", o: ["Prime", "Composite", "Even", "A square number", "A cube number", "Multiple of 3"], a: "Composite" },
+                ]
+            },
+            multiplying: {
+                title: "Multiplying & Dividing Integers",
+                unlocked: false,
+                questions: [
+                    { q: "What is -6 × 3?", o: ["18", "-18", "9", "-9", "-2", "-3"], a: "-18" },
+                    { q: "What is -20 ÷ -5?", o: ["4", "-4", "5", "-5", "100", "-100"], a: "4" },
+                    { q: "Calculate: (-5) × (-7)", o: ["-12", "12", "35", "-35", "2", "-2"], a: "35" },
+                    { q: "Calculate: 48 ÷ (-6)", o: ["8", "-8", "7", "-7", "6", "-6"], a: "-8" },
+                    { q: "What is the value of (3 + 5) × -4?", o: ["-32", "32", "-8", "8", "-23", "-17"], a: "-32" },
+                    { q: "Solve for the missing number: ___ × -6 = 24", o: ["4", "-4", "6", "-6", "144", "-144"], a: "-4" },
+                    { q: "Calculate: (-3 + 15) ÷ -4", o: ["-3", "3", "-4.5", "4.5", "-12", "12"], a: "-3" },
+                    { q: "Each number in a multiplication pyramid is the product of the two below it. If the bottom row is [-2, 3, -5], what is the top number?", o: ["30", "-30", "60", "-60", "1", "-1"], a: "30" },
+                    { q: "What is (2 - 20) ÷ (-3 × 2)?", o: ["-18", "18", "-3", "3", "-6", "6"], a: "3" },
+                    { q: "If x = -2, what is the value of 5x²?", o: ["-20", "20", "-100", "100", "-10", "10"], a: "20" },
+                    { q: "What is -7 x -7?", o: ["-49", "49", "14", "-14", "0", "1"], a: "49" },
+                    { q: "60 ÷ -5 = ?", o: ["12", "-12", "55", "65", "300", "-300"], a: "-12" },
+                    { q: "(-3) x 4 x (-2) = ?", o: ["-24", "24", "-11", "11", "-9", "9"], a: "24" },
+                    { q: "-100 ÷ 10 = ?", o: ["-10", "10", "90", "-90", "1000", "-1000"], a: "-10" },
+                    { q: "The temperature was -3°C and dropped by 8°C. What is the new temperature?", o: ["5°C", "-5°C", "11°C", "-11°C", "-24°C", "24°C"], a: "-11°C" },
+                    { q: "Find the value of -4 x (5 - 8)", o: ["-12", "12", "-32", "32", "-7", "7"], a: "12" },
+                    { q: "Solve for x: x ÷ -4 = 8", o: ["32", "-32", "2", "-2", "12", "-12"], a: "-32" },
+                    { q: "What is (-1)⁵?", o: ["1", "-1", "5", "-5", "-243", "243"], a: "-1" },
+                    { q: "A diver is at -15 meters. He swims up 7 meters. What is his new position?", o: ["-22m", "22m", "-8m", "8m", "-105m", "105m"], a: "-8m" },
+                    { q: "(-5) x (-2) x (-3) = ?", o: ["30", "-30", "10", "-10", "-1", "1"], a: "-30" },
+                    { q: "What is the product of all integers from -2 to 2?", o: ["0", "4", "-4", "24", "-24", "1"], a: "0" },
+                    { q: "-25 ÷ -5 = ?", o: ["5", "-5", "125", "-125", "20", "-20"], a: "5" },
+                    { q: "Solve for x: -15 ÷ x = 3", o: ["5", "-5", "45", "-45", "-12", "-18"], a: "-5" },
+                    { q: "(-6) x (-2 - -7) = ?", o: ["-30", "30", "-54", "54", "-42", "42"], a: "-30" },
+                    { q: "What is half of -50?", o: ["-100", "100", "-25", "25", "-52", "-48"], a: "-25" },
+                    { q: "A company lost $500 each month for 6 months. What was its total loss?", o: ["-$3000", "$3000", "-$506", "$506", "-$494", "$494"], a: "-$3000" },
+                    { q: "(12 - -18) ÷ -3 = ?", o: ["10", "-10", "30", "-30", "2", "-2"], a: "-10" },
+                    { q: "(-2)³ = ?", o: ["-8", "8", "-6", "6", "4", "-4"], a: "-8" },
+                    { q: "What is the average of -10, -5, 0, 5, 10?", o: ["0", "5", "-5", "1", "-1", "2.5"], a: "0" },
+                    { q: "In a multiplication pyramid, if the top is 60 and one of the numbers on the second level is -10, what is the other number?", o: ["6", "-6", "50", "-50", "70", "-70"], a: "-6" },
+                    { q: "-8 x -11 = ?", o: ["-88", "88", "-19", "19", "-3", "3"], a: "88" },
+                    { q: "(-3 + -5) x -6 = ?", o: ["-48", "48", "12", "-12", "-24", "24"], a: "48" },
+                    { q: "Find the missing number: ___ x -10 = 80", o: ["8", "-8", "70", "-70", "90", "-90"], a: "-8" },
+                    { q: "The opposite of -9 is:", o: ["-9", "9", "1/9", "-1/9", "0", "90"], a: "9" },
+                    { q: "Calculate: 24 ÷ (2 x -4)", o: ["-3", "3", "-12", "12", "-6", "6"], a: "-3" },
+                    { q: "(-1) raised to an even power is:", o: ["1", "-1", "0", "even", "odd", "Depends on the power"], a: "1" },
+                    { q: "(-1) raised to an odd power is:", o: ["1", "-1", "0", "even", "odd", "Depends on the power"], a: "-1" },
+                    { q: "What is -5 - -9?", o: ["-14", "14", "-4", "4", "45", "-45"], a: "4" },
+                    { q: "(-3)² x (-2) = ?", o: ["-18", "18", "-12", "12", "36", "-36"], a: "-18" },
+                    { q: "What number must be added to -12 to get 5?", o: ["-17", "17", "-7", "7", "-60", "60"], a: "17" },
+                    { q: "(-10)³ = ?", o: ["-1000", "1000", "-30", "30", "-100", "100"], a: "-1000" },
+                    { q: "Solve for x: x ÷ -3 = -15", o: ["45", "-45", "5", "-5", "18", "-12"], a: "45" },
+                    { q: "If a = -3 and b = 5, what is a x b?", o: ["-15", "15", "2", "-2", "8", "-8"], a: "-15" },
+                    { q: "If a = -4 and b = -6, what is a - b?", o: ["-10", "10", "-2", "2", "24", "-24"], a: "2" },
+                    { q: "(-2) x (-3) x (-4) x (-5) = ?", o: ["-120", "120", "-14", "14", "60", "-60"], a: "120" },
+                    { q: "(100 ÷ -20) + (3 x -5) = ?", o: ["-20", "20", "-10", "10", "-15", "15"], a: "-20" },
+                    { q: "A number is multiplied by -5 and the result is 75. What is the number?", o: ["15", "-15", "375", "-375", "70", "80"], a: "-15" },
+                    { q: "What is (-6)²?", o: ["-36", "36", "-12", "12", "6", "-6"], a: "36" },
+                    { q: "The product of three negative integers is:", o: ["Positive", "Negative", "Zero", "Cannot be determined", "Always odd", "Always even"], a: "Negative" },
+                ]
+            },
+            roots: {
+                title: "Square & Cube Roots",
+                unlocked: false,
+                questions: [
+                    { q: "What is (-7)²?", o: ["-14", "14", "-49", "49", "7", "-7"], a: "49" },
+                    { q: "What is the cube root of -27 (³√-27)?", o: ["3", "-3", "9", "-9", "Not possible", "27"], a: "-3" },
+                    { q: "Solve the equation: x² = 144", o: ["12", "-12", "12 and -12", "72", "20736", "No solution"], a: "12 and -12" },
+                    { q: "Solve the equation: x³ = -125", o: ["5", "-5", "25", "-25", "15.625", "No solution"], a: "-5" },
+                    { q: "What is the value of √100 - ³√-8?", o: ["8", "12", "10", "2", "18", "92"], a: "12" },
+                    { q: "(-5)² is different from -5². What is the value of (-5)²?", o: ["-25", "25", "-10", "10", "0", "They are the same"], a: "25" },
+                    { q: "If x² + 9 = 25, what are the possible values of x?", o: ["4", "-4", "4 and -4", "16", "No solution", "34"], a: "4 and -4" },
+                    { q: "What is ³√(-1) + √1?", o: ["0", "1", "2", "-1", "-2", "Not defined"], a: "0" },
+                    { q: "Which of the following is a rational number but not an integer?", o: ["-5", "√9", "100", "0", "4.5", "√2"], a: "4.5" },
+                    { q: "Calculate: √(15² - 12²)", o: ["3", "9", "27", "81", "√81", "Both 9 and √81"], a: "Both 9 and √81" },
+                    { q: "What is √121?", o: ["10", "11", "12", "-11", "1.1", "21"], a: "11" },
+                    { q: "What is ³√1000?", o: ["10", "100", "333.3", "30", "1", "1000"], a: "10" },
+                    { q: "Solve x² = 1.", o: ["1", "-1", "1 and -1", "0", "2", "No solution"], a: "1 and -1" },
+                    { q: "Solve x³ = 216.", o: ["6", "-6", "12", "18", "72", "36"], a: "6" },
+                    { q: "Find the value of √49 + ³√-64.", o: ["11", "3", "-3", "1", "7-4=3", "-11"], a: "3" },
+                    { q: "Which statement is true?", o: ["√-100 = -10", "³√-1 = -1", "√1 = -1", "(-10)² = -100", "√16 = -4", "³√8 = -2"], a: "³√-1 = -1" },
+                    { q: "The number 64 is special because it is:", o: ["Prime", "A square number only", "A cube number only", "Both a square and a cube number", "An odd number", "A factor of 100"], a: "Both a square and a cube number" },
+                    { q: "What is -5²?", o: ["25", "-25", "10", "-10", "5", "-5"], a: "-25" },
+                    { q: "Find ³√729.", o: ["7", "8", "9", "19", "27", "81"], a: "9" },
+                    { q: "Solve x³ + 27 = 0.", o: ["3", "-3", "9", "-9", "27", "No solution"], a: "-3" },
+                    { q: "What is √((-8)²)?", o: ["-8", "8", "64", "-64", "4", "Not possible"], a: "8" },
+                    { q: "What is (³√-27)³?", o: ["-27", "27", "-9", "9", "-3", "3"], a: "-27" },
+                    { q: "Which of these is an integer?", o: ["√10", "√12", "√14", "√16", "√18", "√20"], a: "√16" },
+                    { q: "Find √1521 using its prime factors 3² x 13².", o: ["3 x 13 = 39", "3 x 13²", "3² x 13", "39²", "156", "3+13=16"], a: "3 x 13 = 39" },
+                    { q: "What is the side length of a square with area 81 cm²?", o: ["81 cm", "9 cm", "40.5 cm", "20.25 cm", "-9 cm", "18 cm"], a: "9 cm" },
+                    { q: "What is the edge length of a cube with volume 343 cm³?", o: ["343 cm", "49 cm", "114.3 cm", "7 cm", "-7 cm", "14 cm"], a: "7 cm" },
+                    { q: "Solve 2x² = 50.", o: ["5", "-5", "5 and -5", "25", "10", "No solution"], a: "5 and -5" },
+                    { q: "Solve x³/4 = -2.", o: ["-2", "2", "8", "-8", "-4", "4"], a: "-2" },
+                    { q: "What is √400?", o: ["20", "200", "40", "100", "-20", "2"], a: "20" },
+                    { q: "What is ³√-1000?", o: ["-10", "10", "-100", "100", "-333.3", "Not possible"], a: "-10" },
+                    { q: "Between which two integers does √50 lie?", o: ["6 and 7", "7 and 8", "8 and 9", "25 and 26", "49 and 51", "5 and 6"], a: "7 and 8" },
+                    { q: "Which of these is NOT a rational number?", o: ["5/3", "-7", "0.25", "√100", "√5", "1"], a: "√5" },
+                    { q: "What is √(3² + 4²)?", o: ["5", "7", "12", "25", "3+4=7", "9+16=25"], a: "5" },
+                    { q: "What is ³√(8 x 27)?", o: ["6", "18", "35", "216", "5", "2+3=5"], a: "6" },
+                    { q: "If a² = 0, then a = ?", o: ["0", "1", "-1", "0 or 1", "No solution", "Undefined"], a: "0" },
+                    { q: "What is the value of -√144?", o: ["12", "-12", "144", "-144", "72", "-72"], a: "-12" },
+                    { q: "Find the two integer solutions to x² - 1 = 48.", o: ["7", "-7", "7 and -7", "49", "24", "No integer solution"], a: "7 and -7" },
+                    { q: "What is (√16 + √9)²?", o: ["25", "49", "7", "5", "12", "144"], a: "49" },
+                    { q: "What is ³√(1/8)?", o: ["1/2", "1/4", "2", "4", "1/6", "1/24"], a: "1/2" },
+                    { q: "Which of the following numbers is a perfect square?", o: ["110", "120", "130", "144", "150", "160"], a: "144" },
+                    { q: "Which of the following is a perfect cube?", o: ["100", "125", "150", "200", "225", "250"], a: "125" },
+                    { q: "Solve x² = -49", o: ["7", "-7", "7 and -7", "No real solution", "2401", "-2401"], a: "No real solution" },
+                    { q: "What is ³√(-7)³?", o: ["-7", "7", "-49", "49", "-343", "343"], a: "-7" },
+                    { q: "The cube of an integer is -27. What is the square of that integer?", o: ["-9", "9", "-3", "3", "81", "-81"], a: "9" },
+                    { q: "Find √(64/25).", o: ["8/5", "5/8", "32/12.5", "8/25", "64/5", "Cannot be done"], a: "8/5" },
+                    { q: "Find the value of ³√64 + √64.", o: ["12", "8", "4", "16", "24", "4+8=12"], a: "12" },
+                    { q: "Which number is a natural number?", o: ["-5", "1/2", "0.8", "√4", "√3", "-1"], a: "√4" },
+                    { q: "What is the sum of the first three square numbers?", o: ["9", "10", "14", "16", "36", "1+2+3=6"], a: "14" },
+                    { q: "What is the difference between (-5)³ and (-5)²?", o: ["-150", "150", "-100", "100", "-50", "50"], a: "-150" },
+                ]
+            },
+            indices: {
+                title: "Indices",
+                unlocked: false,
+                questions: [
+                    { q: "What is 2⁵?", o: ["10", "7", "25", "32", "16", "64"], a: "32" },
+                    { q: "Any non-zero number to the power of 0 is...", o: ["0", "1", "Itself", "Negative", "Undefined", "10"], a: "1" },
+                    { q: "Simplify: 3² × 3⁴", o: ["3⁶", "3⁸", "9⁶", "9⁸", "6⁵", "3²"], a: "3⁶" },
+                    { q: "Simplify: 10⁸ ÷ 10³", o: ["10⁵", "10¹¹", "1⁵", "10²⁴", "100⁵", "100"], a: "10⁵" },
+                    { q: "What is (5²)³?", o: ["5⁵", "5⁶", "25³", "10⁶", "5⁸", "Both 5⁶ and 25³"], a: "Both 5⁶ and 25³" },
+                    { q: "Find the missing power: 7³ × 7^? = 7⁹", o: ["3", "12", "6", "27", "1", "9"], a: "6" },
+                    { q: "Write 64 as a power of 2.", o: ["2⁴", "2⁵", "2⁶", "2⁷", "2⁸", "4³"], a: "2⁶" },
+                    { q: "Simplify: (4³ × 4⁵) ÷ 4²", o: ["4⁵", "4⁶", "4¹⁰", "4¹³", "4⁷", "16⁶"], a: "4⁶" },
+                    { q: "If 9⁴ = (3²)⁴, what is it as a single power of 3?", o: ["3⁶", "3⁸", "3²", "3¹⁶", "3³", "9²"], a: "3⁸" },
+                    { q: "What is the value of 5⁰ + 5¹ + 5²?", o: ["30", "25", "31", "12", "15", "130"], a: "31" },
+                    { q: "What is 10⁶?", o: ["1000", "10000", "100000", "1000000", "60", "16"], a: "1000000" },
+                    { q: "Simplify 6² x 6³.", o: ["6⁵", "6⁶", "36⁵", "36⁶", "12⁵", "6¹"], a: "6⁵" },
+                    { q: "Simplify 2¹⁰ ÷ 2⁵.", o: ["2²", "2⁵", "1⁵", "2¹⁵", "2", "4⁵"], a: "2⁵" },
+                    { q: "What is (7³)²?", o: ["7⁵", "7⁶", "7⁹", "21²", "49³", "7¹"], a: "7⁶" },
+                    { q: "Calculate 8² ÷ 8².", o: ["8", "1", "0", "16", "8⁴", "64"], a: "1" },
+                    { q: "Find the missing power: 9³ x 9^? = 9⁸", o: ["11", "24", "5", "8/3", "1", "3"], a: "5" },
+                    { q: "Write 81 as a power of 3.", o: ["3³", "3⁴", "3⁵", "9²", "3 x 27", "3⁹"], a: "3⁴" },
+                    { q: "Simplify (15³ x 15³) / 15²", o: ["15⁴", "15⁷", "15⁹", "15³", "1", "30⁴"], a: "15⁴" },
+                    { q: "Which is larger, 2⁶ or 6²?", o: ["2⁶", "6²", "They are equal", "Cannot be determined", "2x6=12", "6x2=12"], a: "2⁶" },
+                    { q: "What is the value of 2³ + 2²?", o: ["2⁵", "12", "10", "16", "24", "4³"], a: "12" },
+                    { q: "Simplify a⁴ x a² x a.", o: ["a⁶", "a⁷", "a⁸", "3a⁷", "a", "a¹"], a: "a⁷" },
+                    { q: "Simplify b¹² ÷ b³.", o: ["b⁴", "b¹⁵", "b⁹", "4", "9", "b"], a: "b⁹" },
+                    { q: "What is (x⁰)⁴?", o: ["x⁴", "x", "0", "1", "4", "4x"], a: "1" },
+                    { q: "Find the value of 1¹⁰⁰.", o: ["100", "1", "0", "10", "Undefined", "10000"], a: "1" },
+                    { q: "Find the value of (-1)¹⁰.", o: ["-1", "1", "-10", "10", "0", "100"], a: "1" },
+                    { q: "Find the value of (-3)³.", o: ["-9", "9", "-27", "27", "-6", "6"], a: "-27" },
+                    { q: "Simplify (2a)³.", o: ["2a³", "6a", "8a³", "8a", "2³a", "6a³"], a: "8a³" },
+                    { q: "If 5^x = 125, what is x?", o: ["2", "3", "4", "5", "25", "120"], a: "3" },
+                    { q: "What is 2² x 3²?", o: ["6⁴", "36", "12", "5⁴", "6²", "Both 36 and 6²"], a: "Both 36 and 6²" },
+                    { q: "Simplify 2⁷ ÷ 2.", o: ["2⁶", "2⁷", "2⁸", "1⁶", "7", "2"], a: "2⁶" },
+                    { q: "Write 1 as a power of 5.", o: ["5¹", "5⁰", "5⁻¹", "1⁵", "Not possible", "0⁵"], a: "5⁰" },
+                    { q: "What is (1/2)³?", o: ["1/8", "1/6", "3/2", "1/5", "1.5", "8"], a: "1/8" },
+                    { q: "Simplify (5⁴)⁰.", o: ["5⁴", "5", "1", "0", "4", "5⁰"], a: "1" },
+                    { q: "What is the last digit of 3⁴?", o: ["3", "9", "7", "1", "4", "2"], a: "1" },
+                    { q: "Find the value of 10³ - 10².", o: ["10¹", "10", "90", "900", "100", "990"], a: "900" },
+                    { q: "Simplify (x³y²)²", o: ["x⁵y⁴", "x⁶y⁴", "x⁹y⁴", "2x³y²", "x³y⁴", "x⁶y²"], a: "x⁶y⁴" },
+                    { q: "Write 2⁴ x 4³ as a single power of 2.", o: ["2¹⁰", "2¹²", "2⁷", "8⁷", "2⁹", "2⁸"], a: "2¹⁰" },
+                    { q: "What is (-2)⁴?", o: ["-16", "16", "-8", "8", "-6", "6"], a: "16" },
+                    { q: "Simplify (10⁶ ÷ 10²) x 10³.", o: ["10⁷", "10¹", "10⁹", "10¹¹", "100⁷", "1000"], a: "10⁷" },
+                    { q: "Which is smallest: 2⁵, 3³, 4², 5¹?", o: ["2⁵", "3³", "4²", "5¹", "They are equal", "Cannot be compared"], a: "5¹" },
+                    { q: "What is 2⁰ + 3⁰ + 4⁰?", o: ["0", "1", "3", "9", "24", "1+1+1=3"], a: "3" },
+                    { q: "Simplify 9⁵ ÷ 9².", o: ["9³", "9⁷", "1³", "3", "9²·⁵", "9"], a: "9³" },
+                    { q: "What is (15²)⁴ as a single power of 15?", o: ["15⁶", "15⁸", "15²", "15¹⁶", "15¹", "15"], a: "15⁸" },
+                    { q: "If 2^y = 1/2, what is y? (Harder question!)", o: ["-1", "1", "0", "2", "1/2", "Not possible"], a: "-1" },
+                    { q: "What is the value of 4³?", o: ["12", "7", "16", "64", "256", "4x3=12"], a: "64" },
+                    { q: "Simplify 20⁵ ÷ 20.", o: ["20⁴", "1⁴", "20⁶", "4", "20", "1"], a: "20⁴" },
+                    { q: "What is (2³)³?", o: ["2⁶", "2⁹", "6³", "8³", "2", "27"], a: "2⁹" },
+                    { q: "Find the value of (2 x 3)³.", o: ["2³ x 3", "2 x 3³", "6³", "18", "216", "Both 6³ and 216"], a: "Both 6³ and 216" },
+                    { q: "Simplify 5 x 5³ x 5³", o: ["5⁹", "5⁷", "5⁶", "125⁷", "15⁷", "5¹"], a: "5⁷" },
+                ]
+            }
+        };
+
+        let state = {
+            currentTopic: 'factors',
+            mode: 'presentation', // presentation, quiz, correction, results
+            questionIndex: 0,
+            score: { correct: 0, wrong: 0 },
+            attempts: 0,
+            incorrectlyAnswered: []
+        };
+        
+        const contentArea = document.getElementById('content-area');
+        const topicNav = document.getElementById('topic-nav');
+
+        function unlockLevels() {
+            const password = prompt("Teacher's Override: Please enter the password to unlock all levels.");
+            if (password === "1706") {
+                Object.keys(quizData).forEach(key => {
+                    quizData[key].unlocked = true;
+                });
+                // Using a more subtle confirmation that doesn't require a click
+                const unlockBtn = document.getElementById('unlock-btn');
+                unlockBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><path d="M7 11V7a5 5 0 0 1 9.9-1"></path><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect></svg>`;
+                unlockBtn.title = "All levels unlocked!";
+                renderNav(); // Re-render the navigation to show unlocked state
+            } else if (password !== null && password !== "") { // Check if password was entered but incorrect
+                alert("Incorrect password.");
+            }
+        }
+
+        function renderNav() {
+            topicNav.innerHTML = '';
+            Object.keys(quizData).forEach(key => {
+                const topic = quizData[key];
+                const button = document.createElement('button');
+                button.textContent = topic.title;
+                button.dataset.topic = key;
+                button.className = 'topic-button px-4 py-2 rounded-lg transition-all duration-300';
+                
+                if (topic.unlocked) {
+                    button.classList.add('bg-gray-700', 'hover:bg-emerald-600');
+                    button.addEventListener('click', () => {
+                        state.currentTopic = key;
+                        state.mode = 'presentation';
+                        renderContent();
+                    });
+                } else {
+                    button.classList.add('locked', 'opacity-50');
+                }
+
+                if (state.currentTopic === key) {
+                    button.classList.add('active');
+                }
+                
+                topicNav.appendChild(button);
+            });
+        }
+        
+        function getPresentationHTML(topicKey) {
+            switch(topicKey) {
+                case 'factors':
+                    return `
+                        <div class="slide-content animate-fade-in">
+                            <h3>1. Factors, Multiples, and Primes</h3>
+                            <p>This section covers the basic building blocks of numbers.</p>
+                            
+                            <h3 class="mt-4">Factor Trees</h3>
+                            <p>A <span class="key-term">factor tree</span> is a diagram used to break down a number into its prime factors. Remember, a prime number is a number greater than 1 with only two factors: 1 and itself (e.g., 2, 3, 5, 7, 11...).</p>
+                            <p><strong>Example:</strong> Factor Tree for 120</p>
+                            <pre>
+      120
+      / \\
+     12   10
+    / \\   / \\
+   3   4  2   5
+      / \\
+     2   2
+
+Prime factors of 120 are circled: 3, 2, 5, 2, 2
+So, 120 = 2 × 2 × 2 × 3 × 5 = 2³ × 3 × 5
+                            </pre>
+
+                            <h3 class="mt-4">HCF and LCM</h3>
+                            <p>Using prime factors, we can find the Highest Common Factor (HCF) and Lowest Common Multiple (LCM).</p>
+                            <p><strong>Example:</strong> Find HCF and LCM of 120 (2³×3×5) and 75 (3×5²).</p>
+                            <pre>
+HCF: Take the lowest power of common prime factors.
+Common factors are 3 and 5.
+Lowest power of 3 is 3¹. Lowest power of 5 is 5¹.
+HCF = 3 × 5 = 15
+
+LCM: Take the highest power of all prime factors present.
+All factors are 2, 3, 5.
+Highest power of 2 is 2³. Highest power of 3 is 3¹. Highest power of 5 is 5².
+LCM = 2³ × 3 × 5² = 8 × 3 × 25 = 600
+                            </pre>
+                            <button onclick="startQuiz()" class="mt-8 w-full bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-emerald-600 transition-colors">Start Quiz 1</button>
+                        </div>
+                    `;
+                case 'multiplying':
+                     return `
+                        <div class="slide-content animate-fade-in">
+                            <h3>2. Multiplying and Dividing Integers</h3>
+                            <p>Working with negative numbers follows a few simple rules.</p>
+                            
+                            <h3 class="mt-4">The Rules of Signs</h3>
+                            <p>When multiplying or dividing:</p>
+                            <ul>
+                                <li>Positive × Positive = <span class="text-green-400 font-bold">Positive</span></li>
+                                <li>Negative × Negative = <span class="text-green-400 font-bold">Positive</span> (Same signs give a positive result)</li>
+                                <li>Positive × Negative = <span class="text-red-400 font-bold">Negative</span></li>
+                                <li>Negative × Positive = <span class="text-red-400 font-bold">Negative</span> (Different signs give a negative result)</li>
+                            </ul>
+                            
+                            <p><strong>Example Calculations:</strong></p>
+                            <pre>
+(-6) × 3  = -18   (Different signs -> Negative)
+(-5) × (-4) = 20    (Same signs -> Positive)
+18 ÷ (-9) = -2    (Different signs -> Negative)
+(-24) ÷ (-8) = 3   (Same signs -> Positive)
+                            </pre>
+
+                            <h3 class="mt-4">Order of Operations (Brackets)</h3>
+                            <p>Always calculate what's inside the brackets first before performing other operations.</p>
+                            <p><strong>Example:</strong> (-3 + 15) ÷ -4</p>
+                            <pre>
+1. Solve the brackets first: (-3 + 15) = 12
+2. Then perform the division: 12 ÷ -4 = -3
+                            </pre>
+                            <button onclick="startQuiz()" class="mt-8 w-full bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-emerald-600 transition-colors">Start Quiz 2</button>
+                        </div>
+                    `;
+                case 'roots':
+                    return `
+                        <div class="slide-content animate-fade-in">
+                            <h3>3. Square Roots and Cube Roots</h3>
+                            <p>These are the inverse operations of squaring (x²) and cubing (x³).</p>
+
+                            <h3 class="mt-4">Square Roots (√)</h3>
+                            <p>A positive number has <span class="key-term">two</span> square roots: one positive and one negative.</p>
+                            <p><strong>Example:</strong> Solve x² = 64</p>
+                            <pre>
+Since 8 × 8 = 64 AND (-8) × (-8) = 64,
+the solutions are x = 8 and x = -8.
+The positive root is √64 = 8.
+                            </pre>
+                            <p>Note: You cannot find the square root of a negative number (e.g., √-25 has no real solution).</p>
+
+                            <h3 class="mt-4">Cube Roots (³√)</h3>
+                            <p>Every number (positive or negative) has exactly <span class="key-term">one</span> cube root.</p>
+                            <p><strong>Example:</strong> Solve x³ = -125</p>
+                            <pre>
+We are looking for a number that multiplies by itself three times to get -125.
+(-5) × (-5) × (-5) = 25 × (-5) = -125
+So, the solution is x = -5. (³√-125 = -5)
+                            </pre>
+                             <button onclick="startQuiz()" class="mt-8 w-full bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-emerald-600 transition-colors">Start Quiz 3</button>
+                        </div>
+                    `;
+                case 'indices':
+                     return `
+                        <div class="slide-content animate-fade-in">
+                            <h3>4. Indices (Powers)</h3>
+                            <p>Indices are a shorthand way of writing repeated multiplication.</p>
+
+                            <h3 class="mt-4">Rules of Indices</h3>
+                            <p>For any base 'a' and integers 'm' and 'n':</p>
+                            <ul>
+                                <li><strong>Multiplication Rule:</strong> <span class="key-term">aᵐ × aⁿ = aᵐ⁺ⁿ</span> (Add the powers)</li>
+                                <li><strong>Division Rule:</strong> <span class="key-term">aᵐ ÷ aⁿ = aᵐ⁻ⁿ</span> (Subtract the powers)</li>
+                                <li><strong>Power of a Power Rule:</strong> <span class="key-term">(aᵐ)ⁿ = aᵐⁿ</span> (Multiply the powers)</li>
+                                <li><strong>Zero Index Rule:</strong> <span class="key-term">a⁰ = 1</span> (For any a ≠ 0)</li>
+                            </ul>
+
+                            <p><strong>Example Calculations:</strong></p>
+                            <pre>
+Multiplication: 3² × 3⁴ = 3²⁺⁴ = 3⁶
+Division: 10⁸ ÷ 10³ = 10⁸⁻³ = 10⁵
+Power of a Power: (5²)³ = 5²ˣ³ = 5⁶
+Zero Index: 7⁰ = 1
+                            </pre>
+                            <button onclick="startQuiz()" class="mt-8 w-full bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-emerald-600 transition-colors">Start Quiz 4</button>
+                        </div>
+                    `;
+            }
+        }
+        
+        function startQuiz() {
+            state.mode = 'quiz';
+            state.questionIndex = 0;
+            state.score = { correct: 0, wrong: 0 };
+            state.incorrectlyAnswered = [];
+            renderContent();
+        }
+
+        function renderQuiz() {
+            const topic = quizData[state.currentTopic];
+            const q = topic.questions[state.questionIndex];
+            
+            contentArea.innerHTML = `
+                <div class="quiz-container">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="text-lg">Question ${state.questionIndex + 1} / ${topic.questions.length}</div>
+                        <div class="flex gap-4 text-lg">
+                            <span id="score-correct" class="text-green-400 font-semibold">Correct: ${state.score.correct}</span>
+                            <span id="score-wrong" class="text-red-400 font-semibold">Wrong: ${state.score.wrong}</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-700 p-6 rounded-lg mb-6 min-h-[100px] flex items-center">
+                        <p class="text-xl md:text-2xl">${q.q}</p>
+                    </div>
+                    <div id="options-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        ${q.o.map(opt => `<button class="option-button bg-gray-600 text-lg p-4 rounded-lg hover:bg-blue-600 transition-all duration-200" onclick="checkAnswer(this)">${opt}</button>`).join('')}
+                    </div>
+                    <div id="feedback-area" class="mt-6 text-center text-xl min-h-[30px]"></div>
+                    <button id="next-btn" class="hidden mt-4 w-full bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-emerald-600 transition-colors" onclick="nextQuestion()">Next Question</button>
+                </div>
+            `;
+        }
+
+        function checkAnswer(btn) {
+            const selectedAnswer = btn.innerHTML;
+            const correctAnswer = quizData[state.currentTopic].questions[state.questionIndex].a;
+            const feedbackArea = document.getElementById('feedback-area');
+            const nextBtn = document.getElementById('next-btn');
+
+            document.querySelectorAll('.option-button').forEach(b => b.disabled = true);
+            
+            if (selectedAnswer === correctAnswer) {
+                btn.classList.remove('bg-gray-600', 'hover:bg-blue-600');
+                btn.classList.add('bg-green-600');
+                feedbackArea.innerHTML = `<span class="text-green-400">Correct! Well done.</span>`;
+                state.score.correct++;
+                nextBtn.classList.remove('hidden');
+            } else {
+                btn.classList.remove('bg-gray-600', 'hover:bg-blue-600');
+                btn.classList.add('bg-red-600');
+                state.attempts++;
+
+                if (state.attempts < 2) {
+                    feedbackArea.innerHTML = `<span class="text-yellow-400">Not quite. Try one more time, ${studentName}!</span>`;
+                    document.querySelectorAll('.option-button').forEach(b => {
+                        if (b !== btn) b.disabled = false;
+                    });
+                } else {
+                    feedbackArea.innerHTML = `<span class="text-red-400">Incorrect. The correct answer will be reviewed later.</span>`;
+                    state.score.wrong++;
+                    state.incorrectlyAnswered.push(state.questionIndex);
+                    nextBtn.classList.remove('hidden');
+                }
+            }
+            document.getElementById('score-correct').textContent = `Correct: ${state.score.correct}`;
+            document.getElementById('score-wrong').textContent = `Wrong: ${state.score.wrong}`;
+        }
+        
+        function nextQuestion() {
+            state.questionIndex++;
+            state.attempts = 0;
+            const totalQuestions = quizData[state.currentTopic].questions.length;
+
+            if (state.questionIndex < totalQuestions) {
+                renderQuiz();
+            } else {
+                if (state.incorrectlyAnswered.length > 0) {
+                    state.mode = 'correction';
+                    state.questionIndex = 0; // Reset for correction round
+                } else {
+                    state.mode = 'results';
+                }
+                renderContent();
+            }
+        }
+        
+        function renderCorrection() {
+             const originalQuestionIndex = state.incorrectlyAnswered[state.questionIndex];
+             const topic = quizData[state.currentTopic];
+             const q = topic.questions[originalQuestionIndex];
+
+             contentArea.innerHTML = `
+                <div class="correction-container">
+                    <h2 class="text-2xl font-bold text-yellow-400 text-center mb-4">Correction Time!</h2>
+                    <p class="text-center mb-6">Let's review the questions you got wrong. You must get it right to proceed.</p>
+                    <div class="text-lg mb-2">Question ${state.questionIndex + 1} / ${state.incorrectlyAnswered.length}</div>
+                    <div class="bg-gray-700 p-6 rounded-lg mb-6">
+                        <p class="text-xl md:text-2xl">${q.q}</p>
+                    </div>
+                    <div id="options-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        ${q.o.map(opt => `<button class="option-button bg-gray-600 text-lg p-4 rounded-lg hover:bg-blue-600 transition-all duration-200" onclick="checkCorrectionAnswer(this, ${originalQuestionIndex})">${opt}</button>`).join('')}
+                    </div>
+                    <div id="feedback-area" class="mt-6 text-center text-xl min-h-[30px]"></div>
+                </div>
+            `;
+        }
+
+        function checkCorrectionAnswer(btn, originalQuestionIndex) {
+            const selectedAnswer = btn.innerHTML;
+            const correctAnswer = quizData[state.currentTopic].questions[originalQuestionIndex].a;
+            const feedbackArea = document.getElementById('feedback-area');
+
+            if (selectedAnswer === correctAnswer) {
+                btn.classList.remove('bg-gray-600');
+                btn.classList.add('bg-green-600');
+                document.querySelectorAll('.option-button').forEach(b => b.disabled = true);
+                feedbackArea.innerHTML = `<span class="text-green-400">Excellent! Now you've got it.</span>`;
+                setTimeout(() => {
+                    state.questionIndex++;
+                    if (state.questionIndex < state.incorrectlyAnswered.length) {
+                        renderCorrection();
+                    } else {
+                        state.mode = 'results';
+                        renderContent();
+                    }
+                }, 1500);
+
+            } else {
+                btn.disabled = true;
+                btn.classList.remove('bg-gray-600');
+                btn.classList.add('bg-red-600');
+                feedbackArea.innerHTML = `<span class="text-yellow-400">That's not it. Have another look and try again, ${studentName}.</span>`;
+            }
+        }
+        
+        function renderResults() {
+            const topicKey = state.currentTopic;
+            const nextTopicKey = Object.keys(quizData)[Object.keys(quizData).indexOf(topicKey) + 1];
+            
+            let resultHTML = `
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-emerald-400 mb-4">Topic Complete!</h2>
+                    <p class="text-xl mb-2">Here's your score for "${quizData[topicKey].title}":</p>
+                    <div class="text-2xl my-6">
+                        <span class="text-green-400 font-bold">${state.score.correct} Correct</span> | 
+                        <span class="text-red-400 font-bold">${state.score.wrong} Wrong</span>
+                    </div>
+            `;
+
+            if (nextTopicKey) {
+                quizData[nextTopicKey].unlocked = true;
+                resultHTML += `<p class="text-lg mb-6">Great work! You've unlocked the next topic.</p>
+                <button onclick="goToNextTopic('${nextTopicKey}')" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">Continue to "${quizData[nextTopicKey].title}"</button>`;
+            } else {
+                 resultHTML += `<p class="text-2xl mt-8 font-semibold">Congratulations, ${studentName}! You have completed the entire Integers module!</p>`;
+            }
+            
+            resultHTML += `</div>`;
+            contentArea.innerHTML = resultHTML;
+        }
+
+        function goToNextTopic(topicKey) {
+            state.currentTopic = topicKey;
+            state.mode = 'presentation';
+            renderContent();
+        }
+
+        function renderContent() {
+            contentArea.style.opacity = 0;
+            setTimeout(() => {
+                switch (state.mode) {
+                    case 'presentation':
+                        contentArea.innerHTML = getPresentationHTML(state.currentTopic);
+                        break;
+                    case 'quiz':
+                        renderQuiz();
+                        break;
+                    case 'correction':
+                        renderCorrection();
+                        break;
+                    case 'results':
+                        renderResults();
+                        break;
+                }
+                renderNav();
+                contentArea.style.opacity = 1;
+            }, 300);
+        }
+
+        // --- Event Listeners and Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('unlock-btn').addEventListener('click', unlockLevels);
+            renderContent();
+        });
+    </script>
+
+<!-- === Teacher Unlock Panel & Enhanced Logic (password: 1706) === -->
+<script>
+(() => {
+  // Build (or refresh) the overlay panel UI
+  function buildUnlockOverlay() {
+    let overlay = document.getElementById('unlock-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'unlock-overlay';
+      overlay.className = 'fixed inset-0 bg-black/60 hidden items-center justify-center z-50';
+      overlay.innerHTML = `
+        <div class="bg-gray-900 text-gray-100 rounded-2xl shadow-2xl w-[92vw] max-w-md p-6 border border-gray-700">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xl font-semibold">Teacher Unlock</h3>
+            <button id="unlock-close" class="p-2 rounded hover:bg-gray-800" title="Close">✕</button>
+          </div>
+          <p class="text-sm text-gray-300 mb-4">Select the level(s) to unlock now, or tap <span class="font-semibold">Unlock All</span>.</p>
+          <div id="unlock-list" class="space-y-2 max-h-64 overflow-auto mb-5"></div>
+          <div class="grid grid-cols-2 gap-3">
+            <button id="unlock-selected" class="bg-emerald-600 hover:bg-emerald-700 rounded-lg py-2 font-semibold">Unlock Selected</button>
+            <button id="unlock-all" class="bg-blue-600 hover:bg-blue-700 rounded-lg py-2 font-semibold">Unlock All</button>
+          </div>
+        </div>`;
+      document.body.appendChild(overlay);
+    }
+
+    // Populate the list with current topics
+    const list = overlay.querySelector('#unlock-list');
+    list.innerHTML = '';
+    let idx = 0;
+    Object.entries(quizData).forEach(([key, topic]) => {
+      idx += 1;
+      const row = document.createElement('label');
+      row.className = 'flex items-center gap-3 bg-gray-800/60 rounded-lg p-3';
+      row.innerHTML = `
+        <input type="checkbox" data-key="${key}" class="accent-emerald-500"
+          ${topic.unlocked ? 'checked disabled' : ''}>
+        <span class="font-medium">${idx}. ${topic.title}</span>
+        <span class="ml-auto text-xs ${topic.unlocked ? 'text-emerald-400' : 'text-gray-400'}">
+          ${topic.unlocked ? 'Already unlocked' : 'Locked'}
+        </span>`;
+      list.appendChild(row);
+    });
+
+    // Wire up buttons
+    overlay.querySelector('#unlock-close').onclick = () => overlay.classList.add('hidden');
+    overlay.querySelector('#unlock-all').onclick = () => {
+      Object.keys(quizData).forEach(k => quizData[k].unlocked = true);
+      renderNav();
+      const btn = document.getElementById('unlock-btn');
+      if (btn) btn.title = "All levels unlocked!";
+      overlay.classList.add('hidden');
+    };
+    overlay.querySelector('#unlock-selected').onclick = () => {
+      list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        if (cb.checked) {
+          const k = cb.getAttribute('data-key');
+          quizData[k].unlocked = true;
+        }
+      });
+      renderNav();
+      const btn = document.getElementById('unlock-btn');
+      if (btn) btn.title = "Selected levels unlocked";
+      overlay.classList.add('hidden');
+    };
+
+    return overlay;
+  }
+
+  // New unlock handler with password + per-level control
+  function unlockLevelsNew() {
+    const pw = prompt("Teacher's Override: Enter password to manage unlocks.");
+    if (pw === "1706") {
+      const overlay = buildUnlockOverlay();
+      overlay.classList.remove('hidden');
+    } else if (pw !== null && pw !== "") {
+      alert("Incorrect password.");
+    }
+  }
+
+  // Ensure our new handler replaces any earlier click listeners on the unlock button
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('unlock-btn');
+    if (!btn) return;
+    const clone = btn.cloneNode(true);             // remove all previous listeners
+    btn.parentNode.replaceChild(clone, btn);
+    clone.addEventListener('click', unlockLevelsNew);
+  });
+})();
+</script>
+
+</body>
+</html>
+
