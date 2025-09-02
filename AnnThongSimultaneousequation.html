@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Math Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .question-container {
+            background-color: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        .question-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4a5568;
+            color: white;
+        }
+        .question-header h3 {
+            font-weight: 700;
+        }
+        .question-body {
+            padding: 20px;
+            display: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        .question-body.active {
+            display: block;
+        }
+        .step {
+            padding: 15px;
+            border-left: 3px solid #cbd5e0;
+            margin-bottom: 15px;
+            background-color: #f7fafc;
+            border-radius: 6px;
+        }
+        .answer-input {
+            width: 70px; /* Adjusted width for sig figs */
+            text-align: center;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            padding: 4px;
+            margin: 0 5px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .answer-input:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+        }
+        .answer-input.correct {
+            border-color: #48bb78;
+            background-color: #f0fff4;
+        }
+        .answer-input.incorrect {
+            border-color: #f56565;
+            background-color: #fff5f5;
+        }
+        .katex-frac {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .katex-num {
+            display: block;
+            border-bottom: 1px solid currentColor;
+            padding: 0 0.2em;
+        }
+        .katex-den {
+            display: block;
+            padding: 0 0.2em;
+        }
+        .check-btn, .nav-btn {
+            background-color: #4299e1;
+            color: white;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .check-btn:hover, .nav-btn:hover {
+            background-color: #3182ce;
+        }
+        .nav-btn:disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+        }
+        .icon {
+            transition: transform 0.3s ease;
+        }
+        .active .icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Interactive Math Solutions</h1>
+            <p class="text-gray-600 mt-2">Click on a question to reveal the step-by-step guided solution.</p>
+        </header>
+
+        <!-- Container for all questions -->
+        <div id="questions-wrapper">
+            <!-- Questions will be dynamically inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const questionsData = [
+            // Question 1
+            {
+                title: "Question 1",
+                problem: "Solve: 3x - y = x<sup>2</sup> - xy + y<sup>2</sup> = 7",
+                steps: [
+                    { title: "Step 1: Split the equation", content: "Split into two equations:<br><b>Equation 1:</b> 3x - y = 7<br><b>Equation 2:</b> x<sup>2</sup> - xy + y<sup>2</sup> = 7" },
+                    { title: "Step 2: Rearrange the linear equation", content: "From Equation 1, make y the subject.<br><b>Equation 3:</b> y = 3x - 7" },
+                    { title: "Step 3: Substitute", content: "Substitute Equation 3 into Equation 2.<br>x<sup>2</sup> - x(3x - 7) + (3x - 7)<sup>2</sup> = 7" },
+                    { title: "Step 4: Expand the equation", content: "x<sup>2</sup> - <input data-answer='3' class='answer-input'>x<sup>2</sup> + 7x + <input data-answer='9' class='answer-input'>x<sup>2</sup> - <input data-answer='42' class='answer-input'>x + 49 = 7" },
+                    { title: "Step 5: Simplify the equation", content: "<input data-answer='7' class='answer-input'>x<sup>2</sup> - <input data-answer='35' class='answer-input'>x + <input data-answer='42' class='answer-input'> = 0" },
+                    { title: "Step 6: Solve the quadratic", content: "7(x - <input data-answer='2' class='answer-input'>)(x - <input data-answer='3' class='answer-input'>) = 0<br>x = <input data-answer='2' class='answer-input'>, x = <input data-answer='3' class='answer-input'>" },
+                    { title: "Step 7: Find y values", content: "Substitute x values into Equation 3 (y = 3x - 7):<br>If x = 2, y = 3(2) - 7 = <input data-answer='-1' class='answer-input'><br>If x = 3, y = 3(3) - 7 = <input data-answer='2' class='answer-input'>" },
+                ]
+            },
+            // Question 11
+            {
+                title: "Question 11",
+                problem: `Solve: 3x + 2y = 10 and <span class="katex-frac"><span class="katex-num">3</span><span class="katex-den">x</span></span> + <span class="katex-frac"><span class="katex-num">2</span><span class="katex-den">y</span></span> = 5`,
+                steps: [
+                    { title: "Step 1: Label equations", content: "<b>Equation 1:</b> 3x + 2y = 10<br><b>Equation 2:</b> 3/x + 2/y = 5" },
+                    { title: "Step 2: Rearrange linear equation", content: "From Eq 1, make y the subject.<br>2y = 10 - 3x<br><b>Equation 3:</b> y = (10 - 3x) / 2" },
+                    { title: "Step 3: Substitute", content: "Substitute Eq 3 into Eq 2.<br>3/x + 2 / ((10 - 3x) / 2) = 5" },
+                    { title: "Step 4: Simplify complex fraction", content: "3/x + <input data-answer='4' class='answer-input'> / (10 - 3x) = 5" },
+                    { title: "Step 5: Create common denominator", content: "(3(10 - 3x) + 4x) / (x(10 - 3x)) = 5" },
+                    { title: "Step 6: Expand and simplify", content: "(30 - <input data-answer='9' class='answer-input'>x + 4x) / (10x - 3x<sup>2</sup>) = 5<br>Then: (30 - <input data-answer='5' class='answer-input'>x) / (10x - 3x<sup>2</sup>) = 5" },
+                    { title: "Step 7: Form quadratic equation", content: "30 - 5x = 5(10x - 3x<sup>2</sup>)<br>30 - 5x = <input data-answer='50' class='answer-input'>x - 15x<sup>2</sup><br>15x<sup>2</sup> - <input data-answer='55' class='answer-input'>x + 30 = 0" },
+                    { title: "Step 8: Simplify and solve for x", content: "Divide by 5: 3x<sup>2</sup> - <input data-answer='11' class='answer-input'>x + 6 = 0<br>Factorize: (<input data-answer='3' class='answer-input'>x - 2)(x - <input data-answer='3' class='answer-input'>) = 0<br>x = <input data-answer='2/3' class='answer-input'>, x = <input data-answer='3' class='answer-input'>" },
+                    { title: "Step 9: Find y values", content: "If x = 3, y = (10 - 9) / 2 = <input data-answer='1/2' class='answer-input'><br>If x = 2/3, y = (10 - 2) / 2 = <input data-answer='4' class='answer-input'>" },
+                ]
+            },
+            // Question 12 - CORRECTED
+            {
+                title: "Question 12 (4 s.f.)",
+                problem: "Solve: 4x + 3y = 2 and x<sup>2</sup> + 3x + 5y - 15 = 0",
+                steps: [
+                    { title: "Step 1: Label equations", content: "<b>Equation 1:</b> 4x + 3y = 2<br><b>Equation 2:</b> x<sup>2</sup> + 3x + 5y - 15 = 0" },
+                    { title: "Step 2: Rearrange linear equation", content: "From Eq 1:<br>3y = 2 - 4x<br><b>Equation 3:</b> y = (2 - 4x) / 3" },
+                    { title: "Step 3: Substitute", content: "Substitute Eq 3 into Eq 2.<br>x<sup>2</sup> + 3x + 5((2 - 4x) / 3) - 15 = 0" },
+                    { title: "Step 4: Clear the fraction", content: "Multiply by 3:<br><input data-answer='3' class='answer-input'>x<sup>2</sup> + 9x + 5(2 - 4x) - <input data-answer='45' class='answer-input'> = 0" },
+                    { title: "Step 5: Form quadratic equation", content: "3x<sup>2</sup> + 9x + 10 - <input data-answer='20' class='answer-input'>x - 45 = 0<br><input data-answer='3' class='answer-input'>x<sup>2</sup> - <input data-answer='11' class='answer-input'>x - 35 = 0" },
+                    { title: "Step 6: Use quadratic formula", content: "x = (11 ± &radic;((-11)<sup>2</sup> - 4(3)(-35))) / (2*3)<br>x = (11 ± &radic;(121 + <input data-answer='420' class='answer-input'>)) / 6<br>x = (11 ± &radic;(<input data-answer='541' class='answer-input'>)) / 6<br>x &approx; <input data-answer='5.710' class='answer-input'>, x &approx; <input data-answer='-2.043' class='answer-input'>" },
+                    { title: "Step 7: Find y values", content: "If x &approx; 5.710, y &approx; <input data-answer='-6.947' class='answer-input'><br>If x &approx; -2.043, y &approx; <input data-answer='3.391' class='answer-input'>" },
+                ]
+            },
+            // Question 13
+            {
+                title: "Question 13",
+                problem: "Given (3m, 2n) is a solution to 2x - 4y = 1 and 3/x + 2/(3y) = 1, find m and n.",
+                steps: [
+                    { title: "Step 1: Rearrange linear equation", content: "From 2x - 4y = 1, make x the subject.<br><b>Equation 3:</b> x = (1 + 4y) / 2" },
+                    { title: "Step 2: Substitute", content: "Substitute into 3/x + 2/(3y) = 1:<br>3 / ((1 + 4y)/2) + 2/(3y) = 1" },
+                    { title: "Step 3: Simplify and find common denominator", content: "<input data-answer='6' class='answer-input'>/(1+4y) + 2/(3y) = 1<br>(6(3y) + 2(1+4y)) / (3y(1+4y)) = 1" },
+                    { title: "Step 4: Form quadratic equation", content: "<input data-answer='18' class='answer-input'>y + 2 + 8y = 3y + 12y<sup>2</sup><br>12y<sup>2</sup> - <input data-answer='23' class='answer-input'>y - 2 = 0" },
+                    { title: "Step 5: Solve for y", content: "Factorize: (<input data-answer='12' class='answer-input'>y + 1)(y - <input data-answer='2' class='answer-input'>) = 0<br>This factorization is incorrect. Let's recheck.<br>Using the quadratic formula for 12y^2 - 23y - 2 = 0<br>y = (23 ± &radic;(23^2 - 4*12*(-2))) / 24 = (23 ± &radic;(529+96))/24 = (23 ± 25)/24<br>y = <input data-answer='2' class='answer-input'>, y = <input data-answer='-1/12' class='answer-input'>" },
+                    { title: "Step 6: Find x values", content: "If y = 2, x = (1+8)/2 = <input data-answer='9/2' class='answer-input'><br>If y = -1/12, x = (1-1/3)/2 = <input data-answer='1/3' class='answer-input'>" },
+                    { title: "Step 7: Find m and n", content: "Case 1: (x,y) = (9/2, 2)<br>3m=9/2 &rArr; m=<input data-answer='3/2' class='answer-input'><br>2n=2 &rArr; n=<input data-answer='1' class='answer-input'><br>Case 2: (x,y) = (1/3, -1/12)<br>3m=1/3 &rArr; m=<input data-answer='1/9' class='answer-input'><br>2n=-1/12 &rArr; n=<input data-answer='-1/24' class='answer-input'>" },
+                ]
+            },
+            // Question 15
+            {
+                title: "Question 15 (Geometry)",
+                problem: "A 48cm wire forms a polygon (rectangle with 2 isosceles triangles). Area is 144 cm<sup>2</sup>. Find x and y. (See image for details)",
+                steps: [
+                    { title: "Step 1: Form Perimeter Equation", content: "Perimeter = 10x+10x+y+10x+10x+y = 48<br><input data-answer='40' class='answer-input'>x + <input data-answer='2' class='answer-input'>y = 48<br><b>Equation 1:</b> 20x + y = 24" },
+                    { title: "Step 2: Form Area Equation", content: "Triangle height h = &radic;((10x)<sup>2</sup> - (6x)<sup>2</sup>) = <input data-answer='8' class='answer-input'>x<br>Area = Area(rect) + 2*Area(tri)<br>144 = (y * 12x) + 2 * (1/2 * 12x * 8x)<br>144 = 12xy + <input data-answer='96' class='answer-input'>x<sup>2</sup><br><b>Equation 2:</b> 12 = xy + <input data-answer='8' class='answer-input'>x<sup>2</sup>" },
+                    { title: "Step 3: Substitute", content: "From Eq 1, y = 24 - <input data-answer='20' class='answer-input'>x. Sub into Eq 2:<br>12 = x(24 - 20x) + 8x<sup>2</sup>" },
+                    { title: "Step 4: Form and solve quadratic", content: "12 = <input data-answer='24' class='answer-input'>x - 20x<sup>2</sup> + 8x<sup>2</sup><br>12 = 24x - <input data-answer='12' class='answer-input'>x<sup>2</sup><br>12x<sup>2</sup> - 24x + <input data-answer='12' class='answer-input'> = 0<br>x<sup>2</sup> - <input data-answer='2' class='answer-input'>x + 1 = 0<br>(x - <input data-answer='1' class='answer-input'>)<sup>2</sup> = 0 &rArr; x = <input data-answer='1' class='answer-input'>" },
+                    { title: "Step 5: Find y", content: "y = 24 - 20(1) = <input data-answer='4' class='answer-input'>" },
+                ]
+            },
+             // Question 21
+            {
+                title: "Question 21 (Geometry)",
+                problem: "A 44cm wire forms a trapezium. Slanted sides are 10cm, height is (x+2), parallel sides are x and (x+2y+6). Find x and y.",
+                steps: [
+                    { title: "Step 1: Form Perimeter Equation", content: "Perimeter = x + 10 + (x+2y+6) + 10 = 44<br><input data-answer='2' class='answer-input'>x + 2y + <input data-answer='26' class='answer-input'> = 44<br>2x + 2y = 18<br><b>Equation 1:</b> x + y = 9" },
+                    { title: "Step 2: Form Pythagoras Equation", content: "From the right-angled triangle formed by the height:<br>(y+3)<sup>2</sup> + (x+2)<sup>2</sup> = 10<sup>2</sup><br>(y+3)<sup>2</sup> + (x+2)<sup>2</sup> = <input data-answer='100' class='answer-input'>" },
+                    { title: "Step 3: Substitute", content: "From Eq 1, y = 9 - <input data-answer='x' class='answer-input'>. Sub into Eq 2:<br>((9-x)+3)<sup>2</sup> + (x+2)<sup>2</sup> = 100<br>(12 - <input data-answer='x' class='answer-input'>)<sup>2</sup> + (x+2)<sup>2</sup> = 100" },
+                    { title: "Step 4: Expand", content: "(144 - <input data-answer='24' class='answer-input'>x + x<sup>2</sup>) + (x<sup>2</sup> + <input data-answer='4' class='answer-input'>x + 4) = 100" },
+                    { title: "Step 5: Form and solve quadratic", content: "2x<sup>2</sup> - 20x + 148 = 100<br>2x<sup>2</sup> - 20x + <input data-answer='48' class='answer-input'> = 0<br>x<sup>2</sup> - <input data-answer='10' class='answer-input'>x + 24 = 0<br>(x - <input data-answer='4' class='answer-input'>)(x - <input data-answer='6' class='answer-input'>) = 0<br>x = <input data-answer='4' class='answer-input'>, x = <input data-answer='6' class='answer-input'>" },
+                    { title: "Step 6: Find y values", content: "If x = 4, y = 9 - 4 = <input data-answer='5' class='answer-input'><br>If x = 6, y = 9 - 6 = <input data-answer='3' class='answer-input'>" },
+                ]
+            },
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        questionsData.forEach((qData, index) => {
+            const questionContainer = document.createElement('div');
+            questionContainer.className = 'question-container';
+
+            let stepsHTML = '';
+            qData.steps.forEach((step, stepIndex) => {
+                stepsHTML += `
+                    <div class="step" style="display: ${stepIndex === 0 ? 'block' : 'none'};">
+                        <h4 class="font-semibold text-lg mb-2 text-gray-700">${step.title}</h4>
+                        <div class="text-gray-600">${step.content}</div>
+                    </div>
+                `;
+            });
+
+            questionContainer.innerHTML = `
+                <div class="question-header">
+                    <div>
+                        <h3 class="text-xl">${qData.title}</h3>
+                        <p class="text-sm text-gray-300 mt-1">${qData.problem}</p>
+                    </div>
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="question-body">
+                    ${stepsHTML}
+                    <div class="flex justify-between mt-4">
+                         <button class="nav-btn prev-btn" disabled>Previous Step</button>
+                         <button class="nav-btn next-btn">Next Step</button>
+                    </div>
+                </div>
+            `;
+            wrapper.appendChild(questionContainer);
+        });
+
+        // Add event listeners
+        document.querySelectorAll('.question-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const body = header.nextElementSibling;
+                const container = header.parentElement;
+                container.classList.toggle('active');
+                body.classList.toggle('active');
+            });
+        });
+
+        document.querySelectorAll('.question-container').forEach(container => {
+            const steps = container.querySelectorAll('.step');
+            const nextBtn = container.querySelector('.next-btn');
+            const prevBtn = container.querySelector('.prev-btn');
+            let currentStep = 0;
+
+            const updateButtons = () => {
+                prevBtn.disabled = currentStep === 0;
+                nextBtn.disabled = currentStep === steps.length - 1;
+            };
+
+            const showStep = (index) => {
+                steps.forEach((step, i) => {
+                    step.style.display = i === index ? 'block' : 'none';
+                });
+            };
+            
+            // On expand, reset to first step
+            container.querySelector('.question-header').addEventListener('click', () => {
+                if(container.classList.contains('active')) {
+                    currentStep = 0;
+                    showStep(0);
+                    updateButtons();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                    updateButtons();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                    updateButtons();
+                }
+            });
+
+            container.querySelectorAll('.answer-input').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const userAnswer = e.target.value.trim();
+                    const correctAnswer = e.target.dataset.answer.trim();
+                    if (userAnswer === '') {
+                         e.target.classList.remove('correct', 'incorrect');
+                         return;
+                    }
+                    if (userAnswer === correctAnswer) {
+                        e.target.classList.add('correct');
+                        e.target.classList.remove('incorrect');
+                    } else {
+                        e.target.classList.add('incorrect');
+                        e.target.classList.remove('correct');
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
+
