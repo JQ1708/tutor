@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Math: Indices, Roots & Rational Numbers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-y: auto;
+        }
+        .slide-content {
+            min-height: 400px;
+        }
+        .game-container {
+            min-height: 600px;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .correct {
+            animation: correct-pulse 0.5s;
+        }
+        .incorrect {
+            animation: incorrect-shake 0.5s;
+        }
+        @keyframes correct-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(4, 120, 87, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(4, 120, 87, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(4, 120, 87, 0); }
+        }
+        @keyframes incorrect-shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+    <div id="app-container" class="w-full h-full max-w-5xl mx-auto p-4 flex flex-col">
+
+        <!-- Level Selection Screen -->
+        <div id="level-selection" class="flex flex-col items-center justify-center h-full">
+            <h1 class="text-5xl font-bold mb-2 text-cyan-400">IGCSE Math Challenge</h1>
+            <p class="text-xl mb-12 text-gray-300">Indices, Roots & Rational Numbers</p>
+            <div id="levels-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                <!-- Level cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Main View (Presentation, Game, Correction) -->
+        <div id="main-view" class="hidden flex-col h-full w-full">
+            
+            <!-- Presentation Slides View -->
+            <div id="presentation-view" class="w-full bg-gray-800 rounded-xl p-8 shadow-2xl flex-grow flex flex-col justify-between my-8">
+                <div>
+                    <h2 id="slide-topic" class="text-3xl font-bold text-cyan-400 mb-4"></h2>
+                    <div id="slide-content" class="text-lg text-gray-200 space-y-4 slide-content">
+                        <!-- Slide content will be inserted here -->
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <button id="prev-slide-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Previous</button>
+                    <span id="slide-counter" class="text-gray-400"></span>
+                    <div>
+                        <button id="next-slide-btn" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg mr-2">Next</button>
+                        <button id="start-game-btn" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg">Start Quiz!</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game View -->
+            <div id="game-view" class="hidden w-full bg-gray-800 rounded-xl p-8 shadow-2xl flex-grow flex flex-col game-container my-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 id="game-topic" class="text-2xl font-bold text-cyan-400"></h2>
+                    <button id="back-to-levels-btn" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg">End Quiz</button>
+                </div>
+                
+                <div class="w-full bg-gray-700 rounded-full h-4 mb-4">
+                    <div id="progress-bar" class="bg-green-500 h-4 rounded-full" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-sm text-gray-400 mb-6">
+                    <span id="progress-text">Question 1/50</span>
+                     <span id="attempts-text">Attempt 1/2</span>
+                </div>
+
+                <div class="bg-gray-900 p-6 rounded-lg mb-6 text-center">
+                    <p id="question-text" class="text-2xl font-semibold"></p>
+                </div>
+
+                <div id="options-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 flex-grow">
+                    <!-- Option buttons will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Correction Session View -->
+            <div id="correction-view" class="hidden w-full bg-gray-800 rounded-xl p-8 shadow-2xl flex-grow flex flex-col game-container my-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-3xl font-bold text-cyan-400">Quiz Review</h2>
+                    <button id="finish-review-btn" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg">Finish Review</button>
+                </div>
+                <div id="correction-content-wrapper" class="flex-grow flex flex-col justify-center">
+                     <!-- Correction content will be dynamically inserted here -->
+                </div>
+                 <div class="flex justify-between items-center mt-6">
+                    <button id="prev-correction-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Previous</button>
+                    <span id="correction-counter" class="text-gray-400"></span>
+                    <button id="next-correction-btn" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for results/messages -->
+        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+            <div class="bg-gray-800 rounded-xl p-8 shadow-2xl text-center max-w-md w-full">
+                <h3 id="modal-title" class="text-3xl font-bold text-cyan-400 mb-4"></h3>
+                <p id="modal-text" class="text-lg mb-6"></p>
+                <button id="modal-btn" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg">Continue</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- DATA ---
+        const levelsData = [
+            {
+                title: "Indices",
+                description: "Master positive, negative, and zero indices.",
+                unlocked: true,
+                completed: false,
+                slides: [
+                    {
+                        title: "Understanding Indices",
+                        content: `<p>An index (or power) tells us how many times to multiply a number by itself.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 text-center">
+                                      <p class="text-3xl"><span class="text-cyan-400 font-bold">5³</span> = 5 × 5 × 5 = <span class="text-green-400 font-bold">125</span></p>
+                                  </div>`
+                    },
+                    {
+                        title: "Index Laws: Multiplication & Division",
+                        content: `<p>When numbers with the same base are multiplied, you add the powers. When they are divided, you subtract the powers.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 space-y-4">
+                                      <p class="text-xl">aᵐ × aⁿ = aᵐ⁺ⁿ  <span class="text-gray-400 ml-4">(e.g., 3² × 3⁴ = 3⁶)</span></p>
+                                      <p class="text-xl">aᵐ ÷ aⁿ = aᵐ⁻ⁿ  <span class="text-gray-400 ml-4">(e.g., 7⁵ ÷ 7² = 7³)</span></p>
+                                  </div>`
+                    },
+                    {
+                        title: "Zero and Negative Indices",
+                        content: `<p>Any number to the power of 0 is 1. A negative index means a reciprocal.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 space-y-4">
+                                      <p class="text-xl">a⁰ = 1 <span class="text-gray-400 ml-4">(e.g., 52⁰ = 1)</span></p>
+                                      <p class="text-xl">a⁻ⁿ = 1/aⁿ <span class="text-gray-400 ml-4">(e.g., 2⁻³ = 1/2³ = 1/8)</span></p>
+                                  </div>`
+                    },
+                ],
+                questions: [
+                    // Moderate Questions
+                    { q: "What is the value of 5³?", o: ["15", "125", "25", "8", "53", "243"], a: "125" },
+                    { q: "Simplify 7⁴ × 7²", o: ["7⁶", "7⁸", "49⁶", "7²", "14⁶", "49⁸"], a: "7⁶" },
+                    { q: "Simplify 10⁹ ÷ 10³", o: ["10³", "10¹²", "1⁶", "10⁶", "100⁶", "1⁹/³"], a: "10⁶" },
+                    { q: "What is the value of 8⁰?", o: ["8", "0", "1", "undefined", "80", "0.8"], a: "1" },
+                    { q: "What is 3⁻² as a fraction?", o: ["-9", "-6", "1/6", "1/9", "9", "6"], a: "1/9" },
+                    { q: "Simplify (x⁵)²", o: ["x⁷", "x²⁵", "x³", "2x⁵", "x¹⁰", "5x²"], a: "x¹⁰" },
+                    { q: "What is the value of 2⁻³?", o: ["-6", "-8", "1/6", "1/8", "8", "0.23"], a: "1/8" },
+                    { q: "Simplify y × y⁵", o: ["y⁵", "2y⁵", "y⁶", "5y²", "y⁴", "y⁵y"], a: "y⁶" },
+                    { q: "Simplify 4⁵ ÷ 4⁵", o: ["4¹", "1", "0", "4¹⁰", "4²⁵", "16"], a: "1" },
+                    { q: "Write (1/5) as a power of 5.", o: ["5¹", "5⁰", "5⁻¹", "1⁵", "-5¹", "5.1"], a: "5⁻¹" },
+                    { q: "Simplify 2³ × 2⁻¹", o: ["2⁻³", "2⁴", "2²", "4²", "2⁻²", "2³"], a: "2²" },
+                    { q: "Simplify 6⁻⁴ ÷ 6⁻²", o: ["6⁻⁶", "6⁸", "6⁻²", "6²", "1", "6⁻⁴"], a: "6⁻²" },
+                    { q: "What is the value of (1/2)⁻¹?", o: ["1/2", "-1/2", "2", "-2", "1", "0.5"], a: "2" },
+                    { q: "Simplify (a³b²)²", o: ["a⁵b⁴", "a⁶b⁴", "a³b⁴", "a⁶b²", "2a³b²", "a⁹b⁴"], a: "a⁶b⁴" },
+                    { q: "What is (-2)³?", o: ["-6", "6", "-8", "8", "-9", "9"], a: "-8" },
+                    { q: "Simplify 9¹/²", o: ["4.5", "18", "9", "3", "81", "1/3"], a: "3" },
+                    { q: "What is 27¹/³?", o: ["9", "3", "81", "1/3", "2.7", "5.2"], a: "3" },
+                    { q: "Simplify 5x⁰", o: ["1", "5", "5x", "0", "x", "x⁵"], a: "5" },
+                    { q: "Simplify (2x)⁰", o: ["2", "2x", "1", "0", "x", "x²"], a: "1" },
+                    { q: "Write 1/64 as a power of 2.", o: ["2⁶", "2⁻⁶", "2⁸", "2⁻⁸", "2⁵", "2⁻⁵"], a: "2⁻⁶" },
+                    { q: "Simplify (x⁻²)³", o: ["x⁻⁵", "x¹", "x⁻⁶", "x⁶", "x⁻⁸", "x⁹"], a: "x⁻⁶" },
+                    { q: "What is the value of 4³ / 2⁶?", o: ["1", "2", "4", "8", "1/2", "1/4"], a: "1" },
+                    { q: "Simplify (8a⁶) ÷ (2a²)", o: ["4a³", "6a⁴", "4a⁴", "6a³", "4a⁸", "4a¹²"], a: "4a⁴" },
+                    { q: "What is 16³/⁴?", o: ["12", "6", "8", "4", "32", "2"], a: "8" },
+                    { q: "Simplify (x²/y³)⁴", o: ["x⁶/y⁷", "x⁸/y¹²", "x²/y¹²", "x⁸/y³", "4x²/4y³", "x⁸y¹²"], a: "x⁸/y¹²" },
+                    { q: "What is the value of 100¹/² × 2⁻¹?", o: ["50", "20", "5", "10", "100", "200"], a: "5" },
+                    { q: "Simplify 3a²b × 4ab³", o: ["7a³b⁴", "12a²b³", "12a³b⁴", "7a²b³", "12ab", "12a³b³"], a: "12a³b⁴" },
+                    { q: "Write 0.1 as a power of 10", o: ["10¹", "10⁻¹", "10⁰", "10⁰.¹", "10⁻²", "10¹⁰"], a: "10⁻¹" },
+                    { q: "Simplify (27/8)²/³", o: ["3/2", "9/4", "27/8", "6/4", "9/8", "81/64"], a: "9/4" },
+                    { q: "If 2ˣ = 32, what is x?", o: ["3", "4", "5", "6", "16", "2.5"], a: "5" },
+                    { q: "Simplify (5⁻¹ + 3⁻¹)", o: ["8⁻¹", "1/8", "8/15", "15/8", "1/15", "-1/8"], a: "8/15" },
+                    { q: "What is (-1)¹⁰⁰?", o: ["-1", "1", "100", "-100", "0", "undefined"], a: "1" },
+                    { q: "Simplify (a²bc³)² / (ab²c)", o: ["a³c⁵", "a³b²c⁵", "a³c⁶", "a²c⁵", "a⁴c⁵", "a³bc⁵"], a: "a³c⁵" },
+                    { q: "What is the value of 8⁻²/³?", o: ["-4", "1/4", "4", "-1/4", "1/2", "2/3"], a: "1/4" },
+                    { q: "If 3ˣ⁺¹ = 81, what is x?", o: ["1", "2", "3", "4", "27", "8"], a: "3" },
+                    { q: "Simplify (x¹/² + x¹/²)", o: ["x", "x¹", "2x¹/²", "x²", "x¹/⁴", "2x"], a: "2x¹/²" },
+                    { q: "Simplify (x¹/² × x¹/²)", o: ["x", "x¹/⁴", "2x¹/²", "x²", "x+x", "2x"], a: "x" },
+                    { q: "What is 64⁻¹/⁶?", o: ["-8", "8", "2", "1/2", "4", "1/4"], a: "1/2" },
+                    { q: "Simplify (3x²)³", o: ["9x⁶", "27x⁵", "9x⁵", "27x⁶", "3x⁶", "27x⁸"], a: "27x⁶" },
+
+                    // Hard Questions
+                    { q: "Simplify (x²y⁻³) / (x⁻¹y²)", o: ["x³y⁻⁵", "xy⁻¹", "x³y⁻¹", "xy⁻⁵", "x/y", "x³/y"], a: "x³y⁻⁵" },
+                    { q: "Solve for x: 9ˣ = 3ˣ⁺³", o: ["1", "2", "3", "4", "-1", "-3"], a: "3" },
+                    { q: "What is the value of (√2)⁶?", o: ["4", "8", "16", "2", "6", "12"], a: "8" },
+                    { q: "If a=1/2 and b=-1, what is (a/b)⁻²?", o: ["-4", "4", "1/4", "-1/4", "2", "-2"], a: "4" },
+                    { q: "Simplify ((a⁻¹ + b⁻¹)/(ab))", o: ["(a+b)/(ab)²", "1", "a+b", "1/ab", "ab", "a-b"], a: "(a+b)/(ab)²" },
+                    { q: "If x = (8/27)⁻²/³, what is x?", o: ["4/9", "9/4", "-4/9", "-9/4", "2/3", "3/2"], a: "9/4" },
+                    { q: "Solve for y: 4ʸ⁺¹ = 8ʸ⁻¹", o: ["3", "4", "5", "6", "-3", "-5"], a: "5" },
+                    { q: "Simplify fully: (256x¹⁶)¹/⁴", o: ["4x⁴", "16x⁴", "4x¹²", "64x⁴", "4x²", "16x²"], a: "4x⁴" },
+                    { q: "What is the value of (2⁰ + 2¹ + 2²)⁻¹?", o: ["1/7", "7", "-7", "1/8", "1/6", "6"], a: "1/7" },
+                    { q: "Simplify (32x⁵y⁻⁵)¹/⁵", o: ["2xy⁻¹", "2x⁵y⁻¹", "32xy⁻¹", "2x²y⁻¹", "2xy", "2x/y"], a: "2xy⁻¹" }
+                ]
+            },
+            {
+                title: "Rational and Irrational Numbers",
+                description: "Understand the difference between number types.",
+                unlocked: false,
+                completed: false,
+                slides: [
+                    {
+                        title: "What are Rational Numbers?",
+                        content: `<p>A rational number is any number that can be written as a fraction p/q, where p and q are integers and q is not zero.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4">
+                                      <ul class="list-disc list-inside ml-4">
+                                        <li>All integers (e.g., 5 = 5/1)</li>
+                                        <li>All terminating decimals (e.g., 0.75 = 3/4)</li>
+                                        <li>All recurring decimals (e.g., 0.333... = 1/3)</li>
+                                      </ul>
+                                  </div>`
+                    },
+                    {
+                        title: "What are Irrational Numbers?",
+                        content: `<p>An irrational number cannot be written as a simple fraction. Their decimal representation goes on forever without repeating.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4 text-center">
+                                      <p class="text-3xl">Famous examples include:</p>
+                                      <p class="text-3xl mt-2"><span class="text-cyan-400 font-bold">π</span> (Pi) ≈ 3.14159...</p>
+                                      <p class="text-3xl mt-2"><span class="text-cyan-400 font-bold">√2</span> ≈ 1.41421...</p>
+                                  </div>`
+                    },
+                ],
+                questions: [
+                    // Moderate Questions
+                    { q: "Which of the following is an integer?", o: ["3.5", "-7", "1/2", "0.333...", "√3", "π"], a: "-7" },
+                    { q: "Which of these is a rational number?", o: ["√2", "π", "√9", "√10", "√5", "e"], a: "√9" },
+                    { q: "Which of these is an irrational number?", o: ["5", "-2.5", "√7", "1/3", "0.125", "√100"], a: "√7" },
+                    { q: "Is the number 0.5 rational or irrational?", o: ["Rational", "Irrational", "Neither", "Both", "Integer", "Natural"], a: "Rational" },
+                    { q: "Is the number -12 rational or irrational?", o: ["Rational", "Irrational", "Neither", "Both", "Surd", "Imaginary"], a: "Rational" },
+                    { q: "Is π (Pi) rational or irrational?", o: ["Rational", "Irrational", "Integer", "Terminating", "Recurring", "Natural"], a: "Irrational" },
+                    { q: "Which of the following square roots is rational?", o: ["√8", "√12", "√16", "√20", "√24", "√2"], a: "√16" },
+                    { q: "The number 2/3 is...", o: ["An integer", "A natural number", "A rational number", "An irrational number", "A whole number", "A surd"], a: "A rational number" },
+                    { q: "The number 0.121212... is...", o: ["Terminating", "An integer", "Irrational", "Rational (recurring)", "A surd", "A whole number"], a: "Rational (recurring)" },
+                    { q: "Which of these is a surd?", o: ["√4", "√9", "√15", "√25", "√36", "√1"], a: "√15" },
+                    { q: "Is the set of natural numbers a subset of rational numbers?", o: ["Yes", "No", "Sometimes", "Only positive ones", "Only negative ones", "Never"], a: "Yes" },
+                    { q: "Is the product of two rational numbers always rational?", o: ["Yes", "No", "Sometimes", "Only if positive", "Only if negative", "Impossible to say"], a: "Yes" },
+                    { q: "Is the sum of two irrational numbers always irrational?", o: ["Yes", "No (e.g., √2 + -√2 = 0)", "Always rational", "Sometimes rational", "Only if positive", "Both B and D"], a: "Both B and D" },
+                    { q: "Which of the following is a terminating decimal?", o: ["1/3", "1/7", "1/8", "1/9", "1/6", "π"], a: "1/8" },
+                    { q: "Is ³√8 rational or irrational?", o: ["Rational", "Irrational", "Neither", "Integer", "A and D", "Surd"], a: "A and D" },
+                    { q: "Is ³√10 rational or irrational?", o: ["Rational", "Irrational", "Integer", "Natural", "Terminating", "Recurring"], a: "Irrational" },
+                    { q: "Which statement is true?", o: ["All integers are natural numbers", "All rational numbers are integers", "All real numbers are rational", "All integers are rational numbers", "All numbers are irrational", "π is rational"], a: "All integers are rational numbers" },
+                    { q: "The number 5.97 is...", o: ["An integer", "Irrational", "Rational", "A surd", "A natural number", "Recurring"], a: "Rational" },
+                    { q: "Which number is NOT a real number?", o: ["√-4", "-5", "π", "√2", "0", "1/2"], a: "√-4" },
+                    { q: "Is the number 'e' (Euler's number) rational or irrational?", o: ["Rational", "Irrational", "Integer", "Terminating", "Natural", "Imaginary"], a: "Irrational" },
+                    { q: "The product of a non-zero rational and an irrational number is...", o: ["Always rational", "Always irrational", "Sometimes rational", "Always an integer", "Always zero", "Sometimes an integer"], a: "Always irrational" },
+                    { q: "Is 0 a rational number?", o: ["Yes, 0/1", "No, division by zero", "It is irrational", "It is neither", "It is an integer only", "No"], a: "Yes, 0/1" },
+                    { q: "Which of these cannot be written as a fraction of integers?", o: ["³√27", "0.6", "√50", "-18", "1.234", "√0.25"], a: "√50" },
+                    { q: "The decimal 0.454545... is...", o: ["Terminating", "Irrational", "Rational", "An integer", "A surd", "Imaginary"], a: "Rational" },
+                    { q: "A number that is a 'surd' is always...", o: ["Rational", "An integer", "A whole number", "Irrational", "Terminating", "A fraction"], a: "Irrational" },
+                    { q: "Which of the following is rational?", o: ["√3 + 1", "√4 + 1", "π + 1", "√5 + 1", "e + 1", "√6 + 1"], a: "√4 + 1" },
+                    { q: "Is 22/7 a rational or irrational number?", o: ["Rational", "Irrational", "It is exactly Pi", "Neither", "An integer", "A surd"], a: "Rational" },
+                    { q: "Is √2 / 2 rational or irrational?", o: ["Rational", "Irrational", "Integer", "Natural", "1", "0"], a: "Irrational" },
+                    { q: "The number 1.23456789... (non-repeating) is...", o: ["Rational", "Irrational", "An integer", "Terminating", "Recurring", "A natural number"], a: "Irrational" },
+                    { q: "Is (√3)² rational or irrational?", o: ["Rational", "Irrational", "Surd", "Neither", "Integer", "A and E"], a: "A and E" },
+                    { q: "Which is the best description of -12/13?", o: ["Natural", "Integer", "Whole", "Rational", "Irrational", "Surd"], a: "Rational" },
+                    { q: "Which set contains only irrational numbers?", o: ["{√4, √9, √16}", "{√2, π, √5}", "{1/2, 1/3, 1/4}", "{-1, 0, 1}", "{0.1, 0.2, 0.3}", "{√1, √0, √100}"], a: "{√2, π, √5}" },
+                    { q: "The number φ (the golden ratio) is...", o: ["Rational", "Irrational", "An Integer", "A terminating decimal", "A recurring decimal", "A natural number"], a: "Irrational" },
+                    { q: "Is 0.999... rational or irrational?", o: ["Irrational", "Rational (it equals 1)", "Neither", "Surd", "Terminating", "Integer"], a: "Rational (it equals 1)" },
+                    { q: "The product √2 × √8 is...", o: ["Irrational", "Rational", "A surd", "8", "√10", "16"], a: "Rational" },
+                    { q: "The sum √3 + √3 is...", o: ["Rational", "Irrational", "An integer", "3", "√6", "9"], a: "Irrational" },
+                    { q: "Is every integer a whole number?", o: ["Yes", "No (integers can be negative)", "Only positive integers", "Only zero", "Sometimes", "Never"], a: "No (integers can be negative)" },
+                    { q: "A number that CAN be a surd is:", o: ["³√-8", "√0.25", "√121", "³√30", "√1.44", "³√1"], a: "³√30" },
+                    { q: "Is the circumference of a circle with a rational diameter always irrational?", o: ["Yes (C=πd)", "No", "Sometimes", "Always rational", "Only if diameter > 1", "Only for unit circle"], a: "Yes (C=πd)" },
+
+                    // Hard Questions
+                    { q: "Is (√2 + 1)(√2 - 1) rational or irrational?", o: ["Rational", "Irrational", "Surd", "Neither", "2", "3"], a: "Rational" },
+                    { q: "Which statement is false?", o: ["The sum of two rationals is rational", "The product of two rationals is rational", "The sum of two irrationals is always irrational", "The product of a rational and irrational is irrational (if rational≠0)", "Integers are rational", "Natural numbers are integers"], a: "The sum of two irrationals is always irrational" },
+                    { q: "If x²=5, then x is...", o: ["Rational", "Irrational", "An integer", "A natural number", "Terminating", "Recurring"], a: "Irrational" },
+                    { q: "Which number can be expressed as a ratio of two integers?", o: ["The diagonal of a unit square", "The ratio of a circle's circumference to its diameter", "The solution to x²=2", "The solution to 2x=3", "The golden ratio", "Euler's number"], a: "The solution to 2x=3" },
+                    { q: "If a circle has an area of π, its radius must be...", o: ["Rational", "Irrational", "An Integer", "A surd", "0", "1"], a: "A and E" },
+                    { q: "Is the number log₂(10) rational or irrational?", o: ["Rational", "Irrational", "An integer", "5", "Terminating", "Recurring"], a: "Irrational" },
+                    { q: "If the sides of a right-angled triangle are 3 and 4, the hypotenuse is...", o: ["Rational", "Irrational", "A surd", "An integer", "A and D", "3.5"], a: "A and D" },
+                    { q: "If the sides of a right-angled triangle are 1 and 2, the hypotenuse is...", o: ["Rational", "Irrational", "An integer", "A surd", "B and D", "3"], a: "B and D" },
+                    { q: "Is the number 0.1010010001... rational or irrational?", o: ["Rational", "Irrational (non-repeating pattern)", "Recurring", "Terminating", "An integer", "A fraction"], a: "Irrational (non-repeating pattern)" },
+                    { q: "Let S be the set of all surds. Is S closed under addition?", o: ["Yes", "No (e.g., √2 + (1-√2) = 1)", "Only for positive surds", "It is closed under multiplication", "It depends", "Always"], a: "No (e.g., √2 + (1-√2) = 1)" }
+                ]
+            },
+            {
+                title: "Estimating Surds",
+                description: "Approximate the value of irrational roots.",
+                unlocked: false,
+                completed: false,
+                slides: [
+                    {
+                        title: "What is a Surd?",
+                        content: `<p>A surd is the irrational root of a rational number. For example, √2 and ³√15 are surds, but √4 is not because it equals 2 (which is rational).</p>`
+                    },
+                    {
+                        title: "How to Estimate Surds",
+                        content: `<p>To estimate a surd, find the two perfect squares (or cubes) that the number is between.</p>
+                                  <div class="bg-gray-900 p-4 rounded-lg mt-4">
+                                      <p class="text-xl">Estimate <span class="text-cyan-400 font-bold">√55</span></p>
+                                      <p class="text-xl mt-2">1. We know 7² = 49 and 8² = 64.</p>
+                                      <p class="text-xl mt-2">2. So, √49 < √55 < √64.</p>
+                                      <p class="text-xl mt-2">3. This means 7 < √55 < 8.</p>
+                                      <p class="text-xl mt-2">4. Since 55 is closer to 49 than 64, the value will be closer to 7. A good estimate is <span class="text-green-400 font-bold">~7.4</span>.</p>
+                                  </div>`
+                    }
+                ],
+                questions: [
+                    // Moderate Questions
+                    { q: "Between which two integers does √10 lie?", o: ["1 & 2", "2 & 3", "3 & 4", "4 & 5", "9 & 11", "10 & 11"], a: "3 & 4" },
+                    { q: "Between which two integers does √30 lie?", o: ["3 & 4", "4 & 5", "5 & 6", "6 & 7", "29 & 31", "15 & 16"], a: "5 & 6" },
+                    { q: "Between which two integers does √50 lie?", o: ["5 & 6", "6 & 7", "7 & 8", "8 & 9", "25 & 26", "49 & 51"], a: "7 & 8" },
+                    { q: "Between which two integers does √80 lie?", o: ["7 & 8", "8 & 9", "9 & 10", "10 & 11", "79 & 81", "40 & 41"], a: "8 & 9" },
+                    { q: "A good estimate for √15 is:", o: ["3.1", "3.5", "3.9", "4.1", "4.5", "4.9"], a: "3.9" },
+                    { q: "A good estimate for √26 is:", o: ["4.1", "4.5", "4.9", "5.1", "5.5", "5.9"], a: "5.1" },
+                    { q: "A good estimate for √60 is:", o: ["6.2", "6.8", "7.2", "7.8", "8.1", "8.8"], a: "7.8" },
+                    { q: "Which is larger, √20 or 4.5?", o: ["√20", "4.5", "They are equal", "Cannot be determined", "20", "20.25"], a: "4.5" },
+                    { q: "Which is smaller, √40 or 6?", o: ["√40", "6", "They are equal", "Cannot be determined", "40", "36"], a: "6" },
+                    { q: "Between which two integers does ³√10 lie?", o: ["1 & 2", "2 & 3", "3 & 4", "4 & 5", "9 & 11", "1 & 3"], a: "2 & 3" },
+                    { q: "Between which two integers does ³√30 lie?", o: ["1 & 2", "2 & 3", "3 & 4", "4 & 5", "27 & 64", "29 & 31"], a: "3 & 4" },
+                    { q: "Between which two integers does ³√100 lie?", o: ["3 & 4", "4 & 5", "5 & 6", "6 & 7", "99 & 101", "10 & 11"], a: "4 & 5" },
+                    { q: "A good estimate for ³√9 is:", o: ["1.9", "2.1", "2.5", "2.9", "3.1", "3.5"], a: "2.1" },
+                    { q: "A good estimate for ³√25 is:", o: ["2.1", "2.5", "2.9", "3.1", "3.5", "3.9"], a: "2.9" },
+                    { q: "A good estimate for ³√60 is:", o: ["3.1", "3.5", "3.9", "4.1", "4.5", "4.9"], a: "3.9" },
+                    { q: "Which value is closest to √5?", o: ["2.0", "2.2", "2.5", "2.8", "3.0", "2.1"], a: "2.2" },
+                    { q: "Which value is closest to √70?", o: ["8.0", "8.2", "8.4", "8.6", "8.8", "9.0"], a: "8.4" },
+                    { q: "Which value is closest to √90?", o: ["9.0", "9.2", "9.5", "9.8", "10.0", "9.1"], a: "9.5" },
+                    { q: "The value of √125 is between:", o: ["10 and 11", "11 and 12", "12 and 13", "13 and 14", "14 and 15", "15 and 16"], a: "11 and 12" },
+                    { q: "Which integer is √150 closest to?", o: ["10", "11", "12", "13", "14", "15"], a: "12" },
+                    { q: "Which integer is ³√20 closest to?", o: ["1", "2", "3", "4", "5", "6"], a: "3" },
+                    { q: "Which integer is ³√50 closest to?", o: ["2", "3", "4", "5", "6", "7"], a: "4" },
+                    { q: "Which integer is ³√120 closest to?", o: ["3", "4", "5", "6", "7", "8"], a: "5" },
+                    { q: "Is √144 a surd?", o: ["Yes", "No, it's 12", "It's irrational", "It's an integer", "Both B and D", "Sometimes"], a: "Both B and D" },
+                    { q: "Is ³√27 a surd?", o: ["Yes", "No, it's 3", "It's rational", "It's an integer", "B, C, and D", "Sometimes"], a: "B, C, and D" },
+                    { q: "Estimate the side length of a square with area 40 cm².", o: ["5.3 cm", "6.3 cm", "7.3 cm", "8.3 cm", "9.3 cm", "10.3 cm"], a: "6.3 cm" },
+                    { q: "Estimate the side length of a cube with volume 70 cm³.", o: ["2.1 cm", "3.1 cm", "4.1 cm", "5.1 cm", "6.1 cm", "7.1 cm"], a: "4.1 cm" },
+                    { q: "Which is larger, ³√130 or 5?", o: ["³√130", "5", "They are equal", "Cannot be determined", "130", "125"], a: "³√130" },
+                    { q: "Which is smaller, √95 or 10?", o: ["√95", "10", "They are equal", "Cannot be determined", "95", "100"], a: "√95" },
+                    { q: "√x is between 6 and 7. What is a possible integer value of x?", o: ["30", "35", "40", "50", "36", "49"], a: "40" },
+                    { q: "³√y is between 3 and 4. What is a possible integer value of y?", o: ["20", "30", "40", "50", "27", "64"], a: "40" },
+                    { q: "Order from smallest to largest: √20, 4, ³√60", o: ["4, ³√60, √20", "³√60, 4, √20", "√20, ³√60, 4", "√20, 4, ³√60", "4, √20, ³√60", "³√60, √20, 4"], a: "³√60, 4, √20" },
+                    { q: "Estimate √110 to one decimal place.", o: ["10.0", "10.2", "10.5", "10.8", "11.0", "10.1"], a: "10.5" },
+                    { q: "Estimate ³√150 to one decimal place.", o: ["5.0", "5.3", "5.5", "5.8", "6.0", "5.1"], a: "5.3" },
+                    { q: "The number line shows point P between 5 and 6. Which could be P?", o: ["√20", "√30", "√40", "³√100", "³√200", "√24"], a: "√30" },
+                    { q: "√18 is approximately...", o: ["3.8", "4.2", "4.8", "5.2", "3.2", "2.8"], a: "4.2" },
+                    { q: "³√2 is approximately...", o: ["1.1", "1.3", "1.5", "1.7", "1.9", "0.9"], a: "1.3" },
+                    { q: "The number √1 is...", o: ["A surd", "Irrational", "An integer", "Greater than 1", "Less than 1", "0"], a: "An integer" },
+                    { q: "Which is closer to 9: √80 or √82?", o: ["√80", "√82", "They are equally close", "Neither is close", "80", "82"], a: "√82" },
+
+                    // Hard Questions
+                    { q: "Which is larger: ³√25 or √5?", o: ["³√25", "√5", "They are equal", "Cannot be determined", "25", "5"], a: "³√25" },
+                    { q: "Estimate the value of √10 + √20", o: ["√30", "5.6", "7.6", "8.2", "9.6", "10"], a: "7.6" },
+                    { q: "A square has a perimeter of 20m. Estimate the length of its diagonal.", o: ["5m", "√50 m", "7m", "7.1m", "Both B and D", "8m"], a: "Both B and D" },
+                    { q: "Which is the best approximation for √200?", o: ["14.1", "14.5", "15.0", "13.9", "14.9", "13.5"], a: "14.1" },
+                    { q: "Which is the best approximation for ³√200?", o: ["5.2", "5.5", "5.8", "6.1", "6.3", "4.8"], a: "5.8" },
+                    { q: "If x > 0, which is always true?", o: ["√x < x", "√x > x", "³√x < √x", "³√x > √x", "Both A and C", "None of these"], a: "None of these" },
+                    { q: "The value of 1/√2 is approximately...", o: ["0.5", "1.414", "0.707", "0.8", "2", "0.414"], a: "0.707" },
+                    { q: "Estimate the value of (√50) / 5", o: ["√10", "2", "1.4", "1.8", "10", "1.2"], a: "1.4" },
+                    { q: "A cube has surface area of 100 cm². Estimate its volume.", o: ["16.7 cm³", "68 cm³", "21 cm³", "1000 cm³", "50 cm³", "10 cm³"], a: "68 cm³" },
+                    { q: "Order smallest to largest: 2, ³√7, √5", o: ["2, √5, ³√7", "2, ³√7, √5", "³√7, 2, √5", "³√7, √5, 2", "√5, 2, ³√7", "√5, ³√7, 2"], a: "³√7, 2, √5" }
+                ]
+            }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const levelSelectionScreen = document.getElementById('level-selection');
+        const levelsGrid = document.getElementById('levels-grid');
+        const mainView = document.getElementById('main-view');
+        
+        const presentationView = document.getElementById('presentation-view');
+        const slideTopic = document.getElementById('slide-topic');
+        const slideContent = document.getElementById('slide-content');
+        const prevSlideBtn = document.getElementById('prev-slide-btn');
+        const nextSlideBtn = document.getElementById('next-slide-btn');
+        const slideCounter = document.getElementById('slide-counter');
+        const startGameBtn = document.getElementById('start-game-btn');
+
+        const gameView = document.getElementById('game-view');
+        const gameTopic = document.getElementById('game-topic');
+        const backToLevelsBtn = document.getElementById('back-to-levels-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const attemptsText = document.getElementById('attempts-text');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+
+        const correctionView = document.getElementById('correction-view');
+        const correctionContentWrapper = document.getElementById('correction-content-wrapper');
+        const finishReviewBtn = document.getElementById('finish-review-btn');
+        const prevCorrectionBtn = document.getElementById('prev-correction-btn');
+        const nextCorrectionBtn = document.getElementById('next-correction-btn');
+        const correctionCounter = document.getElementById('correction-counter');
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const modalBtn = document.getElementById('modal-btn');
+
+        // --- GAME STATE ---
+        let currentLevelIndex = 0;
+        let currentSlideIndex = 0;
+        let currentQuestionIndex = 0;
+        let quizResults = [];
+        let incorrectAnswersList = [];
+        let currentCorrectionIndex = 0;
+        let questionAttempts = 0;
+
+        // --- FUNCTIONS ---
+
+        function init() {
+            renderLevelCards();
+            backToLevelsBtn.addEventListener('click', showLevelSelection);
+            finishReviewBtn.addEventListener('click', showLevelSelection);
+        }
+
+        function renderLevelCards() {
+            levelsGrid.innerHTML = '';
+            levelsData.forEach((level, index) => {
+                const card = document.createElement('div');
+                card.className = `relative bg-gray-800 p-6 rounded-xl shadow-lg text-center`;
+                
+                let content = `
+                    <div class="text-5xl mb-4">${['#️⃣', 'ℚ', '📐'][index]}</div>
+                    <h2 class="text-2xl font-bold text-cyan-400 mb-2">${level.title}</h2>
+                    <p class="text-gray-400">${level.description}</p>
+                `;
+
+                if (level.unlocked) {
+                    card.classList.add('transform', 'hover:scale-105', 'transition-transform', 'duration-300', 'cursor-pointer');
+                    card.addEventListener('click', () => startLevel(index));
+                     if (level.completed) {
+                        content += `<div class="absolute top-3 right-3 text-2xl text-green-400">✔️</div>`;
+                    }
+                } else {
+                    card.classList.add('opacity-50', 'cursor-not-allowed');
+                    content += `<div class="absolute inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center rounded-xl"><span class="text-6xl">🔒</span></div>`;
+                }
+
+                card.innerHTML = content;
+                levelsGrid.appendChild(card);
+            });
+        }
+
+        function startLevel(index) {
+            currentLevelIndex = index;
+            currentSlideIndex = 0;
+            levelSelectionScreen.classList.add('hidden');
+            mainView.classList.remove('hidden');
+            mainView.classList.add('flex');
+            gameView.classList.add('hidden');
+            correctionView.classList.add('hidden');
+            presentationView.classList.remove('hidden');
+            
+            showSlide();
+
+            prevSlideBtn.onclick = () => navigateSlide(-1);
+            nextSlideBtn.onclick = () => navigateSlide(1);
+            startGameBtn.onclick = () => {
+                presentationView.classList.add('hidden');
+                gameView.classList.remove('hidden');
+                startGame();
+            };
+        }
+
+        function showSlide() {
+            const level = levelsData[currentLevelIndex];
+            const slide = level.slides[currentSlideIndex];
+            slideTopic.textContent = level.title;
+            slideContent.innerHTML = `
+                <h3 class="text-2xl font-semibold mb-4">${slide.title}</h3>
+                ${slide.content}
+            `;
+            slideCounter.textContent = `Slide ${currentSlideIndex + 1} / ${level.slides.length}`;
+            prevSlideBtn.disabled = currentSlideIndex === 0;
+            prevSlideBtn.classList.toggle('opacity-50', prevSlideBtn.disabled);
+            nextSlideBtn.style.display = currentSlideIndex === level.slides.length - 1 ? 'none' : 'inline-block';
+            startGameBtn.style.display = currentSlideIndex === level.slides.length - 1 ? 'inline-block' : 'none';
+        }
+
+        function navigateSlide(direction) {
+            currentSlideIndex += direction;
+            showSlide();
+        }
+
+        function startGame() {
+            const level = levelsData[currentLevelIndex];
+            gameTopic.textContent = `${level.title} Quiz`;
+            currentQuestionIndex = 0;
+            quizResults = [];
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            questionAttempts = 0;
+            let question = levelsData[currentLevelIndex].questions[currentQuestionIndex];
+
+            if (!question) {
+                levelComplete();
+                return;
+            }
+
+            questionText.innerHTML = question.q;
+            optionsGrid.innerHTML = '';
+            question.o.forEach(optionText => {
+                const button = document.createElement('button');
+                button.className = 'option-btn bg-gray-700 hover:bg-cyan-700 text-white font-semibold py-4 px-2 rounded-lg text-lg';
+                button.innerHTML = optionText;
+                button.onclick = () => checkAnswer(button, optionText, question.a);
+                optionsGrid.appendChild(button);
+            });
+            updateProgress();
+        }
+
+        function checkAnswer(button, selectedAnswer, correctAnswer) {
+            const isCorrect = selectedAnswer === correctAnswer;
+
+            if (isCorrect) {
+                // Record the correct answer
+                 if(questionAttempts === 0) {
+                     quizResults.push({ question: levelsData[currentLevelIndex].questions[currentQuestionIndex], userAnswer: selectedAnswer, isCorrect: true });
+                 } else {
+                     // If it was answered correctly on the second try, it still counts as an incorrect first attempt for review.
+                     // The last entry in quizResults is the incorrect one, so we don't need to add a new one.
+                 }
+
+                button.classList.add('bg-green-600', 'correct');
+                Array.from(optionsGrid.children).forEach(btn => btn.disabled = true);
+                setTimeout(nextQuestion, 1000);
+            } else {
+                questionAttempts++;
+                button.classList.add('bg-red-600', 'incorrect');
+                button.disabled = true;
+
+                if (questionAttempts === 1) {
+                    // Record the first incorrect attempt
+                     quizResults.push({ question: levelsData[currentLevelIndex].questions[currentQuestionIndex], userAnswer: selectedAnswer, isCorrect: false });
+                } else if (questionAttempts > 1) {
+                     // Update the recorded incorrect answer to the second one
+                     quizResults[quizResults.length-1].userAnswer = selectedAnswer;
+                }
+                
+                updateProgress();
+
+                if (questionAttempts >= 2) {
+                    Array.from(optionsGrid.children).forEach(btn => btn.disabled = true);
+                    setTimeout(nextQuestion, 2000);
+                }
+            }
+        }
+
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            const totalQuestions = levelsData[currentLevelIndex].questions.length;
+
+            if (currentQuestionIndex >= totalQuestions) {
+                levelComplete();
+            } else {
+                displayQuestion();
+            }
+        }
+        
+        function levelComplete() {
+            levelsData[currentLevelIndex].completed = true;
+            if (currentLevelIndex + 1 < levelsData.length) {
+                levelsData[currentLevelIndex + 1].unlocked = true;
+            }
+
+            incorrectAnswersList = quizResults.filter(result => !result.isCorrect);
+            const score = quizResults.length - incorrectAnswersList.length;
+            const total = quizResults.length;
+
+            if (incorrectAnswersList.length > 0) {
+                 showModal("Quiz Complete!", `You scored ${score} out of ${total}. Let's review the questions you missed.`, startCorrectionSession);
+            } else {
+                showModal("Congratulations!", `Perfect score! You answered all ${total} questions correctly.`, showLevelSelection);
+            }
+        }
+
+        function startCorrectionSession() {
+            gameView.classList.add('hidden');
+            correctionView.classList.remove('hidden');
+            currentCorrectionIndex = 0;
+            displayCorrection();
+
+            prevCorrectionBtn.onclick = () => navigateCorrection(-1);
+            nextCorrectionBtn.onclick = () => navigateCorrection(1);
+        }
+
+        function displayCorrection() {
+             if (incorrectAnswersList.length === 0 || currentCorrectionIndex < 0 || currentCorrectionIndex >= incorrectAnswersList.length) {
+                return;
+            }
+
+            const result = incorrectAnswersList[currentCorrectionIndex];
+            const question = result.question;
+            const userAnswer = result.userAnswer;
+            const correctAnswer = question.a;
+
+            correctionContentWrapper.innerHTML = `
+                <div class="bg-gray-900 p-6 rounded-lg mb-6">
+                    <p class="text-gray-400 text-sm mb-2">Question:</p>
+                    <p class="text-2xl font-semibold">${question.q}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-red-900 bg-opacity-50 p-4 rounded-lg border border-red-500">
+                        <p class="text-gray-400 text-sm mb-2">Your Answer:</p>
+                        <p class="text-xl">${userAnswer}</p>
+                    </div>
+                    <div class="bg-green-900 bg-opacity-50 p-4 rounded-lg border border-green-500">
+                        <p class="text-gray-400 text-sm mb-2">Correct Answer:</p>
+                        <p class="text-xl">${correctAnswer}</p>
+                    </div>
+                </div>
+            `;
+            
+            correctionCounter.textContent = `Review ${currentCorrectionIndex + 1} / ${incorrectAnswersList.length}`;
+            prevCorrectionBtn.disabled = currentCorrectionIndex === 0;
+            prevCorrectionBtn.classList.toggle('opacity-50', prevCorrectionBtn.disabled);
+            nextCorrectionBtn.disabled = currentCorrectionIndex === incorrectAnswersList.length - 1;
+            nextCorrectionBtn.classList.toggle('opacity-50', nextCorrectionBtn.disabled);
+        }
+
+        function navigateCorrection(direction) {
+            currentCorrectionIndex += direction;
+            displayCorrection();
+        }
+
+        function updateProgress() {
+            const level = levelsData[currentLevelIndex];
+            const total = level.questions.length;
+            const current = currentQuestionIndex;
+            
+            progressText.textContent = `Question ${current + 1}/${total}`;
+            attemptsText.textContent = `Attempt ${questionAttempts + 1}/2`;
+            
+            const progressPercentage = total > 0 ? ((current) / total) * 100 : 0;
+            progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        function showLevelSelection() {
+            modal.classList.add('hidden');
+            mainView.classList.add('hidden');
+            levelSelectionScreen.classList.remove('hidden');
+            renderLevelCards(); 
+        }
+
+        function showModal(title, text, callback) {
+            modalTitle.textContent = title;
+            modalText.textContent = text;
+            modal.classList.remove('hidden');
+            modalBtn.onclick = () => {
+                modal.classList.add('hidden');
+                if (callback) callback();
+            };
+        }
+
+        init();
+    </script>
+
+<!-- === Teacher Unlock: Button + Overlay (password: 1706) === -->
+<style>
+  #unlock-overlay .panel { max-width: 28rem; width: 92vw; }
+</style>
+<script>
+(() => {
+  const TEACHER_PASSWORD = "1706";
+
+  function ensureUnlockButton() {
+    let btn = document.getElementById('unlock-btn');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'unlock-btn';
+      btn.type = 'button';
+      btn.title = "Teacher unlock";
+      btn.className = "fixed top-4 right-4 z-50 bg-yellow-400 hover:bg-yellow-300 text-black font-extrabold rounded-2xl shadow-2xl px-5 py-3 text-lg flex items-center gap-2";
+      btn.innerHTML = '🔓 <span class="hidden sm:inline">Unlock</span>';
+      document.body.appendChild(btn);
+    }
+    const clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    clone.addEventListener('click', onUnlockClick);
+  }
+
+  function onUnlockClick() {
+    const pw = prompt("Teacher Override — Enter password to manage level unlocks:");
+    if (pw === null) return;
+    if (pw !== TEACHER_PASSWORD) {
+      alert("Incorrect password.");
+      return;
+    }
+    const overlay = buildOverlay();
+    refreshOverlayList(overlay);
+    overlay.classList.remove('hidden');
+  }
+
+  function buildOverlay() {
+    let overlay = document.getElementById('unlock-overlay');
+    if (overlay) return overlay;
+
+    overlay = document.createElement('div');
+    overlay.id = 'unlock-overlay';
+    overlay.className = 'fixed inset-0 bg-black/70 hidden items-center justify-center z-[60]';
+    overlay.innerHTML = `
+      <div class="panel bg-gray-900 text-gray-100 rounded-2xl shadow-2xl p-6 border border-gray-700">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-xl font-semibold">Teacher Unlock</h3>
+          <button id="unlock-close" class="p-2 rounded hover:bg-gray-800" title="Close">✕</button>
+        </div>
+        <p class="text-sm text-gray-300 mb-4">Tick any levels to unlock now, or choose <span class="font-semibold">Unlock All</span>.</p>
+        <div id="unlock-list" class="space-y-2 max-h-64 overflow-auto mb-5"></div>
+        <div class="grid grid-cols-2 gap-3">
+          <button id="unlock-selected" class="bg-emerald-600 hover:bg-emerald-700 rounded-lg py-2 font-semibold">Unlock Selected</button>
+          <button id="unlock-all" class="bg-blue-600 hover:bg-blue-700 rounded-lg py-2 font-semibold">Unlock All</button>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    overlay.querySelector('#unlock-close').onclick = () => overlay.classList.add('hidden');
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.add('hidden');
+    });
+
+    overlay.querySelector('#unlock-all').onclick = () => {
+      if (Array.isArray(levelsData)) {
+        levelsData.forEach(l => l.unlocked = true);
+        try { renderLevelCards && renderLevelCards(); } catch {}
+      }
+      overlay.classList.add('hidden');
+    };
+
+    overlay.querySelector('#unlock-selected').onclick = () => {
+      const checks = overlay.querySelectorAll('input[type="checkbox"][data-index]');
+      checks.forEach(cb => {
+        if (cb.checked) {
+          const idx = parseInt(cb.getAttribute('data-index'), 10);
+          if (!isNaN(idx) && levelsData[idx]) levelsData[idx].unlocked = true;
+        }
+      });
+      try { renderLevelCards && renderLevelCards(); } catch {}
+      overlay.classList.add('hidden');
+    };
+
+    return overlay;
+  }
+
+  function refreshOverlayList(overlay) {
+    const list = overlay.querySelector('#unlock-list');
+    list.innerHTML = '';
+    if (!Array.isArray(levelsData)) {
+      const p = document.createElement('p');
+      p.className = "text-red-300";
+      p.textContent = "Levels data not found.";
+      list.appendChild(p);
+      return;
+    }
+    levelsData.forEach((lvl, idx) => {
+      const row = document.createElement('label');
+      row.className = 'flex items-center gap-3 bg-gray-800/60 rounded-lg p-3';
+      row.innerHTML = `
+        <input type="checkbox" data-index="${idx}" class="accent-emerald-500" ${lvl.unlocked ? 'checked disabled' : ''}>
+        <span class="font-medium">${idx+1}. ${lvl.title}</span>
+        <span class="ml-auto text-xs ${lvl.unlocked ? 'text-emerald-400' : 'text-gray-400'}">
+          ${lvl.unlocked ? 'Already unlocked' : 'Locked'}
+        </span>`;
+      list.appendChild(row);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', ensureUnlockButton);
+})();
+</script>
+
+</body>
+</html>
+
