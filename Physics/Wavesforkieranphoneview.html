@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waves</title>
+    <style>
+        :root { 
+            --bg:#0b0f14; --fg:#e6edf3; --muted:#9fb0c0; --card:#111825; 
+            --brand:#60a5fa; --chip:#1f2937; --ok:#22c55e; --underline:#38bdf8; 
+        }
+        
+        * { box-sizing: border-box; }
+        html, body { margin:0; padding:0; background:var(--bg); color:var(--fg); font: 16px/1.6 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Arial; }
+        
+        .homepage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .homepage h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--brand), var(--underline));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+        }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .nav-card {
+            background: var(--card);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(96, 165, 250, 0.2);
+        }
+        
+        .nav-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--brand);
+        }
+        
+        .nav-card p {
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+        
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--card);
+            border: 2px solid var(--brand);
+            color: var(--fg);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: none;
+            font-size: 16px;
+        }
+        
+        .home-button:hover {
+            background: var(--brand);
+            color: var(--bg);
+        }
+        
+        .content-page {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-page.active {
+            display: block;
+        }
+        
+        .homepage.active {
+            display: flex;
+        }
+        
+        .homepage:not(.active) {
+            display: none;
+        }
+        
+        .content-frame {
+            width: 100%;
+            min-height: 100vh;
+            border: none;
+            background: var(--bg);
+        }
+        
+        @media (max-width: 768px) {
+            .homepage h1 { font-size: 2rem; }
+            .nav-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .nav-card { padding: 1.5rem; }
+            .home-button { top: 10px; left: 10px; padding: 8px 16px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage -->
+    <div class="homepage active" id="homepage">
+        <h1>Waves</h1>
+        
+        <div class="nav-grid">
+            <div class="nav-card" onclick="showContent('electromagnetic-spectrum')">
+                <h3>📡 Electromagnetic Spectrum</h3>
+                <p>Explore the full range of electromagnetic radiation and its properties</p>
+            </div>
+            
+            <div class="nav-card" onclick="showContent('general-properties-waves')">
+                <h3>🌊 General Properties of Waves</h3>
+                <p>Learn about wave fundamentals, equations, and behaviors</p>
+            </div>
+            
+            <div class="nav-card" onclick="showContent('light')">
+                <h3>💡 Light</h3>
+                <p>Discover the nature and properties of light waves</p>
+            </div>
+            
+            <div class="nav-card" onclick="showContent('sound')">
+                <h3>🔊 Sound</h3>
+                <p>Understanding sound waves and their characteristics</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Button -->
+    <button class="home-button" id="homeButton" onclick="showHomepage()">
+        🏠 Home
+    </button>
+
+    <!-- Content Pages -->
+    <div id="electromagnetic-spectrum" class="content-page">
+        <iframe class="content-frame" data-src="Electromagnetic spectrum.html"></iframe>
+    </div>
+    
+    <div id="general-properties-waves" class="content-page">
+        <iframe class="content-frame" data-src="General properties of waves.html"></iframe>
+    </div>
+    
+    <div id="light" class="content-page">
+        <iframe class="content-frame" data-src="Light.html"></iframe>
+    </div>
+    
+    <div id="sound" class="content-page">
+        <iframe class="content-frame" data-src="Sound.html"></iframe>
+    </div>
+
+    <script>
+        console.log('Script loaded');
+        
+        function showContent(contentId) {
+            console.log('Showing content:', contentId);
+            
+            // Hide homepage
+            document.getElementById('homepage').classList.remove('active');
+            
+            // Hide all content pages
+            const contentPages = document.querySelectorAll('.content-page');
+            contentPages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected content page
+            const targetPage = document.getElementById(contentId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                
+                // Load iframe content if not already loaded
+                const iframe = targetPage.querySelector('.content-frame');
+                if (iframe && !iframe.src && iframe.dataset.src) {
+                    iframe.src = iframe.dataset.src;
+                }
+                
+                // Show home button
+                document.getElementById('homeButton').style.display = 'block';
+            } else {
+                console.error('Target page not found:', contentId);
+            }
+        }
+        
+        function showHomepage() {
+            console.log('Showing homepage');
+            
+            // Hide all content pages
+            const contentPages = document.querySelectorAll('.content-page');
+            contentPages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show homepage
+            document.getElementById('homepage').classList.add('active');
+            
+            // Hide home button
+            document.getElementById('homeButton').style.display = 'none';
+        }
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                showHomepage();
+            }
+        });
+        
+        // Test that everything is working
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, ready for interactions');
+        });
+    </script>
+</body>
+</html>
