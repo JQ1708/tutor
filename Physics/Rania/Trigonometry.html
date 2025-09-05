@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigonometry Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a202c;
+            color: #e2e8f0;
+            margin: 0;
+        }
+        .nav-btn {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .nav-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="min-h-screen flex flex-col justify-center items-center p-8">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">Trigonometry Learning Hub</h1>
+            <p class="text-xl text-gray-400">Click a button to explore trigonometry topics</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+            <!-- Button 1 -->
+            <div class="nav-btn bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 text-center" onclick="window.location.href='PythagorasTrigonometry.html'">
+                <div class="text-6xl mb-4">📐</div>
+                <h2 class="text-2xl font-bold mb-3">Right-Angled Triangles</h2>
+                <p class="text-gray-300">Learn Pythagoras' Theorem, SOHCAHTOA, angles of elevation & depression, and exact trig values</p>
+            </div>
+
+            <!-- Button 2 -->
+            <div class="nav-btn bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-2xl p-8 text-center" onclick="window.location.href='SineCosineRuleAreaofTriangles.html'">
+                <div class="text-6xl mb-4">📊</div>
+                <h2 class="text-2xl font-bold mb-3">Sine & Cosine Rule</h2>
+                <p class="text-gray-300">Master the sine rule, cosine rule, and area formulas for any triangle</p>
+            </div>
+
+            <!-- Button 3 -->
+            <div class="nav-btn bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-8 text-center" onclick="window.location.href='3DPythagorasTrigonometry.html'">
+                <div class="text-6xl mb-4">🧊</div>
+                <h2 class="text-2xl font-bold mb-3">3D Pythagoras & Trigonometry</h2>
+                <p class="text-gray-300">Explore three-dimensional problems using Pythagoras and trigonometry</p>
+            </div>
+
+            <!-- Button 4 -->
+            <div class="nav-btn bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-8 text-center" onclick="window.location.href='TrigonometricGraphsEquationsinline.html'">
+                <div class="text-6xl mb-4">📈</div>
+                <h2 class="text-2xl font-bold mb-3">Trigonometric Graphs & Equations</h2>
+                <p class="text-gray-300">Understand trig graphs, transformations, and solve trigonometric equations</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

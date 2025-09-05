@@ -1,0 +1,183 @@
+<body class="p-4 md:p-8">
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-white tracking-wide">Sine, Cosine Rule & Area of Triangles</h1>
+        <p class="text-lg text-gray-400 mt-2">Master the rules for any triangle.</p>
+    </header>
+
+    <!-- Mind Map Navigation -->
+    <div id="mind-map" class="mb-12 flex flex-col items-center">
+        <div class="relative w-full max-w-5xl h-96 flex justify-center items-center">
+            <!-- Center Node -->
+            <div id="node-main" class="mind-map-node bg-blue-600 rounded-full w-48 h-48 flex items-center justify-center text-center p-2">
+                <span class="font-bold text-lg">Non Right-Angled Triangles</span>
+            </div>
+
+            <!-- Branch Nodes -->
+            <div data-target="sine" class="mind-map-node absolute bg-gray-700 rounded-lg p-3" style="top: 5%; left: 20%;">The Sine Rule</div>
+            <div data-target="cosine" class="mind-map-node absolute bg-gray-700 rounded-lg p-3" style="top: 5%; right: 20%;">The Cosine Rule</div>
+            <div data-target="area" class="mind-map-node absolute bg-gray-700 rounded-lg p-3" style="bottom: 5%; left: 20%;">Area of a Triangle</div>
+            <div data-target="decide" class="mind-map-node absolute bg-gray-700 rounded-lg p-3" style="bottom: 5%; right: 20%;">Which Rule to Use?</div>
+        </div>
+    </div>
+    
+    <main>
+        <!-- The Sine Rule Section -->
+        <section id="sine" class="content-section space-y-6">
+            <h2 class="text-3xl font-bold mb-6 text-center text-blue-300">The Sine Rule</h2>
+            <div class="card">
+                <h3 class="text-xl font-semibold mb-2">What is the Sine Rule?</h3>
+                <p>The Sine Rule connects the sides and angles in <b class="keyword">any triangle</b> (not just right-angled ones!). It's all about <b class="keyword underline-fancy">opposite pairs</b>.</p>
+                <p class="text-gray-400 italic mt-2">Please refer to the diagram showing how to label a triangle with angles A, B, C and opposite sides a, b, c.</p>
+                <div class="formula">
+                    <div class="fraction"><span class="numerator">a</span><span class="denominator">sin A</span></div> = 
+                    <div class="fraction"><span class="numerator">b</span><span class="denominator">sin B</span></div> = 
+                    <div class="fraction"><span class="numerator">c</span><span class="denominator">sin C</span></div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                 <div class="card">
+                    <h3 class="text-xl font-semibold mb-2">Finding a Missing Length</h3>
+                     <p>Use the rule when you know an angle and its opposite side, plus one other angle. You can flip the formula to make it easier!</p>
+                     <div class="formula">
+                        <div class="fraction"><span class="numerator">a</span><span class="denominator">sin A</span></div> = 
+                        <div class="fraction"><span class="numerator">b</span><span class="denominator">sin B</span></div>
+                    </div>
+                </div>
+                 <div class="card">
+                    <h3 class="text-xl font-semibold mb-2">Finding a Missing Angle</h3>
+                     <p>Use the rule when you know two sides and the angle opposite one of them. The "angle on top" version is best here.</p>
+                     <div class="formula">
+                        <div class="fraction"><span class="numerator">sin A</span><span class="denominator">a</span></div> = 
+                        <div class="fraction"><span class="numerator">sin B</span><span class="denominator">b</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card warning">
+                <h3 class="text-xl font-bold mb-2">Heads Up! The Ambiguous Case</h3>
+                <p class="font-semibold">When you use the Sine Rule to find an angle, you might get <b class="underline">TWO</b> possible answers.</p>
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li>Your calculator will always give you the <b class="keyword">acute angle</b> (let's call it <b>x</b>).</li>
+                    <li>The other possible answer is the <b class="keyword">obtuse angle</b>, which is <b class="font-mono bg-gray-800 text-white px-2 py-1 rounded">180° - x</b>.</li>
+                    <li>To check if the obtuse angle is a valid solution, add it to the other angle in the triangle. If the sum is <b class="text-red-800 font-bold">less than 180°</b>, then it's a possible answer!</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- The Cosine Rule Section -->
+        <section id="cosine" class="content-section space-y-6">
+            <h2 class="text-3xl font-bold mb-6 text-center text-indigo-300">The Cosine Rule</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-2">Finding a Missing Length</h3>
+                    <p>Use this when you know <b class="keyword underline-fancy">two sides</b> and the angle <b class="keyword">between them</b> (the "included angle").</p>
+                    <div class="formula">a² = b² + c² - 2bc cos A</div>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-2">Finding a Missing Angle</h3>
+                    <p>Use this when you know all <b class="keyword underline-fancy">three sides</b> of the triangle. It's best to use the rearranged version below.</p>
+                     <div class="formula">
+                        cos A = 
+                        <div class="fraction">
+                            <span class="numerator">b² + c² - a²</span>
+                            <span class="denominator">2bc</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Area of a Triangle Section -->
+        <section id="area" class="content-section space-y-6">
+            <h2 class="text-3xl font-bold mb-6 text-center text-emerald-300">Area of a Triangle</h2>
+            <div class="card max-w-2xl mx-auto">
+                <h3 class="text-xl font-semibold mb-2">The Formula for Area</h3>
+                <p>You can find the area of any triangle if you know <b class="keyword underline-fancy">two sides</b> and the angle <b class="keyword">between them</b> (the "included angle").</p>
+                <div class="formula">Area = <div class="fraction"><span class="numerator">1</span><span class="denominator">2</span></div> ab sin C</div>
+            </div>
+        </section>
+
+        <!-- Deciding the Trig Rule Section -->
+        <section id="decide" class="content-section space-y-6">
+            <h2 class="text-3xl font-bold mb-6 text-center text-amber-300">Which Rule Should I Use?</h2>
+            <div class="card">
+                <h3 class="text-xl font-semibold mb-2">Your Decision Checklist</h3>
+                <p>Always ask these questions in order to decide which formula you need.</p>
+                <div id="steps-container" class="mt-4 space-y-3">
+                    <div class="step p-4 bg-gray-900 rounded-lg flex items-center gap-4"><span class="flex-shrink-0 bg-amber-500 text-black font-bold h-8 w-8 rounded-full flex items-center justify-center">1</span> Is it a <b class="keyword">right-angled</b> triangle? &rarr; Use <b class="font-mono">SOHCAHTOA</b>.</div>
+                    <div class="step p-4 bg-gray-900 rounded-lg flex items-center gap-4"><span class="flex-shrink-0 bg-amber-500 text-black font-bold h-8 w-8 rounded-full flex items-center justify-center">2</span> Am I trying to find the <b class="keyword">Area</b>? &rarr; Use <b class="font-mono">Area = ½ ab sin C</b>.</div>
+                    <div class="step p-4 bg-gray-900 rounded-lg flex items-center gap-4"><span class="flex-shrink-0 bg-amber-500 text-black font-bold h-8 w-8 rounded-full flex items-center justify-center">3</span> Do I have an <b class="keyword">opposite pair</b> of a side and an angle? &rarr; Use the <b class="font-mono">Sine Rule</b>.</div>
+                    <div class="step p-4 bg-gray-900 rounded-lg flex items-center gap-4"><span class="flex-shrink-0 bg-amber-500 text-black font-bold h-8 w-8 rounded-full flex items-center justify-center">4</span> Do I have <b class="keyword">two sides and the included angle</b> OR all <b class="keyword">three sides</b>? &rarr; Use the <b class="font-mono">Cosine Rule</b>.</div>
+                </div>
+                 <button id="revealBtn" class="mt-6 bg-amber-600 hover:bg-amber-500 text-white font-bold py-2 px-4 rounded">Reveal Checklist</button>
+            </div>
+             <div class="pro-tip">
+                <h3 class="text-xl font-semibold mb-2">Examiner's Tips!</h3>
+                 <ul class="list-disc list-inside mt-2 space-y-2">
+                     <li>Always <b class="font-bold">label your triangle</b> carefully first!</li>
+                     <li>When finding an angle with the Cosine Rule, use the rearranged formula to avoid mistakes.</li>
+                     <li><b class="font-bold">Don't round too early!</b> Keep the full value in your calculator's memory for the next step.</li>
+                     <li>If a question has a lot of marks, you might need to use <b class="underline-fancy">more than one rule</b>.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const nodes = document.querySelectorAll('.mind-map-node[data-target]');
+            const sections = document.querySelectorAll('.content-section');
+            const mainNode = document.getElementById('node-main');
+
+            function activateSection(targetId) {
+                nodes.forEach(n => n.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                
+                const activeNode = document.querySelector(`.mind-map-node[data-target="${targetId}"]`);
+                const activeSection = document.getElementById(targetId);
+                
+                if (activeNode && activeSection) {
+                    activeNode.classList.add('active');
+                    activeSection.classList.add('active');
+                    activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            nodes.forEach(node => {
+                node.addEventListener('click', () => {
+                    const targetId = node.dataset.target;
+                    activateSection(targetId);
+                });
+            });
+            
+            mainNode.addEventListener('click', () => {
+                 nodes.forEach(n => n.classList.remove('active'));
+                 sections.forEach(s => s.classList.remove('active'));
+                 // Optionally activate a default section
+                 activateSection('sine');
+            });
+
+            const revealBtn = document.getElementById('revealBtn');
+            const steps = document.querySelectorAll('#steps-container .step');
+            let currentStep = 0;
+
+            revealBtn.addEventListener('click', () => {
+                if (currentStep < steps.length) {
+                    steps[currentStep].classList.add('visible');
+                    currentStep++;
+                     if(currentStep < steps.length) {
+                         revealBtn.textContent = `Reveal Step ${currentStep + 1}`;
+                     } else {
+                         revealBtn.textContent = "All steps shown!";
+                     }
+                }
+            });
+
+            // Activate the first section by default
+            activateSection('sine');
+        });
+    </script>
