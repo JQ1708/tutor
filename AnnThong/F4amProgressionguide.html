@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics Guidance: Progressions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .section-title {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        .question-block {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .question-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+        details {
+            margin-bottom: 12px;
+            border-left: 3px solid #3498db;
+            padding-left: 15px;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            outline: none;
+            color: #3498db;
+        }
+        summary:hover {
+            color: #2980b9;
+        }
+        .details-content {
+            padding-top: 10px;
+        }
+        .hidden {
+            background-color: #333;
+            color: #333;
+            border-radius: 3px;
+            padding: 0 5px;
+            user-select: none;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .intro p {
+            font-size: 1.1em;
+            color: #555;
+        }
+        .frac {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .frac span {
+            display: block;
+        }
+        .frac .bottom {
+            border-top: 1px solid #000;
+        }
+        sup {
+            vertical-align: super;
+            font-size: smaller;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="intro">
+            <h1>Mathematics Guidance: Progressions</h1>
+        </div>
+
+        <h2 class="section-title">Short Questions (PAPER 1)</h2>
+
+        <h3>12.1 Arithmetic Progression</h3>
+        
+        <div class="question-block">
+            <p class="question-title">3. Find the number of terms of the arithmetic progression <i>4, 1, -2, ..., -23</i>.</p>
+            <details>
+                <summary>Step 1: Identify the first term (a), common difference (d), and the last term (T<sub>n</sub>).</summary>
+                <div class="details-content">
+                    <i>a = 4</i><br>
+                    <i>d = 1 - 4 = <span class="hidden">-3</span></i><br>
+                    <i>T<sub>n</sub> = -23</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the formula <i>T<sub>n</sub> = a + (n-1)d</i> to find n.</summary>
+                <div class="details-content">
+                    <i>-23 = 4 + (n-1)(<span class="hidden">-3</span>)</i><br>
+                    <i>-27 = (n-1)(<span class="hidden">-3</span>)</i><br>
+                    <i>9 = n - 1</i><br>
+                    <i>n = <span class="hidden">10</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">4. Find the number of the multiples of 3 between 20 and 110.</p>
+            <details>
+                <summary>Step 1: Identify the first term (a), common difference (d), and the last term (T<sub>n</sub>) in the sequence.</summary>
+                <div class="details-content">
+                    First multiple of 3 after 20 is <i>a = <span class="hidden">21</span></i>.<br>
+                    Last multiple of 3 before 110 is <i>T<sub>n</sub> = <span class="hidden">108</span></i>.<br>
+                    The common difference is <i>d = 3</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the formula <i>T<sub>n</sub> = a + (n-1)d</i> to find n.</summary>
+                <div class="details-content">
+                    <i>108 = 21 + (n-1)(<span class="hidden">3</span>)</i><br>
+                    <i>87 = (n-1)(3)</i><br>
+                    <i>29 = n - 1</i><br>
+                    <i>n = <span class="hidden">30</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">5. For the arithmetic progression <i>5, 8, 11, ...,</i> which term is equal to 320?</p>
+             <details>
+                <summary>Step 1: Identify a, d, and T<sub>n</sub>.</summary>
+                <div class="details-content">
+                    <i>a = 5</i><br>
+                    <i>d = 8 - 5 = <span class="hidden">3</span></i><br>
+                    <i>T<sub>n</sub> = 320</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the formula <i>T<sub>n</sub> = a + (n-1)d</i> to find n.</summary>
+                <div class="details-content">
+                    <i>320 = 5 + (n-1)(<span class="hidden">3</span>)</i><br>
+                    <i>315 = (n-1)(3)</i><br>
+                    <i>105 = n - 1</i><br>
+                    <i>n = <span class="hidden">106</span></i>. It is the 106th term.
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">6. Given that <i>4k, 12, 2k<sup>2</sup>+4k</i> are three consecutive terms of an arithmetic progression, find the possible values of k.</p>
+             <details>
+                <summary>Step 1: Use the property of an AP: <i>T<sub>2</sub> - T<sub>1</sub> = T<sub>3</sub> - T<sub>2</sub></i>.</summary>
+                <div class="details-content">
+                   <i>12 - 4k = (2k<sup>2</sup> + 4k) - <span class="hidden">12</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Rearrange the terms to form a quadratic equation.</summary>
+                <div class="details-content">
+                   <i>0 = 2k<sup>2</sup> + 8k - 24</i><br>
+                   <i>k<sup>2</sup> + 4k - <span class="hidden">12</span> = 0</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Factorise the quadratic equation to find the values of k.</summary>
+                <div class="details-content">
+                   <i>(k + 6)(k - <span class="hidden">2</span>) = 0</i><br>
+                   <i>k = -6, k = <span class="hidden">2</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">7. The 12th term and the 17th term of an arithmetic progression are 38 and 53 respectively. Find the common difference.</p>
+             <details>
+                <summary>Step 1: Set up two equations using <i>T<sub>n</sub> = a + (n-1)d</i>.</summary>
+                <div class="details-content">
+                   <i>T<sub>12</sub> = a + 11d = 38</i>  --- (1)<br>
+                   <i>T<sub>17</sub> = a + 16d = 53</i>  --- (2)
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve the simultaneous equations.</summary>
+                <div class="details-content">
+                   <i>(2) - (1): (a + 16d) - (a + 11d) = 53 - 38</i><br>
+                   <i>5d = <span class="hidden">15</span></i><br>
+                   <i>d = <span class="hidden">3</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">8. For the arithmetic progression <i>184, 181, 178, ...,</i> find the value of the first negative term.</p>
+             <details>
+                <summary>Step 1: Identify a and d. Then set up an inequality <i>T<sub>n</sub> < 0</i>.</summary>
+                <div class="details-content">
+                   <i>a = 184, d = 181 - 184 = -3</i><br>
+                   <i>a + (n-1)d < 0</i><br>
+                   <i>184 + (n-1)(-3) < <span class="hidden">0</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve the inequality for n.</summary>
+                <div class="details-content">
+                   <i>184 - 3n + 3 < 0</i><br>
+                   <i>187 < 3n</i><br>
+                   <i>n > <span class="frac"><span>187</span><span class="bottom">3</span></span> or 62.33</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Find the smallest integer n that satisfies the inequality and find T<sub>n</sub>.</summary>
+                <div class="details-content">
+                   The smallest integer n is <span class="hidden">63</span>.<br>
+                   <i>T<sub>63</sub> = 184 + (63-1)(-3) = 184 - 186 = <span class="hidden">-2</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">9. Find the value of the first positive term of the arithmetic progression <i>-101, -97, -93, ...</i></p>
+            <details>
+                <summary>Step 1: Identify a and d. Then set up an inequality <i>T<sub>n</sub> > 0</i>.</summary>
+                <div class="details-content">
+                    <i>a = -101, d = -97 - (-101) = 4</i><br>
+                    <i>-101 + (n-1)(4) > <span class="hidden">0</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve for n.</summary>
+                <div class="details-content">
+                    <i>4(n-1) > 101</i><br>
+                    <i>n-1 > 25.25</i><br>
+                    <i>n > <span class="hidden">26.25</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Find the smallest integer n and then find the term T<sub>n</sub>.</summary>
+                <div class="details-content">
+                    The smallest integer n is <span class="hidden">27</span>.<br>
+                    <i>T<sub>27</sub> = -101 + (27-1)(4) = -101 + 104 = <span class="hidden">3</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">10. If <i>x+4, 2x+5</i> and <i>2x<sup>2</sup>+4</i> are three consecutive terms of an arithmetic progression, find the possible values of x.</p>
+            <details>
+                <summary>Step 1: Use the property <i>T<sub>2</sub> - T<sub>1</sub> = T<sub>3</sub> - T<sub>2</sub></i>.</summary>
+                <div class="details-content">
+                    <i>(2x+5) - (x+4) = (2x<sup>2</sup>+4) - (2x+5)</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Simplify and form a quadratic equation.</summary>
+                <div class="details-content">
+                    <i>x + 1 = 2x<sup>2</sup> - 2x - 1</i><br>
+                    <i>2x<sup>2</sup> - 3x - <span class="hidden">2</span> = 0</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Factorise and solve for x.</summary>
+                <div class="details-content">
+                    <i>(2x + 1)(x - <span class="hidden">2</span>) = 0</i><br>
+                    <i>x = -<span class="frac"><span>1</span><span class="bottom">2</span></span>, x = <span class="hidden">2</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">11. Find the number of terms in the arithmetic progression <i>2p+3, 6p+2, 10p+1, ..., 30p-4</i>.</p>
+            <details>
+                <summary>Step 1: Find the first term (a) and common difference (d).</summary>
+                <div class="details-content">
+                    <i>a = 2p+3</i><br>
+                    <i>d = (6p+2) - (2p+3) = <span class="hidden">4p-1</span></i><br>
+                    <i>T<sub>n</sub> = 30p-4</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the formula <i>T<sub>n</sub> = a + (n-1)d</i>.</summary>
+                <div class="details-content">
+                    <i>30p-4 = (2p+3) + (n-1)(4p-1)</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Solve for n.</summary>
+                <div class="details-content">
+                    <i>28p - 7 = (n-1)(4p-1)</i><br>
+                    <i>7(4p - 1) = (n-1)(4p-1)</i><br>
+                    <i>7 = n - 1</i><br>
+                    <i>n = <span class="hidden">8</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">12. Find the sum of the first 12 terms of the arithmetic progression <i>-10, -7, -4, ...</i></p>
+            <details>
+                <summary>Step 1: Identify a, d, and n.</summary>
+                <div class="details-content">
+                    <i>a = -10</i><br>
+                    <i>d = -7 - (-10) = 3</i><br>
+                    <i>n = <span class="hidden">12</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the sum formula <i>S<sub>n</sub> = <span class="frac"><span>n</span><span class="bottom">2</span></span>[2a + (n-1)d]</i>.</summary>
+                <div class="details-content">
+                    <i>S<sub>12</sub> = <span class="frac"><span>12</span><span class="bottom">2</span></span>[2(-10) + (12-1)(3)]</i><br>
+                    <i>S<sub>12</sub> = 6[-20 + (11)(3)]</i><br>
+                    <i>S<sub>12</sub> = 6[-20 + <span class="hidden">33</span>] = 6(13) = <span class="hidden">78</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">13. Find the sum of the first n terms of the arithmetic progression <i>11, 7, 3, ...</i></p>
+            <details>
+                <summary>Step 1: Identify a and d.</summary>
+                <div class="details-content">
+                    <i>a = 11</i><br>
+                    <i>d = 7 - 11 = <span class="hidden">-4</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Substitute into the sum formula <i>S<sub>n</sub> = <span class="frac"><span>n</span><span class="bottom">2</span></span>[2a + (n-1)d]</i>.</summary>
+                <div class="details-content">
+                    <i>S<sub>n</sub> = <span class="frac"><span>n</span><span class="bottom">2</span></span>[2(11) + (n-1)(-4)]</i><br>
+                    <i>S<sub>n</sub> = <span class="frac"><span>n</span><span class="bottom">2</span></span>[22 - 4n + 4]</i><br>
+                    <i>S<sub>n</sub> = <span class="frac"><span>n</span><span class="bottom">2</span></span>[<span class="hidden">26</span> - 4n] = n(13 - 2n) = <span class="hidden">13n - 2n<sup>2</sup></span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">14. For the arithmetic progression <i>-4, 1, 6, ...,</i> find the sum of all the terms from the 6th term to the 14th term.</p>
+            <details>
+                <summary>Step 1: Understand the question. We need to find <i>S<sub>14</sub> - S<sub>5</sub></i>.</summary>
+                <div class="details-content">
+                    The sum from the 6th to 14th term is the sum of the first 14 terms minus the sum of the first 5 terms.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Identify a and d. Calculate <i>S<sub>14</sub></i>.</summary>
+                <div class="details-content">
+                    <i>a = -4, d = 5</i><br>
+                    <i>S<sub>14</sub> = <span class="frac"><span>14</span><span class="bottom">2</span></span>[2(-4) + (14-1)(5)] = 7[-8 + 65] = 7(57) = <span class="hidden">399</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Calculate <i>S<sub>5</sub></i> and find the final answer.</summary>
+                <div class="details-content">
+                    <i>S<sub>5</sub> = <span class="frac"><span>5</span><span class="bottom">2</span></span>[2(-4) + (5-1)(5)] = 2.5[-8 + 20] = 2.5(12) = <span class="hidden">30</span></i><br>
+                    Sum = <i>S<sub>14</sub> - S<sub>5</sub> = 399 - 30 = <span class="hidden">369</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">15. Find the sum of all the terms of the arithmetic progression <i><span class="frac"><span>1</span><span class="bottom">4</span></span>, 1<span class="frac"><span>1</span><span class="bottom">2</span></span>, 2<span class="frac"><span>3</span><span class="bottom">4</span></span>, ..., 14</i>.</p>
+            <details>
+                <summary>Step 1: Find the number of terms, n.</summary>
+                <div class="details-content">
+                    <i>a = 0.25, d = 1.5 - 0.25 = 1.25, T<sub>n</sub> = 14</i><br>
+                    <i>14 = 0.25 + (n-1)(1.25)</i><br>
+                    <i>13.75 = (n-1)(1.25)</i><br>
+                    <i>n-1 = 11, n = <span class="hidden">12</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the sum formula <i>S<sub>n</sub> = <span class="frac"><span>n</span><span class="bottom">2</span></span>(a + l)</i>.</summary>
+                <div class="details-content">
+                    <i>S<sub>12</sub> = <span class="frac"><span>12</span><span class="bottom">2</span></span>(0.25 + 14) = 6(14.25) = <span class="hidden">85.5</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">16. How many terms of the arithmetic progression <i>12, 16, 20, ...</i> must be taken for the sum to be equal to 132?</p>
+            <details>
+                <summary>Step 1: Identify a, d, and S<sub>n</sub>. Set up the sum equation.</summary>
+                <div class="details-content">
+                    <i>a = 12, d = 4, S<sub>n</sub> = 132</i><br>
+                    <i>132 = <span class="frac"><span>n</span><span class="bottom">2</span></span>[2(12) + (n-1)(4)]</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Simplify and form a quadratic equation.</summary>
+                <div class="details-content">
+                    <i>264 = n[24 + 4n - 4] = n[20 + 4n]</i><br>
+                    <i>4n<sup>2</sup> + 20n - 264 = 0</i><br>
+                    <i>n<sup>2</sup> + 5n - <span class="hidden">66</span> = 0</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Factorise and solve for n.</summary>
+                <div class="details-content">
+                    <i>(n + 11)(n - <span class="hidden">6</span>) = 0</i><br>
+                    <i>n = -11</i> (not possible) or <i>n = <span class="hidden">6</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">17. The first term and the last term of an arithmetic progression are -12 and 36 respectively. If the sum of all the terms is 240, find the number of terms.</p>
+            <details>
+                <summary>Step 1: Identify a, l (last term), and S<sub>n</sub>.</summary>
+                <div class="details-content">
+                    <i>a = -12, l = 36, S<sub>n</sub> = 240</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the sum formula <i>S<sub>n</sub> = <span class="frac"><span>n</span><span class="bottom">2</span></span>(a + l)</i>.</summary>
+                <div class="details-content">
+                    <i>240 = <span class="frac"><span>n</span><span class="bottom">2</span></span>(-12 + 36)</i><br>
+                    <i>240 = <span class="frac"><span>n</span><span class="bottom">2</span></span>(<span class="hidden">24</span>)</i><br>
+                    <i>240 = 12n</i><br>
+                    <i>n = <span class="hidden">20</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">18. The second term of an arithmetic progression is 8 while the sum of the first six terms is 30. Find the common difference.</p>
+            <details>
+                <summary>Step 1: Set up two equations from the given information.</summary>
+                <div class="details-content">
+                   <i>T<sub>2</sub> = a + d = 8</i>  --- (1)<br>
+                   <i>S<sub>6</sub> = <span class="frac"><span>6</span><span class="bottom">2</span></span>[2a + 5d] = 30</i>  --- (2)
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Simplify equation (2) and solve simultaneously with (1).</summary>
+                <div class="details-content">
+                   From (2): <i>3[2a + 5d] = 30  =>  2a + 5d = 10</i><br>
+                   From (1): <i>a = 8 - d</i>. Substitute into the simplified (2):<br>
+                   <i>2(8 - d) + 5d = 10</i><br>
+                   <i>16 - 2d + 5d = 10</i><br>
+                   <i>3d = <span class="hidden">-6</span> => d = <span class="hidden">-2</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">19. The third term and the seventh term of an arithmetic progression are 6 and 26 respectively. Find the eleventh term.</p>
+            <details>
+                <summary>Step 1: Find a and d using simultaneous equations.</summary>
+                <div class="details-content">
+                   <i>T<sub>3</sub> = a + 2d = 6</i>  --- (1)<br>
+                   <i>T<sub>7</sub> = a + 6d = 26</i>  --- (2)<br>
+                   (2)-(1): <i>4d = 20 => d = <span class="hidden">5</span></i><br>
+                   Sub into (1): <i>a + 2(5) = 6 => a = <span class="hidden">-4</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate the 11th term (T<sub>11</sub>).</summary>
+                <div class="details-content">
+                    <i>T<sub>11</sub> = a + 10d = -4 + 10(5) = -4 + 50 = <span class="hidden">46</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">20. The sum of the first 6 terms of an arithmetic progression is 72 while the sum of the first 9 terms is 81. Find the common difference.</p>
+            <details>
+                <summary>Step 1: Set up two equations for the sums.</summary>
+                <div class="details-content">
+                   <i>S<sub>6</sub> = <span class="frac"><span>6</span><span class="bottom">2</span></span>[2a + 5d] = 72  => 2a + 5d = 24</i> --- (1)<br>
+                   <i>S<sub>9</sub> = <span class="frac"><span>9</span><span class="bottom">2</span></span>[2a + 8d] = 81  => 2a + 8d = 18</i> --- (2)
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve the simultaneous equations.</summary>
+                <div class="details-content">
+                   (2)-(1): <i>3d = 18 - 24 = -6</i><br>
+                   <i>d = <span class="hidden">-2</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">21. The third term and the ninth term of an arithmetic progression are 7 and 31 respectively. Find the sum of the first 12 terms.</p>
+            <details>
+                <summary>Step 1: Find a and d.</summary>
+                <div class="details-content">
+                   <i>T<sub>3</sub> = a + 2d = 7</i>  --- (1)<br>
+                   <i>T<sub>9</sub> = a + 8d = 31</i>  --- (2)<br>
+                   (2)-(1): <i>6d = 24 => d = <span class="hidden">4</span></i><br>
+                   Sub into (1): <i>a + 2(4) = 7 => a = <span class="hidden">-1</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate S<sub>12</sub>.</summary>
+                <div class="details-content">
+                    <i>S<sub>12</sub> = <span class="frac"><span>12</span><span class="bottom">2</span></span>[2(-1) + (12-1)(4)] = 6[-2 + 44] = 6(42) = <span class="hidden">252</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">22. Calculate the sum of all the multiples of 6 between 1 and 100.</p>
+            <details>
+                <summary>Step 1: Identify the sequence.</summary>
+                <div class="details-content">
+                    First term <i>a = 6</i>. Last term <i>l = 96</i>. Common difference <i>d = 6</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Find the number of terms, n.</summary>
+                <div class="details-content">
+                    <i>96 = 6 + (n-1)6</i><br>
+                    <i>90 = (n-1)6 => n-1 = 15 => n = <span class="hidden">16</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Calculate the sum.</summary>
+                <div class="details-content">
+                    <i>S<sub>16</sub> = <span class="frac"><span>16</span><span class="bottom">2</span></span>(6 + 96) = 8(102) = <span class="hidden">816</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">23. The first three terms of an arithmetic progression are 4, 7 and 10. (a) State the common difference. (b) Calculate the sum of all the terms from the 4th term to the 23rd term.</p>
+            <details>
+                <summary>(a) Find the common difference.</summary>
+                <div class="details-content">
+                    <i>d = 7 - 4 = <span class="hidden">3</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the sum from T<sub>4</sub> to T<sub>23</sub>.</summary>
+                <div class="details-content">
+                    This is <i>S<sub>23</sub> - S<sub>3</sub></i>.<br>
+                    <i>S<sub>23</sub> = <span class="frac"><span>23</span><span class="bottom">2</span></span>[2(4) + (23-1)(3)] = 11.5[8 + 66] = 11.5(74) = <span class="hidden">851</span></i><br>
+                    <i>S<sub>3</sub> = 4 + 7 + 10 = <span class="hidden">21</span></i><br>
+                    Sum = <i>851 - 21 = <span class="hidden">830</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">24. Find the number of terms of the arithmetic progression <i>-9, -6, -3, ...</i> that have to be taken for the sum to be zero.</p>
+            <details>
+                <summary>Step 1: Set up the sum equation <i>S<sub>n</sub> = 0</i>.</summary>
+                <div class="details-content">
+                    <i>a = -9, d = 3</i><br>
+                    <i><span class="frac"><span>n</span><span class="bottom">2</span></span>[2(-9) + (n-1)(3)] = 0</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve for n.</summary>
+                <div class="details-content">
+                    Since n cannot be 0, the term in the bracket must be zero.<br>
+                    <i>-18 + 3n - 3 = 0</i><br>
+                    <i>3n = 21 => n = <span class="hidden">7</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">26. In an arithmetic progression, the sum of all the terms from the second term to the fourth term is 18. If the first term is 3, find the common difference.</p>
+            <details>
+                <summary>Step 1: Express the sum in terms of a and d.</summary>
+                <div class="details-content">
+                    <i>T<sub>2</sub> + T<sub>3</sub> + T<sub>4</sub> = 18</i><br>
+                    <i>(a+d) + (a+2d) + (a+3d) = 18</i><br>
+                    <i>3a + <span class="hidden">6d</span> = 18</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Substitute a=3 and solve for d.</summary>
+                <div class="details-content">
+                    <i>3(3) + 6d = 18</i><br>
+                    <i>9 + 6d = 18</i><br>
+                    <i>6d = 9 => d = <span class="hidden">1.5</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">27. An arithmetic progression has 16 terms. The first term is 5. Given that the sum of the last 6 terms is 255, find the common difference.</p>
+            <details>
+                <summary>Step 1: Express the sum of the last 6 terms.</summary>
+                <div class="details-content">
+                    The last 6 terms are T<sub>11</sub> to T<sub>16</sub>. Their sum is <i>S<sub>16</sub> - S<sub>10</sub> = 255</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Write out the sum equations and substitute a=5.</summary>
+                <div class="details-content">
+                    <i>S<sub>16</sub> = <span class="frac"><span>16</span><span class="bottom">2</span></span>[2(5) + 15d] = 8(10 + 15d) = 80 + 120d</i><br>
+                    <i>S<sub>10</sub> = <span class="frac"><span>10</span><span class="bottom">2</span></span>[2(5) + 9d] = 5(10 + 9d) = 50 + 45d</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Solve for d.</summary>
+                <div class="details-content">
+                    <i>(80 + 120d) - (50 + 45d) = 255</i><br>
+                    <i>30 + 75d = 255</i><br>
+                    <i>75d = 225 => d = <span class="hidden">3</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">28. If the sum of the first n terms of an arithmetic progression is given by <i>S<sub>n</sub>=n(4n-7)</i>, find the fourth term.</p>
+            <details>
+                <summary>Step 1: Understand the relationship between T<sub>n</sub> and S<sub>n</sub>.</summary>
+                <div class="details-content">
+                    <i>T<sub>n</sub> = S<sub>n</sub> - S<sub>n-1</sub></i>. We need to find <i>T<sub>4</sub></i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate <i>S<sub>4</sub></i> and <i>S<sub>3</sub></i>.</summary>
+                <div class="details-content">
+                    <i>S<sub>4</sub> = 4(4x4 - 7) = 4(16 - 7) = 4(9) = <span class="hidden">36</span></i><br>
+                    <i>S<sub>3</sub> = 3(4x3 - 7) = 3(12 - 7) = 3(5) = <span class="hidden">15</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Calculate <i>T<sub>4</sub></i>.</summary>
+                <div class="details-content">
+                    <i>T<sub>4</sub> = S<sub>4</sub> - S<sub>3</sub> = 36 - 15 = <span class="hidden">21</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">29. If the sum of the first n terms of an arithmetic progression is given by <i>S<sub>n</sub>=n(2n+3)</i>, find the common difference.</p>
+            <details>
+                <summary>Step 1: Find the first and second terms.</summary>
+                <div class="details-content">
+                    <i>T<sub>1</sub> = a = S<sub>1</sub> = 1(2x1 + 3) = <span class="hidden">5</span></i><br>
+                    <i>S<sub>2</sub> = 2(2x2 + 3) = 2(7) = 14</i><br>
+                    <i>T<sub>2</sub> = S<sub>2</sub> - S<sub>1</sub> = 14 - 5 = <span class="hidden">9</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate the common difference d.</summary>
+                <div class="details-content">
+                    <i>d = T<sub>2</sub> - T<sub>1</sub> = 9 - 5 = <span class="hidden">4</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">30. The sum of the first n terms of an arithmetic progression is given by <i>S<sub>n</sub>=<span class="frac"><span>1</span><span class="bottom">2</span></span>n(3n+2)</i>. Calculate the eighth term.</p>
+            <details>
+                <summary>Step 1: Calculate <i>S<sub>8</sub></i> and <i>S<sub>7</sub></i>.</summary>
+                <div class="details-content">
+                    <i>S<sub>8</sub> = <span class="frac"><span>1</span><span class="bottom">2</span></span>(8)(3x8 + 2) = 4(26) = <span class="hidden">104</span></i><br>
+                    <i>S<sub>7</sub> = <span class="frac"><span>1</span><span class="bottom">2</span></span>(7)(3x7 + 2) = 3.5(23) = <span class="hidden">80.5</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate <i>T<sub>8</sub></i>.</summary>
+                <div class="details-content">
+                    <i>T<sub>8</sub> = S<sub>8</sub> - S<sub>7</sub> = 104 - 80.5 = <span class="hidden">23.5</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">31. A long-distance runner runs the first kilometre of a race in 3 minutes 45 seconds...Find his time for the 11th kilometre.</p>
+            <details>
+                <summary>Step 1: Convert all times to seconds and identify a and d.</summary>
+                <div class="details-content">
+                    <i>a = T<sub>1</sub> = 3 min 45 s = 3x60 + 45 = <span class="hidden">225</span> seconds.</i><br>
+                    <i>d = 12 seconds.</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate the time for the 11th kilometre (T<sub>11</sub>).</summary>
+                <div class="details-content">
+                    <i>T<sub>11</sub> = a + 10d = 225 + 10(12) = 225 + 120 = <span class="hidden">345</span> seconds.</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Convert the time back to minutes and seconds.</summary>
+                <div class="details-content">
+                    345 seconds = 5 minutes and <span class="hidden">45</span> seconds.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">32. Calculate how many months it will take to repay a debt of RM5800 by monthly payments of RM100 initially with an increase of RM20 for each month after that.</p>
+            <details>
+                <summary>Step 1: Identify a, d, and S<sub>n</sub>.</summary>
+                <div class="details-content">
+                    <i>a = 100, d = 20, S<sub>n</sub> = 5800</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Set up the sum equation and form a quadratic equation.</summary>
+                <div class="details-content">
+                    <i>5800 = <span class="frac"><span>n</span><span class="bottom">2</span></span>[2(100) + (n-1)(20)]</i><br>
+                    <i>11600 = n[200 + 20n - 20] = n[180 + 20n]</i><br>
+                    <i>20n<sup>2</sup> + 180n - 11600 = 0</i><br>
+                    <i>n<sup>2</sup> + 9n - <span class="hidden">580</span> = 0</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Factorise and solve for n.</summary>
+                <div class="details-content">
+                    <i>(n + 29)(n - <span class="hidden">20</span>) = 0</i><br>
+                    <i>n = -29</i> (not possible) or <i>n = <span class="hidden">20</span></i>. It will take 20 months.
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">33. A straight path is made by laying paving slabs... calculate the number of slabs needed.</p>
+            <details>
+                <summary>Step 1: Identify a, l (last term), and S<sub>n</sub>.</summary>
+                <div class="details-content">
+                    <i>a = 0.8 m, l = 1.25 m, S<sub>n</sub> = 20.5 m</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the sum formula <i>S<sub>n</sub> = <span class="frac"><span>n</span><span class="bottom">2</span></span>(a + l)</i>.</summary>
+                <div class="details-content">
+                    <i>20.5 = <span class="frac"><span>n</span><span class="bottom">2</span></span>(0.8 + 1.25)</i><br>
+                    <i>20.5 = <span class="frac"><span>n</span><span class="bottom">2</span></span>(2.05)</i><br>
+                    <i>41 = n(2.05)</i><br>
+                    <i>n = <span class="hidden">20</span></i> slabs.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">34. The perimeter of a hexagon is 36 cm. The lengths of the sides are in AP... Find the length of the shortest side.</p>
+            <details>
+                <summary>Step 1: Set up equations based on the information.</summary>
+                <div class="details-content">
+                    Perimeter = <i>S<sub>6</sub> = 36</i>. Shortest side = a. Longest side = <i>T<sub>6</sub> = a + 5d</i>.<br>
+                    Equation 1: <i>T<sub>6</sub> = 5a => a + 5d = 5a => 4a = 5d</i>.<br>
+                    Equation 2: <i>S<sub>6</sub> = <span class="frac"><span>6</span><span class="bottom">2</span></span>(a + l) = 3(a + T<sub>6</sub>) = 3(a + 5a) = 18a</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve for a.</summary>
+                <div class="details-content">
+                    We know <i>S<sub>6</sub> = 36</i>. So, <i>18a = 36</i>.<br>
+                    <i>a = <span class="hidden">2</span></i> cm.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">35. The diagram shows a few equilateral triangles... find the value of n.</p>
+            <details>
+                <summary>Step 1: Form an AP for the perimeters.</summary>
+                <div class="details-content">
+                    Side lengths: <i>4, 6, 8, ...</i> (This is an AP with <i>a=4, d=2</i>).<br>
+                    Perimeters: <i>3x4, 3x6, 3x8, ... => 12, 18, 24, ...</i><br>
+                    This is an AP with <i>a = 12, d = <span class="hidden">6</span></i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Find n when the perimeter <i>T<sub>n</sub></i> is 90.</summary>
+                <div class="details-content">
+                    <i>90 = 12 + (n-1)(6)</i><br>
+                    <i>78 = (n-1)(6)</i><br>
+                    <i>13 = n - 1 => n = <span class="hidden">14</span></i>.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">36. The diagram shows a few cones... find the value of n.</p>
+            <details>
+                <summary>Step 1: Form an AP for the heights and find the nth term.</summary>
+                <div class="details-content">
+                    Heights: <i>5, 8, 11, ...</i><br>
+                    <i>a = 5, d = 3</i>. Height of nth cone <i>H<sub>n</sub> = 5 + (n-1)3 = <span class="hidden">3n+2</span></i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the volume formula and set it equal to 1725π.</summary>
+                <div class="details-content">
+                    Radius <i>r = 15</i>. Volume <i>V<sub>n</sub> = <span class="frac"><span>1</span><span class="bottom">3</span></span>πr<sup>2</sup>H<sub>n</sub></i>.<br>
+                    <i>1725π = <span class="frac"><span>1</span><span class="bottom">3</span></span>π(15)<sup>2</sup>(3n+2)</i><br>
+                    <i>1725 = <span class="frac"><span>1</span><span class="bottom">3</span></span>(225)(3n+2)</i><br>
+                    <i>1725 = 75(3n+2)</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Solve for n.</summary>
+                <div class="details-content">
+                    <i><span class="frac"><span>1725</span><span class="bottom">75</span></span> = 3n+2</i><br>
+                    <i>23 = 3n+2</i><br>
+                    <i>21 = 3n => n = <span class="hidden">7</span></i>.
+                </div>
+            </details>
+        </div>
+
+        <h3>12.2 Geometric Progression</h3>
+        
+        <div class="question-block">
+            <p class="question-title">37. Find the 8th term of the geometric progression <i>3, -6, 12, -24, ...</i></p>
+             <details>
+                <summary>Step 1: Identify the first term (a) and common ratio (r).</summary>
+                <div class="details-content">
+                    <i>a = 3</i><br>
+                    <i>r = -6 / 3 = <span class="hidden">-2</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the formula <i>T<sub>n</sub> = ar<sup>n-1</sup></i> with <i>n=8</i>.</summary>
+                <div class="details-content">
+                    <i>T<sub>8</sub> = 3 x (-2)<sup>8-1</sup> = 3 x (-2)<sup>7</sup> = 3 x (<span class="hidden">-128</span>) = <span class="hidden">-384</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">38. Find the nth term of the geometric progression <i><span class="frac"><span>1</span><span class="bottom">2</span></span>, <span class="frac"><span>1</span><span class="bottom">4</span></span>, <span class="frac"><span>1</span><span class="bottom">8</span></span>, ...</i></p>
+            <details>
+                <summary>Step 1: Identify a and r.</summary>
+                <div class="details-content">
+                    <i>a = <span class="frac"><span>1</span><span class="bottom">2</span></span></i><br>
+                    <i>r = (<span class="frac"><span>1</span><span class="bottom">4</span></span>) / (<span class="frac"><span>1</span><span class="bottom">2</span></span>) = <span class="hidden"><span class="frac"><span>1</span><span class="bottom">2</span></span></span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Substitute into the formula <i>T<sub>n</sub> = ar<sup>n-1</sup></i>.</summary>
+                <div class="details-content">
+                    <i>T<sub>n</sub> = (<span class="frac"><span>1</span><span class="bottom">2</span></span>) x (<span class="frac"><span>1</span><span class="bottom">2</span></span>)<sup>n-1</sup> = (<span class="frac"><span>1</span><span class="bottom">2</span></span>)<sup>1 + n-1</sup> = (<span class="frac"><span>1</span><span class="bottom">2</span></span>)<sup><span class="hidden">n</span></sup></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">39. Calculate the number of terms of the geometric progression <i><span class="frac"><span>1</span><span class="bottom">4</span></span>, <span class="frac"><span>1</span><span class="bottom">12</span></span>, <span class="frac"><span>1</span><span class="bottom">36</span></span>, ..., <span class="frac"><span>1</span><span class="bottom">324</span></span></i>.</p>
+            <details>
+                <summary>Step 1: Identify a, r, and T<sub>n</sub>.</summary>
+                <div class="details-content">
+                    <i>a = <span class="frac"><span>1</span><span class="bottom">4</span></span>, r = <span class="frac"><span>1</span><span class="bottom">3</span></span>, T<sub>n</sub> = <span class="frac"><span>1</span><span class="bottom">324</span></span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the formula <i>T<sub>n</sub> = ar<sup>n-1</sup></i>.</summary>
+                <div class="details-content">
+                    <i><span class="frac"><span>1</span><span class="bottom">324</span></span> = (<span class="frac"><span>1</span><span class="bottom">4</span></span>) x (<span class="frac"><span>1</span><span class="bottom">3</span></span>)<sup>n-1</sup></i><br>
+                    <i><span class="frac"><span>4</span><span class="bottom">324</span></span> = <span class="frac"><span>1</span><span class="bottom">81</span></span> = (<span class="frac"><span>1</span><span class="bottom">3</span></span>)<sup><span class="hidden">n-1</span></sup></i>
+                </div>
+            </details>
+             <details>
+                <summary>Step 3: Solve for n.</summary>
+                <div class="details-content">
+                    <i>(<span class="frac"><span>1</span><span class="bottom">3</span></span>)<sup>4</sup> = (<span class="frac"><span>1</span><span class="bottom">3</span></span>)<sup>n-1</sup></i><br>
+                    <i>4 = n - 1 => n = <span class="hidden">5</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">40. Given that <i>x+1, 12, 4x+4</i> are three consecutive terms of a geometric progression, find the possible values of x.</p>
+            <details>
+                <summary>Step 1: Use the property <i>T<sub>2</sub>/T<sub>1</sub> = T<sub>3</sub>/T<sub>2</sub></i>.</summary>
+                <div class="details-content">
+                    <i><span class="frac"><span>12</span><span class="bottom">x+1</span></span> = <span class="frac"><span>4x+4</span><span class="bottom">12</span></span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Cross-multiply and solve the quadratic equation.</summary>
+                <div class="details-content">
+                    <i>144 = (x+1)(4x+4) = 4(x+1)<sup>2</sup></i><br>
+                    <i>36 = (x+1)<sup>2</sup></i><br>
+                    <i>x+1 = ±<span class="hidden">6</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Find the two possible values for x.</summary>
+                <div class="details-content">
+                    <i>x+1 = 6  => x = <span class="hidden">5</span></i><br>
+                    <i>x+1 = -6 => x = <span class="hidden">-7</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">42. If <i>x+2, 2x+4</i> and <i>5x+4</i> are three consecutive terms of a geometric progression, find the possible values of x.</p>
+            <details>
+                <summary>Step 1: Use the property <i>(T<sub>2</sub>)<sup>2</sup> = T<sub>1</sub> x T<sub>3</sub></i>.</summary>
+                <div class="details-content">
+                    <i>(2x+4)<sup>2</sup> = (x+2)(5x+4)</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Expand and form a quadratic equation.</summary>
+                <div class="details-content">
+                    <i>4x<sup>2</sup> + 16x + 16 = 5x<sup>2</sup> + 4x + 10x + 8</i><br>
+                    <i>4x<sup>2</sup> + 16x + 16 = 5x<sup>2</sup> + 14x + 8</i><br>
+                    <i>0 = x<sup>2</sup> - 2x - <span class="hidden">8</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Factorise and solve for x.</summary>
+                <div class="details-content">
+                    <i>(x-4)(x+2) = 0</i><br>
+                    <i>x = 4, x = <span class="hidden">-2</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">43. In a geometric progression, the ratio of the fifth term to the second term is 1:64. Find the common ratio.</p>
+            <details>
+                <summary>Step 1: Write the ratio using the formula for T<sub>n</sub>.</summary>
+                <div class="details-content">
+                    <i><span class="frac"><span>T<sub>5</sub></span><span class="bottom">T<sub>2</sub></span></span> = <span class="frac"><span>ar<sup>4</sup></span><span class="bottom">ar</span></span> = <span class="frac"><span>1</span><span class="bottom">64</span></span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve for r.</summary>
+                <div class="details-content">
+                    <i>r<sup>3</sup> = <span class="frac"><span>1</span><span class="bottom">64</span></span></i><br>
+                    <i>r = <sup>3</sup>√(<span class="frac"><span>1</span><span class="bottom">64</span></span>) = <span class="hidden"><span class="frac"><span>1</span><span class="bottom">4</span></span></span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">44. Given a geometric progression <i><span class="frac"><span>1</span><span class="bottom">8</span></span>, <span class="frac"><span>1</span><span class="bottom">4</span></span>, <span class="frac"><span>1</span><span class="bottom">2</span></span>, ...</i> find the smallest value of n such that <i>T<sub>n</sub> > 500</i>.</p>
+            <details>
+                <summary>Step 1: Identify a and r. Set up the inequality.</summary>
+                <div class="details-content">
+                    <i>a = 1/8, r = 2</i><br>
+                    <i>T<sub>n</sub> = (<span class="frac"><span>1</span><span class="bottom">8</span></span>) x 2<sup>n-1</sup> > 500</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve the inequality.</summary>
+                <div class="details-content">
+                    <i>2<sup>n-1</sup> > 4000</i><br>
+                    Take logs (base 10): <i>(n-1) log(2) > log(4000)</i><br>
+                    <i>(n-1)(0.3010) > 3.6021</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Find the smallest integer n.</summary>
+                <div class="details-content">
+                    <i>n-1 > 11.967</i><br>
+                    <i>n > 12.967</i><br>
+                    The smallest integer n is <span class="hidden">13</span>.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">45. Find the sum of the first 6 terms of the geometric progression <i>3, 2, <span class="frac"><span>4</span><span class="bottom">3</span></span>, ...</i></p>
+            <details>
+                <summary>Step 1: Identify a, r and n.</summary>
+                <div class="details-content">
+                    <i>a = 3, r = 2/3, n = 6</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the sum formula <i>S<sub>n</sub> = a(1-r<sup>n</sup>)/(1-r)</i>.</summary>
+                <div class="details-content">
+                    <i>S<sub>6</sub> = <span class="frac"><span>3(1 - (2/3)<sup>6</sup>)</span><span class="bottom">1 - 2/3</span></span> = <span class="frac"><span>3(1 - 64/729)</span><span class="bottom">1/3</span></span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Calculate the value.</summary>
+                <div class="details-content">
+                    <i>S<sub>6</sub> = 9(1 - 64/729) = 9(<span class="frac"><span>665</span><span class="bottom">729</span></span>) = <span class="hidden"><span class="frac"><span>665</span><span class="bottom">81</span></span></span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">46. Find the sum of all the terms of the geometric progression <i><span class="frac"><span>2</span><span class="bottom">3</span></span>, 2, 6, ..., 486</i>.</p>
+            <details>
+                <summary>Step 1: Find the number of terms, n.</summary>
+                <div class="details-content">
+                    <i>a = 2/3, r = 3, T<sub>n</sub> = 486</i><br>
+                    <i>486 = (2/3) x 3<sup>n-1</sup></i><br>
+                    <i>729 = 3<sup>n-1</sup></i><br>
+                    <i>3<sup>6</sup> = 3<sup>n-1</sup> => n-1 = 6 => n = <span class="hidden">7</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate the sum S<sub>7</sub>.</summary>
+                <div class="details-content">
+                    <i>S<sub>7</sub> = <span class="frac"><span>(<span class="frac"><span>2</span><span class="bottom">3</span></span>)(3<sup>7</sup> - 1)</span><span class="bottom">3-1</span></span> = <span class="frac"><span>(<span class="frac"><span>2</span><span class="bottom">3</span></span>)(2186)</span><span class="bottom">2</span></span> = <span class="frac"><span>1</span><span class="bottom">3</span></span>(2186) = <span class="hidden">728<span class="frac"><span>2</span><span class="bottom">3</span></span></span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">47. Given the geometric progression <i>27, 9, 3, ...</i>, find the sum of all the terms from the 5th term to the 8th term.</p>
+            <details>
+                <summary>Step 1: Identify a and r. Understand the question requires <i>S<sub>8</sub> - S<sub>4</sub></i>.</summary>
+                <div class="details-content">
+                    <i>a = 27, r = 9/27 = 1/3</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate <i>S<sub>8</sub></i>.</summary>
+                <div class="details-content">
+                    <i>S<sub>8</sub> = <span class="frac"><span>27(1 - (1/3)<sup>8</sup>)</span><span class="bottom">1-1/3</span></span> = <span class="frac"><span>27(1 - 1/6561)</span><span class="bottom">2/3</span></span> = 40.5(<span class="frac"><span>6560</span><span class="bottom">6561</span></span>) = <span class="hidden"><span class="frac"><span>3280</span><span class="bottom">81</span></span></span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Calculate <i>S<sub>4</sub></i> and the final sum.</summary>
+                <div class="details-content">
+                    <i>S<sub>4</sub> = <span class="frac"><span>27(1 - (1/3)<sup>4</sup>)</span><span class="bottom">2/3</span></span> = 40.5(1 - 1/81) = 40.5(<span class="frac"><span>80</span><span class="bottom">81</span></span>) = 40</i><br>
+                    Sum = <i><span class="frac"><span>3280</span><span class="bottom">81</span></span> - 40 = <span class="frac"><span>3280 - 3240</span><span class="bottom">81</span></span> = <span class="hidden"><span class="frac"><span>40</span><span class="bottom">81</span></span></span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">48. How many terms of the geometric progression <i>48, 24, 12, ...</i> must be taken for the sum to be equal to <i>95<span class="frac"><span>1</span><span class="bottom">4</span></span></i>?</p>
+            <details>
+                <summary>Step 1: Identify a, r, and S<sub>n</sub>.</summary>
+                <div class="details-content">
+                    <i>a = 48, r = 1/2, S<sub>n</sub> = 95.25</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Use the sum formula to find n.</summary>
+                <div class="details-content">
+                    <i>95.25 = <span class="frac"><span>48(1 - (1/2)<sup>n</sup>)</span><span class="bottom">1 - 1/2</span></span> = <span class="frac"><span>48(1 - (1/2)<sup>n</sup>)</span><span class="bottom">1/2</span></span></i><br>
+                    <i>95.25 = 96(1 - (1/2)<sup>n</sup>)</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Solve for n.</summary>
+                <div class="details-content">
+                    <i><span class="frac"><span>95.25</span><span class="bottom">96</span></span> = 1 - (<span class="frac"><span>1</span><span class="bottom">2</span></span>)<sup>n</sup></i><br>
+                    <i>0.9921875 = 1 - (<span class="frac"><span>1</span><span class="bottom">2</span></span>)<sup>n</sup></i><br>
+                    <i>(<span class="frac"><span>1</span><span class="bottom">2</span></span>)<sup>n</sup> = 0.0078125 = <span class="frac"><span>1</span><span class="bottom">128</span></span> = (<span class="frac"><span>1</span><span class="bottom">2</span></span>)<sup>7</sup></i><br>
+                    <i>n = <span class="hidden">7</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">49. For the geometric progression <i>3, 6, 12, ...,</i> calculate the least number of terms that must be taken for the sum to exceed 1000.</p>
+            <details>
+                <summary>Step 1: Identify a and r. Set up the inequality <i>S<sub>n</sub> > 1000</i>.</summary>
+                <div class="details-content">
+                    <i>a = 3, r = 2</i><br>
+                    <i><span class="frac"><span>3(2<sup>n</sup> - 1)</span><span class="bottom">2 - 1</span></span> > 1000</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve the inequality for n.</summary>
+                <div class="details-content">
+                    <i>3(2<sup>n</sup> - 1) > 1000</i><br>
+                    <i>2<sup>n</sup> - 1 > 333.33</i><br>
+                    <i>2<sup>n</sup> > 334.33</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Use logs to find n.</summary>
+                <div class="details-content">
+                    <i>n log(2) > log(334.33)</i><br>
+                    <i>n(0.3010) > 2.5241</i><br>
+                    <i>n > 8.385</i>. The least integer n is <span class="hidden">9</span>.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">50. If the second term of a geometric progression is 3 and the seventh term is <span class="frac"><span>32</span><span class="bottom">81</span></span>, find the first term.</p>
+            <details>
+                <summary>Step 1: Set up two equations and solve for r.</summary>
+                <div class="details-content">
+                    <i>T<sub>2</sub> = ar = 3</i><br>
+                    <i>T<sub>7</sub> = ar<sup>6</sup> = 32/81</i><br>
+                    <i>(ar<sup>6</sup>)/(ar) = (32/81)/3 => r<sup>5</sup> = 32/243 = (2/3)<sup>5</sup></i><br>
+                    <i>r = <span class="hidden">2/3</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Find a.</summary>
+                <div class="details-content">
+                    <i>a(2/3) = 3 => a = 9/2 = <span class="hidden">4.5</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">51. The third term and the sixth term of a geometric progression are 27 and 8 respectively. Find the second term.</p>
+            <details>
+                <summary>Step 1: Find r.</summary>
+                <div class="details-content">
+                    <i>T<sub>3</sub> = ar<sup>2</sup> = 27</i><br>
+                    <i>T<sub>6</sub> = ar<sup>5</sup> = 8</i><br>
+                    <i>r<sup>3</sup> = 8/27 => r = <span class="hidden">2/3</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Find a.</summary>
+                <div class="details-content">
+                    <i>a(2/3)<sup>2</sup> = 27 => a(4/9) = 27 => a = 243/4</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Find the second term, T<sub>2</sub> = ar.</summary>
+                <div class="details-content">
+                    <i>T<sub>2</sub> = (243/4) x (2/3) = <span class="hidden">243/6 = 81/2 = 40.5</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">53. In a geometric progression, the sum of the second term and the third term is 12 while the sum of the third term and the fourth term is 6. Find the common ratio.</p>
+            <details>
+                <summary>Step 1: Set up two equations from the given information.</summary>
+                <div class="details-content">
+                    <i>T<sub>2</sub> + T<sub>3</sub> = ar + ar<sup>2</sup> = ar(1+r) = 12</i> --- (1)<br>
+                    <i>T<sub>3</sub> + T<sub>4</sub> = ar<sup>2</sup> + ar<sup>3</sup> = ar<sup>2</sup>(1+r) = 6</i> --- (2)
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Divide equation (2) by equation (1).</summary>
+                <div class="details-content">
+                    <i><span class="frac"><span>ar<sup>2</sup>(1+r)</span><span class="bottom">ar(1+r)</span></span> = <span class="frac"><span>6</span><span class="bottom">12</span></span></i><br>
+                    <i>r = <span class="hidden">1/2</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">54. Given that the first term of a geometric progression is 18 and the sum of the first three terms is 38, find the possible values of the common ratio.</p>
+            <details>
+                <summary>Step 1: Write out the sum of the first three terms.</summary>
+                <div class="details-content">
+                    <i>S<sub>3</sub> = a + ar + ar<sup>2</sup> = 38</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Substitute a=18 and form a quadratic equation in r.</summary>
+                <div class="details-content">
+                    <i>18 + 18r + 18r<sup>2</sup> = 38</i><br>
+                    <i>18r<sup>2</sup> + 18r - 20 = 0</i><br>
+                    <i>9r<sup>2</sup> + 9r - 10 = <span class="hidden">0</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Factorise and solve for r.</summary>
+                <div class="details-content">
+                    <i>(3r - 2)(3r + 5) = 0</i><br>
+                    <i>r = <span class="hidden">2/3</span>, r = <span class="hidden">-5/3</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">55. The sum of the first n terms of the geometric progression <i><span class="frac"><span>1</span><span class="bottom">3</span></span>, 1, 3, ...</i> is <i>121<span class="frac"><span>1</span><span class="bottom">3</span></span></i>.</p>
+            <details>
+                <summary>(a) State the common ratio of the progression.</summary>
+                <div class="details-content">
+                    <i>r = 1 / (1/3) = <span class="hidden">3</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the value of n.</summary>
+                <div class="details-content">
+                    <i>S<sub>n</sub> = 121 + 1/3 = 364/3</i>.<br>
+                    <i><span class="frac"><span>(1/3)(3<sup>n</sup> - 1)</span><span class="bottom">3-1</span></span> = <span class="frac"><span>364</span><span class="bottom">3</span></span></i><br>
+                    <i><span class="frac"><span>(3<sup>n</sup> - 1)</span><span class="bottom">6</span></span> = <span class="frac"><span>364</span><span class="bottom">3</span></span></i><br>
+                    <i>3<sup>n</sup> - 1 = 728 => 3<sup>n</sup> = 729 = 3<sup>6</sup> => n = <span class="hidden">6</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">56. The second term of a geometric progression is 64 and the sum of the first two terms is 192. Find (a) the first term, (b) the common ratio.</p>
+            <details>
+                <summary>Step 1: Set up two equations.</summary>
+                <div class="details-content">
+                    <i>T<sub>2</sub> = ar = 64</i> --- (1)<br>
+                    <i>S<sub>2</sub> = a + ar = 192</i> --- (2)
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve for a.</summary>
+                <div class="details-content">
+                    Substitute (1) into (2): <i>a + 64 = 192 => a = <span class="hidden">128</span></i>. This is the answer for (a).
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Solve for r.</summary>
+                <div class="details-content">
+                    Using (1): <i>128r = 64 => r = 64/128 = <span class="hidden">1/2</span></i>. This is the answer for (b).
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">57. <i>(T<sub>1</sub>+T<sub>2</sub>+T<sub>3</sub>)</i> of a geometric progression is 26. If the first term is 18, find the values of the common ratio.</p>
+            <details>
+                <summary>Step 1: Set up the sum equation.</summary>
+                <div class="details-content">
+                    <i>S<sub>3</sub> = a + ar + ar<sup>2</sup> = 26</i>. Given <i>a = 18</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Substitute a=18 and form a quadratic equation.</summary>
+                <div class="details-content">
+                    <i>18 + 18r + 18r<sup>2</sup> = 26</i><br>
+                    <i>18r<sup>2</sup> + 18r - 8 = 0</i><br>
+                    <i>9r<sup>2</sup> + 9r - 4 = <span class="hidden">0</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Factorise and solve for r.</summary>
+                <div class="details-content">
+                    <i>(3r - 1)(3r + 4) = 0</i><br>
+                    <i>r = <span class="hidden">1/3</span>, r = <span class="hidden">-4/3</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">59. The amount of the insurance coverage for a newly bought imported car... Calculate the amount insured for the year 2009.</p>
+            <details>
+                <summary>Step 1: Identify a, r, and n.</summary>
+                <div class="details-content">
+                    <i>a = 120000</i>. Amount decreases by 5%, so <i>r = 1 - 0.05 = <span class="hidden">0.95</span></i>.<br>
+                    Year 2001 is T<sub>1</sub>. Year 2009 is T<sub>9</sub>. So <i>n=9</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate T<sub>9</sub>.</summary>
+                <div class="details-content">
+                    <i>T<sub>9</sub> = 120000 x (0.95)<sup>9-1</sup> = 120000 x (0.95)<sup>8</sup></i><br>
+                    <i>T<sub>9</sub> = 120000 x 0.6634 = <span class="hidden">RM 79608</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">60. The table shows the number of bacteria... Calculate the number of bacteria in the colony after 8 hours.</p>
+            <details>
+                <summary>Step 1: Identify the GP from the table.</summary>
+                <div class="details-content">
+                    Sequence: <i>400, 800, 1600, ...</i><br>
+                    <i>a = 400, r = 800/400 = 2</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Determine n.</summary>
+                <div class="details-content">
+                    Time 0 hours is T<sub>1</sub>. Time 1 hour is T<sub>2</sub>. After 8 hours is T<sub>9</sub>. So <i>n=9</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Calculate T<sub>9</sub>.</summary>
+                <div class="details-content">
+                    <i>T<sub>9</sub> = 400 x 2<sup>9-1</sup> = 400 x 2<sup>8</sup> = 400 x 256 = <span class="hidden">102400</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">61. A large piece of paper, of thickness 0.02 mm, is folded... What is the thickness if it is folded 10 times?</p>
+            <details>
+                <summary>Step 1: Identify a and r.</summary>
+                <div class="details-content">
+                    Initial thickness (0 folds) = <i>T<sub>1</sub> = 0.02 mm</i>.<br>
+                    Each fold doubles the thickness, so <i>r=2</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Determine n.</summary>
+                <div class="details-content">
+                    After 1 fold, it's T<sub>2</sub>. After 10 folds, it's T<sub>11</sub>. So <i>n=11</i>.
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Calculate T<sub>11</sub>.</summary>
+                <div class="details-content">
+                    <i>T<sub>11</sub> = 0.02 x 2<sup>11-1</sup> = 0.02 x 2<sup>10</sup> = 0.02 x 1024 = <span class="hidden">20.48 mm</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <h3>12.3 Sum to Infinity of a Geometric Progression</h3>
+
+        <div class="question-block">
+            <p class="question-title">62. If the sum to infinity of a geometric progression is 64 and the first term is 16, find the common ratio.</p>
+            <details>
+                <summary>Step 1: Use the formula <i>S<sub>∞</sub> = a / (1-r)</i>.</summary>
+                <div class="details-content">
+                    <i>64 = <span class="frac"><span>16</span><span class="bottom">1-r</span></span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve for r.</summary>
+                <div class="details-content">
+                    <i>1-r = <span class="frac"><span>16</span><span class="bottom">64</span></span> = <span class="frac"><span>1</span><span class="bottom">4</span></span></i><br>
+                    <i>r = 1 - <span class="frac"><span>1</span><span class="bottom">4</span></span> = <span class="hidden"><span class="frac"><span>3</span><span class="bottom">4</span></span></span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">63. Express the recurring decimal <i>0.545454...</i> as a single fraction in its lowest terms.</p>
+            <details>
+                <summary>Step 1: Write the decimal as an infinite geometric series.</summary>
+                <div class="details-content">
+                    <i>0.5454... = 0.54 + 0.0054 + 0.000054 + ...</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Identify a and r.</summary>
+                <div class="details-content">
+                    <i>a = 0.54</i><br>
+                    <i>r = 0.0054 / 0.54 = <span class="hidden">0.01</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Use the sum to infinity formula.</summary>
+                <div class="details-content">
+                    <i>S<sub>∞</sub> = <span class="frac"><span>a</span><span class="bottom">1-r</span></span> = <span class="frac"><span>0.54</span><span class="bottom">1 - 0.01</span></span> = <span class="frac"><span>0.54</span><span class="bottom">0.99</span></span> = <span class="frac"><span>54</span><span class="bottom">99</span></span> = <span class="hidden"><span class="frac"><span>6</span><span class="bottom">11</span></span></span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">64. Write the recurring decimal <i>0.459459...</i> as a single fraction in its lowest terms.</p>
+            <details>
+                <summary>Step 1: Write the decimal as an infinite geometric series.</summary>
+                <div class="details-content">
+                    <i>0.459 + 0.000459 + ...</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Identify a and r.</summary>
+                <div class="details-content">
+                    <i>a = 0.459</i><br>
+                    <i>r = 0.000459 / 0.459 = <span class="hidden">0.001</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Use the sum to infinity formula.</summary>
+                <div class="details-content">
+                    <i>S<sub>∞</sub> = <span class="frac"><span>0.459</span><span class="bottom">1 - 0.001</span></span> = <span class="frac"><span>0.459</span><span class="bottom">0.999</span></span> = <span class="frac"><span>459</span><span class="bottom">999</span></span> = <span class="hidden"><span class="frac"><span>17</span><span class="bottom">37</span></span></span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">65. The second term and the fourth term of a geometric progression are 20 and <i>12<span class="frac"><span>4</span><span class="bottom">5</span></span></i> respectively. If all the terms are positive, find the sum to infinity.</p>
+            <details>
+                <summary>Step 1: Set up two equations and solve for r.</summary>
+                <div class="details-content">
+                    <i>T<sub>2</sub> = ar = 20</i><br>
+                    <i>T<sub>4</sub> = ar<sup>3</sup> = 12.8</i><br>
+                    <i>(ar<sup>3</sup>)/(ar) = 12.8 / 20 => r<sup>2</sup> = 0.64 => r = <span class="hidden">0.8</span></i> (since terms are positive).
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Find a.</summary>
+                <div class="details-content">
+                    <i>a(0.8) = 20 => a = 20 / 0.8 = <span class="hidden">25</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Calculate the sum to infinity.</summary>
+                <div class="details-content">
+                    <i>S<sub>∞</sub> = <span class="frac"><span>25</span><span class="bottom">1 - 0.8</span></span> = <span class="frac"><span>25</span><span class="bottom">0.2</span></span> = <span class="hidden">125</span></i>
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">66. A geometric progression is such that the second term is 6 and the sum to infinity is 32. Find the possible values of the common ratio.</p>
+            <details>
+                <summary>Step 1: Set up two equations.</summary>
+                <div class="details-content">
+                    <i>T<sub>2</sub> = ar = 6</i>  --- (1)<br>
+                    <i>S<sub>∞</sub> = <span class="frac"><span>a</span><span class="bottom">1-r</span></span> = 32</i>  --- (2)
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve simultaneously.</summary>
+                <div class="details-content">
+                    From (1), <i>a = 6/r</i>. Substitute into (2):<br>
+                    <i><span class="frac"><span>(6/r)</span><span class="bottom">1-r</span></span> = 32 => 6 = 32r(1-r) = 32r - 32r<sup>2</sup></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Form a quadratic equation and solve for r.</summary>
+                <div class="details-content">
+                    <i>32r<sup>2</sup> - 32r + 6 = 0</i><br>
+                    <i>16r<sup>2</sup> - 16r + 3 = 0</i><br>
+                    <i>(4r - 1)(4r - 3) = 0</i><br>
+                    <i>r = <span class="hidden"><span class="frac"><span>1</span><span class="bottom">4</span></span></span>, r = <span class="hidden"><span class="frac"><span>3</span><span class="bottom">4</span></span></span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">67. The first term and the fourth term of a geometric progression are <i><span class="frac"><span>3</span><span class="bottom">8</span></span></i> and <i><span class="frac"><span>1</span><span class="bottom">72</span></span></i> respectively. Find (a) the common ratio, (b) the sum to infinity.</p>
+            <details>
+                <summary>(a) Find the common ratio.</summary>
+                <div class="details-content">
+                    <i>a = 3/8, T<sub>4</sub> = ar<sup>3</sup> = 1/72</i><br>
+                    <i>(3/8)r<sup>3</sup> = 1/72 => r<sup>3</sup> = (1/72) x (8/3) = 8/216 = 1/27</i><br>
+                    <i>r = <span class="hidden">1/3</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the sum to infinity.</summary>
+                <div class="details-content">
+                    <i>S<sub>∞</sub> = <span class="frac"><span>a</span><span class="bottom">1-r</span></span> = <span class="frac"><span>(3/8)</span><span class="bottom">1 - 1/3</span></span> = <span class="frac"><span>(3/8)</span><span class="bottom">2/3</span></span> = 3/8 x 3/2 = <span class="hidden">9/16</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">68. The first term and the fourth term of a geometric progression are 16 and 2 respectively. Calculate the sum to infinity of the geometric progression.</p>
+            <details>
+                <summary>Step 1: Find r.</summary>
+                <div class="details-content">
+                    <i>a = 16, ar<sup>3</sup> = 2</i><br>
+                    <i>16r<sup>3</sup> = 2 => r<sup>3</sup> = 2/16 = 1/8 => r = <span class="hidden">1/2</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Calculate the sum to infinity.</summary>
+                <div class="details-content">
+                    <i>S<sub>∞</sub> = <span class="frac"><span>16</span><span class="bottom">1 - 1/2</span></span> = <span class="frac"><span>16</span><span class="bottom">1/2</span></span> = <span class="hidden">32</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">69. In a geometric progression, the sum to infinity is three times the first term. Find the common ratio.</p>
+            <details>
+                <summary>Step 1: Set up the equation from the given information.</summary>
+                <div class="details-content">
+                    <i>S<sub>∞</sub> = 3a</i><br>
+                    <i><span class="frac"><span>a</span><span class="bottom">1-r</span></span> = 3a</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Solve for r.</summary>
+                <div class="details-content">
+                    <i>1 = 3(1-r)</i>  (assuming a is not 0)<br>
+                    <i>1 = 3 - 3r => 3r = 2 => r = <span class="hidden">2/3</span></i>
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">70. Given that the sum of the first two terms of a geometric progression is 5 and the sum to infinity is 9, find the possible values of the common ratio.</p>
+            <details>
+                <summary>Step 1: Set up two equations.</summary>
+                <div class="details-content">
+                    <i>S<sub>2</sub> = a + ar = a(1+r) = 5</i> --- (1)<br>
+                    <i>S<sub>∞</sub> = a/(1-r) = 9 => a = 9(1-r)</i> --- (2)
+                </div>
+            </details>
+            <details>
+                <summary>Step 2: Substitute (2) into (1).</summary>
+                <div class="details-content">
+                    <i>9(1-r)(1+r) = 5</i><br>
+                    <i>9(1-r<sup>2</sup>) = 5</i>
+                </div>
+            </details>
+            <details>
+                <summary>Step 3: Solve for r.</summary>
+                <div class="details-content">
+                    <i>1 - r<sup>2</sup> = 5/9</i><br>
+                    <i>r<sup>2</sup> = 1 - 5/9 = 4/9</i><br>
+                    <i>r = ±<span class="hidden">2/3</span></i>
+                </div>
+            </details>
+        </div>
+
+        <h2 class="section-title">Long Questions (PAPER 2)</h2>
+        <h3>12.1 Arithmetic Progression</h3>
+        
+        <div class="question-block">
+            <p class="question-title">2. A circle is divided into 8 sectors such that the sequence of the angles forms an AP... </p>
+             <details>
+                <summary>(a) Find the common difference and the angle of the largest sector.</summary>
+                <div class="details-content">
+                    <i>n = 8, a = 10°,</i> Sum of angles in a circle <i>S<sub>8</sub> = 360°</i>.<br>
+                    <i>360 = <span class="frac"><span>8</span><span class="bottom">2</span></span>[2(10) + 7d] = 4(20 + 7d)</i><br>
+                    <i>90 = 20 + 7d => 7d = 70 => d = <span class="hidden">10°</span></i>.<br>
+                    Largest angle <i>T<sub>8</sub> = a + 7d = 10 + 7(10) = <span class="hidden">80°</span></i>.
+                </div>
+            </details>
+             <details>
+                <summary>(b) Find the sum of the angles of the first six sectors.</summary>
+                <div class="details-content">
+                   <i>S<sub>6</sub> = <span class="frac"><span>6</span><span class="bottom">2</span></span>[2(10) + 5(10)] = 3(20 + 50) = 3(70) = <span class="hidden">210°</span></i>.
+                </div>
+            </details>
+             <details>
+                <summary>(c) Find the area of the fourth sector if the area of the whole circle is 36π cm².</summary>
+                <div class="details-content">
+                    Angle of 4th sector, <i>T<sub>4</sub> = a + 3d = 10 + 3(10) = <span class="hidden">40°</span></i>.<br>
+                    <i>Area of sector = (Angle of sector / 360°) x Total Area</i><br>
+                    <i>Area = (<span class="frac"><span>40</span><span class="bottom">360</span></span>) x 36π = <span class="frac"><span>1</span><span class="bottom">9</span></span> x 36π = <span class="hidden">4π</span> cm²</i>.
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">4. There are two wires...</p>
+            <details>
+                <summary>(a) If the shorter wire is cut into 15 portions while the longer wire is cut into 25 portions, express a in terms of d.</summary>
+                 <div class="details-content">
+                    Let the common difference be -d since the lengths decrease.<br>
+                    <i>L<sub>short</sub> = S<sub>15</sub> = <span class="frac"><span>15</span><span class="bottom">2</span></span>[2a + 14(-d)] = 15(a-7d)</i><br>
+                    <i>L<sub>long</sub> = S<sub>25</sub> = <span class="frac"><span>25</span><span class="bottom">2</span></span>[2a + 24(-d)] = 25(a-12d)</i><br>
+                    Given <i>L<sub>long</sub> = L<sub>short</sub> + 110</i>:<br>
+                    <i>25(a-12d) = 15(a-7d) + 110</i><br>
+                    <i>25a - 300d = 15a - 105d + 110</i><br>
+                    <i>10a = 195d + 110 => a = <span class="hidden">19.5d + 11</span></i>
+                </div>
+            </details>
+            <details>
+                <summary>(b) If d=2, calculate the value of a. Hence, find the length of each of the two wires.</summary>
+                 <div class="details-content">
+                    <i>a = 19.5(2) + 11 = 39 + 11 = <span class="hidden">50</span></i><br>
+                    <i>L<sub>short</sub> = 15(50 - 7(2)) = 15(36) = <span class="hidden">540</span> cm</i><br>
+                    <i>L<sub>long</sub> = 25(50 - 12(2)) = 25(26) = <span class="hidden">650</span> cm</i>
+                </div>
+            </details>
+            <details>
+                <summary>(c) Which portion of the longer wire is 12 cm?</summary>
+                 <div class="details-content">
+                    We need to find n for the longer wire where <i>T<sub>n</sub> = 12</i>.<br>
+                    <i>T<sub>n</sub> = a + (n-1)(-d)</i><br>
+                    <i>12 = 50 + (n-1)(-2)</i><br>
+                    <i>-38 = (n-1)(-2)</i><br>
+                    <i>19 = n-1 => n = <span class="hidden">20</span></i>. It is the 20th portion.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">5. The diagram shows a piece of wire of length 156 cm is cut to form 8 equilateral triangles...</p>
+            <details>
+                <summary>(a) Find the perimeter of the smallest triangle.</summary>
+                 <div class="details-content">
+                    Let the side lengths be an AP: <i>a, a+1, a+2, ...</i><br>
+                    The perimeters form an AP: <i>3a, 3(a+1), 3(a+2), ...</i> with <i>a<sub>p</sub>=3a</i> and <i>d<sub>p</sub>=3</i>.<br>
+                    Total length <i>S<sub>8</sub> = 156</i>.<br>
+                    <i>156 = <span class="frac"><span>8</span><span class="bottom">2</span></span>[2(3a) + (8-1)(3)] = 4[6a + 21]</i><br>
+                    <i>39 = 6a + 21 => 18 = 6a => a=3</i>.<br>
+                    Perimeter of smallest triangle = <i>3a = <span class="hidden">9</span> cm</i>.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the number of complete triangles that can be formed if the length of wire used is 756 cm.</summary>
+                 <div class="details-content">
+                    The AP of perimeters is <i>9, 12, 15, ...</i> (<i>a=9, d=3</i>). We need <i>S<sub>n</sub> ≤ 756</i>.<br>
+                    <i><span class="frac"><span>n</span><span class="bottom">2</span></span>[2(9) + (n-1)(3)] ≤ 756</i><br>
+                    <i>n[18 + 3n - 3] ≤ 1512 => 3n<sup>2</sup> + 15n - 1512 ≤ 0 => n<sup>2</sup> + 5n - 504 ≤ 0</i><br>
+                    Using quadratic formula, roots are approx -25.1 and 20.1. So <i>(n-20.1)(n+25.1) ≤ 0</i>.<br>
+                    This holds for -25.1 ≤ n ≤ 20.1. The largest integer n is <span class="hidden">20</span>.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">6. (a) The four angles of a quadrilateral are in an AP... (b) Rashid wishes to build a single brick wall...</p>
+            <details>
+                <summary>(a) Find the values of all the four angles.</summary>
+                 <div class="details-content">
+                    <i>n=4</i>, Sum of angles <i>S<sub>4</sub> = 360°</i>. Let angles be <i>a, a+d, a+2d, a+3d</i>.<br>
+                    Largest angle <i>T<sub>4</sub> = 4 x Smallest angle T<sub>1</sub> => a+3d = 4a => 3d = 3a => d=a</i>.<br>
+                    <i>S<sub>4</sub> = <span class="frac"><span>4</span><span class="bottom">2</span></span>[2a + 3d] = 2(2a + 3a) = 10a</i>.<br>
+                    <i>10a = 360 => a = <span class="hidden">36°</span></i>. So <i>d=36°</i>.<br>
+                    Angles are 36°, 72°, 108°, 144°.
+                </div>
+            </details>
+            <details>
+                <summary>(b) If he has 250 bricks, how many rows can he complete and how many bricks has he left?</summary>
+                 <div class="details-content">
+                    AP of bricks per row: <i>1, 2, 3, ...</i> (<i>a=1, d=1</i>). Total bricks = 250. <i>S<sub>n</sub> ≤ 250</i>.<br>
+                    <i><span class="frac"><span>n</span><span class="bottom">2</span></span>[2(1) + (n-1)(1)] ≤ 250 => n(n+1) ≤ 500</i>.<br>
+                    <i>n<sup>2</sup> + n - 500 ≤ 0</i>. Roots are approx -22.8 and 21.8.<br>
+                    Largest integer n is <span class="hidden">21</span> rows.<br>
+                    Bricks used <i>S<sub>21</sub> = <span class="frac"><span>21</span><span class="bottom">2</span></span>(2 + 20) = 21 x 11 = 231</i>.<br>
+                    Bricks left = <i>250 - 231 = <span class="hidden">19</span></i>.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">7. During the year 2005, the sales of notebooks of a computer company increased at a constant rate...</p>
+            <details>
+                <summary>(a) Calculate the number of notebooks sold in January.</summary>
+                 <div class="details-content">
+                    <i>n=12</i> months, <i>d=150</i>, <i>S<sub>12</sub> = 27900</i>. We need to find a.<br>
+                    <i>27900 = <span class="frac"><span>12</span><span class="bottom">2</span></span>[2a + (12-1)(150)] = 6[2a + 1650]</i><br>
+                    <i>4650 = 2a + 1650 => 2a = 3000 => a = <span class="hidden">1500</span></i> notebooks.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Calculate the number of notebooks sold in December.</summary>
+                 <div class="details-content">
+                    We need to find T<sub>12</sub>.<br>
+                    <i>T<sub>12</sub> = a + 11d = 1500 + 11(150) = 1500 + 1650 = <span class="hidden">3150</span></i> notebooks.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">8. The six angles of a hexagon are in an AP...</p>
+            <details>
+                <summary>(a) Find the value of the smallest angle.</summary>
+                 <div class="details-content">
+                    <i>n=6</i>, Sum of angles <i>S<sub>6</sub> = (6-2)x180 = 720°</i>. <i>T<sub>6</sub> = 5T<sub>1</sub></i>.<br>
+                    <i>a+5d = 5a => 4a = 5d</i>.<br>
+                    <i>S<sub>6</sub> = <span class="frac"><span>6</span><span class="bottom">2</span></span>[2a + 5d] = 3[2a + 4a] = 18a</i>.<br>
+                    <i>18a = 720 => a = <span class="hidden">40°</span></i>.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the common difference.</summary>
+                 <div class="details-content">
+                    From <i>4a = 5d: 4(40) = 5d => 160 = 5d => d = <span class="hidden">32°</span></i>.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">9. The diagram shows a few inverted cones...</p>
+            <details>
+                <summary>(a) Calculate the volume of water that is filled into the eighth cone.</summary>
+                 <div class="details-content">
+                    Heights form an AP: <i>5, 6, 7,...</i> (<i>a=5, d=1</i>). Radius is fixed at <i>r=3</i>.<br>
+                    Volumes <i>V = <span class="frac"><span>1</span><span class="bottom">3</span></span>πr<sup>2</sup>h = 3πh</i>. Volumes also form an AP.<br>
+                    <i>V<sub>1</sub> = 3π(5) = 15π</i>. Common difference <i>d<sub>V</sub> = 3π(1) = 3π</i>.<br>
+                    Volume of 8th cone <i>V<sub>8</sub> = V<sub>1</sub> + 7d<sub>V</sub> = 15π + 7(3π) = 15π + 21π = <span class="hidden">36π</span> cm<sup>3</sup></i>.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the exact number of cones that can be filled if the available volume of water is 285π cm³.</summary>
+                 <div class="details-content">
+                    Sum of volumes <i>S<sub>n</sub> ≤ 285π</i>.<br>
+                    <i><span class="frac"><span>n</span><span class="bottom">2</span></span>[2(15π) + (n-1)(3π)] ≤ 285π</i>. Divide by π.<br>
+                    <i><span class="frac"><span>n</span><span class="bottom">2</span></span>[30 + 3n - 3] ≤ 285 => n(27+3n) ≤ 570 => 3n<sup>2</sup> + 27n - 570 ≤ 0</i>.<br>
+                    <i>n<sup>2</sup> + 9n - 190 ≤ 0</i>. Roots are approx -19.5 and 10.5.<br>
+                    So <i>(n-10.5)(n+19.5) ≤ 0</i>. This holds for -19.5 ≤ n ≤ 10.5.<br>
+                    The largest integer n is <span class="hidden">10</span> cones.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">10. The diagram shows a pattern that is made up of semicircles...</p>
+            <details>
+                <summary>(a) Which semicircle has a length of 19π cm?</summary>
+                 <div class="details-content">
+                    Radii form an AP: <i>3, 5, 7, ...</i> (<i>a<sub>r</sub>=3, d<sub>r</sub>=2</i>).<br>
+                    Arc lengths (πr) form an AP: <i>3π, 5π, 7π, ...</i> (<i>a<sub>L</sub>=3π, d<sub>L</sub>=2π</i>).<br>
+                    <i>T<sub>n</sub> = 19π</i>.<br>
+                    <i>3π + (n-1)(2π) = 19π</i>. Divide by π.<br>
+                    <i>3 + 2n - 2 = 19 => 2n = 18 => n=<span class="hidden">9</span></i>. The 9th semicircle.
+                </div>
+            </details>
+            <details>
+                <summary>(b) If the length of OR is 29 cm, find the total length of wire needed...</summary>
+                 <div class="details-content">
+                    The radius of the nth semicircle is <i>R<sub>n</sub> = 29</i>.<br>
+                    <i>3 + (n-1)2 = 29 => 2(n-1) = 26 => n-1=13 => n=<span class="hidden">14</span></i>.<br>
+                    Total wire length is sum of n arc lengths. <i>S<sub>14</sub></i> for arc lengths.<br>
+                    <i>S<sub>14</sub> = <span class="frac"><span>14</span><span class="bottom">2</span></span>[2(3π) + (14-1)(2π)] = 7[6π + 26π] = 7(32π) = <span class="hidden">224π</span> cm</i>.
+                </div>
+            </details>
+        </div>
+
+        <h3>12.2 Geometric Progression</h3>
+        
+        <div class="question-block">
+            <p class="question-title">11. Yuen Fun piles up 50 sen coins... </p>
+            <details>
+                <summary>(a) Find the number of coins in the 7th pile.</summary>
+                 <div class="details-content">
+                    Sequence of coins: <i>2, 4, ...</i> It's a GP with <i>a=2, r=2</i>.<br>
+                    <i>T<sub>7</sub> = ar<sup>6</sup> = 2 x 2<sup>6</sup> = 2<sup>7</sup> = <span class="hidden">128</span></i> coins.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the number of complete piles that can be obtained if Yuen Fun has 1500 coins.</summary>
+                 <div class="details-content">
+                    <i>S<sub>n</sub> ≤ 1500</i>.<br>
+                    <i><span class="frac"><span>2(2<sup>n</sup>-1)</span><span class="bottom">2-1</span></span> ≤ 1500 => 2<sup>n</sup>-1 ≤ 750 => 2<sup>n</sup> ≤ 751</i>.<br>
+                    <i>n log(2) ≤ log(751) => n(0.301) ≤ 2.875 => n ≤ 9.55</i>.<br>
+                    The largest integer n is <span class="hidden">9</span> piles.
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">12. The diagram shows 5 squares drawn in sequence...</p>
+            <details>
+                <summary>(a) Find the ratio of the length of the side of the second square to the length of the side of the first square.</summary>
+                 <div class="details-content">
+                    This is the common ratio, r.<br>
+                    <i>T<sub>4</sub>/T<sub>1</sub> = (xr<sup>3</sup>)/x = r<sup>3</sup> = 125/64</i>.<br>
+                    <i>r = <sup>3</sup>√(<span class="frac"><span>125</span><span class="bottom">64</span></span>) = <span class="hidden">5/4</span></i>.
+                </div>
+            </details>
+            <details>
+                <summary>(b) If the 5 squares are formed from a wire of length <i>131<span class="frac"><span>5</span><span class="bottom">16</span></span></i> cm, find the value of x.</summary>
+                 <div class="details-content">
+                    Total length is the sum of the perimeters. Perimeters form a GP: <i>4x, 4xr, ...</i><br>
+                    <i>S<sub>5</sub> for perimeters = <span class="frac"><span>4x((5/4)<sup>5</sup> - 1)</span><span class="bottom">5/4 - 1</span></span> = 131.3125 = 2101/16</i>.<br>
+                    <i><span class="frac"><span>4x(3.0517578125 - 1)</span><span class="bottom">0.25</span></span> = 16x(2.0517578125) = <span class="frac"><span>2101</span><span class="bottom">16</span></span></i>.<br>
+                    <i>16x(<span class="frac"><span>2101</span><span class="bottom">1024</span></span>) = <span class="frac"><span>2101</span><span class="bottom">16</span></span> => x/64 = 1/16 => x = 64/16 = <span class="hidden">4</span></i>.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">13. On 1 January 1990, Encik Shamsul opened a fixed deposit account...</p>
+            <details>
+                <summary>(a) Find the ratio of the amount of money on 1 Jan 1991 to the amount on 1 Jan 1990.</summary>
+                 <div class="details-content">
+                    <i>a = 10000</i>. Interest is 5%, so the amount is multiplied by 1.05 each year. This is the common ratio.<br>
+                    <i>r = <span class="hidden">1.05</span></i>.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the year in which there will be more than RM25 000 for the first time.</summary>
+                 <div class="details-content">
+                    <i>T<sub>n</sub> > 25000</i>, where n is the number of years from the start.<br>
+                    <i>10000(1.05)<sup>n-1</sup> > 25000 => (1.05)<sup>n-1</sup> > 2.5</i>.<br>
+                    <i>(n-1)log(1.05) > log(2.5) => (n-1)(0.0212) > 0.3979 => n-1 > 18.78</i>.<br>
+                    <i>n > 19.78</i>. Smallest integer n is 20.<br>
+                    This is the 20th year. The first year is 1990. The year is <i>1990 + 19 = <span class="hidden">2009</span></i>.
+                </div>
+            </details>
+        </div>
+
+        <div class="question-block">
+            <p class="question-title">14. A gardener has a task of cutting the grass of a lawn with an area of 1000 m²...</p>
+            <details>
+                <summary>(a) Find the area that is cut on the 10th day.</summary>
+                 <div class="details-content">
+                    <i>a=16, r=1.1</i>. We need <i>T<sub>10</sub></i>.<br>
+                    <i>T<sub>10</sub> = 16 x (1.1)<sup>9</sup> = 16 x 2.3579 = <span class="hidden">37.73</span> m²</i>.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the minimum number of days needed to complete the task.</summary>
+                 <div class="details-content">
+                    <i>S<sub>n</sub> ≥ 1000</i>.<br>
+                    <i><span class="frac"><span>16((1.1)<sup>n</sup> - 1)</span><span class="bottom">1.1 - 1</span></span> ≥ 1000 => 160((1.1)<sup>n</sup> - 1) ≥ 1000</i>.<br>
+                    <i>(1.1)<sup>n</sup> - 1 ≥ 6.25 => (1.1)<sup>n</sup> ≥ 7.25</i>.<br>
+                    <i>n log(1.1) ≥ log(7.25) => n(0.0414) ≥ 0.8603 => n ≥ 20.78</i>.<br>
+                    Minimum integer n is <span class="hidden">21</span> days.
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">15. A funding body gives financial aid to an old folks' home each year...</p>
+            <details>
+                <summary>(a) Find the year in which the aid given was RM8573.75.</summary>
+                 <div class="details-content">
+                    <i>a=10000, r=0.95</i>. <i>T<sub>n</sub> = 8573.75</i>.<br>
+                    <i>10000(0.95)<sup>n-1</sup> = 8573.75 => (0.95)<sup>n-1</sup> = 0.857375</i>.<br>
+                    <i>(n-1)log(0.95) = log(0.857375) => (n-1)(-0.02228) = -0.0668 => n-1 = 3</i>.<br>
+                    <i>n=4</i>. The 4th year is <i>2001+3 = <span class="hidden">2004</span></i>.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the number of years when the total amount of aid exceeds RM70 000 for the first time.</summary>
+                 <div class="details-content">
+                    <i>S<sub>n</sub> > 70000</i>.<br>
+                    <i><span class="frac"><span>10000(1 - 0.95<sup>n</sup>)</span><span class="bottom">1-0.95</span></span> > 70000 => 200000(1 - 0.95<sup>n</sup>) > 70000</i>.<br>
+                    <i>1 - 0.95<sup>n</sup> > 0.35 => 0.65 > 0.95<sup>n</sup></i>.<br>
+                    <i>log(0.65) > n log(0.95) => -0.187 > n(-0.02228) => 8.39 < n</i>.<br>
+                    Smallest integer n is <span class="hidden">9</span> years.
+                </div>
+            </details>
+        </div>
+        
+        <div class="question-block">
+            <p class="question-title">16. The diagram shows three of a series of containers to be filled with marbles...</p>
+            <details>
+                <summary>(a) Find the number of containers that can be filled by marbles.</summary>
+                 <div class="details-content">
+                    <i>a=2, r=2</i>. Total marbles = 700. <i>S<sub>n</sub> ≤ 700</i>.<br>
+                    <i><span class="frac"><span>2(2<sup>n</sup>-1)</span><span class="bottom">2-1</span></span> ≤ 700 => 2<sup>n</sup>-1 ≤ 350 => 2<sup>n</sup> ≤ 351</i>.<br>
+                    <i>n log(2) ≤ log(351) => n ≤ 8.45</i>. Largest integer n is <span class="hidden">8</span> containers.
+                </div>
+            </details>
+            <details>
+                <summary>(b) Find the number of marbles that cannot be filled into any container.</summary>
+                 <div class="details-content">
+                    Marbles used <i>S<sub>8</sub> = 2(2<sup>8</sup>-1) = 2(255) = 510</i>.<br>
+                    Marbles left = <i>700 - 510 = <span class="hidden">190</span></i>.
+                </div>
+            </details>
+        </div>
+
+        <h3>12.3 Sum to Infinity of a Geometric Progression</h3>
+
+        <div class="question-block">
+            <p class="question-title">17. Stannum is extracted from tin ore obtained from a certain mine...</p>
+            <details>
+                <summary>(a) Calculate the maximum amount of stannum which could possibly be extracted...</summary>
+                 <div class="details-content">
+                    <i>a = 20000 kg</i>. Decreases by 8%, so <i>r = 1 - 0.08 = 0.92</i>.<br>
+                    Maximum amount is the sum to infinity <i>S<sub>∞</sub></i>.<br>
+                    <i>S<sub>∞</sub> = <span class="frac"><span>a</span><span class="bottom">1-r</span></span> = <span class="frac"><span>20000</span><span class="bottom">1-0.92</span></span> = <span class="frac"><span>20000</span><span class="bottom">0.08</span></span> = <span class="hidden">250000</span> kg</i>.
+                </div>
+            </details>
+            <details>
+                <summary>(b) For economic reasons, mining is abandoned once the annual output falls below 2000 kg. Calculate the number of years the mining is in operation.</summary>
+                 <div class="details-content">
+                    We need to find when <i>T<sub>n</sub> < 2000</i>.<br>
+                    <i>20000(0.92)<sup>n-1</sup> < 2000 => (0.92)<sup>n-1</sup> < 0.1</i>.<br>
+                    <i>(n-1)log(0.92) < log(0.1) => (n-1)(-0.0362) < -1</i>.<br>
+                    <i>n-1 > <span class="frac"><span>-1</span><span class="bottom">-0.0362</span></span> => n-1 > 27.6</i>.<br>
+                    <i>n > 28.6</i>. Smallest integer n is 29. This is the first year the output is too low.<br>
+                    So, mining is in operation for <span class="hidden">28</span> years.
+                </div>
+            </details>
+        </div>
+
+    </div>
+</body>
+</html>
+
