@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratics Problems - Step-by-Step Guidance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question-block {
+            border-left: 4px solid #5b9bd5;
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2e75b5;
+        }
+        h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        .step-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e9ecef;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .equation {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            white-space: nowrap; /* This is the key property */
+            overflow-x: auto;   /* Add scrollbar if content is too wide */
+            margin: 5px 0;
+        }
+        .hidden {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.2em;
+        }
+        .fraction .numerator {
+            border-bottom: 1px solid #000;
+            padding: 0 5px;
+        }
+        .fraction .denominator {
+            padding: 0 5px;
+        }
+        .sqrt {
+            display: inline-flex;
+            align-items: center;
+        }
+        .vinculum {
+            border-top: 1px solid #000;
+            padding: 0 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chapter 4: Quadratics - Guided Practice</h1>
+
+        <!-- Question 1 -->
+        <div class="question-block">
+            <h2>Question 1: <code>f(x) = 4x² - 8x + 7</code></h2>
+            <h3>(a) Find <code>l, m, n</code> for <code>f(x) = l(x - m)² + n</code></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Factor out the coefficient of x² from the first two terms.
+                <div class="equation">f(x) = 4(x² - 2x) + 7</div>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Complete the square for the expression inside the brackets.
+                <div class="equation">f(x) = 4[(x - <span class="hidden">?</span>)² - (<span class="hidden">?</span>)²] + 7</div>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Expand and simplify to get the final form.
+                <div class="equation">f(x) = 4(x - 1)² - 4 + 7 = 4(x - 1)² + <span class="hidden">?</span></div>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 4:</span> Identify the values of l, m, and n.
+                <p><code>l = <span class="hidden">?</span></code>, <code>m = <span class="hidden">?</span></code>, <code>n = <span class="hidden">?</span></code></p>
+            </div>
+            <h3>(b) Find the minimum value and where it occurs.</h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> The minimum value of f(x) is the constant term 'n'.
+                <p>Minimum value = <code><span class="hidden">?</span></code></p>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> This minimum occurs at <code>x = m</code>.
+                <p>Value of x = <code><span class="hidden">?</span></code></p>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-block">
+            <h2>Question 2: Roots of <code>2x² + 6x - 7 = 0</code> are α and β.</h2>
+            <h3>(b) Find the value of α³ + β³</h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the sum (α + β) and product (αβ) of the roots.
+                <div class="equation">α + β = -<div class="fraction"><div class="numerator">6</div><div class="denominator">2</div></div> = <span class="hidden">?</span></div>
+                <div class="equation">αβ = -<div class="fraction"><div class="numerator">7</div><div class="denominator">2</div></div></div>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Use the identity <code>α³ + β³ = (α + β)((α + β)² - 3αβ)</code>.
+                <div class="equation">α³ + β³ = (-3)((-3)² - 3(-<div class="fraction"><div class="numerator">7</div><div class="denominator">2</div></div>)) = (-3)(9 + <span class="hidden">?</span>) = -<div class="fraction"><div class="numerator">117</div><div class="denominator">2</div></div></div>
+            </div>
+             <h3>(c) Show that α - β = <span class="sqrt">&radic;<span class="vinculum">23</span></span></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Use the identity <code>(α - β)² = (α + β)² - 4αβ</code>.
+                <div class="equation">(α - β)² = (-3)² - 4(-<div class="fraction"><div class="numerator">7</div><div class="denominator">2</div></div>) = 9 + <span class="hidden">?</span> = 23</div>
+                 <div class="equation">α - β = <span class="sqrt">&radic;<span class="vinculum"><span class="hidden">?</span></span></span></div>
+            </div>
+             <h3>(d) Find the exact value of α³ - β³</h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Use the identity <code>α³ - β³ = (α - β)((α + β)² - αβ)</code>.
+                <div class="equation">α³ - β³ = (<span class="sqrt">&radic;<span class="vinculum">23</span></span>)((-3)² - (-<div class="fraction"><div class="numerator">7</div><div class="denominator">2</div></div>)) = (<span class="sqrt">&radic;<span class="vinculum">23</span></span>)(9 + <span class="hidden">?</span>) = <div class="fraction"><div class="numerator">25</div><div class="denominator">2</div></div><span class="sqrt">&radic;<span class="vinculum">23</span></span></div>
+            </div>
+        </div>
+        
+        <!-- Question 3 -->
+        <div class="question-block">
+            <h2>Question 3: Roots of <code>3x² - 5x - 4 = 0</code> are α and β.</h2>
+            <h3>(a i) Form an equation with roots <code>α/β</code> and <code>β/α</code>.</h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the sum and product of the original roots.
+                <div class="equation">α + β = <div class="fraction"><div class="numerator">5</div><div class="denominator">3</div></div></div>
+                <div class="equation">αβ = -<div class="fraction"><div class="numerator">4</div><div class="denominator">3</div></div></div>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Calculate the sum of the new roots.
+                <div class="equation">Sum = <div class="fraction"><div class="numerator">α</div><div class="denominator">β</div></div> + <div class="fraction"><div class="numerator">β</div><div class="denominator">α</div></div> = <div class="fraction"><div class="numerator">(α + β)² - 2αβ</div><div class="denominator">αβ</div></div> = -<div class="fraction"><div class="numerator">49</div><div class="denominator">12</div></div></div>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Calculate the product of the new roots.
+                <div class="equation">Product = <div class="fraction"><div class="numerator">α</div><div class="denominator">β</div></div> &times; <div class="fraction"><div class="numerator">β</div><div class="denominator">α</div></div> = <span class="hidden">?</span></div>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 4:</span> Form the new equation and clear fractions.
+                <div class="equation">x² - (-<div class="fraction"><div class="numerator">49</div><div class="denominator">12</div></div>)x + 1 = 0 &rArr; <span class="hidden">?</span>x² + 49x + <span class="hidden">?</span> = 0</div>
+            </div>
+            <h3>(c) Show that <code>f(x) = -8</code> has no real roots.</h3>
+             <div class="step">
+                <span class="step-label">Step 1:</span> Express f(x) in completed square form.
+                <div class="equation">f(x) = 3(x - <div class="fraction"><div class="numerator">5</div><div class="denominator">6</div></div>)² - <div class="fraction"><div class="numerator">73</div><div class="denominator">12</div></div></div>
+             </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> Set this expression equal to -8 and solve for the squared term.
+                <div class="equation">3(x - <div class="fraction"><div class="numerator">5</div><div class="denominator">6</div></div>)² = <div class="fraction"><div class="numerator">73</div><div class="denominator">12</div></div> - 8 = -<div class="fraction"><div class="numerator">23</div><div class="denominator">12</div></div></div>
+                <p>Since a squared term cannot be negative, there are no real roots.</p>
+             </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-block">
+            <h2>Question 4: Roots of <code>3x² - 4x + 6 = 0</code> are α and β.</h2>
+            <h3>(b) Show that α³ + β³ = -152/27</h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the sum and product of the roots.
+                <div class="equation">α + β = <div class="fraction"><div class="numerator">4</div><div class="denominator">3</div></div></div>
+                <div class="equation">αβ = 2</div>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Use the identity <code>α³ + β³ = (α + β)³ - 3αβ(α + β)</code>.
+                <div class="equation">α³ + β³ = (<div class="fraction"><div class="numerator">4</div><div class="denominator">3</div></div>)³ - 3(2)(<div class="fraction"><div class="numerator">4</div><div class="denominator">3</div></div>) = <div class="fraction"><div class="numerator">64</div><div class="denominator">27</div></div> - <span class="hidden">?</span> = -<div class="fraction"><div class="numerator">152</div><div class="denominator">27</div></div></div>
+            </div>
+            <h3>(c) Form an equation with roots α/β² and β/α².</h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Calculate the sum of the new roots.
+                <div class="equation">Sum = <div class="fraction"><div class="numerator">α³ + β³</div><div class="denominator">(αβ)²</div></div> = <div class="fraction"><div class="numerator">-152/27</div><div class="denominator">2²</div></div> = -<div class="fraction"><div class="numerator">38</div><div class="denominator">27</div></div></div>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> Calculate the product of the new roots.
+                <div class="equation">Product = <div class="fraction"><div class="numerator">1</div><div class="denominator">αβ</div></div> = <span class="hidden">?</span></div>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 3:</span> Form the new equation and clear fractions.
+                <div class="equation">x² - (-<div class="fraction"><div class="numerator">38</div><div class="denominator">27</div></div>)x + <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div> = 0 &rArr; <span class="hidden">?</span>x² + 76x + <span class="hidden">?</span> = 0</div>
+            </div>
+        </div>
+
+         <!-- Question 6 -->
+        <div class="question-block">
+             <h2>Question 6: <code>f(x) = 6 + 5x - 2x²</code></h2>
+             <h3>(a) Write f(x) in the form p(x+q)²+r</h3>
+             <div class="step">
+                <span class="step-label">Step 1:</span> Rearrange and factor out the leading coefficient.
+                <div class="equation">f(x) = -2(x² - <div class="fraction"><div class="numerator">5</div><div class="denominator">2</div></div>x) + 6</div>
+             </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> Complete the square inside the brackets.
+                <div class="equation">f(x) = -2[(x - <div class="fraction"><div class="numerator">5</div><div class="denominator">4</div></div>)² - (<div class="fraction"><div class="numerator">5</div><div class="denominator">4</div></div>)²] + 6</div>
+             </div>
+             <div class="step">
+                <span class="step-label">Step 3:</span> Expand and simplify.
+                <div class="equation">f(x) = -2(x - <div class="fraction"><div class="numerator">5</div><div class="denominator">4</div></div>)² + <div class="fraction"><div class="numerator">25</div><div class="denominator">8</div></div> + 6 = -2(x - <div class="fraction"><div class="numerator">5</div><div class="denominator">4</div></div>)² + <div class="fraction"><div class="numerator">73</div><div class="denominator">8</div></div></div>
+             </div>
+             <h3>(b) Find the maximum value of f(x) and where it occurs.</h3>
+             <div class="step">
+                 <p>Maximum value = <code><span class="hidden">?</span></code></p>
+                 <p>Value of x = <code><span class="hidden">?</span></code></p>
+             </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-block">
+             <h2>Question 8: <code>f(x) = 2x² + 7x - 4</code></h2>
+             <h3>(c) Find the set of possible values of p for which <code>f(x) = px - 6</code> has unequal real roots.</h3>
+             <div class="step">
+                <span class="step-label">Step 1:</span> Set the expressions equal and form a quadratic equation.
+                <div class="equation">2x² + (7 - p)x + <span class="hidden">?</span> = 0</div>
+             </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> For unequal real roots, the discriminant must be greater than 0.
+                <div class="equation">(7 - p)² - 4(2)(2) > 0</div>
+             </div>
+             <div class="step">
+                <span class="step-label">Step 3:</span> Simplify the inequality.
+                <div class="equation">p² - 14p + 33 > 0</div>
+             </div>
+             <div class="step">
+                <span class="step-label">Step 4:</span> Find the critical values by solving <code>p² - 14p + 33 = 0</code>.
+                <div class="equation">(p - <span class="hidden">?</span>)(p - <span class="hidden">?</span>) = 0 &rArr; p = 3, 11</div>
+             </div>
+             <div class="step">
+                <span class="step-label">Step 5:</span> Determine the solution set for the inequality.
+                <p><code>p < <span class="hidden">?</span></code> or <code>p > <span class="hidden">?</span></code></p>
+             </div>
+        </div>
+    </div>
+</body>
+</html>
+

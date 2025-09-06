@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logarithm Problems - Step-by-Step Guidance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question-block {
+            border-left: 4px solid #5b9bd5;
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2e75b5;
+        }
+        h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        .step-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e9ecef;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .hidden {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .fraction .numerator {
+            border-bottom: 1px solid #000;
+            padding: 0 5px;
+        }
+        .fraction .denominator {
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chapter 3: Logarithms - Guided Practice</h1>
+
+        <!-- Question 1 -->
+        <div class="question-block">
+            <h2>Question 1</h2>
+
+            <h3>(a) Solve <code>log<sub>x</sub> 1024 = 5</code></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Convert the logarithm into its equivalent exponential form. The base is <code>x</code>, the exponent is <code>5</code>.
+                <p><code>x<sup>5</sup> = 1024</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Find the fifth root of 1024 to solve for <code>x</code>.
+                <p><code>x = <sup>5</sup>&radic;1024</code></p>
+                <p><code>x = <span class="hidden">?</span></code></p>
+            </div>
+
+            <h3>(b) Solve <code>log<sub>3</sub>(7y - 3) = 4</code></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Convert the equation from logarithmic to exponential form.
+                <p><code>7y - 3 = 3<sup>4</sup></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Calculate the value of 3<sup>4</sup>.
+                <p><code>7y - 3 = <span class="hidden">?</span></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Solve the resulting linear equation for <code>y</code>.
+                <p><code>7y = <span class="hidden">?</span></code></p>
+                <p><code>y = <span class="hidden">?</span></code></p>
+            </div>
+
+            <h3>(c) Solve <code>log<sub>a</sub> 25 + 2 log<sub>a</sub> 625 = 10</code></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Express the numbers 25 and 625 as powers of 5.
+                <p><code>log<sub>a</sub>(5<sup>2</sup>) + 2 log<sub>a</sub>(5<sup>4</sup>) = 10</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Apply the power law of logarithms (<code>log(m<sup>n</sup>) = n log(m)</code>) to both terms.
+                <p><code>2 log<sub>a</sub> 5 + 2(<span class="hidden">?</span> log<sub>a</sub> 5) = 10</code></p>
+                <p><code>2 log<sub>a</sub> 5 + <span class="hidden">?</span> log<sub>a</sub> 5 = 10</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Combine the like terms on the left side.
+                <p><code><span class="hidden">?</span> log<sub>a</sub> 5 = 10</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 4:</span> Solve for <code>log<sub>a</sub> 5</code>.
+                <p><code>log<sub>a</sub> 5 = <span class="hidden">?</span></code></p>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 5:</span> Convert to exponential form and find <code>a</code>.
+                <p><code>a<sup>?</sup> = 5</code></p>
+                <p><code>a = <span class="hidden">?</span></code></p>
+            </div>
+
+            <h3>(d) Solve <code>log<sub>b</sub> 7 - 2 log<sub>7</sub> b + 1 = 0</code></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Use the change of base formula, <code>log<sub>x</sub> y = 1 / log<sub>y</sub> x</code>, to make the bases the same. Let's use base 7.
+                <p><code><div class="fraction"><div class="numerator">1</div><div class="denominator">log<sub>7</sub> b</div></div> - 2 log<sub>7</sub> b + 1 = 0</code></p>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> To make this easier to solve, let <code>u = log<sub>7</sub> b</code> and substitute it into the equation.
+                <p><code><div class="fraction"><div class="numerator">1</div><div class="denominator">u</div></div> - 2u + 1 = 0</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Multiply the entire equation by <code>u</code> to eliminate the fraction and form a quadratic equation.
+                <p><code>1 - <span class="hidden">?</span>u<sup>2</sup> + u = 0</code></p>
+                <p>Rearrange it: <code>2u<sup>2</sup> - u - 1 = 0</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 4:</span> Factorize the quadratic equation to find the possible values for <code>u</code>.
+                <p><code>(<span class="hidden">?</span>u + <span class="hidden">?</span>)(u - <span class="hidden">?</span>) = 0</code></p>
+                <p>So, <code>u = 1</code> or <code>u = -<div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 5:</span> Substitute <code>log<sub>7</sub> b</code> back in for <code>u</code> and solve for <code>b</code> in both cases.
+                <p>Case 1: <code>log<sub>7</sub> b = 1</code> &rArr; <code>b = <span class="hidden">?</span></code></p>
+                <p>Case 2: <code>log<sub>7</sub> b = -<div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div></code> &rArr; <code>b = 7<sup>-1/2</sup></code> &rArr; <code>b = <span class="hidden">?</span></code> (to 3 s.f.)</p>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-block">
+            <h2>Question 2</h2>
+            <h3>(a) Given <code>2 log<sub>y</sub> x + 2 log<sub>x</sub> y = 5</code>, show that <code>log<sub>y</sub> x = <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div></code> or <code>log<sub>y</sub> x = 2</code>.</h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Use the change of base formula on the second term to make the bases consistent.
+                <p><code>2 log<sub>y</sub> x + 2 <div class="fraction"><div class="numerator">1</div><div class="denominator">log<sub>y</sub> x</div></div> = 5</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Let <code>u = log<sub>y</sub> x</code> and substitute to form an algebraic equation.
+                <p><code>2u + <div class="fraction"><div class="numerator">2</div><div class="denominator">u</div></div> = 5</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Multiply by <code>u</code> to clear the fraction and form a quadratic equation.
+                <p><code><span class="hidden">?</span>u<sup>2</sup> + 2 = <span class="hidden">?</span>u</code></p>
+                <p><code>2u<sup>2</sup> - 5u + 2 = 0</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 4:</span> Factorize the quadratic equation to find the values of <code>u</code>.
+                <p><code>(2u - <span class="hidden">?</span>)(u - <span class="hidden">?</span>) = 0</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 5:</span> The solutions for <code>u</code> are the solutions for <code>log<sub>y</sub> x</code>.
+                <p><code>u = <span class="hidden">?</span></code> or <code>u = <span class="hidden">?</span></code></p>
+                <p>Therefore, <code>log<sub>y</sub> x = <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div></code> or <code>log<sub>y</sub> x = 2</code>.</p>
+            </div>
+            
+            <h3>(b) Hence, solve the equations <code>xy = 27</code> and <code>2 log<sub>y</sub> x + 2 log<sub>x</sub> y = 5</code>.</h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> From part (a), we have two cases. Let's start with Case 1: <code>log<sub>y</sub> x = 2</code>.
+            </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> Convert this to exponential form.
+                 <p><code>x = y<sup><span class="hidden">?</span></sup></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Substitute this expression for <code>x</code> into the other equation, <code>xy = 27</code>.
+                <p><code>(y<sup><span class="hidden">?</span></sup>)y = 27</code></p>
+                <p><code>y<sup><span class="hidden">?</span></sup> = 27</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 4:</span> Solve for <code>y</code>, then substitute back to find <code>x</code>.
+                <p><code>y = <span class="hidden">?</span></code></p>
+                <p><code>x = (<span class="hidden">?</span>)<sup>2</sup> = <span class="hidden">?</span></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 5:</span> Now for Case 2: <code>log<sub>y</sub> x = <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div></code>. Convert this to exponential form.
+                <p><code>x = y<sup>1/2</sup></code> or <code>x = &radic;y</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 6:</span> Substitute this into <code>xy = 27</code>.
+                <p><code>(y<sup>1/2</sup>)y = 27</code></p>
+                <p><code>y<sup><span class="hidden">?</span></sup> = 27</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 7:</span> Solve for <code>y</code>, then find the corresponding value for <code>x</code>.
+                <p><code>y = <span class="hidden">?</span></code></p>
+                <p><code>x = (<span class="hidden">?</span>)<sup>1/2</sup> = <span class="hidden">?</span></code></p>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-block">
+            <h2>Question 3</h2>
+
+            <h3>(a) Solve <code>log<sub>a</sub> 1024 = 5</code></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Convert the logarithmic equation to its exponential form.
+                <p><code>a<sup>5</sup> = 1024</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Find the fifth root of 1024 to determine the value of <code>a</code>.
+                <p><code>a = <sup>5</sup>&radic;1024</code></p>
+                <p><code>a = <span class="hidden">?</span></code></p>
+            </div>
+
+            <h3>(b) Solve <code>log<sub>3</sub>(6c + 9) = 4</code></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Change the equation from logarithmic form to exponential form.
+                <p><code>6c + 9 = 3<sup>4</sup></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Evaluate the power of 3.
+                <p><code>6c + 9 = <span class="hidden">?</span></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Solve the linear equation for <code>c</code>.
+                <p><code>6c = <span class="hidden">?</span></code></p>
+                <p><code>c = <span class="hidden">?</span></code></p>
+            </div>
+
+            <h3>(c) Solve <code>2(log<sub>b</sub> 25 + log<sub>b</sub> 125) = 5</code></h3>
+             <div class="step">
+                <span class="step-label">Step 1:</span> Express 25 and 125 as powers of 5.
+                <p><code>2(log<sub>b</sub> 5<sup>2</sup> + log<sub>b</sub> 5<sup>3</sup>) = 5</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Apply the power law for logarithms.
+                <p><code>2(<span class="hidden">?</span> log<sub>b</sub> 5 + <span class="hidden">?</span> log<sub>b</sub> 5) = 5</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Simplify the expression inside the parentheses.
+                <p><code>2(<span class="hidden">?</span> log<sub>b</sub> 5) = 5</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 4:</span> Continue simplifying to solve for <code>log<sub>b</sub> 5</code>.
+                <p><code><span class="hidden">?</span> log<sub>b</sub> 5 = 5</code></p>
+                <p><code>log<sub>b</sub> 5 = <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 5:</span> Convert to exponential form and solve for <code>b</code>.
+                <p><code>b<sup>1/2</sup> = 5</code></p>
+                <p><code>b = <span class="hidden">?</span></code></p>
+            </div>
+
+            <h3>(d) Solve the equations: <code>3 log<sub>2</sub> x + 4 log<sub>3</sub> y = 10</code> and <code>log<sub>2</sub> x - 2 log<sub>3</sub> y = 1</code></h3>
+            <div class="step">
+                <span class="step-label">Step 1:</span> You have a system of two linear equations. Let's use the elimination method.
+                <p>Eq 1: <code>3 log<sub>2</sub> x + 4 log<sub>3</sub> y = 10</code></p>
+                <p>Eq 2: <code>log<sub>2</sub> x - 2 log<sub>3</sub> y = 1</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Multiply Equation 2 by 2 so the coefficients of <code>log<sub>3</sub> y</code> are opposites.
+                <p><code><span class="hidden">?</span> log<sub>2</sub> x - <span class="hidden">?</span> log<sub>3</sub> y = <span class="hidden">?</span></code> (New Eq 3)</p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Add Equation 1 and the new Equation 3 to eliminate <code>log<sub>3</sub> y</code>.
+                <p><code><span class="hidden">?</span> log<sub>2</sub> x = <span class="hidden">?</span></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 4:</span> Solve for <code>log<sub>2</sub> x</code>.
+                <p><code>log<sub>2</sub> x = <div class="fraction"><div class="numerator">12</div><div class="denominator">5</div></div> = 2.4</code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 5:</span> Substitute this value back into Equation 2 to find <code>log<sub>3</sub> y</code>.
+                <p><code>2.4 - 2 log<sub>3</sub> y = 1</code></p>
+                <p><code><span class="hidden">?</span> = 2 log<sub>3</sub> y</code></p>
+                <p><code>log<sub>3</sub> y = <span class="hidden">?</span></code></p>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 6:</span> Convert the logarithmic results to exponential form to find <code>x</code> and <code>y</code> (round to 3 significant figures).
+                <p><code>x = 2<sup>2.4</sup></code> &rArr; <code>x = <span class="hidden">?</span></code></p>
+                <p><code>y = 3<sup>0.7</sup></code> &rArr; <code>y = <span class="hidden">?</span></code></p>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
+
