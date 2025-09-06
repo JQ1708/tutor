@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics Guidance: Indices and Logarithms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .question-block {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .question-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        .step {
+            margin-bottom: 12px;
+        }
+        summary {
+            cursor: pointer;
+            list-style: none;
+            padding-left: 20px;
+            position: relative;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary:before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #0056b3;
+        }
+        details[open] > summary:before {
+            content: '▼';
+        }
+        .step-content {
+            padding-left: 20px;
+            margin-top: 10px;
+            border-left: 2px solid #e0e0e0;
+        }
+        .hidden {
+            background-color: #333;
+            color: #333;
+            border-radius: 3px;
+            padding: 0 5px;
+            user-select: none;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .intro p {
+            font-size: 1.1em;
+            color: #555;
+        }
+        .frac {
+          display: inline-block;
+          position: relative;
+          vertical-align: middle;
+          letter-spacing: 0.001em;
+          text-align: center;
+        }
+        .frac > span {
+          display: block;
+          padding: 0.1em;
+        }
+        .frac span.bottom {
+          border-top: 1px solid #000;
+        }
+        .sqrt {
+            white-space: nowrap;
+        }
+        .overline {
+            text-decoration: overline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="intro">
+            <h1>Mathematics Guidance: Indices and Logarithms</h1>
+            <p>Here is a step-by-step guide for the selected questions. Click on each step to reveal the details.</p>
+        </div>
+
+        <!-- Section 5.1 -->
+        <h2>5.1 Indices and Laws of Indices</h2>
+        <div class="question-block">
+            <p class="question-title">1. Simplify <span class="frac"><span>5<sup>4n+2</sup> &times; 25<sup>n</sup></span><span class="bottom">5<sup>6n-1</sup></span></span></p>
+            <details class="step"><summary>Step 1: Express all terms in the same base (base 5). Note that 25 = 5<sup>2</sup>.</summary><div class="step-content"><span class="frac"><span>5<sup>4n+2</sup> &times; (5<sup>2</sup>)<sup>n</sup></span><span class="bottom">5<sup>6n-1</sup></span></span> = <span class="frac"><span>5<sup>4n+2</sup> &times; 5<sup>2n</sup></span><span class="bottom">5<sup>6n-1</sup></span></span></div></details>
+            <details class="step"><summary>Step 2: Simplify the numerator using the law a<sup>m</sup> &times; a<sup>n</sup> = a<sup>m+n</sup>.</summary><div class="step-content">= <span class="frac"><span>5<sup>(4n+2) + 2n</sup></span><span class="bottom">5<sup>6n-1</sup></span></span> = <span class="frac"><span>5<sup><span class="hidden">6</span>n+2</sup></span><span class="bottom">5<sup>6n-1</sup></span></span></div></details>
+            <details class="step"><summary>Step 3: Simplify the fraction using the law <span class="frac"><span>a<sup>m</sup></span><span class="bottom">a<sup>n</sup></span></span> = a<sup>m-n</sup>.</summary><div class="step-content">= 5<sup>(6n+2) - (6n-1)</sup> = 5<sup>6n+2 - 6n + 1</sup> = 5<sup><span class="hidden">3</span></sup></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">2. Express 5<sup>n+2</sup> - 5<sup>n+1</sup> - 5<sup>n</sup> in the simplest form.</p>
+            <details class="step"><summary>Step 1: Split the terms using the law a<sup>m+n</sup> = a<sup>m</sup> &times; a<sup>n</sup>.</summary><div class="step-content">= (5<sup>n</sup> &times; 5<sup>2</sup>) - (5<sup>n</sup> &times; 5<sup>1</sup>) - 5<sup>n</sup></div></details>
+            <details class="step"><summary>Step 2: Factor out the common term, 5<sup>n</sup>.</summary><div class="step-content">= 5<sup>n</sup> &times; (5<sup>2</sup> - 5<sup>1</sup> - <span class="hidden">1</span>)</div></details>
+            <details class="step"><summary>Step 3: Calculate the value inside the bracket.</summary><div class="step-content">= 5<sup>n</sup> &times; (25 - 5 - 1) = 5<sup>n</sup> &times; (<span class="hidden">19</span>)</div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">3. If <span class="frac"><span>5<sup>6n</sup> &times; 9<sup>4n</sup> &times; 15<sup>2n</sup></span><span class="bottom">3<sup>2n</sup></span></span> = k<sup>8n</sup>, find k.</p>
+            <details class="step"><summary>Step 1: Express all bases as prime numbers (3 and 5).</summary><div class="step-content"><span class="frac"><span>5<sup>6n</sup> &times; (3<sup>2</sup>)<sup>4n</sup> &times; (3 &times; 5)<sup>2n</sup></span><span class="bottom">3<sup>2n</sup></span></span> = <span class="frac"><span>5<sup>6n</sup> &times; 3<sup><span class="hidden">8</span>n</sup> &times; 3<sup>2n</sup> &times; 5<sup>2n</sup></span><span class="bottom">3<sup>2n</sup></span></span></div></details>
+            <details class="step"><summary>Step 2: Group terms with the same base and simplify.</summary><div class="step-content">= 5<sup>6n+2n</sup> &times; 3<sup>8n+2n-2n</sup> = 5<sup><span class="hidden">8</span>n</sup> &times; 3<sup><span class="hidden">8</span>n</sup></div></details>
+            <details class="step"><summary>Step 3: Combine the terms using the law (a &times; b)<sup>m</sup> = a<sup>m</sup> &times; b<sup>m</sup>.</summary><div class="step-content">= (5 &times; 3)<sup>8n</sup> = 15<sup>8n</sup>. By comparison, k = <span class="hidden">15</span>.</div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">4. Simplify <span class="frac"><span>25<sup>m</sup> &times; 10<sup>m+1</sup></span><span class="bottom">2<sup>m-1</sup> &times; 5<sup>2+3m</sup></span></span></p>
+            <details class="step"><summary>Step 1: Express all bases as prime numbers (2 and 5).</summary><div class="step-content"><span class="frac"><span>(5<sup>2</sup>)<sup>m</sup> &times; (2 &times; 5)<sup>m+1</sup></span><span class="bottom">2<sup>m-1</sup> &times; 5<sup>2+3m</sup></span></span> = <span class="frac"><span>5<sup>2m</sup> &times; 2<sup>m+1</sup> &times; 5<sup>m+1</sup></span><span class="bottom">2<sup>m-1</sup> &times; 5<sup>2+3m</sup></span></span></div></details>
+            <details class="step"><summary>Step 2: Group terms with base 2 and base 5.</summary><div class="step-content">= <span class="frac"><span>2<sup>m+1</sup></span><span class="bottom">2<sup>m-1</sup></span></span> &times; <span class="frac"><span>5<sup>2m</sup> &times; 5<sup>m+1</sup></span><span class="bottom">5<sup>2+3m</sup></span></span> = 2<sup>(m+1) - (m-1)</sup> &times; 5<sup>(2m+m+1) - (2+3m)</sup></div></details>
+            <details class="step"><summary>Step 3: Simplify the powers.</summary><div class="step-content">= 2<sup><span class="hidden">2</span></sup> &times; 5<sup><span class="hidden">-1</span></sup> = <span class="frac"><span>4</span><span class="bottom">5</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">5. Simplify <span class="frac"><span>8<sup>2n-4</sup> &times; 4<sup>n+1</sup></span><span class="bottom">64<sup>-n</sup> &times; 2<sup>14n-7</sup></span></span></p>
+            <details class="step"><summary>Step 1: Express all terms in base 2.</summary><div class="step-content"><span class="frac"><span>(2<sup>3</sup>)<sup>2n-4</sup> &times; (2<sup>2</sup>)<sup>n+1</sup></span><span class="bottom">(2<sup>6</sup>)<sup>-n</sup> &times; 2<sup>14n-7</sup></span></span> = <span class="frac"><span>2<sup><span class="hidden">6n-12</span></sup> &times; 2<sup>2n+2</sup></span><span class="bottom">2<sup>-6n</sup> &times; 2<sup>14n-7</sup></span></span></div></details>
+            <details class="step"><summary>Step 2: Simplify the numerator and the denominator separately.</summary><div class="step-content">= <span class="frac"><span>2<sup>(6n-12)+(2n+2)</sup></span><span class="bottom">2<sup>(-6n)+(14n-7)</sup></span></span> = <span class="frac"><span>2<sup>8n - <span class="hidden">10</span></sup></span><span class="bottom">2<sup>8n - <span class="hidden">7</span></sup></span></span></div></details>
+            <details class="step"><summary>Step 3: Simplify the fraction.</summary><div class="step-content">= 2<sup>(8n-10) - (8n-7)</sup> = 2<sup><span class="hidden">-3</span></sup> = <span class="frac"><span>1</span><span class="bottom">8</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">6. Given 5<sup>n+2</sup> - 5<sup>n</sup> - 25 &times; (5<sup>n-1</sup>) = k &times; (5<sup>n</sup>), find k.</p>
+            <details class="step"><summary>Step 1: Express all terms with 5<sup>n</sup>.</summary><div class="step-content">(5<sup>n</sup> &times; 5<sup>2</sup>) - 5<sup>n</sup> - (5<sup>2</sup>) &times; (5<sup>n</sup> &times; 5<sup>-1</sup>) = k &times; (5<sup>n</sup>)</div></details>
+            <details class="step"><summary>Step 2: Simplify the expression.</summary><div class="step-content">25 &times; (5<sup>n</sup>) - 5<sup>n</sup> - 5<sup>2-1</sup> &times; (5<sup>n</sup>) = 25 &times; (5<sup>n</sup>) - 5<sup>n</sup> - <span class="hidden">5</span> &times; (5<sup>n</sup>) = k &times; (5<sup>n</sup>)</div></details>
+            <details class="step"><summary>Step 3: Factor out 5<sup>n</sup> on the left side.</summary><div class="step-content">5<sup>n</sup> &times; (25 - 1 - 5) = 5<sup>n</sup> &times; (<span class="hidden">19</span>) = k &times; (5<sup>n</sup>). Thus, k = <span class="hidden">19</span>.</div></details>
+        </div>
+
+        <!-- Section 5.2 -->
+        <h2>5.2 Logarithms and Laws of Logarithms</h2>
+        <div class="question-block">
+            <p class="question-title">7. If log<sub>a</sub>(3) = m, express log<sub>a</sub>(<span class="frac"><span>81</span><span class="bottom">a<sup>2</sup></span></span>) in terms of m.</p>
+            <details class="step"><summary>Step 1: Use the division law of logarithms: log<sub>a</sub>(M/N) = log<sub>a</sub>(M) - log<sub>a</sub>(N).</summary><div class="step-content">log<sub>a</sub>(81) - log<sub>a</sub>(a<sup>2</sup>)</div></details>
+            <details class="step"><summary>Step 2: Express 81 as a power of 3 and use the power law: log<sub>a</sub>(M<sup>p</sup>) = p &times; log<sub>a</sub>(M).</summary><div class="step-content">log<sub>a</sub>(3<sup><span class="hidden">4</span></sup>) - 2 &times; log<sub>a</sub>(a) = 4 &times; log<sub>a</sub>(3) - 2 &times; (1)</div></details>
+            <details class="step"><summary>Step 3: Substitute log<sub>a</sub>(3) = m.</summary><div class="step-content">= <span class="hidden">4</span>m - 2</div></details>
+        </div>
+         <div class="question-block">
+            <p class="question-title">8. Without using a calculator, find the value of 5<sup><span class="frac"><span>1</span><span class="bottom">2</span></span>log<sub>5</sub>(9)</sup>.</p>
+            <details class="step"><summary>Step 1: Use the power law p &times; log<sub>a</sub>(M) = log<sub>a</sub>(M<sup>p</sup>) to move the coefficient.</summary><div class="step-content">= 5<sup>log<sub>5</sub>(9<sup><span class="frac">1</span><span class="bottom">2</span></span></sup>)</sup></div></details>
+            <details class="step"><summary>Step 2: Simplify the power. 9<sup><span class="frac">1</span><span class="bottom">2</span></span></sup> = <span class="sqrt">&radic;<span class="overline">9</span></span> = <span class="hidden">3</span>.</summary><div class="step-content">= 5<sup>log<sub>5</sub>(<span class="hidden">3</span>)</sup></div></details>
+             <details class="step"><summary>Step 3: Use the identity a<sup>log<sub>a</sub>(x)</sup> = x.</summary><div class="step-content">= <span class="hidden">3</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">9. Given m = 2<sup>r</sup> and n = 2<sup>t</sup>, express log<sub>2</sub>(<span class="frac"><span>m<sup>3</sup> &times; n<sup>2</sup></span><span class="bottom">8</span></span>) in terms of r and t.</p>
+            <details class="step"><summary>Step 1: Use log laws to expand the expression.</summary><div class="step-content">log<sub>2</sub>(m<sup>3</sup>) + log<sub>2</sub>(n<sup>2</sup>) - log<sub>2</sub>(8)</div></details>
+            <details class="step"><summary>Step 2: Apply the power law and simplify log<sub>2</sub>(8).</summary><div class="step-content">3 &times; log<sub>2</sub>(m) + 2 &times; log<sub>2</sub>(n) - log<sub>2</sub>(2<sup><span class="hidden">3</span></sup>) = 3 &times; log<sub>2</sub>(m) + 2 &times; log<sub>2</sub>(n) - <span class="hidden">3</span></div></details>
+            <details class="step"><summary>Step 3: From the given information, log<sub>2</sub>(m) = r and log<sub>2</sub>(n) = t. Substitute these values.</summary><div class="step-content">= 3r + <span class="hidden">2t</span> - 3</div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">10. Given log<sub>a</sub>(3) = m and log<sub>a</sub>(5) = k, express log<sub>a</sub>(<span class="frac"><span>135</span><span class="bottom">a<sup>2</sup></span></span>) in terms of m and k.</p>
+            <details class="step"><summary>Step 1: Expand using log laws.</summary><div class="step-content">log<sub>a</sub>(135) - log<sub>a</sub>(a<sup>2</sup>) = log<sub>a</sub>(135) - <span class="hidden">2</span></div></details>
+            <details class="step"><summary>Step 2: Find the prime factorization of 135. 135 = 5 &times; 27 = 5 &times; 3<sup><span class="hidden">3</span></sup>.</summary><div class="step-content">log<sub>a</sub>(3<sup>3</sup> &times; 5) - 2</div></details>
+            <details class="step"><summary>Step 3: Expand again and substitute the given values.</summary><div class="step-content">log<sub>a</sub>(3<sup>3</sup>) + log<sub>a</sub>(5) - 2 = 3 &times; log<sub>a</sub>(3) + log<sub>a</sub>(5) - 2 = <span class="hidden">3m</span> + k - 2</div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">11. Given that log<sub>2</sub>(m) = t, find 16<sup>t+1</sup> in terms of m.</p>
+            <details class="step"><summary>Step 1: From log<sub>2</sub>(m)=t, write it in index form.</summary><div class="step-content">2<sup>t</sup> = <span class="hidden">m</span>.</div></details>
+            <details class="step"><summary>Step 2: Express 16<sup>t+1</sup> with a base of 2.</summary><div class="step-content">16<sup>t+1</sup> = (2<sup>4</sup>)<sup>t+1</sup> = 2<sup>4t+4</sup> = 2<sup>4t</sup> &times; 2<sup>4</sup></div></details>
+            <details class="step"><summary>Step 3: Rewrite 2<sup>4t</sup> as (2<sup>t</sup>)<sup>4</sup> and substitute the value from Step 1.</summary><div class="step-content">(2<sup>t</sup>)<sup>4</sup> &times; 16 = (m)<sup><span class="hidden">4</span></sup> &times; 16 = 16m<sup>4</sup></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">12. Find the value of log<sub>b</sub>(<span class="sqrt">&radic;<span class="overline">b</span></span>) - log<sub>a</sub>(<span class="frac"><span>1</span><span class="bottom">a</span></span>).</p>
+            <details class="step"><summary>Step 1: Rewrite the terms using index notation.</summary><div class="step-content">log<sub>b</sub>(b<sup><span class="frac">1</span><span class="bottom">2</span></span></sup>) - log<sub>a</sub>(a<sup><span class="hidden">-1</span></sup>)</div></details>
+            <details class="step"><summary>Step 2: Use the power law of logarithms.</summary><div class="step-content"><span class="frac"><span>1</span><span class="bottom">2</span></span> &times; log<sub>b</sub>(b) - (-1) &times; log<sub>a</sub>(a)</div></details>
+            <details class="step"><summary>Step 3: Simplify, knowing that log<sub>x</sub>(x) = 1.</summary><div class="step-content"><span class="frac"><span>1</span><span class="bottom">2</span></span> &times; (1) - (-1) &times; (1) = <span class="frac"><span>1</span><span class="bottom">2</span></span> + 1 = <span class="hidden">1.5</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">13. Calculate the value of log<sub><span class="sqrt">&radic;<span class="overline">p</span></span></sub>(p<sup>2</sup>).</p>
+            <details class="step"><summary>Step 1: Let x = log<sub><span class="sqrt">&radic;<span class="overline">p</span></span></sub>(p<sup>2</sup>). Convert this to index form.</summary><div class="step-content">(<span class="sqrt">&radic;<span class="overline">p</span></span>)<sup>x</sup> = p<sup>2</sup></div></details>
+            <details class="step"><summary>Step 2: Express both sides with the same base, p.</summary><div class="step-content">(p<sup><span class="frac">1</span><span class="bottom">2</span></span></sup>)<sup>x</sup> = p<sup>2</sup>  =&gt; p<sup><span class="frac">x</span><span class="bottom">2</span></span></sup> = p<sup>2</sup></div></details>
+            <details class="step"><summary>Step 3: Equate the powers and solve for x.</summary><div class="step-content"><span class="frac">x</span><span class="bottom">2</span></span> = 2 => x = <span class="hidden">4</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">14. Given x=a<sup>m</sup> and y=a<sup>n</sup>, express log<sub>a</sub>( <span class="frac"><span><span class="sqrt"><sup>3</sup>&radic;<span class="overline">x</span></span></span><span class="bottom">ay<sup>2</sup></span></span> ) in terms of m and n.</p>
+            <details class="step"><summary>Step 1: Expand the logarithm.</summary><div class="step-content">log<sub>a</sub>(<span class="sqrt"><sup>3</sup>&radic;<span class="overline">x</span></span>) - log<sub>a</sub>(a) - log<sub>a</sub>(y<sup>2</sup>)</div></details>
+            <details class="step"><summary>Step 2: Use the power law.</summary><div class="step-content">log<sub>a</sub>(x<sup><span class="frac">1</span><span class="bottom">3</span></span></sup>) - 1 - 2&times;log<sub>a</sub>(y) = <span class="frac"><span>1</span><span class="bottom">3</span></span>&times;log<sub>a</sub>(x) - 1 - 2&times;log<sub>a</sub>(y)</div></details>
+            <details class="step"><summary>Step 3: From the given info, log<sub>a</sub>(x) = m and log<sub>a</sub>(y) = n. Substitute.</summary><div class="step-content"><span class="frac"><span>1</span><span class="bottom">3</span></span>m - 1 - <span class="hidden">2n</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">15. Given log<sub>2</sub>(3)=h and log<sub>2</sub>(5)=k, express log<sub>2</sub>(0.45) in terms of h and k.</p>
+            <details class="step"><summary>Step 1: Convert the decimal to a fraction. 0.45 = <span class="frac"><span>45</span><span class="bottom">100</span></span> = <span class="frac"><span><span class="hidden">9</span></span><span class="bottom">20</span></span>.</summary><div class="step-content">log<sub>2</sub>(<span class="frac"><span>9</span><span class="bottom">20</span></span>) = log<sub>2</sub>(9) - log<sub>2</sub>(20)</div></details>
+            <details class="step"><summary>Step 2: Break down 9 and 20 into their prime factors.</summary><div class="step-content">log<sub>2</sub>(3<sup>2</sup>) - log<sub>2</sub>(4&times;5) = log<sub>2</sub>(3<sup>2</sup>) - (log<sub>2</sub>(2<sup>2</sup>) + log<sub>2</sub>(5))</div></details>
+            <details class="step"><summary>Step 3: Expand and substitute the given values.</summary><div class="step-content">2&times;log<sub>2</sub>(3) - 2&times;log<sub>2</sub>(2) - log<sub>2</sub>(5) = <span class="hidden">2h</span> - 2 - k</div></details>
+        </div>
+         <div class="question-block">
+            <p class="question-title">16. Given m=2<sup>r</sup> and n=2<sup>t</sup>, express log<sub>2</sub>(<span class="frac"><span>m<sup>2</sup> &times; n</span><span class="bottom">16</span></span>) in terms of r and t.</p>
+            <details class="step"><summary>Step 1: Use log laws to expand the expression.</summary><div class="step-content">log<sub>2</sub>(m<sup>2</sup>) + log<sub>2</sub>(n) - log<sub>2</sub>(16)</div></details>
+            <details class="step"><summary>Step 2: Apply the power law and simplify log<sub>2</sub>(16).</summary><div class="step-content">2&times;log<sub>2</sub>(m) + log<sub>2</sub>(n) - log<sub>2</sub>(2<sup><span class="hidden">4</span></sup>) = 2&times;log<sub>2</sub>(m) + log<sub>2</sub>(n) - <span class="hidden">4</span></div></details>
+            <details class="step"><summary>Step 3: From the given info, log<sub>2</sub>(m) = r and log<sub>2</sub>(n) = t. Substitute.</summary><div class="step-content">= 2r + <span class="hidden">t</span> - 4</div></details>
+        </div>
+
+        <!-- Section 5.3 -->
+        <h2>5.3 Change of Base of Logarithms</h2>
+         <div class="question-block">
+            <p class="question-title">18. If log<sub>a</sub>(2)=h and log<sub>a</sub>(3)=k, express log<sub>6</sub>(12) in terms of h and k.</p>
+            <details class="step"><summary>Step 1: Use the change of base formula to change to base 'a'.</summary><div class="step-content">log<sub>6</sub>(12) = <span class="frac"><span>log<sub>a</sub>(12)</span><span class="bottom">log<sub>a</sub>(6)</span></span></div></details>
+            <details class="step"><summary>Step 2: Express 12 and 6 in terms of their prime factors 2 and 3.</summary><div class="step-content"><span class="frac"><span>log<sub>a</sub>(4 &times; 3)</span><span class="bottom">log<sub>a</sub>(2 &times; 3)</span></span> = <span class="frac"><span>log<sub>a</sub>(2<sup>2</sup> &times; 3)</span><span class="bottom">log<sub>a</sub>(2 &times; 3)</span></span></div></details>
+            <details class="step"><summary>Step 3: Expand the logarithms and substitute h and k.</summary><div class="step-content"><span class="frac"><span>log<sub>a</sub>(2<sup>2</sup>) + log<sub>a</sub>(3)</span><span class="bottom">log<sub>a</sub>(2) + log<sub>a</sub>(3)</span></span> = <span class="frac"><span>2&times;log<sub>a</sub>(2) + log<sub>a</sub>(3)</span><span class="bottom">log<sub>a</sub>(2) + log<sub>a</sub>(3)</span></span> = <span class="frac"><span><span class="hidden">2h</span> + k</span><span class="bottom">h+k</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">19. Given a=3<sup>p</sup> and b=3<sup>q</sup> find log<sub>9</sub>(a) + log<sub>27</sub>(b) in terms of p and q.</p>
+            <details class="step"><summary>Step 1: From the given info, log<sub>3</sub>(a) = p and log<sub>3</sub>(b) = q.</summary><div class="step-content"></div></details>
+            <details class="step"><summary>Step 2: Change the base of the logarithms to 3.</summary><div class="step-content">log<sub>3<sup>2</sup></sub>(a) + log<sub>3<sup>3</sup></sub>(b)</div></details>
+            <details class="step"><summary>Step 3: Use the law log<sub>a<sup>n</sup></sub>(M) = <span class="frac"><span>1</span><span class="bottom">n</span></span>&times;log<sub>a</sub>(M) and substitute.</summary><div class="step-content"><span class="frac"><span>1</span><span class="bottom">2</span></span>&times;log<sub>3</sub>(a) + <span class="frac"><span>1</span><span class="bottom"><span class="hidden">3</span></span></span>&times;log<sub>3</sub>(b) = <span class="frac"><span>p</span><span class="bottom">2</span></span> + <span class="frac"><span>q</span><span class="bottom"><span class="hidden">3</span></span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">20. Given log<sub><span class="sqrt">&radic;<span class="overline">x</span></span></sub>(9) = u, find log<sub>9</sub>(x<sup>3</sup>) in terms of u.</p>
+            <details class="step"><summary>Step 1: From log<sub><span class="sqrt">&radic;<span class="overline">x</span></span></sub>(9)=u, change the base to 9.</summary><div class="step-content"><span class="frac"><span>log<sub>9</sub>(9)</span><span class="bottom">log<sub>9</sub>(<span class="sqrt">&radic;<span class="overline">x</span></span>)</span></span> = u  => <span class="frac"><span>1</span><span class="bottom">log<sub>9</sub>(x<sup><span class="frac">1</span><span class="bottom">2</span></span></sup>)</span></span> = u</div></details>
+            <details class="step"><summary>Step 2: Solve for log<sub>9</sub>(x).</summary><div class="step-content"><span class="frac"><span>1</span><span class="bottom"><span class="frac"><span>1</span><span class="bottom">2</span></span>&times;log<sub>9</sub>(x)</span></span> = u => <span class="frac"><span>2</span><span class="bottom">log<sub>9</sub>(x)</span></span> = u => log<sub>9</sub>(x) = <span class="frac"><span><span class="hidden">2</span></span><span class="bottom">u</span></span></div></details>
+            <details class="step"><summary>Step 3: Find the value of log<sub>9</sub>(x<sup>3</sup>).</summary><div class="step-content">log<sub>9</sub>(x<sup>3</sup>) = 3 &times; log<sub>9</sub>(x) = 3 &times; (<span class="frac"><span>2</span><span class="bottom">u</span></span>) = <span class="frac"><span><span class="hidden">6</span></span><span class="bottom">u</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">21. Given that log<sub>y</sub>(2)=k, find log<sub>4</sub>(y) in terms of k.</p>
+            <details class="step"><summary>Step 1: From log<sub>y</sub>(2) = k, we can write <span class="frac"><span>1</span><span class="bottom">log<sub>2</sub>(y)</span></span> = k.</summary><div class="step-content">so log<sub>2</sub>(y) = <span class="frac"><span><span class="hidden">1</span></span><span class="bottom">k</span></span>.</div></details>
+            <details class="step"><summary>Step 2: Change log<sub>4</sub>(y) to base 2.</summary><div class="step-content">log<sub>4</sub>(y) = <span class="frac"><span>log<sub>2</sub>(y)</span><span class="bottom">log<sub>2</sub>(4)</span></span> = <span class="frac"><span>log<sub>2</sub>(y)</span><span class="bottom"><span class="hidden">2</span></span></span></div></details>
+            <details class="step"><summary>Step 3: Substitute the value from Step 1.</summary><div class="step-content"><span class="frac"><span><span class="frac"><span>1</span><span class="bottom">k</span></span></span><span class="bottom">2</span></span> = <span class="frac"><span>1</span><span class="bottom"><span class="hidden">2k</span></span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">22. Given log<sub>10</sub>(a)=p, log<sub>10</sub>(b)=q, log<sub>10</sub>(c)=r, express log<sub>a</sub>(<span class="frac"><span>1</span><span class="bottom">bc</span></span>) in terms of p, q and r.</p>
+            <details class="step"><summary>Step 1: Change the expression to base 10.</summary><div class="step-content">log<sub>a</sub>(<span class="frac"><span>1</span><span class="bottom">bc</span></span>) = <span class="frac"><span>log<sub>10</sub>(<span class="frac"><span>1</span><span class="bottom">bc</span></span>)</span><span class="bottom">log<sub>10</sub>(a)</span></span></div></details>
+            <details class="step"><summary>Step 2: Expand the numerator using log laws.</summary><div class="step-content"><span class="frac"><span>log<sub>10</sub>(1) - log<sub>10</sub>(bc)</span><span class="bottom">p</span></span> = <span class="frac"><span>0 - (log<sub>10</sub>(b) + log<sub>10</sub>(c))</span><span class="bottom">p</span></span></div></details>
+            <details class="step"><summary>Step 3: Substitute the given values.</summary><div class="step-content">= <span class="frac"><span>-(<span class="hidden">q</span> + r)</span><span class="bottom">p</span></span></div></details>
+        </div>
+         <div class="question-block">
+            <p class="question-title">23. Given log<sub>a</sub>(2)=p and log<sub>a</sub>(5)=q, express log<sub><span class="frac">1</span><span class="bottom">a</span></span></sub>(50) in terms of p and q.</p>
+            <details class="step"><summary>Step 1: Change the base to 'a'. Note that <span class="frac">1</span><span class="bottom">a</span></span> = a<sup>-1</sup>.</summary><div class="step-content">log<sub>a<sup>-1</sup></sub>(50) = <span class="frac"><span>log<sub>a</sub>(50)</span><span class="bottom">log<sub>a</sub>(a<sup>-1</sup>)</span></span> = <span class="frac"><span>log<sub>a</sub>(50)</span><span class="bottom"><span class="hidden">-1</span></span></span></div></details>
+            <details class="step"><summary>Step 2: Express 50 using factors of 2 and 5. 50 = 2 &times; 25 = 2 &times; 5<sup>2</sup>.</summary><div class="step-content">-log<sub>a</sub>(2 &times; 5<sup>2</sup>) = -(log<sub>a</sub>(2) + log<sub>a</sub>(5<sup>2</sup>))</div></details>
+            <details class="step"><summary>Step 3: Expand and substitute p and q.</summary><div class="step-content">-(log<sub>a</sub>(2) + 2&times;log<sub>a</sub>(5)) = -(p + <span class="hidden">2q</span>)</div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">24. Given 3=a<sup>p</sup> and 5=a<sup>q</sup>, express log<sub>3</sub>(1<span class="frac"><span>2</span><span class="bottom">3</span></span>) in terms of p and q.</p>
+            <details class="step"><summary>Step 1: From the given info, log<sub>a</sub>(3) = p and log<sub>a</sub>(5) = q.</summary><div class="step-content"></div></details>
+            <details class="step"><summary>Step 2: Simplify the expression and change the base to 'a'.</summary><div class="step-content">log<sub>3</sub>(1<span class="frac"><span>2</span><span class="bottom">3</span></span>) = log<sub>3</sub>(<span class="frac"><span>5</span><span class="bottom">3</span></span>) = <span class="frac"><span>log<sub>a</sub>(<span class="frac">5</span><span class="bottom">3</span></span>)</span><span class="bottom">log<sub>a</sub>(3)</span></span></div></details>
+            <details class="step"><summary>Step 3: Expand and substitute p and q.</summary><div class="step-content"><span class="frac"><span>log<sub>a</sub>(5) - log<sub>a</sub>(3)</span><span class="bottom">log<sub>a</sub>(3)</span></span> = <span class="frac"><span><span class="hidden">q</span> - p</span><span class="bottom">p</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">25. Given log<sub>2</sub>(x)=h, find log<sub>x</sub>(8x<sup>2</sup>) in terms of h.</p>
+            <details class="step"><summary>Step 1: Expand the expression.</summary><div class="step-content">log<sub>x</sub>(8) + log<sub>x</sub>(x<sup>2</sup>) = log<sub>x</sub>(8) + <span class="hidden">2</span></div></details>
+            <details class="step"><summary>Step 2: Change log<sub>x</sub>(8) to base 2.</summary><div class="step-content">log<sub>x</sub>(8) = <span class="frac"><span>log<sub>2</sub>(8)</span><span class="bottom">log<sub>2</sub>(x)</span></span> = <span class="frac"><span><span class="hidden">3</span></span><span class="bottom">h</span></span></div></details>
+            <details class="step"><summary>Step 3: Combine the results.</summary><div class="step-content">= <span class="frac"><span>3</span><span class="bottom">h</span></span> + 2</div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">26. Given log<sub>5</sub>(k)=p and log<sub>7</sub>(k)=q, find log<sub>k</sub>(175) in terms of p and q.</p>
+            <details class="step"><summary>Step 1: We are given log<sub>k</sub>(5) = <span class="frac"><span>1</span><span class="bottom">p</span></span> and log<sub>k</sub>(7) = <span class="frac"><span>1</span><span class="bottom"><span class="hidden">q</span></span></span>.</summary><div class="step-content"></div></details>
+            <details class="step"><summary>Step 2: Express 175 in prime factors. 175 = 25 &times; 7 = 5<sup>2</sup> &times; 7.</summary><div class="step-content">log<sub>k</sub>(5<sup>2</sup> &times; 7)</div></details>
+            <details class="step"><summary>Step 3: Expand and substitute.</summary><div class="step-content">log<sub>k</sub>(5<sup>2</sup>) + log<sub>k</sub>(7) = 2&times;log<sub>k</sub>(5) + log<sub>k</sub>(7) = 2&times;(<span class="frac"><span>1</span><span class="bottom">p</span></span>) + <span class="frac"><span>1</span><span class="bottom">q</span></span> = <span class="frac"><span><span class="hidden">2q+p</span></span><span class="bottom">pq</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">27. Given log<sub>5</sub>(3)=h and log<sub>5</sub>(7)=k find log<sub>25</sub>(21) in terms of h and k.</p>
+            <details class="step"><summary>Step 1: Change the base to 5.</summary><div class="step-content">log<sub>25</sub>(21) = <span class="frac"><span>log<sub>5</sub>(21)</span><span class="bottom">log<sub>5</sub>(25)</span></span> = <span class="frac"><span>log<sub>5</sub>(21)</span><span class="bottom"><span class="hidden">2</span></span></span></div></details>
+            <details class="step"><summary>Step 2: Express 21 as factors of 3 and 7.</summary><div class="step-content"><span class="frac"><span>log<sub>5</sub>(3 &times; 7)</span><span class="bottom">2</span></span> = <span class="frac"><span>log<sub>5</sub>(3) + log<sub>5</sub>(7)</span><span class="bottom">2</span></span></div></details>
+            <details class="step"><summary>Step 3: Substitute the given values.</summary><div class="step-content">= <span class="frac"><span>h + <span class="hidden">k</span></span><span class="bottom">2</span></span></div></details>
+        </div>
+
+        <!-- Section 5.4 -->
+        <h2>5.4 Index and Logarithmic Equations</h2>
+        <div class="question-block">
+            <p class="question-title">28. Solve the equation 9<sup>2x</sup> = <span class="frac"><span>1</span><span class="bottom">81</span></span>.</p>
+            <details class="step"><summary>Step 1: Express both sides in base 9.</summary><div class="step-content">9<sup>2x</sup> = 9<sup><span class="hidden">-2</span></sup></div></details>
+            <details class="step"><summary>Step 2: Equate the powers.</summary><div class="step-content">2x = -2 =&gt; x = <span class="hidden">-1</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">29. Solve the equation 16 &times; (8<sup>3x</sup>) = 1.</p>
+            <details class="step"><summary>Step 1: Express all numbers in base 2.</summary><div class="step-content">2<sup>4</sup> &times; (2<sup>3</sup>)<sup>3x</sup> = 2<sup>0</sup> =&gt; 2<sup>4</sup> &times; 2<sup><span class="hidden">9x</span></sup> = 2<sup>0</sup></div></details>
+            <details class="step"><summary>Step 2: Simplify and equate the powers.</summary><div class="step-content">2<sup>4+9x</sup> = 2<sup>0</sup> =&gt; 4+9x = 0 => x = -<span class="frac"><span><span class="hidden">4</span></span><span class="bottom">9</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">30. Solve the equation <span class="frac"><span>2<sup>y</sup></span><span class="bottom">16<sup>y-1</sup></span></span> = <span class="frac"><span>1</span><span class="bottom">4<sup>y</sup></span></span>.</p>
+            <details class="step"><summary>Step 1: Express all terms in base 2.</summary><div class="step-content"><span class="frac"><span>2<sup>y</sup></span><span class="bottom">(2<sup>4</sup>)<sup>y-1</sup></span></span> = <span class="frac"><span>1</span><span class="bottom">(2<sup>2</sup>)<sup>y</sup></span></span> => <span class="frac"><span>2<sup>y</sup></span><span class="bottom">2<sup>4y-4</sup></span></span> = 2<sup><span class="hidden">-2y</span></sup></div></details>
+            <details class="step"><summary>Step 2: Simplify the left side and equate the powers.</summary><div class="step-content">2<sup>y - (4y-4)</sup> = 2<sup>-2y</sup> => 2<sup>-3y+4</sup> = 2<sup>-2y</sup></div></details>
+            <details class="step"><summary>Step 3: Solve for y.</summary><div class="step-content">-3y+4 = -2y => y = <span class="hidden">4</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">31. Solve the equation 3<sup>y+1</sup> &times; 9<sup>y-1</sup> = 27<sup>2y-3</sup>.</p>
+            <details class="step"><summary>Step 1: Express all terms in base 3.</summary><div class="step-content">3<sup>y+1</sup> &times; (3<sup>2</sup>)<sup>y-1</sup> = (3<sup>3</sup>)<sup>2y-3</sup> => 3<sup>y+1</sup> &times; 3<sup>2y-2</sup> = 3<sup><span class="hidden">6y-9</span></sup></div></details>
+            <details class="step"><summary>Step 2: Simplify and equate powers.</summary><div class="step-content">3<sup>(y+1)+(2y-2)</sup> = 3<sup>6y-9</sup> => 3y-1 = 6y-9</div></details>
+            <details class="step"><summary>Step 3: Solve for y.</summary><div class="step-content">8 = 3y => y = <span class="frac"><span><span class="hidden">8</span></span><span class="bottom">3</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">32. Solve the equation 4<sup>(2x-1)<sup>2</sup></sup> = 2<sup>x+1</sup>.</p>
+            <details class="step"><summary>Step 1: Express both sides in base 2.</summary><div class="step-content">(2<sup>2</sup>)<sup>(2x-1)<sup>2</sup></sup> = 2<sup>x+1</sup> => 2<sup>2(4x<sup>2</sup>-4x+1)</sup> = 2<sup>x+1</sup></div></details>
+            <details class="step"><summary>Step 2: Equate the powers and form a quadratic equation.</summary><div class="step-content">8x<sup>2</sup> - 8x + 2 = x+1 => 8x<sup>2</sup> - <span class="hidden">9</span>x + 1 = 0</div></details>
+            <details class="step"><summary>Step 3: Factorize and solve for x.</summary><div class="step-content">(8x-1)(x-1)=0 => x=<span class="frac"><span>1</span><span class="bottom">8</span></span>, x=<span class="hidden">1</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">33. Find the values of x that satisfy 5<sup>x<sup>2</sup></sup> - 25<sup>6-2x</sup> = 0.</p>
+            <details class="step"><summary>Step 1: Rearrange and express both sides in base 5.</summary><div class="step-content">5<sup>x<sup>2</sup></sup> = 25<sup>6-2x</sup> => 5<sup>x<sup>2</sup></sup> = (5<sup>2</sup>)<sup>6-2x</sup></div></details>
+            <details class="step"><summary>Step 2: Equate the powers and form a quadratic equation.</summary><div class="step-content">x<sup>2</sup> = 2(6-2x) => x<sup>2</sup> = 12 - 4x => x<sup>2</sup> + 4x - <span class="hidden">12</span> = 0</div></details>
+            <details class="step"><summary>Step 3: Factorize and solve for x.</summary><div class="step-content">(x+6)(x-2)=0 => x=<span class="hidden">-6</span>, x=<span class="hidden">2</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">34. Solve the equation 3<sup>m-1</sup> + 3<sup>m</sup> - 12 = 0.</p>
+            <details class="step"><summary>Step 1: Split the terms and factor out 3<sup>m</sup>.</summary><div class="step-content">(3<sup>m</sup> &times; 3<sup>-1</sup>) + 3<sup>m</sup> = 12 => 3<sup>m</sup> &times; (<span class="frac"><span>1</span><span class="bottom">3</span></span> + 1) = 12</div></details>
+            <details class="step"><summary>Step 2: Simplify the bracket.</summary><div class="step-content">3<sup>m</sup> &times; (<span class="frac"><span><span class="hidden">4</span></span><span class="bottom">3</span></span>) = 12</div></details>
+            <details class="step"><summary>Step 3: Solve for 3<sup>m</sup> and then for m.</summary><div class="step-content">3<sup>m</sup> = 12 &times; <span class="frac"><span>3</span><span class="bottom">4</span></span> = 9 => 3<sup>m</sup> = 3<sup>2</sup> => m = <span class="hidden">2</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">35. Solve the equation 3<sup>r-1</sup> + 3<sup>r+2</sup> = 84.</p>
+            <details class="step"><summary>Step 1: Split the terms and factor out 3<sup>r</sup>.</summary><div class="step-content">(3<sup>r</sup> &times; 3<sup>-1</sup>) + (3<sup>r</sup> &times; 3<sup>2</sup>) = 84 => 3<sup>r</sup> &times; (<span class="frac"><span>1</span><span class="bottom">3</span></span> + <span class="hidden">9</span>) = 84</div></details>
+            <details class="step"><summary>Step 2: Simplify the bracket.</summary><div class="step-content">3<sup>r</sup>(<span class="frac"><span>1+27</span><span class="bottom">3</span></span>) = 3<sup>r</sup>(<span class="frac"><span><span class="hidden">28</span></span><span class="bottom">3</span></span>) = 84</div></details>
+            <details class="step"><summary>Step 3: Solve for 3<sup>r</sup> and then for r.</summary><div class="step-content">3<sup>r</sup> = 84 &times; <span class="frac"><span>3</span><span class="bottom">28</span></span> = 3 &times; 3 = 9 => r = <span class="hidden">2</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">36. Solve the equation 4<sup>x</sup> = 23.4.</p>
+            <details class="step"><summary>Step 1: Take log<sub>10</sub> on both sides.</summary><div class="step-content">log<sub>10</sub>(4<sup>x</sup>) = log<sub>10</sub>(23.4)</div></details>
+            <details class="step"><summary>Step 2: Use the power law.</summary><div class="step-content">x &times; log<sub>10</sub>(4) = log<sub>10</sub>(23.4)</div></details>
+            <details class="step"><summary>Step 3: Solve for x.</summary><div class="step-content">x = <span class="frac"><span>log<sub>10</sub>(23.4)</span><span class="bottom">log<sub>10</sub>(4)</span></span> = <span class="frac"><span>1.3692</span><span class="bottom">0.6021</span></span> &approx; <span class="hidden">2.274</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">37. Solve the equation 2<sup>x+3</sup> - 7 = 0.</p>
+            <details class="step"><summary>Step 1: Isolate the index term. 2<sup>x+3</sup> = <span class="hidden">7</span>.</summary><div class="step-content"></div></details>
+            <details class="step"><summary>Step 2: Take log<sub>10</sub> on both sides.</summary><div class="step-content">(x+3) &times; log<sub>10</sub>(2) = log<sub>10</sub>(7)</div></details>
+            <details class="step"><summary>Step 3: Solve for x.</summary><div class="step-content">x+3 = <span class="frac"><span>log<sub>10</sub>(7)</span><span class="bottom">log<sub>10</sub>(2)</span></span> &approx; 2.807 => x &approx; 2.807 - 3 = <span class="hidden">-0.193</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">38. Solve the equation 0.15<sup>2-x</sup> = 30.</p>
+            <details class="step"><summary>Step 1: Take log<sub>10</sub> on both sides.</summary><div class="step-content">(2-x) &times; log<sub>10</sub>(0.15) = log<sub>10</sub>(30)</div></details>
+            <details class="step"><summary>Step 2: Solve for (2-x).</summary><div class="step-content">2-x = <span class="frac"><span>log<sub>10</sub>(30)</span><span class="bottom">log<sub>10</sub>(0.15)</span></span> = <span class="frac"><span>1.4771</span><span class="bottom">-0.8239</span></span> &approx; <span class="hidden">-1.793</span></div></details>
+            <details class="step"><summary>Step 3: Solve for x.</summary><div class="step-content">x = 2 - (-1.793) = <span class="hidden">3.793</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">39. Solve the equation 2.5<sup>x</sup> = 7.</p>
+            <details class="step"><summary>Step 1: Take log<sub>10</sub> on both sides.</summary><div class="step-content">x &times; log<sub>10</sub>(2.5) = log<sub>10</sub>(7)</div></details>
+            <details class="step"><summary>Step 2: Solve for x.</summary><div class="step-content">x = <span class="frac"><span>log<sub>10</sub>(7)</span><span class="bottom">log<sub>10</sub>(2.5)</span></span> = <span class="frac"><span>0.8451</span><span class="bottom">0.3979</span></span> &approx; <span class="hidden">2.124</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">40. Solve the equation 3<sup>x</sup> &times; 5<sup>x</sup> = 8<sup>x+1</sup>.</p>
+            <details class="step"><summary>Step 1: Combine the terms on the left side.</summary><div class="step-content">(3 &times; 5)<sup>x</sup> = 8<sup>x+1</sup> => 15<sup>x</sup> = 8<sup>x+1</sup></div></details>
+            <details class="step"><summary>Step 2: Take log<sub>10</sub> on both sides.</summary><div class="step-content">x &times; log<sub>10</sub>(15) = (x+1) &times; log<sub>10</sub>(8)</div></details>
+            <details class="step"><summary>Step 3: Expand and solve for x.</summary><div class="step-content">x&times;log<sub>10</sub>(15) = x&times;log<sub>10</sub>(8) + log<sub>10</sub>(8)<br>x(log<sub>10</sub>(15) - log<sub>10</sub>(8)) = log<sub>10</sub>(8)<br>x = <span class="frac"><span>log<sub>10</sub>(8)</span><span class="bottom">log<sub>10</sub>(15/8)</span></span> &approx; <span class="frac"><span>0.9031</span><span class="bottom">0.2730</span></span> &approx; <span class="hidden">3.308</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">41. Given that log<sub>27</sub>(n) = <span class="frac"><span>2</span><span class="bottom">3</span></span> find the value of n.</p>
+            <details class="step"><summary>Step 1: Convert the log equation to index form.</summary><div class="step-content">n = 27<sup><span class="frac">2</span><span class="bottom">3</span></span></sup></div></details>
+            <details class="step"><summary>Step 2: Evaluate the expression.</summary><div class="step-content">n = (<span class="sqrt"><sup>3</sup>&radic;<span class="overline">27</span></span>)<sup>2</sup> = (3)<sup>2</sup> = <span class="hidden">9</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">42. Solve lg(5) + lg(2s-1) = lg(3) + lg(s+2).</p>
+            <details class="step"><summary>Step 1: Combine the logs on each side.</summary><div class="step-content">lg(5&times;(2s-1)) = lg(3&times;(s+2))</div></details>
+            <details class="step"><summary>Step 2: Equate the arguments.</summary><div class="step-content">10s - 5 = 3s + <span class="hidden">6</span></div></details>
+            <details class="step"><summary>Step 3: Solve for s.</summary><div class="step-content">7s = 11 => s = <span class="frac"><span><span class="hidden">11</span></span><span class="bottom">7</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">43. Solve log<sub>t</sub>(t-2) + log<sub>t</sub>(t+5) = 2.</p>
+            <details class="step"><summary>Step 1: Combine the logs and convert to index form.</summary><div class="step-content">log<sub>t</sub>((t-2)&times;(t+5)) = 2 => (t-2)&times;(t+5) = t<sup><span class="hidden">2</span></sup></div></details>
+            <details class="step"><summary>Step 2: Expand and solve for t.</summary><div class="step-content">t<sup>2</sup> + 3t - 10 = t<sup>2</sup> => 3t = 10 => t = <span class="frac"><span><span class="hidden">10</span></span><span class="bottom">3</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">44. Solve <span class="frac"><span>1</span><span class="bottom">2</span></span>&times;log<sub>m</sub>(9) + <span class="frac"><span>1</span><span class="bottom">4</span></span>&times;log<sub>m</sub>(81) = 2.</p>
+            <details class="step"><summary>Step 1: Use the power law to move the coefficients.</summary><div class="step-content">log<sub>m</sub>(9<sup><span class="frac">1</span><span class="bottom">2</span></span></sup>) + log<sub>m</sub>(81<sup><span class="frac">1</span><span class="bottom">4</span></span></sup>) = 2</div></details>
+            <details class="step"><summary>Step 2: Simplify the arguments and combine the logs.</summary><div class="step-content">log<sub>m</sub>(3) + log<sub>m</sub>(3) = 2 => log<sub>m</sub>(3 &times; <span class="hidden">3</span>) = 2 => log<sub>m</sub>(9) = 2</div></details>
+            <details class="step"><summary>Step 3: Convert to index form and solve for m.</summary><div class="step-content">m<sup>2</sup> = 9 => m = <span class="hidden">3</span> (since base must be positive).</div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">45. Solve log<sub>2</sub>(5t-3) + 2 = log<sub>2</sub>(4t).</p>
+            <details class="step"><summary>Step 1: Rearrange and express 2 as a logarithm with base 2.</summary><div class="step-content">2 = log<sub>2</sub>(4t) - log<sub>2</sub>(5t-3) => log<sub>2</sub>(<span class="hidden">4</span>) = log<sub>2</sub>(<span class="frac"><span>4t</span><span class="bottom">5t-3</span></span>)</div></details>
+            <details class="step"><summary>Step 2: Equate the arguments.</summary><div class="step-content">4 = <span class="frac"><span>4t</span><span class="bottom">5t-3</span></span></div></details>
+            <details class="step"><summary>Step 3: Solve for t.</summary><div class="step-content">4&times;(5t-3) = 4t => 20t - 12 = 4t => 16t = 12 => t = <span class="frac"><span><span class="hidden">3</span></span><span class="bottom">4</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">46. Solve 3&times;log<sub>x</sub>(5) + 2&times;log<sub>x</sub>(4) - log<sub>x</sub>(250) = 3.</p>
+            <details class="step"><summary>Step 1: Combine the logs.</summary><div class="step-content">log<sub>x</sub>(5<sup>3</sup>) + log<sub>x</sub>(4<sup>2</sup>) - log<sub>x</sub>(250) = 3 => log<sub>x</sub>(<span class="frac"><span>125 &times; 16</span><span class="bottom">250</span></span>) = 3</div></details>
+            <details class="step"><summary>Step 2: Simplify the argument.</summary><div class="step-content">log<sub>x</sub>(<span class="frac"><span>2000</span><span class="bottom">250</span></span>) = log<sub>x</sub>(<span class="hidden">8</span>) = 3</div></details>
+            <details class="step"><summary>Step 3: Convert to index form and solve for x.</summary><div class="step-content">x<sup>3</sup> = 8 => x = <span class="hidden">2</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">47. Solve log<sub>4</sub>(1-x) = <span class="frac"><span>1</span><span class="bottom">2</span></span> + log<sub>4</sub>(3x).</p>
+            <details class="step"><summary>Step 1: Rearrange and express <span class="frac"><span>1</span><span class="bottom">2</span></span> as a log with base 4.</summary><div class="step-content">log<sub>4</sub>(1-x) - log<sub>4</sub>(3x) = <span class="frac"><span>1</span><span class="bottom">2</span></span> => log<sub>4</sub>(<span class="frac"><span>1-x</span><span class="bottom">3x</span></span>) = log<sub>4</sub>(4<sup><span class="frac">1</span><span class="bottom">2</span></span></sup>)</div></details>
+            <details class="step"><summary>Step 2: Equate the arguments.</summary><div class="step-content"><span class="frac"><span>1-x</span><span class="bottom">3x</span></span> = <span class="sqrt">&radic;<span class="overline">4</span></span> = <span class="hidden">2</span></div></details>
+            <details class="step"><summary>Step 3: Solve for x.</summary><div class="step-content">1-x = 6x => 1 = 7x => x = <span class="frac"><span><span class="hidden">1</span></span><span class="bottom">7</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">48. If 2 - log<sub>10</sub>(y) = 3&times;log<sub>10</sub>(x), express y in terms of x.</p>
+            <details class="step"><summary>Step 1: Isolate the term with y.</summary><div class="step-content">2 - 3&times;log<sub>10</sub>(x) = log<sub>10</sub>(y)</div></details>
+            <details class="step"><summary>Step 2: Express all terms as logs with base 10.</summary><div class="step-content">log<sub>10</sub>(10<sup>2</sup>) - log<sub>10</sub>(x<sup>3</sup>) = log<sub>10</sub>(y)</div></details>
+            <details class="step"><summary>Step 3: Combine logs and equate the arguments.</summary><div class="step-content">log<sub>10</sub>(<span class="frac"><span>100</span><span class="bottom">x<sup>3</sup></span></span>) = log<sub>10</sub>(y) => y = <span class="frac"><span><span class="hidden">100</span></span><span class="bottom">x<sup>3</sup></span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">50. Solve 5&times;log<sub>2x</sub>(3) + 2&times;log<sub>2x</sub>(2) - log<sub>2x</sub>(288) = 3.</p>
+            <details class="step"><summary>Step 1: Combine the logs.</summary><div class="step-content">log<sub>2x</sub>(<span class="frac"><span>3<sup>5</sup> &times; 2<sup>2</sup></span><span class="bottom">288</span></span>) = 3 => log<sub>2x</sub>(<span class="frac"><span>243 &times; 4</span><span class="bottom">288</span></span>) = 3</div></details>
+            <details class="step"><summary>Step 2: Simplify the argument. <span class="frac"><span>972</span><span class="bottom">288</span></span> = 3.375 = <span class="frac"><span>27</span><span class="bottom">8</span></span>.</summary><div class="step-content">log<sub>2x</sub>(<span class="frac"><span><span class="hidden">27</span></span><span class="bottom">8</span></span>) = 3</div></details>
+            <details class="step"><summary>Step 3: Convert to index form and solve for x.</summary><div class="step-content">(2x)<sup>3</sup> = <span class="frac"><span>27</span><span class="bottom">8</span></span> => 8x<sup>3</sup> = <span class="frac"><span>27</span><span class="bottom">8</span></span> => x<sup>3</sup> = <span class="frac"><span>27</span><span class="bottom">64</span></span> => x = <span class="frac"><span><span class="hidden">3</span></span><span class="bottom">4</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">51. Solve log<sub><span class="sqrt">&radic;<span class="overline">x</span></span></sub>(9) + 2&times;log<sub><span class="sqrt">&radic;<span class="overline">x</span></span></sub>(3) = 2.</p>
+            <details class="step"><summary>Step 1: Combine the logs.</summary><div class="step-content">log<sub><span class="sqrt">&radic;<span class="overline">x</span></span></sub>(9) + log<sub><span class="sqrt">&radic;<span class="overline">x</span></span></sub>(3<sup>2</sup>) = 2 => log<sub><span class="sqrt">&radic;<span class="overline">x</span></span></sub>(9 &times; 9) = 2</div></details>
+            <details class="step"><summary>Step 2: Convert to index form.</summary><div class="step-content">log<sub><span class="sqrt">&radic;<span class="overline">x</span></span></sub>(81) = 2 => (<span class="sqrt">&radic;<span class="overline">x</span></span>)<sup>2</sup> = 81</div></details>
+            <details class="step"><summary>Step 3: Solve for x.</summary><div class="step-content">x = <span class="hidden">81</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">52. Solve log<sub>3</sub>(y+1) = 1 + log<sub>3</sub>(y-5).</p>
+            <details class="step"><summary>Step 1: Rearrange and express 1 as a log with base 3.</summary><div class="step-content">log<sub>3</sub>(y+1) - log<sub>3</sub>(y-5) = 1 => log<sub>3</sub>(<span class="frac"><span>y+1</span><span class="bottom">y-5</span></span>) = log<sub>3</sub>(<span class="hidden">3</span>)</div></details>
+            <details class="step"><summary>Step 2: Equate the arguments.</summary><div class="step-content"><span class="frac"><span>y+1</span><span class="bottom">y-5</span></span> = 3</div></details>
+            <details class="step"><summary>Step 3: Solve for y.</summary><div class="step-content">y+1 = 3&times;(y-5) => y+1 = 3y - 15 => 16 = 2y => y = <span class="hidden">8</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">53. Solve 2&times;log<sub>2</sub>(3) + log<sub>2</sub>(5-x) = 2 + log<sub>2</sub>(4x).</p>
+            <details class="step"><summary>Step 1: Combine logs on each side.</summary><div class="step-content">log<sub>2</sub>(3<sup>2</sup>) + log<sub>2</sub>(5-x) = log<sub>2</sub>(2<sup>2</sup>) + log<sub>2</sub>(4x)<br>log<sub>2</sub>(9&times;(5-x)) = log<sub>2</sub>(4 &times; 4x)</div></details>
+            <details class="step"><summary>Step 2: Equate the arguments.</summary><div class="step-content">9&times;(5-x) = 16x => 45 - 9x = <span class="hidden">16x</span></div></details>
+            <details class="step"><summary>Step 3: Solve for x.</summary><div class="step-content">45 = 25x => x = <span class="frac"><span>45</span><span class="bottom">25</span></span> = <span class="frac"><span><span class="hidden">9</span></span><span class="bottom">5</span></span></div></details>
+        </div>
+         <div class="question-block">
+            <p class="question-title">55. Solve 2<sup>log<sub>3</sub>(x)</sup> = 32.</p>
+            <details class="step"><summary>Step 1: Express 32 as a power of 2.</summary><div class="step-content">2<sup>log<sub>3</sub>(x)</sup> = 2<sup><span class="hidden">5</span></sup></div></details>
+            <details class="step"><summary>Step 2: Equate the powers.</summary><div class="step-content">log<sub>3</sub>(x) = 5</div></details>
+            <details class="step"><summary>Step 3: Convert to index form and solve for x.</summary><div class="step-content">x = 3<sup>5</sup> = <span class="hidden">243</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">56. Solve log<sub>49</sub>(log<sub>2</sub>(5x-2)) = <span class="frac"><span>1</span><span class="bottom">2</span></span>.</p>
+            <details class="step"><summary>Step 1: Convert the outer log to index form.</summary><div class="step-content">log<sub>2</sub>(5x-2) = 49<sup><span class="frac">1</span><span class="bottom">2</span></span></sup> = <span class="hidden">7</span></div></details>
+            <details class="step"><summary>Step 2: Convert the remaining log to index form.</summary><div class="step-content">5x-2 = 2<sup>7</sup> = <span class="hidden">128</span></div></details>
+            <details class="step"><summary>Step 3: Solve for x.</summary><div class="step-content">5x = 130 => x = <span class="hidden">26</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">57. Solve log<sub>3</sub>(r) = log<sub>9</sub>(36).</p>
+            <details class="step"><summary>Step 1: Change the right side to base 3.</summary><div class="step-content">log<sub>3</sub>(r) = <span class="frac"><span>log<sub>3</sub>(36)</span><span class="bottom">log<sub>3</sub>(9)</span></span> = <span class="frac"><span>log<sub>3</sub>(6<sup>2</sup>)</span><span class="bottom"><span class="hidden">2</span></span></span> = <span class="frac"><span>2&times;log<sub>3</sub>(6)</span><span class="bottom">2</span></span></div></details>
+            <details class="step"><summary>Step 2: Simplify and equate the arguments.</summary><div class="step-content">log<sub>3</sub>(r) = log<sub>3</sub>(6) => r = <span class="hidden">6</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">58. Solve log<sub>x</sub>(2) + log<sub>x</sub>(4) - 2&times;log<sub>x</sub>(8) = -3.</p>
+            <details class="step"><summary>Step 1: Combine the logs.</summary><div class="step-content">log<sub>x</sub>(<span class="frac"><span>2 &times; 4</span><span class="bottom">8<sup>2</sup></span></span>) = -3 => log<sub>x</sub>(<span class="frac"><span>8</span><span class="bottom">64</span></span>) = -3</div></details>
+            <details class="step"><summary>Step 2: Simplify the argument.</summary><div class="step-content">log<sub>x</sub>(<span class="frac"><span>1</span><span class="bottom"><span class="hidden">8</span></span></span>) = -3</div></details>
+            <details class="step"><summary>Step 3: Convert to index form and solve.</summary><div class="step-content">x<sup>-3</sup> = <span class="frac"><span>1</span><span class="bottom">8</span></span> = 2<sup>-3</sup> => x = <span class="hidden">2</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">59. If log<sub>3</sub>(log<sub>2</sub>(x)) = 2, find the value of x.</p>
+            <details class="step"><summary>Step 1: Convert the outer log to index form.</summary><div class="step-content">log<sub>2</sub>(x) = 3<sup>2</sup> = <span class="hidden">9</span></div></details>
+            <details class="step"><summary>Step 2: Convert the remaining log to index form.</summary><div class="step-content">x = 2<sup>9</sup> = <span class="hidden">512</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">60. Given log<sub>7</sub>(3)=k and 7<sup>3y-1</sup>=21, express y in terms of k.</p>
+            <details class="step"><summary>Step 1: Take log<sub>7</sub> of both sides of the equation.</summary><div class="step-content">log<sub>7</sub>(7<sup>3y-1</sup>) = log<sub>7</sub>(21)</div></details>
+            <details class="step"><summary>Step 2: Simplify and expand.</summary><div class="step-content">3y-1 = log<sub>7</sub>(3 &times; 7) = log<sub>7</sub>(3) + log<sub>7</sub>(7)</div></details>
+            <details class="step"><summary>Step 3: Substitute k and solve for y.</summary><div class="step-content">3y-1 = k + <span class="hidden">1</span> => 3y = k+2 => y = <span class="frac"><span>k+2</span><span class="bottom">3</span></span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">61. Solve 4 + log<sub>4</sub>(x) = log<sub>2</sub>(4x+16).</p>
+            <details class="step"><summary>Step 1: Change log<sub>4</sub>(x) to base 2.</summary><div class="step-content">log<sub>4</sub>(x) = <span class="frac"><span>log<sub>2</sub>(x)</span><span class="bottom">log<sub>2</sub>(4)</span></span> = <span class="frac"><span>log<sub>2</sub>(x)</span><span class="bottom"><span class="hidden">2</span></span></span>. The equation is 4 + <span class="frac"><span>1</span><span class="bottom">2</span></span>&times;log<sub>2</sub>(x) = log<sub>2</sub>(4x+16).</div></details>
+            <details class="step"><summary>Step 2: Multiply by 2 and rearrange.</summary><div class="step-content">8 + log<sub>2</sub>(x) = 2&times;log<sub>2</sub>(4x+16) = log<sub>2</sub>((4x+16)<sup>2</sup>)<br>log<sub>2</sub>(2<sup>8</sup>) + log<sub>2</sub>(x) = log<sub>2</sub>((4x+16)<sup>2</sup>)<br>log<sub>2</sub>(256x) = log<sub>2</sub>((4x+16)<sup>2</sup>)</div></details>
+            <details class="step"><summary>Step 3: Equate arguments and solve.</summary><div class="step-content">256x = (4(x+4))<sup>2</sup> = 16(x<sup>2</sup>+8x+16)<br>16x = x<sup>2</sup>+8x+16 => x<sup>2</sup> - 8x + 16 = 0<br>(x-4)<sup>2</sup>=0 => x=<span class="hidden">4</span></div></details>
+        </div>
+         <div class="question-block">
+            <p class="question-title">62. Given log<sub>2</sub>(y<sup>2</sup>) = 2 + 3&times;log<sub>8</sub>(x<sup>2</sup>), express y in terms of x.</p>
+            <details class="step"><summary>Step 1: Use log laws and change log<sub>8</sub> to base 2.</summary><div class="step-content">2&times;log<sub>2</sub>(y) = 2 + 3 &times; (<span class="frac"><span>log<sub>2</sub>(x<sup>2</sup>)</span><span class="bottom">log<sub>2</sub>(8)</span></span>) = 2 + 3 &times; (<span class="frac"><span>2&times;log<sub>2</sub>(x)</span><span class="bottom"><span class="hidden">3</span></span></span>)</div></details>
+            <details class="step"><summary>Step 2: Simplify the equation.</summary><div class="step-content">2&times;log<sub>2</sub>(y) = 2 + 2&times;log<sub>2</sub>(x). Divide by 2: log<sub>2</sub>(y) = 1 + log<sub>2</sub>(x).</div></details>
+            <details class="step"><summary>Step 3: Combine logs and express y in terms of x.</summary><div class="step-content">log<sub>2</sub>(y) - log<sub>2</sub>(x) = 1 => log<sub>2</sub>(<span class="frac"><span>y</span><span class="bottom">x</span></span>) = 1 => <span class="frac"><span>y</span><span class="bottom">x</span></span> = 2<sup>1</sup> => y = <span class="hidden">2x</span></div></details>
+        </div>
+        <div class="question-block">
+            <p class="question-title">64. Find the positive value of x which satisfies log<sub>2</sub>(x) = log<sub>4</sub>(x+6).</p>
+            <details class="step"><summary>Step 1: Change the right side to base 2.</summary><div class="step-content">log<sub>2</sub>(x) = <span class="frac"><span>log<sub>2</sub>(x+6)</span><span class="bottom">log<sub>2</sub>(4)</span></span> = <span class="frac"><span>log<sub>2</sub>(x+6)</span><span class="bottom"><span class="hidden">2</span></span></span></div></details>
+            <details class="step"><summary>Step 2: Rearrange and use the power law.</summary><div class="step-content">2&times;log<sub>2</sub>(x) = log<sub>2</sub>(x+6) => log<sub>2</sub>(x<sup>2</sup>) = log<sub>2</sub>(x+6)</div></details>
+            <details class="step"><summary>Step 3: Equate arguments and solve the quadratic equation.</summary><div class="step-content">x<sup>2</sup> = x+6 => x<sup>2</sup>-x-6=0 => (x-3)(x+2)=0.<br>Since x must be positive (argument of log), x = <span class="hidden">3</span>.</div></details>
+        </div>
+
+    </div>
+</body>
+</html>
+
