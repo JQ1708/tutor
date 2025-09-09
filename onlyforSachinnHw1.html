@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step-by-Step Equation Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #f0f9ff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 2px solid #60a5fa;
+        }
+        .question-block {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border-left: 5px solid #3b82f6;
+            background-color: #eff6ff;
+            border-radius: 0 10px 10px 0;
+        }
+        .question-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .step {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .step:before {
+            content: '✅';
+            position: absolute;
+            left: -5px;
+            top: 2px;
+            font-size: 1rem;
+        }
+        .equation {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #be123c;
+            background-color: #fef2f2;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            flex-wrap: wrap;
+        }
+        .instruction {
+             color: #1e40af;
+        }
+        .blank-box {
+            display: inline-block;
+            width: 2.5rem;
+            height: 1.5rem;
+            border: 1px solid #dc2626;
+            background-color: #fef2f2;
+            vertical-align: middle;
+            border-radius: 4px;
+            margin: 0 0.25rem;
+        }
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 0.1em;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .numerator {
+            display: block;
+            padding: 0 0.4em;
+            border-bottom: 2px solid #be123c;
+        }
+        .denominator {
+            display: block;
+            padding: 0 0.4em;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #1d4ed8;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #1e40af;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px dashed #60a5fa;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Guidance Corner</h1>
+        <p class="text-center text-lg text-gray-600 mb-8">Sachinn, Hello! Let's work through these problems together. Don't worry, we'll take it one step at a time. Try to fill in the blank boxes (like this: <span class="blank-box" style="width:1.5rem; height:1.2rem; vertical-align: -0.2rem;"></span>). You can do this!</p>
+
+        <h2>Question 5: Solving Linear Equations</h2>
+
+        <!-- Question 5a -->
+        <div class="question-block">
+            <div class="question-title">5(a): &nbsp; 
+                <div class="equation">
+                    <div class="fraction">
+                        <span class="numerator">x + 5</span>
+                        <span class="denominator">3</span>
+                    </div>
+                    <span>+</span>
+                    <div class="fraction">
+                        <span class="numerator">x + 1</span>
+                        <span class="denominator">2</span>
+                    </div>
+                    <span>= 8</span>
+                </div>
+            </div>
+            <div class="step instruction"><strong>Step 1:</strong> The LCM of 3 and 2 is 6.</div>
+            <div class="step instruction"><strong>Step 2:</strong> Multiply every term by 6. <br><code class="equation">2(x + 5) + <span class="blank-box"></span>(x + 1) = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 3:</strong> Expand the brackets. <br><code class="equation">2x + 10 + 3x + <span class="blank-box"></span> = 48</code></div>
+            <div class="step instruction"><strong>Step 4:</strong> Group the 'x' terms and the number terms. <br><code class="equation"><span class="blank-box"></span>x + <span class="blank-box"></span> = 48</code></div>
+            <div class="step instruction"><strong>Step 5:</strong> Move the number term to the other side. <br><code class="equation">5x = 48 - <span class="blank-box"></span></code> <br> <code class="equation">5x = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 6:</strong> Divide to get the final answer. <br><code class="equation">x = <span class="blank-box"></span></code></div>
+        </div>
+
+        <!-- Question 5b -->
+        <div class="question-block">
+             <div class="question-title">5(b): &nbsp; 
+                <div class="equation">
+                    <div class="fraction">
+                        <span class="numerator">x + 6</span>
+                        <span class="denominator">5</span>
+                    </div>
+                    <span>+</span>
+                    <div class="fraction">
+                        <span class="numerator">x - 3</span>
+                        <span class="denominator">2</span>
+                    </div>
+                    <span>= 13</span>
+                </div>
+            </div>
+            <div class="step instruction"><strong>Step 1:</strong> The LCM of 5 and 2 is 10.</div>
+            <div class="step instruction"><strong>Step 2:</strong> Multiply the whole equation by 10. <br><code class="equation"><span class="blank-box"></span>(x + 6) + 5(x - 3) = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 3:</strong> Expand the brackets. <br><code class="equation">2x + 12 + 5x - <span class="blank-box"></span> = 130</code></div>
+            <div class="step instruction"><strong>Step 4:</strong> Group the terms. <br><code class="equation"><span class="blank-box"></span>x - <span class="blank-box"></span> = 130</code></div>
+            <div class="step instruction"><strong>Step 5:</strong> Solve for 'x'. <br><code class="equation">7x = 130 + <span class="blank-box"></span></code> <br> <code class="equation">7x = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 6:</strong> Get the final answer. <br><code class="equation">x = <span class="blank-box"></span></code></div>
+        </div>
+        
+        <!-- Question 5c -->
+        <div class="question-block">
+            <div class="question-title">5(c): &nbsp; 
+                <div class="equation">
+                    <div class="fraction">
+                        <span class="numerator">2x - 1</span>
+                        <span class="denominator">4</span>
+                    </div>
+                    <span>+</span>
+                    <div class="fraction">
+                        <span class="numerator">x - 3</span>
+                        <span class="denominator">5</span>
+                    </div>
+                    <span>= 3</span>
+                </div>
+            </div>
+            <div class="step instruction"><strong>Step 1:</strong> The LCM of 4 and 5 is 20.</div>
+            <div class="step instruction"><strong>Step 2:</strong> Multiply the equation by 20. <br><code class="equation"><span class="blank-box"></span>(2x - 1) + 4(x - 3) = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 3:</strong> Expand. <br><code class="equation">10x - 5 + 4x - <span class="blank-box"></span> = 60</code></div>
+            <div class="step instruction"><strong>Step 4:</strong> Group. <br><code class="equation"><span class="blank-box"></span>x - <span class="blank-box"></span> = 60</code></div>
+            <div class="step instruction"><strong>Step 5:</strong> Solve. <br><code class="equation">14x = 60 + <span class="blank-box"></span></code> <br> <code class="equation">14x = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 6:</strong> Final answer. <br><code class="equation">x = <span class="blank-box"></span></code></div>
+        </div>
+
+        <!-- Question 5d -->
+        <div class="question-block">
+            <div class="question-title">5(d): &nbsp; 
+                <div class="equation">
+                    <div class="fraction">
+                        <span class="numerator">x + 5</span>
+                        <span class="denominator">10</span>
+                    </div>
+                    <span>-</span>
+                    <div class="fraction">
+                        <span class="numerator">x + 4</span>
+                        <span class="denominator">2</span>
+                    </div>
+                    <span>= 1</span>
+                </div>
+            </div>
+            <div class="step instruction"><strong>Step 1:</strong> The LCM of 10 and 2 is 10.</div>
+            <div class="step instruction"><strong>Step 2:</strong> Multiply by 10. Be careful with the minus sign! <br><code class="equation">1(x + 5) - <span class="blank-box"></span>(x + 4) = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 3:</strong> Expand. <br><code class="equation">x + 5 - 5x - <span class="blank-box"></span> = 10</code></div>
+            <div class="step instruction"><strong>Step 4:</strong> Group the terms. <br><code class="equation"><span class="blank-box"></span>x - <span class="blank-box"></span> = 10</code></div>
+            <div class="step instruction"><strong>Step 5:</strong> Solve for 'x'. <br><code class="equation">-4x = 10 + <span class="blank-box"></span></code> <br> <code class="equation">-4x = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 6:</strong> Get the final value. <br><code class="equation">x = <span class="blank-box"></span></code></div>
+        </div>
+
+        <!-- Question 5e -->
+        <div class="question-block">
+            <div class="question-title">5(e): &nbsp; 
+                <div class="equation">
+                    <div class="fraction">
+                        <span class="numerator">x - 3</span>
+                        <span class="denominator">4</span>
+                    </div>
+                    <span>-</span>
+                    <div class="fraction">
+                        <span class="numerator">x - 8</span>
+                        <span class="denominator">3</span>
+                    </div>
+                    <span>= 4</span>
+                </div>
+            </div>
+            <div class="step instruction"><strong>Step 1:</strong> The LCM of 4 and 3 is 12.</div>
+            <div class="step instruction"><strong>Step 2:</strong> Multiply by 12. <br><code class="equation"><span class="blank-box"></span>(x - 3) - 4(x - 8) = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 3:</strong> Expand carefully. <br><code class="equation">3x - 9 - 4x + <span class="blank-box"></span> = 48</code></div>
+            <div class="step instruction"><strong>Step 4:</strong> Group the like terms. <br><code class="equation"><span class="blank-box"></span>x + <span class="blank-box"></span> = 48</code></div>
+            <div class="step instruction"><strong>Step 5:</strong> Solve. <br><code class="equation">-x = 48 - <span class="blank-box"></span></code> <br> <code class="equation">-x = <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 6:</strong> Final answer. <br><code class="equation">x = <span class="blank-box"></span></code></div>
+        </div>
+
+        <h2>Question 6: Equations with Algebraic Fractions</h2>
+
+        <!-- Question 6a -->
+        <div class="question-block">
+            <div class="question-title">6(a): &nbsp; 
+                <div class="equation">
+                    <div class="fraction">
+                        <span class="numerator">4</span>
+                        <span class="denominator">x + 1</span>
+                    </div>
+                    <span>+</span>
+                    <div class="fraction">
+                        <span class="numerator">2</span>
+                        <span class="denominator">x - 2</span>
+                    </div>
+                    <span>= 3</span>
+                </div>
+            </div>
+            <div class="step instruction"><strong>Step 1:</strong> The common denominator is (x + 1)(x - 2).</div>
+            <div class="step instruction"><strong>Step 2:</strong> Multiply every term by (x + 1)(x - 2).</div>
+            <div class="step instruction"><strong>Step 3:</strong> Simplify. <br><code class="equation">4(x - 2) + <span class="blank-box"></span>(x + 1) = 3(x + 1)(x - 2)</code></div>
+            <div class="step instruction"><strong>Step 4:</strong> Expand all brackets. Start with the right side: (x + 1)(x - 2) = x<sup>2</sup> - <span class="blank-box"></span>x - <span class="blank-box"></span>. <br><code class="equation">4x - 8 + 2x + 2 = 3(x<sup>2</sup> - <span class="blank-box"></span>x - <span class="blank-box"></span>)</code></div>
+            <div class="step instruction"><strong>Step 5:</strong> Simplify the left side, and multiply out the right side. <br><code class="equation"><span class="blank-box"></span>x - <span class="blank-box"></span> = 3x<sup>2</sup> - <span class="blank-box"></span>x - <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 6:</strong> Move all terms to one side to equal zero. <br><code class="equation">0 = 3x<sup>2</sup> - 3x - 6x - 6 + <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 7:</strong> Now, simplify the 'x' terms. <br><code class="equation">0 = 3x<sup>2</sup> - <span class="blank-box"></span>x</code></div>
+            <div class="step instruction"><strong>Step 8:</strong> Solve by factoring. <br><code class="equation">0 = 3x(x - <span class="blank-box"></span>)</code></div>
+            <div class="step instruction"><strong>Step 9:</strong> This gives two possible answers for x. <br><code class="equation">x = <span class="blank-box"></span> &nbsp; or &nbsp; x = <span class="blank-box"></span></code></div>
+        </div>
+        
+        <!-- Question 6b -->
+        <div class="question-block">
+            <div class="question-title">6(b): &nbsp; 
+                <div class="equation">
+                    <div class="fraction">
+                        <span class="numerator">2</span>
+                        <span class="denominator">x - 3</span>
+                    </div>
+                    <span>+</span>
+                    <div class="fraction">
+                        <span class="numerator">1</span>
+                        <span class="denominator">x - 4</span>
+                    </div>
+                    <span>= 2</span>
+                </div>
+            </div>
+            <div class="step instruction"><strong>Step 1:</strong> The common denominator is (x - 3)(x - 4).</div>
+            <div class="step instruction"><strong>Step 2:</strong> Multiply the equation by the common denominator.</div>
+            <div class="step instruction"><strong>Step 3:</strong> Simplify. <br><code class="equation">2(x - <span class="blank-box"></span>) + 1(x - <span class="blank-box"></span>) = 2(x - 3)(x - 4)</code></div>
+            <div class="step instruction"><strong>Step 4:</strong> Expand. First expand the right side: (x - 3)(x - 4) = x<sup>2</sup> - <span class="blank-box"></span>x + <span class="blank-box"></span>. <br><code class="equation">2x - 8 + x - 3 = 2(x<sup>2</sup> - <span class="blank-box"></span>x + <span class="blank-box"></span>)</code></div>
+            <div class="step instruction"><strong>Step 5:</strong> Simplify the left side and multiply out the bracket on the right side. <br><code class="equation"><span class="blank-box"></span>x - <span class="blank-box"></span> = 2x<sup>2</sup> - <span class="blank-box"></span>x + <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 6:</strong> Move all terms to one side to equal zero. <br><code class="equation">0 = 2x<sup>2</sup> - 14x - 3x + 24 + <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 7:</strong> Combine the 'x' terms and the numbers to get the final quadratic equation. <br><code class="equation">0 = 2x<sup>2</sup> - <span class="blank-box"></span>x + <span class="blank-box"></span></code></div>
+            <div class="step instruction"><strong>Step 8:</strong> Factorize the quadratic equation to find the values of x. <br><code class="equation">0 = (2x - <span class="blank-box"></span>)(x - <span class="blank-box"></span>)</code></div>
+            <div class="step instruction"><strong>Step 9:</strong> The two answers are... <br><code class="equation">x = <span class="blank-box"></span> &nbsp; or &nbsp; x = <span class="blank-box"></span></code></div>
+        </div>
+
+    </div>
+</body>
+</html>
+
