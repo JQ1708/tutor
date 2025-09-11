@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step-by-Step Guidance: Coordinate Geometry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px 40px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h1 { font-size: 28px; }
+        h2 { font-size: 22px; margin-top: 40px; }
+        .question-container {
+            margin-bottom: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+        .question {
+            background-color: #e9f5ff;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .step-title {
+            font-weight: 700;
+            color: #3498db;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .math-content {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eef1f3;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .ebox {
+            display: inline-block;
+            width: 40px;
+            height: 25px;
+            background-color: #ffffff;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+        .fraction { display: inline-block; vertical-align: middle; text-align: center; margin: 0 5px; }
+        .numerator { border-bottom: 2px solid #333; padding: 0 5px; }
+        .denominator { padding: 0 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Step-by-Step Guidance: Coordinate Geometry</h1>
+
+        <div class="question-container"><h2>Question 1</h2><div class="question">A line <div class="fraction"><div class="numerator">x</div><div class="denominator">2</div></div> + <div class="fraction"><div class="numerator">y</div><div class="denominator">3</div></div> = 1 cuts the x-axis at P and y-axis at Q. Find (a) the gradient, and (b) the equation of the line perpendicular to PQ passing through Q.</div><div class="step"><div class="step-title">Step 1: Find coordinates of P and Q.</div><p>For x-intercept P, set y=0: <div class="fraction"><div class="numerator">x</div><div class="denominator">2</div></div> = 1 &rArr; x=<div class="ebox"></div>. So, P=(2,0).</p><p>For y-intercept Q, set x=0: <div class="fraction"><div class="numerator">y</div><div class="denominator">3</div></div> = 1 &rArr; y=<div class="ebox"></div>. So, Q=(0,3).</p></div><div class="step"><div class="step-title">Step 2 (a): Find the gradient of PQ (m₁).</div><div class="math-content">m₁ = <div class="fraction"><div class="numerator">3 - 0</div><div class="denominator">0 - 2</div></div> = -<div class="fraction"><div class="numerator">3</div><div class="denominator">2</div></div></div></div><div class="step"><div class="step-title">Step 3 (b): Find the gradient of the perpendicular line (m₂).</div><div class="math-content">m₁ &times; m₂ = -1 &rArr; (-<div class="fraction"><div class="numerator">3</div><div class="denominator">2</div></div>) &times; m₂ = -1 &rArr; m₂ = <div class="fraction"><div class="numerator">2</div><div class="denominator"><div class="ebox"></div></div></div></div></div><div class="step"><div class="step-title">Step 4 (b): Find the equation of the new line.</div><p>Using y - y₁ = m(x - x₁) with point Q(0,3) and m₂.</p><div class="math-content">y - 3 = <div class="fraction"><div class="numerator">2</div><div class="denominator">3</div></div>(x - 0) &rArr; y = <div class="fraction"><div class="numerator">2</div><div class="denominator">3</div></div>x + <div class="ebox"></div></div></div></div>
+        
+        <div class="question-container"><h2>Question 2</h2><div class="question">Line CD intersects line AB at D. C is on the y-axis. Given A(0,-6), B(9,0) and 2AD=DB. (a) Find coordinates of D. (b) If CD is perpendicular to AB, find the y-intercept of CD.</div><div class="step"><div class="step-title">Step 1 (a): Use the section formula to find D.</div><p>The ratio AD:DB is 1:2. A=(0,-6), B=(9,0).</p><div class="math-content">D = ( <div class="fraction"><div class="numerator">2(0)+1(9)</div><div class="denominator">1+2</div></div> , <div class="fraction"><div class="numerator">2(-6)+1(0)</div><div class="denominator">1+2</div></div> ) = ( <div class="fraction"><div class="numerator">9</div><div class="denominator">3</div></div> , <div class="fraction"><div class="numerator">-12</div><div class="denominator">3</div></div> ) = (<div class="ebox"></div>, <div class="ebox"></div>)</div></div><div class="step"><div class="step-title">Step 2 (b): Find the gradient of AB (m₁).</div><div class="math-content">m₁ = <div class="fraction"><div class="numerator">0 - (-6)</div><div class="denominator">9 - 0</div></div> = <div class="fraction"><div class="numerator">6</div><div class="denominator">9</div></div> = <div class="fraction"><div class="numerator">2</div><div class="denominator">3</div></div></div></div><div class="step"><div class="step-title">Step 3 (b): Find the gradient of CD (m₂).</div><div class="math-content">m₁ &times; m₂ = -1 &rArr; (<div class="fraction"><div class="numerator">2</div><div class="denominator">3</div></div>) &times; m₂ = -1 &rArr; m₂ = -<div class="fraction"><div class="numerator">3</div><div class="denominator"><div class="ebox"></div></div></div></div></div><div class="step"><div class="step-title">Step 4 (b): Find the equation of CD and its y-intercept.</div><p>Using y - y₁ = m(x - x₁) with D(3,-4) and m₂.</p><div class="math-content">y - (-4) = -<div class="fraction"><div class="numerator">3</div><div class="denominator">2</div></div>(x - 3) &rArr; y = -<div class="fraction"><div class="numerator">3</div><div class="denominator">2</div></div>x + <div class="fraction"><div class="numerator">9</div><div class="denominator">2</div></div> - 4 = -<div class="fraction"><div class="numerator">3</div><div class="denominator">2</div></div>x + <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div></div><p>The y-intercept (point C) is <div class="ebox"></div>.</p></div></div>
+        
+        <div class="question-container"><h2>Question 3</h2><div class="question">Given line AB with A(-1, 7) and B(15, 3). Find (a) the midpoint of AB, and (b) the equation of the perpendicular bisector of AB.</div><div class="step"><div class="step-title">Step 1 (a): Find the midpoint of AB.</div><div class="math-content">Midpoint = ( <div class="fraction"><div class="numerator">-1+15</div><div class="denominator">2</div></div> , <div class="fraction"><div class="numerator">7+3</div><div class="denominator">2</div></div> ) = ( <div class="fraction"><div class="numerator">14</div><div class="denominator">2</div></div> , <div class="fraction"><div class="numerator">10</div><div class="denominator">2</div></div> ) = (<div class="ebox"></div>, <div class="ebox"></div>)</div></div><div class="step"><div class="step-title">Step 2 (b): Find the gradient of AB (m₁).</div><div class="math-content">m₁ = <div class="fraction"><div class="numerator">3-7</div><div class="denominator">15-(-1)</div></div> = <div class="fraction"><div class="numerator">-4</div><div class="denominator">16</div></div> = -<div class="fraction"><div class="numerator">1</div><div class="denominator">4</div></div></div></div><div class="step"><div class="step-title">Step 3 (b): Find the gradient of the perpendicular bisector (m₂).</div><div class="math-content">m₂ = -<div class="fraction"><div class="numerator">1</div><div class="denominator">m₁</div></div> = -<div class="fraction"><div class="numerator">1</div><div class="denominator">-<div class="fraction"><div class="numerator">1</div><div class="denominator">4</div></div></div></div> = <div class="ebox"></div></div></div><div class="step"><div class="step-title">Step 4 (b): Find the equation of the bisector.</div><p>Using y - y₁ = m(x - x₁) with midpoint (7,5) and m₂=4.</p><div class="math-content">y - 5 = 4(x - 7) &rArr; y = 4x - 28 + 5 &rArr; y = 4x - <div class="ebox"></div></div></div></div>
+        
+        <div class="question-container"><h2>Question 4</h2><div class="question">Line PQ (<div class="fraction"><div class="numerator">y</div><div class="denominator">8</div></div> + <div class="fraction"><div class="numerator">x</div><div class="denominator">4</div></div> = 1) intersects line AB at P. Given A(2,-1) and BP=2PA. Find (a) y-intercept of PQ, (b) coordinates of B.</div><div class="step"><div class="step-title">Step 1 (a): Find the y-intercept of PQ.</div><p>Set x=0 in the equation.</p><div class="math-content"><div class="fraction"><div class="numerator">y</div><div class="denominator">8</div></div> = 1 &rArr; y = <div class="ebox"></div>.</div></div><div class="step"><div class="step-title">Step 2: Find the coordinates of P (the x-intercept of PQ).</div><p>Set y=0 in the equation.</p><div class="math-content"><div class="fraction"><div class="numerator">x</div><div class="denominator">4</div></div> = 1 &rArr; x = <div class="ebox"></div>. So P=(4,0).</div></div><div class="step"><div class="step-title">Step 3 (b): Use the section formula to find B.</div><p>P(4,0) divides AB in the ratio AP:PB = 1:2. Let B=(x,y), A=(2,-1).</p><div class="math-content">4 = <div class="fraction"><div class="numerator">2(2)+1(x)</div><div class="denominator">1+2</div></div> &rArr; 12 = 4+x &rArr; x=<div class="ebox"></div></div><div class="math-content">0 = <div class="fraction"><div class="numerator">2(-1)+1(y)</div><div class="denominator">1+2</div></div> &rArr; 0 = -2+y &rArr; y=<div class="ebox"></div></div><p>So, B = (8, 2).</p></div></div>
+
+        <div class="question-container"><h2>Question 5</h2><div class="question">The equation of a line is kx+jy-3=0. Find in terms of k and j (a) its gradient, (b) the gradient of a line perpendicular to it.</div><div class="step"><div class="step-title">Step 1 (a): Rearrange the equation to y=mx+c.</div><div class="math-content">jy = -kx + 3 &rArr; y = (-<div class="fraction"><div class="numerator">k</div><div class="denominator">j</div></div>)x + <div class="fraction"><div class="numerator">3</div><div class="denominator">j</div></div></div></div><div class="step"><div class="step-title">Step 2 (a): Identify the gradient (m₁).</div><div class="math-content">m₁ = -<div class="fraction"><div class="numerator">k</div><div class="denominator">j</div></div></div></div><div class="step"><div class="step-title">Step 3 (b): Find the perpendicular gradient (m₂).</div><div class="math-content">m₂ = -<div class="fraction"><div class="numerator">1</div><div class="denominator">m₁</div></div> = -<div class="fraction"><div class="numerator">1</div><div class="denominator">(-<div class="fraction"><div class="numerator">k</div><div class="denominator">j</div></div>)</div></div> = <div class="fraction"><div class="numerator">j</div><div class="denominator">k</div></div></div></div>
+
+        <div class="question-container"><h2>Question 6</h2><div class="question">Given triangle AOB with A(6,4) and B(-3,2). (a) Calculate the area of triangle AOB. (b) Find the coordinates of C, the midpoint of AB.</div><div class="step"><div class="step-title">Step 1 (a): Use the shoelace formula for the area.</div><p>Vertices are O(0,0), A(6,4), B(-3,2).</p><div class="math-content">Area = <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div> | (0&times;4 + 6&times;2 + (-3)&times;0) - (0&times;6 + 4&times;(-3) + 2&times;0) |</div><div class="math-content">Area = <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div> | (<div class="ebox"></div>) - (<div class="ebox"></div>) | = <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div> |24| = <div class="ebox"></div></div></div><div class="step"><div class="step-title">Step 2 (b): Find the midpoint C.</div><div class="math-content">C = ( <div class="fraction"><div class="numerator">6+(-3)</div><div class="denominator">2</div></div> , <div class="fraction"><div class="numerator">4+2</div><div class="denominator">2</div></div> ) = ( <div class="fraction"><div class="numerator">3</div><div class="denominator">2</div></div> , <div class="fraction"><div class="numerator">6</div><div class="denominator">2</div></div> ) = (<div class="ebox"></div>, <div class="ebox"></div>)</div></div></div>
+
+        <div class="question-container"><h2>Question 7</h2><div class="question">In quadrilateral PQRS, PQ ⊥ PS. P=(-1,4), Q=(2,5). S is on the y-axis. Find (a) equation of PS, (b) coordinates of S.</div><div class="step"><div class="step-title">Step 1: Find the gradient of PQ (m₁).</div><div class="math-content">m₁ = <div class="fraction"><div class="numerator">5-4</div><div class="denominator">2-(-1)</div></div> = <div class="fraction"><div class="numerator">1</div><div class="denominator">3</div></div></div></div><div class="step"><div class="step-title">Step 2 (a): Find the gradient of PS (m₂).</div><div class="math-content">Since PQ ⊥ PS, m₂ = -<div class="fraction"><div class="numerator">1</div><div class="denominator">m₁</div></div> = -<div class="fraction"><div class="numerator">1</div><div class="denominator">(<div class="fraction"><div class="numerator">1</div><div class="denominator">3</div></div>)</div></div> = <div class="ebox"></div></div></div><div class="step"><div class="step-title">Step 3 (a): Find the equation of PS.</div><p>Using y - y₁ = m(x - x₁) with P(-1,4) and m₂=-3.</p><div class="math-content">y - 4 = -3(x - (-1)) &rArr; y - 4 = -3x - 3 &rArr; y = -3x + <div class="ebox"></div></div></div><div class="step"><div class="step-title">Step 4 (b): Find the coordinates of S.</div><p>S is the y-intercept of PS. Set x=0 in the equation of PS.</p><div class="math-content">y = -3(0) + 1 = 1. So, S=(0, <div class="ebox"></div>).</div></div></div>
+
+        <div class="question-container"><h2>Question 8</h2><div class="question">Triangle AOB has area 50 units². A=(6,8), B=(k,-6). (a) Find k. (b) Point P moves such that PB=2PQ where Q=(7,1). Find the locus of P.</div><div class="step"><div class="step-title">Step 1 (a): Use the area formula to find k.</div><div class="math-content">50 = <div class="fraction"><div class="numerator">1</div><div class="denominator">2</div></div> | (6(-6) + k(0) + 0(8)) - (8k + (-6)(0) + 0(6)) |</div><div class="math-content">100 = | -36 - 8k |. Two cases:</div><div class="math-content">-36-8k=100 &rArr; -8k=<div class="ebox"></div> &rArr; k=<div class="ebox"></div></div><div class="math-content">-36-8k=-100 &rArr; -8k=<div class="ebox"></div> &rArr; k=8</div></div><div class="step"><div class="step-title">Step 2 (b): Set up the locus equation.</div><p>Let P=(x,y). Use k=8, so B=(8,-6). PB² = 4PQ²</p><div class="math-content">(x-8)²+(y-(-6))² = 4[(x-7)²+(y-1)²]</div></div><div class="step"><div class="step-title">Step 3 (b): Expand and simplify the equation.</div><div class="math-content">x²-16x+64+y²+12y+36 = 4[x²-14x+49+y²-2y+1]</div><div class="math-content">x²+y²-16x+12y+100 = 4x²-56x+196+4y²-8y+4</div><div class="math-content">3x²+3y²-<div class="ebox"></div>x-<div class="ebox"></div>y+<div class="ebox"></div>=0</div></div></div>
+
+    </div>
+</body>
+</html>
+
