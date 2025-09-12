@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Guidance: Rational Numbers</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fdfdfd;
+            border-left: 5px solid #1abc9c;
+            border-radius: 8px;
+        }
+        .step {
+            margin-bottom: 15px;
+        }
+        .step-label {
+            font-weight: bold;
+            color: #34495e;
+        }
+        .hidden-box {
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            background-color: #ecf0f1;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e8f6f3;
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: #16a085;
+        }
+        /* New styles for fractions */
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 0.2em;
+            text-align: center;
+        }
+        .fraction > span {
+            display: block;
+            padding: 0 0.2em;
+        }
+        .fraction span.bottom {
+            border-top: 1.5px solid #333;
+        }
+        .mixed-number {
+             display: inline-flex;
+             align-items: center;
+             vertical-align: middle;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes animate-gradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        #shantene-text {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            background: linear-gradient(45deg, #ff6b6b, #f9a825, #f0e68c, #6a89cc);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: float 6s ease-in-out infinite, animate-gradient 10s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+<!-- Home Button -->
+<button onclick="window.history.back()" class="fixed top-4 right-4 z-50 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+    🏠 Home
+</button>
+
+    <div class="container">
+        <h1>Let's Practise: Step-by-Step Guidance</h1>
+        <p id="shantene-text">For Shantene</p>
+        
+        <!-- Question 1 -->
+        <div class="question-section">
+            <h2>Question 1: Choose the correct calculation step</h2>
+            <p>For <code>5(-3+10) &times; 2.4 &divide; 3/4</code></p>
+            <div class="step">
+                <span class="step-label">Step 1 (Brackets):</span> First, solve the operation inside the brackets.
+                <code>-3 + 10 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2 (Multiplication):</span> Next, multiply the result by 5.
+                <code>5 &times; 7 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3 (Division becomes Multiplication):</span> Division by a fraction is the same as multiplying by its reciprocal. The reciprocal of 3/4 is 4/3.
+                <code>The expression becomes: 35 &times; 2.4 &times; <div class="fraction"><span>4</span><span class="bottom">3</span></div></code>. This matches option <strong>B</strong>.
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-section">
+            <h2>Question 2: Determine the number with a larger value</h2>
+            <p><strong>(a) -<div class="fraction"><span>1</span><span class="bottom">2</span></div> , <div class="fraction"><span>1</span><span class="bottom">100</span></div></strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Any positive number is always larger than any negative number.
+                <code>So, the larger number is <span class="hidden-box"></span></code>
+            </div>
+            <p><strong>(b) -4.3 , -4.5</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> For negative numbers, the one closer to zero is larger.
+                <code>-4.3 is closer to 0 than -4.5. So, the larger number is <span class="hidden-box"></span></code>
+            </div>
+             <p><strong>(c) <div class="mixed-number">2<div class="fraction"><span>2</span><span class="bottom">5</span></div></div> , 2.5</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Convert the fraction to a decimal. 2 &divide; 5 = 0.4.
+                <code>So, 2 <div class="fraction"><span>2</span><span class="bottom">5</span></div> is equal to 2.<span class="hidden-box"></span></code>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> Compare the two decimal numbers.
+                <code>2.5 is larger than 2.4. So, the larger number is <span class="hidden-box"></span></code>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-section">
+            <h2>Question 3: Goal Difference</h2>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Goal difference is 'Goals scored' minus 'Goals conceded'.
+                <code>For the Eagle Team: 18 - 16 = <span class="hidden-box"></span></code>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-section">
+            <h2>Question 4: Treasure Chest</h2>
+             <div class="step">
+                <span class="step-label">Step 1:</span> Treat the year 56 B.C. as -56 and 292 A.D. as +292.
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> To find the duration, subtract the earlier year from the later year.
+                <code>Duration = 292 - (-56) = 292 + 56 = <span class="hidden-box"></span> years.</code>
+            </div>
+        </div>
+        
+        <!-- Question 5 -->
+        <div class="question-section">
+            <h2>Question 5: Charity Work</h2>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Calculate the total mass of alms for one victim.
+                <code>2 kg (rice) + <div class="fraction"><span>1</span><span class="bottom">2</span></div> kg (sugar) + 0.4 kg (biscuits) = 2 + 0.5 + 0.4 = <span class="hidden-box"></span> kg.</code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Calculate the total mass for all 80 victims.
+                <code>2.9 kg/victim &times; 80 victims = <span class="hidden-box"></span> kg.</code>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 3:</span> Divide the total mass by the number of vans to find the mass per van.
+                <code>232 kg &divide; 3 vans = <span class="hidden-box"></span> kg (correct to two decimal places).</code>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-section">
+            <h2>Question 6: Fill in the boxes</h2>
+            <p>To get the largest value, we want to add positive numbers and subtract negative numbers (which turns into addition).</p>
+            <p><strong>(a) -5 <span class="hidden-box"></span> <div class="fraction"><span>1</span><span class="bottom">2</span></div> <span class="hidden-box"></span> 4.3</strong></p>
+            <div class="step"><span class="step-label">Logic:</span> We should subtract the negative number (-5) and add the positive numbers. So the signs should be <code>-</code> and <code>+</code>.</div>
+            
+            <p><strong>(b) -4.2 <span class="hidden-box"></span> <div class="fraction"><span>1</span><span class="bottom">2</span></div> <span class="hidden-box"></span> (-4)</strong></p>
+             <div class="step"><span class="step-label">Logic:</span> To make the value largest, we should add the positive number (1/2) and subtract the negative number (-4). So the signs should be <code>+</code> and <code>-</code>.</div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-section">
+            <h2>Question 7: Temperature Drop</h2>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Calculate the total temperature drop.
+                <code>Drop = 3°C/km &times; 5 km = <span class="hidden-box"></span>°C.</code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Subtract the total drop from the initial temperature.
+                <code>New Temperature = 8°C - 15°C = <span class="hidden-box"></span>°C.</code>
+            </div>
+        </div>
+
+         <!-- Question 8 -->
+        <div class="question-section">
+            <h2>Question 8: Sheila's Position</h2>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Movement to the left is negative (-1.85 m).
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Calculate the total movement to the right (positive).
+                <code>4 steps &times; 0.65 m/step = <span class="hidden-box"></span> m.</code>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 3:</span> Find her final position by adding the movements.
+                <code>Final Position = -1.85 m + 2.60 m = <span class="hidden-box"></span> m from point O.</code>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-section">
+            <h2>Question 9: Jasmin's Movement</h2>
+            <div class="step"><span class="step-label">Step 1:</span> Consider east as positive (+) and west as negative (-). Calculate her final position.
+                <code>Position = (+9.5) + (-10.7) + (+6.8) = <span class="hidden-box"></span> m.</code>
+            </div>
+             <div class="step"><span class="step-label">Step 2:</span> Since her final position is +5.6 m (5.6 m East), she needs to move the opposite direction to get back to the start.
+                 <code>She needs to move 5.6 m towards the <span class="hidden-box"></span>.</code>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-section">
+            <h2>Question 10: Lift's Position</h2>
+             <div class="step"><span class="step-label">Step 1:</span> Find the height of one floor.
+                <code>Height per floor = 9.8 m &divide; 2 floors = <span class="hidden-box"></span> m.</code>
+            </div>
+             <div class="step"><span class="step-label">Step 2:</span> Calculate the distance the lift went down.
+                <code>Distance down = 5 floors &times; 4.9 m/floor = <span class="hidden-box"></span> m.</code>
+            </div>
+            <div class="step"><span class="step-label">Step 3:</span> Calculate the final position relative to level H. The lift went up 9.8 m and then down 24.5 m.
+                <code>Final Position = (+9.8) - (24.5) = <span class="hidden-box"></span> m from level H.</code>
+                 <p>(The negative sign means it is below level H).</p>
+            </div>
+        </div>
+        
+         <!-- Question 11 -->
+        <div class="question-section">
+            <h2>Question 11: Number Puzzle</h2>
+            <div class="step"><span class="step-label">Step 1:</span> Find the top circle. Let's call it 'A'. <code>A &times; 3 = -30</code>.
+                <code>So, A = -30 &divide; 3 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step"><span class="step-label">Step 2:</span> Find the top-right circle. Let's call it 'B'. <code>-10 &times; B = -60</code>.
+                <code>So, B = -60 &divide; -10 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step"><span class="step-label">Step 3:</span> Find the bottom-right circle. Let's call it 'C'. <code>8 &times; C = 4</code>.
+                 <code>So, C = 4 &divide; 8 = <span class="hidden-box"></span></code>
+            </div>
+             <div class="step"><span class="step-label">Step 4:</span> Find the middle-right square. It's the product of the two circles next to it.
+                 <code>6 &times; <div class="fraction"><span>1</span><span class="bottom">2</span></div> = <span class="hidden-box"></span></code>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+</html>
+

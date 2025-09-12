@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Problem Guidance - Chapter 7</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f8fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        h1, h2 {
+            color: #005a9c;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        #shantene-name {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.8em;
+            text-align: center;
+            margin: 10px 0 25px 0;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2, #00bfff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: floatAnimation 5s ease-in-out infinite;
+        }
+
+        @keyframes floatAnimation {
+            0% { transform: translateY(0); text-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+            50% { transform: translateY(-10px); text-shadow: 0 25px 15px rgba(0,0,0,0.05); }
+            100% { transform: translateY(0); text-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        }
+
+        .question-box {
+            background-color: #eef7ff;
+            border-left: 5px solid #007bff;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+        .question-box p { margin: 0; font-weight: bold; color: #004085; }
+        .step { display: flex; align-items: flex-start; margin-bottom: 15px; }
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content { flex-grow: 1; }
+        .hidden {
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+        .problem-separator { border-top: 1px dashed #ccc; margin: 40px 0; }
+        .symbol-box {
+            display: inline-block;
+            width: 30px;
+            height: 24px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+    </style>
+</head>
+<body>
+<!-- Home Button -->
+<button onclick="window.history.back()" class="fixed top-4 right-4 z-50 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+    🏠 Home
+</button>
+
+    <div class="container">
+        <h1>Chapter 7</h1>
+        <p id="shantene-name">For Shantene</p>
+
+        <!-- Problem 1 -->
+        <h2>Problem 1: Compare the values</h2>
+        <div class="question-box"><p>Let's Practise, Question 1</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content"><p>Given that p < q.</p>
+            <p>(a) If you add the same number to both sides, the inequality sign stays the same.</p>
+            <p>p + 5 <span class="symbol-box"></span> q + 5</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>(b) If you multiply both sides by the same positive number, the inequality sign stays the same.</p>
+                <p><div class="fraction"><span>1</span><span class="bottom">3</span></div>p <span class="symbol-box"></span> <div class="fraction"><span>1</span><span class="bottom">3</span></div>q</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <p>(c) If you multiply both sides by a negative number (like -1), you must flip the inequality sign.</p>
+                <p>-p <span class="symbol-box"></span> -q</p>
+            </div>
+        </div>
+
+        <div class="problem-separator"></div>
+
+        <!-- Problem 2 -->
+        <h2>Problem 2: Stella's Age</h2>
+        <div class="question-box"><p>Let's Practise, Question 2</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>(a) Stella (x years old) must be older than her son (18 years old).</p>
+                <p>x <span class="symbol-box"></span> 18</p>
+            </div>
+        </div>
+         <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>(b) After 3 years, Stella will be x+3 and her son will be 18+3 = 21. The relationship is the same.</p>
+                <p>x + 3 <span class="symbol-box"></span> 21</p>
+            </div>
+        </div>
+         <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <p>(c) 5 years ago, Stella was x-5 and her son was 18-5 = 13. The relationship is the same.</p>
+                <p>x - 5 <span class="symbol-box"></span> 13</p>
+            </div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 3 -->
+        <h2>Problem 3: Greeting Cards</h2>
+        <div class="question-box"><p>Let's Practise, Question 3</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>Total cost of x cards at RM1.20 each is 1.20x.</p>
+                <p>The balance is the amount paid (RM20) minus the total cost.</p>
+                <p>Balance = 20 - 1.20x</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>The balance was *more than* RM5.</p>
+                <p>20 - 1.20x <span class="symbol-box"></span> 5</p>
+            </div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 4 -->
+        <h2>Problem 4: Mr Koh's Wallet</h2>
+        <div class="question-box"><p>Let's Practise, Question 4</p></div>
+        <p><strong>Part (a): Express the total amount of money.</strong></p>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>Value of RM50 notes: 3 &times; 50 = 150</p>
+                <p>Value of RM10 notes: 2 &times; 10 = 20</p>
+                <p>Value of RM1 notes: n &times; 1 = n</p>
+                <p>Total amount = 150 + 20 + n = <span class="hidden"></span> + n</p>
+            </div>
+        </div>
+        <p><strong>Part (b): Find the possible values of n.</strong></p>
+         <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>The total amount is *less than* RM178.</p>
+                <p>170 + n <span class="symbol-box"></span> 178</p>
+            </div>
+        </div>
+         <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <p>Solve for n: n <span class="symbol-box"></span> 178 - 170 &rarr; n <span class="symbol-box"></span> <span class="hidden"></span></p>
+                <p>Since n must be greater than 0 and an integer, the possible values are 1, 2, 3, 4, 5, 6, 7.</p>
+            </div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 5 -->
+        <h2>Problem 5: Solve the inequalities</h2>
+        <div class="question-box"><p>Let's Practise, Question 5</p></div>
+         <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>(a) 3x + 7 < 19</p>
+                <p>3x < 19 - 7 &rarr; 3x < <span class="hidden"></span> &rarr; x < <span class="hidden"></span></p>
+            </div>
+        </div>
+         <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>(b) 15x - 6 < 8x + 8</p>
+                <p>15x - 8x < 8 + 6 &rarr; <span class="hidden"></span>x < <span class="hidden"></span> &rarr; x < <span class="hidden"></span></p>
+            </div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 6 -->
+        <h2>Problem 6: Mass of Metal Balls</h2>
+        <div class="question-box"><p>Let's Practise, Question 6</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>Let the mass of one ball be 'm'.</p>
+                <p>From Diagram (a), one ball is lighter than the weights. So, m < 10 + 5 &rarr; m < <span class="hidden"></span> g.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>From Diagram (b), four balls are heavier than the weights. So, 4m > 20 + 20 + 10 + 5 &rarr; 4m > <span class="hidden"></span> g.</p>
+                <p>Solve for m: m > 55 &divide; 4 &rarr; m > <span class="hidden"></span> g.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <p>Combine the inequalities: 13.75 < m < 15. The only possible integer mass from the options (12, 13, 14, 15) is <span class="hidden"></span> g.</p>
+            </div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 7 -->
+        <h2>Problem 7: Badminton Court Rental</h2>
+        <div class="question-box"><p>Let's Practise, Question 7</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content"><p>Let h be the number of hours rented.</p>
+            <p>Cost for non-member = 15h</p>
+            <p>Cost for member = 50 (fee) + 12h</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>We want the member's cost to be more affordable (less than) the non-member's cost.</p>
+                <p>50 + 12h < <span class="hidden"></span>h</p>
+                <p>50 < 15h - 12h &rarr; 50 < <span class="hidden"></span>h &rarr; h > <span class="hidden"></span>.</p>
+                <p>The minimum integer number of hours greater than 16.67 is <span class="hidden"></span> hours.</p>
+            </div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 8 -->
+        <h2>Problem 8: Metal Spheres in a Box</h2>
+        <div class="question-box"><p>Let's Practise, Question 8</p></div>
+        <p><strong>Part (a): Form a linear inequality.</strong></p>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>Total mass = (mass of n spheres) + (mass of box)</p>
+                <p>Total mass = (15 &times; n) + 200.</p>
+                <p>The total mass is *more than* 290 g.</p>
+                <p>15n + 200 > <span class="hidden"></span></p>
+            </div>
+        </div>
+        <p><strong>Part (b): Find the smallest value of n.</strong></p>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>Solve the inequality for n.</p>
+                <p>15n > 290 - 200 &rarr; 15n > <span class="hidden"></span> &rarr; n > <span class="hidden"></span>.</p>
+                <p>The smallest integer value of n greater than 6 is <span class="hidden"></span>.</p>
+            </div>
+        </div>
+
+        <div class="problem-separator"></div>
+        
+        <!-- Problem 9 -->
+        <h2>Problem 9: Mobile Phone Sales Agent</h2>
+        <div class="question-box"><p>Let's Practise, Question 9</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>Let S be the total sales.</p>
+                <p>Satria Company wages = 50 + 0.03S</p>
+                <p>Perdana Company wages = 35 + <span class="hidden"></span>S</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>We want Perdana to be a better choice (wages > Satria's wages).</p>
+                <p>35 + 0.05S > 50 + 0.03S</p>
+                <p>0.05S - 0.03S > 50 - 35 &rarr; <span class="hidden"></span>S > <span class="hidden"></span>.</p>
+                <p>S > 15 &divide; 0.02 &rarr; S > <span class="hidden"></span>.</p>
+                <p>The minimum sales to the nearest RM is RM <span class="hidden"></span>.</p>
+            </div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 10 -->
+        <h2>Problem 10: Simultaneous Linear Inequalities</h2>
+        <div class="question-box"><p>Let's Practise, Question 10</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p><strong>Part (a):</strong> 4 - 3x &ge; -5 AND 3x + 1 &ge; -11</p>
+                <p>First: 4 + 5 &ge; 3x &rarr; 9 &ge; 3x &rarr; 3 &ge; x or x &le; 3.</p>
+                <p>Second: 3x &ge; -12 &rarr; x &ge; -4.</p>
+                <p>Combine: <span class="hidden"></span> &le; x &le; <span class="hidden"></span>.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p><strong>Part (b):</strong> <div class="fraction"><span>3x</span><span class="bottom">2</span></div> - 1 > 3 AND 3 - x &le; 7</p>
+                <p>First: <div class="fraction"><span>3x</span><span class="bottom">2</span></div> > 4 &rarr; 3x > 8 &rarr; x > <div class="fraction"><span>8</span><span class="bottom">3</span></div>.</p>
+                <p>Second: 3 - 7 &le; x &rarr; -4 &le; x or x &ge; -4.</p>
+                <p>Combine (x must be greater than 8/3 AND greater than -4): x > <span class="hidden"></span>.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <p><strong>Part (c):</strong> <div class="fraction"><span>2x - 5</span><span class="bottom">3</span></div> &le; 3 AND <div class="fraction"><span>5 - x</span><span class="bottom">2</span></div> &le; 1</p>
+                <p>First: 2x - 5 &le; 9 &rarr; 2x &le; 14 &rarr; x &le; 7.</p>
+                <p>Second: 5 - x &le; 2 &rarr; 5 - 2 &le; x &rarr; 3 &le; x.</p>
+                <p>Combine: <span class="hidden"></span> &le; x &le; <span class="hidden"></span>.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <p><strong>Part (d):</strong> <div class="fraction"><span>x - 4</span><span class="bottom">3</span></div> &ge; 2 - x AND <div class="fraction"><span>3x - 1</span><span class="bottom">4</span></div> < 2</p>
+                <p>First: x - 4 &ge; 3(2 - x) &rarr; x - 4 &ge; 6 - 3x &rarr; 4x &ge; 10 &rarr; x &ge; <span class="hidden"></span>.</p>
+                <p>Second: 3x - 1 < 8 &rarr; 3x < 9 &rarr; x < <span class="hidden"></span>.</p>
+                <p>Combine: <div class="fraction"><span>5</span><span class="bottom">2</span></div> &le; x < 3.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

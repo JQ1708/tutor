@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Problem Guidance - Chapter 4</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f8fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        h1, h2 {
+            color: #005a9c;
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        #shantene-name {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.8em;
+            text-align: center;
+            margin: 10px 0 25px 0;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2, #00bfff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: floatAnimation 5s ease-in-out infinite;
+        }
+
+        @keyframes floatAnimation {
+            0% { transform: translateY(0); text-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+            50% { transform: translateY(-10px); text-shadow: 0 25px 15px rgba(0,0,0,0.05); }
+            100% { transform: translateY(0); text-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        }
+
+        .question-box {
+            background-color: #eef7ff;
+            border-left: 5px solid #007bff;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+        .question-box p { margin: 0; font-weight: bold; color: #004085; }
+        .step { display: flex; align-items: flex-start; margin-bottom: 15px; }
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content { flex-grow: 1; }
+        .hidden {
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+        .problem-separator { border-top: 1px dashed #ccc; margin: 40px 0; }
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 1.1em;
+            margin: 0 0.2em;
+        }
+        .fraction > span { display: block; padding: 0 0.2em; }
+        .fraction span.bottom { border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+<!-- Home Button -->
+<button onclick="window.history.back()" class="fixed top-4 right-4 z-50 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+    🏠 Home
+</button>
+
+    <div class="container">
+        <h1>Chapter 4</h1>
+        <p id="shantene-name">For Shantene</p>
+
+        <!-- Problem 1 -->
+        <h2>Problem 1: Match equivalent ratios.</h2>
+        <div class="question-box"><p>Let's Practise, Question 1</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content"><p>To find an equivalent ratio, you simplify the given ratio to its simplest form by dividing both numbers by their highest common factor (HCF).</p></div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p><strong>Ratio 6 : 9</strong> &rarr; HCF is 3 &rarr; 6 &divide; 3 : 9 &divide; 3  &rarr;  <strong><span class="hidden"></span> : <span class="hidden"></span></strong></p>
+                <p><strong>Ratio 6 : 90</strong> &rarr; HCF is 6 &rarr; 6 &divide; 6 : 90 &divide; 6  &rarr;  <strong><span class="hidden"></span> : <span class="hidden"></span></strong></p>
+                <p><strong>Ratio 9 : 60</strong> &rarr; HCF is 3 &rarr; 9 &divide; 3 : 60 &divide; 3  &rarr;  <strong><span class="hidden"></span> : <span class="hidden"></span></strong></p>
+            </div>
+        </div>
+
+        <div class="problem-separator"></div>
+
+        <!-- Problem 2 -->
+        <h2>Problem 2: Goldfish in Aquariums</h2>
+        <div class="question-box"><p>Let's Practise, Question 2</p></div>
+        <p><strong>Part (a): State the ratio of goldfish in aquarium A to aquarium B.</strong></p>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>The ratio is 16 : 20. The HCF of 16 and 20 is 4.</p>
+                <p>16 &divide; 4 : 20 &divide; 4  &rarr;  <strong><span class="hidden"></span> : <span class="hidden"></span></strong></p>
+            </div>
+        </div>
+        <p><strong>Part (b): Find the minimum number of goldfish to add.</strong></p>
+         <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>To keep the ratio the same, we add a multiple of the simplest ratio (4:5). The simplest is to add 4 fish to aquarium A and 5 fish to aquarium B.</p>
+                 <p>Number to add to A: <strong><span class="hidden"></span> fish</strong>. Number to add to B: <strong><span class="hidden"></span> fish</strong>.</p>
+            </div>
+        </div>
+
+        <div class="problem-separator"></div>
+
+        <!-- Problem 3 -->
+        <h2>Problem 3: Quiz Scores</h2>
+        <div class="question-box"><p>Let's Practise, Question 3</p></div>
+        <p><em>Note: The total scores in the book (144 and 168) seem to be typos. We'll use corrected scores that are divisible by the total ratio parts to solve it.</em></p>
+        <p><strong>Part (a): Find Rahim's score.</strong></p>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>Group P ratio (Rahim : Hassan) is 4 : 7. Total parts = 4 + 7 = 11.</p>
+                <p>Let's assume Group P's total score is 154. Value of 1 part = 154 &divide; 11 = 14.</p>
+                <p>Rahim's score = 4 parts = 4 x 14 = <strong><span class="hidden"></span></strong>.</p>
+            </div>
+        </div>
+        <p><strong>Part (b): State the ratio of Hassan's score to Bala's score.</strong></p>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>Hassan's score = 7 parts = 7 x 14 = 98.</p>
+                <p>Group Q ratio (Chong:Nurin:Bala:Shanthy) is 5:3:2:1. Total parts = 11.</p>
+                <p>Let's assume Group Q's total score is 176. Value of 1 part = 176 &divide; 11 = 16.</p>
+                <p>Bala's score = 2 parts = 2 x 16 = 32.</p>
+                <p>Ratio of Hassan to Bala = 98 : 32. Simplify by dividing by 2 &rarr; <strong><span class="hidden"></span> : <span class="hidden"></span></strong>.</p>
+            </div>
+        </div>
+        <p><strong>Part (c): Who obtained the highest score?</strong></p>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                 <p>Nurin's score (Group Q) = 3 parts x 16 = 48. Chong's score = 5 parts x 16 = 80.</p>
+                <p>Comparing all scores (Rahim 56, Hassan 98, Chong 80, Nurin 48, etc.), Hassan is highest.</p>
+                <p>Highest score: <strong><span class="hidden"></span></strong>, by Hassan.</p>
+            </div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 4 -->
+        <h2>Problem 4: Most Affordable Orange Juice</h2>
+        <div class="question-box"><p>Let's Practise, Question 4</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content"><p>To find the most affordable price, calculate the price per litre (the rate) for each bottle. The lowest rate is the best buy.</p></div>
+        </div>
+         <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>Bottle 1: RM14.25 for 950 ml (0.95 l). Rate = 14.25 / 0.95 = RM <span class="hidden"></span> / l.</p>
+                <p>Bottle 2: RM21.60 for 1.8 l. Rate = 21.60 / 1.8 = RM <span class="hidden"></span> / l.</p>
+                <p>Bottle 3: RM6.40 for 400 ml (0.4 l). Rate = 6.40 / 0.4 = RM <span class="hidden"></span> / l.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content"><p>Comparing the rates (RM15/l, RM12/l, RM16/l), the lowest is RM12/l. So, the <strong>1.8l bottle</strong> is the most affordable.</p></div>
+        </div>
+
+        <div class="problem-separator"></div>
+
+        <!-- Problem 5 -->
+        <h2>Problem 5: Filling a Water Tank</h2>
+        <div class="question-box"><p>Let's Practise, Question 5</p></div>
+         <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content"><p>Calculate the tank's volume in cm³: V = 120 x 60 x 50 = <span class="hidden"></span> cm³.</p></div>
+        </div>
+         <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content"><p>Convert volume to litres (1 l = 1000 cm³): 360,000 &divide; 1000 = <span class="hidden"></span> litres.</p></div>
+        </div>
+         <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content"><p>Calculate time to fill in minutes. Rate = 2.4 l/min. Time = 360 &divide; 2.4 = <span class="hidden"></span> minutes.</p></div>
+        </div>
+         <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content"><p>150 minutes is 2 hours and 30 minutes.</p>
+            <p>Start time is 0630. Add 2h 30m. End time = <span class="hidden"></span> hours.</p></div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 6 -->
+        <h2>Problem 6: Estimating Tree Height</h2>
+        <div class="question-box"><p>Let's Practise, Question 6</p></div>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content"><p>Set up the proportion: <div class="fraction"><span>Tree Height</span><span class="bottom">Tree Shadow</span></div> = <div class="fraction"><span>Student Height</span><span class="bottom">Student Shadow</span></div></p></div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content"><p>Plug in the values: <div class="fraction"><span>Tree Height</span><span class="bottom">6</span></div> = <div class="fraction"><span>1.55</span><span class="bottom">0.93</span></div></p></div>
+        </div>
+         <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content"><p>Solve for Tree Height: Tree Height = (1.55 &divide; 0.93) x 6 = <span class="hidden"></span> m.</p></div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 7 -->
+        <h2>Problem 7: Petrol Prices</h2>
+        <div class="question-box"><p>Let's Practise, Question 7</p></div>
+        <p><strong>Part (a): Difference in volume for RM15.</strong></p>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>Volume on 29 Feb (at RM1.75/l) = 15 / 1.75 = 8.571 l.</p>
+                <p>Volume on 6 Mar (at RM1.60/l) = 15 / 1.60 = 9.375 l.</p>
+                <p>Difference = 9.375 - 8.571 = <span class="hidden"></span> l.</p>
+            </div>
+        </div>
+        <p><strong>Part (b): Should Lai Huat move?</strong></p>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content"><p><strong>Current House:</strong> Total monthly travel = 24km x 2 trips x 20 days = 960 km.</p>
+            <p>Petrol needed = 960km / 20km/l = 48 l. Cost = 48 l x RM1.60/l = RM76.80.</p>
+            <p>Total expense = Rent + Petrol = 300 + 76.80 = RM <span class="hidden"></span>.</p></div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content"><p><strong>New House:</strong> Total monthly travel = 18km x 2 trips x 20 days = 720 km.</p>
+            <p>Petrol needed = 720km / 20km/l = 36 l. Cost = 36 l x RM1.60/l = RM57.60.</p>
+            <p>Total expense = Rent + Petrol = 340 + 57.60 = RM <span class="hidden"></span>.</p></div>
+        </div>
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content"><p>He should not move. Staying at the current house saves him RM397.60 - RM376.80 = RM <span class="hidden"></span>.</p></div>
+        </div>
+        
+        <div class="problem-separator"></div>
+
+        <!-- Problem 8 -->
+        <h2>Problem 8: Parking Rates</h2>
+        <div class="question-box"><p>Let's Practise, Question 8</p></div>
+        <p><strong>Part (a): Puan Zaiton's fee.</strong></p>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content"><p>Parking from 1030 to 1400 is 3 hours 30 minutes.</p>
+            <p>First 2 hours = RM1.60.</p>
+            <p>Remaining 1h 30m counts as 2 subsequent parts (hour 3 and hour 4).</p>
+            <p>Subsequent hours = 2 x RM1.00 = RM2.00.</p>
+            <p>Total = 1.60 + 2.00 = RM <span class="hidden"></span>.</p></div>
+        </div>
+        <p><strong>Part (b): Mr Ong's choice.</strong></p>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content"><p><strong>Option 1: Pay with ticket.</strong> Parking from 0800 to 2000.</p>
+            <p><u>8am-5pm Rate:</u> (9 hours total). First 2h = RM1.60. Subsequent 7h = 7 x RM1.00 = RM7.00. Subtotal = RM8.60.</p>
+            <p><u>After 5pm Rate:</u> Per entry charge = RM2.00.</p>
+            <p>Total parking charge = 8.60 + 2.00 = RM <span class="hidden"></span>.</p></div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content"><p><strong>Option 2: Pay lost ticket penalty.</strong> Penalty = RM <span class="hidden"></span>.</p>
+            <p>Comparing RM10.60 to RM20.00, it's cheaper to go get the ticket.</p></div>
+        </div>
+    </div>
+</body>
+</html>
+
