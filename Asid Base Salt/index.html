@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acid Base Salt - Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a202c;
+            color: #e2e8f0;
+            margin: 0;
+        }
+        .nav-btn {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .nav-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col justify-center items-center p-8">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">Acid Base Salt</h1>
+            <p class="text-xl text-gray-400">Select a topic to begin learning</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+            <div class="nav-btn bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 text-center" onclick="window.location.href='Acids & Bases.html'">
+                <div class="text-6xl mb-4">⚗️</div>
+                <h2 class="text-2xl font-bold mb-3">Acids & Bases</h2>
+                <p class="text-gray-300">Learn about acids and bases properties</p>
+            </div>
+            
+            <div class="nav-btn bg-gradient-to-br from-green-600 to-green-800 rounded-2xl p-8 text-center" onclick="window.location.href='Preparation of Salts.html'">
+                <div class="text-6xl mb-4">🧪</div>
+                <h2 class="text-2xl font-bold mb-3">Preparation of Salts</h2>
+                <p class="text-gray-300">Understand salt preparation methods</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
