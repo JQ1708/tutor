@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties of Materials - Interactive Lesson</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+        }
+        .game-screen {
+            display: none;
+        }
+        .game-screen.active {
+            display: block;
+        }
+        .option-btn {
+            transition: all 0.3s ease;
+        }
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .correct {
+            background-color: #28a745 !important;
+            color: white !important;
+            border-color: #28a745 !important;
+        }
+        .incorrect {
+            background-color: #dc3545 !important;
+            color: white !important;
+            border-color: #dc3545 !important;
+        }
+        .correction {
+             background-color: #ffc107 !important;
+             border-color: #ffc107 !important;
+             color: black !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="main-container" class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">Properties of Materials</h1>
+            <p class="text-lg text-gray-600 mt-2">An Interactive Lesson for IGCSE Year 8</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="bg-white p-4 rounded-xl shadow-md mb-8 flex flex-wrap justify-center gap-4">
+            <button onclick="showScreen('topic1')" class="nav-btn bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">1. Dissolving</button>
+            <button onclick="showScreen('topic2')" class="nav-btn bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">2. Solubility</button>
+            <button onclick="showScreen('topic3')" class="nav-btn bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">3. Investigations</button>
+            <button onclick="showScreen('topic4')" class="nav-btn bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">4. Chromatography</button>
+        </nav>
+
+        <!-- Dynamic Content Area -->
+        <div id="content-area">
+            <!-- Home Screen -->
+            <div id="home-screen" class="text-center bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Welcome, Candice!</h2>
+                <p class="text-xl mb-6">Select a topic above to start learning with the slides, then test your knowledge with the quiz game!</p>
+                <img src="https://placehold.co/600x300/E9D5FF/6D28D9?text=Science+Adventure+Awaits!" alt="Science illustration" class="rounded-lg mx-auto">
+            </div>
+
+            <!-- Topic Screens -->
+            <div id="topic1" class="topic-screen hidden"></div>
+            <div id="topic2" class="topic-screen hidden"></div>
+            <div id="topic3" class="topic-screen hidden"></div>
+            <div id="topic4" class="topic-screen hidden"></div>
+
+            <!-- Game Screen -->
+            <div id="game-container" class="game-screen bg-white p-6 md:p-8 rounded-2xl shadow-2xl">
+                <!-- Game content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const studentName = "Candice";
+        const topics = {
+            topic1: {
+                title: "Introduction to Dissolving",
+                color: "indigo",
+                slides: [
+                    { title: "What is a Solution?", content: `When a substance disappears into another, it's called **dissolving**. <br> • The substance that dissolves is the **solute**. <br> • The liquid it dissolves in is the **solvent**. <br> • Together, they form a **solution**.` , image: "https://placehold.co/600x300/C7D2FE/4338CA?text=Sugar+(Solute)+in+Water+(Solvent)"},
+                    { title: "Particle Theory", content: `The solute doesn't actually disappear! Its particles just spread out and mix completely with the solvent particles. That's why you can't see them anymore.`, image: "https://placehold.co/600x300/C7D2FE/4338CA?text=Particles+Mixing"},
+                    { title: "Properties of Solutions", content: `All solutions are **transparent** (you can see through them), but they aren't always colorless. Copper sulfate solution is blue, but transparent.<br>A liquid like milk is **opaque** (you can't see through it), so it's not a solution.`, image: "https://placehold.co/600x300/C7D2FE/4338CA?text=Transparent+vs+Opaque"},
+                    { title: "Dissolving vs. Melting", content: `**Dissolving** needs two substances (a solute and a solvent). <br> **Melting** is just one substance changing from a solid to a liquid because of heat.`, image: "https://placehold.co/600x300/C7D2FE/4338CA?text=Dissolving+vs+Melting"},
+                    { title: "Conservation of Mass", content: `When a solute dissolves, no mass is lost! The mass is **conserved**. <br><br> <i class='font-mono p-2 bg-indigo-100 rounded'>Mass of Solute + Mass of Solvent = Mass of Solution</i> <br><br> Example: 5g of salt + 100g of water = 105g of salt solution.`, image: "https://placehold.co/600x300/C7D2FE/4338CA?text=Mass+is+Conserved"}
+                ],
+                questions: [
+                    { q: "What is the name for a substance that dissolves in a liquid?", a: "Solute", o: ["Solvent", "Solution", "Mixture", "Element", "Compound"] },
+                    { q: "When sugar is dissolved in water, what is the water called?", a: "Solvent", o: ["Solute", "Solution", "Mixture", "Solid", "Compound"] },
+                    { q: "What do you call the mixture formed when a solute dissolves in a solvent?", a: "Solution", o: ["Solute", "Solvent", "Element", "Opaque", "Compound"] },
+                    { q: "Which word describes a liquid that you can see through?", a: "Transparent", o: ["Opaque", "Solid", "Conserved", "Melted", "Thick"] },
+                    { q: "If you mix 10g of coffee powder into 200g of hot water, what is the final mass of the coffee solution?", a: "210g", o: ["200g", "190g", "10g", "205g", "Cannot be determined"] },
+                    { q: "What happens to the particles of a solute when it dissolves?", a: "They spread out among the solvent particles", o: ["They disappear forever", "They become solvent particles", "They sink to the bottom", "They melt", "They get heavier"] },
+                    { q: "Milk is not a solution because it is...", a: "Opaque", o: ["Transparent", "Sweet", "White", "A liquid", "A solvent"] },
+                    { q: "What is the key difference between dissolving and melting?", a: "Dissolving requires a solvent, melting does not", o: ["Melting requires a solvent", "They are the same thing", "Dissolving involves heat only", "Melting turns a liquid to solid", "Dissolving only happens with salt"] },
+                    { q: "The idea that mass is not lost during dissolving is called...", a: "Conservation of mass", o: ["Destruction of mass", "Creation of mass", "Particle theory", "Solution theory", "Melting point"] },
+                    { q: "Which of these is an example of a solute?", a: "Sugar cube", o: ["Water", "Milk", "Oil", "Sand", "Tea"] },
+                    { q: "What is conserved when a solute dissolves in a solvent?", a: "Mass", o: ["Volume", "Color", "Temperature", "Shape", "Smell"] },
+                    { q: "True or False: A solution is always colorless.", a: "False", o: ["True", "Sometimes", "Only on Tuesdays", "Never", "Depends on the solvent"] },
+                    { q: "In a salt water solution, which is the solute?", a: "Salt", o: ["Water", "The beaker", "The air", "Heat", "Stirring rod"] },
+                    { q: "A cloudy liquid that you cannot see through is described as...", a: "Opaque", o: ["Transparent", "A solution", "A solvent", "A solute", "Clear"] },
+                    { q: "According to particle theory, dissolving happens because particles...", a: "Mix and spread out", o: ["Stick together", "Vanish", "Change color", "Get colder", "Become larger"] },
+                    { q: "If you dissolve 2g of salt in 50g of water, what is the mass of the solution?", a: "52g", o: ["50g", "48g", "2g", "100g", "51g"] },
+                    { q: "Which of these is an example of a solvent?", a: "Water", o: ["Salt", "Sand", "Sugar", "Flour", "Iron filings"] },
+                    { q: "What process involves a solid changing to a liquid due to heat?", a: "Melting", o: ["Dissolving", "Freezing", "Boiling", "Condensing", "Evaporating"] },
+                    { q: "Is air a solution?", a: "Yes, of different gases", o: ["No, it's an element", "No, it's a compound", "No, it's opaque", "No, it is a solid", "Only when it's windy"] },
+                    { q: "Why can't you see the individual particles in a solution?", a: "They are too small", o: ["They have disappeared", "They are transparent", "They move too fast", "They are the same color as the solvent", "The light bends around them"] },
+                    { q: "To make a solution, you need at least ___ substance(s).", a: "Two", o: ["One", "Three", "Four", "Five", "Zero"] },
+                    { q: "The opposite of opaque is...", a: "Transparent", o: ["Cloudy", "Colored", "Thick", "Solid", "Liquid"] },
+                    { q: "Which of these does NOT form a solution with water?", a: "Sand", o: ["Salt", "Sugar", "Coffee powder", "Food coloring", "Honey"] },
+                    { q: "What is the scientific name for the 'dissolving liquid'?", a: "Solvent", o: ["Solute", "Water", "Potion", "Mixture", "Liquid"] },
+                    { q: "What happens to the volume when you dissolve a solid in a liquid?", a: "It usually increases slightly", o: ["It always doubles", "It always halves", "It stays exactly the same", "It decreases", "It vanishes"] },
+                    { q: "In hot chocolate, what is the milk or water?", a: "Solvent", o: ["Solute", "Opaque", "Solid", "Gas", "Melting"] },
+                    { q: "In hot chocolate, what is the chocolate powder?", a: "Solute", o: ["Solvent", "Solution", "Transparent", "Liquid", "Melting"] },
+                    { q: "If you add salt to water, it forms a...", a: "Solution", o: ["New element", "New compound", "Gas", "Solid block", "Precipitate"] },
+                    { q: "A fizzy drink is a solution of a gas (carbon dioxide) in a liquid. The gas is the...", a: "Solute", o: ["Solvent", "Solution", "Solid", "Opaque", "Melting"] },
+                    { q: "Does stirring make more salt dissolve in water?", a: "No, it only makes it dissolve faster", o: ["Yes, it always doubles the amount", "Yes, it creates more space", "No, it makes less dissolve", "Only if you stir clockwise", "Yes, it changes the salt particles"] },
+                    { q: "What piece of lab equipment is best for measuring a specific volume of a liquid solvent?", a: "Measuring cylinder", o: ["Beaker", "Conical flask", "Test tube", "Spatula", "Balance"] },
+                    { q: "If a substance dissolves, it has not...", a: "Disappeared", o: ["Changed", "Mixed", "Spread out", "Moved", "Shrunk"] },
+                    { q: "Can a solid dissolve in another solid?", a: "Yes, this is how alloys are made", o: ["No, solids can't be solvents", "No, solids can't be solutes", "Only if they are both metals", "Only at absolute zero", "Never"] },
+                    { q: "What is the most common solvent on Earth?", a: "Water", o: ["Alcohol", "Oil", "Acid", "Air", "Sand"] },
+                    { q: "A solution of copper sulfate is blue but you can see through it. This means it is...", a: "Transparent", o: ["Opaque", "A solid", "Insoluble", "A compound", "An element"] },
+                    { q: "The law of conservation of mass states that mass is neither created nor...", a: "Destroyed", o: ["Changed", "Moved", "Shared", "Dissolved", "Heated"] },
+                    { q: "Which of these processes is NOT related to dissolving?", a: "Burning", o: ["Mixing", "Stirring", "Spreading", "Disappearing", "Melting"] },
+                    { q: "When making cordial, the cordial syrup is the...", a: "Solute", o: ["Solvent", "Solution", "Element", "Gas", "Solid"] },
+                    { q: "The particles in a liquid are arranged...", a: "Randomly and can move past each other", o: ["In a fixed lattice", "Very far apart", "In neat rows", "Unable to move", "As a single block"] },
+                    { q: "When a solid dissolves, its particles break away from the...", a: "Crystal structure", o: ["Solvent particles", "Edge of the beaker", "Liquid surface", "Air", "Bottom"] },
+                    { q: "True or False: All liquids are solvents.", a: "False", o: ["True", "Only water", "Only clear liquids", "Only colored liquids", "Depends on the day"] },
+                    { q: "What is the main difference between a mixture and a compound?", a: "Mixtures can be separated easily, compounds cannot", o: ["Compounds can be separated easily", "Mixtures are always solids", "Compounds are always liquids", "There is no difference", "Mixtures have a fixed ratio"] },
+                    { q: "If 9g of salt is dissolved in 50g of water, what is the mass of the solution?", a: "59g", o: ["50g", "41g", "9g", "60g", "55g"] },
+                    { q: "A green powder is stirred in water. The water looks cloudy. Has a solution formed?", a: "No, because it is not transparent", o: ["Yes, because it is green", "Yes, because it was stirred", "No, because green things don't dissolve", "Maybe, you can't tell", "Only if it tastes sweet"] },
+                    { q: "When you measure the volume of a liquid, you should read from the bottom of the...", a: "Meniscus", o: ["Beaker", "Measuring cylinder", "Top of the liquid", "Label", "Table"] },
+                    { q: "Which of these is a solution?", a: "Sea water", o: ["Muddy water", "Flour and water", "Oil and water", "Chalk and water", "Sand and water"] },
+                    { q: "The term 'conserved' in science means the total amount...", a: "Stays the same", o: ["Is lost", "Is gained", "Is doubled", "Is halved", "Changes"] },
+                    { q: "Dissolving is a...", a: "Physical change", o: ["Chemical change", "Biological change", "Permanent change", "Reaction", "State change"] },
+                    { q: "Can gases dissolve in liquids?", a: "Yes", o: ["No", "Only oxygen", "Only if the liquid is hot", "Only if the liquid is cold", "Never"] },
+                    { q: "An example of an element is...", a: "Oxygen", o: ["Water", "Salt", "Sugar", "Air", "Glass"] }
+                ]
+            },
+            topic2: {
+                title: "Solutions and Solubility",
+                color: "purple",
+                slides: [
+                    { title: "Concentrated vs. Dilute", content: `A **concentrated** solution has a large amount of solute in the solvent. <br> A **dilute** solution has a small amount of solute in the solvent. Think of strong vs. weak squash!`, image: "https://placehold.co/600x300/E9D5FF/8B5CF6?text=Concentrated+vs+Dilute"},
+                    { title: "Soluble or Insoluble?", content: `A substance that can dissolve is called **soluble**. (e.g., salt in water) <br> A substance that cannot dissolve is called **insoluble**. (e.g., sand in water)`, image: "https://placehold.co/600x300/E9D5FF/8B5CF6?text=Soluble+vs+Insoluble"},
+                    { title: "Saturated Solutions", content: `If you keep adding solute, eventually no more can dissolve. The solution is now **saturated**. Any extra solute will just sink to the bottom.`, image: "https://placehold.co/600x300/E9D5FF/8B5CF6?text=Saturated+Solution"},
+                    { title: "What is Solubility?", content: `**Solubility** is a measure of how much solute can dissolve in a certain amount of solvent at a specific temperature. It's often measured in grams of solute per 100g of water (g/100g).`, image: "https://placehold.co/600x300/E9D5FF/8B5CF6?text=Measuring+Solubility"},
+                    { title: "Temperature and Solubility", content: `For most solids, solubility **increases** as the temperature of the solvent increases. You can dissolve more sugar in hot tea than in iced tea.`, image: "https://placehold.co/600x300/E9D5FF/8B5CF6?text=Temperature+Affects+Solubility"},
+                    { title: "Other Solvents", content: `Water isn't the only solvent! Nail polish is insoluble in water, but it's soluble in nail polish remover (acetone). The solvent used depends on the solute.`, image: "https://placehold.co/600x300/E9D5FF/8B5CF6?text=Different+Solvents+Exist"}
+                ],
+                questions: [
+                    { q: "A solution with very little solute is described as...", a: "Dilute", o: ["Concentrated", "Saturated", "Soluble", "Insoluble", "Opaque"] },
+                    { q: "A substance that will not dissolve in a solvent is called...", a: "Insoluble", o: ["Soluble", "Saturated", "Dilute", "A solute", "A solution"] },
+                    { q: "When no more solute can dissolve in a solvent, the solution is...", a: "Saturated", o: ["Dilute", "Concentrated", "Empty", "Unstable", "Insoluble"] },
+                    { q: "What generally happens to the solubility of most solids as temperature increases?", a: "It increases", o: ["It decreases", "It stays the same", "It becomes zero", "It doubles exactly", "It disappears"] },
+                    { q: "Which term measures the maximum amount of solute that can dissolve?", a: "Solubility", o: ["Concentration", "Volume", "Mass", "Density", "Temperature"] },
+                    { q: "A strong coffee is a good example of a ___ solution.", a: "Concentrated", o: ["Dilute", "Saturated", "Insoluble", "Weak", "Transparent"] },
+                    { q: "If you add sand to water and it doesn't dissolve, the sand is...", a: "Insoluble", o: ["A solvent", "A solution", "Saturated", "Soluble", "A solute"] },
+                    { q: "To dissolve nail polish, you would need a solvent like...", a: "Acetone", o: ["Water", "Oil", "Milk", "Sugar", "Salt"] },
+                    { q: "If the solubility of salt is 36g/100g water, how much salt can dissolve in 50g of water?", a: "18g", o: ["36g", "72g", "50g", "100g", "9g"] },
+                    { q: "Which solution contains more solute particles in the same volume of solvent?", a: "A concentrated solution", o: ["A dilute solution", "An insoluble solution", "A pure solvent", "A saturated solution", "A weak solution"] },
+                    { q: "What is the opposite of dilute?", a: "Concentrated", o: ["Saturated", "Soluble", "Insoluble", "Clear", "Strong"] },
+                    { q: "A substance that dissolves is said to be...", a: "Soluble", o: ["Insoluble", "Saturated", "A solvent", "Concentrated", "A solid"] },
+                    { q: "If you add too much sugar to your tea and some is left at the bottom, the tea is...", a: "Saturated", o: ["Dilute", "Unsaturated", "Soluble", "Insoluble", "Weak"] },
+                    { q: "How does cooling a solvent usually affect the solubility of a solid solute?", a: "It decreases", o: ["It increases", "It stays the same", "It makes it dissolve faster", "It makes it concentrated", "It turns it into a gas"] },
+                    { q: "The solubility of a substance is often measured at a specific...", a: "Temperature", o: ["Time of day", "Pressure", "Color", "Volume", "Weight"] },
+                    { q: "Weak tea is an example of a ___ solution.", a: "Dilute", o: ["Concentrated", "Saturated", "Insoluble", "Opaque", "Strong"] },
+                    { q: "Which of the following is insoluble in water?", a: "Oil", o: ["Salt", "Sugar", "Ethanol", "Vinegar", "Honey"] },
+                    { q: "A solution that can still dissolve more solute is called...", a: "Unsaturated", o: ["Saturated", "Supersaturated", "Concentrated", "Dilute", "Full"] },
+                    { q: "If solubility is 20g/100g water, how much can dissolve in 200g water?", a: "40g", o: ["20g", "100g", "10g", "200g", "220g"] },
+                    { q: "To make a dilute solution more concentrated, you should...", a: "Add more solute", o: ["Add more solvent", "Heat it", "Cool it", "Stir it faster", "Pour some out"] },
+                    { q: "The term for how much solute dissolves is...", a: "Solubility", o: ["Dissolvability", "Mixability", "Saturation", "Concentration", "Solution level"] },
+                    { q: "Iron filings are ___ in water.", a: "Insoluble", o: ["Soluble", "A solute", "A solvent", "A solution", "Saturated"] },
+                    { q: "What happens to the extra solute when a solution becomes saturated?", a: "It remains undissolved at the bottom", o: ["It disappears", "It floats on top", "It turns into solvent", "It evaporates", "It changes color"] },
+                    { q: "How does increasing temperature affect the solubility of most gases in a liquid?", a: "It decreases", o: ["It increases", "It stays the same", "It makes them visible", "It turns them solid", "It makes them float"] },
+                    { q: "A solvent that is not water could be...", a: "Ethanol", o: ["Salt", "Sugar", "Sand", "Iron", "Oxygen"] },
+                    { q: "To make a concentrated solution more dilute, you should...", a: "Add more solvent", o: ["Add more solute", "Remove some solute", "Cool it down", "Freeze it", "Shake it"] },
+                    { q: "Sodium chloride is the chemical name for...", a: "Common salt", o: ["Sugar", "Sand", "Water", "Vinegar", "Flour"] },
+                    { q: "A saturated solution contains the ___ amount of dissolved solute.", a: "Maximum", o: ["Minimum", "Average", "No", "Half", "Variable"] },
+                    { q: "Based on the table in your book, which is more soluble in 20°C water: copper sulfate or lead chloride?", a: "Copper sulfate", o: ["Lead chloride", "They are the same", "Neither is soluble", "It is impossible to tell", "Only lead chloride is"] },
+                    { q: "Why can you dissolve more sugar in hot water than cold water?", a: "Hot water particles have more energy", o: ["Cold water particles are too big", "Sugar particles get smaller in hot water", "Hot water is less dense", "The sugar melts first", "Cold water is already saturated"] },
+                    { q: "To find the solubility of salt, you dissolve it until the solution is...", a: "Saturated", o: ["Clear", "Salty", "Dilute", "Concentrated", "Hot"] },
+                    { q: "Chalk dust is ___ in water.", a: "Insoluble", o: ["Soluble", "Very soluble", "A solvent", "A solution", "Dilute"] },
+                    { q: "You can make a solution less concentrated by...", a: "Adding more solvent", o: ["Adding more solute", "Evaporating the solvent", "Heating it", "Cooling it", "Filtering it"] },
+                    { q: "The solubility graph shows that as temperature increases, the amount of salt that can be dissolved...", a: "Increases", o: ["Decreases", "Stays constant", "Goes up and down", "Becomes zero", "Cannot be determined"] },
+                    { q: "Oil paint is not soluble in water, so you might need to use ___ to clean brushes.", a: "Methanol", o: ["More water", "Hot water", "Soap", "Salt water", "Sugar water"] },
+                    { q: "Comparing a 10g/100ml solution with a 5g/100ml solution, the 10g one is more...", a: "Concentrated", o: ["Dilute", "Saturated", "Insoluble", "Soluble", "Weaker"] },
+                    { q: "What is the opposite of soluble?", a: "Insoluble", o: ["Concentrated", "Dilute", "Saturated", "Solvent", "Solid"] },
+                    { q: "A crystal forming when a hot saturated solution cools is a sign of...", a: "Decreasing solubility", o: ["Increasing solubility", "A chemical reaction", "The solute disappearing", "The solvent evaporating", "A mistake"] },
+                    { q: "Based on the table, what is the solubility of sodium chloride in 100g of water at 20°C?", a: "36g", o: ["32g", "74g", "7g", "1g", "100g"] },
+                    { q: "To compare the solubility of two different salts fairly, what must be kept the same?", a: "Temperature and amount of solvent", o: ["The color of the salts", "The size of the beakers", "The time of day", "The person doing the experiment", "The brand of salt"] },
+                    { q: "How much potassium chlorate would dissolve in 200 g of water at 20°C if its solubility is 7g/100g?", a: "14g", o: ["7g", "200g", "100g", "3.5g", "207g"] },
+                    { q: "How much sodium chloride would dissolve in 50g of water at 20°C if its solubility is 36g/100g?", a: "18g", o: ["36g", "72g", "50g", "9g", "100g"] },
+                    { q: "What is a saturated solution?", a: "A solution in which no more solute can dissolve", o: ["A solution with no solute", "A very dilute solution", "A very hot solution", "A solution that is colored", "A solution with sand in it"] },
+                    { q: "According to the graph, which salt is most soluble at 10°C?", a: "Sodium nitrate", o: ["Potassium nitrate", "Copper sulfate", "All are equal", "None are soluble", "It cannot be read"] },
+                    { q: "According to the graph, which salt is most soluble at 80°C?", a: "Potassium nitrate", o: ["Sodium nitrate", "Copper sulfate", "All are equal", "None are soluble", "It cannot be read"] },
+                    { q: "The general trend for the solubility of all three salts on the graph is that it...", a: "Increases with temperature", o: ["Decreases with temperature", "Stays the same", "Is random", "Goes down then up", "Is always zero"] },
+                    { q: "A solution's concentration refers to the amount of ___ in a certain volume of solvent.", a: "Solute", o: ["Solvent", "Gas", "Heat", "Water", "Air"] },
+                    { q: "If you have 10 cm³ of dye and add 0 cm³ of water, the solution is...", a: "The most concentrated", o: ["The most dilute", "Saturated", "Insoluble", "The weakest", "Not a solution"] },
+                    { q: "If a solid is soluble, it will...", a: "Dissolve in a solvent", o: ["Not dissolve in a solvent", "Always be white", "Melt in water", "React with water", "Sink to the bottom"] },
+                    { q: "The solubility of sugar at 80°C is greater than at 20°C. This means you can make a more ___ solution at 80°C.", a: "Concentrated", o: ["Dilute", "Insoluble", "Opaque", "Solid", "Weak"] }
+                ]
+            },
+            topic3: {
+                title: "Planning an Investigation",
+                color: "pink",
+                slides: [
+                    { title: "Identifying Variables", content: `When we do an experiment, things can change. These are called **variables**. Good scientists identify and control them.`, image: "https://placehold.co/600x300/FBCFE8/DB2777?text=What+are+Variables?"},
+                    { title: "Types of Variables", content: `• **Independent Variable**: The one thing YOU change to see what happens. <br> • **Dependent Variable**: The thing you measure to see the effect. It *depends* on the independent variable. <br> • **Control Variables**: Everything else you must keep the SAME to make it a fair test.`, image: "https://placehold.co/600x300/FBCFE8/DB2777?text=3+Types+of+Variables"},
+                    { title: "Example Investigation", content: `**Question:** Does water temperature affect how much salt dissolves? <br> • **Independent Variable**: Temperature of the water. <br> • **Dependent Variable**: Mass of salt that dissolves. <br> • **Control Variables**: Volume of water, type of salt, stirring speed.`, image: "https://placehold.co/600x300/FBCFE8/DB2777?text=Investigation+Example"},
+                    { title: "Planning Your Method", content: `A good plan includes: <br> • **Range**: The highest and lowest values you will test (e.g., temperatures from 20°C to 80°C). <br> • **Intervals**: The gaps between your measurements (e.g., test every 10°C). <br> • **Safety**: What precautions you will take. <br> • **Equipment**: A list of everything you need.`, image: "https://placehold.co/600x300/FBCFE8/DB2777?text=Plan+Your+Experiment"}
+                ],
+                questions: [
+                    { q: "In an experiment, what is the name of the variable that you deliberately change?", a: "Independent variable", o: ["Dependent variable", "Control variable", "Fair variable", "Constant variable", "Result variable"] },
+                    { q: "The variable that you measure to get your results is called the...", a: "Dependent variable", o: ["Independent variable", "Control variable", "Changed variable", "Test variable", "Fixed variable"] },
+                    { q: "To ensure a 'fair test', which variables must you keep the same?", a: "Control variables", o: ["Independent variables", "Dependent variables", "All variables", "The result", "The conclusion"] },
+                    { q: "If investigating how temperature affects solubility, what is the dependent variable?", a: "Amount of solute that dissolves", o: ["Temperature of water", "Volume of water", "Time taken", "Type of beaker", "Stirring speed"] },
+                    { q: "You test solubility at 20°C, 30°C, 40°C, and 50°C. What is the interval?", a: "10°C", o: ["20°C", "30°C", "50°C", "4°C", "The range"] },
+                    { q: "In a solubility experiment, keeping the volume of water the same is an example of a...", a: "Control variable", o: ["Dependent variable", "Independent variable", "Result", "Measurement", "Hypothesis"] },
+                    { q: "What do we call the highest and lowest values you test for your independent variable?", a: "Range", o: ["Interval", "Average", "Conclusion", "Method", "Results"] },
+                    { q: "On a graph, which axis does the independent variable usually go on?", a: "Horizontal axis (x-axis)", o: ["Vertical axis (y-axis)", "Both axes", "Neither axis", "The title", "The key"] },
+                    { q: "Why is it important to control variables?", a: "To ensure a fair test", o: ["To get the results you want", "To make the experiment faster", "To use less equipment", "So you don't have to repeat it", "To make the graph look good"] },
+                    { q: "A student wants to see which type of sugar (A, B, or C) dissolves fastest. What is the independent variable?", a: "Type of sugar", o: ["Time to dissolve", "Amount of water", "Temperature of water", "Stirring speed", "Size of beaker"] },
+                    { q: "The thing you measure 'depends' on what you change. This makes it the ___ variable.", a: "Dependent", o: ["Independent", "Control", "Constant", "Fair", "Test"] },
+                    { q: "Which of these is NOT a variable?", a: "The date of the experiment", o: ["Temperature", "Volume of water", "Type of solute", "Stirring speed", "Time"] },
+                    { q: "In the temperature and solubility experiment, what is the independent variable?", a: "Temperature of the water", o: ["Mass of salt dissolved", "Volume of water", "Size of spatula", "The salt", "The beaker"] },
+                    { q: "If you change both the temperature and the volume of water at the same time, your test will be...", a: "Unfair", o: ["Fair", "Accurate", "Reliable", "Quick", "Easy"] },
+                    { q: "The gaps between your readings (e.g., every 5 minutes) are called...", a: "Intervals", o: ["Ranges", "Variables", "Controls", "Results", "Averages"] },
+                    { q: "If you test temperatures from 10°C to 100°C, this is your...", a: "Range", o: ["Interval", "Control", "Dependent variable", "Hypothesis", "Conclusion"] },
+                    { q: "On a graph of solubility vs temperature, what is the label on the vertical (y) axis?", a: "Mass of solute dissolved (g)", o: ["Temperature (°C)", "Volume of water (cm³)", "Time (s)", "Type of salt", "Solubility"] },
+                    { q: "A result that doesn't fit the pattern of the others is called...", a: "An anomalous result", o: ["A correct result", "The best result", "The control", "The average", "A variable"] },
+                    { q: "Why might a scientist repeat an investigation?", a: "To check if the results are reliable", o: ["Because they forgot the first time", "To use more chemicals", "To make it take longer", "To get a different answer", "Because the teacher said so"] },
+                    { q: "A prediction of what you think will happen in an experiment is called a...", a: "Hypothesis", o: ["Conclusion", "Method", "Variable", "Result", "Theory"] },
+                    { q: "What piece of equipment would you use to measure temperature?", a: "Thermometer", o: ["Ruler", "Balance", "Measuring cylinder", "Stopwatch", "Beaker"] },
+                    { q: "What is the most important safety rule when heating water?", a: "Wear safety glasses", o: ["Use cold water", "Stir it continuously", "Use a small beaker", "Work quickly", "Add salt first"] },
+                    { q: "If you investigate the effect of stirring on how fast sugar dissolves, what is the dependent variable?", a: "Time taken to dissolve", o: ["Stirring speed", "Amount of sugar", "Amount of water", "Temperature", "The spoon"] },
+                    { q: "In the same stirring experiment, what is a key control variable?", a: "Temperature of the water", o: ["Time taken to dissolve", "Stirring speed", "The result", "The conclusion", "The graph"] },
+                    { q: "A step-by-step instruction list for an experiment is called the...", a: "Method", o: ["Conclusion", "Hypothesis", "Equipment list", "Risk assessment", "Results table"] },
+                    { q: "Before starting an experiment, you should always consider the...", a: "Risks and safety precautions", o: ["Easiest way to do it", "Final answer", "Color of the chemicals", "Clean up time", "Who to work with"] },
+                    { q: "What does 'accurate' mean in an experiment?", a: "The result is close to the true value", o: ["The results are all close together", "The experiment was fast", "The experiment was easy", "The graph looks neat", "The results are repeatable"] },
+                    { q: "What does 'reliable' mean in an experiment?", a: "You get similar results if you repeat it", o: ["The result is the correct answer", "The experiment was complicated", "You only did it once", "You used a lot of equipment", "The results are perfect"] },
+                    { q: "In an investigation, the one factor you are testing is the...", a: "Independent variable", o: ["Dependent variable", "Control variable", "Hypothesis", "Conclusion", "Result"] },
+                    { q: "A 'fair test' is also known as a...", a: "Controlled experiment", o: ["Random experiment", "Quick experiment", "Variable experiment", "Hypothesis test", "Guess"] },
+                    { q: "If you spill a chemical, the first thing you should do is...", a: "Tell the teacher", o: ["Wipe it up with your hand", "Ignore it", "Run away", "Pour water on it", "Taste it"] },
+                    { q: "A 'control' in an experiment can also refer to a setup where...", a: "The independent variable is not applied, for comparison", o: ["Everything is changed", "The results are controlled", "The teacher does it", "There are no variables", "It is done outside"] },
+                    { q: "A table for results should have clear headings and...", a: "Units", o: ["Colors", "Pictures", "A conclusion", "A hypothesis", "Jokes"] },
+                    { q: "After analyzing your results, you write a...", a: "Conclusion", o: ["Hypothesis", "Method", "Risk assessment", "Title", "Introduction"] },
+                    { q: "Which of these is a variable that needs to be controlled when comparing solubility of different salts?", a: "Volume of water", o: ["The names of the salts", "The number of letters in the salt's name", "The final result", "The shape of the graph", "The dependent variable"] },
+                    { q: "If your hypothesis was wrong, the experiment was...", a: "Still useful, as it provided a result", o: ["A failure", "A waste of time", "Wrong", "Inaccurate", "Unreliable"] },
+                    { q: "What is the best way to present results showing a relationship between two number variables?", a: "A line graph", o: ["A bar chart", "A pie chart", "A diagram", "A paragraph", "A photograph"] },
+                    { q: "To improve the accuracy of measuring how much salt dissolves, you should use a ___ instead of a spatula.", a: "Top pan balance", o: ["Bigger spatula", "Smaller spatula", "Thermometer", "Ruler", "Measuring spoon"] },
+                    { q: "The variable that is plotted on the horizontal axis is the...", a: "Independent variable", o: ["Dependent variable", "Control variable", "Anomalous result", "Average", "Conclusion"] },
+                    { q: "Investigating the effect of water temperature on salt solubility. What is the independent variable?", a: "Temperature of water", o: ["Number of spatulas of salt", "Volume of water", "Time taken", "Color of the salt", "Final mass"] },
+                    { q: "In the same investigation, what is the dependent variable?", a: "Number of spatulas of salt", o: ["Temperature of water", "Volume of water", "The beaker", "The stirring rod", "The heat source"] },
+                    { q: "What is a control variable in that same investigation?", a: "Volume of water", o: ["Temperature of water", "Number of spatulas of salt", "The graph", "The conclusion", "The pattern"] },
+                    { q: "Choosing to measure every 10°C from 20°C to 80°C defines your...", a: "Range and intervals", o: ["Hypothesis", "Conclusion", "Equipment", "Safety rules", "Variables"] },
+                    { q: "A student uses a different sized spatula for each temperature. This makes the experiment...", a: "Unfair", o: ["Fair", "Safer", "More accurate", "More reliable", "Quicker"] },
+                    { q: "Drawing a 'line of best fit' on a graph helps to...", a: "Identify the trend and any anomalies", o: ["Join all the dots exactly", "Make the graph look pretty", "Calculate the average", "Show the control variables", "Confuse the reader"] },
+                    { q: "What does 'variable' mean?", a: "Something that can change or be changed", o: ["Something that stays the same", "A scientific tool", "The result of an experiment", "A type of chemical", "A unit of measurement"] },
+                    { q: "In science, a 'fair test' means that...", a: "Only one variable is changed at a time", o: ["Everyone gets the same result", "The result is what you expected", "The test is very easy", "There are no variables", "The test is completed quickly"] },
+                    { q: "What is the conclusion of the solubility investigation?", a: "As temperature increases, solubility of salt increases", o: ["Salt dissolves in water", "Hot water is dangerous", "Experiments are fun", "My hypothesis was right", "The graph is a curve"] },
+                    { q: "To make results more reliable, you should...", a: "Repeat the readings and calculate an average", o: ["Do the experiment once very carefully", "Use brand new equipment", "Guess the results", "Ask a friend for their results", "Work faster"] },
+                    { q: "Which of these is a control variable when investigating how surface area affects dissolving speed?", a: "Mass of the solute", o: ["Surface area of the solute", "Time to dissolve", "The type of graph", "The conclusion", "The result"] }
+                ]
+            },
+            topic4: {
+                title: "Paper Chromatography",
+                color: "teal",
+                slides: [
+                    { title: "Separating Mixtures", content: `**Paper chromatography** is a technique used to separate a mixture of dissolved substances, like the different coloured inks in a black pen.`, image: "https://placehold.co/600x300/99F6E4/134E4A?text=Paper+Chromatography"},
+                    { title: "How It Works", content: `A spot of the mixture (e.g., ink) is put on special paper. The bottom of the paper is dipped in a solvent (e.g., water). As the solvent soaks up the paper, it dissolves the ink and carries it upwards.`, image: "https://placehold.co/600x300/99F6E4/134E4A?text=How+it+Works"},
+                    { title: "Why Inks Separate", content: `Different coloured substances in the ink have different solubilities. <br> • **More soluble** substances travel further up the paper. <br> • **Less soluble** substances are left behind sooner.`, image: "https://placehold.co/600x300/99F6E4/134E4A?text=Different+Solubilities"},
+                    { title: "The Chromatogram", content: `The final paper with the separated colours is called a **chromatogram**. The highest point the solvent reaches is the **solvent front**.`, image: "https://placehold.co/600x300/99F6E4/134E4A?text=Reading+a+Chromatogram"},
+                    { title: "Interpreting Results", content: `• A substance that separates into multiple spots is a **mixture**. <br> • A substance that only produces one spot is **pure**. <br> You can compare unknown substances to known ones to identify them.`, image: "https://placehold.co/600x300/99F6E4/134E4A?text=Pure+vs+Mixture"}
+                ],
+                questions: [
+                    { q: "Paper chromatography is used to ___ mixtures.", a: "Separate", o: ["Create", "Heat", "Combine", "Weigh", "Freeze"] },
+                    { q: "The paper with the separated colours at the end of the experiment is called a...", a: "Chromatogram", o: ["Photograph", "Diagram", "Solvent", "Solute", "Mixturegram"] },
+                    { q: "In chromatography, substances separate based on their different...", a: "Solubilities", o: ["Masses", "Colours", "Smells", "Shapes", "Densities"] },
+                    { q: "A substance that travels the furthest up the paper is the...", a: "Most soluble", o: ["Least soluble", "Heaviest", "Purest", "Most colourful", "A solid"] },
+                    { q: "Why should the starting line be drawn in pencil?", a: "Pencil lead is insoluble and won't move", o: ["Pencil is easier to see", "Pen ink would separate too", "It's a rule with no reason", "Pencil is darker", "It is easier to erase"] },
+                    { q: "If an ink separates into three different coloured spots, it is a...", a: "Mixture", o: ["Pure substance", "Solvent", "Solute", "Solid", "Compound"] },
+                    { q: "What do you call the liquid that soaks up the paper?", a: "Solvent", o: ["Solute", "Solution", "Chromatogram", "Mixture", "Ink"] },
+                    { q: "The highest point the solvent reaches on the paper is called the...", a: "Solvent front", o: ["Finish line", "Chromatogram top", "Solubility point", "Water mark", "Peak"] },
+                    { q: "A food dye that produces only one spot on a chromatogram is considered...", a: "Pure", o: ["A mixture", "Insoluble", "A solvent", "Saturated", "Unsafe"] },
+                    { q: "Permanent marker ink doesn't separate with water. What should you try instead?", a: "A different solvent like alcohol", o: ["Hotter water", "Colder water", "More ink", "Thicker paper", "Less water"] },
+                    { q: "In chromatography, the paper is the ___ phase.", a: "Stationary", o: ["Mobile", "Liquid", "Gas", "Soluble", "Insoluble"] },
+                    { q: "In chromatography, the solvent is the ___ phase.", a: "Mobile", o: ["Stationary", "Solid", "Gas", "Paper", "Mixture"] },
+                    { q: "Why must the ink spot be above the level of the solvent at the start?", a: "So it doesn't dissolve directly into the solvent pool", o: ["So it stays dry", "To make it go faster", "To make it go slower", "It is a safety rule", "It doesn't matter"] },
+                    { q: "A substance that travels the shortest distance up the paper is the...", a: "Least soluble", o: ["Most soluble", "Lightest", "Most dense", "A gas", "Impure"] },
+                    { q: "What would happen if you used a pen to draw the start line?", a: "The ink from the line would also separate", o: ["Nothing would happen", "The experiment would fail", "The paper would rip", "The solvent wouldn't rise", "It would be more accurate"] },
+                    { q: "If a green ink separates into a blue spot and a yellow spot, it tells you green ink is a...", a: "Mixture", o: ["Pure substance", "Element", "Compound", "Solvent", "Solid"] },
+                    { q: "The solvent used in chromatography is also known as the...", a: "Mobile phase", o: ["Stationary phase", "Solute", "Mixture", "Chromatogram", "Solid phase"] },
+                    { q: "When the solvent moves up the paper, it ___ the ink spot.", a: "Dissolves", o: ["Melts", "Ignores", "Avoids", "Heats", "Solidifies"] },
+                    { q: "A pure red dye will show how many spots on a chromatogram?", a: "One", o: ["Two", "Three", "None", "As many as it wants", "Red is not pure"] },
+                    { q: "The separation in chromatography works because of a competition between the paper and the...", a: "Solvent", o: ["Air", "Beaker", "Ink", "Pencil line", "Light"] },
+                    { q: "What is the name of the technique to separate ink colours?", a: "Paper chromatography", o: ["Filtration", "Evaporation", "Distillation", "Magnetism", "Melting"] },
+                    { q: "If two spots travel the same distance up the paper, they are likely...", a: "The same substance", o: ["Different substances", "Both insoluble", "Both solvents", "Both pure", "A mistake"] },
+                    { q: "To separate the colours from crushed plant leaves, you would use ___ as a solvent, not water.", a: "Ethanol", o: ["Oil", "Salt water", "Acid", "Vinegar", "Milk"] },
+                    { q: "The 'station' in 'stationary phase' means...", a: "It does not move", o: ["It is paper", "It is a train station", "It is temporary", "It is liquid", "It is a solvent"] },
+                    { q: "The 'mobile' in 'mobile phase' means...", a: "It moves", o: ["It is a phone", "It is solid", "It is a solute", "It is the paper", "It is a mixture"] },
+                    { q: "Why should you use a lid on the beaker during chromatography?", a: "To stop the solvent from evaporating", o: ["To keep the paper down", "To keep dust out", "For safety", "To make it dark", "It looks more professional"] },
+                    { q: "Forensic scientists can use chromatography to analyze...", a: "Ink from a crime scene note", o: ["Fingerprints", "DNA", "Shoe prints", "Hair samples", "Blood type"] },
+                    { q: "If a substance is insoluble in the solvent, where will its spot be on the chromatogram?", a: "On the starting line", o: ["At the solvent front", "Halfway up", "At the top", "It will disappear", "It will spread everywhere"] },
+                    { q: "Chromatography can be used to check for...", a: "Banned food colourings", o: ["The temperature of food", "The mass of food", "The taste of food", "The age of food", "The brand of food"] },
+                    { q: "What does the word 'chroma' in chromatography relate to?", a: "Colour", o: ["Paper", "Writing", "Separating", "Science", "Liquid"] },
+                    { q: "Why should you use a very small, concentrated spot of ink?", a: "To get clearer, less blurry separation", o: ["To save ink", "So it dries faster", "So it dissolves less", "To make it lighter", "So it doesn't rip the paper"] },
+                    { q: "What happens if you let the solvent run all the way to the top of the paper?", a: "The spots might all merge at the top", o: ["The experiment works better", "Nothing happens", "The paper dissolves", "You get more colors", "The results are more accurate"] },
+                    { q: "The results of a chromatogram are...", a: "Qualitative (descriptive)", o: ["Quantitative (numerical)", "Both qualitative and quantitative", "Always the same", "Always wrong", "Pointless"] },
+                    { q: "Which colour in black ink is likely the least soluble?", a: "The one that moves the shortest distance", o: ["The one that moves the furthest", "The darkest one", "The lightest one", "There is no way to tell", "The black part"] },
+                    { q: "On the food dye chromatogram in the book, which dye is a pure substance?", a: "Blue", o: ["Brown", "Yellow", "All of them", "None of them", "Sunny Red"] },
+                    { q: "Which food dye is a mixture?", a: "Brown", o: ["Blue", "Yellow", "All of them", "None of them", "Red"] },
+                    { q: "Which colored substance in the food dyes is the most soluble?", a: "The top blue spot", o: ["The bottom red spot", "The yellow spot", "The brown spot", "The blue spot on the line", "They are all equal"] },
+                    { q: "Which colored substance is the least soluble?", a: "The bottom red spot", o: ["The top blue spot", "The yellow spot", "The brown spot on the line", "The blue spot", "They are all equal"] },
+                    { q: "Why was ethanol used to extract color from plant leaves?", a: "The green pigment is soluble in ethanol", o: ["The green pigment is insoluble in water", "Ethanol is green", "Water would damage the leaves", "Ethanol is safer than water", "It was the only liquid available"] },
+                    { q: "Is the green pigment in plant leaves pure?", a: "No, it separates into different colored spots", o: ["Yes, it only shows one green spot", "Yes, because plants are pure", "No, because it is a plant", "It is impossible to know", "Sometimes"] },
+                    { q: "Chromatography separates substances based on their differential distribution between...", a: "A stationary and a mobile phase", o: ["A liquid and a gas", "A solid and a gas", "Two liquids", "Two solids", "The start and finish"] },
+                    { q: "What should you do with the chromatogram after the experiment is finished?", a: "Let it dry before making observations", o: ["Throw it away immediately", "Put it back in the solvent", "Wash it with water", "Heat it with a Bunsen burner", "Eat it"] },
+                    { q: "If you are comparing four pens, you should run them on...", a: "The same piece of paper at the same time", o: ["Four different papers", "Four different days", "Four different solvents", "Four different tables", "Different types of paper"] },
+                    { q: "Why is the pencil line drawn 1cm from the bottom?", a: "To make sure the ink spot is not submerged in the solvent", o: ["Because rulers start at 1cm", "It is a random number", "To give the solvent a head start", "To make it look neat", "It is the law of chromatography"] },
+                    { q: "Chromatography can be used to identify an unknown substance by...", a: "Comparing its spot to known substances", o: ["Tasting the spot", "Smelling the spot", "Measuring the mass of the spot", "Seeing how many spots there are", "Checking its color"] },
+                    { q: "The paper used in chromatography acts like a...", a: "Wick", o: ["Filter", "Sponge", "Solid barrier", "Mirror", "Heater"] },
+                    { q: "If a substance is very soluble in the solvent AND adsorbs weakly to the paper, it will travel...", a: "Far", o: ["A short distance", "Nowhere", "Backwards", "Off the paper", "In a circle"] },
+                    { q: "The pattern of separated components on a chromatogram is called a...", a: "Chromatogram", o: ["Chromagraph", "Chromascope", "Chrometer", "Chromablot", "Chromapic"] },
+                    { q: "A key piece of equipment for this experiment is...", a: "Chromatography paper", o: ["A Bunsen burner", "A microscope", "A voltmeter", "An acid", "A magnet"] }
+                ]
+            }
+        };
+
+        // --- STATE MANAGEMENT ---
+        let currentTopicId = null;
+        let currentSlideIndex = 0;
+        let currentGame;
+
+        // --- UI RENDERING ---
+        function showScreen(screenId) {
+            document.getElementById('home-screen').style.display = 'none';
+            document.querySelectorAll('.topic-screen').forEach(el => el.classList.add('hidden'));
+            document.getElementById('game-container').classList.remove('active');
+
+
+            if (topics[screenId]) {
+                currentTopicId = screenId;
+                currentSlideIndex = 0;
+                renderTopicScreen(screenId);
+                document.getElementById(screenId).classList.remove('hidden');
+            } else {
+                 document.getElementById('home-screen').style.display = 'block';
+            }
+        }
+
+        function renderTopicScreen(topicId) {
+            const topic = topics[topicId];
+            const container = document.getElementById(topicId);
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-${topic.color}-600 mb-6 text-center">${topic.title}</h2>
+                    <div id="slide-container" class="mb-6">
+                        <!-- Slide content will go here -->
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button id="prev-btn" onclick="changeSlide(-1)" class="bg-${topic.color}-500 hover:bg-${topic.color}-600 text-white font-bold py-2 px-4 rounded-lg">&larr; Prev</button>
+                        <span id="slide-counter" class="text-gray-600 font-semibold"></span>
+                        <button id="next-btn" onclick="changeSlide(1)" class="bg-${topic.color}-500 hover:bg-${topic.color}-600 text-white font-bold py-2 px-4 rounded-lg">Next &rarr;</button>
+                    </div>
+                    <div class="text-center mt-8">
+                        <button onclick="startGame('${topicId}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">Start Quiz for this Topic!</button>
+                    </div>
+                </div>
+            `;
+            renderSlide();
+        }
+
+        function renderSlide() {
+            const topic = topics[currentTopicId];
+            const slide = topic.slides[currentSlideIndex];
+            const slideContainer = document.getElementById('slide-container');
+            slideContainer.innerHTML = `
+                <div class="slide active text-center p-4 border-2 border-${topic.color}-200 rounded-lg bg-${topic.color}-50">
+                    <h3 class="text-2xl font-semibold mb-4 text-${topic.color}-700">${slide.title}</h3>
+                    <img src="${slide.image}" alt="${slide.title}" class="rounded-lg mx-auto mb-4 w-full max-w-md object-cover h-48">
+                    <p class="text-lg">${slide.content}</p>
+                </div>
+            `;
+            document.getElementById('slide-counter').textContent = `Slide ${currentSlideIndex + 1} of ${topic.slides.length}`;
+            document.getElementById('prev-btn').disabled = currentSlideIndex === 0;
+            document.getElementById('next-btn').disabled = currentSlideIndex === topic.slides.length - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            renderSlide();
+        }
+
+        function startGame(topicId) {
+            document.querySelectorAll('.topic-screen').forEach(el => el.classList.add('hidden'));
+             document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('game-container').classList.add('active');
+            currentGame = new QuizGame(topicId);
+            currentGame.start();
+        }
+
+        // --- GAME LOGIC CLASS ---
+        class QuizGame {
+            constructor(topicId) {
+                this.topicId = topicId;
+                this.topic = topics[topicId];
+                this.questions = this.shuffleArray([...this.topic.questions]).slice(0, 50); // Use 50 questions
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+                this.incorrectlyAnswered = [];
+                this.attempts = 0;
+                this.isCorrectionMode = false;
+                this.container = document.getElementById('game-container');
+            }
+
+            start() {
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+                this.incorrectlyAnswered = [];
+                this.isCorrectionMode = false;
+                this.showQuestion();
+            }
+
+            showQuestion() {
+                this.attempts = 0;
+                const questionData = this.isCorrectionMode ? this.incorrectlyAnswered[this.currentQuestionIndex] : this.questions[this.currentQuestionIndex];
+                
+                let options = this.shuffleArray([...questionData.o, questionData.a]);
+                if (options.length > 6) options = options.slice(0, 6);
+                 while (options.length < 6) {
+                    options.push("Not applicable"); // Pad with a neutral option if needed
+                }
+                options = this.shuffleArray(options);
+
+                this.container.innerHTML = `
+                    <div id="quiz-ui">
+                        <div class="flex justify-between items-center mb-4 flex-wrap">
+                            <h2 class="text-xl md:text-2xl font-bold text-${this.topic.color}-600">${this.topic.title} Quiz</h2>
+                            <div class="text-right">
+                                <p class="font-semibold">Score: <span class="text-green-600">${this.score}</span></p>
+                                <p class="font-semibold">Incorrect: <span class="text-red-600">${this.incorrectlyAnswered.length}</span></p>
+                            </div>
+                        </div>
+                         ${this.isCorrectionMode ? `<div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert"><p class="font-bold">Correction Time!</p><p>Let's try this one again. You must get it right to finish.</p></div>` : ''}
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-inner">
+                            <p class="text-xl font-semibold mb-1">Question ${this.currentQuestionIndex + 1} of ${this.isCorrectionMode ? this.incorrectlyAnswered.length : this.questions.length}</p>
+                            <p class="text-2xl mb-6">${questionData.q}</p>
+                            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                ${options.map(opt => `<button class="option-btn bg-white border-2 border-gray-300 hover:border-${this.topic.color}-400 text-left p-4 rounded-lg text-lg" onclick="currentGame.checkAnswer('${this.encode(opt)}')">${opt}</button>`).join('')}
+                            </div>
+                        </div>
+                        <div id="feedback" class="mt-4 text-center text-xl font-semibold min-h-[30px]"></div>
+                    </div>
+                `;
+            }
+
+            checkAnswer(selectedAnswerEncoded) {
+                const selectedAnswer = this.decode(selectedAnswerEncoded);
+                const questionData = this.isCorrectionMode ? this.incorrectlyAnswered[this.currentQuestionIndex] : this.questions[this.currentQuestionIndex];
+                const correctAnswer = questionData.a;
+                this.attempts++;
+
+                const buttons = document.querySelectorAll('.option-btn');
+                let selectedButton = null;
+                buttons.forEach(button => {
+                    if (button.textContent === selectedAnswer) {
+                        selectedButton = button;
+                    }
+                    button.disabled = true;
+                });
+                
+                const feedbackEl = document.getElementById('feedback');
+
+                if (selectedAnswer === correctAnswer) {
+                    selectedButton.classList.add('correct');
+                    feedbackEl.textContent = "Correct! Well done!";
+                    feedbackEl.className = "mt-4 text-center text-xl font-semibold text-green-600 min-h-[30px]";
+                    if (!this.isCorrectionMode) {
+                        this.score++;
+                    } else {
+                        // If correct in correction mode, we need to remove it from the list for the final count.
+                        // For simplicity in flow, we'll just let them pass. The final screen will show they corrected mistakes.
+                    }
+                    setTimeout(() => this.nextQuestion(), 1500);
+                } else {
+                    selectedButton.classList.add('incorrect');
+                    if (this.isCorrectionMode) {
+                        feedbackEl.textContent = `Not quite, ${studentName}. The correct answer was "${correctAnswer}". Let's try again.`;
+                        feedbackEl.className = "mt-4 text-center text-xl font-semibold text-red-600 min-h-[30px]";
+                        buttons.forEach(button => {
+                             if(button.textContent === correctAnswer) button.classList.add('correction');
+                        });
+                        setTimeout(() => {
+                           buttons.forEach(b => { 
+                               b.disabled = false;
+                               b.classList.remove('incorrect', 'correct', 'correction');
+                           });
+                           feedbackEl.textContent = "Choose the correct answer to continue.";
+                           feedbackEl.className = "mt-4 text-center text-xl font-semibold text-yellow-600 min-h-[30px]";
+                        }, 2500);
+                    } else if (this.attempts < 2) {
+                        feedbackEl.textContent = `Don't worry, ${studentName}, try again! You have one more attempt.`;
+                        feedbackEl.className = "mt-4 text-center text-xl font-semibold text-orange-500 min-h-[30px]";
+                        setTimeout(() => {
+                            buttons.forEach(b => b.disabled = false);
+                            selectedButton.classList.remove('incorrect');
+                            selectedButton.disabled = true; // disable the wrong choice
+                            feedbackEl.textContent = "";
+                        }, 2000);
+                    } else {
+                        feedbackEl.textContent = `Tough one! The correct answer was "${correctAnswer}".`;
+                        feedbackEl.className = "mt-4 text-center text-xl font-semibold text-red-600 min-h-[30px]";
+                        // Ensure we don't add duplicates
+                        if (!this.incorrectlyAnswered.find(item => item.q === questionData.q)) {
+                             this.incorrectlyAnswered.push(questionData);
+                        }
+                        buttons.forEach(button => {
+                             if(button.textContent === correctAnswer) button.classList.add('correct');
+                        });
+                        setTimeout(() => this.nextQuestion(), 3000);
+                    }
+                }
+            }
+
+            nextQuestion() {
+                this.currentQuestionIndex++;
+                const questionSet = this.isCorrectionMode ? this.incorrectlyAnswered : this.questions;
+                if (this.currentQuestionIndex < questionSet.length) {
+                    this.showQuestion();
+                } else {
+                    this.endLevel();
+                }
+            }
+            
+            endLevel() {
+                if (!this.isCorrectionMode && this.incorrectlyAnswered.length > 0) {
+                    this.isCorrectionMode = true;
+                    this.currentQuestionIndex = 0;
+                    // Now, the question set for the game is the incorrectly answered list
+                    this.questions = this.incorrectlyAnswered;
+                    this.showQuestion();
+                } else {
+                    this.showFinalScore();
+                }
+            }
+
+            showFinalScore() {
+                const totalQuestions = topics[this.topicId].questions.length > 50 ? 50 : topics[this.topicId].questions.length;
+                this.container.innerHTML = `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4 text-${this.topic.color}-600">Level Complete!</h2>
+                        <p class="text-2xl mb-2">Final Score for ${this.topic.title}:</p>
+                        <p class="text-5xl font-bold text-green-600 mb-6">${this.score} / ${totalQuestions}</p>
+                        ${this.incorrectlyAnswered.length === 0 ? `<p class="text-xl text-green-700">🎉 Perfect! You got everything right! 🎉</p>` : `<p class="text-xl text-gray-700">Good job, ${studentName}! You corrected all your mistakes.</p>`}
+                        <div class="mt-8 flex justify-center gap-4">
+                            <button onclick="showScreen('${this.topicId}')" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg">Back to Slides</button>
+                             <button onclick="showScreen(null)" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg">Choose Another Topic</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            encode(str) {
+                try {
+                    return btoa(unescape(encodeURIComponent(str)));
+                } catch (e) {
+                    return btoa(str); // fallback for potential malformed strings
+                }
+            }
+
+            decode(str) {
+                 try {
+                    return decodeURIComponent(escape(atob(str)));
+                } catch (e) {
+                    return atob(str);
+                }
+            }
+        }
+
+    </script>
+
+</body>
+</html>
+
