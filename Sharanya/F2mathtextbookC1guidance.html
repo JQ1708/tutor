@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Guidance: Patterns and Sequences</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+        }
+        .question-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fdfdfd;
+            border-left: 5px solid #007bff;
+            border-radius: 5px;
+        }
+        .step {
+            margin-bottom: 15px;
+        }
+        .step-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .hidden-box {
+            display: inline-block;
+            width: 40px;
+            height: 25px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes animate-gradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        #sharanya-text {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #ffff00);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: float 6s ease-in-out infinite, animate-gradient 10s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+<!-- Home Button -->
+<button onclick="window.history.back()" class="fixed top-4 right-4 z-50 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+    🏠 Home
+</button>
+
+    <div class="container">
+        <h1>Generating Excellence: Step-by-Step Guidance</h1>
+        <p id="sharanya-text">for Sharanya</p>
+
+        <!-- Question 1 -->
+        <div class="question-section">
+            <h2>Question 1: Match the term</h2>
+            <p>Read the definition of each term below, then match it to the correct statement in your book.</p>
+            <div class="step">
+                <span class="step-label">Even Numbers:</span> These are numbers that can be divided by 2 exactly, with no remainder (e.g., 2, 4, 6, ...).
+            </div>
+            <div class="step">
+                <span class="step-label">Odd Numbers:</span> These are numbers that have a remainder of 1 when divided by 2 (e.g., 1, 3, 5, ...).
+            </div>
+            <div class="step">
+                <span class="step-label">Fibonacci Numbers:</span> This is a special sequence where you get the next term by adding the two terms before it. It starts with 0, 1, 1, 2, 3, 5, ...
+            </div>
+            <div class="step">
+                <span class="step-label">Pascal's Triangle:</span> This is a triangular arrangement of numbers where each number is the sum of the two numbers directly above it. The outside edges are all 1s.
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-section">
+            <h2>Question 2: Determine the pattern</h2>
+            
+            <p><strong>(a) 7, 13, 19, 25, ...</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the difference between the first two terms.
+                <code>13 - 7 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Check if the difference is the same for the next pair of terms.
+                <code>19 - 13 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> The pattern is to add that constant number to the previous term.
+            </div>
+
+            <p><strong>(b) 54, 50, 46, 42, ...</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the difference. Notice the numbers are getting smaller.
+                <code>50 - 54 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> The pattern is to subtract the difference you found.
+            </div>
+
+            <p><strong>(c) -13, -39, -117, -351, ...</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Since the numbers are changing rapidly, let's check for a common ratio by dividing the second term by the first.
+                <code>-39 &divide; -13 = <span class="hidden-box"></span></code>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> Confirm this with the next pair.
+                <code>-117 &divide; -39 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> The pattern is to multiply the previous number by this ratio.
+            </div>
+
+            <p><strong>(d) 1 296, 216, 36, 6, ...</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Again, the numbers are decreasing rapidly. Let's try division.
+                <code>1296 &divide; 216 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Check with the next pair to confirm.
+                <code>216 &divide; 36 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> The pattern is to divide the previous number by the value you found.
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-section">
+            <h2>Question 3: Complete the table</h2>
+            <p><strong>(a) Sequence: 2, 4, 6, 8, ...</strong></p>
+            <div class="step">
+                <span class="step-label">Number Pattern:</span> Find the common difference. <code>4 - 2 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Words:</span> Describe the pattern, e.g., "Add <span class="hidden-box"></span> to the previous number."
+            </div>
+            <div class="step">
+                <span class="step-label">Algebraic Expression:</span> The pattern is related to the 2 times table. The expression is <code>2n</code>, where n = 1, 2, 3, ...
+            </div>
+            <p><strong>(b) Sequence: 100, 50, 25, 12.5, ...</strong></p>
+             <div class="step">
+                <span class="step-label">Number Pattern:</span> Find the common ratio. <code>50 &divide; 100 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Words:</span> Describe the pattern, e.g., "Divide the previous number by <span class="hidden-box"></span>."
+            </div>
+            <div class="step">
+                <span class="step-label">Algebraic Expression:</span> This is a bit trickier. The expression is <code>100 &divide; 2<sup>n-1</sup></code>, where n = 1, 2, 3, ...
+            </div>
+        </div>
+        
+        <!-- Question 4 -->
+        <div class="question-section">
+            <h2>Question 4: Complete the number sequence</h2>
+            <p><strong>(a) 1, 3, 5, <span class="hidden-box"></span>, 9, ...</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Look at the pattern. These are consecutive odd numbers. What comes after 5?
+            </div>
+            <p><strong>(b) -20, -10, -5, <span class="hidden-box"></span>, <span class="hidden-box"></span>, ...</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the pattern. Is it addition or division? <code>-10 &divide; -20 = 0.5</code>. Let's check the next pair. <code>-5 &divide; -10 = 0.5</code>.
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> The pattern is dividing by 2 (or multiplying by 0.5). Apply this to find the next two terms. <code>-5 &divide; 2 = ?</code>
+            </div>
+             <p><strong>(c) 268, <span class="hidden-box"></span>, 202, 169, 136, ... </strong> (Note: There may be a typo in the book, I have corrected the sequence to make it solvable)</p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the common difference from the known consecutive terms. <code>136 - 169 = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Apply this difference to find the missing number after 268. <code>268 + (<span class="hidden-box"></span>) = ?</code>
+            </div>
+             <p><strong>(d) 1/2, <span class="hidden-box"></span>, 1/3, <span class="hidden-box"></span>, 1/6, ...</strong></p>
+             <div class="step">
+                <span class="step-label">Step 1:</span> This one is tricky! It might be an arithmetic sequence with fractions. Let's find the difference between 1/3 and 1/2. First, find a common denominator (6).
+                <code>1/3 - 1/2 = 2/6 - 3/6 = <span class="hidden-box"></span></code>. This is the difference between terms that are two steps apart.
+            </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> The difference for one step is half of that: <code>(-1/6) &divide; 2 = -1/12</code>.
+            </div>
+             <div class="step">
+                <span class="step-label">Step 3:</span> Now find the missing terms by subtracting 1/12 each time.
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-section">
+            <h2>Question 5: Sequence 9, x, -5, -12, ...</h2>
+            
+            <p><strong>(a) Calculate the value of x.</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the common difference (d) using the two known consecutive terms.
+                <code>d = -12 - (-5) = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Use this common difference to find 'x'.
+                <code>x = 9 + d = 9 + (<span class="hidden-box"></span>) = ?</code>
+            </div>
+
+            <p><strong>(b) State the pattern.</strong></p>
+            <div class="step">
+                <span class="step-label">(i) Numbers:</span> The pattern is the common difference you found.
+            </div>
+            <div class="step">
+                <span class="step-label">(ii) Words:</span> Describe the pattern, e.g., "Subtract <span class="hidden-box"></span> from the previous number."
+            </div>
+             <div class="step">
+                <span class="step-label">(iii) Algebraic Expression:</span> The formula is <code>T<sub>n</sub> = 9 + (n-1)d</code>. Substitute the value of 'd' you found to get the expression.
+            </div>
+        </div>
+        
+        <!-- Question 6 -->
+        <div class="question-section">
+            <h2>Question 6: Fibonacci Numbers</h2>
+            <p><strong>Complete the sequence: 0, 1, 1, <span class="hidden-box"></span>, <span class="hidden-box"></span>, <span class="hidden-box"></span>, ...</strong></p>
+            <div class="step">
+                <span class="step-label">Rule:</span> To find the next number, add the two numbers before it.
+            </div>
+            <div class="step">
+                <span class="step-label">Step 1:</span> The last two numbers are 1 and 1. So the next number is <code>1 + 1 = ?</code>
+            </div>
+             <div class="step">
+                <span class="step-label">Step 2:</span> Now the last two numbers are 1 and your new number. Add them to get the next one.
+            </div>
+        </div>
+        
+        <!-- Question 7 -->
+        <div class="question-section">
+            <h2>Question 7: Pascal's Triangle</h2>
+            <p>Explain how the triangle is formed and complete it.</p>
+            <div class="step">
+                <span class="step-label">Rule 1:</span> The triangle starts with a 1 at the top.
+            </div>
+            <div class="step">
+                <span class="step-label">Rule 2:</span> The outside edges of the triangle are always 1.
+            </div>
+            <div class="step">
+                <span class="step-label">Rule 3:</span> Any number inside the triangle is the sum of the two numbers directly above it.
+            </div>
+            <div class="step">
+                <span class="step-label">Example:</span> In the third row (1, 2, 1), the '2' comes from adding the 1 and 1 from the row above. Use this rule to fill in the empty boxes in your book.
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-section">
+            <h2>Question 8: Sequence 11, x, -5, -13, ...</h2>
+            
+            <p><strong>(a) Calculate the value of x.</strong></p>
+             <div class="step">
+                <span class="step-label">Step 1:</span> Find the common difference (d) using the third and fourth terms.
+                <code>d = -13 - (-5) = <span class="hidden-box"></span></code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Calculate 'x' using the first term and the common difference.
+                <code>x = 11 + d = 11 + (<span class="hidden-box"></span>) = ?</code>
+            </div>
+
+            <p><strong>(b) State the tenth term, T<sub>10</sub>.</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Use the formula: <code>T<sub>n</sub> = a + (n-1)d</code>.
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> You have <code>a = 11</code>, <code>n = 10</code>, and the value of 'd' from part (a).
+            </div>
+            <div class="step">
+                <span class="step-label">Step 3:</span> Substitute and solve.
+                <code>T<sub>10</sub> = 11 + (10 - 1) x (<span class="hidden-box"></span>) = ?</code>
+            </div>
+        </div>
+        
+        <!-- Question 9 -->
+        <div class="question-section">
+            <h2>Question 9: Nina's Buttons</h2>
+            <div class="step">
+                <span class="step-label">(a) & (b) Pattern and Sequence:</span>
+                Count the number of buttons in the first arrangement (T<sub>1</sub>), second (T<sub>2</sub>), and third (T<sub>3</sub>). Write these numbers down as a sequence. Then find the pattern (how much it increases each time).
+            </div>
+             <div class="step">
+                <span class="step-label">(c) Draw the fourth term:</span>
+                Based on the pattern you found, calculate how many buttons are in the fourth term (T<sub>4</sub>). Then draw the arrangement.
+            </div>
+             <div class="step">
+                <span class="step-label">(d) Calculate T<sub>6</sub>:</span>
+                Use your pattern to find the number of buttons in the sixth arrangement. You can either continue the sequence or use the formula <code>T<sub>n</sub> = a + (n-1)d</code>.
+                T<sub>1</sub> = 6, T<sub>2</sub> = 12, T<sub>3</sub> = 18. Common difference d = <span class="hidden-box"></span>.
+                <code>T<sub>6</sub> = 6 + (6 - 1) x (<span class="hidden-box"></span>) = ?</code>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-section">
+            <h2>Question 10</h2>
+            <p>Refer to teacher.</p>
+        </div>
+        
+        <!-- Question 11 -->
+        <div class="question-section">
+            <h2>Question 11: Raiyan's Medication Schedule</h2>
+            <p>Help Raiyan create a schedule starting from 8:30 a.m.</p>
+            
+            <p><strong>Fever Medication (3 times a day)</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the interval: <code>24 hours &divide; 3 = <span class="hidden-box"></span> hours</code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Calculate the times:
+                <ul>
+                    <li>1st: 8:30 a.m.</li>
+                    <li>2nd: 8:30 a.m. + <span class="hidden-box"></span> hours = ?</li>
+                    <li>3rd: (Time of 2nd dose) + <span class="hidden-box"></span> hours = ?</li>
+                </ul>
+            </div>
+            
+            <p><strong>Antibiotics (2 times a day)</strong></p>
+            <div class="step">
+                <span class="step-label">Step 1:</span> Find the interval: <code>24 hours &divide; 2 = <span class="hidden-box"></span> hours</code>
+            </div>
+            <div class="step">
+                <span class="step-label">Step 2:</span> Calculate the times:
+                 <ul>
+                    <li>1st: 8:30 a.m.</li>
+                    <li>2nd: 8:30 a.m. + <span class="hidden-box"></span> hours = ?</li>
+                </ul>
+            </div>
+
+            <p><strong>Flu Medication (1 time a day)</strong></p>
+             <div class="step">
+                <span class="step-label">Step 1:</span> He just takes it once at the start time.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
