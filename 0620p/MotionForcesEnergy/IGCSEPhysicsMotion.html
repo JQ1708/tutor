@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Motion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a202c;
+            --card-color: #2d3748;
+            --text-color: #e2e8f0;
+            --accent-color: #4299e1;
+            --accent-color-hover: #63b3ed;
+            --correct-color: #48bb78;
+            --incorrect-color: #f56565;
+            --tip-color: #f6e05e; /* Yellow for tips */
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* --- Mind Map --- */
+        .mind-map-container { position: relative; width: 100%; max-width: 800px; margin: 2rem auto; display: flex; justify-content: center; align-items: center; padding: 2rem 0; }
+        .mind-map-node { transition: all 0.3s ease; cursor: pointer; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-align: center; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); position: absolute; }
+        .mind-map-node:hover { transform: scale(1.1); box-shadow: 0 0 25px var(--accent-color-hover); }
+        .central-node { width: 150px; height: 150px; background-color: var(--accent-color); color: white; z-index: 10; font-size: 1.5rem; }
+        .sub-node { width: 120px; height: 120px; background-color: var(--card-color); border: 2px solid var(--accent-color); padding: 5px; }
+
+        /* --- Expandable Section --- */
+        details { background-color: var(--card-color); border-radius: 0.75rem; margin-bottom: 1rem; border: 1px solid #4a5568; }
+        details[open] { box-shadow: 0 0 15px rgba(66, 153, 225, 0.3); }
+        summary { cursor: pointer; padding: 1rem 1.5rem; font-weight: 600; font-size: 1.25rem; color: var(--accent-color-hover); display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '+'; font-size: 2rem; transition: transform 0.2s; }
+        details[open] summary::after { content: '-'; transform: rotate(45deg); }
+        .details-content { padding: 0 1.5rem 1.5rem; border-top: 1px solid #4a5568; }
+        
+        /* --- Graph Interactive --- */
+        .graph-interactive-container { display: flex; flex-direction: column; md:flex-row; gap: 1.5rem; background-color: var(--card-color); padding: 1.5rem; border-radius: 1rem; }
+        .graph-controls { display: flex; flex-direction: row; md:flex-col; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+        .control-btn { background-color: #384252; border: 1px solid #4a5568; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
+        .control-btn:hover, .control-btn.active { background-color: var(--accent-color); color: white; }
+        .graph-display { flex-grow: 1; background-color: #1e2533; border-radius: 0.5rem; padding: 1rem; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .graph-display svg { max-width: 150px; margin-bottom: 1rem; }
+
+        /* --- Timeline --- */
+        .timeline { border-left: 3px solid var(--accent-color); padding: 2rem 0; margin: 2rem; }
+        .timeline-item { position: relative; margin-left: 2rem; margin-bottom: 2rem; padding: 1rem; background-color: var(--card-color); border-radius: 0.5rem; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-icon { position: absolute; left: -2.75rem; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background-color: var(--accent-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; }
+
+        /* --- Examiner Tip Box --- */
+        .examiner-tip-box { background-color: rgba(246, 224, 94, 0.1); border-left: 5px solid var(--tip-color); padding: 1.5rem; border-radius: 0.5rem; margin-top: 2rem; }
+        .examiner-tip-box h3 { color: var(--tip-color); font-weight: 700; font-size: 1.25rem; }
+
+        /* --- Other Styles --- */
+        .keyword { font-weight: 700; color: var(--accent-color-hover); font-style: italic; border-bottom: 2px dotted var(--accent-color); }
+        .formula { font-family: 'Georgia', serif; font-style: italic; font-size: 1.5rem; margin: 1rem 0; padding: 0.5rem; border-radius: 0.5rem; background-color: rgba(0,0,0,0.2); display: inline-block; }
+        .fraction { 
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            position: relative;
+            top: -0.3em;
+            margin: 0 0.2em;
+        }
+        .numerator { 
+            border-bottom: 2px solid var(--text-color); 
+            padding: 0 0.5rem; 
+            line-height: 1.2;
+        }
+        .denominator { 
+            padding: 0 0.5rem; 
+            line-height: 1.2;
+        }
+        sup { font-size: 0.8em; vertical-align: super; }
+
+        /* --- Quiz Styles --- */
+        .quiz-container { background-color: var(--card-color); padding: 2rem; border-radius: 1rem; margin-top: 2rem; }
+        .quiz-option { background-color: #384252; border: 1px solid #4a5568; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s ease; }
+        .quiz-option:hover { background-color: var(--accent-color); color: white; }
+        .quiz-option.selected { background-color: var(--accent-color-hover); color: white; border-color: white; }
+        .quiz-option.correct { background-color: var(--correct-color); color: white; }
+        .quiz-option.incorrect { background-color: var(--incorrect-color); color: white; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+<!-- Home Button -->
+<button onclick="window.history.back()" class="fixed top-4 right-4 z-50 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+    🏠 Home
+</button>
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-6xl font-bold text-white">Motion</h1>
+        <p class="text-lg text-gray-400 mt-2">Tap on the mind map nodes to begin your journey!</p>
+    </header>
+
+    <!-- Mind Map -->
+    <div id="mind-map" class="mind-map-container h-[400px] md:h-[500px] mb-16">
+        <div class="central-node mind-map-node" onclick="scrollToSection('mind-map')">Motion</div>
+        <div class="sub-node mind-map-node" style="top: 0; left: 50%; transform: translateX(-50%);" onclick="scrollToSection('speed_velocity')">Speed & Velocity</div>
+        <div class="sub-node mind-map-node" style="top: 50%; left: 0; transform: translateY(-50%);" onclick="scrollToSection('acceleration')">Acceleration</div>
+        <div class="sub-node mind-map-node" style="bottom: 0; left: 50%; transform: translateX(-50%);" onclick="scrollToSection('freefall')">Freefall</div>
+        <div class="sub-node mind-map-node" style="top: 50%; right: 0; transform: translateY(-50%);" onclick="scrollToSection('graphs')">Graphs</div>
+        <div class="sub-node mind-map-node" style="top: 20%; left: 15%;" onclick="scrollToSection('dist_time_graphs')">Distance-Time Graphs</div>
+        <div class="sub-node mind-map-node" style="bottom: 20%; right: 15%;" onclick="scrollToSection('speed_time_graphs')">Speed-Time Graphs</div>
+    </div>
+    
+    <!-- Speed & Velocity Section -->
+    <section id="speed_velocity" class="py-12">
+        <h2 class="text-3xl font-bold mb-8 text-center text-white border-b-2 border-accent pb-2">1. Speed & Velocity</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-card-color p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-4 text-accent-hover">Definitions</h3>
+                <p class="mb-4"><span class="keyword">Speed</span> is the distance travelled per unit time. It is a <span class="keyword">scalar</span> quantity (magnitude only).</p>
+                <p><span class="keyword">Velocity</span> is the speed in a given direction. It is a <span class="keyword">vector</span> quantity (magnitude and direction).</p>
+                <p class="mt-4 italic">Example: A car on a circular track has a <span class="keyword">constant speed</span> but a <span class="keyword">changing velocity</span> because its direction is always changing!</p>
+            </div>
+            <div class="bg-card-color p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-4 text-accent-hover">Typical Speeds</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Walking: ≈ 1.5 m/s</li>
+                    <li>Running: ≈ 3 m/s</li>
+                    <li>Cycling: ≈ 6 m/s</li>
+                    <li>Hiker: ≈ 2.0 m/s</li>
+                    <li>Bumble Bee: ≈ 4.5 m/s</li>
+                </ul>
+            </div>
+        </div>
+        <details class="mt-6">
+            <summary>Key Equations for Speed</summary>
+            <div class="details-content">
+                <p class="mt-4">For objects moving at a <span class="keyword">constant speed</span>:</p>
+                <div class="formula">v = <span class="fraction"><span class="numerator">s</span><span class="denominator">t</span></span></div>
+                <p>Where: v = speed (m/s), s = distance (m), t = time (s)</p>
+                <hr class="my-4 border-gray-600">
+                <p>For objects where speed changes, we use <span class="keyword">average speed</span>:</p>
+                <div class="formula">Average Speed = <span class="fraction"><span class="numerator">Total Distance</span><span class="denominator">Total Time</span></span></div>
+            </div>
+        </details>
+        <div id="quiz1" class="quiz-container"></div>
+    </section>
+
+    <!-- Acceleration Section -->
+    <section id="acceleration" class="py-12">
+        <h2 class="text-3xl font-bold mb-8 text-center text-white border-b-2 border-accent pb-2">2. Acceleration</h2>
+        <p class="text-center mb-6">Acceleration is the <span class="keyword">rate of change of velocity</span>. Since velocity is a vector, acceleration is also a <span class="keyword">vector</span> quantity.</p>
+        <details>
+            <summary>Calculating Acceleration</summary>
+            <div class="details-content">
+                <div class="formula">a = <span class="fraction"><span class="numerator">Δv</span><span class="denominator">t</span></span> = <span class="fraction"><span class="numerator">v - u</span><span class="denominator">t</span></span></div>
+                <ul class="list-disc list-inside mt-4">
+                    <li><b>a</b> = acceleration (m/s<sup>2</sup>)</li>
+                    <li><b>Δv</b> = change in velocity (m/s)</li>
+                    <li><b>v</b> = final velocity (m/s)</li>
+                    <li><b>u</b> = initial velocity (m/s)</li>
+                    <li><b>t</b> = time taken (s)</li>
+                </ul>
+                 <p class="mt-4">The formula can be rearranged to find the change in velocity:</p>
+                 <div class="formula">Δv = a x t</div>
+            </div>
+        </details>
+        <details>
+            <summary>Types of Acceleration</summary>
+            <div class="details-content grid md:grid-cols-3 gap-4 mt-4">
+                <div class="text-center p-4 bg-gray-800 rounded-lg">
+                    <h4 class="font-bold text-lg text-green-400">Positive Acceleration</h4>
+                    <p>Speeding up</p>
+                </div>
+                <div class="text-center p-4 bg-gray-800 rounded-lg">
+                    <h4 class="font-bold text-lg text-red-400">Negative Acceleration</h4>
+                    <p>Slowing down (Deceleration)</p>
+                </div>
+                <div class="text-center p-4 bg-gray-800 rounded-lg">
+                    <h4 class="font-bold text-lg text-blue-400">Uniform Acceleration</h4>
+                    <p>Velocity changes at a constant rate</p>
+                </div>
+            </div>
+        </details>
+        <div id="quiz2" class="quiz-container"></div>
+    </section>
+
+    <!-- Graphs Section -->
+    <section id="graphs" class="py-12">
+        <h2 class="text-3xl font-bold mb-8 text-center text-white border-b-2 border-accent pb-2">3. Representing Motion with Graphs</h2>
+    </section>
+
+    <!-- Distance-Time Graphs -->
+    <section id="dist_time_graphs" class="py-12">
+        <h3 class="text-2xl font-bold mb-6 text-center text-accent-hover">3a. Distance-Time Graph Explorer</h3>
+        <p class="text-center mb-6">The <span class="keyword">gradient</span> (steepness) of a distance-time graph represents <span class="keyword">speed</span>.</p>
+        <div class="graph-interactive-container">
+            <div class="md:w-1/3">
+                <h4 class="font-bold text-lg mb-4 text-center">Select a line type:</h4>
+                <div class="graph-controls" id="dt-controls">
+                    <button class="control-btn active" data-type="stationary">Stationary</button>
+                    <button class="control-btn" data-type="constant">Constant Speed</button>
+                    <button class="control-btn" data-type="accelerating">Accelerating</button>
+                </div>
+            </div>
+            <div class="graph-display" id="dt-display">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+        <div id="quiz3" class="quiz-container"></div>
+    </section>
+
+    <!-- Speed-Time Graphs -->
+    <section id="speed_time_graphs" class="py-12">
+        <h3 class="text-2xl font-bold mb-6 text-center text-accent-hover">3b. Speed-Time Graph Explorer</h3>
+        <p class="text-center mb-2">The <span class="keyword">gradient</span> represents <span class="keyword">acceleration</span>.</p>
+        <p class="text-center mb-6">The <span class="keyword">area under the graph</span> represents <span class="keyword">distance travelled</span>.</p>
+        <div class="graph-interactive-container">
+            <div class="md:w-1/3">
+                <h4 class="font-bold text-lg mb-4 text-center">Select a line type:</h4>
+                <div class="graph-controls" id="st-controls">
+                    <button class="control-btn active" data-type="constant">Constant Speed</button>
+                    <button class="control-btn" data-type="accel">Constant Acceleration</button>
+                    <button class="control-btn" data-type="decel">Constant Deceleration</button>
+                    <button class="control-btn" data-type="nonuniform">Non-uniform Acceleration</button>
+                </div>
+            </div>
+            <div class="graph-display" id="st-display">
+                 <!-- Content injected by JS -->
+            </div>
+        </div>
+        <details class="mt-6">
+            <summary>Calculating from Speed-Time Graphs</summary>
+            <div class="details-content grid md:grid-cols-2 gap-6 mt-4">
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Calculating Acceleration</h4>
+                    <p>Find the gradient of the line:</p>
+                    <div class="formula">Gradient = <span class="fraction"><span class="numerator">rise (Δ speed)</span><span class="denominator">run (Δ time)</span></span></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Calculating Distance</h4>
+                    <p>Find the total area under the graph. You might need to split it into shapes.</p>
+                    <p class="mt-2">Area of rectangle = base x height</p>
+                    <p>Area of triangle = ½ x base x height</p>
+                </div>
+            </div>
+        </details>
+        <div id="quiz4" class="quiz-container"></div>
+    </section>
+
+    <!-- Freefall Section -->
+    <section id="freefall" class="py-12">
+        <h2 class="text-3xl font-bold mb-8 text-center text-white border-b-2 border-accent pb-2">4. Freefall</h2>
+        <p class="text-center mb-4">An object is in <span class="keyword">freefall</span> when the only force acting on it is <span class="keyword">gravity</span>. On Earth, the acceleration of freefall (<span class="keyword">g</span>) is ≈ <span class="font-bold text-xl">10 m/s<sup>2</sup></span>.</p>
+        <p class="text-center mb-8">However, falling on Earth involves air resistance...</p>
+        
+        <h3 class="text-2xl font-bold mb-6 text-center text-accent-hover">The Story of a Skydiver: Reaching Terminal Velocity</h3>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-icon">1</div>
+                <div class="timeline-content">
+                    <h4 class="font-bold">The Jump</h4>
+                    <p>Initially, the only significant force is <span class="keyword">weight</span>. Air resistance is negligible. The skydiver <span class="keyword">accelerates</span> downwards at ≈ 10 m/s².</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">2</div>
+                <div class="timeline-content">
+                    <h4 class="font-bold">Gaining Speed</h4>
+                    <p>As speed increases, collisions with air particles increase. This creates an upward frictional force called <span class="keyword">air resistance</span> (or drag), which opposes the weight. The rate of acceleration starts to decrease.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">3</div>
+                <div class="timeline-content">
+                    <h4 class="font-bold">Forces Balance</h4>
+                    <p>Eventually, the skydiver falls fast enough that the upward force of air resistance becomes equal to the downward force of weight. The forces are now <span class="keyword">balanced</span>.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon">4</div>
+                <div class="timeline-content">
+                    <h4 class="font-bold">Terminal Velocity</h4>
+                    <p>With balanced forces, the resultant force is zero. According to Newton's laws, this means there is <span class="keyword">zero acceleration</span>. The skydiver now falls at a constant, maximum speed called <span class="keyword">terminal velocity</span>.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="examiner-tip-box">
+            <h3>Important to remember</h3>
+            <ul class="list-disc list-inside mt-2">
+                <li>Don't confuse 'air resistance' with 'air pressure' – they are different concepts!</li>
+                <li>A common misconception is that skydivers move <span class="keyword">upwards</span> when they deploy their parachute. This is incorrect! They are actually <span class="keyword">decelerating</span> rapidly to a new, much slower terminal velocity.</li>
+            </ul>
+        </div>
+        
+        <div id="quiz5" class="quiz-container"></div>
+    </section>
+
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /* --- Graph Explorer Logic --- */
+        const dtGraphData = {
+            stationary: {
+                svg: `<svg viewBox="0 0 100 60"><line x1="0" y1="30" x2="100" y2="30" stroke="var(--accent-color-hover)" stroke-width="3"/></svg>`,
+                desc: `A <strong>horizontal line</strong> means the gradient is zero. <br><strong>Interpretation:</strong> The object is <strong>stationary</strong> (not moving).`
+            },
+            constant: {
+                svg: `<svg viewBox="0 0 100 60"><line x1="0" y1="60" x2="100" y2="0" stroke="var(--accent-color-hover)" stroke-width="3"/></svg>`,
+                desc: `A <strong>straight, diagonal line</strong> has a constant positive gradient. A steeper line means a higher speed. <br><strong>Interpretation:</strong> The object is moving at a <strong>constant speed</strong>.`
+            },
+            accelerating: {
+                svg: `<svg viewBox="0 0 100 60"><path d="M0,60 C40,60 60,30 100,0" stroke="var(--accent-color-hover)" stroke-width="3" fill="none"/></svg>`,
+                desc: `A <strong>curved line</strong> shows the gradient is changing. This upward curve gets steeper, showing the object is <strong>speeding up</strong>. <br><strong>Interpretation:</strong> The object is <strong>accelerating</strong>.`
+            }
+        };
+
+        const stGraphData = {
+            constant: {
+                svg: `<svg viewBox="0 0 100 60"><line x1="0" y1="30" x2="100" y2="30" stroke="var(--accent-color-hover)" stroke-width="3"/></svg>`,
+                desc: `A <strong>horizontal line</strong> means the gradient is zero. <br><strong>Interpretation:</strong> Constant speed, <strong>zero acceleration</strong>.`
+            },
+            accel: {
+                svg: `<svg viewBox="0 0 100 60"><line x1="0" y1="60" x2="100" y2="0" stroke="var(--accent-color-hover)" stroke-width="3"/></svg>`,
+                desc: `A <strong>straight, upward-sloping line</strong> has a constant positive gradient. <br><strong>Interpretation:</strong> <strong>Constant acceleration</strong>.`
+            },
+            decel: {
+                svg: `<svg viewBox="0 0 100 60"><line x1="0" y1="0" x2="100" y2="60" stroke="var(--accent-color-hover)" stroke-width="3"/></svg>`,
+                desc: `A <strong>straight, downward-sloping line</strong> has a constant negative gradient. <br><strong>Interpretation:</strong> <strong>Constant deceleration</strong>.`
+            },
+            nonuniform: {
+                 svg: `<svg viewBox="0 0 100 60"><path d="M0,60 C40,60 60,30 100,0" stroke="var(--accent-color-hover)" stroke-width="3" fill="none"/></svg>`,
+                desc: `A <strong>curved line</strong> shows the gradient is changing. <br><strong>Interpretation:</strong> <strong>Non-uniform acceleration</strong>.`
+            }
+        };
+
+        function setupGraphExplorer(controlsId, displayId, data) {
+            const controls = document.getElementById(controlsId);
+            const display = document.getElementById(displayId);
+
+            function updateDisplay(type) {
+                const info = data[type];
+                display.innerHTML = `${info.svg}<p>${info.desc}</p>`;
+                
+                controls.querySelectorAll('.control-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.type === type) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+
+            controls.addEventListener('click', (e) => {
+                if (e.target.classList.contains('control-btn')) {
+                    const type = e.target.dataset.type;
+                    updateDisplay(type);
+                }
+            });
+
+            // Initial display
+            const initialType = controls.querySelector('.control-btn.active').dataset.type;
+            updateDisplay(initialType);
+        }
+
+        /* --- Quiz Logic (unchanged) --- */
+        const quizzes = {
+            quiz1: {
+                title: "Speed & Velocity Quiz",
+                questions: [
+                    { q: "What is speed defined as?", o: ["Distance per unit time", "Displacement per unit time", "Change in velocity", "Force per unit area"], a: 0 },
+                    { q: "Speed is a...?", o: ["Vector quantity", "Scalar quantity", "Fundamental force", "Unit of energy"], a: 1 },
+                    { q: "A car travels 200 meters in 25 seconds. What is its average speed?", o: ["5 m/s", "8 m/s", "10 m/s", "5000 m/s"], a: 1 },
+                    { q: "What is velocity?", o: ["How fast something is", "Speed in a given direction", "The rate of change of distance", "The same as speed"], a: 1 },
+                    { q: "Velocity is a...?", o: ["Scalar quantity", "Vector quantity", "Unit of mass", "Type of friction"], a: 1 },
+                    { q: "A car travels around a circular track at a constant 50 km/h. Its speed is...", o: ["Constant", "Changing", "Zero", "Increasing"], a: 0 },
+                    { q: "A car travels around a circular track at a constant 50 km/h. Its velocity is...", o: ["Constant", "Changing", "Zero", "Decreasing"], a: 1 },
+                    { q: "A person running at 3 m/s is faster than a hiker at 2 m/s.", o: ["True", "False"], a: 0 },
+                    { q: "The formula `v = s/t` is used for...", o: ["Any motion", "Only accelerating objects", "Objects at constant speed", "Objects at rest"], a: 2 },
+                    { q: "Which of these is NOT a scalar quantity?", o: ["Speed", "Distance", "Time", "Velocity"], a: 3 }
+                ]
+            },
+            quiz2: {
+                title: "Acceleration Quiz",
+                questions: [
+                    { q: "What is acceleration?", o: ["The rate of change of speed", "The rate of change of distance", "The rate of change of velocity", "How fast an object is"], a: 2 },
+                    { q: "What is the standard unit for acceleration?", o: ["m/s", "m/s²", "N/kg", "m"], a: 1 },
+                    { q: "Deceleration means...", o: ["Speeding up", "Slowing down", "Constant speed", "Changing direction"], a: 1 },
+                    { q: "A car starts from rest and reaches 20 m/s in 5 seconds. What is its acceleration?", o: ["2 m/s²", "4 m/s²", "5 m/s²", "100 m/s²"], a: 1 },
+                    { q: "Acceleration is a...?", o: ["Scalar quantity", "Vector quantity", "Both scalar and vector", "Neither"], a: 1 },
+                    { q: "If a car is moving at a constant velocity, its acceleration is...", o: ["Positive", "Negative", "Zero", "Increasing"], a: 2 },
+                    { q: "A change in direction at a constant speed results in...", o: ["No acceleration", "A change in acceleration", "A constant acceleration", "Acceleration"], a: 3 },
+                    { q: "The symbol 'u' in the acceleration formula stands for...", o: ["Ultimate velocity", "Uniform velocity", "Initial velocity", "Underlying velocity"], a: 2 },
+                    { q: "The formula `Δv = a x t` calculates...", o: ["Final velocity", "Distance", "Change in velocity", "Time"], a: 2 },
+                    { q: "If acceleration is uniform, it means...", o: ["The object is not moving", "The speed is constant", "The velocity changes at a constant rate", "The direction is constant"], a: 2 }
+                ]
+            },
+            quiz3: {
+                title: "Distance-Time Graphs Quiz",
+                questions: [
+                    { q: "What does the gradient of a distance-time graph represent?", o: ["Acceleration", "Distance", "Time", "Speed"], a: 3 },
+                    { q: "A horizontal line on a distance-time graph means the object is...", o: ["Accelerating", "Stationary", "Moving at a constant speed", "Decelerating"], a: 1 },
+                    { q: "A straight, diagonal line on a distance-time graph means...", o: ["Stationary", "Constant acceleration", "Constant speed", "Changing speed"], a: 2 },
+                    { q: "On a distance-time graph, a steeper line means...", o: ["Slower speed", "Higher speed", "The object is stopping", "The object is accelerating"], a: 1 },
+                    { q: "A curved line on a distance-time graph indicates...", o: ["Constant speed", "The object is stationary", "Acceleration", "The graph is wrong"], a: 2 },
+                    { q: "On which axis is 'Distance' usually plotted?", o: ["x-axis", "y-axis", "z-axis", "It doesn't matter"], a: 1 },
+                    { q: "If a line on a distance-time graph becomes horizontal, the object has...", o: ["Sped up", "Stopped", "Slowed down", "Maintained speed"], a: 1 },
+                    { q: "If a graph line goes down, it means...", o: ["The object is moving backwards", "This is not possible on a distance-time graph", "The object is slowing down", "The object is accelerating"], a: 1 },
+                    { q: "Two lines are on a graph. Line A is steeper than Line B. Which object is moving faster?", o: ["Object A", "Object B", "They move at the same speed", "Cannot be determined"], a: 0 },
+                    { q: "The gradient of a horizontal line is...", o: ["1", "Infinite", "0", "Negative"], a: 2 }
+                ]
+            },
+            quiz4: {
+                title: "Speed-Time Graphs Quiz",
+                questions: [
+                    { q: "What does the gradient of a speed-time graph represent?", o: ["Speed", "Distance", "Acceleration", "Time"], a: 2 },
+                    { q: "What does the area under a speed-time graph represent?", o: ["Acceleration", "Distance travelled", "Average speed", "Total time"], a: 1 },
+                    { q: "A horizontal line on a speed-time graph means...", o: ["Stationary", "Constant speed", "Constant acceleration", "Changing speed"], a: 1 },
+                    { q: "A straight line sloping upwards on a speed-time graph means...", o: ["Constant speed", "Constant acceleration", "Decreasing acceleration", "Stationary"], a: 1 },
+                    { q: "A straight line sloping downwards on a speed-time graph means...", o: ["Constant speed", "Constant acceleration", "Constant deceleration", "Increasing speed"], a: 2 },
+                    { q: "A car accelerates from 0 to 10 m/s in 5s. The distance covered is...", o: ["50 m", "10 m", "25 m", "2 m"], a: 2 },
+                    { q: "The gradient is calculated by...", o: ["Rise x Run", "Rise + Run", "Rise / Run", "Run / Rise"], a: 2 },
+                    { q: "If a line is horizontal on a speed-time graph, the acceleration is...", o: ["Positive", "Negative", "Zero", "Constant"], a: 2 },
+                    { q: "A curved line on a speed-time graph means...", o: ["Constant acceleration", "Non-uniform acceleration", "Constant speed", "The object is stationary"], a: 1 },
+                    { q: "To find distance for a journey with multiple stages, you...", o: ["Find the area of the last stage", "Add the areas of all stages", "Average the gradients", "Multiply the areas"], a: 1 }
+                ]
+            },
+            quiz5: {
+                title: "Freefall Quiz",
+                questions: [
+                    { q: "On Earth, the approximate value of 'g' used in IGCSE is...", o: ["9.8 m/s²", "10 m/s²", "5 m/s²", "Gravity is not a force"], a: 1 },
+                    { q: "Terminal velocity is reached when...", o: ["Weight equals air resistance", "The object stops falling", "The object is heaviest", "There is no air resistance"], a: 0 },
+                    { q: "When an object first starts to fall, its acceleration is...", o: ["Zero", "At its maximum (g)", "Negative", "Changing"], a: 1 },
+                    { q: "As a falling object gains speed, air resistance...", o: ["Decreases", "Stays the same", "Increases", "Becomes zero"], a: 2 },
+                    { q: "At terminal velocity, the resultant force on the object is...", o: ["Equal to its weight", "Pointing upwards", "Zero", "At its maximum"], a: 2 },
+                    { q: "An object in 'freefall' has only one force acting on it. What is it?", o: ["Air resistance", "Friction", "Gravity", "Upthrust"], a: 2 },
+                    { q: "When a skydiver opens their parachute, they...", o: ["Go upwards for a moment", "Stop immediately", "Accelerate downwards", "Decelerate to a new, slower terminal velocity"], a: 3 },
+                    { q: "What is another name for the force of air resistance?", o: ["Thrust", "Drag", "Lift", "Weight"], a: 1 },
+                    { q: "An object at terminal velocity is...", o: ["Accelerating", "Decelerating", "Moving at a constant velocity", "Stationary"], a: 2 },
+                    { q: "The force of air resistance is due to...", o: ["Air pressure", "Gravity", "Collisions with air particles", "The object's weight"], a: 2 }
+                ]
+            }
+        };
+
+        function createQuiz(containerId, quizData) {
+            const container = document.getElementById(containerId);
+            let html = `<h3 class="text-2xl font-bold mb-4 text-center">${quizData.title}</h3>`;
+            quizData.questions.forEach((q, index) => {
+                html += `<div class="mb-6" id="q${containerId}-${index}"><p class="font-semibold mb-2">${index + 1}. ${q.q}</p><div class="grid grid-cols-1 md:grid-cols-2 gap-2">`;
+                q.o.forEach((option, optionIndex) => { html += `<div class="quiz-option" data-q="${index}" data-a="${optionIndex}">${option}</div>`; });
+                html += `</div></div>`;
+            });
+            html += `<div class="text-center mt-6"><button class="bg-accent-color text-white font-bold py-2 px-6 rounded-lg hover:bg-accent-color-hover transition-colors submit-btn">Submit Answers</button><div class="result mt-4 font-bold text-lg"></div></div>`;
+            container.innerHTML = html;
+        }
+
+        function setupQuizListeners(containerId, quizData) {
+            const container = document.getElementById(containerId);
+            container.addEventListener('click', function(e) {
+                if (e.target.classList.contains('quiz-option')) {
+                    const qIndex = e.target.dataset.q;
+                    container.querySelectorAll(`.quiz-option[data-q="${qIndex}"]`).forEach(opt => opt.classList.remove('selected'));
+                    e.target.classList.add('selected');
+                }
+                if (e.target.classList.contains('submit-btn')) {
+                    let score = 0;
+                    quizData.questions.forEach((q, index) => {
+                        const qBlock = container.querySelector(`#q${containerId}-${index}`);
+                        const selectedOpt = qBlock.querySelector('.quiz-option.selected');
+                        const allOpts = qBlock.querySelectorAll('.quiz-option');
+                        allOpts.forEach(opt => opt.style.pointerEvents = 'none');
+                        if (selectedOpt) {
+                            if (parseInt(selectedOpt.dataset.a) === q.a) { score++; selectedOpt.classList.add('correct'); } 
+                            else { selectedOpt.classList.add('incorrect'); allOpts[q.a].classList.add('correct'); }
+                        } else { allOpts[q.a].classList.add('correct'); }
+                    });
+                    container.querySelector('.result').textContent = `You scored ${score} out of ${quizData.questions.length}!`;
+                    e.target.style.display = 'none';
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setupGraphExplorer('dt-controls', 'dt-display', dtGraphData);
+            setupGraphExplorer('st-controls', 'st-display', stGraphData);
+            
+            Object.keys(quizzes).forEach((key, i) => {
+                createQuiz(`quiz${i + 1}`, quizzes[key]);
+                setupQuizListeners(`quiz${i + 1}`, quizzes[key]);
+            });
+        });
+    </script>
+</body>
+</html>
+
+

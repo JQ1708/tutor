@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mass, Weight & Density</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a202c;
+            --card-bg: #2d3748;
+            --text-color: #e2e8f0;
+            --accent-color-1: #4299e1; /* Blue */
+            --accent-color-2: #48bb78; /* Green */
+            --accent-color-3: #f56565; /* Red */
+            --accent-color-4: #ed8936; /* Orange */
+            --font-main: 'Poppins', sans-serif;
+            --font-heading: 'Baloo 2', cursive;
+        }
+
+        /* General Body Styles */
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overscroll-behavior: none;
+        }
+
+        /* Header */
+        .main-title {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 0 0 10px var(--accent-color-1), 0 0 20px var(--accent-color-1);
+        }
+
+        /* Mind Map Styling */
+        .mind-map-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 400px;
+            padding: 2rem;
+        }
+        .mind-map-node {
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: absolute;
+            border: 3px solid;
+            font-weight: 600;
+            text-align: center;
+        }
+        .mind-map-node:hover, .mind-map-node.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--color);
+        }
+        .node-center { background-color: white; color: #1a202c; border-color: white; --color: white; }
+        .node-1 { background-color: var(--accent-color-1); border-color: var(--accent-color-1); --color: var(--accent-color-1); top: 5%; left: 35%; transform: translateX(-50%); }
+        .node-2 { background-color: var(--accent-color-2); border-color: var(--accent-color-2); --color: var(--accent-color-2); top: 40%; left: 5%; }
+        .node-3 { background-color: var(--accent-color-4); border-color: var(--accent-color-4); --color: var(--accent-color-4); top: 40%; right: 5%; }
+        .node-4 { background-color: var(--accent-color-3); border-color: var(--accent-color-3); --color: var(--accent-color-3); bottom: 5%; left: 35%; transform: translateX(-50%); }
+
+        .mind-map-line {
+            position: absolute;
+            background-color: #4a5568;
+            transform-origin: top left;
+        }
+
+        /* Content Section Styling */
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        
+        /* Expandable Notes Styling */
+        .notes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        details {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            border: 1px solid #4a5568;
+        }
+        summary {
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        summary:hover {
+            background-color: #3c475c;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after {
+            content: '+';
+            font-size: 2rem;
+            font-weight: 400;
+            transition: transform 0.3s ease;
+        }
+        details[open] > summary::after {
+            transform: rotate(45deg);
+        }
+        .details-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            border-top: 1px solid #4a5568;
+        }
+        .worked-example {
+            background-color: #1a202c;
+            border: 1px solid var(--accent-color-1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .examiner-tip {
+             background-color: rgba(237, 137, 54, 0.1);
+             border-left: 5px solid var(--accent-color-4);
+             padding: 1rem;
+             margin-top: 1rem;
+             border-radius: 0.25rem;
+        }
+        
+        /* Keyword Styling */
+        .keyword { font-weight: 700; color: var(--accent-color-1); }
+        .keyword-alt { font-weight: 700; color: var(--accent-color-2); }
+        .keyword-danger { font-weight: 700; color: var(--accent-color-3); }
+        .unit { font-style: italic; color: var(--accent-color-4); }
+        .formula {
+            background-color: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-left: 5px solid var(--accent-color-1);
+        }
+        sup, sub { line-height: 0; }
+
+        /* Quiz Styling */
+        .quiz-container { background-color: var(--card-bg); border-radius: 1rem; padding: 2rem; margin-top: 3rem; }
+        .quiz-option {
+            display: block; width: 100%; padding: 1rem; margin: 0.5rem 0;
+            background-color: #4a5568; border: 2px solid transparent; border-radius: 0.5rem;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .quiz-option:hover { background-color: #5a6578; }
+        .quiz-option.correct { background-color: var(--accent-color-2); border-color: white; color: black; font-weight: bold; }
+        .quiz-option.incorrect { background-color: var(--accent-color-3); border-color: white; color: black; font-weight: bold; }
+        .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; display:none; }
+        .quiz-feedback.correct { background-color: rgba(72, 187, 120, 0.2); display:block; }
+        .quiz-feedback.incorrect { background-color: rgba(245, 101, 101, 0.2); display:block; }
+
+        /* iPad specific adjustments */
+        @media (max-width: 1024px) {
+            .main-title { font-size: 2.5rem; }
+            .mind-map-container { flex-direction: column; min-height: auto; height: 60vh; }
+            .mind-map-node { position: static; margin: 0.5rem; transform: none !important; }
+            .mind-map-line { display: none; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+<!-- Home Button -->
+<button onclick="window.history.back()" class="fixed top-4 right-4 z-50 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+    🏠 Home
+</button>
+
+    <header class="text-center my-8">
+        <h1 class="main-title">Mass, Weight & Density</h1>
+        <p class="text-lg text-gray-400 mt-2">Follow the mind map to begin your journey!</p>
+    </header>
+
+    <!-- Mind Map Navigation -->
+    <div id="mind-map" class="w-full max-w-4xl mx-auto mb-12 relative h-[50vh] hidden md:block">
+        <div id="line-1" class="mind-map-line"></div> <div id="line-2" class="mind-map-line"></div>
+        <div id="line-3" class="mind-map-line"></div> <div id="line-4" class="mind-map-line"></div>
+        <div class="mind-map-node node-center" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">Mass, Weight<br>& Density</div>
+        <div class="mind-map-node node-1" data-target="mass-weight">Mass & Weight</div>
+        <div class="mind-map-node node-2" data-target="density">Density</div>
+        <div class="mind-map-node node-3" data-target="measuring-density">Measuring Density</div>
+        <div class="mind-map-node node-4" data-target="floating">Floating</div>
+    </div>
+    <div class="flex flex-wrap justify-center gap-4 md:hidden mb-8">
+         <button class="mind-map-node node-1" data-target="mass-weight">Mass & Weight</button>
+         <button class="mind-map-node node-2" data-target="density">Density</button>
+         <button class="mind-map-node node-3" data-target="measuring-density">Measuring Density</button>
+         <button class="mind-map-node node-4" data-target="floating">Floating</button>
+    </div>
+
+    <main id="content-container" class="max-w-7xl mx-auto">
+        <!-- Section 1: Mass & Weight -->
+        <section id="mass-weight" class="content-section">
+            <h2 class="text-3xl font-bold mb-6 text-center" style="color: var(--accent-color-1);">Mass & Weight</h2>
+            <div class="notes-container">
+                <details><summary>What is Mass?</summary><div class="details-content">
+                    <ul class="list-disc pl-5 space-y-3 mt-4">
+                        <li>Mass is defined as a measure of the <span class="keyword">quantity of matter</span> in an object at rest relative to the observer.</li>
+                        <li>Consequently, mass is the property of an object that <span class="keyword-danger">resists change in motion</span>. The greater the mass, the more difficult it is to speed it up, slow it down, or change its direction.</li>
+                        <li>Mass is a <span class="keyword">scalar</span> quantity (it has magnitude but no direction).</li>
+                        <li>The unit of mass is the <span class="unit">kilogram (kg)</span>.</li>
+                        <li>Sometimes mass is given in grams (g). Remember the conversions: <br> <span class="keyword-alt">1000 g = 1 kg</span> <br> <span class="keyword-alt">1 g = 0.001 kg</span></li>
+                        <li>To convert from g to kg, <span class="keyword">divide by 1000</span>.</li>
+                        <li>To convert from kg to g, <span class="keyword">multiply by 1000</span>.</li>
+                    </ul>
+                </div></details>
+                
+                <details><summary>What is Weight?</summary><div class="details-content">
+                    <ul class="list-disc pl-5 space-y-3 mt-4">
+                        <li>Weight is the <span class="keyword">gravitational force</span> on an object with mass.</li>
+                        <li>Since weight is a force, it is a <span class="keyword">vector</span> quantity (it has both magnitude and direction).</li>
+                        <li>Weight is measured in <span class="unit">newtons (N)</span>.</li>
+                        <li>Weight is measured using a calibrated spring balance or <span class="keyword">newton meter</span>.</li>
+                        <li>Mass is measured using a <span class="keyword">pan balance</span> or <span class="keyword">top-pan balance</span>.</li>
+                    </ul>
+                </div></details>
+                
+                <details><summary>How are Mass and Weight related?</summary><div class="details-content mt-4">
+                    <p>An object's weight is directly proportional to its mass. This relationship is given by the equation:</p>
+                    <div class="formula">Weight = mass &times; gravitational field strength</div>
+                    <div class="formula" style="border-left-color: var(--accent-color-2);">W = m &times; g</div>
+                    <ul class="list-disc pl-5 text-sm mt-3 space-y-1">
+                        <li><span class="keyword">W</span> = Weight in <span class="unit">newtons (N)</span></li>
+                        <li><span class="keyword">m</span> = mass in <span class="unit">kilograms (kg)</span></li>
+                        <li><span class="keyword">g</span> = gravitational field strength in <span class="unit">N/kg</span></li>
+                    </ul>
+                    <div class="worked-example">
+                        <h4 class="font-bold text-lg text-white mb-2">Worked Example</h4>
+                        <p>An object has a mass of 90 kg. Calculate the weight of the object on Earth.</p>
+                        <p class="mt-2"><strong>Step 1:</strong> List the known quantities.</p>
+                        <ul class="list-disc pl-8 text-sm"><li>Mass, m = 90 kg</li><li>Gravitational field strength, g = 9.8 N/kg</li></ul>
+                        <p class="mt-2"><strong>Step 2:</strong> Write down the relevant equation.</p>
+                        <p class="font-mono bg-gray-900 p-2 rounded-md text-sm mt-1">W = m &times; g</p>
+                        <p class="mt-2"><strong>Step 3:</strong> Substitute in the values.</p>
+                        <p class="font-mono bg-gray-900 p-2 rounded-md text-sm mt-1">W = 90 &times; 9.8 = 882 N</p>
+                    </div>
+                </div></details>
+
+                <details><summary>What is Gravitational Field Strength (g)?</summary><div class="details-content mt-4">
+                    <ul class="list-disc pl-5 space-y-3">
+                       <li>It is defined as the <span class="keyword">force per unit mass</span> exerted by a gravitational field on an object.</li>
+                       <li>On Earth, the value is approximately <span class="keyword-alt">g ≈ 9.8 N/kg</span>.</li>
+                       <li>The value of 'g' varies depending on your location. For example, on the Moon, 'g' is about <span class="keyword">1.6 N/kg</span>.</li>
+                       <li>This means an object's weight will be about 6 times smaller on the Moon than on Earth.</li>
+                       <li>Crucially, because weight depends on 'g', an object's <span class="keyword">weight changes with location</span>, but its <span class="keyword-danger">mass always stays the same</span>.</li>
+                    </ul>
+                </div></details>
+                
+                <details><summary>Mass vs. Weight: Key Differences</summary><div class="details-content mt-4">
+                     <table class="w-full text-left text-sm mt-2">
+                        <thead><tr class="border-b-2 border-gray-500">
+                            <th class="p-2">Property</th>
+                            <th class="p-2 text-center" style="color: var(--accent-color-1);">Mass</th>
+                            <th class="p-2 text-center" style="color: var(--accent-color-2);">Weight</th>
+                        </tr></thead>
+                        <tbody>
+                            <tr class="border-b border-gray-600"><td class="p-2">Definition</td><td class="p-2">Amount of matter in an object</td><td class="p-2">Gravitational pull on an object</td></tr>
+                            <tr class="border-b border-gray-600"><td class="p-2">Scalar/Vector</td><td class="p-2">Scalar</td><td class="p-2">Vector</td></tr>
+                            <tr class="border-b border-gray-600"><td class="p-2">Unit</td><td class="p-2">Kilograms (kg)</td><td class="p-2">Newtons (N)</td></tr>
+                            <tr class="border-b border-gray-600"><td class="p-2">Changes with Location?</td><td class="p-2"><span class="keyword-danger">No</span>, it's constant</td><td class="p-2"><span class="keyword-alt">Yes</span>, it depends on 'g'</td></tr>
+                            <tr class=""><td class="p-2">Measured with</td><td class="p-2">A balance</td><td class="p-2">A newton meter</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="examiner-tip">
+                        <p><strong>Examiner's Tip:</strong> A balance can be used to measure mass because it compares the object to known masses. A newton meter measures weight by measuring the extension of a spring. Don't confuse the two!</p>
+                    </div>
+                </div></details>
+            </div>
+            <div class="quiz-container" data-quiz-id="mass-weight-quiz"></div>
+        </section>
+
+        <!-- Section 2: Density -->
+        <section id="density" class="content-section">
+            <h2 class="text-3xl font-bold mb-6 text-center" style="color: var(--accent-color-2);">Density</h2>
+            <div class="notes-container">
+                <details><summary>What is Density?</summary><div class="details-content mt-4">
+                    <ul class="list-disc pl-5 space-y-3">
+                        <li>Density is defined as the <span class="keyword">mass per unit volume</span> of a substance.</li>
+                        <li>Objects made from <span class="keyword-alt">low-density</span> materials (like foam or air) have a low mass for their size.</li>
+                        <li>Objects made from <span class="keyword-danger">high-density</span> materials (like metal or rock) have a high mass for their size.</li>
+                        <li class="p-2 bg-blue-900/50 rounded-lg">Please <span class="keyword">refer to the diagram</span> showing how particles are arranged in high vs low density materials. In denser materials, particles are packed more closely together.</li>
+                    </ul>
+                </div></details>
+
+                <details><summary>The Density Formula</summary><div class="details-content mt-4">
+                    <p>Density is calculated using the formula:</p>
+                    <div class="formula">Density = <div style="border-bottom: 2px solid; padding-bottom: 5px;">mass</div><div style="padding-top: 5px;">volume</div></div>
+                    <div class="formula" style="border-left-color: var(--accent-color-2);">&rho; = <div style="border-bottom: 2px solid; padding-bottom: 5px;">m</div><div style="padding-top: 5px;">V</div></div>
+                    <ul class="list-disc pl-5 text-sm mt-3 space-y-1">
+                        <li><span class="keyword">&rho; (rho)</span> = density in <span class="unit">kg/m<sup>3</sup></span> or <span class="unit">g/cm<sup>3</sup></span></li>
+                        <li><span class="keyword">m</span> = mass in <span class="unit">kg</span> or <span class="unit">g</span></li>
+                        <li><span class="keyword">V</span> = volume in <span class="unit">m<sup>3</sup></span> or <span class="unit">cm<sup>3</sup></span></li>
+                    </ul>
+                     <div class="worked-example">
+                        <h4 class="font-bold text-lg text-white mb-2">Worked Example</h4>
+                        <p>An aluminium cube has a side length of 3.0 cm and a mass of 73 g. Calculate the density of aluminium.</p>
+                        <p class="mt-2"><strong>Step 1:</strong> List the known quantities.</p>
+                        <ul class="list-disc pl-8 text-sm"><li>Mass, m = 73 g</li><li>Side length, l = 3.0 cm</li></ul>
+                        <p class="mt-2"><strong>Step 2:</strong> Calculate the volume of the cube.</p>
+                        <p class="font-mono bg-gray-900 p-2 rounded-md text-sm mt-1">V = l³ = 3.0³ = 27 cm³</p>
+                        <p class="mt-2"><strong>Step 3:</strong> Substitute values into the density equation.</p>
+                        <p class="font-mono bg-gray-900 p-2 rounded-md text-sm mt-1 flex items-center justify-center gap-2">
+                            <span>&rho;</span>
+                            <span>=</span>
+                            <span class="inline-grid text-center leading-none">
+                                <span class="border-b px-1">m</span>
+                                <span class="px-1">V</span>
+                            </span>
+                            <span>=</span>
+                            <span class="inline-grid text-center leading-none">
+                                <span class="border-b px-1">73</span>
+                                <span class="px-1">27</span>
+                            </span>
+                            <span>= 2.7 g/cm³</span>
+                        </p>
+                    </div>
+                    <div class="examiner-tip">
+                        <p><strong>Examiner's Tip:</strong> While mass is usually in kg for physics calculations, density is a topic where grams (g) and cm³ are often used. Always check the units in the question and make sure your answer is in the correct units!</p>
+                    </div>
+                </div></details>
+
+                <details><summary>What does density depend on?</summary><div class="details-content mt-4">
+                     <ul class="list-disc pl-5 space-y-3">
+                        <li>The density of an object depends on the <span class="keyword">material</span> it is made of.</li>
+                        <li>Density does <span class="keyword-danger">NOT</span> depend on the size or shape of the object. A small gold ring and a large gold bar have the <span class="keyword-alt">same density</span> because they are both made of gold.</li>
+                        <li>Density is an intrinsic property of a substance.</li>
+                    </ul>
+                </div></details>
+            </div>
+            <div class="quiz-container" data-quiz-id="density-quiz"></div>
+        </section>
+        
+        <!-- Section 3: Measuring Density -->
+        <section id="measuring-density" class="content-section">
+            <h2 class="text-3xl font-bold mb-6 text-center" style="color: var(--accent-color-4);">Measuring Density</h2>
+            <div class="notes-container">
+                <details><summary>Measuring Density of a Regular Object</summary><div class="details-content mt-4">
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>Measure the <span class="keyword">mass</span> of the object using a top-pan balance.</li>
+                        <li>Measure its dimensions (<span class="keyword-alt">length, width, height, etc.</span>) using a ruler or calipers.</li>
+                        <li>Calculate the <span class="keyword">volume</span> using the correct formula (e.g., V = l &times; w &times; h for a cuboid).</li>
+                        <li>Use the density formula <span class="keyword">&rho; = m/V</span> to calculate its density.</li>
+                        <li class="mt-2 p-2 bg-orange-900/50 rounded-lg">Please <span class="keyword">refer to the diagram</span> in your notes showing this setup.</li>
+                    </ol>
+                </div></details>
+                
+                <details><summary>Measuring Density of an Irregular Object</summary><div class="details-content mt-4">
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>Measure the <span class="keyword">mass</span> of the object using a top-pan balance.</li>
+                        <li>Find the volume using the <span class="keyword-alt">displacement method</span>:
+                            <ul class="list-disc pl-6 my-2">
+                                <li>Fill a measuring cylinder with enough water to submerge the object. Note the <span class="keyword">initial volume (V₁)</span>.</li>
+                                <li>Carefully submerge the object. The water level will rise. Note the <span class="keyword">final volume (V₂)</span>.</li>
+                                <li>The object's volume is the change in water level: <span class="keyword">V = V₂ − V₁</span>.</li>
+                            </ul>
+                        </li>
+                        <li>Use the density formula <span class="keyword">&rho; = m/V</span>.</li>
+                        <li class="mt-2 p-2 bg-orange-900/50 rounded-lg">Please <span class="keyword">refer to the diagram</span> showing the displacement method.</li>
+                    </ol>
+                     <div class="worked-example">
+                        <h4 class="font-bold text-lg text-white mb-2">Worked Example</h4>
+                        <p>A piece of rock has a mass of 215 g. When placed into a measuring cylinder, the water level rises from 250 cm³ to 336 cm³. Calculate the density of the rock.</p>
+                        <p class="mt-2"><strong>Step 1:</strong> List the known quantities.</p>
+                        <ul class="list-disc pl-8 text-sm"><li>Mass, m = 215 g</li><li>Initial volume = 250 cm³</li><li>Final volume = 336 cm³</li></ul>
+                        <p class="mt-2"><strong>Step 2:</strong> Calculate the volume of the rock.</p>
+                        <p class="font-mono bg-gray-900 p-2 rounded-md text-sm mt-1">Volume of rock = Final volume - Initial volume = 336 - 250 = 86 cm³</p>
+                        <p class="mt-2"><strong>Step 3:</strong> Substitute values into the density equation.</p>
+                        <p class="font-mono bg-gray-900 p-2 rounded-md text-sm mt-1 flex items-center justify-center gap-2">
+                            <span>&rho;</span>
+                            <span>=</span>
+                            <span class="inline-grid text-center leading-none">
+                                <span class="border-b px-1">m</span>
+                                <span class="px-1">V</span>
+                            </span>
+                            <span>=</span>
+                            <span class="inline-grid text-center leading-none">
+                                <span class="border-b px-1">215</span>
+                                <span class="px-1">86</span>
+                            </span>
+                            <span>= 2.5 g/cm³</span>
+                        </p>
+                    </div>
+                </div></details>
+                
+                <details><summary>Measuring Density of a Liquid</summary><div class="details-content mt-4">
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>Place an <span class="keyword">empty</span> measuring cylinder on a top-pan balance and measure its mass (m₁).</li>
+                        <li>Pour the liquid into the cylinder. Read the <span class="keyword-alt">volume (V)</span> from the scale.</li>
+                        <li>Measure the <span class="keyword">total mass</span> of the cylinder and the liquid (m₂).</li>
+                        <li>The mass of the liquid is the difference: <span class="keyword">m = m₂ − m₁</span>.</li>
+                        <li>Use the density formula <span class="keyword">&rho; = m/V</span>.</li>
+                        <li class="mt-2 p-2 bg-orange-900/50 rounded-lg">Please <span class="keyword">refer to the diagram</span> illustrating this process.</li>
+                    </ol>
+                </div></details>
+            </div>
+            <div class="quiz-container" data-quiz-id="measuring-density-quiz"></div>
+        </section>
+
+        <!-- Section 4: Floating -->
+        <section id="floating" class="content-section">
+            <h2 class="text-3xl font-bold mb-6 text-center" style="color: var(--accent-color-3);">Floating</h2>
+            <div class="notes-container">
+                 <details><summary>Why do things float?</summary><div class="details-content mt-4">
+                    <ul class="list-disc pl-5 space-y-3">
+                       <li>An object will float in a fluid (a liquid or a gas) if its average density is <span class="keyword-alt">less than</span> the density of the fluid.</li>
+                       <li>An object will sink in a fluid if its average density is <span class="keyword-danger">greater than</span> the density of the fluid.</li>
+                       <li>For example, wood floats in water because its density (~0.7 g/cm³) is less than water's density (1.0 g/cm³). A rock sinks because its density (~2.5 g/cm³) is greater than water's.</li>
+                    </ul>
+                </div></details>
+                <details><summary>Floating Liquids (Extended Tier Only)</summary><div class="details-content mt-4">
+                    <ul class="list-disc pl-5 space-y-3">
+                        <li>If you pour together different liquids that do not mix, they will form layers based on their density.</li>
+                        <li>The liquid with the <span class="keyword-alt">lowest density</span> will float on top.</li>
+                        <li>The liquid with the <span class="keyword-danger">highest density</span> will sink to the bottom.</li>
+                        <li class="mt-2 p-2 bg-red-900/50 rounded-lg">Please <span class="keyword">refer to the diagram</span> showing liquids of different densities (like honey, soap, water, oil) stacked in a container.</li>
+                    </ul>
+                     <div class="worked-example">
+                        <h4 class="font-bold text-lg text-white mb-2">Worked Example</h4>
+                        <p>Liquid A has a density of 0.76 g/cm³ and liquid B has a density of 0.93 g/cm³. If the two liquids do not mix, which liquid will float on top of the other?</p>
+                        <p class="mt-2"><strong>Answer:</strong> The liquid with the lowest density will float. Since 0.76 is less than 0.93, <span class="keyword-alt">Liquid A</span> will float on top of Liquid B.</p>
+                    </div>
+                </div></details>
+            </div>
+             <div class="quiz-container" data-quiz-id="floating-quiz"></div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mindMapNodes = document.querySelectorAll('.mind-map-node');
+            const contentSections = document.querySelectorAll('.content-section');
+            const detailsElements = document.querySelectorAll('details');
+
+            // --- Mind Map Navigation ---
+            function activateSection(targetId) {
+                mindMapNodes.forEach(node => node.classList.toggle('active', node.dataset.target === targetId));
+                contentSections.forEach(section => section.classList.toggle('active', section.id === targetId));
+                document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            mindMapNodes.forEach(node => {
+                node.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    activateSection(node.dataset.target);
+                });
+            });
+
+            // --- Accordion Logic (close others when one opens) ---
+            detailsElements.forEach((details) => {
+                details.addEventListener('toggle', () => {
+                    if (details.open) {
+                        detailsElements.forEach((otherDetails) => {
+                            if (otherDetails !== details && otherDetails.parentElement === details.parentElement) {
+                                otherDetails.removeAttribute('open');
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // --- Mind Map Line Drawer (for desktop) ---
+            function drawLine(node1, node2, lineElement) {
+                if (!node1 || !node2 || !lineElement) return;
+                const rect1 = node1.getBoundingClientRect(); const rect2 = node2.getBoundingClientRect();
+                const containerRect = node1.parentElement.getBoundingClientRect();
+                const x1 = rect1.left + rect1.width / 2 - containerRect.left;
+                const y1 = rect1.top + rect1.height / 2 - containerRect.top;
+                const x2 = rect2.left + rect2.width / 2 - containerRect.left;
+                const y2 = rect2.top + rect2.height / 2 - containerRect.top;
+                const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                lineElement.style.width = `${length}px`; lineElement.style.height = '3px';
+                lineElement.style.top = `${y1}px`; lineElement.style.left = `${x1}px`;
+                lineElement.style.transform = `rotate(${angle}deg)`;
+            }
+
+            function setupLines() {
+                if (window.innerWidth <= 768) return;
+                const centerNode = document.querySelector('.node-center');
+                const nodes = [document.querySelector('.node-1'), document.querySelector('.node-2'), document.querySelector('.node-3'), document.querySelector('.node-4')];
+                const lines = [document.getElementById('line-1'), document.getElementById('line-2'), document.getElementById('line-3'), document.getElementById('line-4')];
+                nodes.forEach((node, i) => drawLine(centerNode, node, lines[i]));
+            }
+            setupLines();
+            window.addEventListener('resize', setupLines);
+
+            // --- Quiz Data and Logic ---
+            const quizzes = {
+                'mass-weight-quiz': [
+                    { q: "What is the standard unit of mass?", a: ["Newtons (N)", "Kilograms (kg)", "Grams (g)", "Pounds (lb)"], c: 1 },
+                    { q: "An object's mass on the Moon is...", a: ["less than on Earth.", "more than on Earth.", "the same as on Earth.", "zero."], c: 2 },
+                    { q: "Weight is a...", a: ["scalar quantity.", "unit of mass.", "vector quantity.", "form of energy."], c: 2 },
+                    { q: "If an object has a mass of 5 kg, what is its approximate weight on Earth? (g = 9.8 N/kg)", a: ["5 N", "0.51 N", "49 N", "9.8 N"], c: 2 },
+                    { q: "What instrument is used to measure weight?", a: ["A top-pan balance", "A measuring cylinder", "A ruler", "A newton meter"], c: 3 },
+                    { q: "Which of these changes when you go to another planet?", a: ["Mass only", "Weight only", "Both mass and weight", "Neither mass nor weight"], c: 1 },
+                    { q: "The formula linking weight and mass is...", a: ["W = m / g", "W = g / m", "W = m x g", "m = W x g"], c: 2 },
+                    { q: "Gravitational field strength (g) is a measure of...", a: ["Force per unit area", "Force per unit mass", "Mass per unit volume", "Energy per unit mass"], c: 1 },
+                    { q: "If your weight on Earth is 600 N, your mass is approximately...", a: ["600 kg", "61.2 kg", "9.8 kg", "60 kg"], c: 1 },
+                    { q: "Mass is a measure of...", a: ["The amount of space an object takes up", "The gravitational pull on an object", "The amount of matter in an object", "The object's temperature"], c: 2 }
+                ],
+                'density-quiz': [
+                    { q: "Density is defined as...", a: ["Mass × Volume", "Volume ÷ Mass", "Mass ÷ Volume", "Mass + Volume"], c: 2 },
+                    { q: "The symbol for density is...", a: ["d", "&rho;", "m", "v"], c: 1 },
+                    { q: "If two objects are made of the same material but have different sizes, their densities are...", a: ["Different", "The same", "Dependent on shape", "Dependent on mass"], c: 1 },
+                    { q: "An object has a mass of 100 g and a volume of 50 cm³. What is its density?", a: ["2 g/cm³", "0.5 g/cm³", "5000 g/cm³", "50 g/cm³"], c: 0 },
+                    { q: "Which of these is a unit for density?", a: ["kg", "m³", "N/kg", "kg/m³"], c: 3 },
+                    { q: "A very dense material will have...", a: ["A small mass for a large volume", "A large mass for a large volume", "A large mass for a small volume", "A small mass for a small volume"], c: 2 },
+                    { q: "If you cut a block of wood in half, the density of each half is...", a: ["halved.", "doubled.", "the same.", "zero."], c: 2 },
+                    { q: "Density depends on...", a: ["The material of the object", "The size of the object", "The shape of the object", "The weight of the object"], c: 0 },
+                    { q: "Which substance is likely to be the most dense?", a: ["Air", "Water", "Wood", "Gold"], c: 3 },
+                    { q: "To calculate density, you need to know an object's...", a: ["Mass and weight", "Weight and volume", "Mass and volume", "Shape and mass"], c: 2 }
+                ],
+                'measuring-density-quiz': [
+                    { q: "To find the mass of an object, you should use a...", a: ["Newton meter", "Ruler", "Top-pan balance", "Measuring cylinder"], c: 2 },
+                    { q: "What is the displacement method used for?", a: ["Finding the mass of a liquid", "Finding the volume of an irregular object", "Finding the volume of a regular object", "Finding the mass of a gas"], c: 1 },
+                    { q: "To find the volume of a cube, you would measure its length and then...", a: ["Multiply by 3", "Square it (length²)", "Cube it (length³)", "Multiply by its mass"], c: 2 },
+                    { q: "When using the displacement method, the volume of the object is equal to...", a: ["The final water level", "The initial water level", "Final level - initial level", "Final level + initial level"], c: 2 },
+                    { q: "How do you find the mass of a liquid?", a: ["(Mass of cylinder + liquid) - (mass of empty cylinder)", "Read the volume and convert to grams", "(Mass of empty cylinder) - (mass of cylinder + liquid)", "Just measure the mass of the cylinder with the liquid"], c: 0 },
+                    { q: "Which tool would be best for accurately measuring the diameter of a small sphere?", a: ["A 30 cm ruler", "A tape measure", "A measuring cylinder", "Calipers"], c: 3 },
+                    { q: "An object is placed in a measuring cylinder with 50 cm³ of water. The level rises to 85 cm³. What is the object's volume?", a: ["85 cm³", "50 cm³", "135 cm³", "35 cm³"], c: 3 },
+                    { q: "The first step in finding the density of ANY object is always...", a: ["Find its volume", "Find its mass", "Put it in water", "Measure its length"], c: 1 },
+                    { q: "What error occurs if an object is not fully submerged in the displacement method?", a: ["The measured volume will be too high", "The measured mass will be too low", "The measured volume will be too low", "The measured mass will be too high"], c: 2 },
+                    { q: "An empty measuring cylinder has a mass of 120 g. With a liquid inside, the mass is 200 g and the volume is 100 cm³. What is the liquid's density?", a: ["0.8 g/cm³", "1.2 g/cm³", "2.0 g/cm³", "3.2 g/cm³"], c: 0 }
+                ],
+                'floating-quiz': [
+                    { q: "An object will float in water if...", a: ["It is heavier than water", "It is lighter than water", "Its density is less than water's density", "Its density is greater than water's density"], c: 2 },
+                    { q: "A rock sinks in water because...", a: ["It is heavy", "Its density is higher than water", "It displaces a lot of water", "Its mass is low"], c: 1 },
+                    { q: "If oil (density 0.9 g/cm³) and water (density 1.0 g/cm³) are mixed and do not dissolve, which one will be on top?", a: ["Water", "Oil", "They will mix completely", "They will form a single layer"], c: 1 },
+                    { q: "A ship made of steel can float because...", a: ["Steel is less dense than water", "Its overall shape makes its average density less than water", "The engines push it up", "It is painted"], c: 1 },
+                    { q: "If an object has the exact same density as the fluid it's in, it will...", a: ["Sink to the bottom", "Float on the surface", "Remain suspended at any depth", "Bob up and down"], c: 2 },
+                    { q: "Which of these will sink in mercury (density ≈ 13.6 g/cm³)?", a: ["An iron block (≈ 7.8 g/cm³)", "A block of wood (≈ 0.7 g/cm³)", "A gold bar (≈ 19.3 g/cm³)", "An ice cube (≈ 0.9 g/cm³)"], c: 2 },
+                    { q: "The ability of an object to float is determined by comparing its density to...", a: ["Its own mass", "Its own volume", "The fluid's density", "The fluid's mass"], c: 2 },
+                    { q: "A helium balloon floats in air because...", a: ["Helium has no mass", "Helium is lighter than air", "Helium is less dense than the surrounding air", "Air has no density"], c: 2 },
+                    { q: "To make an object more likely to float, you could...", a: ["Increase its mass while keeping volume constant", "Decrease its volume while keeping mass constant", "Increase its volume while keeping mass constant", "Compress it into a smaller shape"], c: 2 },
+                    { q: "An object has a density of 1.2 g/cm³. It is placed in a liquid with a density of 1.1 g/cm³. What will happen?", a: ["It will float", "It will sink", "It will stay suspended", "It will dissolve"], c: 1 }
+                ]
+            };
+
+            function generateQuiz(quizId) {
+                const quizData = quizzes[quizId];
+                if (!quizData) return;
+                const container = document.querySelector(`.quiz-container[data-quiz-id="${quizId}"]`);
+                let quizHTML = `<h3 class="text-2xl font-bold mb-4 text-center">Quick Quiz!</h3>`;
+                quizData.forEach((item, index) => {
+                    quizHTML += `
+                        <div class="quiz-question mb-6" data-question-index="${index}">
+                            <p class="font-semibold mb-2">${index + 1}. ${item.q}</p>
+                            <div class="quiz-options">${item.a.map((option, optionIndex) => `<button class="quiz-option text-left" data-option-index="${optionIndex}">${option}</button>`).join('')}</div>
+                            <div class="quiz-feedback"></div>
+                        </div>`;
+                });
+                container.innerHTML = quizHTML;
+            }
+
+            function handleQuizInteraction(e) {
+                if (!e.target.classList.contains('quiz-option')) return;
+                const selectedOption = e.target;
+                const questionDiv = selectedOption.closest('.quiz-question');
+                const optionsContainer = questionDiv.querySelector('.quiz-options');
+                const feedbackDiv = questionDiv.querySelector('.quiz-feedback');
+                const quizId = questionDiv.closest('.quiz-container').dataset.quizId;
+                const questionIndex = parseInt(questionDiv.dataset.questionIndex);
+                const selectedIndex = parseInt(selectedOption.dataset.optionIndex);
+                const questionData = quizzes[quizId][questionIndex];
+                const isCorrect = selectedIndex === questionData.c;
+                optionsContainer.querySelectorAll('.quiz-option').forEach(btn => btn.disabled = true);
+                if (isCorrect) {
+                    selectedOption.classList.add('correct');
+                    feedbackDiv.innerHTML = '<strong>Correct!</strong> Well done.';
+                    feedbackDiv.className = 'quiz-feedback correct';
+                } else {
+                    selectedOption.classList.add('incorrect');
+                    optionsContainer.querySelector(`[data-option-index="${questionData.c}"]`).classList.add('correct');
+                    feedbackDiv.innerHTML = `<strong>Not quite.</strong> The correct answer was "${questionData.a[questionData.c]}".`;
+                    feedbackDiv.className = 'quiz-feedback incorrect';
+                }
+            }
+
+            document.querySelectorAll('.quiz-container').forEach(container => {
+                generateQuiz(container.dataset.quizId);
+                container.addEventListener('click', handleQuizInteraction);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
