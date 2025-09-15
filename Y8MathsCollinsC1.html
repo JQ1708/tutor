@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Maths Challenge: Negative Numbers, Indices & Roots</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .topic-card.locked {
+            filter: grayscale(1);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .correct {
+            background-color: #22c55e !important;
+            color: white !important;
+            border-color: #16a34a !important;
+        }
+        .incorrect {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #dc2626 !important;
+        }
+        .slide-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 flex items-center justify-center min-h-screen p-4">
+
+    <div id="app-container" class="w-full max-w-4xl mx-auto">
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="text-center bg-white p-8 rounded-2xl shadow-xl">
+            <h1 class="text-4xl font-bold text-blue-600 mb-2">IGCSE Maths Challenge!</h1>
+            <p class="text-xl text-slate-600 mb-6">Hello <span class="font-bold text-blue-500">Kaavish</span>, ready to master Negative Numbers, Indices, and Roots?</p>
+            <p class="mb-8">Select any topic to begin.</p>
+            <div id="topic-selection" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Topic cards will be inserted here by JS -->
+            </div>
+        </div>
+
+        <!-- Slide Screen -->
+        <div id="slide-screen" class="hidden bg-white p-8 rounded-2xl shadow-xl slide-content">
+            <h2 id="slide-title" class="text-3xl font-bold text-center text-blue-600 mb-6"></h2>
+            <div id="slide-body" class="space-y-6 text-lg"></div>
+            <div class="text-center mt-8">
+                <button onclick="startQuiz()" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">Start Quiz!</button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden bg-white p-8 rounded-2xl shadow-xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="quiz-topic-title" class="text-2xl font-bold text-blue-600"></h2>
+                <div class="flex space-x-4 text-lg">
+                    <span id="score" class="font-semibold text-green-600">Correct: 0</span>
+                    <span id="wrong" class="font-semibold text-red-600">Wrong: 0</span>
+                </div>
+            </div>
+            <div class="mb-4 bg-slate-200 h-4 w-full rounded-full">
+                <div id="progress-bar" class="bg-blue-500 h-4 rounded-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+            <p id="progress-text" class="text-center mb-6 text-slate-500">Question 1 of X</p>
+            
+            <div id="question-container" class="text-center">
+                <p id="question-text" class="text-2xl font-semibold mb-8 min-h-[64px]"></p>
+                <div id="options-container" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Options will be inserted here by JS -->
+                </div>
+            </div>
+            <div id="feedback-container" class="text-center mt-6">
+                <p id="feedback-text" class="text-xl font-semibold h-8"></p>
+                <button id="next-btn" class="hidden bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors mt-4">Next Question</button>
+            </div>
+        </div>
+        
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center bg-white p-8 rounded-2xl shadow-xl">
+            <h2 id="results-title" class="text-3xl font-bold text-blue-600 mb-4">Topic Complete!</h2>
+            <p id="results-summary" class="text-xl mb-6"></p>
+            <div id="correction-section">
+                <p class="mb-4 text-slate-600">Now, let's correct the questions you got wrong. You need to get them right to proceed!</p>
+                <button onclick="startCorrection()" class="bg-orange-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-600 transition-colors">Start Correction</button>
+            </div>
+            <div id="next-level-section" class="hidden">
+                 <button onclick="backToTopics()" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-700 transition-colors">Back to Topics</button>
+            </div>
+        </div>
+        
+        <!-- Final Screen -->
+        <div id="final-screen" class="hidden text-center bg-white p-8 rounded-2xl shadow-xl">
+            <h2 class="text-4xl font-bold text-green-600 mb-4">Congratulations, Kaavish!</h2>
+            <p class="text-2xl mb-8">You've completed all the topics!</p>
+            <p class="text-xl text-slate-600">You are a true Maths Champion!</p>
+             <button onclick="restartApp()" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">Play Again</button>
+        </div>
+
+    </div>
+
+    <script>
+        const studentName = "Kaavish";
+        const topics = [
+            {
+                title: "Multiplying & Dividing Integers",
+                level: 1,
+                unlocked: true,
+                completed: false,
+                slide: {
+                    title: "Subtopic 1: Multiplying & Dividing Integers",
+                    content: `
+                        <p class="mb-4">When we multiply or divide integers, we need to remember the sign rules. It's simple!</p>
+                        <ul class="list-disc list-inside bg-slate-100 p-4 rounded-lg">
+                            <li><span class="font-bold text-green-600">Positive × Positive = Positive</span> (+ × + = +)</li>
+                            <li><span class="font-bold text-red-600">Positive × Negative = Negative</span> (+ × - = -)</li>
+                            <li><span class="font-bold text-red-600">Negative × Positive = Negative</span> (- × + = -)</li>
+                            <li><span class="font-bold text-green-600">Negative × Negative = Positive</span> (- × - = +)</li>
+                        </ul>
+                        <p class="mt-4">The exact same rules apply for division!</p>
+                        <div class="mt-6 p-4 border-l-4 border-blue-500 bg-blue-50 rounded-lg">
+                            <h4 class="font-bold mb-2">Example:</h4>
+                            <p class="text-gray-700">Calculate <code class="bg-gray-200 p-1 rounded">-7 × (-3)</code>.</p>
+                            <p class="font-bold mt-2">A negative times a negative gives a positive. So, <code class="bg-gray-200 p-1 rounded">-7 × (-3) = 21</code>.</p>
+                        </div>
+                    `
+                },
+                questions: [
+                    { q: "-2 × (-3)", a: "6", o: ["-6", "-5", "5", "9", "-9"] },
+                    { q: "10 ÷ (-2)", a: "-5", o: ["5", "8", "-8", "12", "-12"] },
+                    { q: "-15 ÷ (-3)", a: "5", o: ["-5", "-18", "18", "12", "-12"] },
+                    { q: "-6 × 12", a: "-72", o: ["72", "6", "18", "-6", "-18"] },
+                    { q: "-56 ÷ (-8)", a: "7", o: ["-7", "8", "-8", "6", "-6"] },
+                    { q: "-3 × (-2) × 4", a: "24", o: ["-24", "12", "-12", "9", "-9"] },
+                    { q: "-5 × 7 × (-2)", a: "70", o: ["-70", "14", "-14", "35", "-35"] },
+                    { q: "-4 × (-2) × (-9)", a: "-72", o: ["72", "-18", "18", "15", "-15"] },
+                    { q: "(-7)²", a: "49", o: ["-49", "14", "-14", "-7", "7"] },
+                    { q: "-6²", a: "-36", o: ["36", "12", "-12", "6", "-6"] },
+                    { q: "-120 ÷ 10", a: "-12", o: ["12", "1200", "-1200", "1.2", "-1.2"] },
+                    { q: "144 ÷ (-12)", a: "-12", o: ["12", "132", "-132", "1", "-1"] },
+                    { q: "-4 × 8 × (-1)", a: "32", o: ["-32", "12", "-12", "13", "-13"] },
+                    { q: "36 ÷ (-3) ÷ (-2)", a: "6", o: ["-6", "-18", "18", "12", "-12"] },
+                    { q: "(-1) × (-1) × (-1)", a: "-1", o: ["1", "3", "-3", "0", "111"] },
+                    { q: "80 ÷ (-4)", a: "-20", o: ["20", "84", "-84", "40", "-40"] },
+                    { q: "-9 × 8", a: "-72", o: ["72", "-17", "17", "1", "-1"] },
+                    { q: "(-5)²", a: "25", o: ["-25", "-10", "10", "50", "-50"] },
+                    { q: "-5²", a: "-25", o: ["25", "-10", "10", "50", "-50"] },
+                    { q: "100 ÷ (-5)", a: "-20", o: ["20", "95", "-95", "500", "-500"] },
+                    { q: "-7 × (-6)", a: "42", o: ["-42", "-13", "13", "1", "-1"] },
+                    { q: "(-2)³", a: "-8", o: ["8", "-6", "6", "16", "-16"] },
+                    { q: "45 ÷ (-9)", a: "-5", o: ["5", "36", "-36", "4", "-4"] },
+                    { q: "6 × (-11)", a: "-66", o: ["66", "-5", "5", "17", "-17"] },
+                    { q: "(-100) ÷ (-10)", a: "10", o: ["-10", "1000", "-1000", "90", "-90"] },
+                    { q: "3 × (-5) × 2", a: "-30", o: ["30", "0", "10", "-10", "6"] },
+                    { q: "(-15) ÷ 3", a: "-5", o: ["5", "-12", "12", "18", "-18"] },
+                    { q: "-8 × (-8)", a: "64", o: ["-64", "-16", "16", "0", "1"] },
+                    { q: "72 ÷ (-9)", a: "-8", o: ["8", "63", "-63", "81", "-81"] },
+                    { q: "(-2) × (-2) × (-2) × (-2)", a: "16", o: ["-16", "8", "-8", "256", "-256"] }
+                ]
+            },
+            {
+                title: "Squares, Cubes & Roots",
+                level: 2,
+                unlocked: true,
+                completed: false,
+                slide: {
+                    title: "Subtopic 2: Squares, Cubes & Roots",
+                    content: `
+                        <p class="mb-4">This topic is all about powers and their opposites!</p>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-slate-100 rounded-lg">
+                                <h4 class="font-bold text-blue-600">Square Roots (√)</h4>
+                                <p>A positive number has <span class="font-bold">two</span> square roots: one positive and one negative.</p>
+                                <p class="mt-2">Example: The square roots of 81 are <span class="font-bold">9</span> and <span class="font-bold">-9</span>, because 9 × 9 = 81 and (-9) × (-9) = 81.</p>
+                                <p class="mt-1"><span class="font-bold text-red-600">Important:</span> You cannot find the square root of a negative number (in real numbers)!</p>
+                            </div>
+                            <div class="p-4 bg-slate-100 rounded-lg">
+                                <h4 class="font-bold text-blue-600">Cube Roots (∛)</h4>
+                                <p>Every number (positive or negative) has just <span class="font-bold">one</span> cube root.</p>
+                                <p class="mt-2">Example: The cube root of -27 is <span class="font-bold">-3</span>, because (-3) × (-3) × (-3) = -27.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                questions: [
+                    { q: "What are the square roots of 81?", a: "9 and -9", o: ["9", "-9", "8.1", "None", "3 and -3"] },
+                    { q: "What is the cube root of -125?", a: "-5", o: ["5", "25", "-25", "15", "-15"] },
+                    { q: "Calculate: (-5)²", a: "25", o: ["-25", "10", "-10", "5", "-5"] },
+                    { q: "Calculate: ∛(-8)", a: "-2", o: ["2", "4", "-4", "Not possible", "8"] },
+                    { q: "Calculate: -5²", a: "-25", o: ["25", "10", "-10", "5", "-5"] },
+                    { q: "What are the square roots of 1?", a: "1 and -1", o: ["1", "-1", "0", "0.1", "None"] },
+                    { q: "Calculate: ∛(-64)", a: "-4", o: ["4", "8", "-8", "16", "-16"] },
+                    { q: "Calculate: (-3)³", a: "-27", o: ["27", "9", "-9", "3", "-3"] },
+                    { q: "Which of these numbers does NOT have a square root?", a: "-49", o: ["49", "121", "0", "1", "100"] },
+                    { q: "Calculate: ∛(1)", a: "1", o: ["-1", "1 and -1", "0", "10", "None"] },
+                    { q: "What is the value of (∛-27) + (√4)?", a: "-1", o: ["-5", "1", "5", "-3", "3"] },
+                    { q: "Calculate: (-10)³", a: "-1000", o: ["1000", "100", "-100", "30", "-30"] },
+                    { q: "What are the square roots of 400?", a: "20 and -20", o: ["20", "-20", "40", "-40", "10 and -10"] },
+                    { q: "The cube root of a number is -10. What is the number?", a: "-1000", o: ["1000", "100", "-100", "-30", "30"] },
+                    { q: "Calculate: √(13² - 12²)", a: "5", o: ["1", "25", "-5", "15", "26"] },
+                    { q: "What are the square roots of 144?", a: "12 and -12", o: ["12", "-12", "24", "-24", "72"] },
+                    { q: "What is ∛(27)?", a: "3", o: ["-3", "9", "-9", "13.5", "54"] },
+                    { q: "Calculate: (-1)²", a: "1", o: ["-1", "2", "-2", "0", "11"] },
+                    { q: "Calculate: ∛(-1)", a: "-1", o: ["1", "0", "Not possible", "1/3", "-1/3"] },
+                    { q: "What is √100?", a: "10", o: ["-10", "10 and -10", "50", "-50", "20"] },
+                    { q: "What is (-4)³?", a: "-64", o: ["64", "-12", "12", "256", "-256"] },
+                    { q: "The square of a number is 25. What could the number be?", a: "5 or -5", o: ["5", "-5", "12.5", "625", "2.5"] },
+                    { q: "Calculate: ∛(1000)", a: "10", o: ["-10", "100", "-100", "333.3", "500"] },
+                    { q: "What are the square roots of 64?", a: "8 and -8", o: ["8", "-8", "32", "-32", "4"] },
+                    { q: "Calculate: √(9) + ∛(-8)", a: "1", o: ["5", "-1", "7", "3", "2"] },
+                    { q: "What is (-15)²?", a: "225", o: ["-225", "-30", "30", "150", "-150"] },
+                    { q: "What is ∛(-343)?", a: "-7", o: ["7", "49", "-49", "Not possible", "114"] },
+                    { q: "Calculate: √(5² + 12²)", a: "13", o: ["17", "7", "169", "289", "119"] },
+                    { q: "The cube of a number is -216. What is the number?", a: "-6", o: ["6", "36", "-36", "-72", "72"] },
+                    { q: "What are the square roots of 0?", a: "0", o: ["0 and -0", "1 and -1", "No square roots", "Infinite", "0.5"] }
+                ]
+            },
+            {
+                title: "The Index Laws",
+                level: 3,
+                unlocked: true,
+                completed: false,
+                slide: {
+                    title: "Subtopic 3: The Index Laws",
+                    content: `
+                        <p class="mb-4">Index laws are shortcuts for calculations involving powers. The base number must be the same!</p>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-slate-100 rounded-lg">
+                                <h4 class="font-bold text-blue-600">Multiplication Law</h4>
+                                <p><code class="bg-gray-200 p-1 rounded">aᵐ × aⁿ = aᵐ⁺ⁿ</code> (To multiply powers, add the indices)</p>
+                                <p class="mt-1">Example: <code class="bg-gray-200 p-1 rounded">5² × 5⁴ = 5²⁺⁴ = 5⁶</code></p>
+                            </div>
+                            <div class="p-3 bg-slate-100 rounded-lg">
+                                <h4 class="font-bold text-blue-600">Division Law</h4>
+                                <p><code class="bg-gray-200 p-1 rounded">aᵐ ÷ aⁿ = aᵐ⁻ⁿ</code> (To divide powers, subtract the indices)</p>
+                                <p class="mt-1">Example: <code class="bg-gray-200 p-1 rounded">3⁸ ÷ 3² = 3⁸⁻² = 3⁶</code></p>
+                            </div>
+                            <div class="p-3 bg-slate-100 rounded-lg">
+                                <h4 class="font-bold text-blue-600">Power of a Power Law</h4>
+                                <p><code class="bg-gray-200 p-1 rounded">(aᵐ)ⁿ = aᵐˣⁿ</code> (To raise a power to another power, multiply the indices)</p>
+                                <p class="mt-1">Example: <code class="bg-gray-200 p-1 rounded">(2³) ² = 2³ˣ² = 2⁶</code></p>
+                            </div>
+                             <div class="p-3 bg-slate-100 rounded-lg">
+                                <h4 class="font-bold text-blue-600">Zero Index Law</h4>
+                                <p>Any number (except 0) to the power of 0 is 1.</p>
+                                <p class="mt-1">Example: <code class="bg-gray-200 p-1 rounded">37⁰ = 1</code></p>
+                            </div>
+                        </div>
+                    `
+                },
+                questions: [
+                    { q: "Simplify: 3⁶ × 3²", a: "3⁸", o: ["3¹²", "9⁸", "3⁴", "9¹²", "6⁸"] },
+                    { q: "Simplify: 5⁵ ÷ 5³", a: "5²", o: ["5⁸", "1²", "5¹⁵", "25²", "1⁸"] },
+                    { q: "Simplify: (2³) ²", a: "2⁶", o: ["2⁵", "2⁹", "4⁶", "4⁵", "8²"] },
+                    { q: "What is the value of 6.77⁰?", a: "1", o: ["0", "6.77", "677", "-1", "67.7"] },
+                    { q: "Simplify: 4¹¹ ÷ 4⁶", a: "4⁵", o: ["4¹⁷", "1⁵", "4⁶⁶", "256⁵", "4⁴"] },
+                    { q: "Simplify: 6³ × 6⁰ × 6²", a: "6⁵", o: ["6⁶", "6⁰", "1⁵", "18⁵", "0"] },
+                    { q: "Simplify: (7⁵)²", a: "7¹⁰", o: ["7⁷", "7²⁵", "14¹⁰", "49¹⁰", "7³"] },
+                    { q: "What is the value of 10³ × 10⁴?", a: "10,000,000", o: ["10⁷", "10¹²", "100⁷", "1,000,000", "100¹²"] },
+                    { q: "Simplify: (3⁶)⁰", a: "1", o: ["3⁶", "3⁰", "0", "3", "36"] },
+                    { q: "Simplify: (7³ × 7⁴) ÷ 7⁵", a: "7²", o: ["7¹²", "7⁷", "7¹", "49²", "7²²"] },
+                    { q: "Find the missing power: 8^? ÷ 8² = 8³", a: "5", o: ["1", "6", "-1", "1.5", "4"] },
+                    { q: "Which of these equals 1,000,000?", a: "10⁴ × 10²", o: ["10³ + 10³", "10⁸ ÷ 10³", "10¹⁰ ÷ 10³", "(10²)²", "10⁵"] },
+                    { q: "Simplify: (5⁴ ÷ 5²) × 5³", a: "5⁵", o: ["5⁹", "5¹", "5²⁴", "25⁵", "5⁴"] },
+                    { q: "Why can't you use an index law on 2³ × 3²?", a: "The bases are different", o: ["The indices are different", "You can't multiply them", "The answer is 6⁵", "The numbers are too small", "It needs brackets"] },
+                    { q: "What is the value of 4⁸ ÷ 4⁶?", a: "16", o: ["4²", "4¹⁴", "1²", "8", "4"] },
+                    { q: "Simplify: 10⁹ × 10", a: "10¹⁰", o: ["10⁹", "10⁹⁰", "100¹⁰", "10⁸", "10⁹.1"] },
+                    { q: "Simplify: 2⁵ ÷ 2", a: "2⁴", o: ["2⁵", "2⁶", "1⁴", "2⁴.⁵", "2²"] },
+                    { q: "Simplify: (10⁴)³", a: "10¹²", o: ["10⁷", "10⁶⁴", "40³", "120", "100¹²"] },
+                    { q: "What is the value of (9⁹)⁰?", a: "1", o: ["9", "0", "9⁹", "90", "Not possible"] },
+                    { q: "Simplify: 8⁷ ÷ 8⁷", a: "1", o: ["8", "8¹⁴", "8⁰", "0", "8¹"] },
+                    { q: "Simplify: a⁵ × a³", a: "a⁸", o: ["a¹⁵", "2a⁸", "2a¹⁵", "a²", "a³"] },
+                    { q: "Simplify: (b⁴)⁴", a: "b¹⁶", o: ["b⁸", "b²⁵⁶", "4b¹⁶", "b⁰", "b⁴⁴"] },
+                    { q: "What is 2³ × 2³?", a: "64", o: ["2⁶", "16", "2⁹", "4⁶", "32"] },
+                    { q: "Find the missing power: 3^? × 3² = 3⁵", a: "3", o: ["2.5", "7", "10", "-3", "1"] },
+                    { q: "Simplify: (2⁴ × 2³) ÷ 2⁵", a: "2²", o: ["2¹²", "2⁷", "2⁵", "4", "2"] },
+                    { q: "What is any non-zero number to the power of zero?", a: "1", o: ["0", "Itself", "Its negative", "10", "Not defined"] },
+                    { q: "Simplify: 5² × 5² × 5²", a: "5⁶", o: ["5⁸", "15⁶", "125⁶", "5¹²", "5⁵"] },
+                    { q: "Simplify: 9¹⁰ ÷ 9²", a: "9⁸", o: ["9⁵", "1⁸", "9¹²", "81⁸", "9⁹"] },
+                    { q: "What is ((-2)²)³?", a: "64", o: ["-64", "(-2)⁵", "(-2)⁶", "12", "-12"] },
+                    { q: "Simplify: (x³ × x⁴) / x⁷", a: "1", o: ["x", "x¹⁴", "x⁰", "0", "x²"] }
+                ]
+            }
+        ];
+
+        // --- State Variables ---
+        let currentTopicIndex = -1;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let wrong = 0;
+        let attempts = 0;
+        let isCorrectionMode = false;
+        let questionsToCorrect = [];
+
+        // --- DOM Elements ---
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const slideScreen = document.getElementById('slide-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const finalScreen = document.getElementById('final-screen');
+        const topicSelectionContainer = document.getElementById('topic-selection');
+        
+        // --- Functions ---
+        
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function renderTopics() {
+            topicSelectionContainer.innerHTML = '';
+            topics.forEach((topic, index) => {
+                const card = document.createElement('div');
+                card.className = `p-6 rounded-xl border-2 transition-shadow hover:shadow-lg ${topic.unlocked ? 'bg-white cursor-pointer' : 'bg-slate-200 topic-card locked'}`;
+                if (topic.unlocked) {
+                    card.onclick = () => showSlide(index);
+                }
+
+                let status = '';
+                if(topic.completed) {
+                    status = '<span class="text-xs font-bold text-white bg-green-500 py-1 px-2 rounded-full">COMPLETED</span>';
+                } else if (topic.unlocked) {
+                     status = '<span class="text-xs font-bold text-white bg-blue-500 py-1 px-2 rounded-full">AVAILABLE</span>';
+                } else {
+                     status = '<span class="text-xs font-bold text-white bg-slate-500 py-1 px-2 rounded-full">LOCKED</span>';
+                }
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-3xl font-bold text-blue-500">${topic.level}</span>
+                        ${status}
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">${topic.title}</h3>
+                `;
+                topicSelectionContainer.appendChild(card);
+            });
+        }
+        
+        function showScreen(screen) {
+            [welcomeScreen, slideScreen, quizScreen, resultsScreen, finalScreen].forEach(s => s.classList.add('hidden'));
+            screen.classList.remove('hidden');
+        }
+
+        function showSlide(index) {
+            currentTopicIndex = index;
+            const topic = topics[currentTopicIndex];
+            document.getElementById('slide-title').textContent = topic.slide.title;
+            document.getElementById('slide-body').innerHTML = topic.slide.content;
+            showScreen(slideScreen);
+        }
+
+        function startQuiz() {
+            resetQuizState();
+            const questions = isCorrectionMode ? questionsToCorrect : topics[currentTopicIndex].questions;
+            if (questions.length === 0) {
+                endQuiz();
+                return;
+            }
+            showScreen(quizScreen);
+            displayQuestion();
+        }
+
+        function resetQuizState() {
+            currentQuestionIndex = 0;
+            score = 0;
+            wrong = 0;
+            questionsToCorrect = [];
+            isCorrectionMode = false;
+            updateScoreDisplay();
+        }
+
+        function displayQuestion() {
+            attempts = 0;
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('feedback-text').textContent = '';
+
+            const questionPool = isCorrectionMode ? questionsToCorrect : topics[currentTopicIndex].questions;
+            const questionData = questionPool[currentQuestionIndex];
+            
+            // Update progress
+            const progress = ((currentQuestionIndex + 1) / questionPool.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').textContent = `Question ${currentQuestionIndex + 1} of ${questionPool.length}`;
+            document.getElementById('quiz-topic-title').textContent = isCorrectionMode ? "Correction Time!" : topics[currentTopicIndex].title;
+            
+            document.getElementById('question-text').innerHTML = questionData.q.replace(/(\S+\^\S+)|(\S+²)|(\S+³)|(√\S+)|(∛\S+)/g, '<code class="bg-slate-200 text-blue-600 px-2 py-1 rounded">$&</code>');
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            let options = [...questionData.o, questionData.a];
+            options = shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = "option-btn w-full bg-white border-2 border-slate-300 p-4 rounded-lg text-lg font-semibold text-slate-700 hover:bg-blue-100 hover:border-blue-300";
+                button.textContent = option;
+                button.onclick = () => checkAnswer(button, option, questionData.a);
+                optionsContainer.appendChild(button);
+            });
+        }
+        
+        function updateScoreDisplay() {
+            document.getElementById('score').textContent = `Correct: ${score}`;
+            document.getElementById('wrong').textContent = `Wrong: ${wrong}`;
+        }
+        
+        function checkAnswer(button, selectedAnswer, correctAnswer) {
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(btn => btn.disabled = true);
+            
+            attempts++;
+
+            if (selectedAnswer === correctAnswer) {
+                button.classList.add('correct');
+                document.getElementById('feedback-text').textContent = "Excellent work!";
+                document.getElementById('feedback-text').style.color = '#22c55e';
+                if (!isCorrectionMode && attempts === 1) {
+                    score++;
+                }
+                if (isCorrectionMode) {
+                    // Remove from correction list
+                    questionsToCorrect.splice(currentQuestionIndex, 1);
+                    currentQuestionIndex--; // Adjust index as array size changed
+                }
+                setTimeout(nextQuestion, 1500);
+            } else {
+                button.classList.add('incorrect');
+                if (attempts < 2 && !isCorrectionMode) {
+                    document.getElementById('feedback-text').textContent = `Not quite, try again Kaavish!`;
+                    document.getElementById('feedback-text').style.color = '#f59e0b';
+                    setTimeout(() => {
+                        button.classList.remove('incorrect');
+                        options.forEach(btn => btn.disabled = false);
+                        button.disabled = true;
+                    }, 1500);
+                } else {
+                    document.getElementById('feedback-text').textContent = `Don't worry, Kaavish. We'll review this later.`;
+                    document.getElementById('feedback-text').style.color = '#ef4444';
+                     if (!isCorrectionMode) {
+                        wrong++;
+                        questionsToCorrect.push(topics[currentTopicIndex].questions[currentQuestionIndex]);
+                    }
+                    // Highlight correct answer only during correction phase
+                    if (isCorrectionMode) {
+                        options.forEach(btn => {
+                            if (btn.textContent === correctAnswer) {
+                                btn.classList.add('correct');
+                            }
+                        });
+                    }
+                    
+                    setTimeout(nextQuestion, 2500);
+                }
+            }
+            updateScoreDisplay();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            const questionPool = isCorrectionMode ? questionsToCorrect : topics[currentTopicIndex].questions;
+            if (currentQuestionIndex < questionPool.length) {
+                displayQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+        
+        function endQuiz() {
+            if (isCorrectionMode) {
+                if (questionsToCorrect.length > 0) {
+                     // If there are still questions to correct, restart correction
+                    currentQuestionIndex = 0;
+                    displayQuestion();
+                } else {
+                    document.getElementById('results-title').textContent = "Corrections Complete!";
+                    document.getElementById('results-summary').textContent = `Great job, Kaavish! You've mastered ${topics[currentTopicIndex].title}.`;
+                    document.getElementById('correction-section').classList.add('hidden');
+                    document.getElementById('next-level-section').classList.remove('hidden');
+                    
+                    // Mark level as complete
+                    topics[currentTopicIndex].completed = true;
+                    
+                    showScreen(resultsScreen);
+                }
+            } else {
+                document.getElementById('results-title').textContent = "Topic Complete!";
+                document.getElementById('results-summary').textContent = `You scored ${score} out of ${topics[currentTopicIndex].questions.length}.`;
+                if(questionsToCorrect.length > 0) {
+                    document.getElementById('correction-section').classList.remove('hidden');
+                    document.getElementById('next-level-section').classList.add('hidden');
+                } else {
+                     document.getElementById('correction-section').classList.add('hidden');
+                     document.getElementById('next-level-section').classList.remove('hidden');
+                     // Mark level as complete
+                    topics[currentTopicIndex].completed = true;
+                }
+                showScreen(resultsScreen);
+            }
+        }
+        
+        function startCorrection() {
+            isCorrectionMode = true;
+            currentQuestionIndex = 0;
+            startQuiz();
+        }
+        
+        function backToTopics() {
+            // Check if all topics are completed
+            const allDone = topics.every(t => t.completed);
+            if (allDone) {
+                showScreen(finalScreen);
+            } else {
+                renderTopics();
+                showScreen(welcomeScreen);
+            }
+        }
+        
+        function restartApp() {
+            topics.forEach((topic, index) => {
+                topic.unlocked = true;
+                topic.completed = false;
+            });
+            resetQuizState();
+            currentTopicIndex = -1;
+            renderTopics();
+            showScreen(welcomeScreen);
+        }
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTopics();
+        });
+
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebraic Expressions Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .slide-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .option-btn.correct {
+            background-color: #22c55e !important; /* green-500 */
+            color: white;
+            border-color: #16a34a; /* green-600 */
+        }
+        .option-btn.wrong {
+            background-color: #ef4444 !important; /* red-500 */
+            color: white;
+            border-color: #dc2626; /* red-600 */
+        }
+        .locked {
+            filter: grayscale(1);
+            cursor: not-allowed;
+        }
+        code {
+            font-style: italic;
+            color: #4f46e5; /* violet-600 */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 flex items-center justify-center min-h-screen p-4">
+
+    <div id="app" class="w-full max-w-4xl mx-auto">
+        
+        <!-- Main Menu -->
+        <div id="main-menu" class="text-center bg-white p-8 rounded-2xl shadow-xl">
+            <h1 class="text-4xl font-bold text-violet-600 mb-2">Algebraic Expressions Adventure</h1>
+            <p class="text-lg text-slate-600 mb-8">Ready to start, Kaavish?</p>
+            <div id="level-selection" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Levels will be inserted here by JS -->
+            </div>
+        </div>
+
+        <!-- Presentation (Slides) View -->
+        <div id="presentation-view" class="hidden bg-white p-8 rounded-2xl shadow-xl">
+            <h2 id="pres-title" class="text-3xl font-bold text-center mb-6 text-violet-600"></h2>
+            <div id="slide-container" class="bg-slate-50 p-6 rounded-lg min-h-[300px] flex items-center justify-center">
+                <div id="slide-content" class="text-center">
+                    <!-- Slide content will be injected here -->
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-6">
+                <button id="prev-slide-btn" class="bg-slate-300 hover:bg-slate-400 text-slate-800 font-bold py-2 px-4 rounded-lg transition-colors">Previous</button>
+                <span id="slide-counter" class="text-sm text-slate-500"></span>
+                <button id="next-slide-btn" class="bg-violet-500 hover:bg-violet-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Next</button>
+            </div>
+            <button id="start-quiz-btn" class="hidden mt-6 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-lg transition-transform hover:scale-105">Start Quiz!</button>
+        </div>
+
+        <!-- Quiz View -->
+        <div id="quiz-view" class="hidden bg-white p-8 rounded-2xl shadow-xl">
+            <div class="flex justify-between items-start mb-6">
+                <h2 id="quiz-title" class="text-2xl font-bold text-violet-600"></h2>
+                <div class="text-right">
+                    <div id="progress-tracker" class="text-md font-semibold text-slate-500 mb-1"></div>
+                    <div class="flex gap-4 text-lg">
+                        <span class="font-semibold text-green-600">Correct: <span id="correct-score">0</span></span>
+                        <span class="font-semibold text-red-600">Wrong: <span id="wrong-score">0</span></span>
+                    </div>
+                </div>
+            </div>
+            <div id="question-container" class="mb-6">
+                <p id="question-text" class="text-xl font-semibold mb-2"></p>
+                <p id="question-prompt" class="text-slate-500"></p>
+            </div>
+            <div id="options-container" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Options buttons will be injected here -->
+            </div>
+            <div id="feedback-container" class="mt-6 text-center">
+                <p id="feedback-text" class="text-lg font-medium h-8"></p>
+                <button id="next-question-btn" class="hidden mt-4 bg-violet-500 hover:bg-violet-600 text-white font-bold py-2 px-6 rounded-lg transition-colors">Next</button>
+            </div>
+             <button id="back-to-menu-btn" class="mt-8 text-sm text-slate-500 hover:text-slate-700">&larr; Back to Main Menu</button>
+        </div>
+        
+        <!-- Results Modal -->
+        <div id="results-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div class="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full">
+                <h2 id="modal-title" class="text-3xl font-bold text-violet-600 mb-4"></h2>
+                <p id="modal-message" class="text-slate-600 mb-6"></p>
+                <button id="modal-action-btn" class="w-full bg-violet-500 hover:bg-violet-600 text-white font-bold py-3 px-4 rounded-lg text-lg"></button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const studentName = "Kaavish";
+        const topics = [
+            {
+                id: 0,
+                title: "Expressions, Equations & Formulae",
+                unlocked: true,
+                slides: [
+                    { title: "What's the Difference?", content: `<p class="text-2xl">Let's learn about <strong>Expressions</strong>, <strong>Equations</strong>, and <strong>Formulae</strong>!</p><p>They are the building blocks of algebra.</p>` },
+                    { title: "Expressions", content: `<h3 class="text-2xl font-semibold mb-2 text-sky-600">Expression</h3><p>An expression connects numbers and variables. It <strong>DOES NOT</strong> have an equals sign.</p><p class="mt-4 text-xl bg-sky-100 p-3 rounded-lg">Example: <code>4(2a + b)</code> or <code>17 - 3m</code></p>` },
+                    { title: "Equations", content: `<h3 class="text-2xl font-semibold mb-2 text-amber-600">Equation</h3><p>An equation shows that two expressions are equal. It <strong>ALWAYS</strong> has an equals sign and usually has only one possible value for the variable.</p><p class="mt-4 text-xl bg-amber-100 p-3 rounded-lg">Example: <code>5n + 2 = 17</code> (Here, n must be 3)</p>` },
+                    { title: "Formulae", content: `<h3 class="text-2xl font-semibold mb-2 text-emerald-600">Formula</h3><p>A formula is a special type of equation that shows a relationship between variables.</p><p class="mt-4 text-xl bg-emerald-100 p-3 rounded-lg">Example: Area of a rectangle<br><code>A = l × w</code></p>` },
+                    { title: "Ready to Test Your Knowledge?", content: `<p class="text-2xl">You've got the basics! Let's see if you can tell them apart in the quiz.</p>` }
+                ],
+                quiz: [
+                    { q: "<code>17 - 3m</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>y = 2x + 1</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>5n = 35</code>", a: "Equation", o: ["Expression", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>V = abc</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>a/4 + 2b - 3</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>Charge = 25 × hours</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>x/2 = 11</code>", a: "Equation", o: ["Expression", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>y + 2x - 3</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>u = 11 - t</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>h + 5 = 2h</code>", a: "Equation", o: ["Expression", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>2n-3=7</code>", a: "Equation", o: ["Expression", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>30-n</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>C=12n</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>y = 3+2h</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>y+x=9</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>2x+10=y</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>ab+c</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>p+q</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>a=b-c</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>100 = 5x</code>", a: "Equation", o: ["Expression", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>4(d-3)</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "Area of a circle: <code>A = πr²</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>3x + 5 = 20</code>", a: "Equation", o: ["Expression", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>xyz</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>F = ma</code> (Force = mass × acceleration)", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>180/n = 30</code>", a: "Equation", o: ["Expression", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "<code>(x+y)²</code>", a: "Expression", o: ["Equation", "Formula", "Variable", "Constant", "Term"] },
+                    { q: "Perimeter of a square: <code>P = 4s</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>x² + y² = z²</code>", a: "Formula", o: ["Expression", "Equation", "Variable", "Constant", "Term"] },
+                    { q: "<code>17 = 24 - n</code>", a: "Equation", o: ["Expression", "Formula", "Variable", "Constant", "Term"] }
+                ]
+            },
+            {
+                id: 1,
+                title: "Substitution & Order of Operations",
+                unlocked: true,
+                slides: [
+                    { title: "Order of Operations", content: `<h3 class="text-2xl font-semibold mb-2">BIDMAS</h3><p>We must follow a special order for calculations!</p><ul class="text-left w-fit mx-auto mt-4 space-y-1"><li><strong>B</strong>rackets</li><li><strong>I</strong>ndices (Powers like ²)</li><li><strong>D</strong>ivision & <strong>M</strong>ultiplication</li><li><strong>A</strong>ddition & <strong>S</strong>ubtraction</li></ul>` },
+                    { title: "Substitution: Example 1", content: `<p class="mb-2">Find the value of <code>5x² + 3</code> when <code>x = -2</code></p><div class="text-left w-fit mx-auto bg-slate-100 p-4 rounded-lg"><p>1. Indices first: <code>(-2)² = 4</code></p><p>2. Multiplication: <code>5 × 4 = 20</code></p><p>3. Addition: <code>20 + 3 = 23</code></p></div>` },
+                    { title: "Substitution: Example 2", content: `<p class="mb-2">Find the value of <code>2(p - q³)</code> when <code>p = 4, q = 2</code></p><div class="text-left w-fit mx-auto bg-slate-100 p-4 rounded-lg"><p>1. Brackets first! Inside, do Indices: <code>2³ = 8</code></p><p>2. Still in brackets, subtract: <code>4 - 8 = -4</code></p><p>3. Finally, multiply: <code>2 × (-4) = -8</code></p></div>` },
+                    { title: "Ready for a Challenge?", content: `<p class="text-2xl">Time to put your BIDMAS skills to the test in the quiz!</p>` }
+                ],
+                quiz: [
+                    { q: "<code>x - 10</code>, when <code>x = -6</code>", a: "-16", o: ["-4", "4", "16", "-10", "6"] },
+                    { q: "<code>15 - x</code>, when <code>x = -6</code>", a: "21", o: ["9", "-9", "-21", "15", "6"] },
+                    { q: "<code>5 - 4x</code>, when <code>x = -2</code>", a: "13", o: ["-3", "3", "-13", "1", "2"] },
+                    { q: "<code>3x²</code>, when <code>x = -2</code>", a: "12", o: ["-12", "36", "-36", "6", "-6"] },
+                    { q: "<code>p - q</code>, when <code>p = 2, q = -3</code>", a: "5", o: ["-1", "1", "-5", "6", "-6"] },
+                    { q: "<code>q²</code>, when <code>p = 2, q = -3</code>", a: "9", o: ["-9", "6", "-6", "-3", "3"] },
+                    { q: "<code>2p² + c</code>, when <code>p = 2, c = -5</code>", a: "3", o: ["11", "-13", "13", "1", "-1"] },
+                    { q: "<code>(x+y)²</code>, when <code>x = 5, y = 4</code>", a: "81", o: ["18", "41", "1", "9", "20"] },
+                    { q: "<code>z² + x²</code>, when <code>x = 5, z = 6</code>", a: "61", o: ["22", "11", "121", "55", "1"] },
+                    { q: "<code>b³ - a</code>, when <code>b = -2, a = 6</code>", a: "-14", o: ["-2", "2", "14", "-12", "-10"] },
+                    { q: "<code>4x</code>, when <code>x = -6</code>", a: "-24", o: ["24", "1.5", "-1.5", "-2", "2"] },
+                    { q: "<code>3x+5</code>, when <code>x = -6</code>", a: "-13", o: ["-23", "23", "13", "8", "-8"] },
+                    { q: "<code>4-x²</code>, when <code>x=-2</code>", a: "0", o: ["8", "-8", "2", "-2", "4"] },
+                    { q: "<code>p+q</code>, when <code>p=2, q=-3</code>", a: "-1", o: ["5", "1", "-5", "6", "-6"] },
+                    { q: "<code>2p-q</code>, when <code>p=2, q=-3</code>", a: "7", o: ["1", "-1", "4", "3", "5"] },
+                    { q: "<code>a+2b</code>, when <code>a=6, b=-2</code>", a: "2", o: ["10", "-10", "4", "-4", "8"] },
+                    { q: "<code>b+c</code>, when <code>b=-2, c=-5</code>", a: "-7", o: ["7", "3", "-3", "-2", "-5"] },
+                    { q: "<code>b-c</code>, when <code>b=-2, c=-5</code>", a: "3", o: ["-7", "7", "-3", "2", "5"] },
+                    { q: "<code>ab+c</code>, when <code>a=6, b=-2, c=-5</code>", a: "-17", o: ["17", "-7", "7", "-12", "-5"] },
+                    { q: "<code>2b²</code>, when <code>b=-2</code>", a: "8", o: ["-8", "4", "-4", "16", "-16"] },
+                    { q: "<code>x(y+z)</code>, when <code>x=5, y=4, z=6</code>", a: "50", o: ["40", "60", "26", "15", "34"] },
+                    { q: "<code>yz/x</code>, when <code>x=5, y=4, z=6</code>", a: "4.8", o: ["24", "5", "30", "4", "6"] },
+                    { q: "<code>b³+5</code>, when <code>b=-2</code>", a: "-3", o: ["13", "-13", "3", "8", "-8"] },
+                    { q: "<code>abc</code>, when <code>a=6, b=-2, c=-5</code>", a: "60", o: ["-60", "30", "-30", "12", "10"] },
+                    { q: "<code>a²-b²</code>, when <code>a=6, b=-2</code>", a: "32", o: ["-32", "40", "-40", "36", "4"] },
+                    { q: "<code>q³</code>, when <code>q=-3</code>", a: "-27", o: ["27", "9", "-9", "6", "-6"] },
+                    { q: "<code>5+2x²</code>, when <code>x=-2</code>", a: "13", o: ["-3", "21", "-21", "10", "8"] },
+                    { q: "<code>(p²+q²)</code>, when <code>p=2, q=-3</code>", a: "13", o: ["-5", "5", "1", "-1", "25"] },
+                    { q: "<code>x³</code>, when <code>x=-2</code>", a: "-8", o: ["8", "6", "-6", "4", "-4"] },
+                    { q: "<code>3p³</code>, when <code>p=2</code>", a: "24", o: ["18", "54", "8", "6", "12"] }
+                ]
+            },
+            {
+                id: 2,
+                title: "Expanding & Factorising",
+                unlocked: true,
+                slides: [
+                    { title: "Expanding Brackets", content: `<h3 class="text-2xl font-semibold mb-2 text-sky-600">Expanding means 'multiply out'.</h3><p>Multiply the term outside by <strong>every</strong> term inside.</p><p class="mt-4 text-xl bg-sky-100 p-3 rounded-lg"><code>n(n - 3) = n×n - n×3 = n² - 3n</code></p>` },
+                    { title: "Factorising", content: `<h3 class="text-2xl font-semibold mb-2 text-amber-600">Factorising is the reverse of expanding.</h3><p>Find the Highest Common Factor (HCF) and put it outside the bracket.</p><p class="mt-4 text-xl bg-amber-100 p-3 rounded-lg"><code>18n - 6</code><br>HCF of 18 and 6 is <strong>6</strong>.<br><code>6(3n - 1)</code></p>` },
+                     { title: "Factorising with Variables", content: `<h3 class="text-2xl font-semibold mb-2">HCF can include letters!</h3><p>Factorise <code>a²b + 7ab</code></p><p class="mt-4 text-lg bg-slate-100 p-3 rounded-lg">HCF of <code>a²b</code> and <code>7ab</code> is <code>ab</code>.<br>So, <code>ab(a + 7)</code></p>` },
+                    { title: "Let's Practice!", content: `<p class="text-2xl">Ready to expand your algebra skills in the quiz?</p>` }
+                ],
+                quiz: [
+                    { q: "Expand <code>y(y + 9)</code>", a: "y² + 9y", o: ["y² + 9", "2y + 9", "10y", "9y²", "y + 9y"] },
+                    { q: "Expand <code>3g(g - 4)</code>", a: "3g² - 12g", o: ["3g² - 4", "4g - 12", "3g - 12g", "-9g", "3g² - 12"] },
+                    { q: "Expand <code>5p(2p + 3q)</code>", a: "10p² + 15pq", o: ["7p² + 8pq", "10p + 15q", "25pq", "10p² + 3q", "10p + 15pq"] },
+                    { q: "Factorise <code>16e - 24</code>", a: "8(2e - 3)", o: ["4(4e - 6)", "2(8e - 12)", "16(e - 24)", "8(2e - 24)", "e(16 - 24)"] },
+                    { q: "Factorise <code>h² - h</code>", a: "h(h - 1)", o: ["h(h)", "2h - h", "h²(-1)", "h(h+1)", "1(h² - h)"] },
+                    { q: "Factorise <code>5m² + 6m</code>", a: "m(5m + 6)", o: ["m(5m + 6m)", "5(m² + 6m)", "6(5m² + m)", "11m²", "m(11m)"] },
+                    { q: "Expand <code>n(n - 6)</code>", a: "n² - 6n", o: ["n² - 6", "2n - 6", "-5n", "n-6n", "-6n²"] },
+                    { q: "Factorise <code>6r² - 10r</code>", a: "2r(3r - 5)", o: ["r(6r - 10)", "2(3r² - 5r)", "6r(r - 10)", "r²(6-10/r)", "10r(0.6r - 1)"] },
+                    { q: "Factorise <code>8pq + 12pr</code>", a: "4p(2q + 3r)", o: ["4(2pq + 3pr)", "p(8q + 12r)", "8p(q + 1.5r)", "2p(4q+6r)", "4pr(2q/r + 3)"] },
+                    { q: "Expand <code>2tu(6t - 3v)</code>", a: "12t²u - 6tuv", o: ["12t²u - 3v", "8t²u - 5tuv", "12tu - 6tv", "6t²u - 6tuv", "12t²u - 6v"] },
+                    { q: "Expand <code>7(2a+3b)</code>", a: "14a + 21b", o: ["9a + 10b", "14a + 3b", "2a + 21b", "35ab", "14a + 21"] },
+                    { q: "Factorise <code>9y + 18z</code>", a: "9(y + 2z)", o: ["9(y + 18z)", "y(9 + 18z)", "18(y+z)", "27yz", "3(3y+6z)"] },
+                    { q: "Expand <code>c(4c+3d)</code>", a: "4c² + 3cd", o: ["4c² + 3d", "7cd", "4c+3d", "4c²+3dc", "12c²d"] },
+                    { q: "Factorise <code>21 - 14gh</code>", a: "7(3 - 2gh)", o: ["21(1 - 14gh)", "7(3 - 14gh)", "14(21 - gh)", "g(21-14h)", "h(21-14g)"] },
+                    { q: "Expand <code>3p²(p-2q)</code>", a: "3p³ - 6p²q", o: ["3p³ - 2q", "3p² - 6p²q", "p³ - 6p²q", "-3p³q", "3p³-6pq"] },
+                    { q: "Factorise <code>a²b+7ab</code>", a: "ab(a + 7)", o: ["a(ab+7b)", "b(a²+7a)", "ab(a+7b)", "7ab(a+1)", "a²b(1+7/a)"] },
+                    { q: "Expand <code>5r(2r+11)</code>", a: "10r² + 55r", o: ["10r² + 11", "7r+16", "55r²", "10r + 55r", "10r²+55"] },
+                    { q: "Factorise <code>12p+24q-6</code>", a: "6(2p + 4q - 1)", o: ["12(p+2q-0.5)", "6(2p+4q-6)", "2(6p+12q-3)", "p(12+24q/p-6/p)", "3(4p+8q-2)"] },
+                    { q: "Expand <code>6p(3p-2q+4)</code>", a: "18p² - 12pq + 24p", o: ["18p²-12pq+4", "18p-12q+24", "18p²-12q+24p", "30p²q", "18p²-12p²+24p"] },
+                    { q: "Factorise <code>4xy + 3x</code>", a: "x(4y + 3)", o: ["x(4y+3x)", "4(xy+3x)", "3(4xy+x)", "xy(4+3/y)", "7xy"] },
+                    { q: "Expand and simplify <code>5(2t+5)-3t</code>", a: "7t + 25", o: ["10t+25-3t", "10t+22", "7t+5", "35t", "7t-25"] },
+                    { q: "Factorise <code>9k²-3k</code>", a: "3k(3k - 1)", o: ["3(3k²-k)", "k(9k-3)", "9k(k-3)", "3k(3k-0)", "6k²"] },
+                    { q: "Expand and simplify <code>6+3(2x-7)+x</code>", a: "7x - 15", o: ["6+6x-21+x", "7x-27", "6x-15", "10x-21", "7x+15"] },
+                    { q: "Factorise <code>15wx - 10wy²</code>", a: "5w(3x - 2y²)", o: ["5(3wx-2wy²)", "w(15x-10y²)", "5x(3w-2wy²/x)", "10w(1.5x-y²)", "5wy(3x/y - 2y)"] },
+                    { q: "Expand and simplify <code>9(4m-n)+3n</code>", a: "36m - 6n", o: ["36m-9n+3n", "36m-12n", "45m-6n", "30mn", "36m+6n"] },
+                    { q: "Factorise <code>ab²-2ab</code>", a: "ab(b - 2)", o: ["a(b²-2b)", "b(ab-2a)", "2ab(b-1)", "ab(b-2a)", "ab²(1-2/b)"] },
+                    { q: "Expand and simplify <code>8(3e+f)-4e-11f</code>", a: "20e - 3f", o: ["24e+8f-4e-11f", "20e+19f", "28e-19f", "17ef", "20e-11f"] },
+                    { q: "Factorise <code>6a³-9a²</code>", a: "3a²(2a - 3)", o: ["3a(2a²-3a)", "a²(6a-9)", "6a²(a-1.5)", "3a³(2-3/a)", "-3a³"] },
+                    { q: "Expand and simplify <code>3(4q-7)+2(9-q)</code>", a: "10q - 3", o: ["12q-21+18-2q", "10q-39", "14q-3", "10q+3", "7q"] },
+                    { q: "Factorise <code>12n²m-8nm³</code>", a: "4nm(3n - 2m²)", o: ["4(3n²m-2nm³)", "n(12nm-8m³)", "m(12n²-8nm²)", "4nm(3n-2m)", "2nm(6n-4m²)"] }
+                ]
+            },
+             {
+                id: 3,
+                title: "Forming Expressions",
+                unlocked: true,
+                slides: [
+                    { title: "Algebra in Words", content: `<p class="text-2xl">Let's turn everyday situations into algebra!</p><p>We use letters to represent unknown amounts.</p>` },
+                    { title: "Forming Expressions: Example", content: `<h3 class="text-xl font-semibold mb-2">A plant pot costs <code>$x</code>. A plant costs <code>$w</code>.</h3><p>What is the total cost of <strong>1 plant pot</strong> and <strong>8 plants</strong>?</p><p class="mt-4 text-xl bg-emerald-100 p-3 rounded-lg">Cost = <code>x + 8w</code></p>` },
+                    { title: "Another Example", content: `<h3 class="text-xl font-semibold mb-2">Liam has <code>m</code> pens. Malik has twice as many.</h3><p>How many pens does Malik have?</p><p class="mt-4 text-xl bg-sky-100 p-3 rounded-lg"><code>2 × m</code> which we write as <code>2m</code></p><p class="mt-2 text-base">Noor has 3 more than Malik. So Noor has <code>2m + 3</code></p>` },
+                    { title: "Think Like a Detective!", content: `<p class="text-2xl">Read the clues in the problems carefully to build your expressions. You're ready for the final quiz!</p>` }
+                ],
+                quiz: [
+                    { q: "A pizza costs <code>$p</code>. Each topping costs <code>$t</code>. Find the cost of a pizza with 2 toppings.", a: "<code>p + 2t</code>", o: ["<code>2p + t</code>", "<code>2pt</code>", "<code>p + t + 2</code>", "<code>2(p+t)</code>", "<code>p(2+t)</code>"] },
+                    { q: "Perimeter of a rectangle with sides 'a' and 'b'.", a: "<code>2a + 2b</code>", o: ["<code>ab</code>", "<code>a+b</code>", "<code>2ab</code>", "<code>a²b²</code>", "<code>4(a+b)</code>"] },
+                    { q: "Martha has 2 litres of water. She uses 'g' litres. What's left?", a: "<code>2 - g</code>", o: ["<code>2g</code>", "<code>g - 2</code>", "<code>2/g</code>", "<code>g/2</code>", "<code>2+g</code>"] },
+                    { q: "A red badge weighs 'r' grams. A blue badge is 4 grams more. What is a blue badge's weight?", a: "<code>r + 4</code>", o: ["<code>r - 4</code>", "<code>4r</code>", "<code>4 - r</code>", "<code>r/4</code>", "<code>r+r+r+r</code>"] },
+                    { q: "A small pack has 'c' cakes. A large pack has three times as many. How many cakes in a large pack?", a: "<code>3c</code>", o: ["<code>c + 3</code>", "<code>c - 3</code>", "<code>c/3</code>", "<code>c³</code>", "<code>c+c+3</code>"] },
+                    { q: "You buy 4 adult cinema tickets costing 'a' each.", a: "<code>4a</code>", o: ["<code>a + 4</code>", "<code>a/4</code>", "<code>a⁴</code>", "<code>a-4</code>", "<code>a+a+a</code>"] },
+                    { q: "Shami has 'n' socks. Tom has six fewer.", a: "<code>n - 6</code>", o: ["<code>6 - n</code>", "<code>6n</code>", "<code>n + 6</code>", "<code>n/6</code>", "<code>n-n-n-n-n-n</code>"] },
+                    { q: "Perimeter of an equilateral triangle with side 'w'.", a: "<code>3w</code>", o: ["<code>w³</code>", "<code>w+3</code>", "<code>w/3</code>", "<code>w²</code>", "<code>w+w</code>"] },
+                    { q: "You have <code>$y</code>. You spend half on a phone. How much is left?", a: "<code>y / 2</code>", o: ["<code>2y</code>", "<code>y - 2</code>", "<code>y - 1/2</code>", "<code>y²</code>", "<code>y-y</code>"] },
+                    { q: "Total mass of 5 blue badges, where each is 'r + 4' grams.", a: "<code>5(r + 4)</code>", o: ["<code>5r + 4</code>", "<code>5+r+4</code>", "<code>5r+20r</code>", "<code>20r</code>", "<code>5(r) + 4</code>"] },
+                    { q: "Perimeter of shape with sides <code>x, y, 6, 3x</code>", a: "<code>4x + y + 6</code>", o: ["<code>xy+18x</code>", "<code>x+y+9</code>", "<code>10xy</code>", "<code>4x+y-6</code>", "<code>4x+y+6x</code>"] },
+                    { q: "A baker has <code>y</code> grams of flour. He makes <code>n</code> loaves, each using 400g. How much flour is left?", a: "<code>y - 400n</code>", o: ["<code>y - 400</code>", "<code>400n - y</code>", "<code>y/400n</code>", "<code>400y - n</code>", "<code>y+400n</code>"] },
+                    { q: "Perimeter of an isosceles triangle with sides <code>w, w, u</code>", a: "<code>2w + u</code>", o: ["<code>w²u</code>", "<code>w+u</code>", "<code>2wu</code>", "<code>2(w+u)</code>", "<code>w²+u</code>"] },
+                    { q: "Malik has twice as many pens (m) as Liam.", a: "<code>2m</code>", o: ["<code>m/2</code>", "<code>m+2</code>", "<code>m-2</code>", "<code>m²</code>", "<code>m+m+m</code>"] },
+                    { q: "Change from <code>$50</code> after buying 3 adult tickets at <code>$a</code> each.", a: "<code>50 - 3a</code>", o: ["<code>50+3a</code>", "<code>3a - 50</code>", "<code>50/3a</code>", "<code>(50-3)a</code>", "<code>47a</code>"] },
+                    { q: "Perimeter of a parallelogram with sides <code>n</code> and <code>n+4</code>.", a: "<code>4n + 8</code>", o: ["<code>2n+4</code>", "<code>n(n+4)</code>", "<code>2n+8</code>", "<code>n²+4n</code>", "<code>4n+4</code>"] },
+                    { q: "Total cost of 2 child (c) and 1 adult (a) tickets.", a: "<code>2c + a</code>", o: ["<code>2(c+a)</code>", "<code>c+2a</code>", "<code>3ca</code>", "<code>2ca</code>", "<code>c²+a</code>"] },
+                    { q: "A green badge is 3 times heavier than a blue badge (<code>r+4</code>).", a: "<code>3(r + 4)</code>", o: ["<code>3r+4</code>", "<code>3r+12r</code>", "<code>3+r+4</code>", "<code>7+3r</code>", "<code>12r</code>"] },
+                    { q: "Nat buys 3 packs of <code>n</code> balloons, shared between 10 people. How many balloons does each get?", a: "<code>3n / 10</code>", o: ["<code>10/3n</code>", "<code>3n-10</code>", "<code>10-3n</code>", "<code>(n/10)×3</code>", "<code>30n</code>"] },
+                    { q: "Total socks of Shami (n) and Tom (n-6).", a: "<code>2n - 6</code>", o: ["<code>6-2n</code>", "<code>n(n-6)</code>", "<code>n-6</code>", "<code>-6n²</code>", "<code>2n+6</code>"] },
+                    { q: "Mean number of sweets from two bags with <code>n</code> and <code>n+20</code> sweets.", a: "<code>(2n+20)/2</code>", o: ["<code>n+10</code>", "<code>2n+20</code>", "<code>n(n+20)</code>", "<code>n+20</code>", "<code>(n+10)/2</code>"] },
+                    { q: "Money left from <code>$y</code> after spending half and then buying <code>k</code> maps at <code>$m</code> each.", a: "<code>y/2 - km</code>", o: ["<code>y/2 + km</code>", "<code>y - km/2</code>", "<code>y - y/2 - km</code>", "<code>y - k - m</code>", "<code>y/2(km)</code>"] },
+                    { q: "A tank has <code>t</code> litres. <code>n</code> litres are removed every hour for 5 hours.", a: "<code>t - 5n</code>", o: ["<code>t+5n</code>", "<code>5n-t</code>", "<code>5(t-n)</code>", "<code>t/5n</code>", "<code>5t-n</code>"] },
+                    { q: "Total children in a school with <code>x</code> classes of 30 and <code>y</code> classes of 29.", a: "<code>30x + 29y</code>", o: ["<code>(x+y)(30+29)</code>", "<code>59(x+y)</code>", "<code>30x - 29y</code>", "<code>x/30 + y/29</code>", "<code>xy(30+29)</code>"] },
+                    { q: "Tim thinks of <code>n</code>, adds 4, multiplies by 3, divides by 5.", a: "<code>3(n+4)/5</code>", o: ["<code>(n+12)/5</code>", "<code>3n+4/5</code>", "<code>3(n+4/5)</code>", "<code>(3n+4)/5</code>", "<code>3n+12/5</code>"] },
+                    { q: "Area of a rectangle with sides <code>3a</code> and <code>(1/2)b</code>.", a: "<code>(3/2)ab</code>", o: ["<code>3.5ab</code>", "<code>3a + 0.5b</code>", "<code>1.5(a+b)</code>", "<code>3ab/2</code>", "<code>6ab</code>"] },
+                    { q: "Omar has twice as many pens as Noor (<code>2m+3</code>).", a: "<code>2(2m+3)</code>", o: ["<code>4m+3</code>", "<code>2m+6</code>", "<code>2m+5</code>", "<code>(2m+3)/2</code>", "<code>2m+3+2</code>"] },
+                    { q: "Total mass of 6 red (r) and 2 green (<code>3(r+4)</code>) badges.", a: "<code>6r + 6(r+4)</code>", o: ["<code>6r+6r+24</code>", "<code>12r+24</code>", "<code>6r+6(r+4)</code>", "<code>6r+3(r+4)</code>", "<code>6r+2(r+4)</code>"] },
+                    { q: "A medium pack has 4 more cakes than a small pack (c). How many cakes in a medium pack?", a: "<code>c+4</code>", o: ["<code>4c</code>", "<code>c-4</code>", "<code>c/4</code>", "<code>4-c</code>", "<code>c+c+c+c</code>"] },
+                    { q: "Total number of pens for Liam (m), Malik (2m), Noor (2m+3), Omar (2(2m+3)).", a: "<code>9m+9</code>", o: ["<code>m+2m+2m+3+4m+6</code>", "<code>7m+9</code>", "<code>9m+6</code>", "<code>8m+9</code>", "<code>9(m+1)</code>"] }
+                ]
+            }
+        ];
+
+        let state = {};
+
+        // DOM Elements
+        const mainMenu = document.getElementById('main-menu');
+        const presentationView = document.getElementById('presentation-view');
+        const quizView = document.getElementById('quiz-view');
+        const resultsModal = document.getElementById('results-modal');
+        const levelSelection = document.getElementById('level-selection');
+
+        function initializeState() {
+             return {
+                currentTopicId: null,
+                currentQuestionIndex: 0,
+                correct: 0,
+                wrong: 0,
+                attempts: 0,
+                isCorrectionRound: false,
+                wronglyAnsweredQuestions: [],
+                questionsForRound: [],
+                currentSlideIndex: 0,
+            };
+        }
+        
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function setupMainMenu() {
+            levelSelection.innerHTML = '';
+            topics.forEach(topic => {
+                const isLocked = !topic.unlocked;
+                const button = document.createElement('div');
+                button.className = `p-6 rounded-lg shadow-md cursor-pointer transition-transform hover:scale-105 ${isLocked ? 'bg-slate-200 locked' : 'bg-violet-500 text-white'}`;
+                button.innerHTML = `
+                    <h3 class="text-xl font-bold">${topic.title}</h3>
+                    <p class="text-sm mt-1">${isLocked ? 'Complete previous level to unlock' : 'Ready to start!'}</p>
+                `;
+                if (!isLocked) {
+                    button.onclick = () => startLevel(topic.id);
+                }
+                levelSelection.appendChild(button);
+            });
+            showView('main-menu');
+        }
+
+        function startLevel(topicId) {
+            state = initializeState();
+            state.currentTopicId = topicId;
+            startPresentation();
+        }
+
+        function startPresentation() {
+            const topic = topics[state.currentTopicId];
+            document.getElementById('pres-title').textContent = topic.title;
+            state.currentSlideIndex = 0;
+            displaySlide();
+            showView('presentation-view');
+        }
+
+        function displaySlide() {
+            const topic = topics[state.currentTopicId];
+            const slide = topic.slides[state.currentSlideIndex];
+            
+            const slideContentEl = document.getElementById('slide-content');
+            slideContentEl.innerHTML = `
+                <h3 class="text-2xl font-bold mb-4">${slide.title}</h3>
+                <div>${slide.content}</div>
+            `;
+            
+            document.getElementById('slide-counter').textContent = `Slide ${state.currentSlideIndex + 1} of ${topic.slides.length}`;
+            document.getElementById('prev-slide-btn').style.visibility = state.currentSlideIndex === 0 ? 'hidden' : 'visible';
+            document.getElementById('next-slide-btn').style.display = state.currentSlideIndex === topic.slides.length - 1 ? 'none' : 'block';
+            document.getElementById('start-quiz-btn').style.display = state.currentSlideIndex === topic.slides.length - 1 ? 'block' : 'none';
+        }
+        
+        function showView(viewId) {
+            ['main-menu', 'presentation-view', 'quiz-view', 'results-modal'].forEach(id => {
+                 document.getElementById(id).classList.add('hidden');
+            });
+            if (viewId) {
+                 document.getElementById(viewId).classList.remove('hidden');
+            }
+        }
+
+        function startQuiz() {
+            const topic = topics[state.currentTopicId];
+            state.questionsForRound = [...topic.quiz];
+            displayQuestion();
+            showView('quiz-view');
+        }
+
+        function displayQuestion() {
+            const questionData = state.questionsForRound[state.currentQuestionIndex];
+            document.getElementById('quiz-title').textContent = state.isCorrectionRound ? `${topics[state.currentTopicId].title} - Corrections` : topics[state.currentTopicId].title;
+            
+            const progressTracker = document.getElementById('progress-tracker');
+            progressTracker.textContent = `Question ${state.currentQuestionIndex + 1} of ${state.questionsForRound.length}`;
+
+            const [mainQuestion, prompt] = questionData.q.split(', when ');
+            document.getElementById('question-text').innerHTML = mainQuestion;
+            document.getElementById('question-prompt').textContent = prompt ? `When: ${prompt}` : '';
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            const options = shuffleArray([questionData.a, ...questionData.o]).slice(0, 6);
+
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn bg-white border-2 border-slate-300 p-4 rounded-lg text-lg transition-all duration-200';
+                button.innerHTML = option;
+                button.onclick = () => checkAnswer(button, option, questionData.a);
+                optionsContainer.appendChild(button);
+            });
+            
+            updateScoreboard();
+        }
+
+        function checkAnswer(button, selectedAnswer, correctAnswer) {
+            document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+            const feedbackText = document.getElementById('feedback-text');
+            
+            if (selectedAnswer === correctAnswer) {
+                button.classList.add('correct');
+                feedbackText.textContent = "Correct! Well done!";
+                feedbackText.className = "text-lg font-medium h-8 text-green-600";
+                if(!state.isCorrectionRound) state.correct++;
+            } else {
+                button.classList.add('wrong');
+                state.attempts++;
+                if(!state.isCorrectionRound) {
+                     state.wrong++;
+                }
+                
+                if (state.attempts < 2) {
+                    feedbackText.textContent = `Not quite, ${studentName}. Try one more time!`;
+                    feedbackText.className = "text-lg font-medium h-8 text-amber-600";
+                    setTimeout(() => {
+                        feedbackText.textContent = '';
+                        button.classList.remove('wrong');
+                        document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = false);
+                        button.disabled = true; // disable the wrong option
+                        button.style.opacity = '0.5';
+                    }, 2000);
+                    updateScoreboard();
+                    return;
+                } else {
+                     feedbackText.textContent = `Good try, ${studentName}! We'll review this later.`;
+                     feedbackText.className = "text-lg font-medium h-8 text-red-600";
+                     if(!state.isCorrectionRound) {
+                        state.wronglyAnsweredQuestions.push(state.questionsForRound[state.currentQuestionIndex]);
+                    }
+                }
+            }
+            
+            if (state.isCorrectionRound) {
+                // Find and highlight the correct answer ONLY in correction round
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    if (btn.innerHTML === correctAnswer) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            document.getElementById('next-question-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            state.currentQuestionIndex++;
+            state.attempts = 0;
+            document.getElementById('feedback-text').textContent = '';
+            document.getElementById('next-question-btn').classList.add('hidden');
+
+            if (state.currentQuestionIndex < state.questionsForRound.length) {
+                displayQuestion();
+            } else {
+                if (state.isCorrectionRound) {
+                    showModal('level-complete');
+                } else if (state.wronglyAnsweredQuestions.length > 0) {
+                    showModal('start-correction');
+                } else {
+                    showModal('level-complete');
+                }
+            }
+        }
+        
+        function startCorrectionRound() {
+            state.isCorrectionRound = true;
+            state.currentQuestionIndex = 0;
+            state.questionsForRound = [...state.wronglyAnsweredQuestions];
+            resultsModal.classList.add('hidden');
+            displayQuestion();
+        }
+
+        function completeLevel() {
+            const currentId = state.currentTopicId;
+            resultsModal.classList.add('hidden');
+            setupMainMenu();
+        }
+
+        function showModal(type) {
+            const titleEl = document.getElementById('modal-title');
+            const messageEl = document.getElementById('modal-message');
+            const actionBtn = document.getElementById('modal-action-btn');
+            
+            if (type === 'start-correction') {
+                titleEl.textContent = 'Correction Time!';
+                messageEl.textContent = `Great effort, ${studentName}! You have ${state.wronglyAnsweredQuestions.length} question(s) to correct before moving to the next level. Let's get them right!`;
+                actionBtn.textContent = 'Start Corrections';
+                actionBtn.onclick = startCorrectionRound;
+            } else if (type === 'level-complete') {
+                 titleEl.textContent = 'Level Complete!';
+                 const nextTopic = topics[state.currentTopicId + 1];
+                 if(nextTopic) {
+                    messageEl.textContent = `Fantastic work, ${studentName}! You've mastered this topic. The next topic, "${nextTopic.title}", is now unlocked!`;
+                 } else {
+                    messageEl.textContent = `Congratulations, ${studentName}! You've completed the entire Algebraic Expressions Adventure! Amazing work!`;
+                 }
+                 actionBtn.textContent = 'Back to Menu';
+                 actionBtn.onclick = completeLevel;
+            }
+            
+            resultsModal.classList.remove('hidden');
+        }
+
+        function updateScoreboard() {
+            document.getElementById('correct-score').textContent = state.correct;
+            document.getElementById('wrong-score').textContent = state.wrong;
+        }
+
+        // Event Listeners
+        document.getElementById('prev-slide-btn').addEventListener('click', () => {
+            if (state.currentSlideIndex > 0) {
+                state.currentSlideIndex--;
+                displaySlide();
+            }
+        });
+
+        document.getElementById('next-slide-btn').addEventListener('click', () => {
+            const topic = topics[state.currentTopicId];
+            if (state.currentSlideIndex < topic.slides.length - 1) {
+                state.currentSlideIndex++;
+                displaySlide();
+            }
+        });
+
+        document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
+        document.getElementById('next-question-btn').addEventListener('click', nextQuestion);
+        document.getElementById('back-to-menu-btn').addEventListener('click', setupMainMenu);
+
+        // Initial load
+        setupMainMenu();
+    </script>
+</body>
+</html>
+
+

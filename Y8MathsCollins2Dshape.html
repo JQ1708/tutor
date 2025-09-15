@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D and 3D Shapes Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #f0f9ff;
+        }
+        .slide, .quiz-container, .correction-container, .results-container {
+            display: none;
+        }
+        .slide.active, .quiz-container.active, .correction-container.active, .results-container.active {
+            display: block;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover {
+            transform: scale(1.05);
+        }
+        .correct {
+            background-color: #4ade80 !important;
+            color: white;
+        }
+        .incorrect {
+            background-color: #f87171 !important;
+            color: white;
+        }
+        .disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="bg-blue-50 text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <div id="main-container" class="w-full max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-2xl border-4 border-blue-300">
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">Welcome, Kaavish!</h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8">Get ready for an adventure into the world of 2D and 3D Shapes!</p>
+            <button id="start-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform">
+                Let's Start!
+            </button>
+        </div>
+
+        <!-- Slides Container -->
+        <div id="slides-container" class="hidden">
+            <!-- Slides will be dynamically inserted here -->
+        </div>
+
+        <!-- This is a template for slides, it's not displayed directly -->
+        <div id="slide-template" class="slide">
+            <h2 id="slide-title" class="text-3xl font-bold text-center text-blue-700 mb-6"></h2>
+            <div id="slide-content" class="text-lg space-y-4"></div>
+            <div class="flex justify-between mt-8">
+                <button class="prev-slide-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md">&lt; Prev</button>
+                <button class="next-slide-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-md">Next &gt;</button>
+                <button class="start-quiz-btn hidden bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md">Start Quiz!</button>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container-main" class="quiz-container">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="quiz-topic-title" class="text-2xl md:text-3xl font-bold text-indigo-600">Quiz Time!</h2>
+                <div class="flex space-x-4 text-lg">
+                    <span id="score-correct" class="font-bold text-green-600">Correct: 0</span>
+                    <span id="score-incorrect" class="font-bold text-red-600">Incorrect: 0</span>
+                </div>
+            </div>
+            <div id="question-container" class="mb-6">
+                 <p id="question-text" class="text-xl md:text-2xl font-semibold mb-6 text-center p-4 bg-blue-100 rounded-lg"></p>
+                 <div id="options-container" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                 </div>
+            </div>
+            <p id="feedback-text" class="text-center font-bold mt-4 h-6"></p>
+        </div>
+        
+        <!-- Correction Container -->
+        <div id="correction-container-main" class="correction-container">
+            <h2 class="text-3xl font-bold text-center text-orange-600 mb-4">Correction Time!</h2>
+            <p class="text-center text-gray-600 mb-6">Let's try the questions you got wrong again. You need to get them right to move to the next level!</p>
+            <div id="correction-question-container" class="mb-6">
+                 <p id="correction-question-text" class="text-xl md:text-2xl font-semibold mb-6 text-center p-4 bg-orange-100 rounded-lg"></p>
+                 <div id="correction-options-container" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                 </div>
+            </div>
+             <p id="correction-feedback-text" class="text-center font-bold mt-4 h-6"></p>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results-container-main" class="results-container text-center">
+            <h2 id="results-title" class="text-3xl font-bold text-green-600 mb-4">Level Complete!</h2>
+            <p id="results-summary" class="text-xl mb-6"></p>
+            <button id="next-level-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform">
+                Next Level
+            </button>
+             <button id="finish-btn" class="hidden bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform">
+                Finish Game!
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        const studentName = "Kaavish";
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const startBtn = document.getElementById('start-btn');
+        const slidesContainer = document.getElementById('slides-container');
+        const quizContainer = document.getElementById('quiz-container-main');
+        const correctionContainer = document.getElementById('correction-container-main');
+        const resultsContainer = document.getElementById('results-container-main');
+        const mainContainer = document.getElementById('main-container');
+
+        let currentTopicIndex = 0;
+        let currentQuestionIndex = 0;
+        let currentSlideIndex = 0;
+        let score = { correct: 0, incorrect: 0 };
+        let attempts = 0;
+        let wrongAnswers = [];
+        let currentCorrectionIndex = 0;
+
+        const topics = [
+            {
+                title: "Quadrilaterals",
+                slides: [
+                    {
+                        title: "Meet the Quadrilaterals!",
+                        content: `
+                            <p>A quadrilateral is any shape with <strong>four sides</strong>. Let's meet some of the family!</p>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li><strong>Square:</strong> 4 equal sides, 4 right angles.</li>
+                                <li><strong>Rectangle:</strong> 4 right angles, opposite sides are equal.</li>
+                                <li><strong>Rhombus:</strong> 4 equal sides, opposite angles are equal.</li>
+                                <li><strong>Parallelogram:</strong> Opposite sides are parallel and equal.</li>
+                                <li><strong>Trapezium:</strong> Has one pair of parallel sides.</li>
+                                <li><strong>Kite:</strong> Two pairs of equal, adjacent sides.</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Special Properties: Diagonals",
+                        content: `
+                            <p>Diagonals are lines connecting opposite corners. They have cool properties!</p>
+                            <div class="text-center my-4">
+                                <canvas id="diagonals-canvas" width="300" height="200" class="mx-auto rounded-lg bg-gray-100 shadow-md"></canvas>
+                            </div>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>In a <strong>Square</strong> and <strong>Rhombus</strong>, diagonals are perpendicular (meet at 90°).</li>
+                                <li>In a <strong>Square</strong> and <strong>Rectangle</strong>, diagonals are equal in length.</li>
+                                <li>In a <strong>Parallelogram</strong>, <strong>Rhombus</strong>, <strong>Square</strong>, and <strong>Rectangle</strong>, diagonals bisect each other (cut each other in half).</li>
+                            </ul>
+                        `
+                    }
+                ],
+                questions: [
+                    { q: "Which quadrilateral has 4 equal sides and 4 right angles?", a: "Square", o: ["Rectangle", "Rhombus", "Kite", "Trapezium", "Parallelogram"] },
+                    { q: "A shape with one pair of parallel sides is called a...?", a: "Trapezium", o: ["Kite", "Rhombus", "Square", "Rectangle", "Parallelogram"] },
+                    { q: "In which two quadrilaterals are the diagonals always perpendicular?", a: "Square and Rhombus", o: ["Rectangle and Square", "Kite and Trapezium", "Parallelogram and Rectangle", "Rhombus and Kite", "Trapezium and Parallelogram"] },
+                    { q: "Which property is true for a rectangle but not always for a parallelogram?", a: "Diagonals are equal", o: ["Opposite sides are parallel", "Opposite sides are equal", "Diagonals bisect each other", "Has 4 sides", "Opposite angles are equal"] },
+                    { q: "A kite has two pairs of equal sides. These sides are...", a: "Adjacent to each other", o: ["Opposite each other", "Parallel to each other", "Perpendicular to each other", "All equal", "None of the above"] },
+                ]
+            },
+            {
+                title: "Polygon Symmetry",
+                slides: [
+                     {
+                        title: "What is Symmetry?",
+                        content: `
+                            <p>Symmetry is when a shape is the same on both sides of a line, or when it looks the same after being rotated.</p>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li><strong>Line of Symmetry:</strong> A line where you can fold the shape and both halves match perfectly.</li>
+                                <li><strong>Rotational Symmetry:</strong> The number of times a shape fits onto itself during one full turn (360°).</li>
+                            </ul>
+                            <div class="text-center my-4">
+                               <canvas id="symmetry-canvas" width="300" height="200" class="mx-auto rounded-lg bg-gray-100 shadow-md"></canvas>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Symmetry in Regular Polygons",
+                        content: `
+                            <p>For <strong>regular polygons</strong> (where all sides and angles are equal), there's a simple rule!</p>
+                             <p class="text-center font-bold text-2xl text-indigo-600 my-4 p-3 bg-indigo-100 rounded-lg">Number of sides = Number of lines of symmetry = Order of rotational symmetry</p>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>An equilateral triangle (3 sides) has <strong>3</strong> lines of symmetry and rotational symmetry of order <strong>3</strong>.</li>
+                                <li>A square (4 sides) has <strong>4</strong> lines of symmetry and rotational symmetry of order <strong>4</strong>.</li>
+                                <li>A regular pentagon (5 sides) has <strong>5</strong> lines of symmetry and rotational symmetry of order <strong>5</strong>.</li>
+                            </ul>
+                        `
+                    }
+                ],
+                questions: [
+                    { q: "How many lines of symmetry does a regular hexagon have?", a: "6", o: ["3", "4", "5", "8", "12"] },
+                    { q: "What is the order of rotational symmetry of a regular octagon?", a: "8", o: ["4", "6", "10", "12", "16"] },
+                    { q: "A regular polygon has 7 lines of symmetry. What is it called?", a: "Heptagon", o: ["Hexagon", "Pentagon", "Nonagon", "Decagon", "Octagon"] },
+                    { q: "If a regular polygon has rotational symmetry of order 10, how many sides does it have?", a: "10", o: ["5", "8", "12", "20", "It's impossible to tell"] },
+                    { q: "Which of these is FALSE for a regular pentagon?", a: "It has 6 lines of symmetry", o: ["It has 5 sides", "It has rotational symmetry of order 5", "All its sides are equal", "All its angles are equal", "It has 5 lines of symmetry"] },
+                ]
+            },
+            {
+                title: "3D Shapes & Euler's Formula",
+                slides: [
+                    {
+                        title: "Exploring 3D Shapes",
+                        content: `
+                            <p>3D shapes are solid objects. They have faces, edges, and vertices.</p>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li><strong>Faces (F):</strong> The flat surfaces of the shape.</li>
+                                <li><strong>Edges (E):</strong> The lines where two faces meet.</li>
+                                <li><strong>Vertices (V):</strong> The corners where edges meet.</li>
+                            </ul>
+                            <div class="text-center my-4">
+                                <canvas id="cube-canvas" width="300" height="200" class="mx-auto rounded-lg bg-gray-100 shadow-md"></canvas>
+                                <p>A cube has 6 faces, 12 edges, and 8 vertices.</p>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Euler's Magic Formula!",
+                        content: `
+                            <p>A mathematician named Euler found a cool formula that connects the faces, vertices, and edges of any polyhedron (a 3D shape with flat faces).</p>
+                            <p class="text-center font-bold text-3xl text-red-600 my-6 p-4 bg-red-100 rounded-lg">V + F - E = 2</p>
+                            <p><strong>Example (Cube):</strong></p>
+                            <p class="text-center text-xl">Vertices (8) + Faces (6) - Edges (12) = 14 - 12 = <strong>2</strong></p>
+                            <p>It always equals 2! We can use this to find a missing value.</p>
+                        `
+                    }
+                ],
+                questions: [
+                    { q: "A shape has 6 vertices and 8 faces. How many edges does it have?", a: "12", o: ["10", "14", "16", "2", "8"] },
+                    { q: "Using Euler's formula (V + F - E = 2), find the number of vertices on a shape with 7 faces and 15 edges.", a: "10", o: ["8", "9", "11", "12", "20"] },
+                    { q: "A triangular prism has 5 faces and 9 edges. How many vertices does it have?", a: "6", o: ["4", "5", "7", "8", "12"] },
+                    { q: "A polyhedron has 8 vertices and 6 faces. How many edges does it have?", a: "12", o: ["10", "11", "13", "14", "16"] },
+                    { q: "Is it possible to have a polyhedron with 4 faces, 3 vertices, and 6 edges? Why?", a: "No, because 3+4-6 ≠ 2", o: ["Yes, it's a special pyramid", "No, because 4+6-3 ≠ 2", "No, because 3+6-4 ≠ 2", "Yes, it is a tetrahedron", "Maybe, Euler's formula doesn't apply"] },
+                ]
+            },
+            {
+                title: "Circumference of a Circle",
+                slides: [
+                     {
+                        title: "All About Circles",
+                        content: `
+                            <p>Let's learn the language of circles!</p>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li><strong>Radius (r):</strong> The distance from the center to the edge.</li>
+                                <li><strong>Diameter (d):</strong> The distance across the circle, passing through the center. (It's twice the radius!)</li>
+                                <li><strong>Circumference (C):</strong> The distance around the outside of the circle (like the perimeter).</li>
+                            </ul>
+                            <div class="text-center my-4">
+                               <canvas id="circle-canvas" width="300" height="200" class="mx-auto rounded-lg bg-gray-100 shadow-md"></canvas>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Calculating Circumference",
+                        content: `
+                            <p>To find the circumference, we use a special number called <strong>Pi (π)</strong>. Pi is approximately 3.142.</p>
+                            <p>There are two formulas you can use:</p>
+                            <p class="text-center font-bold text-2xl text-green-600 my-4 p-3 bg-green-100 rounded-lg">C = πd</p>
+                            <p class="text-center"><em>(Circumference = Pi × Diameter)</em></p>
+                            <p class="text-center font-bold text-2xl text-green-600 my-4 p-3 bg-green-100 rounded-lg">C = 2πr</p>
+                             <p class="text-center"><em>(Circumference = 2 × Pi × Radius)</em></p>
+                        `
+                    }
+                ],
+                questions: [
+                    { q: "What is the formula for the circumference of a circle using its diameter (d)?", a: "C = πd", o: ["C = 2πd", "C = πr", "C = πd²", "C = d/π", "C = 2d"] },
+                    { q: "A circle has a diameter of 10 cm. What is its circumference? (Use π ≈ 3.14)", a: "31.4 cm", o: ["13.14 cm", "62.8 cm", "314 cm", "15.7 cm", "20 cm"] },
+                    { q: "A circle has a radius of 5 cm. What is its circumference? (Use π ≈ 3.14)", a: "31.4 cm", o: ["15.7 cm", "62.8 cm", "78.5 cm", "10 cm", "25.12 cm"] },
+                    { q: "The circumference of a circle is about 94.2 cm. What is its diameter? (Use π ≈ 3.14)", a: "30 cm", o: ["15 cm", "47.1 cm", "295.79 cm", "60 cm", "20 cm"] },
+                    { q: "If you double the radius of a circle, what happens to its circumference?", a: "It doubles", o: ["It halves", "It quadruples", "It stays the same", "It increases by π", "It is squared"] },
+                ]
+            }
+        ];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function drawSlideCanvas(topicIndex, slideIndex) {
+            if (topicIndex === 0 && slideIndex === 1) { // Diagonals
+                const canvas = document.getElementById('diagonals-canvas');
+                if (canvas) {
+                    const ctx = canvas.getContext('2d');
+                    ctx.strokeStyle = '#3b82f6';
+                    ctx.lineWidth = 2;
+                    // Rectangle
+                    ctx.strokeRect(50, 50, 200, 100);
+                    // Diagonals
+                    ctx.beginPath();
+                    ctx.moveTo(50, 50);
+                    ctx.lineTo(250, 150);
+                    ctx.moveTo(250, 50);
+                    ctx.lineTo(50, 150);
+                    ctx.stroke();
+                }
+            } else if (topicIndex === 1 && slideIndex === 0) { // Symmetry
+                const canvas = document.getElementById('symmetry-canvas');
+                if(canvas) {
+                    const ctx = canvas.getContext('2d');
+                     ctx.strokeStyle = '#8b5cf6';
+                    ctx.lineWidth = 2;
+                    // Square
+                    ctx.strokeRect(75, 25, 150, 150);
+                    // Dashed lines
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 5]);
+                    ctx.strokeStyle = '#ef4444';
+                    // Vertical
+                    ctx.moveTo(150, 25);
+                    ctx.lineTo(150, 175);
+                    // Horizontal
+                    ctx.moveTo(75, 100);
+                    ctx.lineTo(225, 100);
+                     // Diagonal
+                    ctx.moveTo(75, 25);
+                    ctx.lineTo(225, 175);
+                    // Anti-diagonal
+                    ctx.moveTo(225, 25);
+                    ctx.lineTo(75, 175);
+                    ctx.stroke();
+                    ctx.setLineDash([]); // Reset
+                }
+            } else if (topicIndex === 2 && slideIndex === 0) { // Cube
+                const canvas = document.getElementById('cube-canvas');
+                if (canvas) {
+                     const ctx = canvas.getContext('2d');
+                     ctx.strokeStyle = '#10b981';
+                     ctx.lineWidth = 2;
+                     // Front face
+                     ctx.strokeRect(75, 60, 100, 100);
+                     // Back face
+                     ctx.strokeRect(125, 20, 100, 100);
+                     // Connecting lines
+                     ctx.beginPath();
+                     ctx.moveTo(75, 60);
+                     ctx.lineTo(125, 20);
+                     ctx.moveTo(175, 60);
+                     ctx.lineTo(225, 20);
+                     ctx.moveTo(75, 160);
+                     ctx.lineTo(125, 120);
+                     ctx.moveTo(175, 160);
+                     ctx.lineTo(225, 120);
+                     ctx.stroke();
+                }
+            } else if (topicIndex === 3 && slideIndex === 0) { // Circle
+                const canvas = document.getElementById('circle-canvas');
+                if(canvas) {
+                    const ctx = canvas.getContext('2d');
+                    const centerX = 150;
+                    const centerY = 100;
+                    const radius = 75;
+                    
+                    ctx.strokeStyle = '#f97316';
+                    ctx.lineWidth = 2;
+                    
+                    // Circle
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.stroke();
+
+                    // Diameter
+                    ctx.beginPath();
+                    ctx.moveTo(centerX - radius, centerY);
+                    ctx.lineTo(centerX + radius, centerY);
+                    ctx.stroke();
+                    
+                    // Radius
+                     ctx.beginPath();
+                    ctx.moveTo(centerX, centerY);
+                    ctx.lineTo(centerX + radius * Math.cos(Math.PI / 4), centerY - radius * Math.sin(Math.PI / 4));
+                    ctx.stroke();
+
+                    // Center dot
+                    ctx.beginPath();
+                    ctx.fillStyle = '#f97316';
+                    ctx.arc(centerX, centerY, 3, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+            }
+        }
+
+        function loadSlide(topicIndex, slideIndex) {
+             const topic = topics[topicIndex];
+             const slide = topic.slides[slideIndex];
+             const template = document.getElementById('slide-template').cloneNode(true);
+             template.id = `slide-${topicIndex}-${slideIndex}`;
+             template.querySelector('#slide-title').textContent = slide.title;
+             template.querySelector('#slide-content').innerHTML = slide.content;
+
+             slidesContainer.innerHTML = '';
+             slidesContainer.appendChild(template);
+             template.classList.add('active');
+
+             // Draw canvas elements after they are in the DOM
+             drawSlideCanvas(topicIndex, slideIndex);
+
+             const prevBtn = template.querySelector('.prev-slide-btn');
+             const nextBtn = template.querySelector('.next-slide-btn');
+             const startQuizBtn = template.querySelector('.start-quiz-btn');
+
+             if (slideIndex === 0) prevBtn.classList.add('hidden');
+             if (slideIndex === topic.slides.length - 1) {
+                nextBtn.classList.add('hidden');
+                startQuizBtn.classList.remove('hidden');
+             }
+
+             prevBtn.onclick = () => loadSlide(topicIndex, slideIndex - 1);
+             nextBtn.onclick = () => loadSlide(topicIndex, slideIndex + 1);
+             startQuizBtn.onclick = startQuiz;
+        }
+        
+        function startTopic() {
+            welcomeScreen.style.display = 'none';
+            quizContainer.classList.remove('active');
+            resultsContainer.classList.remove('active');
+            correctionContainer.classList.remove('active');
+            slidesContainer.style.display = 'block';
+
+            currentSlideIndex = 0;
+            loadSlide(currentTopicIndex, currentSlideIndex);
+        }
+
+        function startQuiz() {
+            slidesContainer.style.display = 'none';
+            quizContainer.classList.add('active');
+
+            currentQuestionIndex = 0;
+            score = { correct: 0, incorrect: 0 };
+            wrongAnswers = [];
+            updateScore();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const topic = topics[currentTopicIndex];
+            if (currentQuestionIndex < topic.questions.length) {
+                const question = topic.questions[currentQuestionIndex];
+                document.getElementById('quiz-topic-title').innerText = topic.title;
+                document.getElementById('question-text').innerText = question.q;
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.innerHTML = '';
+                document.getElementById('feedback-text').innerText = '';
+                attempts = 0;
+
+                const options = shuffle([question.a, ...question.o.slice(0, 5)]);
+
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.innerText = option;
+                    button.classList.add('option-btn', 'w-full', 'p-4', 'bg-blue-200', 'rounded-lg', 'text-left', 'hover:bg-blue-300', 'shadow-sm');
+                    button.onclick = () => checkAnswer(button, option, question.a);
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                showResults();
+            }
+        }
+        
+        function checkAnswer(button, selectedAnswer, correctAnswer) {
+            
+            if (selectedAnswer === correctAnswer) {
+                // CORRECT ANSWER
+                button.classList.add('correct');
+                document.getElementById('feedback-text').innerText = "Correct! Well done!";
+                document.getElementById('feedback-text').style.color = '#16a34a';
+                
+                const optionsContainer = document.getElementById('options-container');
+                const allOptions = optionsContainer.querySelectorAll('button');
+                allOptions.forEach(btn => btn.classList.add('disabled'));
+
+                score.correct++;
+                updateScore();
+                setTimeout(nextQuestion, 1500);
+
+            } else {
+                // INCORRECT ANSWER
+                attempts++;
+                button.classList.add('incorrect');
+                button.classList.add('disabled'); 
+
+                if (attempts < 2) {
+                    // First wrong attempt
+                    document.getElementById('feedback-text').innerText = `Not quite, ${studentName}. Try another option!`;
+                    document.getElementById('feedback-text').style.color = '#f97316';
+                } else {
+                    // Second (and final) wrong attempt
+                    document.getElementById('feedback-text').innerText = `Don't worry, ${studentName}! We'll try this one again later.`;
+                    document.getElementById('feedback-text').style.color = '#dc2626';
+
+                    const optionsContainer = document.getElementById('options-container');
+                    const allOptions = optionsContainer.querySelectorAll('button');
+                    allOptions.forEach(btn => btn.classList.add('disabled'));
+
+                    score.incorrect++;
+                    wrongAnswers.push(topics[currentTopicIndex].questions[currentQuestionIndex]);
+                    updateScore();
+                    setTimeout(nextQuestion, 2000);
+                }
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+        
+        function updateScore() {
+            document.getElementById('score-correct').innerText = `Correct: ${score.correct}`;
+            document.getElementById('score-incorrect').innerText = `Incorrect: ${score.incorrect}`;
+        }
+        
+        function showResults() {
+             quizContainer.classList.remove('active');
+             if (wrongAnswers.length > 0) {
+                 startCorrection();
+             } else {
+                resultsContainer.classList.add('active');
+                document.getElementById('results-title').innerText = `Awesome Job, ${studentName}!`;
+                document.getElementById('results-summary').innerText = `You finished the ${topics[currentTopicIndex].title} level with ${score.correct} correct answers and no mistakes!`;
+                if(currentTopicIndex === topics.length - 1) {
+                    document.getElementById('next-level-btn').classList.add('hidden');
+                    document.getElementById('finish-btn').classList.remove('hidden');
+                } else {
+                     document.getElementById('next-level-btn').classList.remove('hidden');
+                     document.getElementById('finish-btn').classList.add('hidden');
+                }
+             }
+        }
+        
+        function startCorrection() {
+            quizContainer.classList.remove('active');
+            correctionContainer.classList.add('active');
+            currentCorrectionIndex = 0;
+            loadCorrectionQuestion();
+        }
+        
+        function loadCorrectionQuestion() {
+            if (currentCorrectionIndex < wrongAnswers.length) {
+                const question = wrongAnswers[currentCorrectionIndex];
+                document.getElementById('correction-question-text').innerText = question.q;
+                const optionsContainer = document.getElementById('correction-options-container');
+                optionsContainer.innerHTML = '';
+                document.getElementById('correction-feedback-text').innerText = '';
+
+                const options = shuffle([question.a, ...question.o.slice(0, 5)]);
+
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.innerText = option;
+                    button.classList.add('option-btn', 'w-full', 'p-4', 'bg-orange-200', 'rounded-lg', 'text-left', 'hover:bg-orange-300', 'shadow-sm');
+                    button.onclick = () => checkCorrectionAnswer(button, option, question.a);
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                finishCorrection();
+            }
+        }
+        
+        function checkCorrectionAnswer(button, selectedAnswer, correctAnswer) {
+            const optionsContainer = document.getElementById('correction-options-container');
+            const allOptions = optionsContainer.querySelectorAll('button');
+
+            if (selectedAnswer === correctAnswer) {
+                button.classList.add('correct');
+                document.getElementById('correction-feedback-text').innerText = "That's it! You got it!";
+                 document.getElementById('correction-feedback-text').style.color = '#16a34a';
+                allOptions.forEach(btn => btn.classList.add('disabled'));
+                setTimeout(nextCorrectionQuestion, 1500);
+            } else {
+                button.classList.add('incorrect');
+                button.classList.add('disabled');
+                document.getElementById('correction-feedback-text').innerText = `Not quite, ${studentName}. Try another option!`;
+                document.getElementById('correction-feedback-text').style.color = '#dc2626';
+            }
+        }
+        
+        function nextCorrectionQuestion() {
+            currentCorrectionIndex++;
+            loadCorrectionQuestion();
+        }
+        
+        function finishCorrection() {
+            correctionContainer.classList.remove('active');
+            resultsContainer.classList.add('active');
+            document.getElementById('results-title').innerText = `Level Complete!`;
+            document.getElementById('results-summary').innerText = `Great work on the corrections, ${studentName}! You got ${score.correct} correct in the quiz. Now you're ready for the next challenge.`;
+             if(currentTopicIndex === topics.length - 1) {
+                document.getElementById('next-level-btn').classList.add('hidden');
+                document.getElementById('finish-btn').classList.remove('hidden');
+            } else {
+                 document.getElementById('next-level-btn').classList.remove('hidden');
+                 document.getElementById('finish-btn').classList.add('hidden');
+            }
+        }
+        
+        function nextLevel() {
+            currentTopicIndex++;
+            if (currentTopicIndex < topics.length) {
+                startTopic();
+            } else {
+                // Game finished
+            }
+        }
+
+        function finishGame() {
+            resultsContainer.classList.remove('active');
+            mainContainer.innerHTML = `
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-purple-600 mb-4">Congratulations, ${studentName}!</h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8">You've completed the Shapes Adventure! You're a geometry master!</p>
+                    <button onclick="location.reload()" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-transform">
+                        Play Again!
+                    </button>
+                </div>
+            `;
+        }
+
+        startBtn.addEventListener('click', startTopic);
+        document.getElementById('next-level-btn').addEventListener('click', nextLevel);
+        document.getElementById('finish-btn').addEventListener('click', finishGame);
+
+    </script>
+</body>
+</html>
+
+

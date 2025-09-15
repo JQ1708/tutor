@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Year 8: Collecting Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        .screen {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .correct {
+            background-color: #22c55e !important; /* Green 500 */
+            color: white;
+            border-color: #16a34a;
+        }
+        .incorrect {
+            background-color: #ef4444 !important; /* Red 500 */
+            color: white;
+            border-color: #dc2626;
+        }
+        .disabled-options .option-btn {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .quiz-btn-completed {
+            background-color: #16a34a;
+            color: white;
+            border-color: #15803d;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 flex items-center justify-center min-h-screen p-4">
+
+    <div id="main-container" class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl p-6 md:p-10 mx-auto">
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen text-center active">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-700 mb-4">Welcome, Kaavish!</h1>
+            <p class="text-lg text-slate-500 mb-8">Let's learn about Collecting Data for IGCSE Maths.</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                 <button onclick="startLesson()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-lg transition duration-300">Start Lesson</button>
+                 <button onclick="showQuizMenu()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-lg transition duration-300">Go Directly to Quiz</button>
+            </div>
+        </div>
+        
+        <!-- Quiz Menu Screen -->
+        <div id="quiz-menu-screen" class="screen text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-700 mb-6">Quiz Menu</h1>
+            <p class="text-slate-500 mb-8">Choose a sub-topic to test your knowledge.</p>
+            <div id="quiz-menu-buttons" class="flex flex-col gap-4 max-w-md mx-auto">
+                <!-- Quiz buttons will be generated here -->
+            </div>
+             <button onclick="showResults()" id="show-results-btn" class="mt-8 bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-lg transition duration-300 hidden">Show My Final Results</button>
+        </div>
+
+        <!-- Slides Screen -->
+        <div id="slides-screen" class="screen">
+            <div id="slide-content"></div>
+            <div class="flex justify-between mt-8">
+                <button onclick="prevSlide()" id="prev-btn" class="bg-slate-300 hover:bg-slate-400 text-slate-800 font-bold py-2 px-6 rounded-lg transition duration-300">Previous</button>
+                <span id="slide-counter" class="text-slate-500 self-center"></span>
+                <button onclick="nextSlide()" id="next-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Next</button>
+            </div>
+             <button onclick="showQuizMenu()" class="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg">Back to Quiz Menu</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="subtopic-title" class="text-2xl font-bold text-blue-700"></h2>
+                <div class="text-right">
+                    <p class="text-lg font-semibold">Score: <span id="score">0</span></p>
+                    <p class="text-sm text-red-500">Incorrect: <span id="incorrect-count">0</span></p>
+                </div>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-2.5 mb-6">
+                <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+            </div>
+            <div id="quiz-content">
+                <h3 id="question-text" class="text-xl md:text-2xl font-semibold mb-6 text-center"></h3>
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Options will be injected here -->
+                </div>
+            </div>
+            <p id="feedback-text" class="text-center font-semibold mt-6 h-6"></p>
+        </div>
+        
+        <!-- Correction Screen -->
+        <div id="correction-screen" class="screen text-center">
+            <h2 class="text-3xl font-bold text-amber-600 mb-4">Correction Time!</h2>
+            <p class="text-slate-500 mb-8">Let's review the questions you found tricky. You must get them right to continue!</p>
+            <div id="correction-content">
+                 <h3 id="correction-question-text" class="text-xl md:text-2xl font-semibold mb-6"></h3>
+                <div id="correction-options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Correction options will be injected here -->
+                </div>
+            </div>
+             <p id="correction-feedback-text" class="text-center font-semibold mt-6 h-6"></p>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen text-center">
+            <h2 class="text-4xl font-bold text-green-600 mb-4">Well Done, Kaavish!</h2>
+            <p class="text-xl text-slate-600 mb-6">Here are your final results for the lesson.</p>
+            <div class="bg-slate-100 rounded-lg p-6 max-w-md mx-auto">
+                <p class="text-2xl font-semibold">Final Score: <span id="final-score" class="text-blue-700"></span></p>
+                <p class="text-lg text-slate-500 mt-2">You answered <span id="total-correct"></span> questions correctly and had <span id="total-incorrect"></span> incorrect attempts.</p>
+            </div>
+            <button onclick="restartQuiz()" class="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-lg transition duration-300">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        const studentName = "Kaavish";
+
+        // --- DATA ---
+        const slides = [
+            { title: "Topic: Collecting Data", content: `<h2 class="text-3xl font-bold text-slate-700 mb-4">Subtopic 1: Data Collection Methods</h2><p class="text-lg">Today, we'll learn how we gather information, also known as data. There are two main types of data sources.</p><ul class="list-disc list-inside mt-4 space-y-2 text-lg"><li><strong class="text-blue-600">Primary Data:</strong> Information you collect yourself. Think 'Primary' = 'First-hand'.</li><li><strong class="text-blue-600">Secondary Data:</strong> Information someone else has already collected. Think 'Secondary' = 'Second-hand'.</li></ul>` },
+            { title: "Example: Primary vs. Secondary", content: `<h2 class="text-3xl font-bold text-slate-700 mb-4">Examples</h2><div class="grid md:grid-cols-2 gap-6 text-left"><div class="bg-blue-50 p-4 rounded-lg border border-blue-200"><h3 class="font-bold text-xl text-blue-700 mb-2">Primary Data</h3><p>You measure the heights of your classmates to find the average height. This is primary because <strong>you</strong> are doing the measuring.</p></div><div class="bg-green-50 p-4 rounded-lg border border-green-200"><h3 class="font-bold text-xl text-green-700 mb-2">Secondary Data</h3><p>You use a government website to find the population of your city. This is secondary because the government <strong>already collected</strong> that data.</p></div></div>` },
+            { title: "How to Collect Primary Data?", content: `<h2 class="text-3xl font-bold text-slate-700 mb-4">Common Collection Methods</h2><p class="text-lg">Two popular ways to get primary data from people are interviews and questionnaires.</p><ul class="list-disc list-inside mt-4 space-y-2 text-lg"><li><strong>Interviews:</strong> A face-to-face or phone conversation where you ask questions.</li><li><strong>Questionnaires:</strong> A list of written questions that people fill out on paper or online.</li></ul><p class="mt-4 text-lg">Each method has its pros and cons related to time, cost, and the quality of answers.</p>` },
+            { title: "Subtopic 2: Sampling", content: `<h2 class="text-3xl font-bold text-slate-700 mb-4">Subtopic 2: Sampling Methods</h2><p class="text-lg">It's often impossible to ask everyone in a large group (a <strong>population</strong>). Instead, we ask a smaller group, called a <strong>sample</strong>.</p><p class="mt-4 text-lg">The goal is to choose a sample that is <strong>representative</strong> of the whole population. This means it accurately reflects the characteristics of the larger group.</p>` },
+            { title: "Good vs. Bad Sampling", content: `<h2 class="text-3xl font-bold text-slate-700 mb-4">Good vs. Bad Sampling</h2><div class="grid md:grid-cols-2 gap-6 text-left"><div class="bg-green-50 p-4 rounded-lg border border-green-200"><h3 class="font-bold text-xl text-green-700 mb-2">Good Sampling (Representative)</h3><p><strong>Random Sampling:</strong> Every person in the population has an equal chance of being picked. This is fair and avoids bias.</p></div><div class="bg-red-50 p-4 rounded-lg border border-red-200"><h3 class="font-bold text-xl text-red-700 mb-2">Bad Sampling (Biased)</h3><p><strong>Convenience Sampling:</strong> Asking only the people who are easy to reach (e.g., your friends). This can give misleading results because your friends might not represent everyone.</p></div></div>` },
+            { title: "Another Good Method", content: `<h2 class="text-3xl font-bold text-slate-700 mb-4">Stratified Sampling</h2><p class="text-lg">This is a clever way to make your sample even more representative.</p><p class="mt-4 text-lg">Imagine a school with 600 boys and 400 girls. If you want a sample of 100 students, you would choose <strong>60 boys</strong> and <strong>40 girls</strong> to keep the same proportions.</p><p class="mt-4 text-lg">This ensures different subgroups are fairly represented.</p>` },
+        ];
+
+        const quizData = [
+            {
+                subtopic: "Data Collection Methods",
+                questions: [
+                    { q: "A researcher uses a history book to find battle dates. What type of data is this?", o: ["Primary", "Secondary", "Initial", "Final", "Personal", "Public"], a: "Secondary" },
+                    { q: "You ask 20 classmates their favourite sport. This is collecting...", o: ["Secondary data", "Copied data", "Historical data", "Internet data", "Primary data", "Official data"], a: "Primary data" },
+                    { q: "What is a major advantage of a postal questionnaire over a face-to-face interview?", o: ["You get responses immediately", "You can explain the questions", "It's cheaper for many people", "You get a 100% response rate", "The answers are more honest", "It is faster"], a: "It's cheaper for many people" },
+                    { q: "What is a key disadvantage of a face-to-face interview?", o: ["People can't ask questions", "It can be time-consuming", "The answers are always dishonest", "Impossible to record answers", "You can only ask one question", "It reaches more people"], a: "It can be time-consuming" },
+                    { q: "Which data source is collected by the person doing the investigation?", o: ["Secondary", "Newspaper", "Internet", "Primary", "Library book", "Government report"], a: "Primary" },
+                    { q: "To compare the number of men and women in a country, what is most convenient?", o: ["Asking people on the street", "A census website", "Interviewing her family", "Doing her own survey", "Guessing the numbers", "Reading a novel"], a: "A census website" },
+                    { q: "A 'closed question' on a questionnaire is one that...", o: ["Cannot be answered", "Only friends can answer", "Is the last question", "Asks for a long story", "Has a secret answer", "Gives a set of options"], a: "Gives a set of options" },
+                    { q: "Lucy records the number of pages in books on her own bookcase. This is...", o: ["Secondary Data", "Primary Data", "Hypothetical Data", "Useless Data", "Shared Data", "Archival Data"], a: "Primary Data" },
+                    { q: "Pietra downloads swimming race results from the internet. This data is...", o: ["Primary Data", "Personal Data", "Experimental Data", "Secondary Data", "Live Data", "Anonymous Data"], a: "Secondary Data" },
+                    { q: "A disadvantage of a postal questionnaire is that...", o: ["It's too expensive", "It's very fast", "People may not return it", "It requires internet", "Questions can be explained", "The quality is always high"], a: "People may not return it" },
+                    { q: "An advantage of a face-to-face interview is that...", o: ["It is very quick", "It is anonymous", "Researcher can clarify questions", "It is very cheap", "No travel is needed", "You can interview millions"], a: "Researcher can clarify questions" },
+                    { q: "Zlakto wants to find where students holiday. What's the best method?", o: ["Ask his teachers", "Internet search for general holidays", "Questionnaire to a random sample", "Ask his parents", "Observe students in class", "Read school's old yearbooks"], a: "Questionnaire to a random sample" },
+                    { q: "Why might people be less honest in a face-to-face interview?", o: ["They forget the truth", "Pressure from the interviewer", "They can't hear the question", "The questions are written down", "They are in a hurry", "They don't like the interviewer's face"], a: "Pressure from the interviewer" },
+                    { q: "A company reads online reviews of its products. This is...", o: ["Primary data", "Secondary data", "An experiment", "An interview", "A waste of time", "Illegal"], a: "Secondary data" },
+                    { q: "For very detailed, in-depth answers, which method is best?", o: ["Postal questionnaire", "Online poll", "Face-to-face interview", "Text message survey", "Yes/No questions", "Secondary research"], a: "Face-to-face interview" },
+                    { q: "A question asks 'What do you think about the school library?'. This is...", o: ["A closed question", "A multiple-choice question", "A leading question", "A biased question", "An open question", "A personal question"], a: "An open question" },
+                    { q: "A government census already published is a source of...", o: ["Primary data", "Secondary data", "Biased data", "Inaccurate data", "Live data", "Secret data"], a: "Secondary data" },
+                    { q: "What is a key disadvantage of using secondary data?", o: ["It's always free", "It's collected by you", "It might be out of date", "It's always accurate", "It's hard to find", "It takes years to get"], a: "It might be out of date" },
+                    { q: "Counting the number of cars that pass a school is an example of...", o: ["An interview", "A questionnaire", "An experiment", "Observation", "Secondary research", "A sample"], a: "Observation" },
+                    { q: "A survey with a low response rate means...", o: ["The questions were easy", "Not many people completed it", "The results are very reliable", "Everyone who got it answered", "It was done online", "It was a huge success"], a: "Not many people completed it" },
+                    { q: "When might a telephone interview be better than a face-to-face one?", o: ["When you need to show pictures", "When the topic is very sensitive", "When people live far apart", "When you need a signature", "When the person is a baby", "Never"], a: "When people live far apart" },
+                    { q: "Which data collection method is generally fastest for a large, diverse group?", o: ["Face-to-face interviews", "Handwritten letters", "Online questionnaire", "Calling every person", "Visiting every house", "Carrier pigeon"], a: "Online questionnaire" },
+                    { q: "An experiment testing which fertilizer grows taller plants collects...", o: ["Secondary data", "Primary data", "Historical data", "Opinion data", "Qualitative data", "Incorrect data"], a: "Primary data" },
+                    { q: "Reading a scientific journal for a report is using...", o: ["Primary data", "An experiment", "An illegal method", "Guesswork", "Secondary data", "Your own knowledge"], a: "Secondary data" },
+                    { q: "What is a primary drawback of only surveying your friends?", o: ["They might not answer", "It is expensive", "The results will be biased", "It takes too long", "They don't have opinions", "You need parental permission"], a: "The results will be biased" },
+                    { q: "Which of the following is NOT a method of collecting primary data?", o: ["Observation", "Interviews", "Experiments", "Reading a textbook", "Questionnaires", "Measuring things"], a: "Reading a textbook" },
+                    { q: "Why is clear language important in a questionnaire?", o: ["To make it longer", "To test reading ability", "To avoid confusing the respondent", "To make it look professional", "So it can be translated", "To hide the true purpose"], a: "To avoid confusing the respondent" },
+                    { q: "A shop manager asks 'You do like our new layout, don't you?'. This is a...", o: ["Open question", "Good question", "Closed question", "Leading question", "Fair question", "Perfect question"], a: "Leading question" },
+                    { q: "Data collected from an experiment is almost always...", o: ["Secondary data", "Primary data", "Inaccurate", "Bought from a company", "Copied from a book", "Hypothetical"], a: "Primary data" },
+                    { q: "To investigate if snakes live longer in the wild, a good first step is...", o: ["Buy a pet snake", "Ask your friends' opinions", "Use the internet for research", "Go to a jungle and check", "Dissect a snake", "Watch a movie about snakes"], a: "Use the internet for research" }
+                ]
+            },
+            {
+                subtopic: "Sampling Methods",
+                questions: [
+                    { q: "The entire group of people a researcher is interested in is called the...", o: ["Sample", "Selection", "Population", "Focus Group", "Collection", "Subset"], a: "Population" },
+                    { q: "Why is taking a random sample a good method?", o: ["It's the quickest method", "It helps the sample be representative", "It guarantees 100% accuracy", "You only ask your friends", "It's the most expensive", "It picks the smartest people"], a: "It helps the sample be representative" },
+                    { q: "A school has 300 boys and 200 girls. For a representative sample of 50, how many boys?", o: ["20", "25", "50", "30", "10", "40"], a: "30" },
+                    { q: "A reporter interviews the first 10 people leaving a cinema. This sample is biased because...", o: ["They might not like films", "People leaving a cinema have similar tastes", "The reporter didn't ask enough", "It was too late at night", "The sample was too random", "They didn't pay for tickets"], a: "People leaving a cinema have similar tastes" },
+                    { q: "A factory checks the mass of every 50th item. This is what type of sampling?", o: ["Convenience", "Random", "Group", "Systematic", "Volunteer", "Stratified"], a: "Systematic" },
+                    { q: "What is a smaller group selected from a population called?", o: ["A population", "A census", "A sample", "A survey", "A whole", "An interview"], a: "A sample" },
+                    { q: "Asking for volunteers for a study is not ideal because...", o: ["Volunteers are always dishonest", "It takes too long to find them", "You have to pay them", "They might have stronger opinions", "There are too many volunteers", "It's against the law"], a: "They might have stronger opinions" },
+                    { q: "A researcher wants to survey 100 people in a town of 10,000. The 10,000 people are the...", o: ["Sample", "Respondents", "Interviewers", "Population", "Staff", "Citizens"], a: "Population" },
+                    { q: "A manager interviews shoppers on a Monday morning. Why is this sample biased?", o: ["It excludes people who work on Mondays", "Shoppers are always in a rush", "The manager is too busy", "Mondays are unlucky", "The products are cheapest on Monday", "Nobody shops on Monday"], a: "It excludes people who work on Mondays" },
+                    { q: "A school has 400 boys, 100 girls. A sample of 80 boys and 20 girls is taken. This is...", o: ["Random sampling", "Systematic sampling", "Stratified sampling", "Convenience sampling", "Bad sampling", "Quota sampling"], a: "Stratified sampling" },
+                    { q: "Picking names out of a hat is a form of...", o: ["Systematic sampling", "Random sampling", "Stratified sampling", "Convenience sampling", "Biased sampling", "Pointless sampling"], a: "Random sampling" },
+                    { q: "Measuring the heights of the first 40 trees you see in a forest is...", o: ["Random sampling", "Systematic sampling", "Stratified sampling", "Convenience sampling", "Perfect sampling", "The only way"], a: "Convenience sampling" },
+                    { q: "A sample that does not accurately reflect the population is called...", o: ["Random", "Perfect", "Large", "Small", "Biased", "A census"], a: "Biased" },
+                    { q: "What is the main purpose of sampling?", o: ["To ask everyone", "To get information efficiently", "To make work harder", "To prove a theory right", "To get an exact answer", "To avoid statistics"], a: "To get information efficiently" },
+                    { q: "If a sample is too small, what is the likely consequence?", o: ["The results will be perfect", "The results may not be reliable", "It will be too expensive", "It will take too long", "The government will be angry", "The data is primary data"], a: "The results may not be reliable" },
+                    { q: "In a list of 1000 people, picking person #5, #15, #25, #35, etc. is...", o: ["Random", "Stratified", "Convenience", "Systematic", "Cluster", "Haphazard"], a: "Systematic" },
+                    { q: "A political pollster calls random phone numbers. This is an attempt at...", o: ["Convenience sampling", "Stratified sampling", "Random sampling", "Systematic sampling", "Biased sampling", "Quota sampling"], a: "Random sampling" },
+                    { q: "To represent different age groups in proportion to the population, you should use...", o: ["Random sampling", "Convenience sampling", "Systematic sampling", "Stratified sampling", "Guessing", "Asking the oldest people"], a: "Stratified sampling" },
+                    { q: "Which of these is the most biased sampling method?", o: ["Systematic", "Stratified", "Random", "Asking for volunteers in your club", "Using a random number generator", "Picking names from a hat"], a: "Asking for volunteers in your club" },
+                    { q: "A company has 200 lorry drivers and 50 office staff. In a stratified sample of 30, how many should be office staff?", o: ["5", "10", "24", "30", "6", "15"], a: "6" },
+                    { q: "What is the key advantage of a large sample size over a small one?", o: ["It's cheaper", "It's faster", "It gives more reliable results", "It's always unbiased", "It's easier to manage", "It requires less maths"], a: "It gives more reliable results" },
+                    { q: "A researcher divides a city into areas, randomly picks 3, and interviews everyone in them. This is...", o: ["Simple Random", "Stratified", "Cluster sampling", "Systematic", "Convenience", "Personal choice"], a: "Cluster sampling" },
+                    { q: "If you only interview people who are easy to access, you are using...", o: ["Stratified sampling", "Systematic sampling", "Convenience sampling", "Random sampling", "The best method", "Cluster sampling"], a: "Convenience sampling" },
+                    { q: "A representative sample should have...", o: ["At least 1000 people", "Only men", "Similar characteristics to the population", "Different characteristics to the population", "Only young people", "Been chosen by an expert"], a: "Similar characteristics to the population" },
+                    { q: "The list of all individuals from which a sample is drawn is called the...", o: ["Population", "Sample", "Bias", "Data", "Sampling frame", "Group"], a: "Sampling frame" },
+                    { q: "A football club chooses 100 seats at random to survey fans. This is...", o: ["A biased method", "Convenience sampling", "Stratified sampling", "A good attempt at random sampling", "Systematic sampling", "Definitely going to fail"], a: "A good attempt at random sampling" },
+                    { q: "Why is asking only the first 100 people leaving a stadium bad?", o: ["They might all be sitting in one area", "They are in a hurry", "They don't like football", "It is too dark outside", "The tickets were free", "It's the most random method"], a: "They might all be sitting in one area" },
+                    { q: "Checking one whole packet of biscuits is less effective than checking every 100th one because...", o: ["It takes too long", "A single packet might have a unique fault", "The biscuits will get crushed", "It is more expensive", "You have to eat them all", "The factory manager said so"], a: "A single packet might have a unique fault" },
+                    { q: "To find the average age in a theatre, choosing everyone in one row is a bad idea because...", o: ["The row might be empty", "People in one row may be a group", "The people at the end can't hear", "The seats are uncomfortable", "You can't see their faces", "It is the best method"], a: "People in one row may be a group" },
+                    { q: "The main benefit of random sampling is that it...", o: ["Is the easiest", "Is the fastest", "Guarantees a perfect result", "Reduces bias", "Is approved by teachers", "Requires no thinking"], a: "Reduces bias" }
+                ]
+            }
+        ];
+
+        // --- STATE VARIABLES ---
+        let currentSlide = 0;
+        let currentSubtopicIndex = 0;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let incorrectCount = 0;
+        let attempts = 0;
+        let questionsToCorrect = [];
+        let completedQuizzes = [];
+
+        // --- DOM ELEMENTS ---
+        const allScreens = document.querySelectorAll('.screen');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const quizMenuScreen = document.getElementById('quiz-menu-screen');
+        const slidesScreen = document.getElementById('slides-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const correctionScreen = document.getElementById('correction-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const slideContent = document.getElementById('slide-content');
+        const slideCounter = document.getElementById('slide-counter');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // --- FUNCTIONS ---
+
+        function showScreen(screen) {
+            allScreens.forEach(s => s.classList.remove('active'));
+            screen.classList.add('active');
+        }
+        
+        function startLesson() {
+            currentSlide = 0;
+            showScreen(slidesScreen);
+            displaySlide();
+        }
+
+        function showQuizMenu() {
+            showScreen(quizMenuScreen);
+            const menuButtons = document.getElementById('quiz-menu-buttons');
+            menuButtons.innerHTML = '';
+            quizData.forEach((quiz, index) => {
+                const button = document.createElement('button');
+                button.textContent = `Quiz ${index + 1}: ${quiz.subtopic}`;
+                button.className = 'w-full text-left p-4 rounded-lg text-lg font-semibold transition duration-300';
+                if (completedQuizzes.includes(index)) {
+                    button.classList.add('quiz-btn-completed');
+                    button.disabled = true;
+                    button.textContent += " (Completed)";
+                } else {
+                    button.className += ' bg-blue-500 hover:bg-blue-600 text-white';
+                    button.onclick = () => startQuiz(index);
+                }
+                menuButtons.appendChild(button);
+            });
+            const showResultsBtn = document.getElementById('show-results-btn');
+            if(completedQuizzes.length > 0){
+                showResultsBtn.classList.remove('hidden');
+            }
+        }
+
+        function displaySlide() {
+            slideContent.innerHTML = slides[currentSlide].content;
+            slideCounter.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+            prevBtn.style.visibility = currentSlide === 0 ? 'hidden' : 'visible';
+            nextBtn.textContent = (currentSlide === slides.length - 1) ? 'Go to Quizzes' : 'Next';
+        }
+        
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                displaySlide();
+            } else {
+                 showQuizMenu();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                displaySlide();
+            }
+        }
+
+        function startQuiz(subtopicIndex) {
+            currentSubtopicIndex = subtopicIndex;
+            currentQuestionIndex = 0;
+            questionsToCorrect = [];
+            attempts = 0;
+            document.getElementById('subtopic-title').textContent = quizData[currentSubtopicIndex].subtopic;
+            showScreen(quizScreen);
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const quiz = quizData[currentSubtopicIndex];
+            if (currentQuestionIndex < quiz.questions.length) {
+                const question = quiz.questions[currentQuestionIndex];
+                document.getElementById('question-text').textContent = question.q;
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.innerHTML = '';
+                optionsContainer.classList.remove('disabled-options');
+                
+                question.o.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.className = 'option-btn p-4 bg-slate-100 hover:bg-blue-100 border-2 border-slate-200 rounded-lg text-left';
+                    button.onclick = () => checkAnswer(button, option, question.a);
+                    optionsContainer.appendChild(button);
+                });
+                
+                updateProgressBar();
+                document.getElementById('feedback-text').textContent = '';
+                attempts = 0;
+            } else {
+                completedQuizzes.push(currentSubtopicIndex);
+                if(questionsToCorrect.length > 0) {
+                    startCorrection();
+                } else {
+                    showQuizMenu();
+                }
+            }
+        }
+        
+        function checkAnswer(button, selected, correct) {
+            const feedbackText = document.getElementById('feedback-text');
+            if (selected === correct) {
+                button.classList.add('correct');
+                feedbackText.textContent = "Correct! Well done!";
+                feedbackText.className = "text-center font-semibold mt-6 h-6 text-green-600";
+                score++;
+                document.getElementById('score').textContent = score;
+                document.getElementById('options-container').classList.add('disabled-options');
+                setTimeout(nextQuestion, 1500);
+            } else {
+                button.classList.add('incorrect');
+                button.disabled = true;
+                attempts++;
+                incorrectCount++;
+                document.getElementById('incorrect-count').textContent = incorrectCount;
+                if (attempts >= 2) {
+                    feedbackText.textContent = `Don't worry, ${studentName}. We'll review this one later.`;
+                    feedbackText.className = "text-center font-semibold mt-6 h-6 text-amber-600";
+                    questionsToCorrect.push(quizData[currentSubtopicIndex].questions[currentQuestionIndex]);
+                    document.getElementById('options-container').classList.add('disabled-options');
+                    setTimeout(nextQuestion, 2000);
+                } else {
+                     feedbackText.textContent = `Not quite, ${studentName}. Try one more time!`;
+                     feedbackText.className = "text-center font-semibold mt-6 h-6 text-red-600";
+                }
+            }
+        }
+        
+        function nextQuestion() {
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+        
+        function updateProgressBar() {
+            const totalQuestions = quizData[currentSubtopicIndex].questions.length;
+            const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function startCorrection() {
+            showScreen(correctionScreen);
+            displayCorrectionQuestion();
+        }
+
+        function displayCorrectionQuestion() {
+            if (questionsToCorrect.length > 0) {
+                const question = questionsToCorrect[0];
+                 document.getElementById('correction-question-text').textContent = question.q;
+                const optionsContainer = document.getElementById('correction-options-container');
+                optionsContainer.innerHTML = '';
+                
+                question.o.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.className = 'option-btn p-4 bg-slate-100 hover:bg-blue-100 border-2 border-slate-200 rounded-lg text-left';
+                    button.onclick = () => checkCorrectionAnswer(button, option, question.a);
+                    optionsContainer.appendChild(button);
+                });
+                document.getElementById('correction-feedback-text').textContent = '';
+            } else {
+                showQuizMenu();
+            }
+        }
+
+        function checkCorrectionAnswer(button, selected, correct) {
+            const feedback = document.getElementById('correction-feedback-text');
+            if (selected === correct) {
+                button.classList.add('correct');
+                feedback.textContent = "That's the one! Great job learning it.";
+                feedback.className = "text-center font-semibold mt-6 h-6 text-green-600";
+                questionsToCorrect.shift(); // Remove the corrected question
+                setTimeout(displayCorrectionQuestion, 1500);
+            } else {
+                button.classList.add('incorrect');
+                button.disabled = true;
+                feedback.textContent = `Keep trying, ${studentName}. You can get it!`;
+                feedback.className = "text-center font-semibold mt-6 h-6 text-red-600";
+            }
+        }
+
+        function showResults() {
+            showScreen(resultsScreen);
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('total-correct').textContent = score;
+            document.getElementById('total-incorrect').textContent = incorrectCount;
+        }
+
+        function restartQuiz() {
+            currentSlide = 0;
+            currentSubtopicIndex = 0;
+            currentQuestionIndex = 0;
+            score = 0;
+            incorrectCount = 0;
+            completedQuizzes = [];
+            document.getElementById('score').textContent = score;
+            document.getElementById('incorrect-count').textContent = incorrectCount;
+            document.getElementById('show-results-btn').classList.add('hidden');
+            showScreen(welcomeScreen);
+        }
+        
+        // Initialize the first view
+        showScreen(welcomeScreen);
+
+    </script>
+</body>
+</html>
+
