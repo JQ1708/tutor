@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guided Solution: Graph Theory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h4 {
+            color: #2980b9;
+        }
+        .question-box {
+            background-color: #eaf2f8;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .question-box p {
+            margin: 5px 0;
+            font-style: italic;
+        }
+        .step {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+        }
+        .step h4 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #ecf0f1;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+        .hidden-answer {
+            display: inline-block;
+            width: auto;
+            min-width: 40px;
+            padding: 0 5px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            background-color: #bdc3c7;
+            color: #bdc3c7;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 5px;
+            user-select: none;
+        }
+        .hidden-answer::before {
+            content: "?";
+            color: #fff;
+        }
+        .formula {
+            padding: 15px;
+            background: #f1f8e9;
+            border: 1px solid #c5e1a5;
+            border-radius: 5px;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Complete Guided Problem Solving</h1>
+        <h2>Praktis Topikal 5: Network in Graph Theory</h2>
+
+        <h3>Question 2</h3>
+        <div class="question-box">
+            <p><strong>(2)</strong> State all the vertices and edges for the given graphs.</p>
+        </div>
+        <div class="step">
+            <h4>General Guidance</h4>
+            <p><strong>Vertices (V):</strong> These are the dots or points in the graph. List them inside curly braces { }.</p>
+            <p><strong>Edges (E):</strong> These are the lines connecting the vertices. For an undirected graph, an edge between A and B is written as (A, B). For a multi-graph (with multiple edges between the same two vertices), list each one.</p>
+            <p><strong>(a)</strong> V = {A, B, C, D}. E = {(A,B), (B,C), (C,D), <span class="hidden-answer">(D,A)</span>, <span class="hidden-answer">(A,C)</span>, <span class="hidden-answer">(B,D)</span>}</p>
+            <p><strong>(b)</strong> V = {A, B, C, D, E}. E = {(A,B), (A,C), (A,E), (B,C), (B,D), (C,E), <span class="hidden-answer">(D,E)</span>}</p>
+            <p><strong>(c)</strong> V = {A, B, C, D}. E = {(A,B), (B,C), (C,D), (D,A), <span class="hidden-answer">(B,D)</span>, <span class="hidden-answer">(B,D)</span>}. Note the repeated edge for the loop.</p>
+            <p><strong>(d)</strong> V = {A, B, C, D, E}. E = {(A,B), (A,C), (A,E), (B,C), (B,D), (C,E), (D,E), <span class="hidden-answer">(C,D)</span>}</p>
+        </div>
+        
+        <h3>Question 3, 4, 5, 7, 9, 11, 12</h3>
+        <div class="question-box">
+            <p><strong>(3, 4, 5, 7, 9, 11, 12)</strong> Draw the network graph based on the given information.</p>
+        </div>
+        <div class="step">
+            <h4>General Guidance for Drawing Graphs</h4>
+            <p><strong>Step 1: Draw the vertices.</strong> Start by placing dots on your paper for each vertex (e.g., A, B, C...). The initial placement doesn't have to be perfect; you can adjust as you go.</p>
+            <p><strong>Step 2: Draw the edges.</strong> Read the list of edges or the description. For each edge, draw a line connecting the two specified vertices. For directed graphs (like the food chain in Q7), add an arrow to the line to show the direction.</p>
+            <p><strong>Example for Q3:</strong> E = {(B,C), (B,D), (A,C), (A,D), (C,D)}. First, draw four points and label them A, B, C, D. Then draw a line from B to C, from B to D, and so on, until all five edges are drawn.</p>
+        </div>
+
+        <h3>Question 6</h3>
+        <div class="question-box">
+            <p><strong>(6)</strong> Given E = {(A,B), (B,C), (C,A), (C,D), (D,E), (C,F)}. Determine the degree of vertex A, C, and F.</p>
+        </div>
+        <div class="step">
+            <h4>Finding the Degree</h4>
+            <p>The degree of a vertex is the number of edges connected to it. Count the number of times each vertex appears in the list of edges.</p>
+            <p><strong>Degree of A (d(A)):</strong> A appears in (A,B) and (C,A). So, d(A) = <span class="hidden-answer">2</span>.</p>
+            <p><strong>Degree of C (d(C)):</strong> C appears in (B,C), (C,A), (C,D), and (C,F). So, d(C) = <span class="hidden-answer">4</span>.</p>
+            <p><strong>Degree of F (d(F)):</strong> F appears in (C,F). So, d(F) = <span class="hidden-answer">1</span>.</p>
+        </div>
+
+        <h3>Question 8</h3>
+        <div class="question-box">
+            <p><strong>(8)</strong> Determine the number of edges for a graph with 10 vertices, where each vertex has a degree of 6.</p>
+        </div>
+        <div class="step">
+            <h4>Using the Sum of Degrees Formula</h4>
+            <div class="formula">Sum of Degrees = 2 x (Number of Edges)</div>
+            <p><strong>Step 1: Find the sum of degrees.</strong> There are 10 vertices, and each has a degree of 6.</p>
+            <p>Sum of Degrees = 10 x <span class="hidden-answer">6</span> = <span class="hidden-answer">60</span>.</p>
+            <p><strong>Step 2: Solve for the number of edges.</strong></p>
+            <p><span class="hidden-answer">60</span> = 2 x (Number of Edges)</p>
+            <p>Number of Edges = <span class="hidden-answer">60</span> / 2 = <span class="hidden-answer">30</span>.</p>
+        </div>
+
+        <h3>Question 10</h3>
+        <div class="question-box">
+            <p><strong>(10)</strong> Represent the travel times between Puchong (P), Serdang (S), and Kajang (K) as a graph. K-S: 4 hrs, P-S: 3 hrs, K-P: 6 hrs.</p>
+        </div>
+        <div class="step">
+            <h4>Drawing a Weighted Graph</h4>
+            <p>This is a weighted graph, where the edges have values (weights).</p>
+            <p><strong>Step 1:</strong> Draw three vertices for P, S, and K.</p>
+            <p><strong>Step 2:</strong> Draw an edge connecting K and S. Write the weight <span class="hidden-answer">4</span> next to this edge.</p>
+            <p><strong>Step 3:</strong> Draw an edge connecting P and S. Write the weight <span class="hidden-answer">3</span> next to this edge.</p>
+            <p><strong>Step 4:</strong> Draw an edge connecting K and P. Write the weight <span class="hidden-answer">6</span> next to this edge.</p>
+        </div>
+        
+        <h2>Praktis Pentaksiran 5</h2>
+
+        <h3>Subjective Question 1</h3>
+        <div class="question-box">
+            <p><strong>(1)</strong> Draw a simple graph to connect Puchong (P), Putrajaya (PT), Kajang (K), Klang (KLG), Kuala Lumpur (KL), Seremban (S), and KLIA.</p>
+        </div>
+        <div class="step">
+            <h4>Drawing the Connectivity Graph</h4>
+            <p><strong>Step 1:</strong> Draw 7 vertices for all the locations.</p>
+            <p><strong>Step 2: KL connections.</strong> KL connects to P, PT, K, KLIA (but not KLG and S). Draw these 4 edges.</p>
+            <p><strong>Step 3: Putrajaya connections.</strong> PT connects to KLIA, K, P. Draw these 3 edges (PT-KLIA, PT-K, PT-P). The edge between PT and KL is already drawn.</p>
+            <p><strong>Step 4: Kajang connections.</strong> K connects to S and KLG. Draw these 2 edges (K-S, K-KLG). The edges to KL and PT are already drawn.</p>
+            <p><strong>Step 5: Check the final graph.</strong> Make sure all connections described are present.</p>
+        </div>
+
+        <h3>Subjective Question 2</h3>
+        <div class="question-box">
+            <p><strong>(2)</strong> In a football competition with 12 teams, each team plays every other team once. How many matches will take place?</p>
+        </div>
+        <div class="step">
+            <h4>Solving with Graph Theory</h4>
+            <p>This can be represented as a complete graph with 12 vertices. The number of matches is the number of edges in this complete graph.</p>
+            <p><strong>Method 1: Formula for edges in a complete graph.</strong></p>
+            <div class="formula">Number of Edges = n(n-1) / 2</div>
+            <p>Where 'n' is the number of vertices (teams).</p>
+            <p>Number of Matches = 12 x (12 - 1) / 2 = 12 x <span class="hidden-answer">11</span> / 2 = <span class="hidden-answer">132</span> / 2 = <span class="hidden-answer">66</span>.</p>
+            <p><strong>Method 2: Sum of Degrees.</strong> In a complete graph of 12 vertices, each vertex has a degree of (n-1) = 11. Sum of Degrees = 12 x 11 = 132. Number of Edges = Sum of Degrees / 2 = 132 / 2 = <span class="hidden-answer">66</span>.</p>
+        </div>
+        
+        <h3>Subjective Question 3</h3>
+        <div class="question-box">
+            <p><strong>(3)</strong> Draw the directed graph D with V = {V₁, V₂, V₃, V₄, V₅, V₆} and E = {(V₁,V₃), (V₂,V₃), (V₃,V₄), (V₄,V₁), (V₄,V₅), (V₅,V₆)}.</p>
+        </div>
+        <div class="step">
+            <h4>Drawing a Directed Graph</h4>
+            <p><strong>Step 1:</strong> Draw six vertices, V₁ to V₆.</p>
+            <p><strong>Step 2:</strong> Draw an edge from V₁ to V₃ and add an arrow pointing to <span class="hidden-answer">V₃</span>.</p>
+            <p><strong>Step 3:</strong> Draw an edge from V₂ to V₃ and add an arrow pointing to <span class="hidden-answer">V₃</span>.</p>
+            <p><strong>Step 4:</strong> Continue this for all edges in the list, making sure the arrow points from the first vertex in the pair to the second.</p>
+            <p>Note that V₆ has an incoming edge but no outgoing edge, and V₄ has one incoming but two outgoing edges.</p>
+        </div>
+
+        <h3>Subjective Question 4</h3>
+        <div class="question-box">
+            <p><strong>(4)</strong> Flight times: BJ-KL (6h), BJ-BK (4h), KL-S (1h), KL-BK (3h), S-BK (4h). (a) Draw the graph. (b) Find the minimum time from Singapore (S) to Beijing (BJ).</p>
+        </div>
+        <div class="step">
+            <h4>(a) Draw the Weighted Graph</h4>
+            <p>Similar to Q10, draw the 4 vertices (BJ, KL, BK, S) and connect them with edges, writing the flight time (weight) next to each edge.</p>
+            <h4>(b) Find Minimum Time</h4>
+            <p><strong>Step 1: Identify possible routes from S to BJ.</strong></p>
+            <p>Route 1: S → KL → BJ. Total time = Time(S→KL) + Time(KL→BJ) = 1 + 6 = <span class="hidden-answer">7</span> hours.</p>
+            <p>Route 2: S → BK → BJ. Total time = Time(S→BK) + Time(BK→BJ) = 4 + 4 = <span class="hidden-answer">8</span> hours.</p>
+            <p>Route 3: S → KL → BK → BJ. Total time = 1 + 3 + 4 = <span class="hidden-answer">8</span> hours.</p>
+            <p><strong>Step 2: Compare the times.</strong> The minimum time is the smallest total from the possible routes.</p>
+            <p>Minimum time = <span class="hidden-answer">7</span> hours.</p>
+        </div>
+
+        <h3>Subjective Question 5 & 6</h3>
+        <div class="question-box">
+            <p><strong>(5)</strong> Represent the security groups as a graph. Determine if the schedule is fair.</p>
+            <p><strong>(6)</strong> Represent the chemical storage restrictions as a graph.</p>
+        </div>
+        <div class="step">
+            <h4>Guidance for Q5 and Q6</h4>
+            <p>These questions involve modeling real-world scenarios with graphs.</p>
+            <p><strong>For Q5:</strong> One way is to create a bipartite graph. One set of vertices for the officers (Amir, Budi, etc.) and another set for the groups (K1, K2, etc.). Draw an edge from an officer to a group if they are in that group. To check if it's "fair," count the degree of each officer's vertex. The degree represents how many groups they are in. If the degrees are very different, the schedule is not fair.</p>
+            <p><strong>For Q6:</strong> Draw 8 vertices for the chemicals (A-H). Draw an edge between two chemicals if they *cannot* be stored together. For example, since A cannot be stored with C, E, and H, you will draw edges (A,C), (A,E), and (A,H).</p>
+        </div>
+    </div>
+
+</body>
+</html>

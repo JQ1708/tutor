@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Guided Solution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h4 {
+            color: #2980b9;
+        }
+        .question-box {
+            background-color: #eaf2f8;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .question-box p {
+            margin: 5px 0;
+            font-style: italic;
+        }
+        .step {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+        }
+        .step h4 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #ecf0f1;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+        .hidden-answer {
+            display: inline-block;
+            width: auto;
+            min-width: 40px;
+            padding: 0 5px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            background-color: #bdc3c7;
+            color: #bdc3c7;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 5px;
+            user-select: none;
+        }
+        .hidden-answer::before {
+            content: "?";
+            color: #fff;
+        }
+        .formula {
+            padding: 15px;
+            background: #f1f8e9;
+            border: 1px solid #c5e1a5;
+            border-radius: 5px;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .fraction {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 0.2em;
+        }
+        .fraction .numerator {
+            display: block;
+            border-bottom: 2px solid black;
+            padding: 0 0.3em;
+        }
+        .fraction .denominator {
+            display: block;
+            padding: 0 0.3em;
+        }
+        .note {
+            background-color: #fff9c4;
+            border-left: 5px solid #fdd835;
+            padding: 10px 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Complete Guided Problem Solving</h1>
+        
+        <h2>Praktis Pentaksiran 3</h2>
+
+        <h3>Multiple Choice Questions (1-10)</h3>
+        <div class="step">
+            <h4>General Guidance for Multiple Choice</h4>
+            <p>For these questions, the goal is to understand the definition of key terms in logical reasoning. Before choosing an answer, ask yourself:</p>
+            <ul>
+                <li><strong>Statement:</strong> Can the sentence be determined as either true or false?</li>
+                <li><strong>Antecedent/Consequent:</strong> In an "If p, then q" statement, 'p' is the antecedent and 'q' is the consequent.</li>
+                <li><strong>Implications:</strong> "p if and only if q" means two things: "If p, then q" AND "If q, then p".</li>
+                <li><strong>Converse, Inverse, Contrapositive:</strong>
+                    <ul>
+                        <li>Original: If p, then q.</li>
+                        <li>Converse: If q, then p.</li>
+                        <li>Inverse: If not p, then not q.</li>
+                        <li>Contrapositive: If not q, then not p.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <h3>Subjective Question 1</h3>
+        <div class="question-box">
+            <p><strong>(a)(i)</strong> Determine whether the converse of "If x < 5, then x < 8" is true or false.</p>
+            <p><strong>(a)(ii)</strong> Write down the converse for "If x = 3, then x² = 9".</p>
+            <p><strong>(b)</strong> Complete the argument: Premise 1: If y = mx + 8 is a linear equation, then m is the gradient. Premise 2: ? Conclusion: 3 is the gradient.</p>
+            <p><strong>(c)</strong> The volume of a hemisphere is <span class="fraction"><span class="numerator">2</span><span class="denominator">3</span></span>πr³. Deduce the volume for a radius of 4 cm.</p>
+        </div>
+        <div class="step">
+            <h4>(a)(i) Analyze the Converse</h4>
+            <p><strong>Step 1:</strong> Write the converse. The original is "If p, then q". The converse is "If q, then p".</p>
+            <p>Converse: If x < 8, then <span class="hidden-answer">x < 5</span>.</p>
+            <p><strong>Step 2:</strong> Find a counter-example. Let x = 7. Is 7 < 8? Yes. Is 7 < 5? No. The converse is <span class="hidden-answer">False</span>.</p>
+        </div>
+        <div class="step">
+            <h4>(a)(ii) Write the Converse</h4>
+            <p>Converse: If x² = 9, then <span class="hidden-answer">x = 3</span>.</p>
+        </div>
+        <div class="step">
+            <h4>(b) Complete the Argument</h4>
+            <p>This follows the form: If p, then q. p. Therefore, q. The conclusion "3 is the gradient" is 'q'. So Premise 2 must be 'p'.</p>
+            <p>Premise 2: <span class="hidden-answer">y = 3x + 8 is a linear equation.</span></p>
+        </div>
+        <div class="step">
+            <h4>(c) Deduce the Volume</h4>
+            <p>Volume = <span class="fraction"><span class="numerator">2</span><span class="denominator">3</span></span>πr³ = <span class="fraction"><span class="numerator">2</span><span class="denominator">3</span></span>π(<span class="hidden-answer">4</span>)³ = <span class="fraction"><span class="numerator">2</span><span class="denominator">3</span></span>π(<span class="hidden-answer">64</span>) = <span class="hidden-answer"><span class="fraction"><span class="numerator">128</span><span class="denominator">3</span></span>π</span> cm³.</p>
+        </div>
+
+        <h3>Subjective Question 2</h3>
+        <div class="question-box">
+             <p><strong>(a)(i)</strong> State if "All straight lines have negative gradients" is true or false.</p>
+             <p><strong>(b)</strong> Complete to form a true statement: 3³ = 9 <span class="hidden-answer">?</span> 4 x 0 = 0.</p>
+             <p><strong>(c)</strong> Write Premise 2: Premise 1: If B is an even number, then 2 x B is an even number. Premise 2: ? Conclusion: 2 x 6 is an even number.</p>
+             <p><strong>(d)</strong> Find a general conclusion for 2, 11, 26, 47, ... using the pattern: 2=(3x1)-1, 11=(3x4)-1, 26=(3x9)-1, 47=(3x16)-1.</p>
+        </div>
+        <div class="step">
+            <h4>(a)(i) True or False</h4>
+            <p>Consider the line y = x. The gradient is 1 (positive). The statement is <span class="hidden-answer">False</span>.</p>
+        </div>
+        <div class="step">
+            <h4>(b) Complete the Statement</h4>
+            <p>Part 1: "3³ = 9" is <span class="hidden-answer">False</span> (3³=27). Part 2: "4 x 0 = 0" is <span class="hidden-answer">True</span>. An 'or' statement is true if at least one part is true. An 'and' statement is true only if both parts are true. So we use <span class="hidden-answer">or</span>.</p>
+        </div>
+        <div class="step">
+             <h4>(c) Complete the Argument</h4>
+             <p>The argument form is: If p, then q. p. Therefore, q. Here B=6. Premise 2 must be the 'p' part for B=6.</p>
+             <p>Premise 2: <span class="hidden-answer">6 is an even number</span>.</p>
+        </div>
+        <div class="step">
+            <h4>(d) General Conclusion</h4>
+            <p>The numbers in the brackets are 1, 4, 9, 16. These are perfect squares: 1², 2², 3², 4². For the nth term, the number is n².</p>
+            <p>The pattern is 3 x (term number)² - 1. General conclusion: <span class="hidden-answer">3n² - 1</span>, for n = 1, 2, 3, ...</p>
+        </div>
+        
+        <h3>Subjective Question 3</h3>
+        <div class="question-box">
+             <p><strong>(a)</strong> Is "x + 2 = 8" a statement?</p>
+             <p><strong>(b)</strong> Write two implications from "The perimeter of square PQRS is 48 cm if and only if the side of square PQRS is 12 cm."</p>
+             <p><strong>(c)</strong> Write Premise 2: Premise 1: All equilateral triangles have three equal sides. Premise 2: ? Conclusion: ABC has three equal sides.</p>
+             <p><strong>(d)</strong> The angle at the center of a regular polygon with n sides is <span class="fraction"><span class="numerator">360°</span><span class="denominator">n</span></span>. Deduce the angle for a polygon with 6 sides.</p>
+        </div>
+        <div class="step">
+            <h4>(a) Statement or Not</h4>
+            <p>The truth of "x + 2 = 8" depends on the value of x. We cannot determine if it's true or false without knowing x. So, it is <span class="hidden-answer">not a statement</span>.</p>
+        </div>
+        <div class="step">
+            <h4>(b) Write Implications</h4>
+            <p>"p if and only if q" gives two implications: "If p, then q" and "If q, then p".</p>
+            <p><strong>Implication 1:</strong> <span class="hidden-answer">If the perimeter of square PQRS is 48 cm, then the side is 12 cm.</span></p>
+            <p><strong>Implication 2:</strong> <span class="hidden-answer">If the side of square PQRS is 12 cm, then the perimeter is 48 cm.</span></p>
+        </div>
+        <div class="step">
+             <h4>(c) Complete the Argument</h4>
+             <p>The form is: All A are B. C is A. Therefore, C is B.</p>
+             <p>Premise 2: <span class="hidden-answer">ABC is an equilateral triangle</span>.</p>
+        </div>
+        <div class="step">
+            <h4>(d) Deduce the Angle</h4>
+            <p>Substitute n = 6 into the formula.</p>
+            <p>Angle = <span class="fraction"><span class="numerator">360°</span><span class="denominator"><span class="hidden-answer">6</span></span></span> = <span class="hidden-answer">60°</span>.</p>
+        </div>
+
+        <h3>Subjective Question 4</h3>
+        <div class="question-box">
+             <p><strong>(a)</strong> State if these are true or false: (i) { } ⊂ {E, A, T} (ii) {5} ⊂ {5, 7, 9} = {5, 7, 9}</p>
+             <p><strong>(b)</strong> The side of each small square in the pattern is 18 cm. (i) Make a general conclusion for the area of the unshaded region. (ii) Calculate the area for the 6th pattern.</p>
+             <div class="note">Note: The question mentions three patterns but only shows one. We will assume a logical sequence for the patterns to demonstrate the method. Let's assume the unshaded area remains constant across patterns.</div>
+        </div>
+        <div class="step">
+            <h4>(a) True or False</h4>
+            <p>(i) The empty set { } is a subset of every set. So, this is <span class="hidden-answer">True</span>.</p>
+            <p>(ii) This is likely asking two things. Is {5} a subset of {5, 7, 9}? Yes. Is {5, 7, 9} equal to {5, 7, 9}? Yes. So the components are true. The statement as a whole is <span class="hidden-answer">True</span>.</p>
+        </div>
+        <div class="step">
+             <h4>(b) Unshaded Area</h4>
+             <p><strong>Step 1:</strong> Analyze the first pattern shown. It's a large square made of a 3x3 grid of smaller squares. The side of the large square is 18 cm. So each small square has a side of 18 / 3 = 6 cm.</p>
+             <p><strong>Step 2:</strong> Each small square is divided into a shaded and an unshaded triangle. The area of each small square is 6 x 6 = 36 cm². The unshaded area in one small square is half of that, which is <span class="hidden-answer">18</span> cm².</p>
+             <p><strong>Step 3:</strong> There are 9 small squares in total. The total unshaded area is 9 x 18 = <span class="hidden-answer">162</span> cm².</p>
+             <p><strong>(i) Conclusion:</strong> Based on our assumption, the area of the unshaded region for the nth pattern is <span class="hidden-answer">162</span> cm².</p>
+             <p><strong>(ii) 6th Pattern:</strong> The area would also be <span class="hidden-answer">162</span> cm².</p>
+        </div>
+
+        <h3>Subjective Question 5, 6, 7</h3>
+        <div class="question-box">
+             <p><strong>Q5(a)</strong> True or False: The significant figure of 1582.1310 is 8.</p>
+             <p><strong>Q5(b)</strong> Write the converse of: If an angle is between 90° and 180°, then the angle is an obtuse angle.</p>
+             <p><strong>Q5(c)</strong> Write Premise 2: P1: If x is an even number, then x is divisible by 2. P2: ? Conclusion: 23 is not an even number.</p>
+             <p><strong>Q5(d)</strong> The surface area of a sphere is 4πr². Deduce the area for r = 6 cm.</p>
+             <p><strong>Q6 & Q7</strong> State the converse, inverse, and contrapositive for the given statements.</p>
+        </div>
+        <div class="step">
+            <h4>Question 5 Solutions</h4>
+            <p><strong>(a)</strong> All non-zero digits are significant. Zeros between non-zero digits are significant. A final zero after a decimal point is significant. There are 8 digits, all significant. Statement is <span class="hidden-answer">True</span>.</p>
+            <p><strong>(b) Converse:</strong> <span class="hidden-answer">If an angle is an obtuse angle, then it is between 90° and 180°.</span></p>
+            <p><strong>(c)</strong> This uses the form: If p, then q. Not q. Therefore, not p. Premise 2 must be "Not q" for x=23. <br><strong>Premise 2:</strong> <span class="hidden-answer">23 is not divisible by 2.</span></p>
+            <p><strong>(d) Area</strong> = 4π(<span class="hidden-answer">6</span>)² = 4π(<span class="hidden-answer">36</span>) = <span class="hidden-answer">144π</span> cm².</p>
+        </div>
+        <div class="step">
+             <h4>Question 6 & 7 Solutions</h4>
+             <p><strong>For Q6:</strong> If x is a multiple of 3 (p), then x is divisible by 3 (q).</p>
+             <ul>
+                 <li><strong>Converse (If q, then p):</strong> <span class="hidden-answer">If x is divisible by 3, then x is a multiple of 3.</span></li>
+                 <li><strong>Inverse (If not p, then not q):</strong> <span class="hidden-answer">If x is not a multiple of 3, then x is not divisible by 3.</span></li>
+                 <li><strong>Contrapositive (If not q, then not p):</strong> <span class="hidden-answer">If x is not divisible by 3, then x is not a multiple of 3.</span></li>
+             </ul>
+             <p><strong>For Q7:</strong> If A ⊂ B (p), then A ∩ B = A (q).</p>
+             <ul>
+                 <li><strong>Converse (If q, then p):</strong> <span class="hidden-answer">If A ∩ B = A, then A ⊂ B.</span></li>
+                 <li><strong>Inverse (If not p, then not q):</strong> <span class="hidden-answer">If A is not a subset of B, then A ∩ B ≠ A.</span></li>
+                 <li><strong>Contrapositive (If not q, then not p):</strong> <span class="hidden-answer">If A ∩ B ≠ A, then A is not a subset of B.</span></li>
+             </ul>
+        </div>
+
+        <h2>Praktis Topikal 4</h2>
+
+        <h3>Intersection & Union of Sets (Q1-9)</h3>
+        <div class="question-box">
+            <p>Guidance for questions 1-9 on Intersection and 1-3 on Union.</p>
+        </div>
+        <div class="step">
+            <h4>General Guidance</h4>
+            <p><strong>Step 1: List the elements.</strong> For each set (P, Q, R...), write down all the numbers or letters that belong to it based on the description (e.g., "prime number", "factor of 6").</p>
+            <p><strong>Step 2: Perform the operation.</strong></p>
+            <ul>
+                <li><strong>Intersection (∩):</strong> Find the elements that are common to ALL sets involved (e.g., in both P AND Q).</li>
+                <li><strong>Union (∪):</strong> Combine all elements from the sets, but do not repeat any element.</li>
+                <li><strong>Complement ('):</strong> Find all elements in the universal set (ξ) that are NOT in the given set.</li>
+            </ul>
+            <p><strong>For Shading (Q7, Q8):</strong> Identify the region described. For P' ∩ Q, you would shade the area that is inside circle Q but outside circle P.</p>
+            <p><strong>For Reading Venn Diagrams (Q9):</strong> Look at the circles for the given sets and identify the letters or numbers in the overlapping or non-overlapping regions as required.</p>
+        </div>
+
+        <h3>Intersection of Sets: Question 10, 11, 12</h3>
+        <!-- Q10 and Q11 are already done, included for completeness -->
+        <div class="question-box"><p>Questions 10 and 11 covered previously.</p></div>
+        <div class="question-box">
+            <p><strong>Q12:</strong> In a class, 1/4 like Debate (D), 1/12 like Debate and Sports (D∩S), 13 like Sports (S), and 17 like neither. Find (a) total students and (b) how many like debate and sports.</p>
+        </div>
+        <div class="step">
+            <h4>Solving Question 12</h4>
+            <p><strong>Step 1: Set up equations.</strong> Let total students be 'x'.<br>n(D) = x/4, n(D∩S) = x/12, n(S) = 13, n((D∪S)') = 17.</p>
+            <p><strong>Step 2: Use the union formula.</strong> n(D∪S) = n(D) + n(S) - n(D∩S).<br>n(D∪S) = (<span class="hidden-answer">x/4</span>) + 13 - (<span class="hidden-answer">x/12</span>).</p>
+            <p><strong>Step 3: Simplify the expression for the union.</strong><br>n(D∪S) = (3x/12) - (x/12) + 13 = <span class="hidden-answer">2x/12</span> + 13 = <span class="hidden-answer">x/6</span> + 13.</p>
+            <p><strong>Step 4: Use the total students formula.</strong> n(ξ) = n(D∪S) + n((D∪S)').<br>x = (<span class="hidden-answer">x/6 + 13</span>) + <span class="hidden-answer">17</span>.</p>
+            <p><strong>Step 5: Solve for x.</strong><br>x = x/6 + 30  =>  x - x/6 = 30  =>  <span class="hidden-answer">5x/6</span> = 30  =>  5x = 180  =>  x = <span class="hidden-answer">36</span>.</p>
+            <p><strong>(a) Total students = 36.</strong></p>
+            <p><strong>(b) Likes debate and sports = n(D∩S)</strong> = x/12 = 36/12 = <span class="hidden-answer">3</span>.</p>
+        </div>
+
+        <h3>Union of Sets: Question 4, 5, 6</h3>
+        <div class="question-box">
+            <p><strong>Q4:</strong> From Venn diagram, find (a) n(P∪Q)', (b) n(P∪R)', (c) x if n(P∪R)' = n(Q∪R)'.</p>
+            <p><strong>Q5:</strong> 30 students. 24 passed Math (M), 18 passed Science (S), 16 passed both. Find number who failed both.</p>
+            <p><strong>Q6:</strong> 3 sets of patients (H, C, S). Given numbers for each set and their intersections. Find (a) H only, (b) at least one problem.</p>
+        </div>
+        <div class="step">
+            <h4>Question 4 Solutions</h4>
+            <p><strong>(a) n(P∪Q)':</strong> Elements outside P and Q. Look at the diagram. These are the numbers in R only, plus the number outside all circles. n(P∪Q)' = 3 + 6 + 5 = <span class="hidden-answer">14</span>.</p>
+            <p><strong>(b) n(P∪R)':</strong> Elements outside P and R. This is the region in Q only and outside all circles. n(P∪R)' = <span class="hidden-answer">5</span>.</p>
+            <p><strong>(c) Find x:</strong> n(Q∪R)' are elements outside Q and R. This is region P only and outside all circles. So, n(Q∪R)' = x + 5.
+            Given n(P∪R)' = n(Q∪R)', so <span class="hidden-answer">5</span> = x + 5. This means x = <span class="hidden-answer">0</span>.</p>
+        </div>
+        <div class="step">
+            <h4>Question 5 Solution</h4>
+            <p><strong>Step 1: Find how many passed at least one subject.</strong> n(M∪S) = n(M) + n(S) - n(M∩S).<br>n(M∪S) = 24 + 18 - 16 = <span class="hidden-answer">26</span>.</p>
+            <p><strong>Step 2: Find who failed both.</strong> This is everyone outside the union. n((M∪S)') = n(ξ) - n(M∪S).<br>n((M∪S)') = 30 - <span class="hidden-answer">26</span> = <span class="hidden-answer">4</span>.</p>
+        </div>
+        <div class="step">
+            <h4>Question 6 Solution</h4>
+            <p>Given: n(H)=20, n(C)=12, n(S)=14, n(H∩C)=7, n(C∩S)=4, n(H∩S)=8, n(H∩C∩S)=2.</p>
+            <p><strong>(a) High blood pressure only:</strong> n(H only) = n(H) - n(H∩C only) - n(H∩S only) - n(H∩C∩S).<br>n(H∩C only) = n(H∩C) - n(H∩C∩S) = 7 - 2 = 5.<br>n(H∩S only) = n(H∩S) - n(H∩C∩S) = 8 - 2 = 6.<br>n(H only) = 20 - 5 - 6 - 2 = <span class="hidden-answer">7</span>.</p>
+            <p><strong>(b) At least one problem (Union):</strong> n(H∪C∪S) = n(H)+n(C)+n(S) - n(H∩C) - n(C∩S) - n(H∩S) + n(H∩C∩S).<br>n(H∪C∪S) = 20+12+14 - 7-4-8 + 2 = 46 - 19 + 2 = <span class="hidden-answer">29</span>.</p>
+        </div>
+
+        <h3>Combined Operations on Sets (Q1-6)</h3>
+        <div class="question-box">
+             <p><strong>Q1:</strong> Given ξ, P, Q, R. Find (a) P∪(Q∩R) and (b) P∩(Q∪R').</p>
+             <p><strong>Q3:</strong> Write set expressions for the shaded regions.</p>
+             <p><strong>Q4:</strong> Given n(P)=n(Q∩R), find (a) k and (b) n[P∩(Q∩R')].</p>
+             <p><strong>Q5:</strong> Survey on fruits. Find percentage who like (a) exactly two fruits, (b) none of the three.</p>
+             <p><strong>Q6:</strong> Draw a Venn diagram for B⊂A, A∩C=∅, and B∩C=∅.</p>
+        </div>
+        <div class="step">
+            <h4>Question 1 Solution</h4>
+            <p>First, list the elements: P={1,4,9,16}, Q={2,4,6,8,10,12,14,16}, R={3,6,9,12,15}.</p>
+            <p><strong>(a) P∪(Q∩R):</strong> First, Q∩R = {<span class="hidden-answer">6, 12</span>}. Then P ∪ {6, 12} = {<span class="hidden-answer">1, 4, 6, 9, 12, 16</span>}.</p>
+            <p><strong>(b) P∩(Q∪R'):</strong> First, R' = {1,2,4,5,7,8,10,11,13,14,16}. Then Q∪R' = {1,2,4,5,6,7,8,10,11,12,13,14,16}. Then P ∩ (that set) = {<span class="hidden-answer">1, 4, 16</span>}.</p>
+        </div>
+        <div class="step">
+            <h4>Question 3 Solution</h4>
+            <p><strong>(a)</strong> The regions shaded are the parts of A and C that are outside of B. This is (A∪C) ∩ B' or <span class="hidden-answer">(A∪C) - B</span>.</p>
+            <p><strong>(b)</strong> The intersection of A and B is shaded, and all of C is shaded. This is <span class="hidden-answer">(A∩B) ∪ C</span>.</p>
+            <p><strong>(c)</strong> All of A is shaded, plus the intersection of B and C. This is <span class="hidden-answer">A ∪ (B∩C)</span>.</p>
+        </div>
+        <div class="step">
+            <h4>Question 4 Solution</h4>
+            <p><strong>(a) Find k:</strong> n(P) = k(k+2)+6+3+5 = k²+2k+14. n(Q∩R) = 3+3k.<br>Set them equal: k²+2k+14 = 3+3k  =>  k²-k+11=0.</p>
+            <div class="note">Teacher's Note: This quadratic equation has no real solutions (discriminant b²-4ac is negative). This indicates an error in the question's numbers. However, the method is to set up and solve this equation.</div>
+            <p><strong>(b) n[P∩(Q∩R')]:</strong> This asks for the number of elements in P that are also in the region "Q but not R". The region "Q but not R" contains elements '6' and '11'. The part of this region that overlaps with P is the one containing <span class="hidden-answer">6</span>. So the answer is 6.</p>
+        </div>
+        <div class="step">
+            <h4>Question 5 Solution</h4>
+            <p><strong>(a) Exactly two fruits:</strong><br> (R∩D only) + (R∩N only) + (D∩N only)<br> = (n(R∩D)-n(R∩D∩N)) + (n(R∩N)-n(R∩D∩N)) + (n(D∩N)-n(R∩D∩N))<br> = (33-8) + (22-8) + (15-8) = <span class="hidden-answer">25</span> + <span class="hidden-answer">14</span> + <span class="hidden-answer">7</span> = <span class="hidden-answer">46</span>%.</p>
+            <p><strong>(b) None of the three:</strong> 100% - n(R∪D∪N).<br>n(R∪D∪N) = n(R)+n(D)+n(N) - n(R∩D) - n(R∩N) - n(D∩N) + n(R∩D∩N)<br> = 68+50+32 - 33-22-15 + 8 = 150 - 70 + 8 = <span class="hidden-answer">88</span>%.<br>None = 100% - 88% = <span class="hidden-answer">12</span>%.</p>
+        </div>
+        <div class="step">
+            <h4>Question 6 Solution</h4>
+            <p><strong>How to draw:</strong></p>
+            <ol>
+                <li>Draw a large rectangle for the universal set ξ.</li>
+                <li>Draw a large circle inside for set A.</li>
+                <li>Since B⊂A, draw a smaller circle for set B completely inside circle A.</li>
+                <li>Since A∩C=∅, draw a circle for set C completely outside of circle A. There should be no overlap between A and C.</li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>
+

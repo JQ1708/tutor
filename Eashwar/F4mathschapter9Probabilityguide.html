@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guided Solution: Measures of Dispersion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h4 {
+            color: #2980b9;
+        }
+        .question-box {
+            background-color: #eaf2f8;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .question-box p {
+            margin: 5px 0;
+            font-style: italic;
+        }
+        .step {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+        }
+        .step h4 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+        .formula {
+            padding: 10px;
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .hidden-answer {
+            display: inline-block;
+            width: auto;
+            min-width: 50px;
+            padding: 0 8px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            background-color: #bdc3c7;
+            color: #bdc3c7;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 5px;
+            user-select: none;
+        }
+        .hidden-answer::before {
+            content: "?";
+            color: #fff;
+        }
+        .note {
+            background-color: #fffde7;
+            border-left: 5px solid #fdd835;
+            padding: 10px 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        ol li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Complete Guided Problem Solving</h1>
+        <h2>Praktis 8: Measures of Dispersion</h2>
+
+        <div class="question-box">
+            <p><strong>Page 1, Q1:</strong> State 4 ways for data collection.</p>
+        </div>
+        <div class="step">
+            <h4>Guidance</h4>
+            <p>Think about how information is gathered for studies. What are the main methods?</p>
+            <p>Four common methods are: <span class="hidden-answer">Interview</span>, <span class="hidden-answer">Survey/Questionnaire</span>, <span class="hidden-answer">Observation</span>, and <span class="hidden-answer">Experiment</span>.</p>
+        </div>
+        
+        <div class="question-box">
+            <p><strong>Page 1, Q1 (Measures of Dispersion):</strong> For the data 5, 8, 12, 14, 17, 19, 20, find all measures of dispersion.</p>
+        </div>
+        <div class="step">
+            <h4>Detailed Guidance</h4>
+            <p>The data is sorted: 5, 8, 12, 14, 17, 19, 20. There are <strong>n = 7</strong> data points.</p>
+            <ol>
+                <li><strong>Range:</strong> Highest value - Lowest value = 20 - 5 = <span class="hidden-answer">15</span>.</li>
+                <li><strong>Mode:</strong> The most frequent value. Since each value appears only once, there is <span class="hidden-answer">No mode</span>.</li>
+                <li><strong>First Quartile (Q1):</strong> Position is ¼(n+1) = ¼(8) = 2nd value. The 2nd value is <span class="hidden-answer">8</span>.</li>
+                <li><strong>Median (Q2):</strong> Position is ½(n+1) = ½(8) = 4th value. The 4th value is <span class="hidden-answer">14</span>.</li>
+                <li><strong>Third Quartile (Q3):</strong> Position is ¾(n+1) = ¾(8) = 6th value. The 6th value is <span class="hidden-answer">19</span>.</li>
+                <li><strong>Interquartile Range (IQR):</strong> Q3 - Q1 = 19 - 8 = <span class="hidden-answer">11</span>.</li>
+                <li><strong>Mean (μ):</strong>
+                    <div class="formula">μ = (Sum of all values) / n</div>
+                    Sum = 5+8+12+14+17+19+20 = 95.
+                    Mean = 95 / 7 ≈ <span class="hidden-answer">13.57</span>.
+                </li>
+                <li><strong>Variance (σ²):</strong>
+                    <div class="formula">σ² = (Σx²) / n - μ²</div>
+                    First, find the sum of squares (Σx²): 5²+8²+12²+14²+17²+19²+20² = 25+64+144+196+289+361+400 = 1479.
+                    σ² = (1479 / 7) - (13.57)² ≈ 211.29 - 184.14 = <span class="hidden-answer">27.15</span>.
+                </li>
+                <li><strong>Standard Deviation (σ):</strong>
+                    <div class="formula">σ = √Variance</div>
+                    σ = √27.15 ≈ <span class="hidden-answer">5.21</span>.
+                </li>
+            </ol>
+        </div>
+
+        <div class="question-box">
+            <p><strong>Page 1, Q2 & Q3:</strong> Draw a dot plot and stem-and-leaf plots.</p>
+        </div>
+        <div class="step">
+            <h4>Guidance</h4>
+            <p><strong>For Dot Plot (Q2):</strong> Draw a number line from 1 to 5. Above the number 1, draw 3 dots. Above the number 2, draw 5 dots. Above the number 3, draw 9 dots, and so on. The number with the tallest stack of dots is the mode. The conclusion is that the data is concentrated around <span class="hidden-answer">3</span>.</p>
+            <p><strong>For Stem-and-Leaf Plot (Q3):</strong> The 'stem' represents the tens (or hundreds and tens) place, and the 'leaf' represents the ones place.
+            For (a): Stem '8' would have leaves '2, 7, 9'. Stem '10' would have leaves '0, 2, 3, 5, 6, 7, 9, 9'.
+            For (b): Stem '6' has leaves '2, 3, 7, 7, 9'. Stem '11' has leaves '0, 2'. Remember to include a key (e.g., 8 | 2 means 82).</p>
+        </div>
+
+        <div class="question-box">
+            <p><strong>Page 2, Q2:</strong> Find measures for 10, 12, 14, 16, 18, 19, 20, 22.</p>
+        </div>
+        <div class="step">
+            <h4>Detailed Guidance (n=8, even dataset)</h4>
+            <ol>
+                <li><strong>Median (Q2):</strong> Average of the middle two values (4th and 5th). (16 + 18) / 2 = <span class="hidden-answer">17</span>.</li>
+                <li><strong>Q1:</strong> Median of the lower half (10, 12, 14, 16). Average of the middle two (12 and 14). (12 + 14) / 2 = <span class="hidden-answer">13</span>.</li>
+                <li><strong>Q3:</strong> Median of the upper half (18, 19, 20, 22). Average of the middle two (19 and 20). (19 + 20) / 2 = <span class="hidden-answer">19.5</span>.</li>
+                <li>Now use these values to find the Range, IQR, Mean, Variance, and SD as shown in the first example.</li>
+            </ol>
+        </div>
+        
+        <div class="question-box">
+            <p><strong>Page 3, Q4:</strong> Find measures for the frequency data.</p>
+        </div>
+        <div class="step">
+            <h4>Detailed Guidance (Frequency Data)</h4>
+            <p>Total Frequency (Σf) = 5+12+14+15+12+8 = 66.</p>
+            <ol>
+                <li><strong>Median:</strong> Position is (66+1)/2 = 33.5th value. Use cumulative frequency: 5, 17, 31, 46... The 33.5th value lies in the group where the number is <span class="hidden-answer">6</span>.</li>
+                <li><strong>Mean:</strong>
+                    Calculate Σfx = (3×5) + (4×12) + (5×14) + (6×15) + (7×12) + (8×8) = 15+48+70+90+84+64 = 371.
+                    Mean = Σfx / Σf = 371 / 66 ≈ <span class="hidden-answer">5.62</span>.
+                </li>
+                 <li><strong>Variance:</strong>
+                    Calculate Σfx² = (3²×5) + (4²×12) + ... + (8²×8) = 45+192+350+540+588+512 = 2227.
+                    σ² = (Σfx² / Σf) - μ² = (2227 / 66) - (5.62)² ≈ 33.74 - 31.58 = <span class="hidden-answer">2.16</span>.
+                </li>
+            </ol>
+        </div>
+        
+        <div class="question-box">
+            <p><strong>Page 4, Q12:</strong> Determine if there are outliers in 12, 12, 13, 15, 16, 17, 18, 20, 22, 23, 33.</p>
+        </div>
+        <div class="step">
+            <h4>Detailed Guidance (Outliers)</h4>
+            <ol>
+                <li><strong>Find Quartiles:</strong> Data is sorted, n=11.
+                    Q1 is the 1/4(12) = 3rd value = <span class="hidden-answer">13</span>.
+                    Q3 is the 3/4(12) = 9th value = <span class="hidden-answer">22</span>.
+                </li>
+                <li><strong>Calculate IQR:</strong> IQR = Q3 - Q1 = 22 - 13 = <span class="hidden-answer">9</span>.</li>
+                <li><strong>Find Fences:</strong>
+                    Lower Fence = Q1 - 1.5 * IQR = 13 - 1.5 * 9 = 13 - 13.5 = <span class="hidden-answer">-0.5</span>.
+                    Upper Fence = Q3 + 1.5 * IQR = 22 + 1.5 * 9 = 22 + 13.5 = <span class="hidden-answer">35.5</span>.
+                </li>
+                <li><strong>Check data:</strong> Is any value less than -0.5 or greater than 35.5? No. Therefore, there are <span class="hidden-answer">no outliers</span>.</li>
+            </ol>
+        </div>
+
+        <h2>Praktis Pentaksiran 8 (Full Walkthrough)</h2>
+        <div class="note">This section provides detailed steps for the assessment questions from page 5 onwards.</div>
+        
+        <div class="question-box">
+            <p><strong>Page 7, Q6:</strong> Data 21, 24, 26, 28, x, 29, 26, 25, 24 has a mean of 26. Find x.</p>
+        </div>
+        <div class="step">
+             <h4>Detailed Guidance (Finding Unknown)</h4>
+             <ol>
+                 <li><strong>Write the mean formula:</strong> Mean = (Sum of values) / n.</li>
+                 <li><strong>Identify knowns:</strong> Mean = 26, n = 9.</li>
+                 <li><strong>Sum the known values:</strong> 21+24+26+28+29+26+25+24 = 203.</li>
+                 <li><strong>Set up the equation:</strong> 26 = (203 + x) / 9.</li>
+                 <li><strong>Solve for x:</strong>
+                    26 × 9 = 203 + x.
+                    234 = 203 + x.
+                    x = 234 - 203 = <span class="hidden-answer">31</span>.
+                 </li>
+             </ol>
+        </div>
+
+        <div class="question-box">
+            <p><strong>Page 8, Q9 (Median):</strong> The sorted data 9, 12, 13, x, y, 19, 23, 25, 26 has a median of 17. Find possible (x, y) where x < y.</p>
+        </div>
+        <div class="step">
+            <h4>Detailed Guidance (Median with Unknowns)</h4>
+            <ol>
+                <li><strong>Find the median position:</strong> There are n=9 data points. The median is the (9+1)/2 = 5th value.</li>
+                <li><strong>Identify the median value:</strong> Counting along the list, the 5th value is 'y'.</li>
+                <li><strong>Equate and find y:</strong> Since the median is 17, we have y = <span class="hidden-answer">17</span>.</li>
+                <li><strong>Determine the range for x:</strong> The data is sorted, so 'x' must be between the 4th value (13) and the 5th value (y=17). Also, x < y. So, 13 ≤ x < 17.</li>
+                <li><strong>List possible integer values for x:</strong> x can be <span class="hidden-answer">13, 14, 15, or 16</span>.</li>
+            </ol>
+        </div>
+        
+        <div class="question-box">
+            <p><strong>Page 9, Q14 (Mean with variables):</strong> 3, 4, y, 6, 11, x has a mean of 6. Given x = 3y, find x and y.</p>
+        </div>
+        <div class="step">
+            <h4>Detailed Guidance (Simultaneous Equations)</h4>
+            <ol>
+                <li><strong>Use the mean to form Equation 1:</strong>
+                    Mean = (3+4+y+6+11+x) / 6 = 6.
+                    24 + x + y = 36.
+                    x + y = <span class="hidden-answer">12</span>.
+                </li>
+                <li><strong>Use the given relationship as Equation 2:</strong> x = <span class="hidden-answer">3y</span>.</li>
+                <li><strong>Substitute Eq. 2 into Eq. 1:</strong>
+                    (3y) + y = 12.
+                    4y = 12.
+                    y = <span class="hidden-answer">3</span>.
+                </li>
+                <li><strong>Substitute y back into Eq. 2 to find x:</strong>
+                    x = 3 * (3).
+                    x = <span class="hidden-answer">9</span>.
+                </li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>
+
