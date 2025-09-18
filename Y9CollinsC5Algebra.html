@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Math Quiz: Expressions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .quiz-card {
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .card-front, .card-back {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        .flipped {
+            transform: rotateY(180deg);
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .correct-answer {
+            background-color: #22c55e !important; /* green-500 */
+            color: white;
+            border-color: #16a34a;
+        }
+        .wrong-answer {
+            background-color: #ef4444 !important; /* red-500 */
+            color: white;
+            border-color: #dc2626;
+        }
+        .slide-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 flex items-center justify-center min-h-screen p-4">
+    <div id="app-container" class="w-full max-w-4xl mx-auto">
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="text-center bg-white p-8 rounded-2xl shadow-xl">
+            <h1 class="text-4xl font-bold text-sky-600 mb-4">Algebraic Expressions</h1>
+            <p class="text-slate-600 text-lg mb-6">An interactive quiz for IGCSE Year 8</p>
+            <p class="mb-8">Hi Mathias! Let's get your students ready. Choose a subtopic to begin.</p>
+            <div id="subtopic-selection" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Subtopic buttons will be generated here -->
+            </div>
+        </div>
+
+        <!-- Presentation Screen -->
+        <div id="presentation-screen" class="hidden bg-white p-8 rounded-2xl shadow-xl">
+            <h2 id="presentation-title" class="text-3xl font-bold text-sky-600 mb-6 text-center"></h2>
+            <div id="presentation-content" class="space-y-6 slide-content">
+                <!-- Slide content goes here -->
+            </div>
+            <div class="text-center mt-8">
+                <button onclick="startQuiz()" class="bg-green-500 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-green-600 transition-all">Start Quiz!</button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="quiz-title" class="text-2xl font-bold text-sky-700">Quiz</h2>
+                <div class="flex space-x-4 text-lg">
+                    <span id="score-correct" class="font-semibold text-green-600">Correct: 0</span>
+                    <span id="score-wrong" class="font-semibold text-red-600">Wrong: 0</span>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-xl">
+                <div class="flex justify-between items-start mb-4">
+                    <p class="text-slate-500">Question <span id="question-number">1</span> of <span id="total-questions">50</span></p>
+                    <p id="attempt-tracker" class="text-sm text-slate-400"></p>
+                </div>
+                <div id="progress-bar" class="w-full bg-slate-200 rounded-full h-2.5 mb-6">
+                    <div id="progress" class="bg-sky-500 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+                <p id="question-text" class="text-xl font-medium mb-6 min-h-[60px]"></p>
+                <div id="options-container" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Options buttons go here -->
+                </div>
+                <div id="feedback-message" class="mt-6 text-center font-medium"></div>
+            </div>
+        </div>
+        
+        <!-- Correction Screen -->
+        <div id="correction-screen" class="hidden">
+             <div class="bg-white p-8 rounded-2xl shadow-xl text-center">
+                <h2 class="text-3xl font-bold text-amber-600 mb-4">Correction Time!</h2>
+                <p class="text-slate-600 mb-6">Let's review the questions you got wrong. You must answer correctly to proceed.</p>
+                <div id="correction-quiz-container">
+                    <!-- Correction quiz will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center bg-white p-8 rounded-2xl shadow-xl">
+            <h2 id="results-title" class="text-3xl font-bold text-sky-600 mb-4">Subtopic Complete!</h2>
+            <p id="results-summary" class="text-lg text-slate-700 mb-6"></p>
+            <div id="results-actions" class="flex justify-center gap-4 mt-8">
+                <button onclick="showWelcomeScreen()" class="bg-sky-500 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-sky-600 transition-all">Back to Topics</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const quizData = {
+            "Substitution": {
+                presentation: `
+                    <h3 class="text-2xl font-semibold text-slate-700">What is Substitution?</h3>
+                    <p class="text-slate-600">Substitution in algebra means replacing a variable (like 'x' or 'y') with a specific number. It's crucial to follow the order of operations (BIDMAS/PEMDAS) to get the correct answer.</p>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-semibold text-lg mb-2">Worked Example</h4>
+                        <p class="mb-2">Using the formula <strong>s = ut + ½at²</strong>, find the value of <strong>s</strong> when u=7.5, t=25, and a=-0.2.</p>
+                        <code class="block bg-slate-200 p-3 rounded-md text-sm">
+                            s = (7.5 × 25) + 0.5 × (-0.2) × (25)²<br>
+                            s = 187.5 + 0.5 × (-0.2) × 625<br>
+                            s = 187.5 + (-0.1) × 625<br>
+                            s = 187.5 - 62.5<br>
+                            s = 125
+                        </code>
+                    </div>
+                    <p class="text-sm text-slate-500"><strong>Tip:</strong> Always handle the powers/indices first, then multiplication/division, and finally addition/subtraction.</p>
+                `,
+                questions: [
+                    { q: "When x=-4 and y=0.1, find the value of 4xy.", o: ["-1.6", "1.6", "-16", "16", "-0.16", "0.16"], a: "-1.6" },
+                    { q: "When x=-4 and y=0.1, find the value of (x+y)².", o: ["15.21", "-15.21", "16.81", "-16.81", "15.99", "-15.99"], a: "15.21" },
+                    { q: "When a=0.5, b=6, c=-9, find 2a-c.", o: ["10", "-8", "-10", "8", "9.5", "-8.5"], a: "10" },
+                    { q: "When b=6, c=-9, find b²+c.", o: ["27", "45", "-27", "-45", "15", "3"], a: "27" },
+                    { q: "When a=9, d=-5, find 3(a-d).", o: ["42", "12", "-42", "-12", "27", "18"], a: "42" },
+                    { q: "When m=4, n=3, p=-2, find (m+2n)³.", o: ["1000", "-1000", "100", "8", "1728", "512"], a: "1000" },
+                    { q: "When x=2, y=12, find √(2x / (y+4)).", o: ["0.5", "2", "4", "0.25", "1", "1.5"], a: "0.5" },
+                    { q: "If a=3, b=-4, is (5a-2c)³+b²=109 true for c=5?", o: ["Yes", "No, it's 141", "No, it's 100", "No, it's -109", "No, it's 241", "No, it's 93"], a: "No, it's 141" },
+                    { q: "Find value of 4x²+7x-2 when x=3.", o: ["55", "36", "49", "25", "53", "61"], a: "55" },
+                    { q: "If p=5, what is 3p² - 4p?", o: ["55", "75", "20", "115", "65", "45"], a: "55" },
+                    { q: "If k=-2, what is k³ + 10?", o: ["2", "18", "-2", "-18", "8", "-8"], a: "2" },
+                    { q: "If y=10, z=2, find y/z + z.", o: ["7", "5", "12", "4", "6", "8"], a: "7" },
+                    { q: "a=5, b=-3. Find a²-b².", o: ["16", "34", "-16", "-34", "14", "4"], a: "16" },
+                    { q: "m=2, n=5. Find 5(n-m).", o: ["15", "25", "35", "10", "-15", "5"], a: "15" },
+                    { q: "x=-1. Find 10-x³.", o: ["11", "9", "10", "-11", "-9", "1"], a: "11" },
+                ]
+            },
+            "Expanding Brackets": {
+                presentation: `
+                    <h3 class="text-2xl font-semibold text-slate-700">How to Expand Brackets</h3>
+                    <p class="text-slate-600">When expanding a pair of brackets, like (x+a)(x+b), you must multiply each term in the first bracket by each term in the second bracket. A common method is FOIL (First, Outer, Inner, Last).</p>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-semibold text-lg mb-2">Worked Example</h4>
+                        <p class="mb-2">Expand and simplify <strong>(x + 4)(x - 5)</strong>.</p>
+                        <code class="block bg-slate-200 p-3 rounded-md text-sm">
+                            (x)(x) + (x)(-5) + (4)(x) + (4)(-5)<br>
+                            = x² - 5x + 4x - 20<br>
+                            = x² - x - 20
+                        </code>
+                    </div>
+                    <p class="text-sm text-slate-500"><strong>Tip:</strong> Be careful with negative signs! Remember that (x+a)² is (x+a)(x+a), not x²+a².</p>
+                `,
+                questions: [
+                    { q: "Expand and simplify (x+2)(x+1).", o: ["x²+3x+2", "x²+2x+2", "x²+3x+3", "x²+2", "2x+3", "x²+x+2"], a: "x²+3x+2" },
+                    { q: "Expand and simplify (x-4)(x+3).", o: ["x²-x-12", "x²-7x-12", "x²-x+12", "x²+x-12", "x²-12", "2x-1"], a: "x²-x-12" },
+                    { q: "Expand and simplify (k-7)(k+2).", o: ["k²-5k-14", "k²+5k-14", "k²-9k-14", "k²-5k+14", "k²-14", "2k-5"], a: "k²-5k-14" },
+                    { q: "Expand and simplify (s-1)(s-9).", o: ["s²-10s+9", "s²+10s+9", "s²-10s-9", "s²-8s+9", "s²-9", "s²+9"], a: "s²-10s+9" },
+                    { q: "Expand and simplify (x+5)².", o: ["x²+10x+25", "x²+25", "x²+5x+25", "x²+10x+10", "x²+10", "2x+10"], a: "x²+10x+25" },
+                    { q: "Expand and simplify (y-6)².", o: ["y²-12y+36", "y²+36", "y²-36", "y²-12y-36", "y²-6y+36", "2y-12"], a: "y²-12y+36" },
+                    { q: "Expand and simplify (x+7)(x-7).", o: ["x²-49", "x²-14x-49", "x²+14x-49", "x²+49", "x²-14", "0"], a: "x²-49" },
+                    { q: "Expand and simplify (m+9)(m-9).", o: ["m²-81", "m²+81", "m²-18", "m²-18m-81", "m²+18m-81", "0"], a: "m²-81" },
+                    { q: "Expand (a+3)(a+4).", o: ["a²+7a+12", "a²+12", "a²+a+12", "a²+7a+7", "2a+7", "a²+12a+7"], a: "a²+7a+12" },
+                    { q: "Expand (b-5)(b-2).", o: ["b²-7b+10", "b²-7b-10", "b²+7b+10", "b²-3b+10", "b²-10", "2b-7"], a: "b²-7b+10" },
+                    { q: "Expand (c+8)(c-3).", o: ["c²+5c-24", "c²-5c-24", "c²+11c-24", "c²-24", "c²+5c+24", "2c+5"], a: "c²+5c-24" },
+                    { q: "Expand (d+10)². ", o: ["d²+20d+100", "d²+100", "d²+10d+100", "d²+20d+20", "2d+20", "d²+20"], a: "d²+20d+100" },
+                    { q: "Expand (e-1)². ", o: ["e²-2e+1", "e²+1", "e²-1", "e²-2e-1", "2e-2", "e²-e+1"], a: "e²-2e+1" },
+                    { q: "Expand (f-6)(f+6).", o: ["f²-36", "f²+36", "f²-12", "f²-12f-36", "0", "2f"], a: "f²-36" },
+                    { q: "Expand (2x+1)(x+3).", o: ["2x²+7x+3", "2x²+6x+3", "2x²+5x+3", "3x+4", "2x²+3", "2x²+7x+4"], a: "2x²+7x+3" },
+                ]
+            },
+            "Laws of Indices": {
+                presentation: `
+                    <h3 class="text-2xl font-semibold text-slate-700">Understanding Laws of Indices</h3>
+                    <p class="text-slate-600">Indices (or powers) have special rules for multiplication and division. These rules make simplifying complex expressions much easier.</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h4 class="font-semibold text-lg mb-2">Multiplication Law</h4>
+                            <p class="mb-2">To multiply terms with the same base, you <strong>add</strong> the powers.</p>
+                            <code class="block bg-slate-200 p-3 rounded-md text-sm">aᵐ × aⁿ = aᵐ⁺ⁿ<br>Example: w² × w³ = w²⁺³ = w⁵</code>
+                        </div>
+                         <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h4 class="font-semibold text-lg mb-2">Division Law</h4>
+                            <p class="mb-2">To divide terms with the same base, you <strong>subtract</strong> the powers.</p>
+                            <code class="block bg-slate-200 p-3 rounded-md text-sm">aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>Example: p⁶ ÷ p² = p⁶⁻² = p⁴</code>
+                        </div>
+                    </div>
+                     <p class="text-sm text-slate-500 mt-4"><strong>Tip:</strong> Remember that any variable by itself has a power of 1 (e.g., x = x¹).</p>
+                `,
+                questions: [
+                    { q: "Simplify a⁴ × a³.", o: ["a⁷", "a¹²", "a¹", "2a⁷", "a", "7a"], a: "a⁷" },
+                    { q: "Simplify c⁶ × c².", o: ["c⁸", "c¹²", "c⁴", "c³", "2c⁸", "8c"], a: "c⁸" },
+                    { q: "Simplify g⁷ ÷ g².", o: ["g⁵", "g⁹", "g¹⁴", "g³·⁵", "5g", "g⁻⁵"], a: "g⁵" },
+                    { q: "Simplify z¹² ÷ z⁴.", o: ["z⁸", "z¹⁶", "z³", "z⁴⁸", "8z", "z⁻⁸"], a: "z⁸" },
+                    { q: "Simplify (a⁴)³.", o: ["a¹²", "a⁷", "a⁶⁴", "a", "12a", "a⁻¹"], a: "a¹²" },
+                    { q: "Simplify 6z⁷ ÷ 3z².", o: ["2z⁵", "3z⁵", "2z⁹", "3z⁹", "2z³·⁵", "18z⁹"], a: "2z⁵" },
+                    { q: "Simplify (p⁴ × p⁸) / p³.", o: ["p⁹", "p¹⁶", "p⁵", "p¹⁹", "p⁶", "p⁻⁹"], a: "p⁹" },
+                    { q: "Simplify 2p²q⁶ × 3pq².", o: ["6p³q⁸", "5p³q⁸", "6p²q¹²", "6p²q⁸", "5p²q¹²", "6p³q¹²"], a: "6p³q⁸" },
+                    { q: "Simplify y⁷ ÷ y.", o: ["y⁶", "y⁷", "y⁸", "7", "y⁻⁶", "1"], a: "y⁶" },
+                    { q: "Simplify t³ × t⁵ × t.", o: ["t⁹", "t¹⁵", "t⁸", "3t⁹", "t⁻⁹", "t"], a: "t⁹" },
+                    { q: "Simplify (2a³)². ", o: ["4a⁶", "2a⁶", "4a⁵", "2a⁵", "4a⁹", "2a⁹"], a: "4a⁶" },
+                    { q: "Simplify 10x⁵ ÷ 5x².", o: ["2x³", "5x³", "2x⁷", "5x⁷", "2x²·⁵", "50x⁷"], a: "2x³" },
+                    { q: "Simplify m⁹ / m³.", o: ["m⁶", "m¹²", "m³", "m²⁷", "6m", "m⁻⁶"], a: "m⁶" },
+                    { q: "Simplify b × b³.", o: ["b⁴", "b³", "2b⁴", "2b³", "b", "3b"], a: "b⁴" },
+                    { q: "Simplify (c⁵)⁴.", o: ["c²⁰", "c⁹", "c", "4c²⁰", "c¹", "c²"], a: "c²⁰" },
+                ]
+            },
+            "Algebraic Fractions": {
+                presentation: `
+                    <h3 class="text-2xl font-semibold text-slate-700">Working with Algebraic Fractions</h3>
+                    <p class="text-slate-600">The rules for normal fractions also apply to algebraic fractions. To add or subtract, you need a common denominator. To simplify, you can factorise the numerator and denominator and cancel common factors.</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h4 class="font-semibold text-lg mb-2">Addition Example</h4>
+                            <p class="mb-2">Simplify <strong>5h/8 + h/4</strong>.</p>
+                            <code class="block bg-slate-200 p-3 rounded-md text-sm">
+                                Find common denominator (8):<br>
+                                h/4 = 2h/8<br>
+                                5h/8 + 2h/8 = <strong>7h/8</strong>
+                            </code>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h4 class="font-semibold text-lg mb-2">Simplifying Example</h4>
+                            <p class="mb-2">Simplify <strong>(12d - 3) / 3</strong>.</p>
+                            <code class="block bg-slate-200 p-3 rounded-md text-sm">
+                                Factorise the numerator:<br>
+                                3(4d - 1) / 3<br>
+                                Cancel the 3s:<br>
+                                = <strong>4d - 1</strong>
+                            </code>
+                        </div>
+                    </div>
+                     <p class="text-sm text-slate-500 mt-4"><strong>Tip:</strong> Always look to factorise before you try to cancel terms.</p>
+                `,
+                questions: [
+                    { q: "Simplify (6x+2)/2.", o: ["3x+1", "3x+2", "6x+1", "3x", "4x", "6x"], a: "3x+1" },
+                    { q: "Simplify (21m-7)/7.", o: ["3m-1", "3m-7", "21m-1", "3m", "14m", "3m+1"], a: "3m-1" },
+                    { q: "Simplify (m²+3m)/m.", o: ["m+3", "m²+3", "4m", "3m", "m³+3m²", "m+3m"], a: "m+3" },
+                    { q: "Calculate (3x/4) × (x/5).", o: ["3x²/20", "3x/20", "4x/9", "3x/9", "3x²/9", "x²/20"], a: "3x²/20" },
+                    { q: "Write as a single fraction: h/3 + 7h/12.", o: ["11h/12", "8h/15", "7h²/36", "8h/12", "h/12", "7h/12"], a: "11h/12" },
+                    { q: "Write as a single fraction: 7b/8 - b/4.", o: ["5b/8", "6b/8", "6b/4", "b/8", "7b²/32", "9b/8"], a: "5b/8" },
+                    { q: "Simplify (4a+2ab)/a.", o: ["4+2b", "4+2ab", "6b", "4a+2b", "6ab", "4ab"], a: "4+2b" },
+                    { q: "Multiply: (4a/5) × (3a/8).", o: ["3a²/10", "12a²/40", "7a/13", "12a/40", "3a/10", "a²/10"], a: "3a²/10" },
+                    { q: "Simplify (10x²-5x)/5x.", o: ["2x-1", "2x-5", "10x-1", "5x²", "2x", "x-1"], a: "2x-1" },
+                    { q: "Simplify 2/x + 3/x.", o: ["5/x", "5/2x", "6/x²", "6/x", "5/x²", "x/5"], a: "5/x" },
+                    { q: "Simplify (12n+8)/4.", o: ["3n+2", "3n+8", "12n+2", "5n", "12n/4 + 2", "3n+1"], a: "3n+2" },
+                    { q: "Write as a single fraction: 3/y - 2/y.", o: ["1/y", "1/2y", "-6/y²", "y", "5/y", "-1/y"], a: "1/y" },
+                    { q: "Simplify (6n+18)/3.", o: ["2n+6", "2n+18", "6n+6", "8n", "2n+3", "n+6"], a: "2n+6" },
+                    { q: "Multiply: (6y/5) × (2/3).", o: ["4y/5", "12y/15", "8y/8", "12/15", "4y/15", "4y"], a: "4y/5" },
+                    { q: "Simplify x/3a + y/3a.", o: ["(x+y)/3a", "xy/3a", "xy/9a²", "x+y/3a", "x+y/6a", "xy/6a"], a: "(x+y)/3a" },
+                ]
+            },
+            "Constructing Expressions": {
+                presentation: `
+                    <h3 class="text-2xl font-semibold text-slate-700">Constructing Expressions</h3>
+                    <p class="text-slate-600">This involves translating words or situations into algebraic expressions. It's like turning a real-world problem into the language of math.</p>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-semibold text-lg mb-2">Worked Example</h4>
+                        <p class="mb-2">I think of a number, n, multiply it by 3, square the result, and then subtract 12. Write an expression for this.</p>
+                        <code class="block bg-slate-200 p-3 rounded-md text-sm">
+                            1. Think of a number: <strong>n</strong><br>
+                            2. Multiply by 3: <strong>3n</strong><br>
+                            3. Square the result: <strong>(3n)²</strong> which is <strong>9n²</strong><br>
+                            4. Subtract 12: <strong>9n² - 12</strong>
+                        </code>
+                    </div>
+                     <p class="text-sm text-slate-500 mt-4"><strong>Tip:</strong> Pay close attention to the order of operations described in the problem. "Square the result" is different from "square the number".</p>
+                `,
+                questions: [
+                    { q: "I think of n, double it, then subtract the answer from 30. Expression?", o: ["30-2n", "2n-30", "30(2n)", "2(n-30)", "30-n", "n-30"], a: "30-2n" },
+                    { q: "I think of m, add 4, multiply by 3, then divide by 5. Expression?", o: ["3(m+4)/5", "3m+4/5", "(m+12)/5", "3m+12/5", "3m/5 + 4", "m+4*3/5"], a: "3(m+4)/5" },
+                    { q: "Shani thinks of n, adds 6, then finds the square root. Expression?", o: ["√(n+6)", "√n + 6", "(n+6)²", "n+√6", "n²+6", "√(6n)"], a: "√(n+6)" },
+                    { q: "Find a formula for the volume of a cuboid with sides x, x, and x+6.", o: ["x²(x+6)", "x(x+6)", "2x(x+6)", "x²+x+6", "3x+6", "x³+6"], a: "x²(x+6)" },
+                    { q: "The area of a triangle is ½(base×height). Base=3x+4, Height=2x-1. Find the area.", o: ["½(6x²+5x-4)", "6x²+5x-4", "½(5x+3)", "3x²+2.5x-2", "3x²-2.5x-2", "6x²-5x-4"], a: "3x²+2.5x-2" },
+                    { q: "A square has side length (x+3). What is its area?", o: ["(x+3)²", "x²+9", "4(x+3)", "2(x+3)", "x²+6x+6", "x+6"], a: "(x+3)²" },
+                    { q: "A rectangle has length (2a+1) and width a. Find the perimeter.", o: ["6a+2", "2a²+a", "3a+1", "4a+2", "6a", "2a+2"], a: "6a+2" },
+                    { q: "Polina thinks of n, squares it, adds 6, then subtracts 5n. Expression?", o: ["n²-5n+6", "n²+5n+6", "(n+6)²-5n", "2n+6-5n", "n²+1", "n²-n"], a: "n²-5n+6" },
+                    { q: "Ellis buys p plants. n plants cost $d each. The rest cost $e. Total cost?", o: ["nd + e(p-n)", "p(d+e)", "nd+ep", "nd-ep", "pd+ne", "n(d-e)+pe"], a: "nd + e(p-n)" },
+                    { q: "A taxi costs $5 plus $2 per mile (m). Total cost expression?", o: ["5+2m", "5m+2", "7m", "5(2m)", "2(m+5)", "10m"], a: "5+2m" },
+                    { q: "A book costs $b. A pen costs $2 less. Total cost of 3 books and 1 pen?", o: ["3b + (b-2)", "3b-2", "3b(b-2)", "4b-2", "b+(b-2)", "3(b-2)"], a: "4b-2" },
+                    { q: "Side of an equilateral triangle is (y+4). Find the perimeter.", o: ["3(y+4)", "3y+4", "y+12", "y³+64", "3y+7", "3y+1"], a: "3(y+4)" },
+                    { q: "A number x is tripled and then decreased by 10. Expression?", o: ["3x-10", "10-3x", "3(x-10)", "x³-10", "x/3 - 10", "30x"], a: "3x-10" },
+                    { q: "The sum of two consecutive integers, where the first is n.", o: ["2n+1", "n(n+1)", "2n+2", "n+1", "n²+n", "2n"], a: "2n+1" },
+                    { q: "An apple costs x cents, a banana costs y cents. Cost of 5 apples and 3 bananas?", o: ["5x+3y", "8xy", "5x-3y", "3x+5y", "15xy", "xy+8"], a: "5x+3y" },
+                ]
+            },
+        };
+
+        // Adding more questions to meet the approx. 15-question target per section
+        // Note: In a real scenario, these would be unique. For this demo, we'll add slight variations.
+        const addVariations = (topicData) => {
+            const originalQuestions = JSON.parse(JSON.stringify(topicData.questions));
+            if (originalQuestions.length < 15) {
+                let question = originalQuestions[Math.floor(Math.random() * originalQuestions.length)];
+                let newQ = JSON.parse(JSON.stringify(question));
+                // This is a simplified variation logic
+                newQ.q = newQ.q.replace(/\d+/g, d => parseInt(d) + 1);
+                // The answer and options would need to be re-calculated here. 
+                // For this example, we will just duplicate to reach the count.
+                while(topicData.questions.length < 15){
+                   topicData.questions.push(originalQuestions[topicData.questions.length % originalQuestions.length]);
+                }
+            }
+            // Shuffle questions
+            topicData.questions.sort(() => Math.random() - 0.5);
+            return topicData;
+        }
+
+        // Object.keys(quizData).forEach(topic => {
+        //     quizData[topic] = addVariations(quizData[topic]);
+        // });
+
+
+        let currentSubtopic = '';
+        let currentQuestionIndex = 0;
+        let scoreCorrect = 0;
+        let scoreWrong = 0;
+        let attempts = 0;
+        let incorrectQuestions = [];
+        let isCorrectionMode = false;
+        let currentCorrectionIndex = 0;
+
+
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const presentationScreen = document.getElementById('presentation-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const correctionScreen = document.getElementById('correction-screen');
+        const resultsScreen = document.getElementById('results-screen');
+
+        const screens = { welcomeScreen, presentationScreen, quizScreen, correctionScreen, resultsScreen };
+
+        function showScreen(screenToShow) {
+            Object.values(screens).forEach(screen => screen.classList.add('hidden'));
+            screenToShow.classList.remove('hidden');
+        }
+
+        function populateSubtopics() {
+            const container = document.getElementById('subtopic-selection');
+            container.innerHTML = '';
+            Object.keys(quizData).forEach(topic => {
+                const button = document.createElement('button');
+                button.className = "bg-sky-500 text-white font-bold py-4 px-6 rounded-lg shadow-md hover:bg-sky-600 transition-all text-lg";
+                button.textContent = topic;
+                button.onclick = () => showPresentation(topic);
+                container.appendChild(button);
+            });
+        }
+
+        function showPresentation(topic) {
+            currentSubtopic = topic;
+            const data = quizData[topic];
+            document.getElementById('presentation-title').textContent = topic;
+            document.getElementById('presentation-content').innerHTML = data.presentation;
+            showScreen(presentationScreen);
+        }
+        
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            scoreCorrect = 0;
+            scoreWrong = 0;
+            incorrectQuestions = [];
+            isCorrectionMode = false;
+            updateScoreDisplay();
+            loadQuestion();
+            showScreen(quizScreen);
+        }
+        
+        function loadQuestion() {
+            const questionData = quizData[currentSubtopic].questions[currentQuestionIndex];
+            attempts = 0;
+
+            document.getElementById('quiz-title').textContent = currentSubtopic;
+            document.getElementById('question-number').textContent = currentQuestionIndex + 1;
+            document.getElementById('total-questions').textContent = quizData[currentSubtopic].questions.length;
+            document.getElementById('question-text').innerHTML = questionData.q;
+            document.getElementById('attempt-tracker').textContent = '';
+            document.getElementById('feedback-message').textContent = '';
+
+            const progress = ((currentQuestionIndex + 1) / quizData[currentSubtopic].questions.length) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            // Shuffle options
+            const shuffledOptions = [...questionData.o].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn bg-white border-2 border-slate-300 p-4 rounded-lg text-left hover:bg-sky-100 hover:border-sky-400';
+                button.innerHTML = option;
+                button.onclick = () => checkAnswer(button, option, questionData.a);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(button, selectedAnswer, correctAnswer) {
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(opt => opt.disabled = true); // Disable options after selection
+            
+            if (selectedAnswer === correctAnswer) {
+                button.classList.add('correct-answer');
+                document.getElementById('feedback-message').textContent = "Excellent, Mathias! That's correct.";
+                document.getElementById('feedback-message').className = 'mt-6 text-center font-medium text-green-600';
+                if (!isCorrectionMode) {
+                   scoreCorrect++;
+                }
+                setTimeout(() => {
+                    if(isCorrectionMode) {
+                        currentCorrectionIndex++;
+                        loadCorrectionQuestion();
+                    } else {
+                        nextQuestion();
+                    }
+                }, 1500);
+            } else {
+                button.classList.add('wrong-answer');
+                attempts++;
+                if (attempts < 2 && !isCorrectionMode) {
+                    document.getElementById('feedback-message').textContent = `Not quite, Mathias. Give it another shot!`;
+                    document.getElementById('feedback-message').className = 'mt-6 text-center font-medium text-amber-600';
+                    document.getElementById('attempt-tracker').textContent = '1 attempt used';
+                    setTimeout(() => {
+                        button.classList.remove('wrong-answer');
+                        options.forEach(opt => opt.disabled = false);
+                    }, 1500);
+                } else {
+                     document.getElementById('feedback-message').textContent = `Keep trying, Mathias! Let's move on for now.`;
+                     document.getElementById('feedback-message').className = 'mt-6 text-center font-medium text-red-600';
+                     if (!isCorrectionMode) {
+                        scoreWrong++;
+                        incorrectQuestions.push(quizData[currentSubtopic].questions[currentQuestionIndex]);
+                     } else {
+                         // In correction mode, they must get it right. So, re-enable buttons.
+                         setTimeout(() => {
+                             button.classList.remove('wrong-answer');
+                             options.forEach(opt => opt.disabled = false);
+                             document.getElementById('feedback-message').textContent = "Let's try that one again.";
+                         }, 1500);
+                         return; // Don't proceed to next question automatically
+                     }
+                     setTimeout(nextQuestion, 1500);
+                }
+            }
+             if(!isCorrectionMode) updateScoreDisplay();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-correct').textContent = `Correct: ${scoreCorrect}`;
+            document.getElementById('score-wrong').textContent = `Wrong: ${scoreWrong}`;
+        }
+        
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData[currentSubtopic].questions.length) {
+                loadQuestion();
+            } else {
+                endSubtopic();
+            }
+        }
+        
+        function endSubtopic() {
+            if (incorrectQuestions.length > 0) {
+                startCorrections();
+            } else {
+                showResults(true);
+            }
+        }
+
+        function startCorrections() {
+            isCorrectionMode = true;
+            currentCorrectionIndex = 0;
+            showScreen(correctionScreen);
+            loadCorrectionQuestion();
+        }
+        
+        function loadCorrectionQuestion(){
+            if(currentCorrectionIndex < incorrectQuestions.length){
+                const questionData = incorrectQuestions[currentCorrectionIndex];
+                const container = document.getElementById('correction-quiz-container');
+
+                container.innerHTML = `
+                    <div class="bg-slate-50 p-6 rounded-2xl shadow-inner mt-4">
+                        <p class="text-slate-500 mb-4">Correcting Question ${currentCorrectionIndex + 1} of ${incorrectQuestions.length}</p>
+                        <p class="text-xl font-medium mb-6">${questionData.q}</p>
+                        <div id="correction-options" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+                        <div id="correction-feedback" class="mt-6 font-medium"></div>
+                    </div>
+                `;
+                
+                const optionsContainer = document.getElementById('correction-options');
+                const shuffledOptions = [...questionData.o].sort(() => Math.random() - 0.5);
+
+                shuffledOptions.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-btn bg-white border-2 border-slate-300 p-4 rounded-lg text-left hover:bg-sky-100 hover:border-sky-400';
+                    button.innerHTML = option;
+                    button.onclick = () => checkCorrectionAnswer(button, option, questionData.a);
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                showResults(false);
+            }
+        }
+
+        function checkCorrectionAnswer(button, selectedAnswer, correctAnswer) {
+            const options = document.querySelectorAll('#correction-options .option-btn');
+            options.forEach(opt => opt.disabled = true);
+            const feedbackEl = document.getElementById('correction-feedback');
+
+            if(selectedAnswer === correctAnswer){
+                button.classList.add('correct-answer');
+                feedbackEl.textContent = "Correct! Now you've got it.";
+                feedbackEl.className = 'mt-6 font-medium text-green-600';
+                 // Reveal the correct answer for confirmation
+                options.forEach(opt => {
+                    if (opt.innerHTML === correctAnswer) {
+                        opt.classList.add('correct-answer');
+                    }
+                });
+                setTimeout(() => {
+                    currentCorrectionIndex++;
+                    loadCorrectionQuestion();
+                }, 2000);
+            } else {
+                button.classList.add('wrong-answer');
+                feedbackEl.textContent = "That's not it, try again, Mathias.";
+                feedbackEl.className = 'mt-6 font-medium text-red-600';
+                setTimeout(() => {
+                    button.classList.remove('wrong-answer');
+                    options.forEach(opt => opt.disabled = false);
+                }, 1500);
+            }
+        }
+        
+        function showResults(perfectScore) {
+            isCorrectionMode = false;
+            const title = document.getElementById('results-title');
+            const summary = document.getElementById('results-summary');
+            
+            if (perfectScore) {
+                title.textContent = `Perfect Score in ${currentSubtopic}!`;
+                summary.textContent = `Amazing work, you got all ${scoreCorrect} questions right.`;
+            } else {
+                title.textContent = `Subtopic ${currentSubtopic} Complete!`;
+                summary.textContent = `You finished with ${scoreCorrect} correct answers and ${scoreWrong} wrong answers. All corrections are now complete.`;
+            }
+
+            showScreen(resultsScreen);
+        }
+
+        function showWelcomeScreen() {
+            showScreen(welcomeScreen);
+        }
+        
+        // Initial setup
+        populateSubtopics();
+        showWelcomeScreen();
+
+    </script>
+</body>
+</html>

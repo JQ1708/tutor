@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Math Quiz: Standard Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4f8; /* Light blue-gray background */
+        }
+        .app-container {
+            transition: all 0.5s ease-in-out;
+            perspective: 1000px;
+        }
+        .screen {
+            animation: fadeIn 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .subtopic-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px -5px rgba(118, 75, 162, 0.4);
+        }
+        .subtopic-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 15px 25px -5px rgba(118, 75, 162, 0.5);
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #38bdf8, #3b82f6);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px 0 rgba(59, 130, 246, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px 0 rgba(59, 130, 246, 0.5);
+        }
+        .option-btn {
+            background-color: #ffffff;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+        .correct-answer {
+            background-color: #10b981 !important;
+            color: white;
+            border-color: #059669;
+            animation: pulseCorrect 0.5s;
+        }
+        .wrong-answer {
+            background-color: #ef4444 !important;
+            color: white;
+            border-color: #dc2626;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        @keyframes pulseCorrect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .glassmorphism-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div id="app-container" class="w-full max-w-4xl mx-auto">
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen text-center">
+            <div class="bg-white p-8 sm:p-12 rounded-3xl shadow-2xl">
+                <h1 class="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500 mb-4">Standard Form</h1>
+                <p class="text-slate-600 text-lg mb-8">An interactive quiz for IGCSE Year 8</p>
+                <p class="mb-10 text-slate-700">Hello Mathias! Let's help your students master Standard Form. Please select a topic to begin.</p>
+                <div id="subtopic-selection" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Subtopic cards will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Presentation Screen -->
+        <div id="presentation-screen" class="hidden screen">
+             <div class="glassmorphism-card p-8 sm:p-10 rounded-3xl">
+                <h2 id="presentation-title" class="text-3xl font-bold text-slate-800 mb-6 text-center"></h2>
+                <div id="presentation-content" class="space-y-6 slide-content text-slate-700">
+                    <!-- Slide content goes here -->
+                </div>
+                <div class="text-center mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                     <button onclick="showWelcomeScreen()" class="w-full sm:w-auto bg-white text-indigo-600 font-bold py-3 px-8 rounded-full shadow-md hover:bg-slate-100 transition-all">Back to Topics</button>
+                    <button onclick="startQuiz()" class="w-full sm:w-auto btn-primary text-white font-bold py-3 px-8 rounded-full">Let's Go!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden screen">
+            <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl">
+                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                    <h2 id="quiz-title" class="text-2xl font-bold text-indigo-600"></h2>
+                    <div class="flex space-x-6 text-lg font-semibold">
+                        <span id="score-correct" class="text-green-500 flex items-center gap-2">Correct: 0</span>
+                        <span id="score-wrong" class="text-red-500 flex items-center gap-2">Wrong: 0</span>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="flex justify-between items-center text-slate-500 mb-2">
+                         <p>Question <span id="question-number">1</span> of <span id="total-questions">15</span></p>
+                         <p id="attempt-tracker" class="text-sm font-medium"></p>
+                    </div>
+                    <div id="progress-bar" class="w-full bg-slate-200 rounded-full h-2.5">
+                        <div id="progress" class="bg-gradient-to-r from-sky-400 to-blue-500 h-2.5 rounded-full transition-all duration-500 ease-out"></div>
+                    </div>
+                </div>
+                <p id="question-text" class="text-xl font-medium text-slate-800 my-8 min-h-[60px] text-center"></p>
+                <div id="options-container" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Options buttons go here -->
+                </div>
+                <div id="feedback-message" class="mt-6 text-center font-semibold text-lg min-h-[30px]"></div>
+            </div>
+        </div>
+        
+        <!-- Correction Screen -->
+        <div id="correction-screen" class="hidden screen">
+             <div class="glassmorphism-card p-8 sm:p-10 rounded-3xl text-center">
+                <h2 class="text-3xl font-bold text-amber-600 mb-4">Correction Time!</h2>
+                <p class="text-slate-700 mb-8">Let's review the questions you got wrong, Mathias. You need to get them right to continue.</p>
+                <div id="correction-quiz-container">
+                    <!-- Correction quiz will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden screen text-center">
+            <div class="bg-white p-8 sm:p-12 rounded-3xl shadow-2xl">
+                <div id="results-icon" class="mb-4 text-6xl mx-auto"></div>
+                <h2 id="results-title" class="text-3xl font-bold text-slate-800 mb-4"></h2>
+                <p id="results-summary" class="text-lg text-slate-600 mb-8"></p>
+                <button onclick="showWelcomeScreen()" class="btn-primary text-white font-bold py-3 px-10 rounded-full">Choose Another Topic</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = {
+            "Multiplying & Dividing by Powers of 10": {
+                presentation: `
+                    <h3 class="text-2xl font-semibold text-slate-800">Powers of 10</h3>
+                    <p class="text-slate-600">Working with powers of 10 is a quick way to handle very large or small numbers. Remember, a positive power (like 10⁴) makes the number bigger, and a negative power (like 10⁻²) makes it smaller.</p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-white/50 p-4 rounded-xl border">
+                            <h4 class="font-semibold text-lg mb-2">Multiplying by 10⁴</h4>
+                            <p class="mb-2">Calculate: <strong>0.036 × 10⁴</strong></p>
+                            <code class="block bg-slate-100 p-3 rounded-md text-sm">
+                                10⁴ = 10,000.<br>
+                                This moves the decimal point 4 places to the right.<br>
+                                0.036 → 360
+                            </code>
+                        </div>
+                         <div class="bg-white/50 p-4 rounded-xl border">
+                            <h4 class="font-semibold text-lg mb-2">Multiplying by 10⁻²</h4>
+                            <p class="mb-2">Calculate: <strong>21 × 10⁻²</strong></p>
+                            <code class="block bg-slate-100 p-3 rounded-md text-sm">
+                                10⁻² = 1/100 = 0.01.<br>
+                                This moves the decimal point 2 places to the left.<br>
+                                21 → 0.21
+                            </code>
+                        </div>
+                    </div>
+                `,
+                questions: [
+                    { q: "Calculate 0.53 × 100", o: ["53", "5.3", "0.0053", "530", "5300", "0.053"], a: "53" },
+                    { q: "Calculate 260 × 0.1", o: ["26", "2.6", "2600", "0.26", "0.026", "260.1"], a: "26" },
+                    { q: "Calculate 13 × 10³", o: ["13000", "130", "1.3", "0.013", "1300", "13.000"], a: "13000" },
+                    { q: "Calculate 315 ÷ 10²", o: ["3.15", "31.5", "0.315", "31500", "3150", "0.0315"], a: "3.15" },
+                    { q: "Calculate 202 × 10⁻²", o: ["2.02", "20.2", "0.202", "20200", "0.0202", "-20200"], a: "2.02" },
+                    { q: "Calculate 0.056 ÷ 10⁻²", o: ["5.6", "0.56", "0.00056", "56", "560", "0.0056"], a: "5.6" },
+                    { q: "Calculate 52 × 10⁻³", o: ["0.052", "0.52", "5.2", "52000", "-52000", "0.0052"], a: "0.052" },
+                    { q: "Calculate 28 ÷ 10⁻²", o: ["2800", "280", "2.8", "0.28", "0.028", "28000"], a: "2800" },
+                    { q: "Calculate 0.69 ÷ 10¹", o: ["0.069", "6.9", "69", "0.0069", "690", "0.690"], a: "0.069" },
+                    { q: "Calculate 382.6 × 10⁻²", o: ["3.826", "38.26", "3826", "0.3826", "0.03826", "382600"], a: "3.826" },
+                    { q: "Calculate 569 ÷ 10⁻¹", o: ["5690", "56.9", "5.69", "0.569", "56900", "569.0"], a: "5690" },
+                    { q: "Calculate 0.1 ÷ 10⁻³", o: ["100", "10", "1", "0.001", "0.01", "1000"], a: "100" },
+                    { q: "Calculate 8 × 10⁻²", o: ["0.08", "0.8", "800", "-800", "0.008", "80"], a: "0.08" },
+                    { q: "Which is equivalent to 0.75 ÷ 10⁻¹?", o: ["7.5", "0.075", "75", "0.0075", "-7.5", "750"], a: "7.5" },
+                    { q: "Calculate 6521 × 10⁻⁴", o: ["0.6521", "6.521", "65.21", "652.1", "0.06521", "65210000"], a: "0.6521" },
+                ]
+            },
+            "Introduction to Standard Form": {
+                presentation: `
+                    <h3 class="text-2xl font-semibold text-slate-800">What is Standard Form?</h3>
+                    <p class="text-slate-600">Standard Form (or Scientific Notation) is a special way of writing numbers. It makes very large or very small numbers easy to read. A number in standard form looks like this: <strong>a × 10ᵇ</strong>, where 'a' is between 1 and 10, and 'b' is an integer.</p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-white/50 p-4 rounded-xl border">
+                            <h4 class="font-semibold text-lg mb-2">Large Numbers</h4>
+                            <p class="mb-2">Write <strong>562,000</strong> in standard form.</p>
+                            <code class="block bg-slate-100 p-3 rounded-md text-sm">
+                                1. Move the decimal to get a number between 1 and 10: <strong>5.62</strong><br>
+                                2. Count the places moved: <strong>5 places</strong>.<br>
+                                <strong>Answer: 5.62 × 10⁵</strong>
+                            </code>
+                        </div>
+                         <div class="bg-white/50 p-4 rounded-xl border">
+                            <h4 class="font-semibold text-lg mb-2">Small Numbers</h4>
+                            <p class="mb-2">Write <strong>0.0046</strong> in standard form.</p>
+                            <code class="block bg-slate-100 p-3 rounded-md text-sm">
+                                1. Move the decimal to get a number between 1 and 10: <strong>4.6</strong><br>
+                                2. Count the places moved: <strong>3 places</strong>.<br>
+                                <strong>Answer: 4.6 × 10⁻³</strong>
+                            </code>
+                        </div>
+                    </div>
+                `,
+                questions: [
+                    { q: "Write 6 × 10⁵ as an ordinary number.", o: ["600000", "60000", "6000", "0.00006", "600", "6000000"], a: "600000" },
+                    { q: "Write 7 × 10⁻⁶ as an ordinary number.", o: ["0.000007", "0.00007", "7000000", "-7000000", "0.0007", "0.0000007"], a: "0.000007" },
+                    { q: "Write 20,000 in standard form.", o: ["2 × 10⁴", "2 × 10⁵", "0.2 × 10⁵", "20 × 10³", "2 × 10³", "200 × 10²"], a: "2 × 10⁴" },
+                    { q: "Write 0.000082 in standard form.", o: ["8.2 × 10⁻⁵", "8.2 × 10⁵", "8.2 × 10⁻⁴", "0.82 × 10⁻⁴", "82 × 10⁻⁶", "8.2 × 10⁻⁶"], a: "8.2 × 10⁻⁵" },
+                    { q: "Write 50 × 10³ in correct standard form.", o: ["5 × 10⁴", "5 × 10³", "50 × 10³", "0.5 × 10⁵", "5 × 10²", "500 × 10²"], a: "5 × 10⁴" },
+                    { q: "Write 0.8 × 10⁴ in correct standard form.", o: ["8 × 10³", "8 × 10⁴", "0.8 × 10⁴", "8 × 10⁵", "80 × 10²", "8 × 10²"], a: "8 × 10³" },
+                    { q: "Write 356,000 in standard form.", o: ["3.56 × 10⁵", "3.56 × 10³", "35.6 × 10⁴", "356 × 10³", "3.56 × 10⁶", "0.356 × 10⁶"], a: "3.56 × 10⁵" },
+                    { q: "Write 8.03 × 10⁻³ as an ordinary number.", o: ["0.00803", "0.0803", "8030", "-8030", "0.000803", "803"], a: "0.00803" },
+                    { q: "The speed of light is about 300,000,000 m/s. Write this in standard form.", o: ["3 × 10⁸", "3 × 10⁷", "3 × 10⁹", "30 × 10⁷", "0.3 × 10⁹", "300 × 10⁶"], a: "3 × 10⁸" },
+                    { q: "A red blood cell has a diameter of about 0.000007 m. Write this in standard form.", o: ["7 × 10⁻⁶", "7 × 10⁻⁵", "7 × 10⁻⁷", "0.7 × 10⁻⁵", "70 × 10⁻⁷", "7 × 10⁶"], a: "7 × 10⁻⁶" },
+                    { q: "Write 1 in standard form.", o: ["1 × 10⁰", "1 × 10¹", "0.1 × 10¹", "10 × 10⁻¹", "1", "1 × 10⁻¹"], a: "1 × 10⁰" },
+                    { q: "Write 17 in standard form.", o: ["1.7 × 10¹", "17 × 10⁰", "0.17 × 10²", "1.7 × 10⁰", "1.7 × 10²", "17"], a: "1.7 × 10¹" },
+                    { q: "Write 0.1 in standard form.", o: ["1 × 10⁻¹", "1 × 10⁰", "0.1 × 10⁰", "10 × 10⁻²", "1 × 10¹", "1.0"], a: "1 × 10⁻¹" },
+                    { q: "Which number is NOT in standard form?", o: ["12 × 10³", "4.5 × 10¹⁶", "1.00 × 10⁻⁷", "9.9 × 10²", "1.1 × 10⁻³", "5 × 10⁰"], a: "12 × 10³" },
+                    { q: "The distance to the Sun is 1.49 × 10⁸ km. Write this as an ordinary number.", o: ["149,000,000", "1,490,000,000", "14,900,000", "149,000", "0.0000000149", "14900000000"], a: "149,000,000" },
+                ]
+            },
+        };
+
+        let currentSubtopic = '';
+        let currentQuestionIndex = 0;
+        let scoreCorrect = 0;
+        let scoreWrong = 0;
+        let attempts = 0;
+        let incorrectQuestions = [];
+        let isCorrectionMode = false;
+        let currentCorrectionIndex = 0;
+
+
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const presentationScreen = document.getElementById('presentation-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const correctionScreen = document.getElementById('correction-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const screens = { welcomeScreen, presentationScreen, quizScreen, correctionScreen, resultsScreen };
+
+        function showScreen(screenToShow) {
+            Object.values(screens).forEach(screen => screen.classList.add('hidden'));
+            screenToShow.classList.remove('hidden');
+        }
+
+        function populateSubtopics() {
+            const container = document.getElementById('subtopic-selection');
+            container.innerHTML = '';
+            Object.keys(quizData).forEach((topic, index) => {
+                const card = document.createElement('div');
+                card.className = "subtopic-card text-white p-6 rounded-2xl cursor-pointer flex flex-col items-start";
+                card.onclick = () => showPresentation(topic);
+                card.innerHTML = `
+                    <div class="bg-white/20 text-white w-12 h-12 flex items-center justify-center rounded-full text-xl font-bold mb-4">${index + 1}</div>
+                    <h3 class="text-2xl font-semibold mb-2">${topic}</h3>
+                    <p class="text-white/80 text-left">Master the fundamentals of this key concept.</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function showPresentation(topic) {
+            currentSubtopic = topic;
+            const data = quizData[topic];
+            document.getElementById('presentation-title').textContent = topic;
+            document.getElementById('presentation-content').innerHTML = data.presentation;
+            showScreen(presentationScreen);
+        }
+        
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            scoreCorrect = 0;
+            scoreWrong = 0;
+            incorrectQuestions = [];
+            isCorrectionMode = false;
+            updateScoreDisplay();
+            loadQuestion();
+            showScreen(quizScreen);
+        }
+        
+        function loadQuestion() {
+            const questionData = quizData[currentSubtopic].questions[currentQuestionIndex];
+            attempts = 0;
+
+            document.getElementById('quiz-title').textContent = currentSubtopic;
+            document.getElementById('question-number').textContent = currentQuestionIndex + 1;
+            document.getElementById('total-questions').textContent = quizData[currentSubtopic].questions.length;
+            document.getElementById('question-text').innerHTML = `<code>${questionData.q}</code>`;
+            document.getElementById('attempt-tracker').textContent = '';
+            document.getElementById('feedback-message').textContent = '';
+
+            const progress = ((currentQuestionIndex) / quizData[currentSubtopic].questions.length) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            const shuffledOptions = [...questionData.o].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn font-semibold p-4 rounded-xl text-center';
+                button.innerHTML = `<code>${option}</code>`;
+                button.onclick = () => checkAnswer(button, option, questionData.a);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(button, selectedAnswer, correctAnswer) {
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(opt => opt.disabled = true);
+            
+            if (selectedAnswer === correctAnswer) {
+                button.classList.add('correct-answer');
+                document.getElementById('feedback-message').textContent = "Excellent, Mathias! That's correct.";
+                document.getElementById('feedback-message').className = 'mt-6 text-center font-semibold text-lg min-h-[30px] text-green-500';
+                if (!isCorrectionMode) {
+                   scoreCorrect++;
+                }
+                setTimeout(() => {
+                    if(isCorrectionMode) {
+                        currentCorrectionIndex++;
+                        loadCorrectionQuestion();
+                    } else {
+                        nextQuestion();
+                    }
+                }, 1200);
+            } else {
+                button.classList.add('wrong-answer');
+                attempts++;
+                if (attempts < 2 && !isCorrectionMode) {
+                    document.getElementById('feedback-message').textContent = `Not quite, Mathias. Give it one more try!`;
+                    document.getElementById('feedback-message').className = 'mt-6 text-center font-semibold text-lg min-h-[30px] text-amber-500';
+                    document.getElementById('attempt-tracker').textContent = '1 attempt used';
+                    setTimeout(() => {
+                        button.classList.remove('wrong-answer');
+                        options.forEach(opt => opt.disabled = false);
+                        button.disabled = true; // Disable the wrong option
+                    }, 1500);
+                } else {
+                     document.getElementById('feedback-message').textContent = `Keep going, Mathias! Let's review this later.`;
+                     document.getElementById('feedback-message').className = 'mt-6 text-center font-semibold text-lg min-h-[30px] text-red-500';
+                     if (!isCorrectionMode) {
+                        scoreWrong++;
+                        incorrectQuestions.push(quizData[currentSubtopic].questions[currentQuestionIndex]);
+                     }
+                     // Correct answer is no longer revealed here.
+                     setTimeout(nextQuestion, 2000);
+                }
+            }
+             if(!isCorrectionMode) updateScoreDisplay();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-correct').textContent = `Correct: ${scoreCorrect}`;
+            document.getElementById('score-wrong').textContent = `Wrong: ${scoreWrong}`;
+        }
+        
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData[currentSubtopic].questions.length) {
+                loadQuestion();
+            } else {
+                // Animate final progress bar fill
+                document.getElementById('progress').style.width = `100%`;
+                setTimeout(endSubtopic, 500);
+            }
+        }
+        
+        function endSubtopic() {
+            if (incorrectQuestions.length > 0) {
+                startCorrections();
+            } else {
+                showResults(true);
+            }
+        }
+
+        function startCorrections() {
+            isCorrectionMode = true;
+            currentCorrectionIndex = 0;
+            showScreen(correctionScreen);
+            loadCorrectionQuestion();
+        }
+        
+        function loadCorrectionQuestion(){
+            if(currentCorrectionIndex < incorrectQuestions.length){
+                const questionData = incorrectQuestions[currentCorrectionIndex];
+                const container = document.getElementById('correction-quiz-container');
+
+                container.innerHTML = `
+                    <div class="bg-white/50 p-6 rounded-2xl shadow-inner mt-4 border">
+                        <p class="text-slate-600 font-medium mb-4">Correcting (${currentCorrectionIndex + 1}/${incorrectQuestions.length})</p>
+                        <p class="text-xl font-medium mb-6 text-slate-800"><code>${questionData.q}</code></p>
+                        <div id="correction-options" class="grid grid-cols-2 gap-4"></div>
+                        <div id="correction-feedback" class="mt-6 font-semibold text-lg min-h-[30px]"></div>
+                    </div>
+                `;
+                
+                const optionsContainer = document.getElementById('correction-options');
+                const shuffledOptions = [...questionData.o].sort(() => Math.random() - 0.5);
+
+                shuffledOptions.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-btn font-semibold p-4 rounded-xl text-center';
+                    button.innerHTML = `<code>${option}</code>`;
+                    button.onclick = () => checkCorrectionAnswer(button, option, questionData.a);
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                showResults(false);
+            }
+        }
+
+        function checkCorrectionAnswer(button, selectedAnswer, correctAnswer) {
+            const options = document.querySelectorAll('#correction-options .option-btn');
+            options.forEach(opt => opt.disabled = true);
+            const feedbackEl = document.getElementById('correction-feedback');
+
+            if(selectedAnswer === correctAnswer){
+                button.classList.add('correct-answer');
+                feedbackEl.textContent = "Perfect! Now you've got it.";
+                feedbackEl.className = 'mt-6 font-semibold text-lg min-h-[30px] text-green-600';
+                setTimeout(() => {
+                    currentCorrectionIndex++;
+                    loadCorrectionQuestion();
+                }, 1500);
+            } else {
+                button.classList.add('wrong-answer');
+                feedbackEl.textContent = "That's not it. Try again, Mathias.";
+                feedbackEl.className = 'mt-6 font-semibold text-lg min-h-[30px] text-red-500';
+                setTimeout(() => {
+                    options.forEach(opt => opt.disabled = false);
+                    button.disabled = true;
+                }, 1500);
+            }
+        }
+        
+        function showResults(perfectScore) {
+            isCorrectionMode = false;
+            const title = document.getElementById('results-title');
+            const summary = document.getElementById('results-summary');
+            const icon = document.getElementById('results-icon');
+            
+            if (perfectScore) {
+                icon.innerHTML = '🎉';
+                title.textContent = `Perfect Score in ${currentSubtopic}!`;
+                summary.textContent = `Amazing work! You got all ${scoreCorrect} questions right on the first try.`;
+            } else {
+                icon.innerHTML = '👍';
+                title.textContent = `${currentSubtopic} Complete!`;
+                summary.textContent = `Great effort! You finished with ${scoreCorrect} correct and have now corrected all mistakes.`;
+            }
+            showScreen(resultsScreen);
+        }
+
+        function showWelcomeScreen() {
+            showScreen(welcomeScreen);
+        }
+        
+        // Initial setup
+        populateSubtopics();
+        showWelcomeScreen();
+
+    </script>
+</body>
+</html>
+
