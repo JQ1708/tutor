@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 9 Series - Step-by-Step Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .step:before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        code {
+            background-color: #eef1f3;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c0392b;
+        }
+        .formula-box {
+            font-style: italic;
+            color: #2980b9;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Chapter 9: Series Guidance</h1>
+        <p>This chapter covers Arithmetic and Geometric series. Pay close attention to which formula to use. Let's break down each question.</p>
+
+        <!-- Question 1 -->
+        <div class="question-block">
+            <h2>Question 1: Arithmetic Series with Sₙ = 2n(10 - n)</h2>
+            <div class="step">
+                <strong>(a) Find the first term (a):</strong> The first term is the sum of the first 1 term, S₁.
+                <p><code>a = S₁ = 2(1)(10 - 1) = 2 x 9 = ?</code></p>
+            </div>
+            <div class="step">
+                <strong>(b) Find the common difference (d):</strong> First, find S₂. Then use the fact that S₂ = t₁ + t₂ = a + (a + d) = 2a + d.
+                <p><code>S₂ = 2(2)(10 - 2) = 4 x 8 = ?</code></p>
+                <p><code>S₂ = 2a + d  =>  32 = 2(18) + d  =>  32 = 36 + d  =>  d = ?</code></p>
+            </div>
+            <div class="step">
+                <strong>(c) Find the largest n for which Sₙ > -50:</strong> Set up and solve the inequality.
+                <p><code>2n(10 - n) > -50  =>  20n - 2n² > -50</code></p>
+                <p>Divide by -2 and reverse the inequality sign: <code>n² - 10n < 25  =>  n² - 10n - 25 < 0</code></p>
+                <p>Find the roots using the quadratic formula. The largest integer n that satisfies the inequality will be your answer. The roots are approx 12.07 and -2.07. So, the largest integer value for n is <code>?</code>.</p>
+            </div>
+        </div>
+        
+        <!-- Question 2 -->
+        <div class="question-block">
+            <h2>Question 2: Arithmetic Series with S₂ = (2/3)t₅ and S₄ = t₁₀ + 3</h2>
+            <div class="formula-box">
+                Arithmetic Formulas: tₙ = a + (n-1)d  |  Sₙ = n/2 [2a + (n-1)d]
+            </div>
+            <div class="step">
+                <strong>(a) Find a and d:</strong> Set up two simultaneous equations.
+                <p>Eq 1: <code>S₂ = (2/3)t₅  =>  (2/2)[2a + d] = (2/3)[a + 4d]  =>  2a + d = (2/3)(a + 4d)</code></p>
+                <p>Eq 2: <code>S₄ = t₁₀ + 3  =>  (4/2)[2a + 3d] = [a + 9d] + 3  =>  2(2a + 3d) = a + 9d + 3</code></p>
+                <p>Simplify both equations and solve them to find <code>a = ?</code> and <code>d = ?</code>.</p>
+            </div>
+             <div class="step">
+                <strong>(b) Find p given Sₚ₊₂ - Sₚ = 110:</strong> Remember that Sₚ₊₂ - Sₚ = tₚ₊₁ + tₚ₊₂.
+                <p><code>[a + (p)d] + [a + (p+1)d] = 110</code></p>
+                <p>Substitute your values for a and d and solve for p. <code>2a + (2p+1)d = 110 => 2(5) + (2p+1)(4) = 110 => 10 + 8p + 4 = 110 => 8p = ? => p = ?</code></p>
+            </div>
+        </div>
+        
+        <!-- Question 3 -->
+        <div class="question-block">
+            <h2>Question 3: Arithmetic vs Geometric Series</h2>
+            <div class="step">
+                <strong>Step 1:</strong> Find the sum of the first 3 terms for the Arithmetic Series (a=p, d=p).
+                <p><code>S₃ = p + (p+p) + (p+2p) = ?p</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Find the sum of the first 3 terms for the Geometric Series (a=p).
+                <p><code>S₃ = p + pr + pr² = p(1 + r + r²)</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Set the sums equal and solve for r.
+                <p><code>6p = p(1 + r + r²)  =>  6 = 1 + r + r²</code> (since p≠0)</p>
+                <p><code>r² + r - ? = 0</code></p>
+                <p>Use the quadratic formula. Since r > 0, choose the positive root.</p>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-block">
+            <h2>Question 4: Geometric Series</h2>
+            <div class="step">
+                <strong>(a) Find the two possible values of r:</strong>
+                <p>Eq 1: <code>t₁ + t₃ = a + ar² = 250</code></p>
+                <p>Eq 2: <code>t₂ + t₃ = ar + ar² = 150</code></p>
+                <p>Subtract Eq 2 from Eq 1: <code>(a + ar²) - (ar + ar²) = 250 - 150  =>  a - ar = ?</code></p>
+                <p>Factor out 'a' to get <code>a(1-r) = 100</code>. Now use this and Eq 2 to solve for r. This leads to a quadratic <code>2r² + 5r - 3 = 0</code> which you can factorize to find <code>r = ?</code> and <code>r = ?</code>.</p>
+            </div>
+            <div class="step">
+                <strong>(b) Find the least n for Sₙ > 399.99:</strong> Use r > 0, so <code>r = 1/2</code>. Find 'a'.
+                <p><code>a(1 - 1/2) = 100  =>  a = ?</code></p>
+                <p>Use the Sₙ formula: <code>a(1-rⁿ)/(1-r) > 399.99</code></p>
+                <p><code>200(1 - (1/2)ⁿ) / (1/2) > 399.99  =>  400(1 - 0.5ⁿ) > 399.99</code></p>
+                <p>Solve this inequality for n using logarithms. The answer must be the next whole number up.</p>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-block">
+            <h2>Question 5: Geometric Series with t₂ + t₅ and t₂ - t₅</h2>
+            <div class="step">
+                <strong>(a) Find r and a:</strong>
+                <p>Eq 1: <code>ar + ar⁴ = 28/81</code></p>
+                <p>Eq 2: <code>ar - ar⁴ = 76/405</code></p>
+                <p>Add the two equations: <code>2ar = 28/81 + 76/405  =>  2ar = ?/405  =>  ar = ?</code></p>
+                <p>Subtract Eq 2 from Eq 1: <code>2ar⁴ = 28/81 - 76/405  =>  2ar⁴ = ?/405  =>  ar⁴ = ?</code></p>
+                <p>Divide the results: <code>ar⁴ / ar = (32/405) / (4/15)  =>  r³ = ?</code>. So <code>r=?</code>.</p>
+                <p>Substitute r back into <code>ar = 4/15</code> to find <code>a=?</code></p>
+            </div>
+            <div class="step">
+                <strong>(b) Find the sum to infinity:</strong> Use the formula S_inf = a / (1-r).
+                <p><code>S_inf = (2/5) / (1 - 2/3) = ?</code></p>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-block">
+            <h2>Question 6: Arithmetic Series with t₄=108 and t₁₁=80</h2>
+             <div class="step">
+                <strong>(a) Find d and a:</strong> Set up simultaneous equations.
+                <p><code>a + 3d = 108</code></p>
+                <p><code>a + 10d = 80</code></p>
+                <p>Subtract the equations to find <code>-7d = ?</code>, so <code>d=?</code>. Then find <code>a=?</code></p>
+            </div>
+            <div class="step">
+                <strong>(b) Show Sₙ = 2n(61-n):</strong> Substitute a and d into the Sₙ formula and simplify.
+                <p><code>Sₙ = n/2 [2(?) + (n-1)(?)] = n/2 [240 - 4n + 4] = n/2 [? - 4n] = n(? - 2n) = 2n(61-n)</code></p>
+            </div>
+            <div class="step">
+                <strong>(c) Find n when Sₙ = 1100:</strong>
+                <p><code>2n(61 - n) = 1100  =>  61n - n² = 550  =>  n² - 61n + 550 = 0</code></p>
+                <p>Factorize the quadratic to find the two possible values of n: <code>(n-?)(n-?)=0</code></p>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-block">
+            <h2>Question 7: Geometric Series with t₆ = 4t₂</h2>
+            <div class="step">
+                <strong>(a) Find r:</strong> <code>ar⁵ = 4(ar)  =>  r⁴ = ?</code> (as a,r ≠ 0). So <code>r = ±√?</code>.
+            </div>
+             <div class="step">
+                <strong>(b) Find a:</strong> Use <code>t₃ + t₇ = 30</code> and the positive value <code>r = √2</code>.
+                <p><code>ar² + ar⁶ = 30  =>  a( (√2)² + (√2)⁶ ) = 30  =>  a(2 + ?) = 30 => ?a = 30 => a=?</code></p>
+            </div>
+            <div class="step">
+                <strong>(c) Find S₁₀:</strong> Use the formula Sₙ = a(rⁿ-1)/(r-1) with a=3, r=√2, n=10.
+            </div>
+            <div class="step">
+                <strong>(d) Find least n for tₙ > 2400:</strong>
+                <p><code>arⁿ⁻¹ > 2400  =>  3(√2)ⁿ⁻¹ > 2400  =>  (√2)ⁿ⁻¹ > ?</code></p>
+                <p>Take logs of both sides to solve for n. <code>(n-1)log(√2) > log(800)</code>. Find n and round up to the next integer.</p>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-block">
+            <h2>Question 8: Arithmetic Series Sₙ = Σ(4r+1)</h2>
+            <div class="step">
+                <strong>(a) Show Sₙ = n(3+2n):</strong> First find a and d.
+                <p><code>a = t₁ = 4(1) + 1 = ?</code></p>
+                <p>The common difference is the coefficient of r, so <code>d=?</code>.</p>
+                <p>Substitute into Sₙ formula: <code>Sₙ = n/2 [2(5) + (n-1)(4)] = n/2 [10 + 4n - 4] = n/2 [? + 4n] = n(3+2n)</code>.</p>
+            </div>
+            <div class="step">
+                <strong>(b) Find n for Sₙ₊₃ - Sₙ = 3t₁₅:</strong>
+                <p><code>Sₙ₊₃ - Sₙ</code> is the sum of terms tₙ₊₁, tₙ₊₂, and tₙ₊₃.</p>
+                <p><code>t₁₅ = a + 14d = 5 + 14(4) = ?</code></p>
+                <p>The sum of three consecutive terms in an arithmetic series is 3 times the middle term. So, <code>tₙ₊₁ + tₙ₊₂ + tₙ₊₃ = 3tₙ₊₂</code>.</p>
+                <p><code>3tₙ₊₂ = 3t₁₅  =>  tₙ₊₂ = t₁₅  =>  n+2 = ?  =>  n=?</code></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

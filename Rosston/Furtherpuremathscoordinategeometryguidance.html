@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 8 Cartesian Coordinates - Step-by-Step Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .step:before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        code {
+            background-color: #eef1f3;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c0392b;
+        }
+        .formula {
+            font-style: italic;
+            color: #2980b9;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Chapter 8: Cartesian Coordinates Guidance</h1>
+        <p>Let's get started on this new chapter. We'll use the same method of breaking down the problems. Focus on the formulas and apply them carefully!</p>
+        
+        <!-- Question 1 -->
+        <div class="question-block">
+            <h2>Question 1: Curve C has equation y = (3x + 1) / (2x + 3)</h2>
+            <h3>Part (d): Find an equation for the normal  l at point A</h3>
+            <div class="formula">Quotient Rule: If <code>y = u/v</code>, then <code>dy/dx = (v(du/dx) - u(dv/dx)) / v²</code></div>
+            <div class="step">
+                <strong>Step 1:</strong> Point A is where the curve crosses the x-axis, so y=0. From Q1 in Ch6, we know A is <code>(-1/3, 0)</code>.
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Differentiate the curve's equation using the quotient rule to find the gradient of the tangent. Let <code>u = 3x+1</code> and <code>v = 2x+3</code>.
+                <p><code>du/dx = 3</code>, <code>dv/dx = 2</code></p>
+                <p><code>dy/dx = ((2x+3)(?) - (3x+1)(?)) / (2x+3)² = (6x+9 - 6x-2) / (2x+3)² = ? / (2x+3)²</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Find the gradient of the tangent at point A by substituting <code>x = -1/3</code> into <code>dy/dx</code>.
+                <p><code>m_tangent = 7 / (2(-1/3) + 3)² = 7 / (7/3)² = ?</code></p>
+            </div>
+             <div class="step">
+                <strong>Step 4:</strong> The normal is perpendicular to the tangent. Find the gradient of the normal.
+                <p><code>m_normal = -1 / m_tangent = ?</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 5:</strong> Use the point-gradient formula <code>y - y₁ = m(x - x₁)</code> with point A and the normal's gradient.
+                <p><code>y - 0 = ? (x - (-1/3))  =>  y = ?(x + 1/3)</code></p>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-block">
+            <h2>Question 2: Points A(-2, 3), B(2, 5), C(4, 1)</h2>
+             <h3>Part (a), (b), (c) are in the previous version.</h3>
+            <h3>Part (d): Find the radius of the circle through A, B, and C</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Since angle ABC is 90°, the line AC is the diameter of the circle. The center of the circle is the midpoint M found in part (c).
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> The radius is the distance from the center M to any of the points A, B, or C. Let's find the length of BM. The coordinates of M are <code>(1, 2)</code>.
+                <p><code>Radius = Length_BM = √((2 - 1)² + (5 - 2)²) = √(1² + 3²) = √?</code></p>
+            </div>
+        </div>
+        
+        <!-- Question 3 -->
+        <div class="question-block">
+            <h2>Question 3: Points A(2, 4), B(5, -2)</h2>
+             <h3>Part (a), (b) are in the previous version.</h3>
+             <h3>Part (c): Find the equation of DC</h3>
+             <div class="step">
+                 <strong>Step 1:</strong> You have the gradient of DC from part (b) (it's <code>1/2</code>) and you have point D(1, 1). Use the point-gradient form <code>y - y₁ = m(x - x₁)</code>.
+                 <p><code>y - 1 = (1/2)(x - 1)</code></p>
+                 <p><code>2(y-1) = x-1  =>  2y - 2 = x - 1  =>  ?y = x + ?</code></p>
+            </div>
+            <h3>Part (e): Calculate the area of quadrilateral ADBE</h3>
+             <div class="step">
+                <strong>Step 1:</strong> The quadrilateral is a kite because diagonal DC is the perpendicular bisector of diagonal AB. The area of a kite is half the product of its diagonals. Area = <code>1/2 * (length DE) * (length AB)</code>.
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Find the length of AB and DE using the distance formula. You will need the coordinates of E from part (d), which are <code>(5, 3)</code>.
+                <p><code>Length_AB = √((5-2)² + (-2-4)²) = √(3² + (-6)²) = √?</code></p>
+                <p><code>Length_DE = √((5-1)² + (3-1)²) = √(4² + 2²) = √?</code></p>
+                 <p><code>Area = 1/2 * √45 * √20 = 1/2 * (3√5) * (2√5) = ?</code></p>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-block">
+            <h2>Question 4: f(x) = 4 + 3x - x²</h2>
+            <h3>Part (a): Write f(x) in the form P - Q(x + R)²</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Rearrange and factor out -1. <code>f(x) = -(x² - 3x - 4)</code>.
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Complete the square for the expression inside the bracket.
+                <p><code>x² - 3x = (x - 3/2)² - (3/2)² = (x - 3/2)² - 9/4</code></p>
+                <p><code>f(x) = -((x - 3/2)² - 9/4 - 4) = -((x - 3/2)² - 25/4) = ? - (x - ?)²</code></p>
+            </div>
+            <h3>Part (c): Find equation of tangent l₁ at x=1</h3>
+             <div class="step">
+                <strong>Step 1:</strong> Find the derivative <code>f'(x)</code>.
+                <p><code>f'(x) = 3 - ?x</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Find the gradient at x=1. <code>m = f'(1) = 3 - 2(1) = ?</code>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Find the y-coordinate at x=1. <code>y = f(1) = 4 + 3(1) - 1² = ?</code>
+            </div>
+             <div class="step">
+                <strong>Step 4:</strong> Use the point-gradient form with point <code>(1, 6)</code> and gradient <code>m=1</code>.
+                <p><code>y - 6 = 1(x - 1)  =>  y = x + ?</code></p>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-block">
+            <h2>Question 5: Points A(1, 7), B(13, 1)</h2>
+            <h3>Part (b): Find C, which divides AB in the ratio 1:2</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Use the section formula with m=1, n=2.
+                <p><code>x-coord = (2(1) + 1(13)) / (1 + 2) = (2 + 13) / 3 = ?</code></p>
+                <p><code>y-coord = (2(7) + 1(1)) / (1 + 2) = (14 + 1) / 3 = ?</code></p>
+            </div>
+            <h3>Part (c): Find the equation of the perpendicular line l</h3>
+             <div class="step">
+                <strong>Step 1:</strong> Find the gradient of AB. <code>m_AB = (1 - 7) / (13 - 1) = -6 / 12 = ?</code>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Find the gradient of the perpendicular line l. <code>m_l = -1 / m_AB = ?</code>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Use the point-gradient form with point C <code>(5, 5)</code>.
+                <p><code>y - 5 = ?(x - 5)  =>  y = 2x - 10 + 5  =>  y = 2x - ?</code></p>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-block">
+            <h2>Question 6: Points A(-3, -6), B(5, -2)</h2>
+            <h3>Part (a): Find an equation of line l (AB)</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Find the gradient of AB. <code>m = (-2 - (-6)) / (5 - (-3)) = 4 / 8 = ?</code>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Use the point-gradient form with point A.
+                <p><code>y - (-6) = (1/2)(x - (-3))  =>  y + 6 = 1/2(x + 3)  =>  y = ?x - ?</code></p>
+            </div>
+            <h3>Part (b): Show k = -5 for point P(k, -2) where AP is perpendicular to l</h3>
+            <div class="step">
+                <strong>Step 1:</strong> The gradient of the perpendicular line AP must be <code>-1 / (1/2) = ?</code>.
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Use the gradient formula for points A and P.
+                <p><code>m_AP = (-2 - (-6)) / (k - (-3)) = 4 / (k + 3)</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Set the gradient of AP equal to -2 and solve for k.
+                <p><code>4 / (k + 3) = -2  =>  4 = -2(k + 3)  =>  4 = -2k - 6  =>  10 = -2k  =>  k = ?</code></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

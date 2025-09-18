@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5 Inequalities - Step-by-Step Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .step:before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        code {
+            background-color: #eef1f3;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c0392b;
+        }
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 0.2em;
+            text-align: center;
+        }
+        .fraction > span {
+            display: block;
+            padding: 0 0.3em;
+        }
+        .fraction > span.bottom {
+            border-top: 1px solid #000;
+        }
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Chapter 5: Inequalities Guidance</h1>
+        <p>Hello! Let's work through these problems together. Follow the steps for each question. The parts with a <code>?</code> are for you to figure out. Good luck!</p>
+
+        <!-- Question 2 -->
+        <div class="question-block">
+            <h2>Question 2: Find the set of values of x for which (2x − 3)² > 7x − 3</h2>
+            <div class="step">
+                <strong>Step 1:</strong> First, expand the squared bracket <code>(2x − 3)²</code>.
+                <p><code>(2x − 3)(2x − 3) = 4x² - 6x - 6x + 9</code></p>
+                <p>This simplifies to: <code>?x² − 12x + 9</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Now, rewrite the full inequality with the expanded bracket.
+                <p><code>4x² − 12x + 9 > 7x − 3</code></p>
+                <p>Rearrange the inequality so that all terms are on one side, making the other side zero.</p>
+                <p><code>4x² − 12x - 7x + 9 + 3 > 0</code></p>
+                <p><code>4x² − ?x + ? > 0</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Factorise the quadratic expression <code>4x² − 19x + 12</code>.
+                <p>Think about two numbers that multiply to give <code>4 × 12 = 48</code> and add to give <code>-19</code>. These are -16 and -3.</p>
+                <p><code>4x² - 16x - 3x + 12 > 0</code></p>
+                <p><code>4x(x - 4) - 3(x - 4) > 0</code></p>
+                <p><code>(4x − ?)(x − ?) > 0</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Find the 'critical values' by solving for x as if the inequality were an equals sign.
+                <p><code>4x − 3 = 0  => x = ?</code></p>
+                <p><code>x − 4 = 0  => x = ?</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 5:</strong> The inequality is <code>> 0</code>, which means we are looking for where the quadratic curve is <strong>above</strong> the x-axis. This happens in two separate regions.
+                <p class="note">Sketch a simple U-shaped parabola passing through your two critical values on the x-axis to help you see the regions.</p>
+                <p><code>x < <span class="fraction"><span class="top">3</span><span class="bottom">4</span></span></code> OR <code>x > ?</code></p>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-block">
+            <h2>Question 3: Use algebra to find the set of values of x for which (3x − 1)(x − 1) < 2(3x − 1)</h2>
+            <div class="step">
+                <strong>Step 1:</strong> Expand the brackets on both sides of the inequality.
+                <p>Left side: <code>(3x − 1)(x − 1) = 3x² - 3x - x + 1 = 3x² - 4x + 1</code></p>
+                <p>Right side: <code>2(3x − 1) = ?x - ?</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Rewrite the full inequality with the expanded parts.
+                <p><code>3x² − 4x + 1 < 6x − 2</code></p>
+                <p>Now, bring all terms to one side to get a quadratic inequality less than zero.</p>
+                <p><code>3x² − 4x - 6x + 1 + 2 < 0</code></p>
+                <p><code>3x² − ?x + ? < 0</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Factorise the resulting quadratic expression <code>3x² − 10x + 3</code>.
+                <p><code>(3x − ?)(x − ?) < 0</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Find the critical values by setting each bracket to zero.
+                <p><code>3x − 1 = 0  => x = ?</code></p>
+                <p><code>x − 3 = 0  => x = ?</code></p>
+            </div>
+            <div class="step">
+                <strong>Step 5:</strong> The inequality is <code>< 0</code>, so we need to find where the quadratic curve is <strong>below</strong> the x-axis. This occurs in the single region between the two critical values.
+                <p class="note">Again, a quick sketch of the parabola will help you visualize this.</p>
+                <p><code>? < x < ?</code></p>
+            </div>
+        </div>
+        
+         <!-- Question 1 & 4 (Graphical) -->
+        <div class="question-block">
+            <h2>Guidance for Graphical Questions (Q1 & Q4)</h2>
+            <p>Both Question 1 and Question 4 require a similar graphical approach.</p>
+            <div class="step">
+                <strong>Step 1: Drawing the Lines</strong>
+                <p>For each equation, find two points on the line. The easiest way is to find where the line crosses the x-axis (set <code>y=0</code>) and the y-axis (set <code>x=0</code>).</p>
+                <p class="note">For Q1, you need to draw <code>y = -x - 1</code>, <code>y = 3x - 9</code>, and <code>2y = x + 7</code>.</p>
+                <p class="note">For Q4, you need to draw <code>y = 3x - 3</code>, <code>3x + 2y = 12</code>, and <code>y = -1</code>.</p>
+            </div>
+            <div class="step">
+                <strong>Step 2: Identifying the Region R</strong>
+                <p>To find the region R, pick a test point (like (0, 0)) and see if it satisfies each inequality. For example, in Q1, for <code>y ≥ -x - 1</code>, substitute (0, 0): <code>0 ≥ -0 - 1</code>, which is <code>0 ≥ -1</code>. This is true, so you shade the side of the line <code>y = -x - 1</code> that contains (0, 0).</p>
+                <p>Do this for all three inequalities. The region where all shading overlaps is R.</p>
+            </div>
+            <div class="step">
+                <strong>Step 3: Finding Vertices</strong>
+                <p>The region R will be a polygon (a triangle in these cases). The corners of this shape are called vertices. Find the coordinates of each vertex by solving the equations of the two lines that intersect to create it.</p>
+                 <p class="note">For Q1, you should have three vertices. One is at <code>(2, -3)</code>. Find the other two!</p>
+                 <p class="note">For Q4, you should also have three vertices. One is at <code>(?, -1)</code>.</p>
+            </div>
+            <div class="step">
+                <strong>Step 4: Finding Greatest / Least Value</strong>
+                <p>The greatest or least value of P will always occur at one of the vertices. Substitute the (x, y) coordinates of each vertex you found into the given expression for P.</p>
+                <p>For Q1, <code>P = y - 2x</code>. Complete the table:</p>
+                <table border="1" cellpadding="5">
+                    <tr><th>Vertex (x, y)</th><th>Calculation (y - 2x)</th><th>Value of P</th></tr>
+                    <tr><td>(2, -3)</td><td>(-3) - 2(2)</td><td>?</td></tr>
+                    <tr><td>(5, 6)</td><td>(6) - 2(5)</td><td>?</td></tr>
+                    <tr><td>(-3, 2)</td><td>(2) - 2(-3)</td><td>?</td></tr>
+                </table>
+                <p>Compare the values to find the greatest and least P.</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

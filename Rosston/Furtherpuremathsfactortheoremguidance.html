@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 12 Factor Theorem - Step-by-Step Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .step:before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        code {
+            background-color: #eef1f3;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c0392b;
+        }
+        .formula-box {
+            font-style: italic;
+            color: #2980b9;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Chapter 12: Factor Theorem Guidance</h1>
+        <div class="formula-box">
+            <strong>Key Concepts:</strong><br>
+            <p><strong>Remainder Theorem:</strong> If a polynomial f(x) is divided by (x - a), the remainder is f(a).</p>
+            <p><strong>Factor Theorem:</strong> If f(a) = 0, then (x - a) is a factor of f(x).</p>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-block">
+            <h2>Question 1: f(x) = 2x³ + ax² + bx + 15</h2>
+            <div class="step">
+                <strong>(a) Find the value of a and b:</strong>
+                <p>Use the Remainder Theorem. When divided by (x-1), remainder is -12, so f(1) = -12.</p>
+                <p>Eq 1: <code>2(1)³ + a(1)² + b(1) + 15 = -12  =>  2 + a + b + 15 = -12  =>  a + b = ?</code></p>
+                <p>When divided by (x+1), remainder is 48, so f(-1) = 48.</p>
+                <p>Eq 2: <code>2(-1)³ + a(-1)² + b(-1) + 15 = 48  =>  -2 + a - b + 15 = 48  =>  a - b = ?</code></p>
+                <p>Now solve these two simultaneous equations to find <code>a=?</code> and <code>b=?</code>.</p>
+            </div>
+            <div class="step">
+                <strong>(b) Show that f(1/2) = 0:</strong>
+                <p>First, write the full expression for f(x) using your values of a and b. Then substitute x = 1/2.</p>
+                <p><code>f(1/2) = 2(1/2)³ + 3(1/2)² - 32(1/2) + 15 = 2(?) + 3(?) - 16 + 15 = ?</code></p>
+                <p>Since f(1/2) = 0, we know that (2x - 1) is a factor.</p>
+            </div>
+             <div class="step">
+                <strong>(c) Express f(x) as a product of linear factors:</strong>
+                <p>Since (2x - 1) is a factor, divide f(x) by it to find the other quadratic factor.</p>
+                <p><code>2x³ + 3x² - 32x + 15 = (2x - 1)(x² + ?x - ?)</code></p>
+                <p>Now factorise the quadratic part: <code>x² + 2x - 15 = (x + ?)(x - ?)</code></p>
+                <p>So, <code>f(x) = (2x - 1)(x + 5)(x - 3)</code></p>
+            </div>
+            <div class="step">
+                <strong>(d) Solve the equation f(x) = 0:</strong>
+                <p>Set each linear factor to zero to find the roots.</p>
+                <p><code>2x - 1 = 0  => x = ?</code></p>
+                <p><code>x + 5 = 0  => x = ?</code></p>
+                <p><code>x - 3 = 0  => x = ?</code></p>
+            </div>
+        </div>
+        
+        <!-- Question 2 -->
+        <div class="question-block">
+            <h2>Question 2: f(x) = x³ - 7x + 6</h2>
+            <div class="step">
+                <strong>(a) Show that (x-2) is a factor of f(x):</strong>
+                <p>Use the Factor Theorem. If (x-2) is a factor, then f(2) must be 0.</p>
+                <p><code>f(2) = (2)³ - 7(2) + 6 = 8 - 14 + 6 = ?</code></p>
+            </div>
+            <div class="step">
+                <strong>(b) Factorise f(x) completely:</strong>
+                <p>Divide f(x) by (x-2) to get the quadratic factor.</p>
+                <p><code>x³ - 7x + 6 = (x - 2)(x² + ?x - ?)</code></p>
+                <p>Now factorise the quadratic part: <code>x² + 2x - 3 = (x + ?)(x - ?)</code></p>
+                <p>The fully factorised form is <code>(x - 2)(x + 3)(x - 1)</code>.</p>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-block">
+            <h2>Question 3: f(x) = 2x³ - 3px² + x + 4p</h2>
+            <div class="step">
+                <strong>(a) show that the value of p is 3:</strong>
+                <p>Given that (x-4) is a factor, use the Factor Theorem: f(4) = 0.</p>
+                <p><code>2(4)³ - 3p(4)² + 4 + 4p = 0</code></p>
+                <p><code>2(64) - 3p(16) + 4 + 4p = 0  =>  128 - ?p + 4 + 4p = 0  =>  132 = ?p  => p = ?</code></p>
+            </div>
+            <div class="step">
+                <strong>(b) Find the remainder when f(x) is divided by (x+2):</strong>
+                 <p>First, write out f(x) with p=3: <code>f(x) = 2x³ - 9x² + x + 12</code>.</p>
+                <p>Use the Remainder Theorem. The remainder will be f(-2).</p>
+                <p><code>f(-2) = 2(-2)³ - 9(-2)² + (-2) + 12 = 2(?) - 9(?) - 2 + 12 = ?</code></p>
+            </div>
+            <div class="step">
+                <strong>(c) Factorise f(x) completely:</strong>
+                 <p>We know (x-4) is a factor. Divide <code>2x³ - 9x² + x + 12</code> by (x-4).</p>
+                <p><code>(x - 4)(2x² - ?x - ?)</code></p>
+                <p>Factorise the quadratic: <code>2x² - x - 3 = (2x - ?)(x + ?)</code></p>
+                <p>The complete factorisation is <code>(x-4)(x+1)(2x-3)</code>.</p>
+            </div>
+            <div class="step">
+                <strong>(d) Solve the equation:</strong>
+                <p>Set each linear factor from part (c) to zero to find the roots.</p>
+                <p><code>x = ?, x = ?, x = ?</code></p>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-block">
+            <h2>Question 4: f(x) = (2x+1)(x²+5x-3)</h2>
+            <div class="step">
+                <strong>(a) Show that f(x) = 2x³ + 11x² - x - 3:</strong>
+                <p>Expand the brackets.</p>
+                <p><code>2x(x² + 5x - 3) + 1(x² + 5x - 3)</code></p>
+                <p><code>= (2x³ + ?x² - 6x) + (x² + 5x - 3)</code></p>
+                <p>Combine the like terms to get the required expression.</p>
+            </div>
+            <div class="step">
+                <strong>(b) Solve the equation f(x)=0:</strong>
+                <p>It's easiest to use the factored form given at the start: <code>(2x+1)(x² + 5x - 3) = 0</code>.</p>
+                <p>This gives two possibilities: <code>2x + 1 = 0</code> or <code>x² + 5x - 3 = 0</code>.</p>
+                <p>The first root is <code>x = ?</code>.</p>
+                <p>For the quadratic part, use the quadratic formula: <code>x = [-b ± √(b² - 4ac)] / 2a</code></p>
+                <p><code>x = [-5 ± √(5² - 4(1)(-3))] / 2 = [-5 ± √(?)] / 2</code></p>
+                <p>Calculate the two values for x from this formula and give them to 3 decimal places.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

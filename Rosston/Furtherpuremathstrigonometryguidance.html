@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 14 Trigonometry - Step-by-Step Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .step:before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        code {
+            background-color: #eef1f3;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c0392b;
+        }
+        .formula-box {
+            font-style: italic;
+            color: #2980b9;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Chapter 14: Trigonometry Guidance</h1>
+        <div class="formula-box">
+            <strong>Key Formulas:</strong><br>
+            <p><strong>Sine Rule:</strong> <code>a/sin(A) = b/sin(B) = c/sin(C)</code></p>
+            <p><strong>Cosine Rule:</strong> <code>a² = b² + c² - 2bc cos(A)</code> or <code>cos(A) = (b² + c² - a²)/(2bc)</code></p>
+            <p><strong>Area of a Triangle:</strong> <code>Area = (1/2)ab sin(C)</code></p>
+            <p><strong>Identities:</strong> <code>sin²θ + cos²θ = 1</code>, <code>tanθ = sinθ/cosθ</code></p>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-block">
+            <h2>Question 1: Triangle Properties</h2>
+            <div class="step"><strong>(a) Find the angles:</strong> Use the Cosine Rule to find angle C first.
+                <p><code>cos(C) = (20² + 14² - 22²)/(2 * 20 * 14) = (? + ? - ?)/560 = ?</code>. Then <code>C = cos⁻¹(?)</code></p>
+                <p>Now use the Sine Rule to find angle A: <code>sin(A)/20 = sin(C)/22 => sin(A) = ?</code></p>
+                <p>Angle B is then <code>180° - A - C = ?</code></p>
+            </div>
+             <div class="step"><strong>(b) Find length of AP:</strong> AP bisects angle A. So ∠PAC = A/2. In ΔAPC, find ∠APC = 180 - (A/2) - C. Then use Sine Rule in ΔAPC:
+                <p><code>AP/sin(C) = 14/sin(APC) => AP = ?</code></p>
+            </div>
+            <div class="step"><strong>(c) Find the area:</strong> Use the area formula.
+                <p><code>Area = (1/2) * 22 * 14 * sin(A) = ?</code></p>
+            </div>
+        </div>
+        
+        <!-- Question 2 -->
+        <div class="question-block">
+            <h2>Question 2: Trig Identities and Integration</h2>
+             <div class="step"><strong>(b) Show sin(3A) identity:</strong> Use <code>sin(3A) = sin(2A+A)</code> and the addition formula.
+                <p><code>sin(2A)cos(A) + cos(2A)sin(A)</code>. Substitute identities for sin(2A) and cos(2A) and simplify.</p>
+            </div>
+            <div class="step"><strong>(c) Solve the equation:</strong> The equation is <code>8sin³A - 6sinA = 1</code>. This is <code>-2(3sinA - 4sin³A) = 1</code>.
+                <p>This simplifies to <code>-2sin(3A) = 1</code>, so <code>sin(3A) = ?</code>.</p>
+                <p>Find values for 3A in the range -270° to 270°, then divide by 3.</p>
+            </div>
+            <div class="step"><strong>(d) Integration:</strong> From (b), rearrange to <code>sin³θ = (1/4)(3sinθ - sin3θ)</code>.
+                <p>Integrate: <code>∫(1/4)(3sinθ - sin3θ) dθ = (1/4)[?cosθ + (?/?)cos3θ]</code>.</p>
+                <p>Evaluate this between the limits 0 and π/4.</p>
+            </div>
+        </div>
+        
+        <!-- Question 3 -->
+        <div class="question-block">
+            <h2>Question 3: Area and Rates of Change</h2>
+            <div class="step"><strong>(a) Show Area formula:</strong> For an equilateral triangle, all angles are 60°.
+                <p><code>Area = (1/2)ab sin(C) = (1/2) * x * x * sin(60°) = (1/2)x² * (?/?) = (?/?)x²</code></p>
+            </div>
+            <div class="step"><strong>(b) Find x:</strong> Use the chain rule: <code>dA/dt = dA/dx * dx/dt</code>.
+                <p>First find dA/dx from the area formula in (a): <code>dA/dx = (?/?)x</code>.</p>
+                <p>Substitute the given values: <code>√3/10 = (√3/2)x * 0.1</code>. Solve for x.</p>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-block">
+            <h2>Question 4: Solving Trig Equations</h2>
+            <div class="step"><strong>(c) Solve the equation:</strong> Start with <code>1 + sinθcosθ + sin²θ = 4cos²θ</code>.
+                <p>Divide every term by cos²θ to get <code>sec²θ + tanθ + tan²θ = 4</code>.</p>
+                <p>Use the identity `sec²θ = 1 + tan²θ`: <code>(1+tan²θ) + tanθ + tan²θ = 4</code>.</p>
+                <p><code>?tan²θ + tanθ - ? = 0</code>. Solve this quadratic for tanθ to find θ.</p>
+            </div>
+        </div>
+        
+        <!-- Question 5 -->
+        <div class="question-block">
+            <h2>Question 5: Compound Angles</h2>
+            <div class="step"><strong>(a) Show tan(x) = 4tan(α):</strong> Expand <code>3sin(x+α) = 5sin(x-α)</code> using the addition formulas.
+                <p><code>3(sinxcosα + cosxsinα) = 5(sinxcosα - cosxsinα)</code></p>
+                <p>Group sinx terms on one side and cosx terms on the other, then divide sinx by cosx to get tanx.</p>
+            </div>
+            <div class="step"><strong>(b) Solve the equation:</strong> Here, x = 2y and α = 30°.
+                <p><code>tan(2y) = 4tan(30°) = ?</code>. Find the values of 2y, then divide by 2 to find y in the given range.</p>
+            </div>
+        </div>
+        
+        <!-- Question 6 -->
+        <div class="question-block">
+            <h2>Question 6: Solving Basic Equations</h2>
+            <div class="step"><strong>(a) Solve cos(x) = 0.4:</strong> Find the principal value <code>x = cos⁻¹(0.4)</code>. The other solution in the range -π < x < π is <code>-x</code>.
+            </div>
+            <div class="step"><strong>(b) Solve tan(2θ + π/4) = 1.5:</strong> Let X = 2θ + π/4. Find the principal value for X = tan⁻¹(1.5). Find other solutions by adding multiples of π. Then solve for θ and check if it's in the range 0 < θ < π.
+            </div>
+        </div>
+        
+        <!-- Question 7 -->
+        <div class="question-block">
+            <h2>Question 7: Triangle Problem</h2>
+            <div class="step"><strong>(a) Find angle BDC:</strong> In ΔBDC, use the Sine Rule: <code>sin(BDC)/5 = sin(30°)/4</code>.
+                <p><code>sin(BDC) = ?</code>. This gives two possible angles. Since ∠BDC is obtuse, choose the larger one (180° - principal value).</p>
+            </div>
+            <div class="step"><strong>(b) Find length of AD:</strong> In ΔBDC, find ∠DBC = 180 - 30 - BDC. Then in ΔABC, find AC using the Sine rule. AD = AC - DC. To find DC, use the Cosine rule in ΔBDC.
+            </div>
+             <div class="step"><strong>(c) Find area of ABD:</strong> Find ∠ABD = ∠ABC - ∠DBC. The area is then <code>(1/2) * AB * BD * sin(∠ABD)</code>.
+            </div>
+        </div>
+
+        <!-- Question 8 to 16 continue below -->
+        
+        <!-- Question 9 -->
+        <div class="question-block">
+            <h2>Question 9: Ambiguous Case of Sine Rule</h2>
+            <div class="step"><strong>(a) Find two possible sizes of angle ACB:</strong> Use Sine Rule: <code>sin(C)/10 = sin(40°)/7</code>.
+                <p><code>sin(C) = ?</code>. First value C₁ = sin⁻¹(?). Second value C₂ = 180° - C₁.</p>
+            </div>
+            <div class="step"><strong>(b) Difference in lengths of AC:</strong> For each C, find B = 180-40-C.
+                <p>Case 1: C₁, B₁. Find AC₁ using Sine Rule: `AC₁/sin(B₁) = 7/sin(40)`. AC₁ = ?</p>
+                <p>Case 2: C₂, B₂. Find AC₂ using Sine Rule: `AC₂/sin(B₂) = 7/sin(40)`. AC₂ = ?</p>
+                <p>Difference = |AC₁ - AC₂| = ?</p>
+            </div>
+        </div>
+        
+        <!-- Question 10 -->
+        <div class="question-block">
+            <h2>Question 10: More Identities</h2>
+            <div class="step"><strong>(c) Solve equation:</strong> The equation is `8cos⁴x + 4cos²x - 6cos2x = 4.5`. The expression on the left is f(x) - 6cos2x. From (b), f(x) = cos4x + 6cos2x.
+                <p>So the equation simplifies to <code>(cos4x + 6cos2x) - 6cos2x = 4.5</code> => <code>cos(4x) = ?</code></p>
+                <p>Solve for 4x in the range 0° to 720°, then divide by 4.</p>
+            </div>
+        </div>
+        
+        <!-- Question 11 -->
+        <div class="question-block">
+            <h2>Question 11: Quadrilateral</h2>
+            <div class="step"><strong>(a) Find AB:</strong> ΔABC is isosceles with AB=BC and angle B = 120°. So angles A and C are 30°. Use Sine rule: `AB/sin(30) = 12/sin(120)`. AB = ?
+            </div>
+             <div class="step"><strong>(b) Find angle ADC:</strong> In ΔADC, use Sine Rule: `sin(D)/12 = sin(35)/8`. This gives two values for D. Choose the obtuse one.
+            </div>
+             <div class="step"><strong>(c) Find Area:</strong> Area of ABCD = Area(ΔABC) + Area(ΔADC).
+            </div>
+        </div>
+        
+        <!-- Question 12 -->
+        <div class="question-block">
+            <h2>Question 12: Ambiguous Case Again</h2>
+            <div class="step"><strong>(a) Find two sizes of ∠ABC:</strong> First find ∠C using Sine Rule: `sin(C)/12 = sin(42)/9`. Get C₁ and C₂ = 180-C₁. For each C, find B = 180-42-C.
+            </div>
+            <div class="step"><strong>(b) Find smaller area:</strong> The smaller area will come from the smaller angle B. `Area = (1/2) * 12 * 9 * sin(B_smaller)`.
+            </div>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question-block">
+            <h2>Question 13: 3D Trigonometry</h2>
+            <div class="step"><strong>(a) Height EX:</strong> First find AC using Pythagoras in ΔADC: `AC² = (12x)² + (16x)²`. So `AC = ?x`. Then `AX = AC/2 = ?x`.
+                <p>In the right-angled ΔEXA, `tan(45°) = EX/AX`. So `EX = ?x`.</p>
+            </div>
+            <div class="step"><strong>(b) Length of EA:</strong> In the same triangle ΔEXA, `cos(45°) = AX/EA`. So `EA = AX/cos(45) = ?x`.
+            </div>
+        </div>
+        
+        <!-- Question 14 -->
+        <div class="question-block">
+            <h2>Question 14: Triangle with Algebraic Sides</h2>
+            <div class="step"><strong>(a) Show cos(θ) = 1/16:</strong> Given `tan(θ) = √255`. Imagine a right-angled triangle with opposite = √255 and adjacent = 1.
+                
+                <p>Hypotenuse `h = √(1² + (√255)²) = √? = ?`.</p>
+                <p>So, `cos(θ) = adjacent/hypotenuse = ?`</p>
+            </div>
+            <div class="step"><strong>(b) Find x:</strong> Use the Cosine Rule: `cos(θ) = (x² + (x+4)² - (2x-2)²)/(2 * x * (x+4))`.
+                <p>Set this equal to 1/16, expand, and simplify to get a quadratic equation: `?x² - ?x - ? = 0`. Solve for x.</p>
+            </div>
+        </div>
+        
+        <!-- Question 15 & 16 -->
+        <div class="question-block">
+            <h2>Question 15 & 16: Advanced Identities</h2>
+            <div class="step"><strong>Q15(c) Solve equation:</strong> The equation is `16cos⁴(θ-π/6) + 16sin²(θ-π/6) - 15 = 0`. Let X = θ-π/6.
+                <p>This is `2 * [8cos⁴(X) + 8sin²(X)] - 15 = 0`. Using the identity from part (b), this is `2 * (cos(4X) + 7) - 15 = 0`.</p>
+                <p><code>2cos(4X) + 14 - 15 = 0 => cos(4X) = ?</code>. Solve for X, then find θ.</p>
+            </div>
+             <div class="step"><strong>Q16(a) Show identity:</strong> Expand `a sin(x-30) = b sin(x+30)` using compound angle formulas.
+                <p>Group `sinx` and `cosx` terms, then divide to get `tanx`.
+                <p><code>(a√3/2 - b√3/2)sinx = (a/2 + b/2)cosx => tanx = ?</code></p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
