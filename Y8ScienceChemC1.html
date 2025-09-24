@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties of Materials: An Interactive Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .option-btn.correct {
+            background-color: #34d399; /* emerald-400 */
+            color: white;
+            border-color: #059669;
+        }
+        .option-btn.incorrect {
+            background-color: #f87171; /* red-400 */
+            color: white;
+            border-color: #dc2626;
+        }
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="app" class="container mx-auto p-4 md:p-8 max-w-4xl" v-cloak>
+
+        <!-- Welcome Screen -->
+        <div v-if="gameState === 'welcome'" class="text-center bg-white p-8 rounded-xl shadow-lg">
+            <h1 class="text-3xl font-bold mb-4 text-blue-600">Science Challenge!</h1>
+            <p class="mb-6 text-lg text-gray-700">Ready to learn about Properties of Materials?</p>
+            <input type="text" v-model="studentName" placeholder="Enter your name, e.g., Candice" class="w-full max-w-sm p-3 border border-gray-300 rounded-lg mb-4 text-center">
+            <button @click="startLesson" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Let's Go!</button>
+        </div>
+
+        <!-- Main Content -->
+        <div v-else class="bg-white p-6 rounded-xl shadow-lg">
+            <!-- Header -->
+            <div class="flex justify-between items-center border-b pb-4 mb-6">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-blue-600">{{ currentSubtopic.title }}</h1>
+                    <p class="text-gray-600">Good luck, {{ studentName }}!</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-lg font-semibold">Score</p>
+                    <span class="text-green-500 font-bold">Correct: {{ score.correct }}</span> |
+                    <span class="text-red-500 font-bold">Wrong: {{ score.wrong }}</span>
+                </div>
+            </div>
+
+            <!-- Slides View -->
+            <div v-if="gameState === 'slides'">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold mb-4">{{ currentSlide.title }}</h3>
+                    <div v-html="currentSlide.content" class="prose max-w-none"></div>
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <button @click="prevSlide" :disabled="currentSlideIndex === 0" class="bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition duration-300 disabled:opacity-50">Previous</button>
+                    <span>Slide {{ currentSlideIndex + 1 }} of {{ currentSubtopic.slides.length }}</span>
+                    <button @click="nextSlide" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
+                        {{ isLastSlide ? 'Start Quiz!' : 'Next' }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz View -->
+            <div v-if="gameState === 'quiz'">
+                <div class="mb-4">
+                    <p class="text-gray-600">Question {{ currentQuestionIndex + 1 }} of {{ currentSubtopic.quiz.length }}</p>
+                    <h3 class="text-xl md:text-2xl font-bold my-4">{{ currentQuestion.q }}</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button v-for="option in currentQuestion.o" @click="checkAnswer(option)" :key="option" 
+                            class="option-btn w-full text-left p-4 bg-gray-100 hover:bg-blue-100 rounded-lg border-2 border-transparent"
+                            :class="getOptionClass(option)"
+                            :disabled="optionSelected">
+                        {{ option }}
+                    </button>
+                </div>
+                <p class="text-center h-8 mt-4 text-lg font-semibold" :class="feedback.color">{{ feedback.text }}</p>
+            </div>
+            
+            <!-- Correction View -->
+            <div v-if="gameState === 'correction'">
+                 <h2 class="text-2xl font-bold text-center mb-2 text-orange-600">Correction Round!</h2>
+                 <p class="text-center mb-6 text-gray-700">Let's review the tricky ones. You must get this right to continue!</p>
+                 <div class="mb-4">
+                    <p class="text-gray-600">Correction {{ currentCorrectionIndex + 1 }} of {{ wrongAnswers.length }}</p>
+                    <h3 class="text-xl md:text-2xl font-bold my-4">{{ currentCorrectionQuestion.q }}</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <button v-for="option in currentCorrectionQuestion.o" @click="checkCorrectionAnswer(option)" :key="option" 
+                            class="option-btn w-full text-left p-4 bg-gray-100 hover:bg-blue-100 rounded-lg border-2 border-transparent">
+                        {{ option }}
+                    </button>
+                </div>
+                 <p class="text-center h-8 mt-4 text-lg font-semibold text-red-600">{{ correctionFeedback }}</p>
+            </div>
+
+            <!-- Subtopic Complete View -->
+            <div v-if="gameState === 'subtopic_complete'" class="text-center">
+                <h2 class="text-3xl font-bold mb-4 text-green-600">Excellent Work!</h2>
+                <p class="text-lg mb-6">You've mastered '{{ currentSubtopic.title }}'. Ready for the next challenge?</p>
+                <button @click="nextSubtopic" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Continue to Next Topic</button>
+            </div>
+            
+            <!-- Final Complete View -->
+            <div v-if="gameState === 'final_complete'" class="text-center">
+                <h2 class="text-3xl font-bold mb-4 text-purple-600">Congratulations, {{ studentName }}!</h2>
+                <p class="text-lg mb-6">You've finished the entire lesson! Your final score is {{ score.correct }} correct and {{ score.wrong }} wrong. Fantastic effort!</p>
+                <button @click="restartLesson" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Restart Lesson</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const subtopics = [
+            {
+                title: "2.1 Dissolving",
+                slides: [
+                    {
+                        title: "What is Dissolving?",
+                        content: `<p class="text-lg mb-4">When a substance like sugar seems to disappear in water, it's <strong>dissolving</strong>.</p> <ul class="list-disc list-inside mt-4 space-y-2 text-lg"><li>The substance that dissolves is the <strong>solute</strong> (sugar).</li><li>The substance it dissolves into is the <strong>solvent</strong> (water).</li><li>The mixture is a <strong>solution</strong> (sugar water).</li></ul>`
+                    },
+                    {
+                        title: "The Particle Model",
+                        content: `<p class="text-lg">Particles don't disappear! Solute particles just spread out and mix between the solvent particles, becoming too small to see individually.</p>`
+                    },
+                    {
+                        title: "Properties of Solutions",
+                        content: `<p class="text-lg">All true solutions are <strong>transparent</strong> (see-through), but not always colorless. Milk is <strong>opaque</strong> (not see-through), so it is not a solution.</p>`
+                    },
+                    {
+                        title: "Dissolving vs. Melting",
+                        content: `<p class="text-lg"><strong>Dissolving</strong> needs TWO substances (a solute and a solvent). <strong>Melting</strong> is ONE substance changing from solid to liquid with heat.</p>`
+                    },
+                    {
+                        title: "Mass is Conserved",
+                        content: `<p class="text-lg">Mass is not lost when something dissolves. The mass of the solution is the total mass of the solute and the solvent combined. (e.g., 10g salt + 100g water = 110g solution).</p>`
+                    }
+                ],
+                quiz: [
+                    // Set 1 (Original 20)
+                    { q: "What is the substance that dissolves in a liquid called?", o: ["Solvent", "Solute", "Solution", "Mixture", "Compound", "Element"], a: "Solute" },
+                    { q: "In a sugar water solution, what is the water?", o: ["Solute", "Solvent", "Mixture", "Element", "Solution", "Compound"], a: "Solvent" },
+                    { q: "What is the mixture of a solute and a solvent called?", o: ["Compound", "Element", "Mixture", "Solution", "Suspension", "Colloid"], a: "Solution" },
+                    { q: "Which of the following is a key property of all true solutions?", o: ["They are always colorless.", "They are opaque.", "They are transparent.", "They are always hot.", "They are solids.", "They are sweet."], a: "Transparent" },
+                    { q: "What is the main difference between dissolving and melting?", o: ["Dissolving needs heat, melting doesn't.", "Melting needs two substances.", "Dissolving needs two substances.", "They are the same thing.", "Dissolving is for solids only.", "Melting is for liquids only."], a: "Dissolving needs two substances." },
+                    { q: "If you dissolve 5g of salt in 50g of water, what is the final mass of the solution?", o: ["45g", "50g", "5g", "55g", "100g", "It's impossible to tell."], a: "55g" },
+                    { q: "The idea that mass is not lost during dissolving is called...", o: ["The law of gravity", "Conservation of mass", "The particle model", "The theory of relativity", "Evaporation", "Condensation"], a: "Conservation of mass" },
+                    { q: "Which of the following is NOT a solution?", o: ["Sea water", "Black coffee", "Air", "Milk", "Vinegar", "Lemonade"], a: "Milk" },
+                    { q: "Why can't you see the sugar particles in a sugar solution?", o: ["They have melted.", "They have evaporated.", "They have become transparent.", "They have spread out between water particles.", "They have changed into water.", "They sank to the bottom."], a: "They have spread out between water particles." },
+                    { q: "What is another name for a liquid that you cannot see through?", o: ["Transparent", "Translucent", "Opaque", "Clear", "Colorless", "Soluble"], a: "Opaque" },
+                    { q: "In making tea, the hot water is the...", o: ["Solute", "Solution", "Solvent", "Element", "Compound", "Mixture"], a: "Solvent" },
+                    { q: "Which process involves only one substance?", o: ["Dissolving", "Mixing", "Reacting", "Melting", "Solving", "Separating"], a: "Melting" },
+                    { q: "If 20g of copper sulfate is added to 100g of water, the solution's mass will be:", o: ["80g", "100g", "120g", "20g", "200g", "Cannot be determined"], a: "120g" },
+                    { q: "According to the particle model, what happens to solute particles?", o: ["They break into atoms", "They get smaller", "They mix in the gaps between solvent particles", "They vanish", "They turn into liquid", "They stick together"], a: "They mix in the gaps between solvent particles" },
+                    { q: "A blue, see-through liquid is likely a...", o: ["Mixture", "Compound", "Suspension", "Colloid", "Solution", "Pure substance"], a: "Solution" },
+                    { q: "Which of these is a solvent in a household?", o: ["Salt", "Flour", "Water", "Baking Soda", "Pepper", "Sugar"], a: "Water" },
+                    { q: "When nail polish is removed with nail polish remover, the remover acts as the...", o: ["Solute", "Solution", "Mixture", "Solvent", "Compound", "Residue"], a: "Solvent" },
+                    { q: "The scientific term for something that seems to disappear in a liquid is...", o: ["Melting", "Evaporating", "Dissolving", "Condensing", "Freezing", "Sublimating"], a: "Dissolving" },
+                    { q: "What two things are required to make a solution?", o: ["Heat and a solid", "A solid and a liquid", "A solute and a solvent", "Two liquids", "A gas and a solid", "Water and air"], a: "A solute and a solvent" },
+                    { q: "If a solution is colorless and transparent, can you be sure it's pure water?", o: ["Yes, always", "No, it could contain a dissolved solute", "Yes, if it's cold", "No, it could be oil", "Yes, if it has no smell", "No, it's probably acid"], a: "No, it could contain a dissolved solute" },
+                    // Set 2 (New 20)
+                    { q: "A chocolate bar left in a hot car turns to liquid. This is an example of...", o: ["Dissolving", "Melting", "Condensing", "Evaporating", "Solving", "Reacting"], a: "Melting" },
+                    { q: "A student mixes 15g of sugar into 150g of water. What is the mass of the final solution?", o: ["135g", "150g", "15g", "165g", "300g", "It loses mass"], a: "165g" },
+                    { q: "Which of these mixtures is opaque and therefore not a true solution?", o: ["Vinegar", "Apple Juice", "Black Tea", "Muddy Water", "Air", "Salt Water"], a: "Muddy Water" },
+                    { q: "Why does stirring help sugar dissolve faster in water?", o: ["It adds heat", "It breaks the sugar molecules", "It increases contact between particles", "It cools the water", "It changes water's properties", "It makes the sugar heavier"], a: "It increases contact between particles" },
+                    { q: "If a salt dissolves in water, the salt is the...", o: ["Solvent", "Solution", "Mixture", "Solute", "Compound", "Element"], a: "Solute" },
+                    { q: "What is conserved when a solute dissolves in a solvent?", o: ["Volume", "Temperature", "Color", "Mass", "Shape", "Clarity"], a: "Mass" },
+                    { q: "An ice cube turning into water is an example of...", o: ["Melting", "Dissolving", "Evaporating", "Condensing", "Freezing", "Mixing"], a: "Melting" },
+                    { q: "If a solid disappears completely in a liquid, it has...", o: ["Melted", "Dissolved", "Reacted", "Vanished", "Evaporated", "Sublimated"], a: "Dissolved" },
+                    { q: "In a salt water gargle, the water is the...", o: ["Solute", "Solution", "Mixture", "Solvent", "Compound", "Element"], a: "Solvent" },
+                    { q: "Total mass of solute and solvent before mixing is 125g. After mixing, the mass is...", o: ["Less than 125g", "More than 125g", "Exactly 125g", "Zero", "100g", "Depends on the solute"], a: "Exactly 125g" },
+                    { q: "Which of the following is transparent?", o: ["Milk", "Muddy water", "Paint", "Yogurt", "Black coffee", "Blood"], a: "Black coffee" },
+                    { q: "The particles of a dissolved solute are...", o: ["Gone forever", "Changed into solvent particles", "Too small and spread out to be seen", "At the bottom of the container", "Floating on top", "Stuck together in clumps"], a: "Too small and spread out to be seen" },
+                    { q: "Making a powdered drink by mixing powder and water creates a...", o: ["Compound", "Element", "Suspension", "Solvent", "Solute", "Solution"], a: "Solution" },
+                    { q: "The 'disappearing' of a sugar cube in tea is best explained by...", o: ["Chemical reaction", "Melting", "The particle model of dissolving", "Evaporation", "Freezing", "Magic"], a: "The particle model of dissolving" },
+                    { q: "A clear, colorless liquid in a beaker...", o: ["Is definitely pure water", "Is definitely a solution", "Could be pure water or a solution", "Is not a liquid", "Must be an acid", "Is an opaque mixture"], a: "Could be pure water or a solution" },
+                    { q: "What is the key difference between a mixture and a compound?", o: ["Mixtures are always liquids", "Compounds are chemically bonded", "Mixtures have a fixed ratio", "Compounds can be easily separated", "Mixtures are always solids", "There is no difference"], a: "Compounds are chemically bonded" },
+                    { q: "If you want to dissolve something, you need a...", o: ["Solute", "Solvent", "Solid", "Gas", "Metal", "Heater"], a: "Solvent" },
+                    { q: "Mass of water is 200g. Mass of salt is 10g. Mass of solution is...", o: ["200g", "190g", "10g", "210g", "400g", "0g"], a: "210g" },
+                    { q: "When a solid does not dissolve, it remains...", o: ["A solute", "A solvent", "Visible in the liquid", "Transparent", "A solution", "Melted"], a: "Visible in the liquid" },
+                    { q: "In a solution, the substance present in the larger amount is usually the...", o: ["Solute", "Solvent", "Solid part", "Gas part", "Mixture", "Compound"], a: "Solvent" }
+                ]
+            },
+            {
+                title: "2.2 Solutions and Solubility",
+                slides: [
+                     {
+                        title: "Concentrated vs. Dilute",
+                        content: `<p class="text-lg">Solutions can have different strengths. A <strong>concentrated</strong> solution has a lot of solute. A <strong>dilute</strong> solution has very little solute.</p>`
+                    },
+                    {
+                        title: "Saturated Solutions",
+                        content: `<p class="text-lg">If you keep adding solute, eventually no more can dissolve. This is a <strong>saturated</strong> solution. It's 'full'!</p>`
+                    },
+                    {
+                        title: "Solubility",
+                        content: `<p class="text-lg"><strong>Solubility</strong> is a measure of how much solute can dissolve in a solvent at a specific temperature. Some substances have high solubility (like salt), others have low solubility.</p>`
+                    },
+                    {
+                        title: "Temperature and Solubility",
+                        content: `<p class="text-lg">For most solids, solubility <strong>increases</strong> as temperature <strong>increases</strong>. You can dissolve more sugar in hot tea than in iced tea.</p>`
+                    }
+                ],
+                quiz: [
+                    // Set 1 (Original 20)
+                    { q: "A solution with a large amount of solute is called...", o: ["Dilute", "Saturated", "Concentrated", "Insoluble", "Weak", "Soluble"], a: "Concentrated" },
+                    { q: "A solution with very little solute is described as...", o: ["Strong", "Saturated", "Concentrated", "Dilute", "Insoluble", "Soluble"], a: "Dilute" },
+                    { q: "A substance that does not dissolve in a solvent is...", o: ["Soluble", "Insoluble", "Saturated", "Dilute", "Concentrated", "A solute"], a: "Insoluble" },
+                    { q: "When no more solute can dissolve in a solvent, the solution is...", o: ["Dilute", "Concentrated", "Unsaturated", "Supersaturated", "Saturated", "Insoluble"], a: "Saturated" },
+                    { q: "What is solubility a measure of?", o: ["How fast a solute dissolves", "How much solute can dissolve", "How hot the solvent is", "How clear the solution is", "How colored the solution is", "How much solvent is present"], a: "How much solute can dissolve" },
+                    { q: "How does the solubility of most solids change when temperature increases?", o: ["It decreases", "It stays the same", "It increases", "It becomes zero", "It doubles exactly", "It becomes unpredictable"], a: "It increases" },
+                    { q: "Which of the following is insoluble in water?", o: ["Sugar", "Salt", "Sand", "Coffee powder", "Lemon juice", "Honey"], a: "Sand" },
+                    { q: "To make a strong fruit juice weaker, you make it more...", o: ["Saturated", "Concentrated", "Dilute", "Soluble", "Insoluble", "Sweet"], a: "Dilute" },
+                    { q: "If solubility of a salt is 36g per 100g of water, how much can dissolve in 50g of water?", o: ["36g", "72g", "18g", "100g", "50g", "Cannot be determined"], a: "18g" },
+                    { q: "Why is hot tea a better solvent for sugar than iced tea?", o: ["Hot tea is less dense", "Sugar has higher solubility at higher temperatures", "Sugar melts, not dissolves", "Iced tea is already saturated", "The sugar particles move faster", "The water particles are bigger"], a: "Sugar has higher solubility at higher temperatures" },
+                    { q: "A solution that can still dissolve more solute is called...", o: ["Saturated", "Supersaturated", "Unsaturated", "Dilute", "Concentrated", "Weak"], a: "Unsaturated" },
+                    { q: "Oil paint doesn't dissolve in water, but does in another liquid. That liquid is a...", o: ["Solute", "Solution", "Mixture", "Solvent", "Paint", "Water"], a: "Solvent" },
+                    { q: "If you have a saturated salt solution and you add more salt, what happens?", o: ["It dissolves slowly", "The solution bubbles", "It becomes supersaturated", "The salt sinks to the bottom", "The water evaporates", "The solution gets hotter"], a: "The salt sinks to the bottom" },
+                    { q: "From the graph in the book, which substance is most soluble at 20°C?", o: ["Potassium nitrate", "Sodium nitrate", "Copper sulfate", "All are equal", "Cannot tell", "Water"], a: "Sodium nitrate" },
+                    { q: "From the graph, which substance's solubility changes the most with temperature?", o: ["Potassium nitrate", "Sodium nitrate", "Copper sulfate", "They all change equally", "None of them change", "Water"], a: "Potassium nitrate" },
+                    { q: "How would you make a solution more concentrated?", o: ["Add more solvent", "Add more solute", "Heat it up", "Cool it down", "Stir it less", "Pour some out"], a: "Add more solute" },
+                    { q: "What does 'solubility of 7g in 100g water' mean?", o: ["7g of water dissolves 100g", "A maximum of 7g will dissolve in 100g water", "You need 7g for every 100g", "It is 7% soluble", "It will take 7 seconds to dissolve", "The solution weighs 107g"], a: "A maximum of 7g will dissolve in 100g water" },
+                    { q: "If a saturated solution at 80°C is cooled, what might you see?", o: ["The solution boils", "It changes color", "Solid crystals of solute might appear", "More solute dissolves", "The solution freezes", "Nothing changes"], a: "Solid crystals of solute might appear" },
+                    { q: "From the graph, about how much copper sulfate dissolves at 80°C?", o: ["17g", "30g", "40g", "56g", "148g", "168g"], a: "56g" },
+                    { q: "A very dark-colored cordial is likely very...", o: ["Dilute", "Saturated", "Cold", "Hot", "Concentrated", "Insoluble"], a: "Concentrated" },
+                    // Set 2 (New 20)
+                    { q: "If you can dissolve 74g of calcium chloride in 100g of water, it has a high...", o: ["Concentration", "Solubility", "Saturation", "Temperature", "Density", "Volume"], a: "Solubility" },
+                    { q: "A substance that is 'soluble' can...", o: ["Melt", "Dissolve", "React", "Evaporate", "Freeze", "Condense"], a: "Dissolve" },
+                    { q: "To dissolve more gas in a liquid, you should typically...", o: ["Heat the liquid", "Cool the liquid", "Stir the liquid", "Add more gas", "Use less liquid", "Shake the liquid"], a: "Cool the liquid" },
+                    { q: "If you keep adding sugar to tea, the point it stops dissolving is the ____ point.", o: ["Melting", "Boiling", "Freezing", "Saturation", "Solubility", "Dilution"], a: "Saturation" },
+                    { q: "Which is the opposite of 'concentrated'?", o: ["Saturated", "Unsaturated", "Soluble", "Insoluble", "Dilute", "Strong"], a: "Dilute" },
+                    { q: "If only a tiny amount of a substance can dissolve, it has...", o: ["High solubility", "Low solubility", "No solubility", "High concentration", "Low concentration", "A high temperature"], a: "Low solubility" },
+                    { q: "How could you separate salt from a saturated salt water solution?", o: ["Filtering", "Freezing", "Evaporating the water", "Adding more salt", "Cooling it", "Shaking it"], a: "Evaporating the water" },
+                    { q: "What is the solvent for nail polish?", o: ["Water", "Oil", "Methanol", "Acetone (propanone)", "Vinegar", "Ethanol"], a: "Acetone (propanone)" },
+                    { q: "From the graph, at what temperature do sodium nitrate and potassium nitrate have similar solubility?", o: ["20°C", "40°C", "60°C", "72°C", "80°C", "10°C"], a: "72°C" },
+                    { q: "Adding water to a solution makes it more...", o: ["Concentrated", "Saturated", "Dilute", "Soluble", "Insoluble", "Viscous"], a: "Dilute" },
+                    { q: "Which statement is generally true for solid solutes?", o: ["Hotter solvent dissolves less", "Hotter solvent dissolves more", "Temperature has no effect", "Stirring prevents dissolving", "Cold solvents work faster", "All solids have the same solubility"], a: "Hotter solvent dissolves more" },
+                    { q: "A powder that doesn't disappear in water is described as...", o: ["Soluble", "Insoluble", "Saturated", "Unsaturated", "Concentrated", "Dilute"], a: "Insoluble" },
+                    { q: "If the solubility of sugar at 80°C is 362g/100g water, what will happen if you add 400g sugar to 100g water at 80°C?", o: ["All 400g will dissolve", "Only 362g will dissolve", "The water will boil", "The solution will freeze", "The sugar will melt", "A chemical reaction will occur"], a: "Only 362g will dissolve" },
+                    { q: "A light-colored, watery juice is likely a ____ solution.", o: ["Saturated", "Concentrated", "Dilute", "Strong", "Insoluble", "Unsaturated"], a: "Dilute" },
+                    { q: "From the graph, which salt is least soluble at 10°C?", o: ["Potassium nitrate", "Sodium nitrate", "Copper sulfate", "All are equal", "Cannot be determined", "Water"], a: "Copper sulfate" },
+                    { q: "To dissolve grease or oil, a good solvent would be...", o: ["Water", "Sugar solution", "Salt solution", "Something like methanol or soap", "Vinegar", "Lemon juice"], a: "Something like methanol or soap" },
+                    { q: "You have an unsaturated salt solution. What can you do?", o: ["Add more water", "Dissolve more salt", "Heat it to make crystals", "Filter the salt out", "Cool it to saturate it", "Nothing, it's full"], a: "Dissolve more salt" },
+                    { q: "If two substances are listed with solubilities of 30g and 60g, which is more soluble?", o: ["The one with 30g", "The one with 60g", "They are equally soluble", "It depends on temperature", "It depends on the solvent", "Cannot be determined"], a: "The one with 60g" },
+                    { q: "The maximum amount of solute that can dissolve is known as its...", o: ["Concentration", "Dilution", "Saturation point", "Solubility", "Melting point", "Boiling point"], a: "Solubility" },
+                    { q: "To quickly make a saturated solution, you should use a ___ solvent and stir.", o: ["Cold", "Hot", "Iced", "Large amount of", "Small amount of", "Colored"], a: "Hot" }
+                ]
+            }
+        ];
+        
+        const app = Vue.createApp({
+            data() {
+                return {
+                    gameState: 'welcome',
+                    studentName: '',
+                    subtopics: subtopics,
+                    currentSubtopicIndex: 0,
+                    currentSlideIndex: 0,
+                    currentQuestionIndex: 0,
+                    currentCorrectionIndex: 0,
+                    score: { correct: 0, wrong: 0 },
+                    attempts: 0,
+                    feedback: { text: '', color: '' },
+                    correctionFeedback: '',
+                    wrongAnswers: [],
+                    optionSelected: false,
+                    selectedOption: ''
+                }
+            },
+            computed: {
+                currentSubtopic() {
+                    return this.subtopics[this.currentSubtopicIndex];
+                },
+                currentSlide() {
+                    return this.currentSubtopic.slides[this.currentSlideIndex];
+                },
+                isLastSlide() {
+                    return this.currentSlideIndex === this.currentSubtopic.slides.length - 1;
+                },
+                currentQuestion() {
+                    return this.currentSubtopic.quiz[this.currentQuestionIndex];
+                },
+                currentCorrectionQuestion() {
+                    return this.wrongAnswers[this.currentCorrectionIndex];
+                }
+            },
+            methods: {
+                startLesson() {
+                    if (this.studentName.trim()) {
+                        this.gameState = 'slides';
+                    } else {
+                        alert('Please enter your name!');
+                    }
+                },
+                nextSlide() {
+                    if (this.isLastSlide) {
+                        this.startQuiz();
+                    } else {
+                        this.currentSlideIndex++;
+                    }
+                },
+                prevSlide() {
+                    if (this.currentSlideIndex > 0) {
+                        this.currentSlideIndex--;
+                    }
+                },
+                startQuiz() {
+                    this.gameState = 'quiz';
+                },
+                checkAnswer(option) {
+                    this.optionSelected = true;
+                    this.selectedOption = option;
+                    const correctAnswer = this.currentQuestion.a;
+
+                    if (option === correctAnswer) {
+                        this.feedback = { text: "Correct! Well done!", color: 'text-green-600' };
+                        this.score.correct++;
+                        setTimeout(this.nextQuestion, 1500);
+                    } else {
+                        this.attempts++;
+                        this.score.wrong++;
+                        if (this.attempts < 2) {
+                            this.feedback = { text: `Not quite, ${this.studentName}. Try again!`, color: 'text-orange-600' };
+                            setTimeout(() => {
+                                this.optionSelected = false;
+                                this.selectedOption = '';
+                                this.feedback.text = '';
+                            }, 2000);
+                        } else {
+                            this.feedback = { text: `The correct answer was "${correctAnswer}". Let's review this later.`, color: 'text-red-600' };
+                            this.wrongAnswers.push(this.currentQuestion);
+                            setTimeout(this.nextQuestion, 2500);
+                        }
+                    }
+                },
+                nextQuestion() {
+                    if (this.currentQuestionIndex < this.currentSubtopic.quiz.length - 1) {
+                        this.currentQuestionIndex++;
+                        this.resetQuestionState();
+                    } else {
+                        this.endQuiz();
+                    }
+                },
+                endQuiz() {
+                    if (this.wrongAnswers.length > 0) {
+                        this.gameState = 'correction';
+                    } else {
+                        this.showSubtopicComplete();
+                    }
+                },
+                checkCorrectionAnswer(option) {
+                    const correctAnswer = this.currentCorrectionQuestion.a;
+                    if (option === correctAnswer) {
+                        this.nextCorrection();
+                    } else {
+                        this.correctionFeedback = "That's not the right one. Try again!";
+                        setTimeout(() => this.correctionFeedback = '', 2000);
+                    }
+                },
+                nextCorrection() {
+                    if (this.currentCorrectionIndex < this.wrongAnswers.length - 1) {
+                        this.currentCorrectionIndex++;
+                    } else {
+                        this.showSubtopicComplete();
+                    }
+                },
+                showSubtopicComplete() {
+                     if (this.currentSubtopicIndex < this.subtopics.length - 1) {
+                        this.gameState = 'subtopic_complete';
+                    } else {
+                        this.gameState = 'final_complete';
+                    }
+                },
+                nextSubtopic() {
+                    this.currentSubtopicIndex++;
+                    this.currentSlideIndex = 0;
+                    this.currentQuestionIndex = 0;
+                    this.currentCorrectionIndex = 0;
+                    this.wrongAnswers = [];
+                    this.resetQuestionState();
+                    this.gameState = 'slides';
+                },
+                restartLesson() {
+                    Object.assign(this.$data, this.$options.data());
+                },
+                resetQuestionState() {
+                    this.attempts = 0;
+                    this.feedback = { text: '', color: '' };
+                    this.optionSelected = false;
+                    this.selectedOption = '';
+                },
+                getOptionClass(option) {
+                    if (!this.optionSelected) return '';
+                    const correctAnswer = this.currentQuestion.a;
+                    if(option === correctAnswer) return 'correct';
+                    if(option === this.selectedOption) return 'incorrect';
+                    return '';
+                }
+            }
+        });
+        
+        app.mount('#app');
+    </script>
+</body>
+</html>
+
