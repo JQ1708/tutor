@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respiration: An Interactive Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .option-btn.correct {
+            background-color: #34d399; /* emerald-400 */
+            color: white;
+            border-color: #059669;
+        }
+        .option-btn.incorrect {
+            background-color: #f87171; /* red-400 */
+            color: white;
+            border-color: #dc2626;
+        }
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="app" class="container mx-auto p-4 md:p-8 max-w-4xl" v-cloak>
+
+        <!-- Welcome Screen -->
+        <div v-if="gameState === 'welcome'" class="text-center bg-white p-8 rounded-xl shadow-lg">
+            <h1 class="text-3xl font-bold mb-4 text-blue-600">Science Challenge!</h1>
+            <p class="mb-6 text-lg text-gray-700">Ready to learn about Respiration?</p>
+            <input type="text" v-model="studentName" placeholder="Enter your name, e.g., Candice" class="w-full max-w-sm p-3 border border-gray-300 rounded-lg mb-4 text-center">
+            <button @click="startLesson" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Let's Go!</button>
+        </div>
+
+        <!-- Main Content -->
+        <div v-else class="bg-white p-6 rounded-xl shadow-lg">
+            <!-- Header -->
+            <div class="flex justify-between items-center border-b pb-4 mb-6">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-blue-600">{{ currentSubtopic.title }}</h1>
+                    <p class="text-gray-600">Good luck, {{ studentName }}!</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-lg font-semibold">Score</p>
+                    <span class="text-green-500 font-bold">Correct: {{ score.correct }}</span> |
+                    <span class="text-red-500 font-bold">Wrong: {{ score.wrong }}</span>
+                </div>
+            </div>
+
+            <!-- Slides View -->
+            <div v-if="gameState === 'slides'">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold mb-4">{{ currentSlide.title }}</h3>
+                    <div v-html="currentSlide.content" class="prose max-w-none text-lg"></div>
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <button @click="prevSlide" :disabled="currentSlideIndex === 0" class="bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition duration-300 disabled:opacity-50">Previous</button>
+                    <span>Slide {{ currentSlideIndex + 1 }} of {{ currentSubtopic.slides.length }}</span>
+                    <button @click="nextSlide" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
+                        {{ isLastSlide ? 'Start Quiz!' : 'Next' }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz View -->
+            <div v-if="gameState === 'quiz'">
+                <div class="mb-4">
+                    <p class="text-gray-600">Question {{ currentQuestionIndex + 1 }} of {{ currentSubtopic.quiz.length }}</p>
+                    <h3 class="text-xl md:text-2xl font-bold my-4">{{ currentQuestion.q }}</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button v-for="option in currentQuestion.o" @click="checkAnswer(option)" :key="option" 
+                            class="option-btn w-full text-left p-4 bg-gray-100 hover:bg-blue-100 rounded-lg border-2 border-transparent"
+                            :class="getOptionClass(option)"
+                            :disabled="optionSelected">
+                        {{ option }}
+                    </button>
+                </div>
+                <p class="text-center h-8 mt-4 text-lg font-semibold" :class="feedback.color">{{ feedback.text }}</p>
+            </div>
+            
+            <!-- Correction View -->
+            <div v-if="gameState === 'correction'">
+                 <h2 class="text-2xl font-bold text-center mb-2 text-orange-600">Correction Round!</h2>
+                 <p class="text-center mb-6 text-gray-700">Let's review the tricky ones. You must get this right to continue!</p>
+                 <div class="mb-4">
+                    <p class="text-gray-600">Correction {{ currentCorrectionIndex + 1 }} of {{ wrongAnswers.length }}</p>
+                    <h3 class="text-xl md:text-2xl font-bold my-4">{{ currentCorrectionQuestion.q }}</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <button v-for="option in currentCorrectionQuestion.o" @click="checkCorrectionAnswer(option)" :key="option" 
+                            class="option-btn w-full text-left p-4 bg-gray-100 hover:bg-blue-100 rounded-lg border-2 border-transparent">
+                        {{ option }}
+                    </button>
+                </div>
+                 <p class="text-center h-8 mt-4 text-lg font-semibold text-red-600">{{ correctionFeedback }}</p>
+            </div>
+
+            <!-- Subtopic Complete View -->
+            <div v-if="gameState === 'subtopic_complete'" class="text-center">
+                <h2 class="text-3xl font-bold mb-4 text-green-600">Excellent Work!</h2>
+                <p class="text-lg mb-6">You've mastered '{{ currentSubtopic.title }}'. Ready for the next challenge?</p>
+                <button @click="nextSubtopic" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Continue to Next Topic</button>
+            </div>
+            
+            <!-- Final Complete View -->
+            <div v-if="gameState === 'final_complete'" class="text-center">
+                <h2 class="text-3xl font-bold mb-4 text-purple-600">Congratulations, {{ studentName }}!</h2>
+                <p class="text-lg mb-6">You've finished the entire lesson! Your final score is {{ score.correct }} correct and {{ score.wrong }} wrong. Fantastic effort!</p>
+                <button @click="restartLesson" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Restart Lesson</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const subtopics = [
+            {
+                title: "The Respiratory System & Gas Exchange",
+                slides: [
+                    {
+                        title: "The Human Respiratory System",
+                        content: `<p>The respiratory system is a group of organs that take in oxygen and get rid of carbon dioxide.</p><ul class="list-disc list-inside mt-2"><li>Air enters through the <strong>nose</strong> or <strong>mouth</strong>.</li><li>It travels down the <strong>trachea</strong> (windpipe).</li><li>The trachea splits into two <strong>bronchi</strong>, one for each lung.</li><li>These branch into smaller tubes called <strong>bronchioles</strong>.</li><li>They end in tiny air sacs called <strong>alveoli</strong>.</li></ul>`
+                    },
+                    {
+                        title: "What is Gas Exchange?",
+                        content: `<p>Gas exchange is the process where oxygen moves from the lungs into the blood, and carbon dioxide moves from the blood into the lungs.</p><p class="mt-2">This happens in the <strong>alveoli</strong> (air sacs).</p>`
+                    },
+                    {
+                        title: "How Gas Exchange Works: Diffusion",
+                        content: `<p>Gases move by a process called <strong>diffusion</strong>. This means they move from an area of high concentration to an area of low concentration.</p><ul class="list-disc list-inside mt-2"><li>There is lots of oxygen in the air in the alveoli, so it diffuses into the blood.</li><li>There is lots of carbon dioxide in the blood, so it diffuses into the alveoli to be breathed out.</li></ul>`
+                    },
+                    {
+                        title: "Features of the Alveoli",
+                        content: `<p>The alveoli are perfectly adapted for gas exchange:</p><ul class="list-disc list-inside mt-2"><li><strong>Huge surface area:</strong> There are millions of them.</li><li><strong>Thin walls:</strong> Only one cell thick, so gases can diffuse easily.</li><li><strong>Good blood supply:</strong> Covered in tiny blood vessels called capillaries.</li></ul>`
+                    }
+                ],
+                quiz: [
+                    { q: "What is another name for the windpipe?", o: ["Bronchus", "Larynx", "Trachea", "Alveolus", "Diaphragm", "Bronchiole"], a: "Trachea" },
+                    { q: "Where does gas exchange mainly occur?", o: ["In the trachea", "In the bronchi", "In the nose", "In the alveoli", "In the diaphragm", "In the ribs"], a: "In the alveoli" },
+                    { q: "What is the correct order for air entering the lungs?", o: ["Trachea -> Alveoli -> Bronchi", "Nose -> Bronchi -> Trachea", "Trachea -> Bronchi -> Alveoli", "Bronchi -> Trachea -> Alveoli", "Alveoli -> Bronchi -> Trachea", "Nose -> Alveoli -> Bronchi"], a: "Trachea -> Bronchi -> Alveoli" },
+                    { q: "What are the tiny air sacs in the lungs called?", o: ["Bronchioles", "Capillaries", "Alveoli", "Trachea", "Cartilage", "Larynx"], a: "Alveoli" },
+                    { q: "What process allows gases to move between the lungs and blood?", o: ["Respiration", "Breathing", "Diffusion", "Contraction", "Filtration", "Absorption"], a: "Diffusion" },
+                    { q: "Which gas moves from the blood into the alveoli?", o: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Water Vapour", "Hydrogen", "Methane"], a: "Carbon Dioxide" },
+                    { q: "Which gas moves from the alveoli into the blood?", o: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Water Vapour", "Carbon Monoxide", "Helium"], a: "Oxygen" },
+                    { q: "What keeps the trachea open?", o: ["Muscles", "Bones", "Rings of cartilage", "Thick skin", "Air pressure", "Tendons"], a: "Rings of cartilage" },
+                    { q: "The large muscle below the lungs is called the...", o: ["Intercostal muscle", "Diaphragm", "Larynx", "Stomach", "Pectoral", "Abdominal"], a: "Diaphragm" },
+                    { q: "The singular of 'bronchi' is...", o: ["Bronchiole", "Bronchus", "Bronch", "Bronchae", "Bronchuses", "Bronchox"], a: "Bronchus" },
+                    { q: "Why are the walls of the alveoli and capillaries so thin?", o: ["To save energy", "To make them flexible", "To allow for easy diffusion", "To fit in a small space", "To prevent them from breaking", "To keep them warm"], a: "To allow for easy diffusion" },
+                    { q: "What surrounds the alveoli to pick up oxygen?", o: ["Bronchioles", "Muscles", "Bones", "Capillaries", "Arteries", "Veins"], a: "Capillaries" },
+                    { q: "What is another name for the voicebox?", o: ["Trachea", "Pharynx", "Larynx", "Bronchus", "Epiglottis", "Vocal tube"], a: "Larynx" },
+                    { q: "The air you breathe in is called...", o: ["Expired air", "Inspired air", "Exchanged air", "Used air", "Respiration air", "Exhaust air"], a: "Inspired air" },
+                    { q: "The air you breathe out is called...", o: ["Expired air", "Inspired air", "Exchanged air", "New air", "Breathing air", "Intake air"], a: "Expired air" },
+                    { q: "Compared to inspired air, expired air contains more...", o: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon", "Helium", "Pollution"], a: "Carbon Dioxide" },
+                    { q: "The main function of the respiratory system is to get ____ into the body.", o: ["Carbon Dioxide", "Nitrogen", "Food", "Oxygen", "Water", "Energy"], a: "Oxygen" },
+                    { q: "The trachea branches into two...", o: ["Tracheas", "Larynxes", "Bronchi", "Alveoli", "Nostrils", "Lungs"], a: "Bronchi" },
+                    { q: "Which of these is NOT a part of the respiratory system?", o: ["Lungs", "Trachea", "Heart", "Nose", "Diaphragm", "Bronchioles"], a: "Heart" },
+                    { q: "Diffusion is the movement of particles from a ____ concentration.", o: ["High to low", "Low to high", "Fixed to variable", "Liquid to gas", "Cold to hot", "Fast to slow"], a: "High to low" },
+                    { q: "The human body has two...", o: ["Tracheas", "Lungs", "Diaphragms", "Larynxes", "Noses", "Mouths"], a: "Lungs" },
+                    { q: "What does limewater test for?", o: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Water", "Acid", "Alkali"], a: "Carbon Dioxide" },
+                    { q: "If you bubble expired air through limewater, it will...", o: ["Turn clear", "Turn blue", "Stay the same", "Turn cloudy", "Get hot", "Explode"], a: "Turn cloudy" },
+                    { q: "The huge number of alveoli in the lungs provides a large...", o: ["Air volume", "Blood volume", "Surface area", "Muscle mass", "Protective layer", "Space for water"], a: "Surface area" },
+                    { q: "The main waste gas removed by the lungs is...", o: ["Oxygen", "Nitrogen", "Carbon Monoxide", "Carbon Dioxide", "Methane", "Ammonia"], a: "Carbon Dioxide" },
+                    { q: "What are the muscles between the ribs called?", o: ["Diaphragm muscles", "Pectoral muscles", "Intercostal muscles", "Biceps", "Abdominal muscles", "Cartilage muscles"], a: "Intercostal muscles" },
+                    { q: "Where does the oxygen go after it enters the blood?", o: ["Straight out of the body", "To the stomach", "To all body cells", "To the brain only", "It is stored in the heart", "It turns into carbon dioxide"], a: "To all body cells" },
+                    { q: "The structure connecting the mouth/nose to the trachea is the...", o: ["Larynx", "Pharynx", "Esophagus", "Bronchus", "Alveolus", "Capillary"], a: "Pharynx" },
+                    { q: "What happens inside the vocal cords to produce sound?", o: ["They contract", "They relax", "They vibrate", "They fill with air", "They expand", "They get hot"], a: "They vibrate" },
+                    { q: "Which of these describes the path of carbon dioxide?", o: ["Lungs to blood to cells", "Cells to blood to lungs", "Air to lungs to blood", "Blood to heart to cells", "Cells to heart to lungs", "Nose to lungs to heart"], a: "Cells to blood to lungs" },
+                    { q: "Inspired air has a higher concentration of...", o: ["Carbon Dioxide", "Oxygen", "Water Vapour", "Pollutants", "Bacteria", "Heat"], a: "Oxygen" },
+                    { q: "Expired air has a higher concentration of...", o: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon", "Vitamins", "Freshness"], a: "Carbon Dioxide" },
+                    { q: "What covers the trachea when you swallow to prevent choking?", o: ["Larynx", "Vocal cord", "Tongue", "Epiglottis", "Diaphragm", "Uvula"], a: "Epiglottis" },
+                    { q: "The bronchi split into smaller tubes called...", o: ["Alveoli", "Capillaries", "Bronchioles", "Mini-bronchi", "Air tubes", "Tracheas"], a: "Bronchioles" },
+                    { q: "The exchange of gases happens because of differences in...", o: ["Temperature", "Pressure", "Concentration", "Volume", "Mass", "Color"], a: "Concentration" },
+                    { q: "What is the main purpose of the rings of cartilage?", o: ["To make sound", "To produce mucus", "To prevent the trachea from collapsing", "To warm the air", "To filter dust", "To move air"], a: "To prevent the trachea from collapsing" },
+                    { q: "The left lung is slightly smaller than the right lung to make room for the...", o: ["Stomach", "Liver", "Heart", "Diaphragm", "Rib cage", "Spleen"], a: "Heart" },
+                    { q: "What moistens and warms the air as you breathe it in?", o: ["The lungs", "The alveoli", "The nasal passages", "The diaphragm", "The bronchi", "The blood"], a: "The nasal passages" },
+                    { q: "How many cells thick is the wall of an alveolus?", o: ["One", "Two", "Three", "Many", "Ten", "It varies"], a: "One" },
+                    { q: "The entire network of air tubes in the lungs is sometimes called the...", o: ["Vascular tree", "Bronchial tree", "Respiratory network", "Alveolar system", "Gas exchange web", "Pulmonary net"], a: "Bronchial tree" }
+                ]
+            },
+            {
+                title: "Breathing & Respiration",
+                slides: [
+                    {
+                        title: "What is Breathing?",
+                        content: `<p>Breathing is the physical process of moving air in and out of the lungs. It involves the diaphragm and the intercostal muscles between the ribs.</p>`
+                    },
+                    {
+                        title: "Breathing In (Inhalation)",
+                        content: `<p>To breathe in:</p><ul class="list-disc list-inside mt-2"><li>The <strong>diaphragm</strong> muscle contracts and flattens.</li><li>The <strong>intercostal muscles</strong> contract, pulling the ribs up and out.</li><li>This increases the volume in the chest, and air rushes in.</li></ul>`
+                    },
+                     {
+                        title: "Breathing Out (Exhalation)",
+                        content: `<p>To breathe out:</p><ul class="list-disc list-inside mt-2"><li>The <strong>diaphragm</strong> muscle relaxes and becomes dome-shaped.</li><li>The <strong>intercostal muscles</strong> relax, and the ribs fall down and in.</li><li>This decreases the volume in the chest, pushing air out.</li></ul>`
+                    },
+                    {
+                        title: "What is Respiration?",
+                        content: `<p>Respiration is NOT the same as breathing. It is a <strong>chemical reaction</strong> that happens inside every living cell to release energy from food.</p><p class="mt-2">It happens in tiny structures called <strong>mitochondria</strong>.</p>`
+                    },
+                    {
+                        title: "The Equation for Respiration",
+                        content: `<p>Aerobic respiration uses oxygen. The word equation is:</p><p class="mt-4 text-center font-bold text-xl">Glucose + Oxygen → Carbon Dioxide + Water (+ Energy)</p>`
+                    }
+                ],
+                quiz: [
+                    { q: "What is the primary purpose of respiration?", o: ["To breathe", "To move air", "To release energy from food", "To get oxygen", "To remove carbon dioxide", "To cool the body"], a: "To release energy from food" },
+                    { q: "Where does aerobic respiration take place in a cell?", o: ["Nucleus", "Cytoplasm", "Cell membrane", "Mitochondria", "Vacuole", "Ribosome"], a: "Mitochondria" },
+                    { q: "What are the two REACTANTS of aerobic respiration?", o: ["Oxygen and Water", "Glucose and Oxygen", "Carbon Dioxide and Water", "Glucose and Carbon Dioxide", "Oxygen and Energy", "Water and Glucose"], a: "Glucose and Oxygen" },
+                    { q: "What are the two main PRODUCTS of aerobic respiration?", o: ["Glucose and Oxygen", "Oxygen and Water", "Carbon Dioxide and Water", "Energy and Glucose", "Carbon Dioxide and Oxygen", "Water and Energy"], a: "Carbon Dioxide and Water" },
+                    { q: "What is the fuel used in respiration?", o: ["Oxygen", "Water", "Glucose", "Carbon Dioxide", "Fat", "Protein"], a: "Glucose" },
+                    { q: "What happens to the diaphragm when you breathe in?", o: ["It relaxes and moves up", "It contracts and moves down", "It stays still", "It vibrates", "It disappears", "It moves sideways"], a: "It contracts and moves down" },
+                    { q: "What happens to the rib cage when you breathe in?", o: ["It moves down and in", "It moves up and out", "It does not move", "It gets smaller", "It becomes softer", "It moves down and out"], a: "It moves up and out" },
+                    { q: "What happens to the diaphragm when you breathe out?", o: ["It contracts and moves down", "It relaxes and moves up", "It stays flat", "It vibrates", "It gets smaller", "It moves forward"], a: "It relaxes and moves up" },
+                    { q: "What happens to the rib cage when you breathe out?", o: ["It moves up and out", "It moves down and in", "It does not move", "It gets larger", "It becomes harder", "It moves up and in"], a: "It moves down and in" },
+                    { q: "Breathing is best described as a...", o: ["Chemical process", "Physical process", "Mental process", "Cellular process", "Reaction", "Diffusion"], a: "Physical process" },
+                    { q: "Respiration is best described as a...", o: ["Chemical process", "Physical process", "Mechanical process", "Breathing process", "Large-scale movement", "Thought process"], a: "Chemical process" },
+                    { q: "What happens to the volume inside the chest when you breathe in?", o: ["It decreases", "It increases", "It stays the same", "It becomes zero", "It doubles", "It halves"], a: "It increases" },
+                    { q: "What happens to the pressure inside the chest when you breathe in?", o: ["It increases", "It decreases", "It stays the same", "It becomes very high", "It matches outside pressure", "It is not a factor"], a: "It decreases" },
+                    { q: "What happens to the volume inside the chest when you breathe out?", o: ["It increases", "It decreases", "It stays the same", "It becomes infinite", "It triples", "It is not measurable"], a: "It decreases" },
+                    { q: "What happens to the pressure inside the chest when you breathe out?", o: ["It decreases", "It increases", "It stays the same", "It becomes very low", "It drops to zero", "It is not a factor"], a: "It increases" },
+                    { q: "Which of these requires energy released from respiration?", o: ["Sleeping", "Thinking", "Running", "All of these", "None of these", "Only digesting food"], a: "All of these" },
+                    { q: "What does 'aerobic' mean?", o: ["Without oxygen", "With carbon dioxide", "With oxygen", "Without air", "In the air", "A type of exercise"], a: "With oxygen" },
+                    { q: "Which living things respire?", o: ["Animals only", "Plants only", "Humans only", "All living things", "Only large organisms", "Things with lungs"], a: "All living things" },
+                    { q: "The movement of the ribs is caused by the...", o: ["Diaphragm muscles", "Intercostal muscles", "Lung muscles", "Stomach muscles", "Back muscles", "Neck muscles"], a: "Intercostal muscles" },
+                    { q: "Which statement is correct?", o: ["Breathing and respiration are the same", "Respiration is part of breathing", "Breathing is part of respiration", "They are separate but related processes", "Only humans breathe", "Only plants respire"], a: "They are separate but related processes" },
+                    { q: "What is the energy from respiration used for?", o: ["Movement", "Warmth", "Growth", "All of the above", "Only movement", "Making noise"], a: "All of the above" },
+                    { q: "What do germinating seeds do at a high rate?", o: ["Photosynthesis", "Breathing", "Respiration", "Moving", "Decomposing", "Sleeping"], a: "Respiration" },
+                    { q: "The energy in glucose is a form of ____ energy.", o: ["Kinetic", "Potential", "Heat", "Light", "Chemical", "Nuclear"], a: "Chemical" },
+                    { q: "When you exhale, the intercostal muscles...", o: ["Contract", "Relax", "Vibrate", "Expand", "Disappear", "Get stronger"], a: "Relax" },
+                    { q: "Breathing in is also called...", o: ["Exhalation", "Respiration", "Inhalation", "Expiration", "Diffusion", "Expansion"], a: "Inhalation" },
+                    { q: "Breathing out is also called...", o: ["Inhalation", "Respiration", "Exhalation", "Inspiration", "Contraction", "Reduction"], a: "Exhalation" },
+                    { q: "A build-up of which gas in the blood triggers the need to breathe?", o: ["Oxygen", "Nitrogen", "Carbon Monoxide", "Carbon Dioxide", "Hydrogen", "Helium"], a: "Carbon Dioxide" },
+                    { q: "Respiration releases energy in a...", o: ["Single, large explosion", "Slow, uncontrolled way", "Controlled, step-by-step way", "Very hot flame", "Loud bang", "Bright flash"], a: "Controlled, step-by-step way" },
+                    { q: "In the breathing model, the balloon represents the...", o: ["Lungs", "Diaphragm", "Rib cage", "Trachea", "Person", "Body"], a: "Lungs" },
+                    { q: "In the breathing model, the rubber sheet at the bottom represents the...", o: ["Lungs", "Rib cage", "Trachea", "Diaphragm", "Mouth", "Chest"], a: "Diaphragm" },
+                    { q: "Why do you breathe faster when you exercise?", o: ["To get rid of excess oxygen", "To supply more oxygen for respiration", "To cool down your lungs", "Because your heart beats faster", "To make your muscles tired", "To build up carbon dioxide"], a: "To supply more oxygen for respiration" },
+                    { q: "Glucose is a type of...", o: ["Protein", "Fat", "Sugar", "Acid", "Vitamin", "Mineral"], a: "Sugar" },
+                    { q: "Which product of respiration is considered a waste product?", o: ["Energy", "Glucose", "Oxygen", "Water", "Carbon Dioxide", "Both CO2 and Water"], a: "Carbon Dioxide" },
+                    { q: "The physical action of the diaphragm and ribs is...", o: ["Respiration", "Breathing", "Gas Exchange", "Circulation", "Digestion", "Thinking"], a: "Breathing" },
+                    { q: "If respiration stops, a cell will...", o: ["Stop growing", "Run out of energy and die", "Explode", "Work faster", "Start to photosynthesise", "Divide"], a: "Run out of energy and die" },
+                    { q: "What happens to the air pressure in your lungs when you breathe out?", o: ["It becomes lower than outside", "It becomes higher than outside", "It stays the same", "It drops to zero", "It cannot be measured", "It is not relevant"], a: "It becomes higher than outside" },
+                    { q: "A by-product of energy conversion in respiration is...", o: ["Light", "Sound", "Heat", "Water", "Glucose", "Movement"], a: "Heat" },
+                    { q: "Why do living things need a continuous supply of energy?", o: ["To stay alive", "To carry out life processes", "To grow and repair", "All of the above", "Only to move", "Only to eat"], a: "All of the above" },
+                    { q: "Inhalation causes the chest to...", o: ["Contract", "Expand", "Get warmer", "Get colder", "Stay the same size", "Shrink"], a: "Expand" },
+                    { q: "The ultimate source of energy for most life on Earth is...", o: ["The soil", "The Sun", "The wind", "Glucose", "Water", "Oxygen"], a: "The Sun" }
+                ]
+            },
+            {
+                title: "Blood & Transport",
+                slides: [
+                    {
+                        title: "What is Blood?",
+                        content: `<p>Blood is a liquid tissue that transports substances around the body. It's made of several components:</p><ul class="list-disc list-inside mt-2"><li><strong>Plasma:</strong> The pale yellow liquid part.</li><li><strong>Red Blood Cells:</strong> Carry oxygen.</li><li><strong>White Blood Cells:</strong> Fight infection.</li><li><strong>Platelets:</strong> Help with clotting.</li></ul>`
+                    },
+                    {
+                        title: "Blood Plasma",
+                        content: `<p>Plasma is mostly water. It transports many things, including:</p><ul class="list-disc list-inside mt-2"><li>Digested food like <strong>glucose</strong>.</li><li>Waste products like <strong>carbon dioxide</strong>.</li><li>Hormones, antibodies, and proteins.</li></ul>`
+                    },
+                    {
+                        title: "Red Blood Cells",
+                        content: `<p>These cells are adapted to carry oxygen.</p><ul class="list-disc list-inside mt-2"><li>They contain a red pigment called <strong>haemoglobin</strong>.</li><li>Oxygen joins with haemoglobin to form <strong>oxyhaemoglobin</strong>.</li><li>They have <strong>no nucleus</strong> to make more space for haemoglobin.</li></ul>`
+                    },
+                    {
+                        title: "White Blood Cells",
+                        content: `<p>These are part of the immune system and defend against <strong>pathogens</strong> (disease-causing microbes).</p><ul class="list-disc list-inside mt-2"><li>Some engulf microbes by <strong>phagocytosis</strong>.</li><li>Others produce <strong>antibodies</strong> to neutralise pathogens.</li></ul>`
+                    }
+                ],
+                quiz: [
+                    { q: "What is the liquid part of the blood called?", o: ["Water", "Plasma", "Cytoplasm", "Serum", "Lymph", "Saline"], a: "Plasma" },
+                    { q: "Which component of blood carries the most oxygen?", o: ["Plasma", "White blood cells", "Red blood cells", "Platelets", "Antibodies", "Serum"], a: "Red blood cells" },
+                    { q: "What is the main function of white blood cells?", o: ["Carry oxygen", "Carry carbon dioxide", "Help blood to clot", "Defend against pathogens", "Transport glucose", "Make blood red"], a: "Defend against pathogens" },
+                    { q: "What is the name of the red pigment in red blood cells?", o: ["Chlorophyll", "Melanin", "Haemoglobin", "Oxyhaemoglobin", "Myoglobin", "Carotene"], a: "Haemoglobin" },
+                    { q: "What is formed when oxygen combines with haemoglobin?", o: ["Carboxyhaemoglobin", "Oxyhaemoglobin", "Methaemoglobin", "Reduced haemoglobin", "Deoxygenated blood", "Haemoglobin dioxide"], a: "Oxyhaemoglobin" },
+                    { q: "Why do red blood cells not have a nucleus?", o: ["To be more flexible", "To make more room for haemoglobin", "So they can't divide", "To save energy", "To move faster", "Because they are not true cells"], a: "To make more room for haemoglobin" },
+                    { q: "Disease-causing microorganisms are called...", o: ["Antibodies", "Pathogens", "White blood cells", "Bacteria", "Viruses", "Fungi"], a: "Pathogens" },
+                    { q: "Some white blood cells produce chemicals to fight infection called...", o: ["Hormones", "Enzymes", "Antibodies", "Pathogens", "Antigens", "Plasma"], a: "Antibodies" },
+                    { q: "The process of a white blood cell engulfing a bacterium is called...", o: ["Diffusion", "Respiration", "Phagocytosis", "Antibody production", "Clotting", "Circulation"], a: "Phagocytosis" },
+                    { q: "Which of these is transported dissolved in the plasma?", o: ["Oxygen", "Haemoglobin", "Red blood cells", "White blood cells", "Glucose", "Platelets"], a: "Glucose" },
+                    { q: "What gives blood its red color?", o: ["The plasma", "The white blood cells", "The platelets", "Haemoglobin in red blood cells", "Oxygen", "Iron"], a: "Haemoglobin in red blood cells" },
+                    { q: "Where does haemoglobin pick up oxygen?", o: ["In the body cells", "In the heart", "In the arteries", "In the lungs", "In the brain", "In the plasma"], a: "In the lungs" },
+                    { q: "Where does oxyhaemoglobin release its oxygen?", o: ["In the lungs", "In the heart", "In the body cells", "In the veins", "In the throat", "In the air"], a: "In the body cells" },
+                    { q: "Which blood cell is generally larger and has a nucleus?", o: ["Red blood cell", "White blood cell", "Platelet", "All are the same size", "Plasma cell", "Stem cell"], a: "White blood cell" },
+                    { q: "The waste product carbon dioxide is mainly transported by the...", o: ["Red blood cells", "White blood cells", "Platelets", "Plasma", "Haemoglobin", "Lungs"], a: "Plasma" },
+                    { q: "Which blood component helps to form a scab?", o: ["Red blood cells", "White blood cells", "Plasma", "Platelets", "Antibodies", "Haemoglobin"], a: "Platelets" },
+                    { q: "What shape is a typical red blood cell?", o: ["A sphere", "A cube", "A biconcave disc", "A long rod", "Irregular", "A star shape"], a: "A biconcave disc" },
+                    { q: "Antibodies are specific. This means that...", o: ["They can kill all pathogens", "They only work in specific places", "Each antibody targets one specific pathogen", "They are very small", "They work very fast", "They are made of protein"], a: "Each antibody targets one specific pathogen" },
+                    { q: "Blood is considered a type of...", o: ["Organ", "Tissue", "System", "Cell", "Fluid", "Gas"], a: "Tissue" },
+                    { q: "Approximately how much of plasma is water?", o: ["50%", "75%", "100%", "90%", "25%", "10%"], a: "90%" },
+                    { q: "Which cell type is the most numerous in the blood?", o: ["White blood cell", "Platelet", "Red blood cell", "Nerve cell", "Epithelial cell", "Plasma cell"], a: "Red blood cell" },
+                    { q: "The biconcave shape of a red blood cell helps it to...", o: ["Carry more haemoglobin", "Absorb oxygen efficiently", "Squeeze through capillaries", "Fight infection", "Clot blood", "Divide quickly"], a: "Absorb oxygen efficiently" },
+                    { q: "An infection would likely lead to an increase in the number of...", o: ["Red blood cells", "White blood cells", "Platelets", "Plasma", "All blood cells", "No cells"], a: "White blood cells" },
+                    { q: "Glucose is transported to the cells for...", o: ["Breathing", "Gas exchange", "Respiration", "Fighting infection", "Clotting", "Making blood"], a: "Respiration" },
+                    { q: "The job of delivering oxygen and removing carbon dioxide is done by the...", o: ["Nervous system", "Digestive system", "Circulatory system", "Respiratory system", "Skeletal system", "Immune system"], a: "Circulatory system" },
+                    { q: "Which of these is NOT transported by blood plasma?", o: ["Glucose", "Carbon Dioxide", "Hormones", "Air", "Antibodies", "Water"], a: "Air" },
+                    { q: "Red blood cells are made in the...", o: ["Heart", "Lungs", "Bone marrow", "Spleen", "Liver", "Brain"], a: "Bone marrow" },
+                    { q: "What is the main advantage of haemoglobin?", o: ["It makes blood red", "It carries much more oxygen than water can", "It fights infection", "It digests bacteria", "It carries glucose", "It makes plasma yellow"], a: "It carries much more oxygen than water can" },
+                    { q: "Which of these describes a function of antibodies?", o: ["Engulfing bacteria", "Carrying oxygen", "Causing blood to clot", "Sticking to pathogens to neutralise them", "Transporting hormones", "Making haemoglobin"], a: "Sticking to pathogens to neutralise them" },
+                    { q: "Blood returning to the lungs from the body is...", o: ["Rich in oxygen", "Low in oxygen", "Bright red", "Full of glucose", "Lacking plasma", "Very cold"], a: "Low in oxygen" },
+                    { q: "What keeps the blood moving around the body?", o: ["The lungs", "The muscles", "The brain", "The pumping of the heart", "Gravity", "Breathing"], a: "The pumping of the heart" },
+                    { q: "Why don't red blood cells have mitochondria?", o: ["To save space", "So they don't use up the oxygen they carry", "They are too simple", "Mitochondria are only in plant cells", "They don't need energy", "They get energy from the plasma"], a: "So they don't use up the oxygen they carry" },
+                    { q: "A person with too few red blood cells may feel tired because...", o: ["Their blood is too thin", "They have too many white cells", "Their cells can't get enough oxygen for respiration", "Their blood can't clot", "They can't fight infection", "Their heart is weak"], a: "Their cells can't get enough oxygen for respiration" },
+                    { q: "Which part of the blood is a pale yellow liquid?", o: ["Red blood cells", "White blood cells", "Platelets", "Haemoglobin", "Plasma", "Serum"], a: "Plasma" },
+                    { q: "How are antibodies able to target a specific virus?", o: ["They have a specific shape that fits the virus", "They are intelligent", "They are magnetic", "They are attracted to heat", "They follow instructions from the brain", "They attack everything"], a: "They have a specific shape that fits the virus" },
+                    { q: "In phagocytosis, the pathogen is...", o: ["Ignored", "Poisoned by chemicals", "Stuck to other pathogens", "Engulfed and digested", "Allowed to escape", "Carried to the lungs"], a: "Engulfed and digested" },
+                    { q: "Blood leaving the lungs is...", o: ["Dark red and low in oxygen", "Bright red and rich in oxygen", "Blue and low in oxygen", "Purple and rich in oxygen", "The same as it was before", "Mainly plasma"], a: "Bright red and rich in oxygen" },
+                    { q: "What is the function of the circulatory system?", o: ["To break down food", "To exchange gases with the air", "To transport substances around the body", "To control the body with nerves", "To support the body", "To fight disease"], a: "To transport substances around the body" },
+                    { q: "Which two components of blood are cells?", o: ["Plasma and Platelets", "Red and White blood cells", "Plasma and Red blood cells", "White blood cells and Platelets", "Red blood cells and Plasma", "Haemoglobin and Antibodies"], a: "Red and White blood cells" },
+                    { q: "The delivery of glucose and oxygen to cells is essential for...", o: ["Aerobic respiration", "Breathing", "Digestion", "Thinking", "Sleeping", "Anaerobic respiration"], a: "Aerobic respiration" }
+                ]
+            }
+        ];
+        
+        const app = Vue.createApp({
+            data() {
+                return {
+                    gameState: 'welcome',
+                    studentName: '',
+                    subtopics: subtopics,
+                    currentSubtopicIndex: 0,
+                    currentSlideIndex: 0,
+                    currentQuestionIndex: 0,
+                    currentCorrectionIndex: 0,
+                    score: { correct: 0, wrong: 0 },
+                    attempts: 0,
+                    feedback: { text: '', color: '' },
+                    correctionFeedback: '',
+                    wrongAnswers: [],
+                    optionSelected: false,
+                    selectedOption: ''
+                }
+            },
+            computed: {
+                currentSubtopic() {
+                    return this.subtopics[this.currentSubtopicIndex];
+                },
+                currentSlide() {
+                    return this.currentSubtopic.slides[this.currentSlideIndex];
+                },
+                isLastSlide() {
+                    return this.currentSlideIndex === this.currentSubtopic.slides.length - 1;
+                },
+                currentQuestion() {
+                    return this.currentSubtopic.quiz[this.currentQuestionIndex];
+                },
+                currentCorrectionQuestion() {
+                    return this.wrongAnswers[this.currentCorrectionIndex];
+                }
+            },
+            methods: {
+                startLesson() {
+                    if (this.studentName.trim()) {
+                        this.gameState = 'slides';
+                    } else {
+                        alert('Please enter your name!');
+                    }
+                },
+                nextSlide() {
+                    if (this.isLastSlide) {
+                        this.startQuiz();
+                    } else {
+                        this.currentSlideIndex++;
+                    }
+                },
+                prevSlide() {
+                    if (this.currentSlideIndex > 0) {
+                        this.currentSlideIndex--;
+                    }
+                },
+                startQuiz() {
+                    this.gameState = 'quiz';
+                },
+                checkAnswer(option) {
+                    this.optionSelected = true;
+                    this.selectedOption = option;
+                    const correctAnswer = this.currentQuestion.a;
+
+                    if (option === correctAnswer) {
+                        this.feedback = { text: "Correct! Well done!", color: 'text-green-600' };
+                        this.score.correct++;
+                        setTimeout(this.nextQuestion, 1500);
+                    } else {
+                        this.attempts++;
+                        this.score.wrong++;
+                        if (this.attempts < 2) {
+                            this.feedback = { text: `Not quite, ${this.studentName}. Try again!`, color: 'text-orange-600' };
+                            setTimeout(() => {
+                                this.optionSelected = false;
+                                this.selectedOption = '';
+                                this.feedback.text = '';
+                            }, 2000);
+                        } else {
+                            this.feedback = { text: `The correct answer was "${correctAnswer}". Let's review this later.`, color: 'text-red-600' };
+                            this.wrongAnswers.push(this.currentQuestion);
+                            setTimeout(this.nextQuestion, 2500);
+                        }
+                    }
+                },
+                nextQuestion() {
+                    if (this.currentQuestionIndex < this.currentSubtopic.quiz.length - 1) {
+                        this.currentQuestionIndex++;
+                        this.resetQuestionState();
+                    } else {
+                        this.endQuiz();
+                    }
+                },
+                endQuiz() {
+                    if (this.wrongAnswers.length > 0) {
+                        this.gameState = 'correction';
+                    } else {
+                        this.showSubtopicComplete();
+                    }
+                },
+                checkCorrectionAnswer(option) {
+                    const correctAnswer = this.currentCorrectionQuestion.a;
+                    if (option === correctAnswer) {
+                        this.nextCorrection();
+                    } else {
+                        this.correctionFeedback = "That's not the right one. Try again!";
+                        setTimeout(() => this.correctionFeedback = '', 2000);
+                    }
+                },
+                nextCorrection() {
+                    if (this.currentCorrectionIndex < this.wrongAnswers.length - 1) {
+                        this.currentCorrectionIndex++;
+                    } else {
+                        this.showSubtopicComplete();
+                    }
+                },
+                showSubtopicComplete() {
+                     if (this.currentSubtopicIndex < this.subtopics.length - 1) {
+                        this.gameState = 'subtopic_complete';
+                    } else {
+                        this.gameState = 'final_complete';
+                    }
+                },
+                nextSubtopic() {
+                    this.currentSubtopicIndex++;
+                    this.currentSlideIndex = 0;
+                    this.currentQuestionIndex = 0;
+                    this.currentCorrectionIndex = 0;
+                    this.wrongAnswers = [];
+                    this.resetQuestionState();
+                    this.gameState = 'slides';
+                },
+                restartLesson() {
+                    Object.assign(this.$data, this.$options.data());
+                },
+                resetQuestionState() {
+                    this.attempts = 0;
+                    this.feedback = { text: '', color: '' };
+                    this.optionSelected = false;
+                    this.selectedOption = '';
+                },
+                getOptionClass(option) {
+                    if (!this.optionSelected) return '';
+                    const correctAnswer = this.currentQuestion.a;
+                    if(option === correctAnswer) return 'correct';
+                    if(option === this.selectedOption) return 'incorrect';
+                    return '';
+                }
+            }
+        });
+        
+        app.mount('#app');
+    </script>
+</body>
+</html>
