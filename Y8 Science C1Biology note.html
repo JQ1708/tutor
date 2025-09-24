@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respiration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a202c; /* Dark blue-gray background */
+            color: #e2e8f0; /* Light gray text */
+        }
+        .mind-map-node {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-width: 2px;
+        }
+        .mind-map-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); /* Brighter blue shadow on hover */
+        }
+        .card {
+            background-color: #2d3748; /* Darker card background */
+            border-radius: 1rem;
+            transition: transform 0.3s;
+            perspective: 1000px;
+            min-height: 18rem; /* 288px */
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+        }
+        .card.is-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+        .card-front {
+             background-color: #4a5568; /* Medium gray for card front */
+        }
+        .card-back {
+            background-color: #4299e1; /* Blue for card back */
+            color: #1a202c;
+            transform: rotateY(180deg);
+        }
+        .quiz-option, .fact-check-option {
+            transition: all 0.2s ease-in-out;
+        }
+        .quiz-option.correct, .fact-check-option.correct {
+            background-color: #48bb78; /* Green */
+            color: white;
+            transform: translateX(10px);
+            border-color: #2f855a;
+        }
+        .quiz-option.incorrect, .fact-check-option.incorrect {
+            background-color: #f56565; /* Red */
+            color: white;
+            opacity: 0.7;
+        }
+        .diagram-placeholder {
+            border: 3px dashed #718096; /* Dashed gray border */
+            border-radius: 0.75rem;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 250px;
+            width: 100%;
+            background-color: #2d3748;
+            margin: 1rem 0;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .keyword {
+            color: #63b3ed; /* Light blue for keywords */
+            font-weight: 700;
+            font-style: italic;
+        }
+        .highlight {
+             background: linear-gradient(to top, rgba(237, 137, 54, 0.5) 50%, transparent 50%);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #4a5568;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #4a5568;
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+        td {
+            background-color: #2d3748;
+        }
+        tr:nth-child(even) td {
+            background-color: #354154;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-white mb-2 animate-pulse">Respiration</h1>
+            <p class="text-xl text-blue-300">An interactive journey into how we breathe and get energy.</p>
+        </header>
+
+        <!-- Mind Map Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-semibold text-center mb-8">Topic Mind Map</h2>
+            <div class="flex flex-col items-center space-y-4">
+                <div onclick="document.getElementById('intro').scrollIntoView({ behavior: 'smooth' });" class="mind-map-node bg-blue-600 text-white p-4 rounded-xl w-64 text-center shadow-lg">
+                    <span class="font-bold text-lg">Introduction & Fact Check</span>
+                </div>
+                <div class="h-8 w-1 bg-gray-500"></div>
+                <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-8 space-y-4 lg:space-y-0">
+                    <div onclick="document.getElementById('system').scrollIntoView({ behavior: 'smooth' });" class="mind-map-node bg-gray-700 border-teal-400 text-white p-4 rounded-xl w-64 text-center shadow-lg">
+                        <span class="font-bold">1.1</span> The Human Respiratory System
+                    </div>
+                    <div onclick="document.getElementById('exchange').scrollIntoView({ behavior: 'smooth' });" class="mind-map-node bg-gray-700 border-green-400 text-white p-4 rounded-xl w-64 text-center shadow-lg">
+                        <span class="font-bold">1.2</span> Gas Exchange
+                    </div>
+                    <div onclick="document.getElementById('breathing').scrollIntoView({ behavior: 'smooth' });" class="mind-map-node bg-gray-700 border-purple-400 text-white p-4 rounded-xl w-64 text-center shadow-lg">
+                        <span class="font-bold">1.3</span> Breathing
+                    </div>
+                    <div onclick="document.getElementById('smoking').scrollIntoView({ behavior: 'smooth' });" class="mind-map-node bg-gray-700 border-red-400 text-white p-4 rounded-xl w-64 text-center shadow-lg">
+                        <span class="font-bold">1.4</span> The Effects of Smoking
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction -->
+        <section id="intro" class="mb-16 p-8 bg-gray-800 rounded-2xl shadow-2xl">
+            <h2 class="text-3xl font-bold text-blue-300 mb-4">Introduction: Why We Need Oxygen</h2>
+            <p class="text-lg mb-4">
+                Respiration is one of the essential characteristics of all living things. It's not just about breathing! <span class="highlight">Respiration is a series of chemical reactions</span> that happens inside every single living cell to release energy from food.
+            </p>
+            <div class="p-6 bg-gray-900 rounded-lg">
+                <p class="text-xl font-semibold mb-2">The main type is <span class="keyword">aerobic respiration</span>.</p>
+                <p>This process uses <strong class="text-green-400">oxygen</strong> and produces <strong class="text-red-400">carbon dioxide</strong> as a waste product.</p>
+                <div class="mt-4 text-center bg-gray-800 p-4 rounded-lg">
+                    <em class="text-2xl text-yellow-300">Glucose + Oxygen → Carbon Dioxide + Water (+ Energy Released)</em>
+                </div>
+            </div>
+             <!-- Fact Check Section -->
+            <div class="mt-8 p-6 bg-gray-900 rounded-lg">
+                <h3 class="text-2xl font-bold text-center text-yellow-300 mb-4">Fact Check!</h3>
+                <p class="text-center mb-4">Let's clear up some common misconceptions. Choose the correct statement in each pair.</p>
+                <div id="fact-check-container" class="space-y-6"></div>
+            </div>
+        </section>
+
+        <!-- 1.1 The Human Respiratory System -->
+        <section id="system" class="mb-16 p-8 bg-gray-800 rounded-2xl shadow-2xl">
+            <h2 class="text-3xl font-bold text-teal-300 mb-6">1.1 The Human Respiratory System</h2>
+            <p class="text-lg mb-6">The <span class="keyword">respiratory system</span> is the group of organs that work together to get oxygen from the air into our body. Let's explore the path air takes. Tap the cards to flip them!</p>
+            
+            <div class="diagram-placeholder">
+                <span class="text-gray-400 font-semibold">Space for diagram showing the human respiratory system</span>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card: Trachea -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <h3 class="text-2xl font-bold">Trachea (Windpipe)</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>The main tube that carries air from the throat towards the lungs. It is held open by incomplete, <strong class="text-blue-900">C-shaped rings</strong> of <span class="keyword">cartilage</span>.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card: Bronchi -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <h3 class="text-2xl font-bold">Bronchi & Bronchioles</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>The trachea splits into two <span class="keyword">bronchi</span> (singular: bronchus), one for each lung. These then branch into smaller and smaller tubes called <span class="keyword">bronchioles</span>.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card: Air Sacs -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <h3 class="text-2xl font-bold">Air Sacs (Alveoli)</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>Tiny bags at the end of the bronchioles where <span class="highlight">gas exchange happens</span>. There are millions in each lung!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card: Lungs -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <h3 class="text-2xl font-bold">Lungs</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>The main organs of the respiratory system. They are spongy, elastic organs filled with the network of bronchioles and air sacs.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card: Larynx -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <h3 class="text-2xl font-bold">Larynx (Voicebox)</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>Found at the top of the trachea. It contains the <span class="keyword">vocal cords</span>, which vibrate when stretched to produce sound as air passes over them.</p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card: Cilia & Mucus -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face card-front">
+                            <h3 class="text-2xl font-bold">Cleaning the Air</h3>
+                        </div>
+                        <div class="card-face card-back">
+                            <p>The trachea and bronchi are lined with cells that make sticky <span class="keyword">mucus</span> to trap dirt and pathogens. Tiny hairs called <span class="keyword">cilia</span> sweep this mucus upwards to be swallowed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagram-placeholder">
+                <span class="text-gray-400 font-semibold">Space for diagram of Cilia and Mucus in the trachea</span>
+            </div>
+
+            <!-- Quiz for 1.1 -->
+            <details class="mt-8">
+                <summary class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-lg cursor-pointer text-center text-xl">
+                    Test Your Knowledge! (Section 1.1 Quiz)
+                </summary>
+                <div id="quiz1" class="mt-4 p-6 bg-gray-900 rounded-lg"></div>
+            </details>
+        </section>
+
+        <!-- 1.2 Gas Exchange -->
+        <section id="exchange" class="mb-16 p-8 bg-gray-800 rounded-2xl shadow-2xl">
+            <h2 class="text-3xl font-bold text-green-300 mb-6">1.2 Gas Exchange</h2>
+            <p class="text-lg mb-6">This is the crucial process where oxygen enters the blood and carbon dioxide leaves it by <span class="keyword">diffusion</span>. It all happens in the <span class="keyword">air sacs</span> (alveoli).</p>
+
+             <div class="diagram-placeholder">
+                <span class="text-gray-400 font-semibold">Space for diagram of Gas Exchange at an Alveolus</span>
+            </div>
+
+            <h3 class="text-2xl font-semibold mb-4 text-white">How are Air Sacs Adapted for Gas Exchange?</h3>
+            <ul class="space-y-4">
+                <li class="p-4 bg-gray-900 rounded-lg flex items-start">
+                    <span class="text-3xl mr-4">1️⃣</span>
+                    <div><strong class="text-green-400">Large surface area:</strong> There are millions of them, creating a total surface area as big as a tennis court! This allows a lot of gas to diffuse at once.</div>
+                </li>
+                <li class="p-4 bg-gray-900 rounded-lg flex items-start">
+                    <span class="text-3xl mr-4">2️⃣</span>
+                    <div><strong class="text-green-400">Thin walls:</strong> The walls of the air sacs and the capillaries are only <span class="highlight">one cell thick</span>. This creates a very short distance for the gases to travel.</div>
+                </li>
+                <li class="p-4 bg-gray-900 rounded-lg flex items-start">
+                    <span class="text-3xl mr-4">3️⃣</span>
+                     <div><strong class="text-green-400">Moist Surface:</strong> The air sacs have a moist lining, allowing oxygen to dissolve before it diffuses into the blood.</div>
+                </li>
+                <li class="p-4 bg-gray-900 rounded-lg flex items-start">
+                    <span class="text-3xl mr-4">4️⃣</span>
+                    <div><strong class="text-green-400">Good blood supply:</strong> A dense network of capillaries surrounds each air sac. Blood constantly flows, maintaining a steep <span class="keyword">concentration gradient</span> for efficient diffusion.</div>
+                </li>
+            </ul>
+
+            <h3 class="text-2xl font-semibold mt-8 mb-4 text-white">Inhaled vs. Exhaled Air</h3>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Gas</th>
+                            <th>Air You Breathe In</th>
+                            <th>Air You Breathe Out</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Oxygen</strong></td>
+                            <td>~21%</td>
+                            <td>~16% (Used in respiration)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Carbon Dioxide</strong></td>
+                            <td>~0.04%</td>
+                            <td>~4% (Waste product of respiration)</td>
+                        </tr>
+                         <tr>
+                            <td><strong>Water Vapour</strong></td>
+                            <td>Variable</td>
+                            <td>Saturated (Moisture added in lungs)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Quiz for 1.2 -->
+             <details class="mt-8">
+                <summary class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg cursor-pointer text-center text-xl">
+                    Test Your Knowledge! (Section 1.2 Quiz)
+                </summary>
+                <div id="quiz2" class="mt-4 p-6 bg-gray-900 rounded-lg"></div>
+            </details>
+        </section>
+
+        <!-- 1.3 Breathing -->
+        <section id="breathing" class="mb-16 p-8 bg-gray-800 rounded-2xl shadow-2xl">
+            <h2 class="text-3xl font-bold text-purple-300 mb-6">1.3 Breathing</h2>
+            <p class="text-lg mb-6"><strong class="text-yellow-300">Important:</strong> Breathing (also called <span class="keyword">ventilation</span>) and respiration are <span class="highlight">NOT</span> the same thing! Breathing is the physical process of moving air in and out of the lungs. Respiration is the chemical reaction that releases energy in cells.</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Inhaling -->
+                <div class="bg-gray-900 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold text-center text-blue-300 mb-4">Breathing In (Inhalation)</h3>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>The <span class="keyword">intercostal muscles</span> contract, pulling the rib cage <strong class="text-blue-400">up and out</strong>.</li>
+                        <li>The <span class="keyword">diaphragm</span> contracts and <strong class="text-blue-400">flattens</strong>.</li>
+                        <li>These actions <strong class="text-green-400">increase the volume</strong> inside the chest.</li>
+                        <li>This <strong class="text-red-400">decreases the pressure</strong> inside the chest.</li>
+                        <li>Air is drawn <strong class="text-yellow-400">into</strong> the lungs.</li>
+                    </ol>
+                </div>
+                <!-- Exhaling -->
+                 <div class="bg-gray-900 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold text-center text-orange-300 mb-4">Breathing Out (Exhalation)</h3>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>The <span class="keyword">intercostal muscles</span> relax, letting the rib cage fall <strong class="text-orange-400">down and in</strong>.</li>
+                        <li>The <span class="keyword">diaphragm</span> relaxes and becomes <strong class="text-orange-400">dome-shaped</strong>.</li>
+                        <li>These actions <strong class="text-red-400">decrease the volume</strong> inside the chest.</li>
+                        <li>This <strong class="text-green-400">increases the pressure</strong> inside the chest.</li>
+                        <li>Air is forced <strong class="text-yellow-400">out of</strong> the lungs.</li>
+                    </ol>
+                </div>
+            </div>
+             <div class="diagram-placeholder">
+                <span class="text-gray-400 font-semibold">Space for diagram of the Bell Jar Model of the Lungs (showing inhalation and exhalation)</span>
+            </div>
+             <!-- Quiz for 1.3 -->
+             <details class="mt-8">
+                <summary class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg cursor-pointer text-center text-xl">
+                    Test Your Knowledge! (Section 1.3 Quiz)
+                </summary>
+                <div id="quiz3" class="mt-4 p-6 bg-gray-900 rounded-lg"></div>
+            </details>
+        </section>
+
+        <!-- 1.4 The Effects of Smoking -->
+        <section id="smoking" class="p-8 bg-gray-800 rounded-2xl shadow-2xl">
+            <h2 class="text-3xl font-bold text-red-400 mb-6">1.4 The Effects of Smoking</h2>
+            <p class="text-lg mb-6">Cigarette smoke contains thousands of chemicals, many of which are harmful. Let's look at the main culprits.</p>
+            
+            <div class="space-y-6">
+                <div class="p-6 bg-gray-900 rounded-lg">
+                    <h3 class="text-2xl font-bold text-yellow-500">Tar</h3>
+                    <p>A sticky, black substance that collects in the lungs. It is a <span class="keyword">carcinogen</span> (causes cancer). Tar also paralyses and damages the cilia, leading to a build-up of mucus containing trapped dirt and bacteria. This can lead to a 'smoker's cough' and infections.</p>
+                </div>
+                <div class="p-6 bg-gray-900 rounded-lg">
+                    <h3 class="text-2xl font-bold text-blue-400">Nicotine</h3>
+                    <p>An <span class="keyword">addictive</span> drug that makes it hard to stop smoking. It increases heart rate and blood pressure, which can lead to heart disease.</p>
+                </div>
+                 <div class="p-6 bg-gray-900 rounded-lg">
+                    <h3 class="text-2xl font-bold text-gray-400">Carbon Monoxide</h3>
+                    <p>A poisonous gas that binds irreversibly to <span class="keyword">haemoglobin</span> in red blood cells. This reduces the ability of the blood to carry <span class="highlight">oxygen</span>, making the heart work harder to supply the body with enough oxygen.</p>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-semibold mt-8 mb-4 text-white">Smoking-Related Diseases</h3>
+            <div class="diagram-placeholder">
+                <span class="text-gray-400 font-semibold">Space for comparative diagram of Healthy Alveoli vs. Damaged Alveoli (Emphysema)</span>
+            </div>
+            <ul class="list-disc list-inside space-y-2 text-lg">
+                <li><strong class="text-red-500">Lung Cancer:</strong> Uncontrolled growth of cells in the lungs, often caused by the carcinogens in tar.</li>
+                <li><strong class="text-red-500">Bronchitis:</strong> Inflammation of the bronchi. Damaged cilia cause mucus (with trapped bacteria) to build up, leading to persistent coughing and infection.</li>
+                <li><strong class="text-red-500">Emphysema:</strong> An <span class="highlight">irreversible</span> disease where the walls of the air sacs are broken down, reducing the surface area for gas exchange and causing severe breathlessness.</li>
+                 <li><strong class="text-red-500">Heart Disease:</strong> Smoking increases the risk of heart attacks and strokes. Nicotine raises blood pressure, and carbon monoxide forces the heart to work harder.</li>
+            </ul>
+
+             <!-- Quiz for 1.4 -->
+             <details class="mt-8">
+                <summary class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg cursor-pointer text-center text-xl">
+                    Test Your Knowledge! (Section 1.4 Quiz)
+                </summary>
+                <div id="quiz4" class="mt-4 p-6 bg-gray-900 rounded-lg"></div>
+            </details>
+        </section>
+
+    </div>
+
+    <script>
+        const factChecks = [
+            {
+                q: "Where does respiration happen?",
+                options: ["Inside all the cells in your body.", "Only in cells in your lungs."],
+                correct: 0
+            },
+            {
+                q: "What is the purpose of respiration?",
+                options: ["Respiration releases energy from food.", "Respiration uses up energy."],
+                correct: 0
+            },
+            {
+                q: "Which organisms respire?",
+                options: ["Respiration happens in all living things.", "Respiration happens in animals but not plants."],
+                correct: 0
+            }
+        ];
+        
+        const quizzes = {
+            quiz1: [
+                { q: "What shape are the cartilage rings in the trachea?", a: ["O-shaped", "C-shaped", "S-shaped", "Full circles"], correct: 1 },
+                { q: "What are the tiny hairs that sweep mucus upwards called?", a: ["Bronchioles", "Cilia", "Cartilage", "Villi"], correct: 1 },
+                { q: "Which of these lists the path of air correctly?", a: ["Trachea -> Bronchioles -> Bronchi", "Nose -> Trachea -> Bronchi -> Bronchioles", "Bronchi -> Trachea -> Lungs", "Larynx -> Bronchioles -> Trachea"], correct: 1 },
+                { q: "The trachea splits into two tubes called...", a: ["Bronchioles", "Air sacs", "Larynxes", "Bronchi"], correct: 3 },
+                { q: "Where are the vocal cords located?", a: ["In the lungs", "In the trachea", "In the larynx", "In the nose"], correct: 2 },
+                { q: "What is the main purpose of mucus in the airways?", a: ["To produce sound", "To trap dirt and pathogens", "To help oxygen diffuse", "To make the air warm"], correct: 1 },
+                { q: "Aerobic respiration produces energy, water and...", a: ["Oxygen", "Carbon dioxide", "Glucose", "Nitrogen"], correct: 1 },
+                { q: "The entire group of organs for breathing is called the...", a: ["Circulatory system", "Breathing system", "Respiratory system", "Digestive system"], correct: 2 },
+                { q: "Which part of the respiratory system is made of millions of tiny air sacs?", a: ["The trachea", "The bronchi", "The lungs", "The diaphragm"], correct: 2 },
+                { q: "What is the scientific term for the voicebox?", a: ["Trachea", "Pharynx", "Larynx", "Bronchus"], correct: 2 }
+            ],
+            quiz2: [
+                { q: "Where does gas exchange take place?", a: ["Trachea", "Bronchi", "Air sacs (alveoli)", "Diaphragm"], correct: 2 },
+                { q: "Approximately what percentage of exhaled air is carbon dioxide?", a: ["0.04%", "4%", "16%", "21%"], correct: 1 },
+                { q: "Why must the surface of the alveoli be moist?", a: ["To trap dust", "To help oxygen dissolve before diffusing", "To keep the lungs warm", "To produce mucus"], correct: 1 },
+                { q: "Which gas moves from the blood into the air sacs?", a: ["Oxygen", "Nitrogen", "Carbon dioxide", "Water vapour"], correct: 2 },
+                { q: "Compared to inhaled air, exhaled air contains...", a: ["More oxygen, less carbon dioxide", "Less oxygen, more carbon dioxide", "The same amount of both", "Only nitrogen"], correct: 1 },
+                { q: "What surrounds the air sacs to facilitate gas exchange?", a: ["Muscle tissue", "Cartilage rings", "A network of capillaries", "Thick connective tissue"], correct: 2 },
+                { q: "A good blood supply helps gas exchange by...", a: ["Making the walls thicker", "Maintaining a concentration gradient", "Warming up the air", "Producing mucus"], correct: 1 },
+                { q: "What is the approximate percentage of oxygen in the air we inhale?", a: ["4%", "16%", "21%", "78%"], correct: 2 },
+                { q: "The movement of gases in the lungs is called...", a: ["Respiration", "Ventilation", "Osmosis", "Diffusion"], correct: 3 },
+                { q: "How thick are the walls of an alveolus and a capillary?", a: ["One cell thick", "Two cells thick", "Ten cells thick", "It varies"], correct: 0 }
+            ],
+            quiz3: [
+                { q: "What is another word for breathing?", a: ["Respiration", "Diffusion", "Ventilation", "Contraction"], correct: 2 },
+                { q: "During inhalation, the diaphragm...", a: ["Relaxes and becomes dome-shaped", "Contracts and flattens", "Stays still", "Moves up"], correct: 1 },
+                { q: "What happens to the rib cage when you breathe in?", a: ["It moves down and in", "It moves up and out", "It does not move", "It gets smaller"], correct: 1 },
+                { q: "When the volume of the chest increases, the pressure...", a: ["Increases", "Stays the same", "Decreases", "Becomes zero"], correct: 2 },
+                { q: "During normal exhalation, the intercostal muscles...", a: ["Contract", "Relax", "Vibrate", "Expand"], correct: 1 },
+                { q: "What happens to the diaphragm when you breathe out?", a: ["It contracts and flattens", "It relaxes and becomes dome-shaped", "It moves down", "It disappears"], correct: 1 },
+                { q: "Breathing out is also known as...", a: ["Inhalation", "Respiration", "Diffusion", "Exhalation"], correct: 3 },
+                { q: "What is the sheet of muscle below the lungs called?", a: ["Intercostal muscle", "Pectoral muscle", "Diaphragm", "Abdominal muscle"], correct: 2 },
+                { q: "Air moves into the lungs because the pressure inside is...", a: ["Higher than outside", "The same as outside", "Lower than outside", "Constantly changing"], correct: 2 },
+                { q: "In the bell jar model, what does the rubber sheet at the bottom represent?", a: ["The chest cavity", "The lungs", "The diaphragm", "The ribs"], correct: 2 }
+            ],
+            quiz4: [
+                { q: "Which substance in cigarettes is a carcinogen?", a: ["Nicotine", "Water", "Tar", "Carbon monoxide"], correct: 2 },
+                { q: "Which disease is caused by smoking increasing heart rate and blood pressure?", a: ["Emphysema", "Lung Cancer", "Bronchitis", "Heart Disease"], correct: 3 },
+                { q: "Carbon monoxide reduces the amount of ______ that red blood cells can carry.", a: ["Carbon dioxide", "Water", "Nutrients", "Oxygen"], correct: 3 },
+                { q: "The disease emphysema involves the breakdown of the walls of the...", a: ["Trachea", "Bronchi", "Air sacs", "Heart"], correct: 2 },
+                { q: "What is the effect of tar on cilia?", a: ["It makes them work faster", "It paralyses and damages them", "It makes them longer", "It has no effect"], correct: 1 },
+                { q: "Why can bronchitis lead to infections?", a: ["It causes cancer cells to grow", "The heart has to work harder", "Mucus with bacteria is not cleared from the lungs", "It reduces the blood supply"], correct: 2 },
+                { q: "Which smoking-related disease is described as irreversible?", a: ["Bronchitis", "A smoker's cough", "Emphysema", "The common cold"], correct: 2 },
+                { q: "What is the addictive drug in tobacco smoke?", a: ["Tar", "Carbon Monoxide", "Haemoglobin", "Nicotine"], correct: 3 },
+                { q: "What is the primary risk of having less surface area in the lungs due to emphysema?", a: ["Frequent coughing", "Addiction", "Heart disease", "Inefficient gas exchange"], correct: 3 },
+                { q: "What does carbon monoxide bind to in the blood?", a: ["Plasma", "White blood cells", "Haemoglobin", "Platelets"], correct: 2 }
+            ]
+        };
+
+        function createFactCheck(containerId, checks) {
+            const container = document.getElementById(containerId);
+            checks.forEach((item, index) => {
+                const checkDiv = document.createElement('div');
+                checkDiv.className = 'mb-4 p-4 bg-gray-800 rounded-lg';
+                
+                const questionP = document.createElement('p');
+                questionP.className = 'font-semibold text-lg mb-3';
+                questionP.textContent = item.q;
+                checkDiv.appendChild(questionP);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'flex flex-col sm:flex-row gap-4';
+                
+                item.options.forEach((option, optionIndex) => {
+                    const button = document.createElement('button');
+                    button.className = 'w-full text-center p-3 bg-gray-700 border-2 border-gray-600 rounded-lg hover:bg-gray-600 fact-check-option';
+                    button.textContent = option;
+                    button.onclick = () => {
+                         Array.from(optionsDiv.children).forEach(btn => {
+                            btn.disabled = true;
+                            btn.classList.add('incorrect');
+                         });
+                         button.classList.remove('incorrect');
+                         button.classList.add('correct');
+                    };
+                    optionsDiv.appendChild(button);
+                });
+                checkDiv.appendChild(optionsDiv);
+                container.appendChild(checkDiv);
+            });
+        }
+
+        function createQuiz(quizId, questions) {
+            const container = document.getElementById(quizId);
+            container.innerHTML = '';
+            questions.forEach((item, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'mb-6';
+                
+                const questionP = document.createElement('p');
+                questionP.className = 'font-semibold text-lg mb-3';
+                questionP.textContent = `${index + 1}. ${item.q}`;
+                questionDiv.appendChild(questionP);
+                
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'space-y-2';
+                
+                item.a.forEach((option, optionIndex) => {
+                    const button = document.createElement('button');
+                    button.className = 'w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-gray-600 quiz-option';
+                    button.textContent = option;
+                    button.onclick = () => {
+                        Array.from(optionsDiv.children).forEach(btn => btn.disabled = true);
+                        if (optionIndex === item.correct) {
+                            button.classList.add('correct');
+                        } else {
+                            button.classList.add('incorrect');
+                            optionsDiv.children[item.correct].classList.add('correct');
+                        }
+                    };
+                    optionsDiv.appendChild(button);
+                });
+                
+                questionDiv.appendChild(optionsDiv);
+                container.appendChild(questionDiv);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createFactCheck('fact-check-container', factChecks);
+            createQuiz('quiz1', quizzes.quiz1);
+            createQuiz('quiz2', quizzes.quiz2);
+            createQuiz('quiz3', quizzes.quiz3);
+            createQuiz('quiz4', quizzes.quiz4);
+        });
+    </script>
+</body>
+</html>
+
