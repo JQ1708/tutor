@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Biology - Chapter 2: Cells</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .slide-content img {
+            max-height: 300px;
+            margin: 1rem auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .subtopic-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .subtopic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div id="app" class="w-full max-w-4xl mx-auto">
+        
+        <!-- Welcome Screen -->
+        <div v-if="gameState === 'welcome'" class="text-center bg-white p-8 rounded-xl shadow-lg transition-all duration-500 transform hover:scale-105">
+            <h1 class="text-4xl font-bold mb-4 text-indigo-600">Cell Biology Adventure!</h1>
+            <p class="mb-6 text-lg text-gray-700">Get ready to explore the amazing world of cells.</p>
+            <input 
+                type="text" 
+                v-model="studentName" 
+                @keyup.enter="startLesson"
+                placeholder="Enter your name, e.g., Candice" 
+                class="w-full max-w-sm p-3 border border-gray-300 rounded-lg mb-4 text-center focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            <button 
+                @click="startLesson" 
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 transform hover:translate-y-[-2px]">
+                Let's Go!
+            </button>
+        </div>
+        
+        <!-- Subtopic Selection Screen -->
+        <div v-if="gameState === 'subtopicSelection'" class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold mb-2 text-center text-indigo-700">Choose a Topic</h2>
+            <p class="text-center text-gray-600 mb-8">Welcome, {{ studentName }}! Select a subtopic to begin your lesson.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div v-for="(subtopic, index) in subtopics" :key="subtopic.title" @click="selectSubtopic(index)"
+                     class="subtopic-card p-6 rounded-lg cursor-pointer border-2"
+                     :class="subtopic.completed ? 'bg-green-50 border-green-400' : 'bg-white hover:border-indigo-400 border-gray-200'">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold" :class="subtopic.completed ? 'text-green-800' : 'text-gray-800'">{{ subtopic.title }}</h3>
+                        <div v-if="subtopic.completed" class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white">
+                            ✓
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div v-if="allTopicsCompleted" class="text-center mt-8">
+                <p class="text-lg text-green-700 font-semibold mb-4">You've mastered all topics!</p>
+                <button @click="finishLesson" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+                    Finish Lesson!
+                </button>
+            </div>
+        </div>
+
+        <!-- Slides Screen -->
+        <div v-if="gameState === 'slides'" class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold mb-4 text-center text-indigo-700">{{ currentSubtopic.title }}</h2>
+            <div class="slide-content text-center text-gray-800 space-y-4" v-html="currentSubtopic.slides[currentSlideIndex]"></div>
+            <div class="flex justify-between items-center mt-6">
+                <button @click="prevSlide" :disabled="currentSlideIndex === 0" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    Back
+                </button>
+                <div class="text-sm text-gray-500">{{ currentSlideIndex + 1 }} / {{ currentSubtopic.slides.length }}</div>
+                <button v-if="currentSlideIndex < currentSubtopic.slides.length - 1" @click="nextSlide" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg">
+                    Next
+                </button>
+                <button v-else @click="startQuiz" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">
+                    Start Quiz!
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div v-if="gameState === 'quiz'" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-indigo-700">{{ currentSubtopic.title }}</h3>
+                <div class="flex space-x-4">
+                    <span class="text-green-500 font-semibold">Correct: {{ score.correct }}</span>
+                    <span class="text-red-500 font-semibold">Wrong: {{ score.wrong }}</span>
+                </div>
+            </div>
+            <div class="text-center mb-2 text-gray-600">Question {{ currentQuestionIndex + 1 }} of {{ currentSubtopic.questions.length }}</div>
+            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                <p class="text-lg font-semibold text-gray-800 text-center">{{ currentQuestion.text }}</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button v-for="option in currentQuestion.options" :key="option"
+                    @click="selectAnswer(option)"
+                    :disabled="feedback.text !== ''"
+                    class="p-4 rounded-lg text-left transition duration-200"
+                    :class="getOptionClass(option)">
+                    {{ option }}
+                </button>
+            </div>
+             <div v-if="feedback.text" class="mt-4 p-3 rounded-lg text-center font-semibold" :class="feedback.color">
+                {{ feedback.text }}
+            </div>
+        </div>
+
+        <!-- Correction Screen -->
+        <div v-if="gameState === 'correction'" class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold mb-4 text-center text-orange-500">Correction Time!</h2>
+            <p class="text-center text-gray-700 mb-6">Let's review the questions you found tricky, {{ studentName }}. You must get them right to proceed!</p>
+             <div v-if="questionsToCorrect.length > 0">
+                <div class="text-center mb-2 text-gray-600">Correcting question {{ correctionQuestionIndex + 1 }} of {{ questionsToCorrect.length }}</div>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <p class="text-lg font-semibold text-gray-800 text-center">{{ questionsToCorrect[correctionQuestionIndex].text }}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button v-for="option in questionsToCorrect[correctionQuestionIndex].options" :key="option"
+                        @click="checkCorrectionAnswer(option)"
+                        :disabled="feedback.text !== ''"
+                         class="p-4 rounded-lg text-left transition duration-200"
+                         :class="getCorrectionOptionClass(option)">
+                        {{ option }}
+                    </button>
+                </div>
+                <div v-if="feedback.text" class="mt-4 p-3 rounded-lg text-center font-semibold" :class="feedback.color">
+                    {{ feedback.text }}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary Screen -->
+        <div v-if="gameState === 'summary'" class="text-center bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold mb-4 text-indigo-700">Subtopic Complete!</h2>
+            <p class="text-lg text-gray-800 mb-2">Great work, {{ studentName }}! Here's how you did on "{{ currentSubtopic.title }}":</p>
+            <div class="flex justify-center space-x-6 my-4 text-xl">
+                <span class="text-green-600 font-bold">Correct: {{ score.correct }}</span>
+                <span class="text-red-600 font-bold">Wrong: {{ score.wrong }}</span>
+            </div>
+            <p v-if="questionsToCorrect.length > 0" class="text-orange-600 font-semibold mb-6">You had a few tricky questions, but you've corrected them all. Well done!</p>
+            <p v-else class="text-green-600 font-semibold mb-6">Wow, a perfect score! You're a biology star!</p>
+            <button @click="backToTopics" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg text-lg">
+                Back to Topics
+            </button>
+        </div>
+
+        <!-- Final Screen -->
+        <div v-if="gameState === 'final'" class="text-center bg-white p-8 rounded-xl shadow-lg">
+            <h1 class="text-4xl font-bold mb-4 text-green-500">Congratulations, {{ studentName }}!</h1>
+            <p class="text-xl text-gray-700">You've completed the entire lesson on Cells!</p>
+            <p class="text-lg mt-4">You've shown amazing dedication. Keep up the fantastic work!</p>
+        </div>
+
+    </div>
+
+    <script>
+        const subtopicsData = [
+            // Subtopic 1: Animal and Plant Cells
+            {
+                title: 'Animal and Plant Cells',
+                completed: false,
+                slides: [
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>What are Cells?</h3>
+                        <p>All living organisms are made of cells. They are the basic building blocks of life. Most are so small we need a microscope to see them!</p>
+                        <img src='https://i.imgur.com/g8e1P68.png' alt='Light Microscope Diagram'>
+                        <p class='text-sm text-gray-500'>We use a <strong>light microscope</strong> to see cells.</p>
+                    `,
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>The Animal Cell</h3>
+                        <p>Animal cells are the basic unit of life in animals. They have several important parts called organelles.</p>
+                        <img src='https://i.imgur.com/w1iL2M6.png' alt='Animal Cell Diagram'>
+                        <p>Key parts: <strong>Nucleus, Cytoplasm, Cell Membrane, Mitochondria, Ribosomes</strong>.</p>
+                    `,
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>The Plant Cell</h3>
+                        <p>Plant cells have everything an animal cell does, plus a few extra structures that make them unique.</p>
+                        <img src='https://i.imgur.com/8m5sQoF.png' alt='Plant Cell Diagram'>
+                        <p>Extra parts: <strong>Cell Wall, large permanent Vacuole, and Chloroplasts</strong>.</p>
+                    `,
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>Organelle Functions</h3>
+                        <ul>
+                            <li><strong>Nucleus:</strong> Controls the cell. Contains the genetic information (DNA).</li>
+                            <li><strong>Cytoplasm:</strong> A jelly-like substance where chemical reactions happen.</li>
+                            <li><strong>Cell Membrane:</strong> Controls what enters and leaves the cell.</li>
+                            <li><strong>Mitochondria:</strong> The 'powerhouse'. Where respiration occurs to release energy.</li>
+                            <li><strong>Ribosomes:</strong> Tiny structures that make proteins.</li>
+                            <li><strong>Cell Wall (Plants):</strong> Made of cellulose. Provides support and stops the cell bursting.</li>
+                            <li><strong>Vacuole (Plants):</strong> Contains cell sap to help keep the cell firm.</li>
+                            <li><strong>Chloroplasts (Plants):</strong> Contain chlorophyll for photosynthesis.</li>
+                        </ul>
+                    `,
+                ],
+                questions: [
+                    { text: "Which part of the cell is known as the 'control center' or 'brain'?", options: ['Mitochondria', 'Nucleus', 'Cytoplasm', 'Cell Membrane', 'Ribosome', 'Vacuole'], answer: 'Nucleus' },
+                    { text: 'What is the function of the mitochondria?', options: ['To make proteins', 'To control the cell', 'To release energy through respiration', 'To store water', 'To absorb sunlight', 'To control movement'], answer: 'To release energy through respiration' },
+                    { text: 'Which of these structures is found in a plant cell but NOT in an animal cell?', options: ['Nucleus', 'Cytoplasm', 'Cell Wall', 'Cell Membrane', 'Mitochondria', 'Ribosomes'], answer: 'Cell Wall' },
+                    { text: 'The jelly-like substance that fills the cell is called...', options: ['Cell sap', 'Nucleus', 'Water', 'Cytoplasm', 'Cell membrane', 'Chlorophyll'], answer: 'Cytoplasm' },
+                    { text: 'What is the function of a ribosome?', options: ['Protein synthesis', 'Energy release', 'Waste disposal', 'Storing DNA', 'Photosynthesis', 'Providing support'], answer: 'Protein synthesis' },
+                    { text: 'Which structure controls the movement of substances into and out of the cell?', options: ['Cell Wall', 'Nucleus', 'Vacuole', 'Ribosome', 'Cell Membrane', 'Chloroplast'], answer: 'Cell Membrane' },
+                    { text: 'Photosynthesis occurs in which organelle?', options: ['Mitochondria', 'Nucleus', 'Chloroplast', 'Vacuole', 'Ribosome', 'Cell Wall'], answer: 'Chloroplast' },
+                    { text: "A plant cell's rigid outer layer made of cellulose is the...", options: ['Cell Membrane', 'Cytoskeleton', 'Pellicle', 'Capsule', 'Cell Wall', 'Lipid Bilayer'], answer: 'Cell Wall' },
+                    { text: 'A cell that needs a lot of energy, like a muscle cell, would have a large number of which organelle?', options: ['Nuclei', 'Ribosomes', 'Vacuoles', 'Chloroplasts', 'Mitochondria', 'Lysosomes'], answer: 'Mitochondria' },
+                    { text: "What does the large permanent vacuole in a plant cell contain?", options: ['Pure water', 'Air', 'DNA', 'Cell sap', 'Chlorophyll', 'Cytoplasm'], answer: 'Cell sap' },
+                    { text: 'Which green pigment is found inside chloroplasts?', options: ['Haemoglobin', 'Melanin', 'Chlorophyll', 'Carotene', 'Anthocyanin', 'Xanthophyll'], answer: 'Chlorophyll' },
+                    { text: 'Which of the following are found in BOTH animal and plant cells?', options: ['Cell wall and chloroplasts', 'Cell membrane and nucleus', 'Large vacuole and cell wall', 'Chloroplasts and cytoplasm', 'Cell wall and ribosomes', 'Mitochondria and chloroplasts'], answer: 'Cell membrane and nucleus' },
+                    { text: 'What is the main component of a plant cell wall?', options: ['Protein', 'Lipid', 'Chitin', 'Cellulose', 'Starch', 'Glycogen'], answer: 'Cellulose' },
+                    { text: 'The genetic information of a eukaryotic cell is stored in the form of...', options: ['RNA', 'Proteins', 'Chromosomes', 'Ribosomes', 'Enzymes', 'Cell sap'], answer: 'Chromosomes' },
+                    { text: 'Which statement correctly describes the cell membrane?', options: ['It is fully permeable', 'It is made of cellulose', 'It is a rigid structure', 'It is partially permeable', 'It is only found in plant cells', 'It is the site of photosynthesis'], answer: 'It is partially permeable' },
+                    { text: 'The term "cytoplasm" refers to...', options: ['Only the nucleus', 'The fluid outside the cell', 'The cell contents except the nucleus', 'The entire cell contents', 'The jelly inside the nucleus', 'The membrane around the vacuole'], answer: 'The cell contents except the nucleus' },
+                    { text: 'What process do chloroplasts carry out?', options: ['Respiration', 'Digestion', 'Photosynthesis', 'Reproduction', 'Excretion', 'Movement'], answer: 'Photosynthesis' },
+                    { text: 'In an animal cell, you would expect to find...', options: ['A cell wall', 'A large permanent vacuole', 'Chloroplasts', 'Small temporary vacuoles', 'Starch grains', 'A cellulose layer'], answer: 'Small temporary vacuoles' },
+                    { text: 'Which tool is necessary to view most animal and plant cells?', options: ['Telescope', 'Magnifying glass', 'Binoculars', 'Microscope', 'Periscope', 'Stethoscope'], answer: 'Microscope' },
+                    { text: 'What stops a plant cell from bursting when it takes in too much water?', options: ['Cell membrane', 'Tonoplast', 'Cytoplasm', 'Nucleus', 'Mitochondria', 'Cell wall'], answer: 'Cell wall' },
+                    { text: 'Ribosomes are responsible for synthesizing...', options: ['Lipids', 'Carbohydrates', 'Proteins', 'Nucleic acids', 'Vitamins', 'Minerals'], answer: 'Proteins' },
+                    { text: 'Which organelle is often called the "powerhouse" of the cell?', options: ['Nucleus', 'Ribosome', 'Mitochondrion', 'Chloroplast', 'Vacuole', 'Cell membrane'], answer: 'Mitochondrion' },
+                    { text: 'The function of the large vacuole in a plant cell is to...', options: ['Make food', 'Control the cell', 'Release energy', 'Help maintain turgor pressure', 'Synthesize proteins', 'Control entry and exit of substances'], answer: 'Help maintain turgor pressure' },
+                    { text: 'An electron microscope, compared to a light microscope, offers...', options: ['Lower magnification', 'Color images only', 'The ability to view living cells', 'Much higher magnification', 'Simpler preparation', 'Portability'], answer: 'Much higher magnification' },
+                    { text: 'Which structure is present in a photosynthetic plant cell but absent in a root cell of the same plant?', options: ['Nucleus', 'Cell wall', 'Chloroplast', 'Mitochondrion', 'Vacuole', 'Cell membrane'], answer: 'Chloroplast' },
+                    { text: 'Which of the following is NOT a characteristic of the nucleus?', options: ['Contains DNA', 'Controls cell activities', 'Surrounded by a membrane', 'Is the site of protein synthesis', 'Is present in eukaryotic cells', 'Contains chromosomes'], answer: 'Is the site of protein synthesis' },
+                    { text: 'The solution of sugars and other substances inside a plant vacuole is called...', options: ['Cytoplasm', 'Protoplasm', 'Cell sap', 'Nectar', 'Glucose solution', 'Water'], answer: 'Cell sap' },
+                    { text: 'An organism made of only one cell is described as...', options: ['Multicellular', 'Prokaryotic', 'Eukaryotic', 'Specialised', 'Unicellular', 'Complex'], answer: 'Unicellular' },
+                    { text: 'Which two parts of a plant cell provide support and shape?', options: ['Nucleus and cytoplasm', 'Cell membrane and mitochondria', 'Cell wall and large vacuole', 'Ribosomes and chloroplasts', 'Nucleus and cell wall', 'Vacuole and cell membrane'], answer: 'Cell wall and large vacuole' },
+                    { text: 'All cells are formed from...', options: ['Non-living matter', 'Spontaneous generation', 'Existing cells dividing', 'A mixture of chemicals', 'Sunlight and water', 'The nucleus alone'], answer: 'Existing cells dividing' },
+                ],
+            },
+            // Subtopic 2: Bacterial Cells
+            {
+                title: 'Bacterial Cells',
+                completed: false,
+                slides: [
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>Prokaryotic Cells</h3>
+                        <p>Bacterial cells are much simpler than animal and plant cells. They are called <strong>prokaryotic</strong> cells because they do not have a nucleus.</p>
+                        <img src='https://i.imgur.com/YQ4XW8y.png' alt='Bacterial Cell Diagram'>
+                    `,
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>Structure of a Bacterium</h3>
+                        <p>They have:</p>
+                        <ul>
+                            <li><strong>Cell Wall:</strong> For support, but it's NOT made of cellulose.</li>
+                            <li><strong>Cell Membrane:</strong> Controls what goes in and out.</li>
+                            <li><strong>Cytoplasm:</strong> Where reactions happen.</li>
+                            <li><strong>Circular DNA:</strong> A single loop of DNA that floats in the cytoplasm, instead of a nucleus.</li>
+                            <li><strong>Plasmids:</strong> Small, extra rings of DNA.</li>
+                        </ul>
+                        <p>They have <strong>ribosomes</strong>, but they do NOT have mitochondria or chloroplasts.</p>
+                    `,
+                ],
+                questions: [
+                    { text: 'The most significant difference between bacterial cells and animal/plant cells is that bacteria lack a...', options: ['Cell Wall', 'Nucleus', 'Cytoplasm', 'Cell Membrane', 'Ribosome', 'DNA'], answer: 'Nucleus' },
+                    { text: "Where is the genetic material found in a bacterial cell?", options: ['In the nucleus', 'In the mitochondria', 'In a single circular loop of DNA', 'In the plasmids only', 'In the cell wall', 'Attached to ribosomes'], answer: 'In a single circular loop of DNA' },
+                    { text: "Which statement about a bacterium's cell wall is true?", options: ["It's made of cellulose", "It is the innermost layer", "It is not present in bacteria", "It provides support and is not made of cellulose", "It controls what enters the cell", "It's the site of respiration"], answer: 'It provides support and is not made of cellulose' },
+                    { text: "Small, extra rings of DNA in a bacterium are called...", options: ['Chromosomes', 'Nucleoids', 'Plasmids', 'Vesicles', 'Ribosomes', 'Mitochondria'], answer: 'Plasmids' },
+                    { text: 'Which organelle is found in plant cells, animal cells, and bacterial cells?', options: ['Mitochondria', 'Nucleus', 'Chloroplast', 'Ribosome', 'Permanent Vacuole', 'Lysosome'], answer: 'Ribosome' },
+                    { text: 'Bacterial cells are classified as...', options: ['Eukaryotic', 'Fungal', 'Protist', 'Animal', 'Plant', 'Prokaryotic'], answer: 'Prokaryotic' },
+                    { text: 'Which of these is absent in a bacterial cell?', options: ['Cell membrane', 'Ribosomes', 'DNA', 'Cytoplasm', 'Mitochondria', 'Cell wall'], answer: 'Mitochondria' },
+                    { text: 'What is the function of the cell wall in bacteria?', options: ['Photosynthesis', 'To control what enters and leaves', 'To provide support and prevent bursting', 'To make proteins', 'To store genetic material', 'To release energy'], answer: 'To provide support and prevent bursting' },
+                    { text: 'The term "prokaryotic" implies that the cell...', options: ['Has a cell wall', 'Is very large', 'Lacks a true nucleus', 'Is multicellular', 'Contains chloroplasts', 'Is an animal cell'], answer: 'Lacks a true nucleus' },
+                    { text: 'Which structure is functionally similar in both bacterial cells and plant cells?', options: ['Nucleus', 'Chloroplast', 'Cell wall', 'Mitochondrion', 'Large vacuole', 'Plasmid'], answer: 'Cell wall' },
+                    { text: 'In a bacterium, the main genetic material is a...', options: ['Complex chromosome pair', 'Linear strand of DNA', 'Circular loop of DNA', 'Collection of plasmids', 'Strand of RNA', 'Protein molecule'], answer: 'Circular loop of DNA' },
+                    { text: 'Plasmids are often used by scientists in...', options: ['Making microscopes', 'Genetic modification', 'Staining cells', 'Measuring cells', 'Digestion', 'Respiration'], answer: 'Genetic modification' },
+                    { text: 'Which statement correctly compares a bacterial cell and a plant cell?', options: ['Both have a nucleus', 'Both have cell walls made of cellulose', 'Both have mitochondria', 'Both have ribosomes', 'Both have chloroplasts', 'Both have large vacuoles'], answer: 'Both have ribosomes' },
+                    { text: 'You will NOT find which of the following in a prokaryotic cell?', options: ['Cell membrane', 'Cytoplasm', 'Chloroplast', 'Ribosome', 'DNA', 'A cell wall'], answer: 'Chloroplast' },
+                    { text: 'What structure has the same function in bacteria, plants and animals?', options: ['Cell wall', 'Nucleus', 'Cell membrane', 'Chloroplast', 'Vacuole', 'Plasmid'], answer: 'Cell membrane' },
+                    { text: 'Unlike a plant cell, a bacterial cell wall is made of...', options: ['Cellulose', 'Chitin', 'Starch', 'Peptidoglycan', 'Lipids', 'Protein'], answer: 'Peptidoglycan' },
+                    { text: 'How do bacteria reproduce?', options: ['By sexual reproduction', 'By producing seeds', 'By cell division (binary fission)', 'By creating spores', 'By budding', 'They do not reproduce'], answer: 'By cell division (binary fission)' },
+                    { text: 'A key feature of a prokaryote is...', options: ['A membrane-bound nucleus', 'The absence of a cell membrane', 'The presence of mitochondria', 'The absence of membrane-bound organelles', 'A cellulose cell wall', 'Linear chromosomes'], answer: 'The absence of membrane-bound organelles' },
+                    { text: 'Which of these would you find in the cytoplasm of a bacterium?', options: ['Nucleus and mitochondria', 'Plasmids and ribosomes', 'Chloroplasts and a large vacuole', 'A nucleus only', 'Mitochondria and chloroplasts', 'A large vacuole only'], answer: 'Plasmids and ribosomes' },
+                    { text: 'If you observed a cell under a microscope and saw a cell wall but no distinct nucleus, you would likely be looking at a...', options: ['Plant cell', 'Animal cell', 'Fungal cell', 'Bacterial cell', 'Protist cell', 'Human cell'], answer: 'Bacterial cell' },
+                    { text: "What is the role of ribosomes in a bacterial cell?", options: ['Energy production', 'Storing DNA', 'Photosynthesis', 'Support', 'Protein synthesis', 'Controlling entry/exit of substances'], answer: 'Protein synthesis' },
+                    { text: 'Which is a similarity between a bacterial cell and an animal cell?', options: ['Both have a cell wall', 'Both have a nucleus', 'Both possess a cell membrane', 'Both have chloroplasts', 'Both are prokaryotic', 'Both have plasmids'], answer: 'Both possess a cell membrane' },
+                    { text: "The circular DNA in a bacterium is located in the...", options: ['Nucleus', 'Nucleolus', 'Plasmid region', 'Cytoplasm', 'Mitochondrion', 'Cell wall'], answer: 'Cytoplasm' },
+                    { text: "A bacterial cell is considered simpler than a plant cell because it lacks...", options: ['A cell wall', 'A cell membrane', 'Ribosomes', 'A nucleus and mitochondria', 'DNA', 'Cytoplasm'], answer: 'A nucleus and mitochondria' },
+                    { text: "Which structure is partially permeable in a bacterial cell?", options: ['Cell wall', 'Plasmid', 'Circular DNA', 'Cytoplasm', 'Cell membrane', 'Ribosome'], answer: 'Cell membrane' },
+                    { text: "What is a major advantage of lacking a nucleus for bacteria?", options: ['They can be larger', 'They can reproduce more quickly', 'They can perform photosynthesis', 'They are protected from viruses', 'They can store more food', 'They can live in hot springs'], answer: 'They can reproduce more quickly' },
+                    { text: "Bacteria are unicellular, which means they...", options: ['Are made of many cells', 'Are made of a single cell', 'Have no cells', 'Are very complex', 'Are very large', 'Cannot be seen'], answer: 'Are made of a single cell' },
+                    { text: "Which of these is NOT a basic part of every bacterial cell?", options: ['Cytoplasm', 'Cell Membrane', 'Circular DNA', 'Plasmid', 'Ribosomes', 'Cell Wall'], answer: 'Plasmid' },
+                    { text: "If a bacterium loses its cell wall, it would...", options: ['Lose its DNA', 'Be unable to make proteins', 'Be vulnerable to bursting', 'Stop photosynthesising', 'Lose its nucleus', 'Stop respiring'], answer: 'Be vulnerable to bursting' },
+                    { text: "The evolution of prokaryotic cells happened...", options: ['After plant cells', 'At the same time as animal cells', 'Before eukaryotic cells', 'After the dinosaurs', 'Only recently', 'After humans appeared'], answer: 'Before eukaryotic cells' },
+                ]
+            },
+             // Subtopic 3: Specialised Cells & Tissues
+            {
+                title: 'Specialised Cells & Tissues',
+                completed: false,
+                slides: [
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>Getting Specialised</h3>
+                        <p>In multicellular organisms, cells become <strong>specialised</strong>. This means they develop specific features to perform a particular job effectively.</p>
+                    `,
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>Example: Root Hair Cell</h3>
+                        <p>Found in plant roots. It has a long extension to increase the surface area for absorbing water and minerals from the soil.</p>
+                        <img src='https://i.imgur.com/N185X3u.png' alt='Root Hair Cell'>
+                    `,
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>Example: Red Blood Cell</h3>
+                        <p>Carries oxygen in animals. It has no nucleus to make more room for haemoglobin, and has a biconcave shape to increase surface area.</p>
+                        <img src='https://i.imgur.com/Qj0aF7g.png' alt='Red Blood Cells'>
+                    `,
+                     `
+                        <h3 class='text-2xl font-semibold mb-2'>Levels of Organisation</h3>
+                        <p>Cells work together in teams:</p>
+                        <ul>
+                            <li>A group of similar, specialised cells is a <strong>TISSUE</strong> (e.g., muscle tissue).</li>
+                            <li>Different tissues working together form an <strong>ORGAN</strong> (e.g., the heart).</li>
+                            <li>Organs working together form an <strong>ORGAN SYSTEM</strong> (e.g., the circulatory system).</li>
+                        </ul>
+                    `,
+                ],
+                questions: [
+                    { text: 'What is the main function of a root hair cell?', options: ['Photosynthesis', 'Transporting oxygen', 'Absorbing water and minerals', 'Fighting disease', 'Sending nerve impulses', 'Reproduction'], answer: 'Absorbing water and minerals' },
+                    { text: 'Why does a mature red blood cell lack a nucleus?', options: ['To save energy', 'To allow more room for haemoglobin', 'So it can divide easily', 'To fit through small veins', 'Because it is a simple cell', 'To produce proteins'], answer: 'To allow more room for haemoglobin' },
+                    { text: 'A group of muscle cells working together to cause movement is an example of a(n)...', options: ['Organ', 'Organism', 'Organelle', 'Tissue', 'Organ System', 'Cell'], answer: 'Tissue' },
+                    { text: 'The heart, made of muscle tissue, nervous tissue, and blood tissue, is best described as a(n)...', options: ['Organ', 'Organism', 'Organelle', 'Tissue', 'Organ System', 'Cell'], answer: 'Organ' },
+                    { text: 'Which of the following represents the correct level of organisation from simplest to most complex?', options: ['Organ -> Tissue -> Cell', 'Cell -> Organ -> Tissue', 'Cell -> Tissue -> Organ', 'Tissue -> Cell -> Organ', 'Organ -> Cell -> Tissue', 'Tissue -> Organ -> Cell'], answer: 'Cell -> Tissue -> Organ' },
+                    { text: 'Ciliated cells in the trachea are specialised to...', options: ['Absorb nutrients', 'Carry oxygen', 'Move mucus upwards', 'Photosynthesise', 'Send electrical signals', 'Digest food'], answer: 'Move mucus upwards' },
+                    { text: "What is the adaptation of a sperm cell for its function?", options: ['It has a large surface area', 'It has no nucleus', 'It has a long tail for swimming', 'It is packed with chloroplasts', 'It has a thick cell wall', 'It is biconcave'], answer: 'It has a long tail for swimming' },
+                    { text: 'Palisade mesophyll cells are specialised for...', options: ['Water absorption', 'Photosynthesis', 'Reproduction', 'Support', 'Transporting sugar', 'Conducting impulses'], answer: 'Photosynthesis' },
+                    { text: 'What feature of a palisade cell helps it perform its function?', options: ['No nucleus', 'Packed with chloroplasts', 'A long tail', 'Tiny hairs called cilia', 'A biconcave shape', 'A large surface area extension'], answer: 'Packed with chloroplasts' },
+                    { text: 'A neurone (nerve cell) is specialised to...', options: ['Contract and relax', 'Carry oxygen', 'Fight pathogens', 'Conduct electrical impulses', 'Absorb light', 'Produce enzymes'], answer: 'Conduct electrical impulses' },
+                    { text: 'A leaf is an example of a plant...', options: ['Cell', 'Tissue', 'Organ', 'Organ system', 'Organism', 'Organelle'], answer: 'Organ' },
+                    { text: 'Which of the following is an organ system?', options: ['The stomach', 'Muscle tissue', 'A red blood cell', 'The digestive system', 'A leaf', 'An onion'], answer: 'The digestive system' },
+                    { text: 'The "basement membrane" shown under stomach lining cells is part of a...', options: ['Cell', 'Tissue', 'Organ', 'Organism', 'System', 'Organelle'], answer: 'Tissue' },
+                    { text: 'What is the term for a group of different tissues working together to perform a function?', options: ['Tissue', 'Organism', 'Organelle', 'Organ', 'Organ System', 'Specialised cell'], answer: 'Organ' },
+                    { text: 'A root hair cell has a large surface area to...', options: ['Increase the rate of photosynthesis', 'Increase the rate of water absorption', 'Store more food', 'Release energy faster', 'Swim faster', 'Move more mucus'], answer: 'Increase the rate of water absorption' },
+                    { text: 'The female gamete (egg cell) is specialised by...', options: ['Having a tail', 'Having a large food store', 'Having no nucleus', 'Having lots of chloroplasts', 'Being very small', 'Having cilia'], answer: 'Having a large food store' },
+                    { text: 'The biconcave shape of a red blood cell helps it to...', options: ['Swim faster', 'Increase surface area for oxygen exchange', 'Carry more DNA', 'Divide quickly', 'Absorb more water', 'Produce more protein'], answer: 'Increase surface area for oxygen exchange' },
+                    { text: 'Where are ciliated cells primarily found?', options: ['In plant roots', 'In the blood', 'Lining the trachea (windpipe)', 'In the brain', 'In the leaf', 'In the stomach'], answer: 'Lining the trachea (windpipe)' },
+                    { text: 'What is a "gamete"?', options: ['A type of tissue', 'A plant organ', 'A reproductive cell', 'A nerve cell', 'A blood cell', 'A type of organ system'], answer: 'A reproductive cell' },
+                    { text: 'The circulatory system is an example of an...', options: ['Organ', 'Organism', 'Organelle', 'Tissue', 'Organ System', 'Cell'], answer: 'Organ System' },
+                    { text: 'A human being is a complete...', options: ['Organ', 'Organism', 'Organelle', 'Tissue', 'Organ System', 'Cell'], answer: 'Organism' },
+                    { text: 'The process by which cells develop specific features for a job is called...', options: ['Organisation', 'Magnification', 'Respiration', 'Specialisation', 'Reproduction', 'Photosynthesis'], answer: 'Specialisation' },
+                    { text: 'Cells lining the stomach that produce digestive enzymes form a...', options: ['Organ', 'Membrane', 'Tissue', 'System', 'Cell group', 'Function'], answer: 'Tissue' },
+                    { text: 'Which cell is responsible for conducting electrical signals in animals?', options: ['Red blood cell', 'Sperm cell', 'Root hair cell', 'Neurone', 'Ciliated cell', 'Egg cell'], answer: 'Neurone' },
+                    { text: 'Which is the correct order?', options: ['Organism -> System -> Organ -> Tissue -> Cell', 'Cell -> Tissue -> Organ -> System -> Organism', 'Tissue -> Cell -> Organ -> System -> Organism', 'Cell -> Organ -> Tissue -> System -> Organism', 'Organ -> System -> Tissue -> Cell -> Organism', 'System -> Organism -> Organ -> Tissue -> Cell'], answer: 'Cell -> Tissue -> Organ -> System -> Organism' },
+                    { text: 'Which cell type is NOT found in animals?', options: ['Neurone', 'Ciliated cell', 'Red blood cell', 'Palisade mesophyll cell', 'Sperm cell', 'Egg cell'], answer: 'Palisade mesophyll cell' },
+                    { text: 'The function of a sperm cell is to...', options: ['Carry oxygen', 'Fertilise an egg cell', 'Absorb water', 'Conduct impulses', 'Move mucus', 'Store food'], answer: 'Fertilise an egg cell' },
+                    { text: 'An onion bulb is considered a plant...', options: ['Cell', 'Tissue', 'Organ', 'System', 'Organism', 'Root'], answer: 'Organ' },
+                    { text: 'All the different organ systems working together make up an...', options: ['Organ', 'Organism', 'Organelle', 'Tissue', 'Environment', 'Cell'], answer: 'Organism' },
+                    { text: 'Which feature helps a root hair cell absorb minerals using energy?', options: ['No nucleus', 'Many chloroplasts', 'Many mitochondria', 'A tail', 'A thick cell wall', 'Cilia'], answer: 'Many mitochondria' },
+                ]
+            },
+            // Subtopic 4: Magnification
+            {
+                title: 'Magnification',
+                completed: false,
+                slides: [
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>How Big Is It?</h3>
+                        <p>When we look at something through a microscope, it appears much larger. <strong>Magnification</strong> tells us how many times larger the image is compared to the actual object.</p>
+                    `,
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>The Magnification Formula</h3>
+                        <p>The formula is a triangle. Cover the one you want to find!</p>
+                        <img src='https://i.imgur.com/9O1kL9f.png' alt='Magnification Triangle'>
+                        <p class='font-bold text-xl mt-2'>Magnification = Image Size / Actual Size</p>
+                        <p><strong>IMPORTANT:</strong> Both sizes must be in the SAME units!</p>
+                    `,
+                    `
+                        <h3 class='text-2xl font-semibold mb-2'>Units Matter!</h3>
+                        <p>We often use millimetres (mm) and micrometres (µm).</p>
+                        <p class='font-bold text-xl'>1 mm = 1000 µm</p>
+                        <p>Example: A cell image is 40 mm wide. The actual cell is 100 µm wide. What is the magnification?</p>
+                        <p>Step 1: Convert units. 40 mm = 40,000 µm.</p>
+                        <p>Step 2: Calculate. Magnification = 40,000 µm / 100 µm = x400.</p>
+                    `,
+                ],
+                questions: [
+                    { text: 'An image of a spider is 50 mm long. The actual spider is 10 mm long. What is the magnification?', options: ['x0.2', 'x2', 'x5', 'x10', 'x40', 'x500'], answer: 'x5' },
+                    { text: 'A drawing of a cell is 60 mm wide. The magnification is x300. What is the actual size of the cell in mm?', options: ['0.2 mm', '2 mm', '5 mm', '20 mm', '180 mm', '18000 mm'], answer: '0.2 mm' },
+                    { text: 'How many micrometres (µm) are there in 1 millimetre (mm)?', options: ['1', '10', '100', '1000', '10,000', '1,000,000'], answer: '1000' },
+                    { text: 'The actual width of a plant cell is 40 µm. A diagram shows it with a width of 80 mm. What is the magnification?', options: ['x0.5', 'x2', 'x200', 'x2000', 'x3200', 'x0.0005'], answer: 'x2000' },
+                    { text: 'A mitochondrion has an actual length of 5 µm. What would its length be in a diagram with a magnification of x10,000?', options: ['0.5 mm', '2 mm', '50 mm', '500 mm', '0.0005 mm', '2000 mm'], answer: '50 mm' },
+                    { text: 'Convert 2.5 mm to µm.', options: ['25 µm', '250 µm', '2500 µm', '0.025 µm', '0.0025 µm', '25000 µm'], answer: '2500 µm' },
+                    { text: 'Convert 500 µm to mm.', options: ['5000 mm', '50 mm', '5 mm', '0.5 mm', '0.05 mm', '0.005 mm'], answer: '0.5 mm' },
+                    { text: 'An object has an actual size of 0.1 mm. It is drawn with a size of 50 mm. Calculate the magnification.', options: ['x5', 'x50', 'x500', 'x5000', 'x0.002', 'x0.2'], answer: 'x500' },
+                    { text: 'An image of a nucleus is 15 mm wide. The magnification is x1500. What is the actual size in µm?', options: ['1 µm', '10 µm', '100 µm', '0.01 µm', '0.1 µm', '1000 µm'], answer: '10 µm' },
+                    { text: 'What is the correct formula to find the actual size?', options: ['Magnification / Image Size', 'Image Size / Magnification', 'Image Size x Magnification', 'Magnification + Image Size', 'Image Size - Magnification', 'Magnification - Image Size'], answer: 'Image Size / Magnification' },
+                    { text: 'An insect is 1 cm long. A diagram of it is 5 cm long. What is the magnification?', options: ['x0.2', 'x2', 'x4', 'x5', 'x6', 'x50'], answer: 'x5' },
+                    { text: 'A cell measures 20 µm. How large will its image be (in mm) at x1000 magnification?', options: ['2 mm', '20 mm', '200 mm', '0.02 mm', '0.2 mm', '2000 mm'], answer: '20 mm' },
+                    { text: 'If Image Size = 30 mm and Actual Size = 60 µm, what is the magnification?', options: ['x2', 'x0.5', 'x50', 'x200', 'x500', 'x2000'], answer: 'x500' },
+                    { text: 'Magnification is written with a...', options: ['plus sign (+)', 'minus sign (-)', 'multiplication sign (x)', 'division sign (÷)', 'percentage sign (%)', 'degree sign (°)'], answer: 'multiplication sign (x)' },
+                    { text: 'What are the units for magnification?', options: ['mm', 'µm', 'cm', 'No units', 'x mm', 'x µm'], answer: 'No units' },
+                    { text: 'A chloroplast has an actual size of 8 µm. Its image is 40 mm. Calculate the magnification.', options: ['x5', 'x50', 'x500', 'x5000', 'x0.2', 'x320'], answer: 'x5000' },
+                    { text: 'A diagram is magnified x400. A structure in the diagram is 10 mm long. What is its real size in µm?', options: ['0.025 µm', '2.5 µm', '25 µm', '250 µm', '4000 µm', '40 µm'], answer: '25 µm' },
+                    { text: 'What is essential before using the magnification formula?', options: ['Convert time to seconds', 'Ensure both sizes are in the same unit', 'Use a calculator', 'Draw the object first', 'Measure the temperature', 'Weigh the object'], answer: 'Ensure both sizes are in the same unit' },
+                    { text: 'A virus has an actual size of 0.1 µm. Its image size is 50 mm. What is its magnification?', options: ['x500', 'x5,000', 'x50,000', 'x500,000', 'x5,000,000', 'x50'], answer: 'x500,000' },
+                    { text: 'The width of a human hair is 100 µm. A diagram shows it as 10 cm wide. What is the magnification?', options: ['x10', 'x100', 'x1000', 'x10000', 'x1', 'x0.1'], answer: 'x1000' },
+                    { text: 'An amoeba is 0.4 mm long. It is drawn 8 cm long. What is the magnification?', options: ['x2', 'x20', 'x200', 'x3.2', 'x0.05', 'x50'], answer: 'x200' },
+                    { text: 'A red blood cell has a diameter of 7 µm. A photomicrograph has a magnification of x2000. What is the diameter of the cell in the image in mm?', options: ['1.4 mm', '14 mm', '140 mm', '0.014 mm', '0.14 mm', '0.0035 mm'], answer: '14 mm' },
+                    { text: 'If I = 90 mm and M = x3000, what is A in µm?', options: ['3 µm', '30 µm', '300 µm', '0.03 µm', '0.3 µm', '3000 µm'], answer: '30 µm' },
+                    { text: 'To convert from µm to mm, you must...', options: ['multiply by 1000', 'divide by 1000', 'multiply by 100', 'divide by 100', 'add 1000', 'subtract 1000'], answer: 'divide by 1000' },
+                    { text: 'A cell image is 2 cm long. The actual cell is 50 µm long. What is the magnification?', options: ['x4', 'x40', 'x400', 'x4000', 'x0.0025', 'x2.5'], answer: 'x400' },
+                    { text: 'An organelle is magnified x20,000. Its image is 60 mm long. What is its actual size in µm?', options: ['0.3 µm', '3 µm', '30 µm', '0.003 µm', '120 µm', '1,200,000 µm'], answer: '3 µm' },
+                    { text: 'A bacterial cell is 2 µm long. What is its image size in mm with a magnification of x5000?', options: ['1 mm', '10 mm', '100 mm', '0.01 mm', '0.1 mm', '1000 mm'], answer: '10 mm' },
+                    { text: 'A student measures a diagram of a cell as 5 cm. They know the magnification is x1000. What is the real size of the cell in µm?', options: ['5 µm', '50 µm', '500 µm', '0.05 µm', '0.5 µm', '5000 µm'], answer: '50 µm' },
+                    { text: 'A line on a map is 10 cm. The scale is 1:50,000. What is the actual distance in km? (Analogy question)', options: ['5 km', '50 km', '0.5 km', '500 km', '5000 km', '0.05 km'], answer: '5 km' },
+                    { text: 'If a calculation for actual size gives 0.025 mm, what is this in µm?', options: ['2.5 µm', '25 µm', '250 µm', '0.25 µm', '0.0025 µm', '2500 µm'], answer: '25 µm' }
+                ]
+            }
+        ];
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    gameState: 'welcome', // welcome, subtopicSelection, slides, quiz, correction, summary, final
+                    studentName: '',
+                    subtopics: subtopicsData,
+                    currentSubtopicIndex: 0,
+                    currentSlideIndex: 0,
+                    currentQuestionIndex: 0,
+                    score: { correct: 0, wrong: 0 },
+                    feedback: { text: '', color: '' },
+                    selectedOption: '',
+                    questionsToCorrect: [],
+                    correctionQuestionIndex: 0,
+                }
+            },
+            computed: {
+                currentSubtopic() {
+                    return this.subtopics[this.currentSubtopicIndex];
+                },
+                currentQuestion() {
+                    return this.currentSubtopic.questions[this.currentQuestionIndex];
+                },
+                allTopicsCompleted() {
+                    return this.subtopics.every(s => s.completed);
+                }
+            },
+            methods: {
+                startLesson() {
+                    if (this.studentName.trim()) {
+                        this.gameState = 'subtopicSelection';
+                    } else {
+                        alert('Please enter your name!');
+                    }
+                },
+                selectSubtopic(index) {
+                    this.currentSubtopicIndex = index;
+                    this.currentSlideIndex = 0;
+                    this.currentQuestionIndex = 0;
+                    this.correctionQuestionIndex = 0;
+                    this.score = { correct: 0, wrong: 0 };
+                    this.questionsToCorrect = [];
+                    this.feedback = { text: '', color: '' };
+                    this.selectedOption = '';
+                    this.gameState = 'slides';
+                },
+                nextSlide() {
+                    if (this.currentSlideIndex < this.currentSubtopic.slides.length - 1) {
+                        this.currentSlideIndex++;
+                    }
+                },
+                prevSlide() {
+                     if (this.currentSlideIndex > 0) {
+                        this.currentSlideIndex--;
+                    }
+                },
+                startQuiz() {
+                    this.currentSubtopic.questions.forEach(q => {
+                        q.attempts = 0;
+                        q.isCorrect = false;
+                    });
+                    this.gameState = 'quiz';
+                },
+                selectAnswer(option) {
+                    this.selectedOption = option;
+                    const question = this.currentQuestion;
+                    question.attempts++;
+
+                    if (option === question.answer) {
+                        this.feedback = { text: `Excellent, ${this.studentName}! That's correct!`, color: 'bg-green-100 text-green-700' };
+                        this.score.correct++;
+                        question.isCorrect = true;
+                        setTimeout(() => this.nextQuestion(), 1500);
+                    } else {
+                        if (question.attempts >= 2) {
+                            this.feedback = { text: `Not quite. We'll review this one later, ${this.studentName}.`, color: 'bg-red-100 text-red-700' };
+                            this.score.wrong++;
+                            setTimeout(() => {
+                                this.nextQuestion();
+                            }, 2000);
+                        } else {
+                            this.feedback = { text: `Good try, ${this.studentName}. Have one more go!`, color: 'bg-orange-100 text-orange-700' };
+                            setTimeout(() => {
+                                this.selectedOption = '';
+                                this.feedback = { text: '', color: '' };
+                            }, 1500);
+                        }
+                    }
+                },
+                 nextQuestion() {
+                    this.feedback = { text: '', color: '' };
+                    this.selectedOption = '';
+                    if (this.currentQuestionIndex < this.currentSubtopic.questions.length - 1) {
+                        this.currentQuestionIndex++;
+                    } else {
+                        // End of quiz for the subtopic
+                        this.subtopics[this.currentSubtopicIndex].completed = true;
+                        this.questionsToCorrect = this.currentSubtopic.questions.filter(q => !q.isCorrect);
+                        if (this.questionsToCorrect.length > 0) {
+                            this.gameState = 'correction';
+                        } else {
+                            this.gameState = 'summary';
+                        }
+                    }
+                },
+                 checkCorrectionAnswer(option) {
+                    this.selectedOption = option;
+                    const question = this.questionsToCorrect[this.correctionQuestionIndex];
+
+                    if (option === question.answer) {
+                        this.feedback = { text: 'Correct! Now you know it!', color: 'bg-green-100 text-green-700' };
+                        setTimeout(() => {
+                            this.feedback = { text: '', color: '' };
+                            this.selectedOption = '';
+                            if (this.correctionQuestionIndex < this.questionsToCorrect.length - 1) {
+                                this.correctionQuestionIndex++;
+                            } else {
+                                this.gameState = 'summary';
+                            }
+                        }, 1500);
+                    } else {
+                        this.feedback = { text: `That's not it, ${this.studentName}. Think carefully and try again.`, color: 'bg-red-100 text-red-700' };
+                    }
+                },
+                backToTopics() {
+                    this.gameState = 'subtopicSelection';
+                },
+                finishLesson(){
+                    this.gameState = 'final';
+                },
+                getOptionClass(option) {
+                    if (!this.selectedOption) {
+                        return 'bg-gray-200 hover:bg-indigo-200';
+                    }
+                    if (option === this.selectedOption) {
+                        return option === this.currentQuestion.answer ? 'bg-green-400 text-white' : 'bg-red-400 text-white';
+                    }
+                    return 'bg-gray-200 cursor-not-allowed opacity-70';
+                },
+                 getCorrectionOptionClass(option) {
+                    if (!this.selectedOption) {
+                        return 'bg-gray-200 hover:bg-orange-200';
+                    }
+                    if (option === this.selectedOption) {
+                         return option === this.questionsToCorrect[this.correctionQuestionIndex].answer ? 'bg-green-400 text-white' : 'bg-red-400 text-white';
+                    }
+                    return 'bg-gray-200 cursor-not-allowed opacity-70';
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
+

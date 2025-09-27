@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology IGCSE | Characteristics & Classification</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .quiz-option, .subtopic-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .quiz-option:hover, .subtopic-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .slide-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1E40AF; /* blue-800 */
+            margin-bottom: 1rem;
+        }
+         .slide-content ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .slide-content li {
+             margin-bottom: 0.5rem;
+        }
+        .slide-content strong {
+            font-weight: 600;
+            color: #1E3A8A; /* blue-900 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+<div id="app" class="w-full max-w-4xl mx-auto">
+
+    <!-- Welcome Screen -->
+    <div v-if="gameState === 'welcome'" class="text-center bg-white p-8 rounded-2xl shadow-lg animate-fade-in">
+        <h1 class="text-4xl font-bold mb-4 text-blue-700">IGCSE Biology Challenge!</h1>
+        <p class="mb-6 text-xl text-gray-700">Topic: Characteristics & Classification of Living Organisms</p>
+        
+        <input 
+            type="text" 
+            v-model="studentName" 
+            @keyup.enter="startLesson"
+            placeholder="Enter your name, e.g., Candice" 
+            class="w-full max-w-md mx-auto p-3 border border-gray-300 rounded-lg mb-4 text-center text-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        
+        <button 
+            @click="startLesson" 
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-lg text-lg transition duration-300 shadow-md hover:shadow-lg">
+            Let's Begin!
+        </button>
+    </div>
+    
+    <!-- Subtopic Selection Screen -->
+    <div v-if="gameState === 'subtopic_selection'" class="bg-white p-8 rounded-2xl shadow-lg">
+        <h2 class="text-3xl font-bold mb-2 text-center text-blue-800">Choose a Topic, {{ studentName }}!</h2>
+        <p class="text-center text-gray-600 mb-8">Select any subtopic to start your quiz.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div v-for="(subtopic, index) in subtopics" 
+                 :key="index"
+                 @click="selectSubtopic(index)"
+                 class="subtopic-card p-6 border rounded-lg cursor-pointer flex flex-col items-center justify-center text-center"
+                 :class="{
+                     'bg-green-100 border-green-400 text-green-800': subtopic.completed,
+                     'bg-white hover:bg-blue-50': !subtopic.completed
+                 }">
+                <span v-if="subtopic.completed" class="text-2xl mb-2">✅</span>
+                <p class="font-semibold text-lg">{{ subtopic.title }}</p>
+                 <span v-if="subtopic.completed" class="text-sm font-medium mt-1">(Completed)</span>
+            </div>
+        </div>
+        <div v-if="allTopicsCompleted" class="text-center mt-8">
+            <button @click="goToFinalResults" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-10 rounded-lg text-lg transition duration-300">
+                View Final Results!
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Slides Screen -->
+    <div v-if="gameState === 'slides'" class="bg-white p-8 rounded-2xl shadow-lg">
+        <h2 class="text-3xl font-bold mb-4 text-center text-blue-800">{{ currentSubtopic.title }}</h2>
+        <div class="slide-content text-gray-800 text-lg leading-relaxed" v-html="currentSubtopic.slides"></div>
+        <div class="flex justify-between items-center mt-8">
+            <button @click="returnToMenu(false)" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Back to Topics</button>
+            <button @click="startQuiz" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-lg text-lg transition duration-300">Start Quiz!</button>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div v-if="gameState === 'quiz' && currentQuestion" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6 border-b pb-4">
+            <div>
+                <h2 class="text-xl md:text-2xl font-bold text-blue-800">{{ currentSubtopic.title }}</h2>
+                <p class="text-gray-600">Good luck, {{ studentName }}!</p>
+            </div>
+            <div class="text-right">
+                <p class="text-lg font-semibold">Question {{ currentQuestionIndex + 1 }} / {{ currentSubtopic.questions.length }}</p>
+                <div class="flex justify-end space-x-4 mt-1">
+                    <span class="text-green-600 font-bold">Correct: {{ score.correct }}</span>
+                    <span class="text-red-600 font-bold">Wrong: {{ score.wrong }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question -->
+        <div class="mb-6">
+            <p class="text-xl md:text-2xl font-semibold text-gray-800 text-center">{{ currentQuestion.question }}</p>
+        </div>
+
+        <!-- Options -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div v-for="(option, index) in currentQuestion.options" 
+                 :key="index"
+                 @click="checkAnswer(option)"
+                 class="quiz-option p-4 border rounded-lg cursor-pointer"
+                 :class="{
+                     'bg-gray-100 hover:bg-blue-100': !isLocked,
+                     'bg-green-200 border-green-500': showCorrectAnswer && option === currentQuestion.answer,
+                     'bg-red-200 border-red-500': isLocked && selectedOption === option && option !== currentQuestion.answer,
+                     'cursor-not-allowed': isLocked
+                 }">
+                <p class="font-medium text-gray-700">{{ option }}</p>
+            </div>
+        </div>
+        
+        <!-- Feedback -->
+        <div v-if="feedback.text" class="mt-6 text-center p-4 rounded-lg" :class="feedback.color">
+            <p class="text-lg font-bold">{{ feedback.text }}</p>
+        </div>
+    </div>
+    
+    <!-- Correction Screen -->
+    <div v-if="gameState === 'correction'" class="bg-white p-8 rounded-2xl shadow-lg">
+        <h2 class="text-3xl font-bold mb-2 text-center text-orange-600">Let's Do Corrections!</h2>
+        <p class="text-center text-gray-700 mb-6">You must answer these questions correctly to proceed, {{ studentName }}.</p>
+        
+        <div v-if="currentCorrectionQuestion">
+            <p class="text-2xl font-semibold text-gray-800 mb-6 text-center">{{ currentCorrectionQuestion.question }}</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div v-for="(option, index) in currentCorrectionQuestion.options" 
+                     :key="index"
+                     @click="checkCorrection(option)"
+                     class="quiz-option p-4 border rounded-lg cursor-pointer bg-gray-100 hover:bg-blue-100">
+                    <p class="font-medium text-gray-700">{{ option }}</p>
+                </div>
+            </div>
+             <div v-if="correctionFeedback" class="mt-6 text-center p-3 rounded-lg" :class="correctionFeedback === 'Correct!' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <p class="font-bold">{{ correctionFeedback }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subtopic Finished Screen -->
+    <div v-if="gameState === 'subtopic_finished'" class="text-center bg-white p-8 rounded-2xl shadow-lg">
+        <h2 class="text-3xl font-bold mb-4 text-green-600">Subtopic Complete!</h2>
+        <p class="text-xl text-gray-700 mb-6">Great work, {{ studentName }}! You finished "{{ currentSubtopic.title }}".</p>
+        <p class="text-lg mb-2">Your Score: {{ score.correct }} Correct, {{ score.wrong }} Wrong.</p>
+        <button @click="returnToMenu(true)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+            Return to Topics
+        </button>
+    </div>
+    
+    <!-- Final Results Screen -->
+    <div v-if="gameState === 'final_results'" class="text-center bg-white p-8 rounded-2xl shadow-lg">
+        <h1 class="text-4xl font-bold mb-4 text-purple-700">Challenge Complete!</h1>
+        <p class="text-2xl text-gray-800 mb-6">Fantastic effort, {{ studentName }}!</p>
+        <div class="bg-gray-100 p-6 rounded-lg">
+            <p class="text-xl font-semibold mb-4">Total Score:</p>
+            <p class="text-3xl font-bold text-green-600">Correct: {{ totalScore.correct }}</p>
+            <p class="text-3xl font-bold text-red-600">Wrong: {{ totalScore.wrong }}</p>
+        </div>
+        <button @click="restart" class="mt-8 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-10 rounded-lg text-lg transition duration-300">
+            Restart Challenge
+        </button>
+    </div>
+
+</div>
+
+<script>
+const { createApp } = Vue;
+
+const lessonData = {
+    subtopics: [
+        {
+            title: "The 7 Characteristics of Living Organisms",
+            slides: `
+                <h3>MRS GREN</h3>
+                <p>To remember the seven characteristics that all living things share, we use the acronym <strong>MRS GREN</strong>:</p>
+                <ul>
+                    <li><strong>M</strong>ovement: An action by an organism causing a change of position or place.</li>
+                    <li><strong>R</strong>espiration: The chemical reactions in cells that break down nutrient molecules and release energy.</li>
+                    <li><strong>S</strong>ensitivity: The ability to detect and respond to changes in the environment (stimuli).</li>
+                    <li><strong>G</strong>rowth: A permanent increase in size and dry mass.</li>
+                    <li><strong>R</strong>eproduction: The processes that make more of the same kind of organism.</li>
+                    <li><strong>E</strong>xcretion: Removal of waste products of metabolism and substances in excess of requirements.</li>
+                    <li><strong>N</strong>utrition: Taking in of materials for energy, growth and development.</li>
+                </ul>
+                <p>Some non-living things, like a fire, might show some of these characteristics, but only truly living organisms show all seven!</p>
+            `,
+            questions: [
+                // Level 1: Direct Recall
+                { question: "What does the 'S' in MRS GREN stand for?", options: ["Sight", "Sound", "Sensitivity", "Structure", "Synthesis", "Survival"], answer: "Sensitivity" },
+                { question: "Which characteristic is defined as 'the chemical reactions in cells that release energy'?", options: ["Excretion", "Nutrition", "Movement", "Respiration", "Growth", "Reproduction"], answer: "Respiration" },
+                { question: "A permanent increase in size and dry mass is called:", options: ["Reproduction", "Nutrition", "Development", "Growth", "Movement", "Metabolism"], answer: "Growth" },
+                { question: "What does the 'N' in MRS GREN represent?", options: ["Nervous System", "Nurturing", "Nutrition", "Nucleus", "Nature", "Nesting"], answer: "Nutrition" },
+                { question: "The process of making more of the same kind of organism is called:", options: ["Growth", "Cloning", "Reproduction", "Development", "Nutrition", "Division"], answer: "Reproduction" },
+                { question: "The removal of waste products like carbon dioxide and urea is known as:", options: ["Nutrition", "Excretion", "Digestion", "Respiration", "Growth", "Movement"], answer: "Excretion" },
+                { question: "What characteristic describes an organism changing position or place?", options: ["Growth", "Sensitivity", "Movement", "Respiration", "Excretion", "Action"], answer: "Movement" },
+                // Level 2: Application & Examples
+                { question: "A plant turning its leaves towards the sun is an example of...", options: ["Movement", "Growth", "Reproduction", "Respiration", "Nutrition", "Sensitivity"], answer: "Sensitivity" },
+                { question: "When a human sweats, which life process is being demonstrated?", options: ["Growth", "Reproduction", "Excretion", "Nutrition", "Movement", "Respiration"], answer: "Excretion" },
+                { question: "A seed germinating and growing into a sapling is an example of which characteristic?", options: ["Reproduction", "Growth", "Sensitivity", "Respiration", "Excretion", "Nutrition"], answer: "Growth" },
+                { question: "A Venus flytrap closing on an insect is a fast example of which two characteristics?", options: ["Growth & Nutrition", "Movement & Sensitivity", "Reproduction & Respiration", "Excretion & Growth", "Nutrition & Respiration", "Movement & Reproduction"], answer: "Movement & Sensitivity" },
+                { question: "Animals eating plants or other animals is an example of:", options: ["Respiration", "Reproduction", "Excretion", "Growth", "Sensitivity", "Nutrition"], answer: "Nutrition" },
+                { question: "A baby gaining weight and getting taller shows which process?", options: ["Reproduction", "Movement", "Sensitivity", "Growth", "Excretion", "Respiration"], answer: "Growth" },
+                { question: "When you touch a hot object and pull your hand away, you are showing:", options: ["Growth", "Nutrition", "Respiration", "Excretion", "Sensitivity", "Reproduction"], answer: "Sensitivity" },
+                { question: "A bacterium splitting into two is an example of:", options: ["Growth", "Movement", "Nutrition", "Reproduction", "Excretion", "Sensitivity"], answer: "Reproduction" },
+                // Level 3: Deeper Understanding & Comparison
+                { question: "Which of the following is NOT one of the seven characteristics of life?", options: ["Growth", "Reproduction", "Breathing", "Movement", "Nutrition", "Excretion"], answer: "Breathing" },
+                { question: "Why is a car not considered a living organism?", options: ["It doesn't have a heart.", "It doesn't excrete waste.", "It cannot reproduce on its own.", "It is made of metal.", "It doesn't breathe air.", "It doesn't have a brain."], answer: "It cannot reproduce on its own." },
+                { question: "The sum of all chemical reactions in an organism is called...", options: ["Respiration", "Digestion", "Metabolism", "Excretion", "Synthesis", "Homeostasis"], answer: "Metabolism" },
+                { question: "Which characteristic is essential for the survival of a species, but not for the survival of an individual organism?", options: ["Respiration", "Nutrition", "Sensitivity", "Reproduction", "Excretion", "Movement"], answer: "Reproduction" },
+                { question: "A crystal can get bigger over time. Why is this not considered 'growth' in a biological sense?", options: ["It happens too slowly", "It's not a permanent change", "It is not made of cells", "It doesn't add dry mass", "It's an addition of non-living material", "It doesn't require energy"], answer: "It's an addition of non-living material" },
+                { question: "Plants get their nutrition through a process called:", options: ["Absorption", "Photosynthesis", "Digestion", "Respiration", "Transpiration", "Decomposition"], answer: "Photosynthesis" },
+                { question: "Which process provides the energy needed for all other life processes?", options: ["Growth", "Movement", "Nutrition", "Excretion", "Reproduction", "Respiration"], answer: "Respiration" },
+                { question: "What is a 'stimulus' in the context of sensitivity?", options: ["A chemical reaction", "A waste product", "A type of nutrient", "A change in the environment", "A reproductive cell", "A stage of growth"], answer: "A change in the environment" },
+                { question: "A pufferfish inflating its body is not considered growth because...", options: ["It happens too quickly", "It uses water, not new cells", "It is a form of movement", "It's a defence mechanism", "It is not permanent", "It doesn't involve nutrition"], answer: "It is not permanent" },
+                { question: "Which two characteristics are most directly involved when a cheetah chases its prey?", options: ["Growth and Reproduction", "Nutrition and Excretion", "Movement and Nutrition", "Sensitivity and Respiration", "Reproduction and Growth", "Excretion and Sensitivity"], answer: "Movement and Nutrition" },
+                { question: "What is 'dry mass'?", options: ["The mass of an organism when it's asleep", "The mass of an organism's bones", "The mass of an organism without water", "The total mass of an organism", "The mass of an organism's skin", "The average mass of a species"], answer: "The mass of an organism without water" },
+                { question: "Which process removes toxic waste from an organism's body?", options: ["Digestion", "Circulation", "Respiration", "Excretion", "Nutrition", "Ingestion"], answer: "Excretion" },
+                { question: "The ability for chloroplasts to move within a plant cell is an example of which characteristic on a microscopic level?", options: ["Growth", "Sensitivity", "Reproduction", "Nutrition", "Movement", "Respiration"], answer: "Movement" },
+                { question: "Which characteristic ensures the continuation of a species over time?", options: ["Growth", "Movement", "Reproduction", "Sensitivity", "Excretion", "Nutrition"], answer: "Reproduction" },
+                { question: "Why is a fire not considered living, even though it grows, consumes fuel (nutrition), and gives off waste?", options: ["It has no cells and cannot reproduce", "It is too hot", "It does not move", "It is not sensitive", "It does not respire", "It is a chemical reaction"], answer: "It has no cells and cannot reproduce" }
+            ]
+        },
+        {
+            title: "Classification & The Binomial System",
+            slides: `
+                <h3>How We Name Organisms</h3>
+                <p>To avoid confusion with common names, biologists use a universal two-part naming system, invented by Carl Linnaeus. This is the <strong>Binomial System</strong>.</p>
+                <ul>
+                    <li>Every species is given a scientific name with two parts.</li>
+                    <li>The first part is the <strong>Genus</strong> name. It is always capitalised. A genus is a group of closely related species.</li>
+                    <li>The second part is the <strong>species</strong> name. It is always in lowercase.</li>
+                    <li>The whole name is written in <i>italics</i> or <u>underlined</u>. For example, humans are <i>Homo sapiens</i>.</li>
+                </ul>
+                <h3>What is a Species?</h3>
+                <p>A species is a group of organisms that can reproduce with each other to produce <strong>fertile offspring</strong> (offspring that can also reproduce).</p>
+            `,
+            questions: [
+                 // Level 1: Direct Recall
+                { question: "What is the scientific naming system for organisms called?", options: ["Two-Name System", "Genus-Species System", "Binomial System", "Latin System", "Linnaeus System", "Classification System"], answer: "Binomial System" },
+                { question: "In the name <i>Panthera leo</i> (lion), what does 'Panthera' represent?", options: ["Species", "Kingdom", "Family", "Genus", "Nickname", "Class"], answer: "Genus" },
+                { question: "Which part of the binomial name is always written with a capital letter?", options: ["The species name", "The second name", "Both names", "The Genus name", "The family name", "Neither name"], answer: "The Genus name" },
+                { question: "A species is defined as a group of organisms that can reproduce to produce...", options: ["More organisms", "Healthy offspring", "Many offspring", "Sterile offspring", "Clones", "Fertile offspring"], answer: "Fertile offspring" },
+                { question: "How should a binomial name be written or typed?", options: ["In bold", "In capitals", "In italics or underlined", "With a hyphen", "In quotation marks", "As one word"], answer: "In italics or underlined" },
+                { question: "The scientific name for humans is <i>Homo sapiens</i>. What is the species name?", options: ["Homo", "Sapiens", "Homo sapiens", "Human", "Primate", "Mammal"], answer: "Sapiens" },
+                { question: "Who is credited with inventing the modern binomial system?", options: ["Charles Darwin", "Gregor Mendel", "Aristotle", "Carl Linnaeus", "George Shaw", "Dr. Watson"], answer: "Carl Linnaeus" },
+                // Level 2: Application
+                { question: "A horse (<i>Equus caballus</i>) and a donkey (<i>Equus asinus</i>) can produce a mule. Why are they considered different species?", options: ["They look different", "Mules are infertile", "They live in different places", "They belong to different kingdoms", "One is stronger than the other", "They eat different food"], answer: "Mules are infertile" },
+                { question: "Which of these names is written correctly?", options: ["canis lupus", "Canis Lupus", "<i>canis Lupus</i>", "<i>Canis lupus</i>", "Canis lupus", "<i>CanisLupus</i>"], answer: "<i>Canis lupus</i>" },
+                { question: "A wolf's scientific name is <i>Canis lupus</i> and a domestic dog's is <i>Canis familiaris</i>. What can you conclude?", options: ["They are identical", "They cannot reproduce", "They belong to the same genus", "They are in different families", "They are not related at all", "One evolved from the other"], answer: "They belong to the same genus" },
+                { question: "A 'yakolo' is the infertile offspring of a yak and a buffalo. This suggests that yaks and buffalo...", options: ["Are the same species", "Belong to different species", "Belong to the same genus", "Live in the same habitat", "Are both mammals", "Are closely related"], answer: "Belong to different species" },
+                { question: "Why is using scientific names better than common names like 'robin'?", options: ["They are harder to spell", "They are only in English", "Common names can refer to different animals in different countries", "Scientific names are shorter", "They are more creative", "Only scientists can use them"], answer: "Common names can refer to different animals in different countries" },
+                { question: "If you discover a new species of frog, you would give it a name consisting of...", options: ["One word", "Genus and species", "Family and order", "Three words", "A descriptive name", "Your own name"], answer: "Genus and species" },
+                { question: "The smallest natural group in classification is the:", options: ["Kingdom", "Family", "Genus", "Order", "Species", "Class"], answer: "Species" },
+                { question: "<i>Felis catus</i> (house cat) and <i>Felis silvestris</i> (wildcat) must share which classification level?", options: ["Species", "Kingdom", "Family", "Genus", "Subspecies", "Order"], answer: "Genus" },
+                 // Level 3: Deeper Understanding
+                { question: "Why is Latin used for scientific names?", options: ["It is the easiest language", "It is a 'dead' language and doesn't change", "It was invented by Romans", "It is spoken worldwide", "All scientists speak Latin", "It sounds more scientific"], answer: "It is a 'dead' language and doesn't change" },
+                { question: "The main purpose of a classification system is to...", options: ["Give every animal a unique name", "Make biology more complicated", "Reflect evolutionary relationships", "Separate plants from animals", "List all organisms alphabetically", "Organise animals by size"], answer: "Reflect evolutionary relationships" },
+                { question: "If two organisms are in the same genus, they must also be in the same...", options: ["Species", "Family", "Subspecies", "None of the below", "Breed", "Population"], answer: "Family" },
+                { question: "The classification hierarchy from largest to smallest is:", options: ["Kingdom, Phylum, Class, Order, Family, Genus, Species", "Species, Genus, Family, Order, Class, Phylum, Kingdom", "Kingdom, Family, Order, Class, Phylum, Genus, Species", "Kingdom, Phylum, Order, Class, Family, Genus, Species", "Phylum, Kingdom, Class, Order, Family, Genus, Species", "Kingdom, Class, Phylum, Order, Family, Genus, Species"], answer: "Kingdom, Phylum, Class, Order, Family, Genus, Species" },
+                { question: "What is a dichotomous key used for?", options: ["To name a new species", "To identify an unknown organism", "To see how organisms evolved", "To unlock a scientific lab", "To measure an organism's growth", "To classify organisms into kingdoms"], answer: "To identify an unknown organism" },
+                { question: "'Dichotomous' means...", options: ["Branching into three", "Using two names", "A type of animal", "Branching into two", "A scientific law", "A difficult choice"], answer: "Branching into two" },
+                { question: "When making a dichotomous key, what kind of features should you use?", options: ["Subjective features like 'big' or 'small'", "Features that change over time", "Internal features you can't see", "Clear, constant, and objective features", "Features that are very rare", "Colours that might vary"], answer: "Clear, constant, and objective features" },
+                { question: "A good first step in a key to separate a cat, a fish, a snake, and a spider would be:", options: ["Has fur / Does not have fur", "Is it a mammal? / Is it not a mammal?", "Has a backbone / Does not have a backbone", "Lives on land / Lives in water", "Has legs / Does not have legs", "Is it dangerous? / Is it not dangerous?"], answer: "Has a backbone / Does not have a backbone" },
+                { question: "What is wrong with a key statement like 'Has large ears'?", options: ["Nothing is wrong with it", "Ears are not an important feature", "'Large' is subjective and not a clear measurement", "Not all animals have ears", "It's too simple", "It should describe the colour"], answer: "'Large' is subjective and not a clear measurement" },
+                { question: "A dichotomous key always presents you with how many choices at each step?", options: ["One", "Two", "Three", "Four", "Five", "It varies"], answer: "Two" },
+                { question: "What does classification based on 'evolutionary relationships' mean?", options: ["Grouping organisms by how long they live", "Grouping organisms by when they were discovered", "Grouping organisms based on shared ancestry", "Grouping organisms by their habitat", "Grouping organisms by their diet", "Grouping organisms alphabetically"], answer: "Grouping organisms based on shared ancestry" },
+                { question: "The platypus was difficult to classify because...", options: ["It was a hoax", "It had features of different groups (mammal and bird)", "No one had seen one alive", "It was too small to study", "It lived in Australia", "It had a strange name"], answer: "It had features of different groups (mammal and bird)" },
+                { question: "Which pair of animals would you expect to share the most features?", options: ["A spider and a fly", "A lion and a tiger", "A whale and a shark", "A bird and a bat", "An earthworm and a snake", "A cat and a dog"], answer: "A lion and a tiger" },
+                { question: "The science of classifying organisms is called:", options: ["Biology", "Taxonomy", "Genetics", "Ecology", "Zoology", "Botany"], answer: "Taxonomy" },
+                { question: "In a key, if statement 1a is 'has feathers', what should statement 1b be?", options: ["Has wings", "Does not have wings", "Has scales", "Does not have feathers", "Is a bird", "Is a reptile"], answer: "Does not have feathers" }
+            ]
+        },
+        {
+            title: "The 5 Kingdoms of Life",
+            slides: `
+                <h3>Classifying Life into Kingdoms</h3>
+                <p>Biologists group all living organisms into five large kingdoms based on their cellular structure and how they get nutrition.</p>
+                <ul>
+                    <li><strong>Animals:</strong> Multicellular, cells have a nucleus but no cell wall or chloroplasts. They feed on other organisms.</li>
+                    <li><strong>Plants:</strong> Multicellular, cells have a nucleus, cellulose cell walls, and chloroplasts. They make their own food via photosynthesis.</li>
+                    <li><strong>Fungi:</strong> Mostly multicellular (like mushrooms), cells have a nucleus and cell walls (not made of cellulose; made of chitin). They feed by saprophytic nutrition (on dead matter).</li>
+                    <li><strong>Protoctists:</strong> A mixed group. Mostly unicellular. Cells have a nucleus. Some are like plants (algae), some are like animals (amoeba).</li>
+                    <li><strong>Prokaryotes:</strong> Unicellular and very simple. Their cells have <strong>NO nucleus</strong>. Bacteria are the main example.</li>
+                </ul>
+            `,
+            questions: [
+                // Level 1: Direct Recall
+                { question: "Which kingdom contains organisms whose cells lack a nucleus?", options: ["Animals", "Plants", "Fungi", "Protoctists", "Prokaryotes", "Viruses"], answer: "Prokaryotes" },
+                { question: "Mushrooms and yeast belong to which kingdom?", options: ["Plant", "Animal", "Prokaryote", "Protoctist", "Fungus", "Decomposer"], answer: "Fungus" },
+                { question: "Which feature is characteristic of the Plant kingdom but not the Animal kingdom?", options: ["Multicellular", "Has a nucleus", "Cellulose cell wall", "Ability to move", "Heterotrophic nutrition", "Respires"], answer: "Cellulose cell wall" },
+                { question: "Amoeba and Paramecium are examples of which kingdom?", options: ["Prokaryote", "Fungus", "Animal", "Protoctist", "Plant", "Microbe"], answer: "Protoctist" },
+                { question: "What is the primary method of nutrition for organisms in the Plant kingdom?", options: ["Decomposition", "Photosynthesis", "Parasitism", "Ingestion", "Absorption", "Chemosynthesis"], answer: "Photosynthesis" },
+                { question: "Bacteria are the most common members of which kingdom?", options: ["Fungi", "Animalia", "Protoctista", "Prokaryote", "Plantae", "Monera"], answer: "Prokaryote" },
+                { question: "The cell walls of fungi are made of a substance called:", options: ["Cellulose", "Chitin", "Glucose", "Protein", "Starch", "Lipid"], answer: "Chitin" },
+                { question: "Which kingdom is best described as a 'mixed collection' of mostly unicellular organisms with a nucleus?", options: ["Fungi", "Animalia", "Prokaryote", "Plantae", "Protoctista", "Bacteria"], answer: "Protoctista" },
+                { question: "Which of the following is a key feature of the Animal kingdom?", options: ["Cells have chloroplasts", "Unicellular organisms", "Cells lack a nucleus", "No cell walls", "Autotrophic nutrition", "Cell walls made of chitin"], answer: "No cell walls" },
+                { question: "What structure is found in a plant cell but not a fungus cell?", options: ["Nucleus", "Cell wall", "Chloroplast", "Cytoplasm", "Cell membrane", "Mitochondria"], answer: "Chloroplast" },
+                // Level 2: Application
+                { question: "An organism is multicellular, has cell walls not made of cellulose, and feeds on decaying matter. Which kingdom does it belong to?", options: ["Animal", "Plant", "Fungus", "Protoctist", "Prokaryote", "Bacteria"], answer: "Fungus" },
+                { question: "You observe a single-celled organism under a microscope. It has a cell wall and a nucleus. It could belong to which two kingdoms?", options: ["Animal and Fungus", "Plant and Animal", "Fungus and Protoctist", "Prokaryote and Fungus", "Animal and Prokaryote", "Plant and Prokaryote"], answer: "Fungus and Protoctist" },
+                { question: "A sea anemone looks like a flower but it belongs to the animal kingdom. Why?", options: ["It is green", "It cannot move", "Its cells lack a cell wall and chloroplasts", "It lives in the sea", "It reproduces with spores", "It is brightly coloured"], answer: "Its cells lack a cell wall and chloroplasts" },
+                { question: "Yeast is a single-celled fungus. How does its cell structure differ from a bacterium?", options: ["Yeast has a cell wall, bacterium does not", "Yeast has a nucleus, bacterium does not", "Yeast has no cytoplasm", "Yeast is much smaller", "Bacterium has a cell membrane, yeast does not", "Bacterium is multicellular"], answer: "Yeast has a nucleus, bacterium does not" },
+                { question: "Algae are protoctists that have chloroplasts. This means they get their nutrition by...", options: ["Eating other organisms", "Decomposing dead matter", "Photosynthesis", "Infection", "Parasitism", "Absorption"], answer: "Photosynthesis" },
+                { question: "Which of these organisms is a prokaryote?", options: ["Mushroom", "Amoeba", "E. coli bacterium", "Seaweed", "Yeast", "Fern"], answer: "E. coli bacterium" },
+                { question: "What do plant, animal, and fungi cells all have in common that prokaryotic cells do not?", options: ["Cell wall", "Cytoplasm", "Nucleus", "Cell membrane", "Ribosomes", "DNA"], answer: "Nucleus" },
+                { question: "Saprophytic nutrition, the method used by fungi, involves...", options: ["Using sunlight for energy", "Hunting prey", "Secreting enzymes to digest food externally, then absorbing it", "Living inside a host organism", "Making their own food", "Filtering food from water"], answer: "Secreting enzymes to digest food externally, then absorbing it" },
+                { question: "A liverwort is a simple plant with no true roots. How could you confirm it's a plant?", options: ["Check if it moves", "See if it has a nucleus", "Look for chloroplasts and cellulose cell walls", "Test if it eats insects", "Measure how tall it is", "See if it has flowers"], answer: "Look for chloroplasts and cellulose cell walls" },
+                { question: "Which statement is true for ALL five kingdoms?", options: ["All organisms are multicellular", "All organisms have cells with a nucleus", "All organisms are living things", "All organisms can photosynthesise", "All organisms have a cell wall", "All organisms are microscopic"], answer: "All organisms are living things" },
+                // Level 3: Deeper Understanding & Comparison
+                { question: "Why were fungi originally misclassified as plants?", options: ["They are green", "They reproduce with seeds", "They grow in the ground and don't move", "Their cells have no nucleus", "They are all edible", "They are animals"], answer: "They grow in the ground and don't move" },
+                { question: "Which two kingdoms contain organisms that are decomposers?", options: ["Plants and Animals", "Animals and Fungi", "Fungi and Prokaryotes", "Protoctists and Plants", "Animals and Protoctists", "Plants and Prokaryotes"], answer: "Fungi and Prokaryotes" },
+                { question: "What is a major difference between prokaryotic DNA and eukaryotic DNA (in the other 4 kingdoms)?", options: ["Prokaryotic DNA is not in a nucleus", "Prokaryotes do not have DNA", "Eukaryotic DNA is made of protein", "Prokaryotic DNA is always a single gene", "Eukaryotes have no DNA", "Prokaryotic DNA is liquid"], answer: "Prokaryotic DNA is not in a nucleus" },
+                { question: "Some protoctists, like Plasmodium which causes malaria, are parasites. This means they...", options: ["Make their own food", "Decompose dead material", "Live on or in a host and cause harm", "Are a type of bacteria", "Are a type of virus", "Eat other smaller organisms"], answer: "Live on or in a host and cause harm" },
+                { question: "The 'oldest' kingdom, containing the first forms of life on Earth, is likely the...", options: ["Animal kingdom", "Plant kingdom", "Fungus kingdom", "Prokaryote kingdom", "Protoctist kingdom", "Virus kingdom"], answer: "Prokaryote kingdom" },
+                { question: "Which feature is shared by plant cells and fungal cells, but absent in animal cells?", options: ["Nucleus", "Cytoplasm", "Cell membrane", "Cell wall", "Mitochondria", "Ribosomes"], answer: "Cell wall" },
+                { question: "A key reason animals need to eat (be heterotrophic) is because their cells lack...", options: ["A nucleus", "A cell membrane", "Chloroplasts", "A cell wall", "Mitochondria", "Cytoplasm"], answer: "Chloroplasts" },
+                { question: "Seaweed is a multicellular protoctist, not a plant. What might be a reason for this classification?", options: ["It is not green", "It lives in water", "It has a very simple body structure without true roots or stems", "It does not have a nucleus", "It is eaten by fish", "It is too small"], answer: "It has a very simple body structure without true roots or stems" },
+                { question: "If you find a new organism that is unicellular and has a nucleus, it cannot be a(n)...", options: ["Fungus", "Protoctist", "Prokaryote", "Algae", "Yeast", "Amoeba"], answer: "Prokaryote" },
+                { question: "The cell walls of plants are made of cellulose, while the cell walls of bacteria (prokaryotes) are...", options: ["Also made of cellulose", "Made of chitin", "Not made of cellulose", "Made of protein", "Made of starch", "Absent"], answer: "Not made of cellulose" }
+            ]
+        },
+        {
+            title: "Vertebrates (Animals with Backbones)",
+            slides: `
+                <h3>The Five Groups of Vertebrates</h3>
+                <p>Vertebrates are animals with a backbone. They are divided into five main classes:</p>
+                <ul>
+                    <li><strong>Fish:</strong> Live in water, have scales, fins, and breathe with gills. Most lay soft eggs in water.</li>
+                    <li><strong>Amphibians:</strong> Moist, scale-less skin. Larvae (tadpoles) live in water with gills, adults live on land with lungs. Lay soft eggs in water. (e.g., frogs).</li>
+                    <li><strong>Reptiles:</strong> Have dry, scaly skin. Lay soft, leathery-shelled eggs on land. (e.g., snakes, lizards).</li>
+                    <li><strong>Birds:</strong> Have feathers, a beak, and lay hard-shelled eggs. Front limbs are wings. They are warm-blooded.</li>
+                    <li><strong>Mammals:</strong> Have hair or fur, give birth to live young (mostly), and females produce milk. They are warm-blooded.</li>
+                </ul>
+            `,
+            questions: [
+                // Level 1: Direct Recall
+                { question: "An animal has feathers, a beak, and lays hard-shelled eggs. Which class does it belong to?", options: ["Reptiles", "Amphibians", "Fish", "Birds", "Mammals", "Arthropods"], answer: "Birds" },
+                { question: "Which vertebrate class is characterized by having hair or fur and producing milk for its young?", options: ["Amphibians", "Reptiles", "Mammals", "Birds", "Fish", "Insects"], answer: "Mammals" },
+                { question: "Which feature is common to all fish?", options: ["Lungs", "Feathers", "Scaly skin", "Moist skin", "Fur", "Gills"], answer: "Gills" },
+                { question: "A snake has dry, scaly skin and lays eggs on land. It is a...", options: ["Fish", "Amphibian", "Reptile", "Mammal", "Bird", "Worm"], answer: "Reptile" },
+                { question: "Frogs, toads and salamanders belong to which vertebrate group?", options: ["Fish", "Reptiles", "Amphibians", "Birds", "Mammals", "Crustaceans"], answer: "Amphibians" },
+                { question: "The external ear flap, called a pinna, is a feature of which group?", options: ["Birds", "Reptiles", "Amphibians", "Fish", "Mammals", "All of them"], answer: "Mammals" },
+                { question: "What is the primary body covering of birds?", options: ["Scales", "Skin", "Fur", "Hair", "Shell", "Feathers"], answer: "Feathers" },
+                { question: "Which group of vertebrates undergoes metamorphosis from a larval stage to an adult stage?", options: ["Fish", "Amphibians", "Reptiles", "Birds", "Mammals", "All of them"], answer: "Amphibians" },
+                { question: "Which two groups of vertebrates are warm-blooded (endothermic)?", options: ["Fish and Amphibians", "Reptiles and Fish", "Birds and Mammals", "Amphibians and Reptiles", "Mammals and Fish", "Birds and Reptiles"], answer: "Birds and Mammals" },
+                { question: "What type of eggs do reptiles lay?", options: ["Hard-shelled eggs", "No eggs, they give live birth", "Soft, leathery-shelled eggs", "In water without a shell", "Small, black eggs", "They don't lay eggs"], answer: "Soft, leathery-shelled eggs" },
+                // Level 2: Application
+                { question: "A frog is an example of an amphibian. Where does it typically lay its eggs?", options: ["In a nest on land", "In sand", "In water", "Under rocks", "In trees", "It gives birth to live young"], answer: "In water" },
+                { question: "A bat is a mammal, not a bird, because it has...", options: ["Wings and can fly", "A small body", "A beak", "Hair/fur and produces milk", "Big ears", "A backbone"], answer: "Hair/fur and produces milk" },
+                { question: "A whale is a mammal, not a fish, because it...", options: ["Is very large", "Lives in the ocean", "Breathes air with lungs", "Has fins", "Eats krill", "Lays eggs"], answer: "Breathes air with lungs" },
+                { question: "What is a key difference between amphibian and reptile skin?", options: ["Amphibians have feathers, reptiles have scales", "Amphibians have fur, reptiles have moist skin", "Amphibians have moist skin, reptiles have dry scales", "Amphibians have exoskeletons, reptiles have shells", "There is no difference", "Amphibians have scales, reptiles have moist skin"], answer: "Amphibians have moist skin, reptiles have dry scales" },
+                { question: "A shark is a type of fish. What is its skeleton made of?", options: ["Bone", "Cartilage", "Muscle", "Scales", "Coral", "Chitin"], answer: "Cartilage" },
+                { question: "An ostrich cannot fly, but it is classified as a bird. Why?", options: ["It is very large", "It lays hard-shelled eggs and has feathers", "It lives in Africa", "It has long legs", "It has a beak", "It can run fast"], answer: "It lays hard-shelled eggs and has feathers" },
+                { question: "Dinosaurs are an extinct group of which vertebrate class?", options: ["Mammals", "Amphibians", "Birds", "Fish", "Reptiles", "None of the above"], answer: "Reptiles" },
+                { question: "Why must amphibians return to water to reproduce?", options: ["To hide from predators", "Their eggs lack a waterproof shell and would dry out", "The adults cannot breathe on land", "The water is warmer", "Their food is only in water", "To find a mate"], answer: "Their eggs lack a waterproof shell and would dry out" },
+                { question: "Which of the following is a mammal that lays eggs (a monotreme)?", options: ["Kangaroo", "Lizard", "Penguin", "Platypus", "Dolphin", "Snake"], answer: "Platypus" },
+                { question: "Having different types of teeth (incisors, canines, etc.) is a feature of:", options: ["Fish", "Reptiles", "Birds", "Amphibians", "Mammals", "Sharks"], answer: "Mammals" },
+                // Level 3: Deeper Understanding & Comparison
+                { question: "Which feature allowed reptiles to become more successful on land than amphibians?", options: ["Their smaller size", "Their ability to swim", "Their moist skin for breathing", "Their scaly skin and shelled eggs", "Their diet", "Their cold blood"], answer: "Their scaly skin and shelled eggs" },
+                { question: "A key feature that separates vertebrates from all arthropods is...", options: ["Having legs", "An internal backbone", "Living on land", "Having a mouth", "An exoskeleton", "Being multicellular"], answer: "An internal backbone" },
+                { question: "The tadpole stage of a frog has gills, while the adult frog has lungs. This shows a transition from...", options: ["Land life to water life", "Water life to land life", "Breathing oxygen to breathing carbon dioxide", "Asexual to sexual reproduction", "Being a reptile to being an amphibian", "Eating plants to eating meat"], answer: "Water life to land life" },
+                { question: "Birds are thought to have evolved from which other group of vertebrates?", options: ["Amphibians", "Fish", "Mammals", "Reptiles (specifically dinosaurs)", "Sharks", "None of them"], answer: "Reptiles (specifically dinosaurs)" },
+                { question: "A diaphragm for breathing is a unique internal feature of which group?", options: ["Birds", "Mammals", "Reptiles", "Fish", "Amphibians", "All vertebrates"], answer: "Mammals" },
+                { question: "What is the function of scales on a fish?", options: ["To help it breathe", "To make it look colourful", "Protection and reducing drag in water", "To absorb sunlight", "To keep it warm", "To help it float"], answer: "Protection and reducing drag in water" },
+                { question: "Which statement is incorrect?", options: ["All birds have feathers", "All mammals have hair at some stage", "All fish have gills", "All amphibians lay eggs in water", "All reptiles are cold-blooded", "All mammals give birth to live young"], answer: "All mammals give birth to live young" },
+                { question: "What is the advantage of being warm-blooded?", options: ["It allows the animal to live only in hot places", "It means the animal doesn't need to eat", "It allows the animal to be active in cold temperatures", "It makes the animal swim faster", "It saves a lot of energy", "It is not an advantage"], answer: "It allows the animal to be active in cold temperatures" },
+                { question: "A turtle is a reptile, even though it lives in water. Why?", options: ["It has gills", "It has moist skin", "It breathes air with lungs and has scales", "It gives birth to live young", "It is warm-blooded", "It does not have a backbone"], answer: "It breathes air with lungs and has scales" },
+                { question: "Which is the most diverse group of vertebrates (has the most species)?", options: ["Mammals", "Birds", "Reptiles", "Amphibians", "Fish", "Sharks"], answer: "Fish" }
+            ]
+        },
+        {
+            title: "Arthropods (Animals with Exoskeletons)",
+            slides: `
+                <h3>The Four Groups of Arthropods</h3>
+                <p>Arthropods are animals with jointed legs and a hard outer casing called an exoskeleton. They are the largest group in the animal kingdom!</p>
+                <ul>
+                    <li><strong>Insects:</strong> Body in 3 parts (head, thorax, abdomen). 3 pairs of legs (6 total). 1 pair of antennae. (e.g., ant, butterfly).</li>
+                    <li><strong>Arachnids:</strong> Body in 2 parts (cephalothorax, abdomen). 4 pairs of legs (8 total). NO antennae. (e.g., spider, scorpion).</li>
+                    <li><strong>Crustaceans:</strong> Usually have a cephalothorax & abdomen. More than 4 pairs of legs. 2 pairs of antennae. Mostly live in water and have gills. (e.g., crab, lobster).</li>
+                    <li><strong>Myriapods:</strong> Long, segmented body. Many pairs of legs (1 or 2 pairs per segment). 1 pair of antennae. (e.g., centipede, millipede).</li>
+                </ul>
+            `,
+            questions: [
+                // Level 1: Direct Recall
+                { question: "An arthropod has 3 body parts, 3 pairs of legs, and 1 pair of antennae. Which class is it?", options: ["Arachnids", "Crustaceans", "Myriapods", "Insects", "Vertebrates", "Molluscs"], answer: "Insects" },
+                { question: "How many pairs of legs does an arachnid, like a spider, have?", options: ["3 pairs (6 total)", "4 pairs (8 total)", "5 pairs (10 total)", "2 pairs (4 total)", "Many pairs", "1 pair (2 total)"], answer: "4 pairs (8 total)" },
+                { question: "Which arthropod group is characterized by having two pairs of antennae?", options: ["Insects", "Arachnids", "Myriapods", "Centipedes", "Crustaceans", "Millipedes"], answer: "Crustaceans" },
+                { question: "A key feature of myriapods (centipedes and millipedes) is their...", options: ["Two pairs of antennae", "Wings", "Eight legs", "Segmented body with many legs", "Three body parts", "Lack of an exoskeleton"], answer: "Segmented body with many legs" },
+                { question: "Spiders and scorpions belong to which group?", options: ["Insects", "Crustaceans", "Arachnids", "Myriapods", "Reptiles", "Hexapods"], answer: "Arachnids" },
+                { question: "What is the hard outer covering of an arthropod called?", options: ["Shell", "Skin", "Backbone", "Endoskeleton", "Exoskeleton", "Cuticle"], answer: "Exoskeleton" },
+                { question: "How many body parts does a typical insect have?", options: ["One", "Two", "Three", "Four", "Five", "Many segments"], answer: "Three" },
+                { question: "Which arthropod group is mostly aquatic and breathes with gills?", options: ["Insects", "Arachnids", "Myriapods", "Crustaceans", "Spiders", "Butterflies"], answer: "Crustaceans" },
+                { question: "Which of these features do spiders (arachnids) NOT have?", options: ["An exoskeleton", "Jointed legs", "Antennae", "Two body parts", "Eight legs", "A cephalothorax"], answer: "Antennae" },
+                { question: "The three body parts of an insect are the:", options: ["Head, body, tail", "Cephalothorax, abdomen, legs", "Head, thorax, abdomen", "Head, abdomen, wings", "Legs, wings, antennae", "Body, legs, tail"], answer: "Head, thorax, abdomen" },
+                // Level 2: Application
+                { question: "You find a creature with 8 legs and 2 body parts. It is a(n)...", options: ["Insect", "Myriapod", "Crustacean", "Arachnid", "Worm", "Vertebrate"], answer: "Arachnid" },
+                { question: "A lobster is a crustacean. How many pairs of antennae does it have?", options: ["Zero", "One", "Two", "Three", "Four", "It varies"], answer: "Two" },
+                { question: "A centipede has one pair of legs per body segment. It belongs to which group?", options: ["Insects", "Arachnids", "Crustaceans", "Myriapods", "Worms", "Reptiles"], answer: "Myriapods" },
+                { question: "A butterfly is an insect. How many legs does it have?", options: ["4", "6", "8", "10", "12", "Many"], answer: "6" },
+                { question: "A woodlouse (rolly-polly) is a crustacean that lives on land. What feature confirms it is a crustacean?", options: ["Its colour", "Its segmented body", "Its many legs", "Its two pairs of antennae", "Its ability to roll up", "Its small size"], answer: "Its two pairs of antennae" },
+                { question: "A tick, which has 8 legs, is classified as an:", options: ["Insect", "Arachnid", "Crustacean", "Myriapod", "Worm", "Bacteria"], answer: "Arachnid" },
+                { question: "Which of the following is NOT an insect?", options: ["Ant", "Beetle", "Dragonfly", "Flea", "Scorpion", "Grasshopper"], answer: "Scorpion" },
+                { question: "Insects breathe through small tubes called:", options: ["Gills", "Lungs", "Spiracles", "Tracheae", "Skin", "Mouth"], answer: "Tracheae" },
+                { question: "The combined head and thorax of an arachnid is called the:", options: ["Abdomen", "Head-thorax", "Thorax", "Cephalothorax", "Cranium", "Carapace"], answer: "Cephalothorax" },
+                { question: "A millipede has a long segmented body and many legs. It is a:", options: ["Crustacean", "Insect", "Arachnid", "Myriapod", "Worm", "Vertebrate"], answer: "Myriapod" },
+                // Level 3: Deeper Understanding & Comparison
+                { question: "What is a major advantage of an exoskeleton for land arthropods?", options: ["It is very flexible", "It grows with the animal", "It helps them breathe", "It is heavy", "It supports the body and prevents water loss", "It is brightly coloured"], answer: "It supports the body and prevents water loss" },
+                { question: "How can you distinguish an insect from a myriapod?", options: ["Insects have wings, myriapods do not", "Insects have 6 legs, myriapods have many", "Insects are smaller", "Myriapods live underground", "Insects have antennae, myriapods do not", "Myriapods are vertebrates"], answer: "Insects have 6 legs, myriapods have many" },
+                { question: "What is a disadvantage of having an exoskeleton?", options: ["It does not provide support", "It must be shed for the animal to grow", "It absorbs too much water", "It is too soft", "It cannot be repaired", "It prevents movement"], answer: "It must be shed for the animal to grow" },
+                { question: "The success of insects is partly due to their ability to fly and...", options: ["Their large size", "Their slow reproduction", "Their waterproof exoskeleton and efficient gas exchange", "Their simple diet", "Their lack of predators", "Their bony skeleton"], answer: "Their waterproof exoskeleton and efficient gas exchange" },
+                { question: "How would you tell a centipede (myriapod) from a crab (crustacean)?", options: ["By colour", "By number of antennae and body shape", "By habitat alone", "By size", "By number of eyes", "By their diet"], answer: "By number of antennae and body shape" },
+                { question: "Which two arthropod groups have a body divided into a cephalothorax and abdomen?", options: ["Insects and Myriapods", "Arachnids and Crustaceans", "Insects and Arachnids", "Myriapods and Crustaceans", "Insects and Crustaceans", "Arachnids and Myriapods"], answer: "Arachnids and Crustaceans" },
+                { question: "Why are there more arthropod species than all vertebrate species combined?", options: ["They are older than vertebrates", "They are all very small and reproduce quickly", "They have successfully adapted to almost every habitat on Earth", "They have no predators", "They are smarter than vertebrates", "They are easier to classify"], answer: "They have successfully adapted to almost every habitat on Earth" },
+                { question: "An animal with jointed legs and no backbone must be a(n)...", options: ["Worm", "Vertebrate", "Arthropod", "Mollusc", "Reptile", "Fish"], answer: "Arthropod" },
+                { question: "Fleas are insects, but they do not have wings. What features still classify them as insects?", options: ["Eight legs and antennae", "A segmented body", "An exoskeleton", "Three pairs of legs and three body parts", "Their small size", "Their parasitic lifestyle"], answer: "Three pairs of legs and three body parts" },
+                { question: "Which statement correctly pairs the arthropod group with its number of antennae?", options: ["Insects: 2 pairs", "Arachnids: 1 pair", "Crustaceans: 2 pairs", "Myriapods: 0 pairs", "Insects: 0 pairs", "Crustaceans: 1 pair"], answer: "Crustaceans: 2 pairs" }
+            ]
+        },
+        {
+            title: "The Plant Kingdom",
+            slides: `
+                <h3>Classifying Plants</h3>
+                <p>Plants are a huge and diverse kingdom. We can classify them into major groups:</p>
+                <ul>
+                    <li><strong>Ferns:</strong> Have roots, stems, and large leaves called fronds. They do NOT produce flowers or seeds. Instead, they reproduce using <strong>spores</strong>, often found in structures called sporangia on the underside of their fronds.</li>
+                    <li><strong>Flowering Plants:</strong> The largest group of plants. They have roots, stems, and leaves, and they reproduce using flowers, which produce seeds inside a fruit. They are divided into two major classes:
+                        <ul>
+                            <li><strong>Monocots:</strong> One cotyledon (seed leaf), long leaves with <strong>parallel veins</strong>, flower parts in multiples of 3. (e.g., grass, corn, lily, orchids).</li>
+                            <li><strong>Dicots:</strong> Two cotyledons, broad leaves with <strong>branching/net-like veins</strong>, flower parts in multiples of 4 or 5. (e.g., rose, bean, oak tree, daisies).</li>
+                        </ul>
+                    </li>
+                </ul>
+            `,
+            questions: [
+                // Level 1: Direct Recall
+                { question: "How do ferns reproduce?", options: ["Using flowers", "Using seeds", "Using spores", "Using cones", "By budding", "By dividing"], answer: "Using spores" },
+                { question: "A plant has leaves with parallel veins. It is most likely a...", options: ["Dicot", "Monocot", "Fern", "Moss", "Fungus", "Gymnosperm"], answer: "Monocot" },
+                { question: "Which of these is a characteristic of a dicot plant?", options: ["Parallel leaf veins", "Flower parts in multiples of three", "One seed leaf (cotyledon)", "Branching (net-like) leaf veins", "Fibrous root system", "Reproduces by spores"], answer: "Branching (net-like) leaf veins" },
+                { question: "The large leaves of a fern are called:", options: ["Petals", "Fronds", "Blades", "Needles", "Stems", "Roots"], answer: "Fronds" },
+                { question: "How many cotyledons (seed leaves) does a monocot seed have?", options: ["Zero", "One", "Two", "Three", "Four", "Many"], answer: "One" },
+                { question: "The reproductive structures of flowering plants are the:", options: ["Spores", "Roots", "Leaves", "Stems", "Flowers", "Fronds"], answer: "Flowers" },
+                { question: "A daisy flower has many petals, far more than 5. It is still considered a dicot because its leaves have...", options: ["Parallel veins", "A smooth edge", "A waxy coating", "Net-like veins", "A dark green colour", "No veins"], answer: "Net-like veins" },
+                { question: "Which of these is an example of a monocot?", options: ["Oak tree", "Rose bush", "Bean plant", "Grass", "Fern", "Moss"], answer: "Grass" },
+                { question: "Which group of plants does NOT produce seeds?", options: ["Monocots", "Dicots", "Flowering Plants", "Ferns", "Trees", "Roses"], answer: "Ferns" },
+                { question: "In flowering plants, seeds are produced inside the:", options: ["Leaves", "Roots", "Spores", "Ovary", "Stem", "Petals"], answer: "Ovary" },
+                // Level 2: Application
+                { question: "A plant's flower has 6 petals and its leaves are long and thin. It is a...", options: ["Fern", "Dicot", "Moss", "Monocot", "Fungus", "Algae"], answer: "Monocot" },
+                { question: "You find a plant with broad leaves that have a complex network of veins. It is a...", options: ["Monocot", "Fern", "Dicot", "Moss", "Lichen", "Virus"], answer: "Dicot" },
+                { question: "An iris flower (a monocot) would be expected to have how many petals?", options: ["4 or 5", "A multiple of 4 or 5", "A multiple of 3", "2", "1", "10"], answer: "A multiple of 3" },
+                { question: "A bean seed splits easily into two halves. This shows it is a...", options: ["Monocot", "Dicot", "Fern seed", "Spore", "Non-living", "Fungus"], answer: "Dicot" },
+                { question: "What is a major difference between a fern and a flowering plant?", options: ["Ferns are green, flowering plants are not", "Ferns have roots, flowering plants do not", "Ferns use spores, flowering plants use seeds", "Ferns live in water, flowering plants live on land", "Ferns have no leaves", "Ferns are not in the plant kingdom"], answer: "Ferns use spores, flowering plants use seeds" },
+                { question: "A corn kernel does not split into two halves. It is a...", options: ["Dicot", "Spore", "Monocot", "Fern", "Fruit", "Vegetable"], answer: "Monocot" },
+                { question: "Which feature would you NOT use to identify a fern?", options: ["The presence of roots and stems", "The shape of its fronds", "The presence of flowers", "The presence of spores", "Its green colour", "Where it is growing"], answer: "The presence of flowers" },
+                { question: "A buttercup flower has 5 petals. This is a characteristic of a...", options: ["Monocot", "Dicot", "Fern", "Moss", "Virus", "Bacteria"], answer: "Dicot" },
+                { question: "The root system of a dicot is typically a...", options: ["Fibrous root system", "No root system", "Main taproot with branching side roots", "Shallow root system", "A rhizome", "A bulb"], answer: "Main taproot with branching side roots" },
+                { question: "Palm trees have leaves with parallel veins. They are classified as:", options: ["Dicots", "Ferns", "Monocots", "Herbs", "Shrubs", "Fungi"], answer: "Monocots" },
+                // Level 3: Deeper Understanding & Comparison
+                { question: "What is the function of a cotyledon?", options: ["To protect the seed", "To attract pollinators", "To perform photosynthesis", "To store food for the embryo", "To absorb water", "To anchor the plant"], answer: "To store food for the embryo" },
+                { question: "Which statement is correct about plant classification?", options: ["All plants have flowers", "All plants reproduce with seeds", "All plants are green", "Ferns are more complex than mosses but simpler than flowering plants", "Monocots are more evolved than dicots", "All plants are trees"], answer: "Ferns are more complex than mosses but simpler than flowering plants" },
+                { question: "The veins in a plant leaf are part of its transport system. A network pattern (in dicots) is more ______ than a parallel pattern (in monocots).", options: ["Simple", "Efficient for water distribution", "Green", "Rigid", "Useless", "Common"], answer: "Efficient for water distribution" },
+                { question: "Spores are different from seeds because spores...", options: ["Are much larger than seeds", "Contain a large food store", "Are multicellular", "Are single cells that grow into a new organism", "Are only produced by flowers", "Cannot be spread by wind"], answer: "Are single cells that grow into a new organism" },
+                { question: "Hibiscus is a dicot. Based on this, you can infer that its seeds contain...", options: ["One cotyledon", "Two cotyledons", "No cotyledons", "Spores", "One embryo", "A hard shell"], answer: "Two cotyledons" },
+                { question: "Which is a key advantage of reproducing with seeds over spores?", options: ["Seeds are smaller and lighter", "Seeds contain a protective coat and a food supply for the embryo", "Spores require pollination", "Seeds can only grow in water", "Spores are more complex", "Seeds are produced in much larger numbers"], answer: "Seeds contain a protective coat and a food supply for the embryo" },
+                { question: "The arrangement of vascular bundles in the stem is another way to tell monocots and dicots apart. In monocots they are ______, in dicots they are ______.", options: ["In a ring, scattered", "Large, small", "Scattered, in a ring", "Green, brown", "In the centre, on the edge", "Absent, present"], answer: "Scattered, in a ring" },
+                { question: "If you are trying to decide if a plant is a monocot or a dicot, which feature would be the most reliable?", options: ["The colour of its flowers", "The height of the plant", "The pattern of veins in its leaves", "The time of year it flowers", "Whether it lives in sun or shade", "How good it smells"], answer: "The pattern of veins in its leaves" },
+                { question: "All organisms in the plant kingdom share which feature?", options: ["They have flowers", "They are multicellular, eukaryotic, and photosynthetic", "They have roots", "They live on land", "They reproduce with seeds", "They are trees"], answer: "They are multicellular, eukaryotic, and photosynthetic" },
+                { question: "A newly discovered plant has roots, stems, and leaves, but no flowers. It produces spores. It is likely a...", options: ["Dicot", "Monocot", "Type of fungus", "Type of fern", "Type of moss", "Type of algae"], answer: "Type of fern" }
+            ]
+        },
+        {
+            title: "Viruses",
+            slides: `
+                <h3>What are Viruses?</h3>
+                <p>Viruses are fascinating, but strange. They are not classified in any of the five kingdoms of life because they exist on the border between living and non-living.</p>
+                <ul>
+                    <li><strong>Structure:</strong> Viruses are not cells. They are much smaller and simpler. They consist of a strand of genetic material (either DNA or RNA) enclosed within a protective protein coat called a <strong>capsid</strong>.</li>
+                    <li><strong>Not 'Alive':</strong> On their own, viruses cannot do anything. They do not show the 7 characteristics of life (MRS GREN). They can't move, respire, grow, or reproduce by themselves.</li>
+                    <li><strong>Reproduction:</strong> To reproduce, a virus must infect a living <strong>host cell</strong>. It injects its genetic material, which hijacks the cell's machinery, forcing it to make thousands of new viruses. The cell then bursts, releasing the new viruses to infect other cells.</li>
+                </ul>
+                 <p>Because they cause harm to their host, viruses are pathogenic.</p>
+            `,
+            questions: [
+                 // Level 1: Direct Recall
+                { question: "Why are viruses not considered to be living organisms?", options: ["They are too small", "They do not have a nucleus", "They cannot reproduce without a host cell", "They do not contain protein", "They cause diseases", "They lack a cell wall"], answer: "They cannot reproduce without a host cell" },
+                { question: "A simple description of a virus is...", options: ["A single prokaryotic cell", "Genetic material inside a protein coat", "A single eukaryotic cell", "A type of fungus", "A simple plant", "A microscopic animal"], answer: "Genetic material inside a protein coat" },
+                { question: "What is the name of the protein coat that surrounds a virus's genetic material?", options: ["Cell wall", "Capsule", "Nucleus", "Capsid", "Membrane", "Shell"], answer: "Capsid" },
+                { question: "In order to reproduce, a virus must invade a...", options: ["Water droplet", "Nutrient source", "Host cell", "Larger virus", "Dead organism", "Rock"], answer: "Host cell" },
+                { question: "Which of the 7 characteristics of life (MRS GREN) can a virus perform by itself?", options: ["Reproduction", "Growth", "Respiration", "Movement", "None of them", "All of them"], answer: "None of them" },
+                { question: "The genetic material in a virus can be either...", options: ["Protein or fat", "Sugar or starch", "DNA or RNA", "Carbohydrate or lipid", "Enzymes or hormones", "Water or salt"], answer: "DNA or RNA" },
+                { question: "Are viruses cells?", options: ["Yes, they are prokaryotic cells", "Yes, they are eukaryotic cells", "No, they are not made of cells", "Some are, some aren't", "Only the large ones are", "They are a special type of cell"], answer: "No, they are not made of cells" },
+                { question: "An organism that causes a disease is described as...", options: ["Pathogenic", "Photosynthetic", "Saprophytic", "Asexual", "A predator", "A decomposer"], answer: "Pathogenic" },
+                { question: "How do new viruses get out of the host cell?", options: ["They are gently released one by one", "The host cell bursts open", "They are carried out by proteins", "They dissolve the cell membrane", "They wait for the cell to die of old age", "They are excreted"], answer: "The host cell bursts open" },
+                { question: "Which of these diseases is caused by a virus?", options: ["Athlete's foot", "Cholera", "Influenza (the flu)", "Malaria", "Strep throat", "Ringworm"], answer: "Influenza (the flu)" },
+                 // Level 2: Comparison
+                { question: "How does the size of a virus compare to a bacterium?", options: ["Viruses are much larger", "They are the same size", "Viruses are much smaller", "Viruses are slightly larger", "Bacteria are simpler than viruses", "Size is not a difference"], answer: "Viruses are much smaller" },
+                { question: "A major difference between a virus and a bacterium is that the bacterium...", options: ["Has a protein coat", "Causes disease", "Is a living cell that can reproduce on its own", "Contains genetic material", "Can only be seen with a microscope", "Is unicellular"], answer: "Is a living cell that can reproduce on its own" },
+                { question: "Which structure is found in a bacterium but NOT in a virus?", options: ["Genetic material", "Protein coat", "Cytoplasm", "Capsid", "DNA", "RNA"], answer: "Cytoplasm" },
+                { question: "Unlike a virus, a prokaryote (bacterium) has...", options: ["A capsid", "Ribosomes and can make its own proteins", "No genetic material", "A host cell", "No outer layer", "No need for nutrients"], answer: "Ribosomes and can make its own proteins" },
+                { question: "Which of the 5 kingdoms are viruses classified into?", options: ["Prokaryotes", "Protoctists", "Fungi", "Animals", "Plants", "None of them"], answer: "None of them" },
+                { question: "The common cold is caused by a virus. Why can't it be treated with antibiotics?", options: ["The virus is too small", "Antibiotics only work on bacteria and fungi", "The virus is resistant to antibiotics", "The virus hides in the nucleus", "Antibiotics cannot enter the body", "The cold is not a real disease"], answer: "Antibiotics only work on bacteria and fungi" },
+                { question: "What does a virus 'hijack' from the host cell?", options: ["The nucleus only", "The water inside the cell", "The cell's machinery for making proteins and copying DNA/RNA", "The cell's mitochondria for energy", "The cell's movement", "The cell's shape"], answer: "The cell's machinery for making proteins and copying DNA/RNA" },
+                { question: "A bacteriophage is a type of virus that specifically infects...", options: ["Plants", "Animals", "Humans", "Fungi", "Bacteria", "Protoctists"], answer: "Bacteria" },
+                { question: "Which of the following do viruses and all living organisms have in common?", options: ["They are made of cells", "They can reproduce independently", "They have genetic material (DNA or RNA)", "They can grow", "They can respire", "They can move on their own"], answer: "They have genetic material (DNA or RNA)" },
+                { question: "Why do scientists study viruses if they aren't considered alive?", options: ["Because they are easy to see", "Because they are a source of food", "Because they cause many diseases in living organisms", "Because they are the oldest form of life", "Because they are beautiful", "They do not study viruses"], answer: "Because they cause many diseases in living organisms" },
+                 // Level 3: Deeper Understanding
+                { question: "Why do you need a new flu vaccine every year?", options: ["The vaccine expires after one year", "Viruses like influenza can mutate their protein coats rapidly", "Your body forgets how to fight the virus", "The virus becomes immune to the vaccine", "There is only one type of flu virus", "The vaccine is not very effective"], answer: "Viruses like influenza can mutate their protein coats rapidly" },
+                { question: "What is the primary function of the viral capsid?", options: ["To help the virus move", "To digest food", "To protect the genetic material and attach to a host cell", "To make new proteins", "To store energy", "To carry out respiration"], answer: "To protect the genetic material and attach to a host cell" },
+                { question: "The relationship between a virus and its host cell is best described as...", options: ["Mutualistic", "Commensal", "Parasitic", "Saprophytic", "Predatory", "Symbiotic"], answer: "Parasitic" },
+                { question: "Can a plant virus infect an animal cell?", options: ["Yes, any virus can infect any cell", "Yes, but only if the animal eats the plant", "No, most viruses are highly specific to their host cells", "No, because plants don't get viruses", "Only if the virus is very large", "Yes, if the animal is a herbivore"], answer: "No, most viruses are highly specific to their host cells" },
+                { question: "Some viruses are called 'retroviruses' because they contain RNA and an enzyme that...", options: ["Turns RNA into protein directly", "Turns RNA into DNA", "Destroys the host cell's DNA", "Builds a new protein coat", "Turns DNA into RNA", "Helps the virus move"], answer: "Turns RNA into DNA" },
+                { question: "Why is it difficult to develop drugs that kill viruses without harming host cells?", options: ["Viruses are not affected by drugs", "Viruses use the host cell's own machinery, so drugs often harm the host too", "Viruses are too small to be targeted", "Viruses are protected by the host's immune system", "Drugs cannot enter cells", "Viruses have no weaknesses"], answer: "Viruses use the host cell's own machinery, so drugs often harm the host too" },
+                { question: "A virus in its state outside of a host cell is called a(n)...", options: ["Virion", "Bacterium", "Capsid", "Host", "Pathogen", "Prokaryote"], answer: "Virion" },
+                { question: "The 'genetic material' of a virus is essentially...", options: ["Its brain", "A food store", "The instructions for making new viruses", "A power source", "Its skeleton", "A waste product"], answer: "The instructions for making new viruses" },
+                { question: "After a virus infects a cell, what is the first thing its genetic material must do?", options: ["Leave the cell", "Commandeer the cell's replication machinery", "Build a new capsid", "Destroy the cell nucleus", "Divide into two", "Begin to grow"], answer: "Commandeer the cell's replication machinery" },
+                { question: "What is the fundamental reason viruses are not placed in any kingdom?", options: ["They are a new discovery", "They are too dangerous to classify", "They lack a cellular structure", "They are all the same", "They only infect bacteria", "They are too small to see"], answer: "They lack a cellular structure" }
+            ]
+        }
+    ]
+};
+
+createApp({
+    data() {
+        return {
+            gameState: 'welcome', // welcome, subtopic_selection, slides, quiz, correction, subtopic_finished, final_results
+            studentName: '',
+            subtopics: [],
+            currentSubtopicIndex: 0,
+            currentQuestionIndex: 0,
+            score: { correct: 0, wrong: 0 },
+            totalScore: { correct: 0, wrong: 0 },
+            feedback: { text: '', color: '' },
+            selectedOption: null,
+            attemptsLeft: 2,
+            incorrectlyAnswered: [],
+            currentCorrectionIndex: 0,
+            correctionFeedback: '',
+            isLocked: false,
+            showCorrectAnswer: false,
+        }
+    },
+    computed: {
+        currentSubtopic() {
+            return this.subtopics[this.currentSubtopicIndex];
+        },
+        currentQuestion() {
+            if (this.currentSubtopic && this.currentSubtopic.questions) {
+                return this.currentSubtopic.questions[this.currentQuestionIndex];
+            }
+            return null;
+        },
+        currentCorrectionQuestion() {
+            return this.incorrectlyAnswered[this.currentCorrectionIndex];
+        },
+        allTopicsCompleted() {
+            if (this.subtopics.length === 0) return false;
+            return this.subtopics.every(s => s.completed);
+        }
+    },
+    methods: {
+        shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        },
+        initializeSubtopics() {
+            this.subtopics = lessonData.subtopics.map(topic => ({
+                ...topic,
+                completed: false,
+                // Make a mutable copy of questions for shuffling
+                questions: [...topic.questions] 
+            }));
+            this.subtopics.forEach(subtopic => {
+                this.shuffleArray(subtopic.questions);
+            });
+        },
+        startLesson() {
+            if (this.studentName.trim()) {
+                this.initializeSubtopics();
+                this.gameState = 'subtopic_selection';
+            } else {
+                alert('Please enter your name!');
+            }
+        },
+        selectSubtopic(index) {
+            this.currentSubtopicIndex = index;
+            this.gameState = 'slides';
+        },
+        startQuiz() {
+            this.gameState = 'quiz';
+            this.currentQuestionIndex = 0;
+            this.score = { correct: 0, wrong: 0 };
+            this.incorrectlyAnswered = [];
+            this.resetQuestionState();
+        },
+        checkAnswer(option) {
+            if (this.isLocked) return;
+
+            this.isLocked = true;
+            this.selectedOption = option;
+
+            if (option === this.currentQuestion.answer) {
+                this.showCorrectAnswer = true;
+                this.feedback = { text: 'Correct! Well done!', color: 'bg-green-100 text-green-700' };
+                this.score.correct++;
+                setTimeout(this.nextQuestion, 1500);
+            } else {
+                this.attemptsLeft--;
+                if (this.attemptsLeft > 0) {
+                    this.feedback = { text: `Not quite, ${this.studentName}. Have one more go!`, color: 'bg-orange-100 text-orange-700' };
+                    setTimeout(() => {
+                        this.feedback = { text: '', color: '' };
+                        this.selectedOption = null;
+                        this.isLocked = false;
+                    }, 2000);
+                } else {
+                    this.showCorrectAnswer = true;
+                    this.feedback = { text: `The correct answer was: ${this.currentQuestion.answer}`, color: 'bg-red-100 text-red-700' };
+                    this.score.wrong++;
+                    this.incorrectlyAnswered.push(this.currentQuestion);
+                    setTimeout(this.nextQuestion, 2500);
+                }
+            }
+        },
+        nextQuestion() {
+            if (this.currentQuestionIndex < this.currentSubtopic.questions.length - 1) {
+                this.currentQuestionIndex++;
+                this.resetQuestionState();
+            } else {
+                this.finishQuiz();
+            }
+        },
+        finishQuiz() {
+            this.totalScore.correct += this.score.correct;
+            this.totalScore.wrong += this.score.wrong;
+            if (this.incorrectlyAnswered.length > 0) {
+                this.gameState = 'correction';
+                this.currentCorrectionIndex = 0;
+            } else {
+                this.gameState = 'subtopic_finished';
+            }
+        },
+        checkCorrection(option) {
+             if (option === this.currentCorrectionQuestion.answer) {
+                this.correctionFeedback = 'Correct!';
+                setTimeout(() => {
+                    if (this.currentCorrectionIndex < this.incorrectlyAnswered.length - 1) {
+                        this.currentCorrectionIndex++;
+                        this.correctionFeedback = '';
+                    } else {
+                        this.gameState = 'subtopic_finished';
+                    }
+                }, 1500);
+            } else {
+                this.correctionFeedback = `That's not right. The correct answer is "${this.currentCorrectionQuestion.answer}". Try to remember it!`;
+            }
+        },
+        returnToMenu(markComplete) {
+            if(markComplete) {
+                this.subtopics[this.currentSubtopicIndex].completed = true;
+            }
+            this.gameState = 'subtopic_selection';
+        },
+        goToFinalResults() {
+            this.gameState = 'final_results';
+        },
+        resetQuestionState() {
+            this.feedback = { text: '', color: '' };
+            this.selectedOption = null;
+            this.attemptsLeft = 2;
+            this.isLocked = false;
+            this.showCorrectAnswer = false;
+        },
+        restart() {
+            this.gameState = 'welcome';
+            this.totalScore = { correct: 0, wrong: 0 };
+            this.initializeSubtopics();
+        }
+    },
+    created() {
+        this.initializeSubtopics();
+    }
+}).mount('#app')
+</script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movement Into and Out of Cells</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .option-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .prose ul {
+            padding-left: 20px;
+        }
+        .prose li {
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div id="app" class="w-full max-w-3xl mx-auto">
+
+        <!-- Welcome Screen -->
+        <div v-if="gameState === 'welcome'" class="text-center bg-white p-8 rounded-xl shadow-lg animate-fade-in">
+            <h1 class="text-4xl font-bold mb-4 text-blue-600">Cell Movement Challenge!</h1>
+            <p class="mb-6 text-lg text-gray-700">Ready to master how substances move in and out of cells?</p>
+            <input 
+                type="text" 
+                v-model="studentName" 
+                @keyup.enter="startLesson"
+                placeholder="Enter your name, e.g., Candice" 
+                class="w-full max-w-sm p-3 border border-gray-300 rounded-lg mb-4 text-center focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <button 
+                @click="startLesson" 
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 transform hover:scale-105">
+                Let's Go!
+            </button>
+        </div>
+
+        <!-- Slides Screen -->
+        <div v-if="gameState === 'slides'" class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold mb-4 text-blue-700">Level {{ currentSubtopicIndex + 1 }}: {{ subtopics[currentSubtopicIndex].name }}</h2>
+            <div v-html="subtopics[currentSubtopicIndex].slides" class="prose max-w-none text-gray-800"></div>
+            <button @click="startQuiz" class="mt-8 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300">
+                Start Quiz!
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div v-if="gameState === 'quiz'" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+             <!-- Header -->
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl md:text-2xl font-bold text-blue-700">{{ subtopics[currentSubtopicIndex].name }}</h2>
+                <div class="flex space-x-4 text-lg">
+                    <span class="font-semibold text-green-600">Correct: {{ score.correct }}</span>
+                    <span class="font-semibold text-red-600">Wrong: {{ score.incorrect }}</span>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+                <div class="bg-blue-500 h-2.5 rounded-full" :style="{ width: progress + '%' }"></div>
+            </div>
+
+            <!-- Question -->
+            <div class="mb-6">
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Question {{ currentQuestionIndex + 1 }} of {{ subtopics[currentSubtopicIndex].questions.length }}</p>
+                <p class="text-gray-700 text-base md:text-lg">{{ currentQuestion.text }}</p>
+            </div>
+
+            <!-- Options -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <button v-for="(option, index) in currentQuestion.options"
+                    :key="index"
+                    @click="selectAnswer(index)"
+                    :disabled="answerSelected"
+                    class="option-button p-4 border rounded-lg text-left"
+                    :class="{
+                        'hover:bg-blue-100': !answerSelected,
+                        'bg-green-200 border-green-500': answerSelected && index === currentQuestion.answer,
+                        'bg-red-200 border-red-500': answerSelected && index === selectedAnswer && index !== currentQuestion.answer
+                    }">
+                    {{ option }}
+                </button>
+            </div>
+
+            <!-- Feedback -->
+            <div v-if="feedback.text" class="mt-6 p-4 rounded-lg text-center" :class="feedback.color">
+                <p class="font-semibold text-lg">{{ feedback.text }}</p>
+            </div>
+        </div>
+        
+        <!-- Correction Screen -->
+        <div v-if="gameState === 'correction'" class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold mb-2 text-orange-600">Correction Time!</h2>
+            <p class="text-gray-700 mb-6">Let's review the questions you missed, {{ studentName }}. You must get them right to unlock the next level!</p>
+
+            <div v-if="correctionQuestion">
+                <p class="text-xl font-semibold text-gray-800 mb-4">{{ correctionQuestion.text }}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                     <button v-for="(option, index) in correctionQuestion.options"
+                        :key="index"
+                        @click="checkCorrectionAnswer(index)"
+                         class="option-button p-4 border rounded-lg text-left hover:bg-blue-100">
+                         {{ option }}
+                     </button>
+                </div>
+                 <div v-if="feedback.text" class="mt-6 p-4 rounded-lg text-center" :class="feedback.color">
+                    <p class="font-semibold text-lg">{{ feedback.text }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- End Screen -->
+        <div v-if="gameState === 'end'" class="text-center bg-white p-8 rounded-xl shadow-lg">
+            <h1 class="text-4xl font-bold mb-4 text-green-600">Congratulations, {{ studentName }}!</h1>
+            <p class="mb-6 text-xl text-gray-700">You've completed the challenge!</p>
+            <div class="text-2xl mb-8">
+                <p>Final Score:</p>
+                <span class="font-bold text-green-600">{{ score.correct }} Correct</span> | 
+                <span class="font-bold text-red-600">{{ score.incorrect }} Incorrect</span>
+            </div>
+            <button @click="restartQuiz" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+                Play Again
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                gameState: 'welcome', // welcome, slides, quiz, correction, end
+                studentName: '',
+                currentSubtopicIndex: 0,
+                currentQuestionIndex: 0,
+                score: {
+                    correct: 0,
+                    incorrect: 0
+                },
+                feedback: { text: '', color: '' },
+                selectedAnswer: null,
+                answerSelected: false,
+                attempts: 0,
+                incorrectlyAnsweredQuestions: [],
+                correctionQuestionIndex: 0,
+                subtopics: [
+                    {
+                        name: 'Introduction to Diffusion',
+                        slides: `
+                            <p class="mb-3">Welcome, {{ studentName }}! Let's start with the basics of <strong>Diffusion</strong>.</p>
+                            <ul class="list-disc space-y-2">
+                                <li>All things are made of tiny particles (atoms, molecules, ions) that are in constant, random motion.</li>
+                                <li>The energy for this motion is called <strong>kinetic energy</strong>. More heat means more kinetic energy and faster movement.</li>
+                                <li><strong>Diffusion</strong> is the overall (or 'net') movement of particles from an area of <strong>high concentration</strong> to an area of <strong>low concentration</strong>.</li>
+                                <li>This occurs down a <strong>concentration gradient</strong>, which is just the difference in concentration between two areas.</li>
+                                <li>Diffusion is crucial for life. For instance, it's how oxygen gets from your lungs into your bloodstream.</li>
+                            </ul>
+                        `,
+                        questions: [
+                            { text: 'What is the fundamental cause of diffusion?', options: ['Magnetic forces', 'Gravitational pull', 'The random movement of particles', 'Chemical reactions', 'Cellular energy', 'Pressure changes'], answer: 2 },
+                            { text: 'What is the definition of diffusion?', options: ['Movement of water across a membrane', 'The net movement of particles from a low to a high concentration', 'The net movement of particles from a high to a low concentration', 'The use of energy to transport substances', 'The breaking down of large molecules', 'The swelling of a cell'], answer: 2 },
+                            { text: 'Which state of matter has particles that only vibrate in a fixed position?', options: ['Liquid', 'Gas', 'Plasma', 'Solution', 'Solid', 'Mixture'], answer: 4 },
+                            { text: 'The term "concentration gradient" refers to...', options: ['The speed of particles', 'The size of particles', 'The temperature of a substance', 'The difference in concentration between two regions', 'The type of membrane present', 'The energy level of molecules'], answer: 3 },
+                            { text: 'Where does the energy for diffusion come from?', options: ['ATP from respiration', 'Sunlight', 'Nuclear energy', 'Kinetic energy of the moving particles', 'Potential energy stored in bonds', 'Electrical energy from the cell'], answer: 3 },
+                            { text: 'What is meant by "net movement"?', options: ['All particles moving in exactly the same direction', 'Particles moving only away from the source', 'The overall movement after accounting for random movements in all directions', 'Particles stopping completely when equilibrium is reached', 'The movement of only the largest particles in a solution', 'Movement that requires a carrier protein'], answer: 2 },
+                            { text: 'In which medium does diffusion happen the fastest?', options: ['Solid', 'Liquid', 'Gas', 'Jelly', 'It is the same in all', 'Vacuum'], answer: 2 },
+                            { text: 'An example of diffusion in the human body is...', options: ['The pumping of the heart', 'Oxygen moving from the lungs into the blood', 'Digesting food with enzymes', 'Filtering waste in the kidneys using pressure', 'Sending nerve impulses', 'Contracting a muscle'], answer: 1 },
+                            { text: "Plants take in carbon dioxide for photosynthesis. How does it enter the leaves?", options: ['Through active transport', 'By osmosis', 'Through the roots', 'By diffusion through stomata', 'It is produced inside the leaf', 'It is carried by water'], answer: 3 },
+                            { text: 'Oxygen is a waste product of photosynthesis. How does it leave the leaf?', options: ['It is actively pumped out', 'It is used up by the leaf cells', 'It diffuses out through the stomata', 'It dissolves in water and is transported away', 'It converts to carbon dioxide', 'It is stored in the vacuole'], answer: 2 },
+                            { text: 'If a drop of ink is placed in a beaker of still water, what will happen over time?', options: ['The ink will sink to the bottom and stay there', 'The ink will float on top', 'The ink will stay as a concentrated drop', 'The water will turn clear', 'The ink particles will diffuse until the water is evenly coloured', 'The water will evaporate, leaving the ink'], answer: 4 },
+                            { text: 'Particles in a liquid are best described as...', options: ['Fixed in place, vibrating', 'Far apart, moving randomly', 'Close together, able to slide past one another', 'Held by strong forces, not moving', 'Having no kinetic energy', 'Always in pairs'], answer: 2 },
+                            { text: 'Diffusion stops when...', options: ['The temperature drops to zero', 'All the particles have been used up', 'The concentration of particles is equal everywhere (equilibrium)', 'The cell runs out of energy', 'The particles become too large', 'The membrane breaks'], answer: 2 },
+                            { text: 'A solute is a substance that...', options: ['Is always a solid', 'Does the dissolving (e.g., water)', 'Is dissolved in a solvent', 'Cannot pass through a membrane', 'Has a very high concentration', 'Is a type of gas'], answer: 2 },
+                            { text: 'Which of the following is NOT an example of diffusion?', options: ['The smell of baking bread filling a house', 'Sugar dissolving and spreading in a cup of tea', 'A cell using ATP to pump ions inside', 'Oxygen moving from the blood into a muscle cell', 'A teabag releasing flavour into hot water', 'Smoke spreading in the air'], answer: 2 },
+                            { text: 'In diffusion, particles move from an area of high concentration. This means...', options: ['An area with fewer particles', 'An area where particles are crowded together', 'An area with high temperature', 'An area under high pressure', 'An area with low water potential', 'An area with a thick membrane'], answer: 1 },
+                            { text: 'Cell membranes are freely permeable to small molecules like oxygen and carbon dioxide. This means...', options: ['They require special proteins to cross', 'They need energy to cross', 'They cannot cross the membrane at all', 'They can pass through the membrane easily by diffusion', 'They can only enter, not leave', 'The membrane must be broken for them to pass'], answer: 3 },
+                            { text: 'The particle theory states that particles are always...', options: ['Stationary', 'In pairs', 'The same size', 'Charged', 'Moving', 'Visible'], answer: 4 },
+                            { text: 'When dialysis is used to clean blood, unwanted substances move from the blood into the dialysis fluid. This is an application of:', options: ['Osmosis', 'Active Transport', 'Diffusion', 'Respiration', 'Plasmolysis', 'Turgor'], answer: 2 },
+                            { text: 'Which statement about diffusion is FALSE?', options: ['It is a passive process', 'It results from random particle motion', 'It moves substances down a concentration gradient', 'It requires energy from the cell in the form of ATP', 'It occurs in both liquids and gases', 'It is faster at higher temperatures'], answer: 3 },
+                            { text: 'In gas exchange, where is the concentration of oxygen highest?', options: ['Inside a respiring muscle cell', 'In the blood arriving at the muscle cell', 'In the air in the lungs (alveoli)', 'In the blood leaving the lungs', 'It is equal everywhere', 'In the mitochondria'], answer: 2 },
+                            { text: 'Which particles move during diffusion?', options: ['Only solvent particles', 'Only solute particles', 'Both solute and solvent particles', 'Only water particles', 'Only large particles', 'Only charged ions'], answer: 2 },
+                            { text: 'If you can smell a rotten egg from across the room, it is because molecules of hydrogen sulfide have...', options: ['Been carried by tiny insects', 'Undergone a chemical reaction with air', 'Diffused from the egg to your nose', 'Been actively transported', 'Expanded due to heat', 'Been pulled by gravity'], answer: 2 },
+                            { text: 'Diffusion is a slow process over long distances. This is why large animals need a...', options: ['Thick skin', 'Strong skeleton', 'Circulatory system', 'Small surface area', 'Low metabolic rate', 'Cell wall'], answer: 2 },
+                            { text: 'In a solution, the solvent is...', options: ['The substance being dissolved', 'The liquid that does the dissolving', 'Always a solid', 'The substance in lower quantity', 'The substance that moves during osmosis', 'The solid particles'], answer: 1 },
+                            { text: 'The end result of diffusion is...', options: ['A steep concentration gradient', 'All particles clustered in one area', 'A complete separation of particles', 'Dynamic equilibrium, with particles evenly distributed', 'The creation of energy', 'The destruction of the cell membrane'], answer: 3 },
+                            { text: 'How do particles in a gas move?', options: ['In fixed patterns', 'They vibrate in one place', 'They slide past each other', 'Freely and randomly in all directions', 'They only move when heated', 'In a straight line and then stop'], answer: 3 },
+                            { text: 'A high concentration means...', options: ['A large number of particles in a given volume', 'A small number of particles in a given volume', 'The particles are very large', 'The particles are moving very fast', 'The solution has a high temperature', 'The solution has a high water potential'], answer: 0 },
+                            { text: 'Which of the following would diffuse fastest through a cell membrane?', options: ['A large protein molecule', 'A small molecule like oxygen', 'A starch molecule', 'A fat droplet', 'A charged ion like sodium', 'A bacterial cell'], answer: 1 },
+                            { text: 'Diffusion is important for organisms to get... and get rid of...', options: ['Energy, water', 'Substances they need, waste products', 'Light, heat', 'Water, salts', 'Food, oxygen', 'Carbon dioxide, sugar'], answer: 1 }
+                        ]
+                    },
+                    {
+                        name: 'Factors Affecting Diffusion',
+                        slides: `
+                            <p class="mb-3">Well done, {{ studentName }}! Let's explore what affects the <strong>speed of diffusion</strong>.</p>
+                            <ul class="list-disc space-y-2">
+                                <li><strong>Temperature:</strong> Higher temperatures give particles more kinetic energy, so they move faster. Diffusion is faster when it's hot.</li>
+                                <li><strong>Concentration Gradient:</strong> The steeper the gradient (i.e., the bigger the difference in concentration), the faster the net movement of particles.</li>
+                                <li><strong>Surface Area:</strong> A larger surface area provides more space for particles to cross, speeding up diffusion. Think of a folded surface like in our lungs or intestines.</li>
+                                <li><strong>Distance:</strong> Diffusion is faster over shorter distances. This is why membranes involved in exchange (like in the lungs) are extremely thin.</li>
+                            </ul>
+                        `,
+                        questions: [
+                            { text: 'How does increasing temperature affect the rate of diffusion?', options: ['It slows it down', 'It has no effect', 'It stops it', 'It speeds it up', 'It makes the particles smaller', 'It reverses the direction'], answer: 3 },
+                            { text: 'Why does a higher temperature increase the rate of diffusion?', options: ['It makes the membrane thinner', 'It increases the kinetic energy of particles', 'It increases the size of the particles', 'It decreases the concentration gradient', 'It makes the surface area larger', 'It provides ATP'], answer: 1 },
+                            { text: 'A larger surface area leads to...', options: ['A slower rate of diffusion', 'No change in the rate of diffusion', 'A faster rate of diffusion', 'A steeper concentration gradient', 'A decrease in temperature', 'The movement of larger particles'], answer: 2 },
+                            { text: 'If the distance a particle has to travel is increased, the rate of diffusion will...', options: ['Increase', 'Stay the same', 'Reverse', 'Decrease', 'Become more efficient', 'Require energy'], answer: 3 },
+                            { text: 'Which of the following has the steepest concentration gradient?', options: ['10% solution vs 8% solution', '5% solution vs 5% solution', '20% solution vs 1% solution', '7% solution vs 6% solution', '0% solution vs 0% solution', '15% solution vs 14% solution'], answer: 2 },
+                            { text: 'In the agar jelly experiment, why does the cube change colour when placed in acid?', options: ['The acid is a dye', 'The jelly dissolves', 'The acid neutralises the alkali in the jelly, and the indicator changes colour', 'The jelly reacts with the glass', 'The temperature change causes it', 'The acid is actively transported in'], answer: 2 },
+                            { text: 'In the agar experiment, if you cut a 2cm cube into eight 1cm cubes, what happens to the total surface area and volume?', options: ['Surface area increases, volume decreases', 'Surface area decreases, volume increases', 'Surface area increases, volume stays the same', 'Surface area stays the same, volume increases', 'Both decrease', 'Both increase'], answer: 2 },
+                            { text: 'Why would a smaller cube of agar jelly change colour faster than a larger one?', options: ['It has a smaller volume', 'It has a larger surface area to volume ratio', 'It contains less indicator', 'The larger cube is denser', 'The acid is more concentrated for the smaller cube', 'The smaller cube has a lower temperature'], answer: 1 },
+                            { text: 'Lungs have millions of tiny air sacs called alveoli. This structure...', options: ['Decreases the distance for diffusion', 'Increases the temperature', 'Decreases the concentration gradient', 'Greatly increases the surface area for gas exchange', 'Reduces the amount of oxygen needed', 'Slows down breathing'], answer: 3 },
+                            { text: 'The membrane separating the blood and dialysis fluid in a kidney machine is very thin. This is to...', options: ['Increase the concentration gradient', 'Increase the surface area', 'Decrease the diffusion distance', 'Increase the temperature', 'Prevent osmosis', 'Allow active transport'], answer: 2 },
+                            { text: 'If the concentration of a substance outside a cell is 50 units and inside is 10 units, the diffusion rate will be faster than if the concentrations were...', options: ['Outside 60, inside 5', 'Outside 100, inside 0', 'Outside 40, inside 20', 'Outside 50, inside 0', 'The rates would all be the same', 'Outside 80, inside 5'], answer: 2 },
+                            { text: 'Which variable is changed on purpose in an experiment?', options: ['Standardised variable', 'Dependent variable', 'Independent variable', 'Control variable', 'Anomalous variable', 'Resultant variable'], answer: 2 },
+                            { text: 'In an experiment investigating temperature and diffusion, what must be kept the same (standardised)?', options: ['The rate of diffusion', 'The time taken', 'The temperature of each sample', 'The size of the jelly cubes and concentration of the acid', 'The final colour', 'The kinetic energy'], answer: 3 },
+                            { text: 'What is the dependent variable when investigating how surface area affects diffusion time in agar cubes?', options: ['The size of the cubes', 'The concentration of the acid', 'The temperature', 'The time taken for the colour to change completely', 'The volume of the cubes', 'The type of indicator used'], answer: 3 },
+                            { text: 'Why is it better to use many small tubes in a dialysis machine rather than one large one?', options: ['It holds more fluid', 'It increases the total surface area for diffusion', 'It makes the machine smaller', 'It slows down diffusion to a safe level', 'It looks more complicated', 'It reduces the temperature of the blood'], "answer": 1 },
+                            { text: 'If a teabag is placed in hot water, the tea diffuses faster than in cold water because...', options: ['The water molecules have more kinetic energy', 'The teabag becomes more permeable', 'The tea molecules get smaller', 'The concentration of tea is higher', 'The surface area of the teabag increases', 'The cold water is denser'], "answer": 0 },
+                            { text: 'An amoeba is a single-celled organism. It gets oxygen via diffusion across its cell membrane. This is efficient because...', options: ['It has a very large volume', 'It has a large surface area to volume ratio', 'It moves very slowly', 'It does not need much oxygen', 'It lives in water', 'It performs active transport'], "answer": 1 },
+                            { text: 'Which factor does NOT directly affect the rate of diffusion?', options: ['Temperature', 'Surface area', 'The colour of the substance', 'Concentration gradient', 'Diffusion distance', 'Particle size'], "answer": 2 },
+                            { text: 'When stirring sugar in tea, you are speeding up diffusion by...', options: ['Increasing the temperature', 'Increasing the surface area of the sugar', 'Decreasing the concentration gradient', 'Mechanically moving the solution to spread the particles', 'Increasing the kinetic energy', 'Changing the sugar to glucose'], "answer": 3 },
+                            { text: 'A thin, flat leaf is well adapted for gas exchange because...', options: ['It provides a short diffusion distance for CO2', 'It has a very small surface area', 'It is waterproof', 'It can store a lot of water', 'It has a thick cell wall', 'It points towards the sun'], "answer": 0 },
+                            { text: 'A "standardised variable" is one that you...', options: ['Measure as your result', 'Change on purpose', 'Predict will change', 'Keep the same to ensure a fair test', 'Record in a table', 'Ignore completely'], "answer": 3 },
+                            { text: 'Predict what would happen if you used a more concentrated acid in the agar jelly experiment.', options: ['The time taken would increase', 'The time taken would decrease', 'There would be no change', 'The jelly would dissolve', 'The colour would be different', 'The jelly would expand'], "answer": 1 },
+                            { text: 'The reason a more concentrated acid would speed up the reaction is because it...', options: ['Increases the temperature', 'Increases the surface area', 'Creates a steeper concentration gradient', 'Makes the jelly softer', 'Reduces the diffusion distance', 'Has more kinetic energy'], "answer": 2 },
+                            { text: 'Fish gills have structures called lamellae which create a huge surface area. This is an adaptation for...', options: ['Efficient diffusion of oxygen from water', 'Swimming faster', 'Filtering food', 'Removing salt', 'Regulating temperature', 'Avoiding predators'], "answer": 0 },
+                            { text: 'If an experiment result is "anomalous", it means...', options: ['It is the best result', 'It is the average result', 'It does not fit the pattern of the other results', 'It was the first result recorded', 'It proves the prediction was correct', 'It is the most accurate reading'], "answer": 2 },
+                            { text: 'Diffusion is only efficient over...', options: ['Very long distances', 'Very short distances', 'High temperatures', 'Low concentrations', 'Large surface areas', 'Thick membranes'], "answer": 1 },
+                            { text: 'Which of the following would have the slowest rate of diffusion?', options: ['Gas in a gas', 'Solute in a liquid at 80°C', 'Solute in a liquid at 20°C', 'Gas in a liquid', 'Solute in a solid', 'Liquid in a liquid'], "answer": 4 },
+                            { text: 'In the body, what helps to maintain a steep concentration gradient for oxygen diffusion into cells?', options: ['The cell wall', 'The continuous use of oxygen in respiration', 'The production of CO2', 'The pumping of the heart', 'The small size of the cells', 'The temperature of the body'], "answer": 1 },
+                            { text: 'To investigate the effect of distance on diffusion, you could use agar cubes of...', options: ['Different sizes', 'Different colours', 'Different temperatures', 'Different concentrations', 'Different shapes', 'The same size but measure time to reach the centre'], "answer": 0 },
+                            { text: 'All exchange surfaces in organisms (e.g., lungs, gills) are adapted to maximise diffusion. They are typically...', options: ['Thick, with a small surface area', 'Dry, with a good blood supply', 'Thin, with a large surface area and a steep gradient', 'Small, with a slow blood supply', 'Kept at a low temperature', 'Impermeable to water'], "answer": 2 }
+                        ]
+                    },
+                    {
+                        name: 'Introduction to Osmosis',
+                        slides: `
+                             <p class="mb-3">Excellent work, {{ studentName }}! Now we focus on a special case of diffusion: <strong>Osmosis</strong>.</p>
+                            <ul class="list-disc space-y-2">
+                                <li><strong>Osmosis</strong> is the net movement of <strong>water molecules</strong> from a region of higher water potential to a region of lower water potential.</li>
+                                <li>This movement occurs across a <strong>partially permeable membrane</strong>. This membrane lets small water molecules through but blocks larger solute molecules (like sugar or salt).</li>
+                                <li><strong>Water potential</strong> is a measure of the concentration of free water molecules.
+                                    <ul>
+                                        <li><strong>Pure water</strong> has the highest possible water potential.</li>
+                                        <li>Adding solutes (like sugar) <strong>lowers</strong> the water potential, as some water molecules are no longer free to move.</li>
+                                    </ul>
+                                </li>
+                                <li>So, water always moves from a dilute solution (high water potential) to a concentrated solution (low water potential).</li>
+                            </ul>
+                        `,
+                        questions: [
+                            { text: 'Osmosis is the diffusion of which substance?', options: ['Sugar', 'Salt', 'Any solute', 'Water', 'Oxygen', 'Carbon Dioxide'], answer: 3 },
+                            { text: 'What type of membrane is required for osmosis?', options: ['Fully permeable', 'Impermeable', 'Partially permeable', 'A cell wall', 'Thick membrane', 'Charged membrane'], answer: 2 },
+                            { text: 'A partially permeable membrane allows...', options: ['All molecules to pass through', 'No molecules to pass through', 'Only large molecules to pass through', 'Only small molecules like water to pass through', 'Only solutes to pass through', 'Only gases to pass through'], answer: 3 },
+                            { text: 'Which of the following has the highest water potential?', options: ['Concentrated sugar solution', 'Sea water', 'Distilled (pure) water', 'Cytoplasm of a cell', 'Salty water', 'Blood plasma'], answer: 2 },
+                            { text: 'Adding a solute like sugar to water will...', options: ['Increase its water potential', 'Have no effect on its water potential', 'Lower its water potential', 'Make the water evaporate', 'Cause the sugar to diffuse', 'Increase the kinetic energy'], answer: 2 },
+                            { text: 'During osmosis, water moves down a...', options: ['Concentration gradient', 'Water potential gradient', 'Pressure gradient', 'Temperature gradient', 'Energy slope', 'Solute gradient'], answer: 1 },
+                            { text: 'Water will move from a dilute solution to a concentrated solution because...', options: ['The dilute solution has a higher water potential', 'The concentrated solution has a higher water potential', 'The solute molecules pull the water across', 'The membrane pushes the water', 'The temperature is higher in the concentrated solution', 'The dilute solution has more kinetic energy'], answer: 0 },
+                            { text: 'Dialysis (Visking) tubing is a good model for a partially permeable membrane because...', options: ['It is very strong', 'It is made by living cells', 'It has microscopic pores that let water pass but not larger solutes', 'It is completely waterproof', 'It actively transports water', 'It is fully permeable'], answer: 2 },
+                            { text: 'In the osmosis experiment with dialysis tubing, why does the liquid level in the glass tube rise?', options: ['The sugar solution expands when warm', 'Water moves from the beaker into the tubing by osmosis', 'Sugar moves from the tubing into the beaker', 'The glass tube pulls the liquid up', 'Air pressure pushes the liquid up', 'Water evaporates from the beaker'], answer: 1 },
+                            { text: 'If you replaced the sugar solution inside the dialysis tubing with pure water, what would happen?', options: ['The level would rise quickly', 'The level would fall', 'The level would stay the same', 'The tubing would burst', 'The tubing would shrink', 'The water in the beaker would turn sweet'], answer: 2 },
+                            { text: 'Water is important in the body as a...', options: ['Source of energy', 'Structural component of bone', 'Solvent for transport and reactions', 'Gas for respiration', 'Catalyst for reactions', 'Heat insulator only'], answer: 2 },
+                            { text: 'Osmosis is a special type of...', options: ['Active transport', 'Respiration', 'Photosynthesis', 'Diffusion', 'Digestion', 'Circulation'], answer: 3 },
+                            { text: 'A solution with a low water potential is...', options: ['Dilute', 'Pure', 'Concentrated', 'Hot', 'Cold', 'Gaseous'], answer: 2 },
+                            { text: 'The net movement of water stops when...', options: ['The solute concentrations are equal', 'The water potential is equal on both sides of the membrane', 'The water has all moved to one side', 'The membrane dissolves', 'The cell runs out of energy', 'The temperature is too low'], answer: 1 },
+                            { text: 'If a membrane was fully permeable, what would happen between a dilute and concentrated solution?', options: ['Only water would move', 'Only solute would move', 'Both water and solute would diffuse', 'Nothing would move', 'The membrane would break', 'Active transport would start'], answer: 2 },
+                            { text: 'What is the solute in a sugar solution?', options: ['Water', 'The glass beaker', 'The membrane', 'Sugar', 'Heat', 'Kinetic energy'], answer: 3 },
+                            { text: 'Why can\'t sugar molecules pass through dialysis tubing?', options: ['They are moving too slowly', 'They have no kinetic energy', 'They are too large to fit through the pores', 'They are repelled by the membrane', 'They are not soluble', 'They are actively pumped back'], answer: 2 },
+                            { text: 'The energy for osmosis comes from...', options: ['ATP from mitochondria', 'Sunlight', 'The kinetic energy of water molecules', 'Carrier proteins', 'The solute molecules', 'The cell nucleus'], answer: 2 },
+                            { text: 'If you used a more concentrated sugar solution in the dialysis tubing experiment, the liquid in the glass tube would...', options: ['Rise slower', 'Rise faster', 'Stay at the same level', 'Go down', 'Bubble', 'Change colour'], answer: 1 },
+                            { text: 'This is because a more concentrated solution creates a...', options: ['Shallower water potential gradient', 'Steeper water potential gradient', 'Higher temperature', 'Larger surface area', 'Thinner membrane', 'Lower kinetic energy'], answer: 1 },
+                            { text: 'Which of these is NOT a function of water in organisms?', options: ['Solvent for excretion of urea', 'Transport of substances in blood plasma', 'Medium for enzyme reactions', 'Providing all the energy for metabolism', 'Component of cytoplasm', 'Maintaining turgor in plants'], answer: 3 },
+                            { text: 'Water molecules are small, consisting of...', options: ['One oxygen and one hydrogen atom', 'Two oxygen and one hydrogen atom', 'Two hydrogen and one oxygen atom', 'Carbon, hydrogen and oxygen', 'Only hydrogen atoms', 'A long chain of atoms'], answer: 2 },
+                            { text: 'The term "partially permeable" is also known as...', options: ['Selectively permeable', 'Fully permeable', 'Impermeable', 'Waterproof', 'Elastic', 'Rigid'], answer: 0 },
+                            { text: 'In Figure 3.5 of the textbook, why is the concentration of water molecules lower on the right side?', options: ['The water has evaporated', 'The sugar molecules take up space', 'The temperature is higher', 'The membrane has absorbed the water', 'The pressure is lower', 'The water molecules are larger'], answer: 1 },
+                            { text: 'Osmosis can be described as the movement of water from...', options: ['A concentrated solution to a dilute solution', 'A dilute solution to a concentrated solution', 'A region of low pressure to high pressure', 'A region of low solute concentration to high solute concentration', 'A region of low kinetic energy to high kinetic energy', 'A solid to a liquid'], answer: 1 },
+                            { text: 'What happens to the water potential of a solution as it becomes more dilute?', options: ['It decreases', 'It increases', 'It stays the same', 'It becomes negative', 'It depends on the temperature', 'It becomes zero'], answer: 1 },
+                            { text: 'A water potential gradient is...', options: ['The force pushing water', 'The heat in the water', 'The difference in water potential between two areas', 'The size of the water molecules', 'A type of carrier protein', 'The salt content of water'], answer: 2 },
+                            { text: 'If the solution inside and outside a membrane have equal water potential...', options: ['Water will move out rapidly', 'Water will move in rapidly', 'There will be no net movement of water', 'The membrane will burst', 'The solute will move out', 'Active transport will begin'], answer: 2 },
+                            { text: 'Osmosis is a passive process, meaning...', options: ['It is not important for life', 'It happens very slowly', 'It does not require metabolic energy (ATP) from the cell', 'It only happens in dead organisms', 'It can be controlled consciously', 'It moves substances against the gradient'], answer: 2 },
+                            { text: 'The concept of water potential helps to predict...', options: ['The temperature of a solution', 'The direction of net water movement', 'The rate of diffusion', 'The amount of energy a cell has', 'The size of a cell\'s nucleus', 'The rate of respiration'], answer: 1 }
+                        ]
+                    },
+                    {
+                        name: 'Osmosis in Cells',
+                        slides: `
+                            <p class="mb-3">Now let's apply our knowledge of osmosis to real <strong>animal and plant cells</strong>, {{ studentName }}.</p>
+                            <ul class="list-disc space-y-2">
+                                <li><strong>Animal Cells:</strong>
+                                    <ul>
+                                        <li>In <strong>pure water</strong> (high water potential), they swell and <strong>burst</strong> because they have no cell wall.</li>
+                                        <li>In a <strong>concentrated solution</strong> (low water potential), they lose water and <strong>shrink</strong>.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Plant Cells:</strong>
+                                    <ul>
+                                        <li>In <strong>pure water</strong>, they take in water and swell, but the strong <strong>cell wall</strong> prevents them from bursting. They become firm and <strong>turgid</strong>. This turgor pressure supports the plant.</li>
+                                        <li>In a <strong>concentrated solution</strong>, they lose water. The cytoplasm and vacuole shrink, and the cell membrane pulls away from the cell wall. This is called <strong>plasmolysis</strong>, and the cell is <strong>flaccid</strong>.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        `,
+                        questions: [
+                            { text: 'What happens to an animal cell (e.g., a red blood cell) when placed in pure water?', options: ['It shrinks', 'It becomes turgid', 'It swells and bursts', 'Nothing happens', 'It divides', 'It becomes flaccid'], answer: 2 },
+                            { text: 'Why do animal cells burst in pure water?', options: ['Their membrane is weak and cannot withstand the pressure', 'The water is toxic to them', 'They perform active transport too quickly', 'The nucleus expands too much', 'The cytoplasm dissolves', 'The cell wall breaks'], answer: 0 },
+                            { text: 'What happens to an animal cell when placed in a very concentrated salt solution?', options: ['It swells up', 'It bursts', 'It stays the same size', 'It loses water and shrinks', 'It becomes turgid', 'It starts to photosynthesise'], answer: 3 },
+                            { text: 'What structure prevents a plant cell from bursting in pure water?', options: ['Cell membrane', 'Cytoplasm', 'Vacuole', 'Nucleus', 'Chloroplast', 'Cell wall'], answer: 5 },
+                            { text: 'A plant cell that is swollen with water and firm is described as...', options: ['Flaccid', 'Plasmolysed', 'Shrunken', 'Turgid', 'Burst', 'Wilted'], answer: 3 },
+                            { text: 'The outward pressure of the cytoplasm on the plant cell wall is called...', options: ['Water potential', 'Osmotic pressure', 'Turgor pressure', 'Concentration gradient', 'Blood pressure', 'Air pressure'], answer: 2 },
+                            { text: 'Plasmolysis is when...', options: ['An animal cell bursts', 'A plant cell becomes turgid', 'The cell membrane pulls away from the cell wall', 'A plant wilts', 'A root absorbs water', 'An animal cell shrinks'], answer: 2 },
+                            { text: 'A plant cell becomes flaccid when it...', options: ['Gains water', 'Is in pure water', 'Loses water', 'Bursts', 'Is exposed to sunlight', 'Divides'], answer: 2 },
+                            { text: 'If a plant is not watered, it wilts. This is because its cells have...', options: ['Become turgid', 'Lost turgor pressure and become flaccid', 'Burst', 'Taken in too much salt', 'Started to divide rapidly', 'Been eaten by insects'], answer: 1 },
+                            { text: 'The cell wall of a plant is...', options: ['Partially permeable', 'Impermeable', 'Fully permeable', 'Selectively permeable', 'Made of protein', 'A barrier to water'], answer: 2 },
+                            { text: 'In which solution would a plant cell become plasmolysed?', options: ['Pure water', 'A solution with the same water potential as the cell', 'A very dilute sugar solution', 'A very concentrated sugar solution', 'Tap water', 'Rain water'], answer: 3 },
+                            { text: 'In the potato cylinder experiment, what happens to a potato strip placed in distilled water?', options: ['It gets shorter and softer', 'It stays the same length', 'It gets longer and firmer', 'It dissolves', 'It changes colour', 'It cooks'], answer: 2 },
+                            { text: 'Why does the potato strip in distilled water get longer?', options: ['It absorbs sugar from the water', 'The cells lose water by osmosis', 'The cells take in water by osmosis and become turgid', 'The cells are actively transporting water in', 'The potato is growing', 'The water is warm'], answer: 2 },
+                            { text: 'What happens to a potato strip placed in a concentrated salt solution?', options: ['It gets shorter and more flexible (flaccid)', 'It gets longer and harder', 'It remains unchanged', 'It bursts', 'It turns blue-black', 'It floats'], answer: 0 },
+                            { text: 'Why does the potato strip in concentrated salt solution get shorter?', options: ['The salt enters the cells', 'The cells gain water by osmosis', 'The cells lose water by osmosis, becoming flaccid', 'The salt dissolves the potato tissue', 'The cells burst', 'The water potential of the cells increases'], answer: 2 },
+                            { text: 'If a potato strip stayed the same length in a sugar solution, it would mean...', options: ['The potato is not a living tissue', 'The solution has the same water potential as the potato cells', 'Osmosis is not happening', 'The cell walls have been removed', 'Active transport is occurring', 'The temperature is too low'], answer: 1 },
+                            { text: 'Turgor pressure is important for...', options: ['Making animal cells burst', 'Helping to support non-woody plants', 'The absorption of nitrates by roots', 'Making leaves wilt', 'The process of photosynthesis', 'Making animal cells shrink'], answer: 1 },
+                            { text: 'When a plant cell is plasmolysed, what is in the space between the cell wall and the cell membrane?', options: ['Air', 'A vacuum', 'Cytoplasm', 'The external solution (e.g., concentrated sugar solution)', 'Pure water', 'Nothing'], answer: 3 },
+                            { text: 'Putting salt on a slug kills it because...', options: ['The salt is poisonous', 'The salt creates a very low water potential outside the slug\'s cells, causing them to lose water by osmosis', 'The salt is actively transported in', 'The slug cannot breathe', 'The salt dissolves its skin', 'The salt is too hot'], answer: 1 },
+                            { text: 'What is the main difference in the response of animal and plant cells to being placed in pure water?', options: ['Animal cells shrink, plant cells swell', 'Animal cells burst, plant cells become turgid', 'Animal cells do nothing, plant cells burst', 'Animal cells become turgid, plant cells plasmolyse', 'There is no difference', 'Animal cells perform osmosis, plant cells do not'], answer: 1 },
+                            { text: 'To make crisps last longer, they are coated in salt. This helps prevent bacteria growing because...', options: ['Bacteria love salt', 'The salt makes the crisps taste better', 'The salt draws water out of any bacterial cells by osmosis, killing them', 'The salt is an energy source', 'The salt blocks diffusion', 'The salt is a disinfectant'], answer: 2 },
+                            { text: 'A "control" in the potato experiment would be...', options: ['A potato strip left in air', 'A much larger potato strip', 'A plastic potato strip', 'Measuring the starting length of the strips', 'Using different types of potato', 'Putting a strip in boiling water first'], answer: 0 },
+                            { text: 'If a plasmolysed plant cell is returned to pure water, what might happen?', options: ['It will burst', 'It will shrink further', 'It may regain water, become turgid again (deplasmolysis)', 'Nothing will happen', 'The cell wall will dissolve', 'It will divide'], answer: 2 },
+                            { text: 'Which part of the plant cell is partially permeable?', options: ['The cell wall', 'The vacuole', 'The entire cytoplasm', 'The cell membrane', 'The nucleus', 'The chloroplasts'], answer: 3 },
+                            { text: 'When you cut flowers, placing them in fresh water helps them stay firm because...', options: ['The water cools them down', 'The water is a source of food', 'The cells of the stem take up water by osmosis, maintaining turgor', 'The water stops bacteria growing', 'The water is actively transported up the stem', 'The water provides oxygen'], answer: 2 },
+                            { text: 'In which part of a plant cell is the cell sap (a solution of sugars and salts) found?', options: ['Nucleus', 'Cell wall', 'Mitochondria', 'Vacuole', 'Cytoplasm', 'Chloroplast'], answer: 3 },
+                            { text: 'An isotonic solution is one where...', options: ['The water potential is the same as the cell\'s cytoplasm', 'There are no solutes', 'The water potential is very high', 'The water potential is very low', 'It will make a plant cell turgid', 'It will make an animal cell burst'], answer: 0 },
+                            { text: 'Intravenous drips given to patients in hospital must be...', options: ['Hypertonic (more concentrated than blood)', 'Hypotonic (less concentrated than blood)', 'Isotonic (same concentration as blood)', 'Pure distilled water', 'Very hot', 'Full of sugar'], answer: 2 },
+                            { text: 'Why must the IV drip be this concentration?', options: ['To make the patient gain water', 'To prevent red blood cells from shrinking or bursting due to osmosis', 'To provide energy', 'To cool the patient down', 'To make the blood thicker', 'To allow for fast diffusion'], answer: 1 },
+                            { text: 'When a cell loses water, its cytoplasm becomes...', options: ['More dilute', 'More concentrated', 'Unchanged', 'Solid', 'Gaseous', 'Warmer'], answer: 1 }
+                        ]
+                    },
+                    {
+                        name: 'Active Transport',
+                        slides: `
+                            <p class="mb-3">Last topic, {{ studentName }}! Let's conquer <strong>Active Transport</strong>.</p>
+                            <ul class="list-disc space-y-2">
+                                <li>Sometimes, cells need to move substances from a low concentration to a high concentration. This is <strong>against</strong> (or 'up') the concentration gradient.</li>
+                                <li>This process cannot happen by diffusion. It requires energy and is called <strong>Active Transport</strong>.</li>
+                                <li>The required <strong>energy</strong> is supplied by the cell through <strong>respiration</strong>, which takes place in the mitochondria. The energy is in the form of a molecule called ATP.</li>
+                                <li>Special <strong>carrier proteins</strong> in the cell membrane act like pumps. They bind to a substance on one side, change shape using energy, and release it on the other side.</li>
+                                <li>A key example: Plant root hairs absorb mineral ions (like nitrates) from the soil, even when the concentration of minerals is already higher in the root than in the soil.</li>
+                            </ul>
+                        `,
+                        questions: [
+                            { text: 'Active transport is the movement of substances...', options: ['Down a concentration gradient', 'From a high to a low concentration', 'Against a concentration gradient', 'Without the use of energy', 'Only in liquids', 'Through pores in the membrane'], answer: 2 },
+                            { text: 'Which of the following processes requires metabolic energy (ATP)?', options: ['Diffusion', 'Osmosis', 'Active Transport', 'All of them', 'None of them', 'Particle vibration'], answer: 2 },
+                            { text: 'The energy for active transport comes directly from...', options: ['Sunlight', 'Kinetic energy', 'Heat', 'Respiration', 'Osmosis', 'Diffusion'], answer: 3 },
+                            { text: 'Where in the cell does aerobic respiration occur?', options: ['Nucleus', 'Cell membrane', 'Cytoplasm', 'Vacuole', 'Mitochondria', 'Cell wall'], answer: 4 },
+                            { text: 'What is the role of carrier proteins in active transport?', options: ['They let water pass through', 'They act as pumps to move substances across the membrane', 'They provide kinetic energy', 'They make the membrane stronger', 'They are enzymes that digest substances', 'They identify the cell'], answer: 1 },
+                            { text: 'A plant root hair cell absorbs nitrate ions from the soil. The concentration of nitrates is higher inside the cell than in the soil. This process must be...', options: ['Diffusion', 'Osmosis', 'Plasmolysis', 'Active transport', 'Turgor', 'Respiration'], answer: 3 },
+                            { text: 'If a cell is treated with a poison that stops respiration, which process would be affected immediately?', options: ['Osmosis', 'Diffusion of oxygen', 'Active transport', 'Movement of water', 'All movement would stop', 'Plasmolysis'], answer: 2 },
+                            { text: 'Active transport allows a cell to...', options: ['Lose water to the surroundings', 'Accumulate substances against a concentration gradient', 'Become turgid', 'Only get rid of waste products', 'Passively move substances', 'Absorb heat from the environment'], answer: 1 },
+                            { text: 'Which statement correctly compares diffusion and active transport?', options: ['Both require energy', 'Both move substances against a gradient', 'Diffusion requires energy, active transport does not', 'Active transport requires energy, diffusion does not', 'Both use carrier proteins', 'Diffusion is for water, active transport is for ions'], answer: 3 },
+                            { text: 'The carrier protein changes its... to move the substance across the membrane.', options: ['Colour', 'Temperature', 'Size', 'Shape', 'Concentration', 'Location in the cell'], answer: 3 },
+                            { text: 'Which of these is an example of active transport in humans?', options: ['Oxygen moving into red blood cells', 'Carbon dioxide leaving the blood in the lungs', 'Glucose being absorbed from the gut into the blood when concentrations are low', 'Water being absorbed by the colon', 'Urea diffusing into the dialysis fluid', 'The smell of food reaching the nose'], answer: 2 },
+                            { text: 'A cell that carries out a lot of active transport would be expected to have many...', options: ['Chloroplasts', 'Large vacuoles', 'Mitochondria', 'Thick cell walls', 'Ribosomes', 'Lysosomes'], answer: 2 },
+                            { text: 'Moving a substance "up" a concentration gradient means moving it from...', options: ['High to low concentration', 'Low to high concentration', 'A large area to a small area', 'A hot area to a cold area', 'Inside to outside the cell only', 'A liquid to a gas'], answer: 1 },
+                            { text: 'What happens to the carrier protein after it has transported a molecule?', options: ['It is destroyed', 'It leaves the cell', 'It returns to its original shape to transport another molecule', 'It becomes part of the transported molecule', 'It turns into an enzyme', 'It dissolves in the cytoplasm'], answer: 2 },
+                            { text: 'The uptake of magnesium ions by a root hair cell is an example of...', options: ['Diffusion', 'Osmosis', 'Active Transport', 'Photosynthesis', 'Transpiration', 'Plasmolysis'], answer: 2 },
+                            { text: 'Which of the following is a key difference between channel proteins (for facilitated diffusion) and carrier proteins (for active transport)?', options: ['Channel proteins are smaller', 'Carrier proteins are not in the membrane', 'Active transport carriers use energy, channel proteins do not', 'Channel proteins only transport water', 'Carrier proteins are only found in plants', 'There is no difference'], answer: 2 },
+                            { text: 'If there is no concentration gradient (equilibrium), can active transport still occur?', options: ['No, it requires a gradient to work', 'Yes, as long as there is energy and a carrier protein', 'No, because diffusion would take over', 'Yes, but only in plant cells', 'Only if the temperature is high', 'Only for water molecules'], answer: 1 },
+                            { text: 'Why is active transport so important for plant roots?', options: ['To get rid of excess water', 'To absorb essential mineral ions that are in low concentration in the soil', 'To prevent water from entering', 'To secrete waste into the soil', 'To absorb oxygen for respiration', 'To anchor the plant firmly'], answer: 1 },
+                            { text: 'The molecule that provides the energy for the shape change in the carrier protein is...', options: ['Glucose', 'Oxygen', 'ATP (adenosine triphosphate)', 'DNA', 'An enzyme', 'A nitrate ion'], answer: 2 },
+                            { text: 'Which process is NOT passive?', options: ['Osmosis', 'Diffusion', 'Active Transport', 'Facilitated Diffusion', 'All are passive', 'None are passive'], answer: 2 },
+                            { text: 'A single carrier protein is usually specific, meaning it will...', options: ['Transport any substance', 'Work in any cell', 'Only transport one or a few types of specific substances', 'Only work at night', 'Last forever', 'Use any type of energy'], answer: 2 },
+                            { text: 'If a plant is growing in waterlogged soil, its roots cannot get enough oxygen. This would slow down the uptake of minerals. Why?', options: ['The minerals cannot dissolve in the water', 'The water pressure is too high', 'Respiration slows down, so there is not enough energy for active transport', 'The root cells become too turgid', 'The cell walls become impermeable', 'Diffusion of minerals stops'], answer: 2 },
+                            { text: 'The sodium-potassium pump in nerve cells is a classic example of...', options: ['Diffusion', 'Osmosis', 'Active Transport', 'Plasmolysis', 'Facilitated Diffusion', 'Endocytosis'], answer: 2 },
+                            { text: 'The direction of movement in active transport is determined by...', options: ['The concentration gradient', 'The needs of the cell and the presence of carrier proteins', 'The random motion of particles', 'The water potential gradient', 'The temperature', 'The size of the particle'], answer: 1 },
+                            { text: 'Which two processes both use proteins in the cell membrane?', options: ['Diffusion and Osmosis', 'Active Transport and Facilitated Diffusion', 'Osmosis and Plasmolysis', 'Respiration and Photosynthesis', 'Diffusion and Respiration', 'Active Transport and Osmosis'], answer: 1 },
+                            { text: 'When a substance is moved by active transport, the concentration inside the cell...', options: ['Decreases', 'Increases', 'Stays the same', 'Becomes equal to the outside', 'Becomes zero', 'Causes the cell to burst'], answer: 1 },
+                            { text: 'The final step of active transport shown in Figure 3.14 is...', options: ['The nitrate ion enters the protein', 'The protein changes shape', 'The protein pushes the nitrate ion into the cell', 'Energy is produced', 'The nitrate ion diffuses out', 'The cell membrane breaks'], answer: 2 },
+                            { text: 'Which organism would rely most heavily on active transport for nutrient uptake?', options: ['A plant root in mineral-poor soil', 'An animal cell in an isotonic solution', 'A red blood cell in the lungs', 'A plant leaf in bright sunlight', 'A bacterium in a nutrient broth', 'A fish in the ocean'], answer: 0 },
+                            { text: 'Active transport ensures cells can get substances they need even if the...', options: ['Substances are very large', 'External environment has a low concentration of them', 'Cell membrane is very thick', 'Temperature is very low', 'Cell has no mitochondria', 'Substances are gases'], answer: 1 },
+                            { text: 'Without active transport, living organisms would...', options: ['Be unable to maintain the specific internal concentrations of ions and nutrients needed for life', 'Not be able to perform diffusion', 'Have cells that constantly burst', 'Not need to respire', 'Be unable to grow', 'Have no cell membranes'], answer: 0 }
+                        ]
+                    }
+                ]
+            }
+        },
+        computed: {
+            currentQuestion() {
+                return this.subtopics[this.currentSubtopicIndex].questions[this.currentQuestionIndex];
+            },
+            progress() {
+                const totalQuestions = this.subtopics[this.currentSubtopicIndex].questions.length;
+                return ((this.currentQuestionIndex) / totalQuestions) * 100;
+            },
+            correctionQuestion() {
+                return this.incorrectlyAnsweredQuestions[this.correctionQuestionIndex];
+            }
+        },
+        methods: {
+            startLesson() {
+                if (this.studentName.trim()) {
+                    // Personalize slide content
+                    this.subtopics.forEach(topic => {
+                        topic.slides = topic.slides.replace(/\{\{ studentName \}\}/g, this.studentName);
+                    });
+                    this.gameState = 'slides';
+                } else {
+                    alert('Please enter your name!');
+                }
+            },
+            startQuiz() {
+                this.gameState = 'quiz';
+            },
+            selectAnswer(index) {
+                if (this.answerSelected) return;
+
+                this.selectedAnswer = index;
+                this.answerSelected = true;
+                this.attempts++;
+
+                if (index === this.currentQuestion.answer) {
+                    this.feedback = { text: 'Correct! Well done!', color: 'bg-green-100 text-green-800' };
+                    this.score.correct++;
+                    setTimeout(this.nextQuestion, 1500);
+                } else {
+                    if (this.attempts < 2) {
+                        this.feedback = { text: `Not quite, ${this.studentName}. Try one more time!`, color: 'bg-orange-100 text-orange-800' };
+                        this.answerSelected = false; // Allow another try
+                    } else {
+                        this.feedback = { text: `The correct answer was "${this.currentQuestion.options[this.currentQuestion.answer]}".`, color: 'bg-red-100 text-red-800' };
+                        this.score.incorrect++;
+                        this.incorrectlyAnsweredQuestions.push(this.currentQuestion);
+                        setTimeout(this.nextQuestion, 2500);
+                    }
+                }
+            },
+            nextQuestion() {
+                this.answerSelected = false;
+                this.selectedAnswer = null;
+                this.feedback = { text: '', color: '' };
+                this.attempts = 0;
+
+                if (this.currentQuestionIndex < this.subtopics[this.currentSubtopicIndex].questions.length - 1) {
+                    this.currentQuestionIndex++;
+                } else {
+                    // End of subtopic
+                    if (this.incorrectlyAnsweredQuestions.length > 0) {
+                        this.gameState = 'correction';
+                    } else {
+                        this.moveToNextSubtopic();
+                    }
+                }
+            },
+            checkCorrectionAnswer(index) {
+                if (index === this.correctionQuestion.answer) {
+                    this.feedback = { text: 'Correct! You got it.', color: 'bg-green-100 text-green-800' };
+                    setTimeout(() => {
+                        this.feedback = { text: '', color: '' };
+                        this.correctionQuestionIndex++;
+                        if (this.correctionQuestionIndex >= this.incorrectlyAnsweredQuestions.length) {
+                             this.moveToNextSubtopic();
+                        }
+                    }, 1500);
+                } else {
+                     this.feedback = { text: `That's not it, ${this.studentName}. Keep trying!`, color: 'bg-red-100 text-red-800' };
+                }
+            },
+            moveToNextSubtopic() {
+                // Reset for next level
+                this.currentQuestionIndex = 0;
+                this.incorrectlyAnsweredQuestions = [];
+                this.correctionQuestionIndex = 0;
+
+                if (this.currentSubtopicIndex < this.subtopics.length - 1) {
+                    this.currentSubtopicIndex++;
+                    this.gameState = 'slides';
+                } else {
+                    this.gameState = 'end';
+                }
+            },
+            restartQuiz() {
+                // We need to re-personalize slides if they play again
+                const originalStudentName = this.studentName;
+                Object.assign(this.$data, this.$options.data());
+                this.studentName = originalStudentName;
+                 this.subtopics.forEach(topic => {
+                    topic.slides = topic.slides.replace(/\{\{ studentName \}\}/g, this.studentName);
+                });
+                this.gameState = 'slides';
+            }
+        }
+    });
+
+    app.mount('#app');
+    </script>
+</body>
+</html>
+
