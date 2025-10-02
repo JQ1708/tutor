@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Structure & the Periodic Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a202c; /* Dark Blue-Gray */
+            color: #e2e8f0; /* Light Gray */
+        }
+        .mind-map-node {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #4a5568; /* Gray */
+        }
+        .mind-map-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(99, 179, 237, 0.6); /* Light Blue Glow */
+            border-color: #63b3ed; /* Light Blue */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .card {
+            background-color: #2d3748; /* Darker Blue-Gray */
+            border-radius: 1rem;
+            perspective: 1500px;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+            min-height: 250px;
+        }
+        .card.is-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+        .card-face-back {
+            transform: rotateY(180deg);
+            background-color: #4a5568; /* Gray */
+        }
+        .keyword {
+            color: #63b3ed; /* Light Blue */
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(99, 179, 237, 0.5);
+        }
+        .highlight {
+            background: linear-gradient(90deg, rgba(56,189,248,0.2) 0%, rgba(129,140,248,0.2) 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .diagram-placeholder {
+            border: 3px dashed #4a5568; /* Gray */
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 1.5rem auto;
+            text-align: center;
+            color: #a0aec0; /* Lighter Gray */
+            width: 80%;
+            min-height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .quiz-modal {
+            background-color: rgba(26, 32, 44, 0.9);
+        }
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+        .quiz-option:hover {
+            background-color: #4a5568;
+        }
+        .quiz-option.correct {
+            background-color: #38a169; /* Green */
+            color: white;
+            border-color: #2f855a;
+        }
+        .quiz-option.incorrect {
+            background-color: #e53e3e; /* Red */
+            color: white;
+            border-color: #c53030;
+        }
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .fraction-numerator, .fraction-denominator {
+            display: block;
+        }
+        .fraction-denominator {
+            border-top: 2px solid #e2e8f0;
+        }
+        em { /* Italic for equations */
+           font-style: italic;
+           color: #90cdf4; /* Even lighter blue for emphasis */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <header class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-white">Atomic Structure & the Periodic Table</h1>
+        <p class="text-lg text-gray-400 mt-2">Your interactive guide to IGCSE Chemistry</p>
+    </header>
+
+    <!-- Mind Map Navigation -->
+    <div id="mind-map" class="text-center p-6 bg-gray-900 rounded-2xl shadow-2xl">
+        <h2 class="text-2xl font-semibold mb-6">Start Your Revision Journey!</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div onclick="showSection('elements')" class="mind-map-node bg-gray-800 p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-blue-400">Elements, Compounds & Mixtures</h3>
+                <p class="text-gray-400 mt-2">Classify the building blocks of matter.</p>
+            </div>
+            <div onclick="showSection('structure')" class="mind-map-node bg-gray-800 p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-green-400">Atomic Structure</h3>
+                <p class="text-gray-400 mt-2">Discover the particles inside an atom.</p>
+            </div>
+            <div onclick="showSection('config')" class="mind-map-node bg-gray-800 p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-yellow-400">Electronic Configuration</h3>
+                <p class="text-gray-400 mt-2">Learn how electrons arrange themselves.</p>
+            </div>
+            <div onclick="showSection('isotopes')" class="mind-map-node bg-gray-800 p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-purple-400">Isotopes</h3>
+                <p class="text-gray-400 mt-2">Understand atoms of the same element with different masses.</p>
+            </div>
+        </div>
+    </div>
+
+    <main id="content-container" class="mt-8">
+        <!-- Section 1: Elements, Compounds & Mixtures -->
+        <section id="elements" class="content-section">
+            <h2 class="text-3xl font-bold text-blue-400 mb-6 text-center">Elements, Compounds & Mixtures</h2>
+            <p class="text-center text-lg mb-8">All substances can be classified into one of these three types. Let's explore them!</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Element Card -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face bg-gray-700">
+                            <h3 class="text-2xl font-bold">What is an <span class="keyword">Element</span>?</h3>
+                            <p class="mt-4 text-gray-300">(Tap to reveal)</p>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <p>A substance made of atoms that all contain the <span class="highlight">same number of protons</span> and cannot be split into anything simpler. There are 118 elements in the Periodic Table.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Compound Card -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face bg-gray-700">
+                            <h3 class="text-2xl font-bold">What is a <span class="keyword">Compound</span>?</h3>
+                             <p class="mt-4 text-gray-300">(Tap to reveal)</p>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <p>A pure substance made up of <span class="highlight">two or more elements chemically combined</span>. There is an unlimited number of compounds. They cannot be separated by physical means. E.g., H₂O (Water), CO₂ (Carbon Dioxide), CuSO₄ (Copper(II) Sulfate).</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mixture Card -->
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face bg-gray-700">
+                            <h3 class="text-2xl font-bold">What is a <span class="keyword">Mixture</span>?</h3>
+                             <p class="mt-4 text-gray-300">(Tap to reveal)</p>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <p>A combination of two or more substances that are <span class="highlight">not chemically combined</span>. They can be separated by physical methods like filtration or evaporation. E.g., sand and water, oil and water, sulfur powder and iron filings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="diagram-placeholder">
+                <p class="font-semibold text-lg">Space for: Particle diagram showing elements, compounds, and mixtures.</p>
+            </div>
+             <div class="text-center mt-8">
+                <button onclick="startQuiz('elementsQuiz')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">Test Your Knowledge!</button>
+             </div>
+        </section>
+
+        <!-- Section 2: Atomic Structure -->
+        <section id="structure" class="content-section">
+            <h2 class="text-3xl font-bold text-green-400 mb-6 text-center">Atomic Structure</h2>
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <p class="text-lg text-center">Atoms are the fundamental units of matter, composed of even smaller <span class="keyword">subatomic particles</span>.</p>
+                <div class="diagram-placeholder">
+                     <p class="font-semibold text-lg">Space for: Diagram showing the structure of an atom with protons, neutrons, and electrons in shells.</p>
+                </div>
+                <div class="mt-6">
+                    <table class="w-full text-center border-collapse">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="p-3 border border-gray-600">Particle</th>
+                                <th class="p-3 border border-gray-600">Relative Mass</th>
+                                <th class="p-3 border border-gray-600">Relative Charge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-3 border border-gray-600 font-bold text-red-400">Proton</td>
+                                <td class="p-3 border border-gray-600">1</td>
+                                <td class="p-3 border border-gray-600">+1</td>
+                            </tr>
+                             <tr>
+                                <td class="p-3 border border-gray-600 font-bold text-blue-400">Neutron</td>
+                                <td class="p-3 border border-gray-600">1</td>
+                                <td class="p-3 border border-gray-600">0</td>
+                            </tr>
+                             <tr>
+                                <td class="p-3 border border-gray-600 font-bold text-yellow-400">Electron</td>
+                                <td class="p-3 border border-gray-600">
+                                    <div class="fraction">
+                                        <span class="fraction-numerator">1</span>
+                                        <span class="fraction-denominator">1836</span>
+                                    </div>
+                                    (often taken as negligible or 0)
+                                </td>
+                                <td class="p-3 border border-gray-600">-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="list-disc list-inside mt-6 space-y-2 text-lg">
+                    <li>The <span class="keyword">Nucleus</span> contains protons and neutrons, is dense, and has an overall <span class="highlight">positive charge</span>.</li>
+                    <li>Nearly all the mass of the atom is concentrated in the <span class="keyword">Nucleus</span>.</li>
+                    <li><span class="keyword">Electrons</span> orbit the nucleus in specific energy levels called <span class="highlight">shells</span>.</li>
+                    <li>An atom is <span class="highlight">electrically neutral</span> because the number of protons equals the number of electrons.</li>
+                </ul>
+            </div>
+            
+             <div class="mt-8 bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-4">Atomic & Mass Number</h3>
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                     <div class="diagram-placeholder flex-shrink-0">
+                        <p class="font-semibold text-lg">Space for: Diagram showing notation for an element with Mass Number (A) on top and Atomic Number (Z) at the bottom.</p>
+                     </div>
+                     <div class="text-lg space-y-4">
+                        <p><span class="keyword">Atomic Number (Z)</span>: The number of <span class="highlight">protons</span> in the nucleus. It uniquely identifies an element.</p>
+                        <p><span class="keyword">Mass Number (A)</span>: The total number of <span class="highlight">protons AND neutrons</span> in the nucleus.</p>
+                        <hr class="border-gray-600 my-4">
+                        <p><strong>Number of Protons</strong> = Atomic Number (Z)</p>
+                        <p><strong>Number of Electrons</strong> = Number of Protons (in a neutral atom)</p>
+                        <p><strong>Number of Neutrons</strong> = Mass Number (A) - Atomic Number (Z)</p>
+                     </div>
+                </div>
+             </div>
+
+             <div class="text-center mt-8">
+                <button onclick="startQuiz('structureQuiz')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">Test Your Knowledge!</button>
+             </div>
+        </section>
+
+        <!-- Section 3: Electronic Configuration -->
+        <section id="config" class="content-section">
+            <h2 class="text-3xl font-bold text-yellow-400 mb-6 text-center">Electronic Configuration</h2>
+             <div class="bg-gray-800 p-6 rounded-lg">
+                <p class="text-lg text-center mb-6">This describes how <span class="keyword">electrons</span> are arranged in shells around the nucleus. It determines an element's chemical properties.</p>
+                <h3 class="text-2xl font-bold mb-4">Rules for Filling Shells:</h3>
+                <ul class="list-disc list-inside space-y-3 text-lg bg-gray-900 p-4 rounded-md">
+                    <li>Electrons always occupy the <span class="highlight">lowest available energy level</span> (shell) first.</li>
+                    <li>The <span class="keyword">1st shell</span> can hold a maximum of <span class="highlight">2 electrons</span>.</li>
+                    <li>The <span class="keyword">2nd shell</span> can hold a maximum of <span class="highlight">8 electrons</span>.</li>
+                    <li>The <span class="keyword">3rd shell</span> can hold a maximum of <span class="highlight">8 electrons</span> (for the first 20 elements).</li>
+                </ul>
+                <div class="diagram-placeholder">
+                    <p class="font-semibold text-lg">Space for: Diagram showing the electron shell structure of Sodium (Na) with configuration 2,8,1.</p>
+                </div>
+             </div>
+             <div class="mt-8 bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-4">Link to the Periodic Table:</h3>
+                <div class="text-lg space-y-4">
+                    <p><span class="keyword">Period Number</span>: Tells you the <span class="highlight">number of occupied electron shells</span>.</p>
+                    <p><span class="keyword">Group Number</span>: Tells you the number of electrons in the outer shell. These are called <span class="keyword">valence electrons</span> and they determine the <span class="highlight">chemical properties</span> of the element.</p>
+                    <p class="mt-4"><strong>Example:</strong> Sodium (Na) has the configuration 2,8,1.
+                        <br>→ It has <span class="highlight">3 occupied shells</span>, so it's in <span class="keyword">Period 3</span>.
+                        <br>→ It has <span class="highlight">1 outer electron</span>, so it's in <span class="keyword">Group 1</span>.
+                    </p>
+                </div>
+            </div>
+             <div class="text-center mt-8">
+                 <button onclick="startQuiz('configQuiz')" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">Test Your Knowledge!</button>
+             </div>
+        </section>
+
+        <!-- Section 4: Isotopes -->
+        <section id="isotopes" class="content-section">
+            <h2 class="text-3xl font-bold text-purple-400 mb-6 text-center">Isotopes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                 <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-face bg-gray-700">
+                            <h3 class="text-2xl font-bold">What are <span class="keyword">Isotopes</span>?</h3>
+                            <p class="mt-4 text-gray-300">(Tap to reveal)</p>
+                        </div>
+                        <div class="card-face card-face-back">
+                            <p>Atoms of the <span class="highlight">same element</span> that have the <span class="highlight">same number of protons</span> but a <span class="highlight">different number of neutrons</span>. This means they have the same atomic number but a different mass number.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="diagram-placeholder">
+                    <p class="font-semibold text-lg">Space for: Diagram showing the isotopes of Hydrogen (Protium, Deuterium, Tritium) or Chlorine (Cl-35, Cl-37).</p>
+                </div>
+            </div>
+            <div class="mt-8 bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-4">Relative Atomic Mass (Aᵣ)</h3>
+                <p class="text-lg mb-4">Because elements can have multiple isotopes, the mass on the periodic table is a weighted average. This is the <span class="keyword">Relative Atomic Mass (Aᵣ)</span>. It is an <span class="highlight">average mass</span> of all the isotopes of that element, taking their abundances into account.</p>
+                <div class="bg-gray-900 p-4 rounded-md text-center">
+                    <p class="text-lg"><em>Relative atomic mass = </em>
+                        <span class="fraction">
+                            <span class="fraction-numerator">sum of (isotope abundance &times; isotope mass number)</span>
+                            <span class="fraction-denominator">100</span>
+                        </span>
+                    </p>
+                </div>
+                <h4 class="text-xl font-bold mt-6 mb-2">Worked Example:</h4>
+                <p>A sample of Rubidium has two isotopes: <sup>85</sup>Rb (72% abundance) and <sup>87</sup>Rb (28% abundance).</p>
+                <p class="text-center text-lg mt-4 bg-gray-900 p-4 rounded-md">
+                    <em>Aᵣ = </em>
+                    <span class="fraction">
+                        <span class="fraction-numerator">(72 &times; 85) + (28 &times; 87)</span>
+                        <span class="fraction-denominator">100</span>
+                    </span>
+                    <em>= 85.6</em>
+                </p>
+            </div>
+            <div class="mt-8 bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-bold text-red-400 mb-4">Mass Number vs. Relative Atomic Mass</h3>
+                <ul class="list-disc list-inside text-lg space-y-2">
+                    <li>They are NOT the same! <span class="keyword">Mass number</span> is for a <span class="highlight">single isotope</span> and is always a whole number (protons + neutrons).</li>
+                    <li><span class="keyword">Relative atomic mass</span> is a <span class="highlight">weighted average</span> of all an element's isotopes and is often a decimal.</li>
+                    <li>For simplicity, relative atomic masses on many periodic tables are <span class="highlight">rounded to the nearest whole number</span>.</li>
+                </ul>
+                <div class="diagram-placeholder">
+                     <p class="font-semibold text-lg">Space for: Diagram showing the periodic table entry for Lithium (Li) with RAM of 6.94, explaining why it's rounded to 7.</p>
+                </div>
+            </div>
+             <div class="text-center mt-8">
+                <button onclick="startQuiz('isotopesQuiz')" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">Test Your Knowledge!</button>
+             </div>
+        </section>
+        
+        <div class="text-center mt-12">
+             <button id="back-to-map" onclick="showSection('mind-map')" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg hidden">← Back to Mind Map</button>
+        </div>
+    </main>
+    
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="quiz-modal fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-full overflow-y-auto p-8">
+            <div class="flex justify-between items-center mb-6">
+                 <h2 id="quiz-title" class="text-3xl font-bold">Quiz Time!</h2>
+                 <button onclick="closeQuiz()" class="text-3xl font-bold text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div id="quiz-question-container">
+                <p id="quiz-question" class="text-xl mb-6"></p>
+                <div id="quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+            <div id="quiz-result-container" class="hidden text-center">
+                 <h3 id="quiz-score" class="text-4xl font-bold mb-4"></h3>
+                 <p id="quiz-feedback" class="text-lg mb-6"></p>
+                 <button id="quiz-retry-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    const contentContainer = document.getElementById('content-container');
+    const mindMap = document.getElementById('mind-map');
+    const sections = document.querySelectorAll('.content-section');
+    const backToMapBtn = document.getElementById('back-to-map');
+
+    function showSection(sectionId) {
+        if (sectionId === 'mind-map') {
+            mindMap.style.display = 'block';
+            contentContainer.style.display = 'block'; // Ensure container is visible
+            sections.forEach(s => s.classList.remove('active'));
+            backToMapBtn.classList.add('hidden');
+        } else {
+            mindMap.style.display = 'none';
+            contentContainer.style.display = 'block';
+            sections.forEach(s => {
+                if (s.id === sectionId) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+            backToMapBtn.classList.remove('hidden');
+        }
+        window.scrollTo(0, 0);
+    }
+    
+    // Quiz Data
+    const quizzes = {
+        elementsQuiz: {
+            title: "Elements, Compounds & Mixtures",
+            questions: [
+                { q: "A substance made of atoms that all have the same number of protons is a(n)...", o: ["Compound", "Mixture", "Element", "Molecule"], a: 2 },
+                { q: "Which of the following is a compound?", o: ["Sand and water", "Iron", "Oxygen", "Carbon Dioxide (CO₂)"], a: 3 },
+                { q: "How can mixtures be separated?", o: ["By chemical reactions only", "By physical methods", "They cannot be separated", "By forming new bonds"], a: 1 },
+                { q: "Which statement about compounds is TRUE?", o: ["They are not chemically combined", "They can be separated by filtration", "They are made of two or more elements chemically combined", "They consist of only one type of atom"], a: 2 },
+                { q: "Salt dissolved in water is an example of a...", o: ["Element", "Compound", "Mixture", "Pure substance"], a: 2 },
+                { q: "The symbol 'O' on the periodic table represents a(n)...", o: ["Mixture", "Compound", "Element", "Solution"], a: 2 },
+                { q: "What is formed when two or more substances are combined but NOT chemically bonded?", o: ["An element", "A mixture", "A compound", "An ion"], a: 1 },
+                { q: "H₂O is the chemical formula for water. This means water is a(n)...", o: ["Element", "Mixture", "Compound", "Atom"], a: 2 },
+                { q: "Which of these cannot be broken down into a simpler substance by chemical means?", o: ["Water (H₂O)", "Table Salt (NaCl)", "Gold (Au)", "Sugar (C₁₂H₂₂O₁₁)"], a: 2 },
+                { q: "Which is a key difference between a compound and a mixture?", o: ["Mixtures have a fixed ratio of components", "Compounds have components that are not chemically bonded", "The formation of a compound involves a chemical reaction", "Mixtures can only contain elements, not compounds"], a: 2 }
+            ]
+        },
+        structureQuiz: {
+            title: "Atomic Structure",
+            questions: [
+                { q: "Which particle is found in the nucleus and has a positive charge?", o: ["Electron", "Neutron", "Proton", "Ion"], a: 2 },
+                { q: "An atom is electrically neutral because...", o: ["It has no protons or electrons", "Number of neutrons = number of protons", "Number of protons = number of electrons", "Number of neutrons = number of electrons"], a: 2 },
+                { q: "The mass number (A) represents the total number of...", o: ["Protons and electrons", "Neutrons and electrons", "Protons only", "Protons and neutrons"], a: 3 },
+                { q: "What is the relative mass of an electron?", o: ["1", "0", "1/1836", "-1"], a: 2 },
+                { q: "Where is most of the mass of an atom concentrated?", o: ["In the electron shells", "In the outermost shell", "In the nucleus", "Evenly throughout the atom"], a: 2 },
+                { q: "The atomic number (Z) is the number of ______ in an atom.", o: ["Neutrons", "Electrons", "Protons", "Nuclei"], a: 2 },
+                { q: "An atom has 11 protons and 12 neutrons. What is its mass number?", o: ["11", "12", "1", "23"], a: 3 },
+                { q: "If a neutral atom has an atomic number of 15, how many electrons does it have?", o: ["16", "30", "15", "Cannot be determined"], a: 2 },
+                { q: "Which particle has no charge?", o: ["Proton", "Neutron", "Electron", "Nucleus"], a: 1 },
+                { q: "How do you calculate the number of neutrons in an atom?", o: ["Mass Number + Atomic Number", "Mass Number - Atomic Number", "Atomic Number - Mass Number", "Number of Protons + Electrons"], a: 1 }
+            ]
+        },
+        configQuiz: {
+            title: "Electronic Configuration",
+            questions: [
+                { q: "What is the maximum number of electrons the first shell can hold?", o: ["8", "18", "2", "10"], a: 2 },
+                { q: "An element is in Period 3. This means it has...", o: ["3 outer electrons", "3 protons", "3 occupied electron shells", "A mass number of 3"], a: 2 },
+                { q: "An element is in Group 17. How many electrons does it have in its outer shell?", o: ["17", "7", "1", "8"], a: 1 },
+                { q: "The electronic configuration of an atom is 2,8,5. What element is it?", o: ["Nitrogen", "Phosphorus", "Chlorine", "Aluminium"], a: 1 },
+                { q: "Which shell is filled first by electrons?", o: ["The outermost shell", "The third shell", "The shell with the highest energy", "The shell closest to the nucleus"], a: 3 },
+                { q: "What does the group number in the periodic table tell you?", o: ["The number of neutrons", "The total number of electrons", "The number of electron shells", "The number of electrons in the outer shell"], a: 3 },
+                { q: "What is the electronic configuration of Magnesium (atomic number 12)?", o: ["2,10", "2,8,2", "8,2,2", "2,2,8"], a: 1 },
+                { q: "Atoms with a full outer shell are...", o: ["Very reactive", "Unstable", "Noble gases", "Found in Group 1"], a: 2 },
+                { q: "The element with atomic number 20 (Calcium) has how many electrons in its third shell?", o: ["10", "2", "18", "8"], a: 3 },
+                { q: "The chemical properties of an element are mainly determined by its...", o: ["Number of neutrons", "Mass number", "Electronic configuration", "Number of protons"], a: 2 }
+            ]
+        },
+        isotopesQuiz: {
+            title: "Isotopes",
+            questions: [
+                { q: "Isotopes are atoms of the same element with a different number of...", o: ["Protons", "Electrons", "Neutrons", "Shells"], a: 2 },
+                { q: "Chlorine-35 and Chlorine-37 are isotopes. What is the same for both?", o: ["Mass number", "Number of neutrons", "Number of protons", "Density"], a: 2 },
+                { q: "What is different between isotopes of the same element?", o: ["Atomic number", "Mass number", "Number of electrons", "Chemical properties"], a: 1 },
+                { q: "Relative Atomic Mass (Aᵣ) is...", o: ["The mass of the most common isotope", "Always a whole number", "A weighted average mass of all isotopes", "The same as the atomic number"], a: 2 },
+                { q: "An isotope of carbon is ¹⁴C. A normal carbon atom is ¹²C. How many more neutrons does ¹⁴C have?", o: ["14", "6", "8", "2"], a: 3 },
+                { q: "Why are the chemical properties of isotopes of the same element identical?", o: ["They have the same number of neutrons", "They have the same mass number", "They have the same number of protons and electrons", "They are all radioactive"], a: 2 },
+                { q: "If an element has two isotopes, A (mass 10, 20% abundance) and B (mass 11, 80% abundance), what is its Aᵣ?", o: ["10.5", "10.8", "10.2", "11.0"], a: 1 },
+                { q: "The mass on the periodic table is a decimal because of...", o: ["Protons", "Electrons", "Experimental error", "Isotopes"], a: 3 },
+                { q: "Which statement is true?", o: ["Mass number and relative atomic mass are the same", "Mass number is an average, Aᵣ is for one atom", "Mass number is for one isotope, Aᵣ is an average", "Both are always whole numbers"], a: 2 },
+                { q: "Hydrogen has three isotopes: ¹H, ²H, ³H. How many protons does ³H have?", o: ["3", "2", "1", "0"], a: 2 }
+            ]
+        }
+    };
+    
+    let currentQuiz = null;
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const quizModal = document.getElementById('quiz-modal');
+    const quizTitle = document.getElementById('quiz-title');
+    const questionContainer = document.getElementById('quiz-question-container');
+    const resultContainer = document.getElementById('quiz-result-container');
+    const questionEl = document.getElementById('quiz-question');
+    const optionsEl = document.getElementById('quiz-options');
+    const scoreEl = document.getElementById('quiz-score');
+    const feedbackEl = document.getElementById('quiz-feedback');
+    const retryBtn = document.getElementById('quiz-retry-button');
+
+
+    function startQuiz(quizId) {
+        currentQuiz = quizzes[quizId];
+        currentQuestionIndex = 0;
+        score = 0;
+        quizTitle.innerText = currentQuiz.title;
+        questionContainer.classList.remove('hidden');
+        resultContainer.classList.add('hidden');
+        showQuestion();
+        quizModal.classList.remove('hidden');
+    }
+    
+    function closeQuiz() {
+        quizModal.classList.add('hidden');
+    }
+    
+    function showQuestion() {
+        const q = currentQuiz.questions[currentQuestionIndex];
+        questionEl.innerText = q.q;
+        optionsEl.innerHTML = '';
+        q.o.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.innerText = option;
+            button.classList.add('quiz-option', 'p-4', 'border', 'border-gray-600', 'rounded-lg', 'text-left');
+            button.onclick = () => selectAnswer(index);
+            optionsEl.appendChild(button);
+        });
+    }
+    
+    function selectAnswer(selectedIndex) {
+        const q = currentQuiz.questions[currentQuestionIndex];
+        const buttons = optionsEl.querySelectorAll('button');
+        const correctIndex = q.a;
+
+        if (selectedIndex === correctIndex) {
+            score++;
+            buttons[selectedIndex].classList.add('correct');
+        } else {
+            buttons[selectedIndex].classList.add('incorrect');
+            buttons[correctIndex].classList.add('correct');
+        }
+
+        buttons.forEach(button => button.disabled = true);
+
+        setTimeout(() => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }, 1500);
+    }
+    
+    function showResult() {
+        questionContainer.classList.add('hidden');
+        resultContainer.classList.remove('hidden');
+        scoreEl.innerText = `You scored ${score} / ${currentQuiz.questions.length}`;
+        
+        const percentage = (score / currentQuiz.questions.length) * 100;
+        if (percentage >= 80) {
+            feedbackEl.innerText = "Excellent work! You've mastered this topic.";
+        } else if (percentage >= 50) {
+            feedbackEl.innerText = "Good effort! A little more revision will make perfect.";
+        } else {
+            feedbackEl.innerText = "Don't worry! Review the notes and try again. You'll get it!";
+        }
+        
+        retryBtn.onclick = () => startQuiz(Object.keys(quizzes).find(key => quizzes[key] === currentQuiz));
+    }
+    
+    // Initial state
+    showSection('mind-map');
+
+</script>
+</body>
+</html>
+
