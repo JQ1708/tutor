@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differentiation Guidance (1-13)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            border-left: 5px solid #3498db;
+        }
+        .step-title {
+            font-weight: bold;
+            color: #3498db;
+            font-size: 1.1em;
+        }
+        .equation {
+            font-style: italic;
+            color: #555;
+            font-size: 1.1em;
+            text-align: center;
+            margin: 10px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        /* This is the box for hidden values */
+        .box {
+            display: inline-block;
+            border: 1px solid #7f8c8d;
+            width: 35px;
+            height: 22px;
+            background-color: #ffffff;
+            vertical-align: middle;
+            margin: 0 4px;
+            border-radius: 3px;
+        }
+        /* A wider box for expressions or larger numbers */
+        .long-box {
+            display: inline-block;
+            border: 1px solid #7f8c8d;
+            width: 60px;
+            height: 22px;
+            background-color: #ffffff;
+            vertical-align: middle;
+            margin: 0 4px;
+            border-radius: 3px;
+        }
+        /* Style for fractions */
+        .frac {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 4px;
+        }
+        .frac-num {
+            border-bottom: 1px solid #000;
+            padding: 0 5px;
+        }
+        .frac-den {
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Differentiation Guidance: Questions 1-13</h1>
+
+        <!-- Question 1 -->
+        <h2>Step-by-Step Guidance: Question 1 (Product Rule)</h2>
+        <p class="equation">Given: y = 4x²e<sup>2x</sup></p>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Find <i>dy/dx</i></span>
+            <p>This equation is a product of two functions, so we must use the Product Rule: <i><sup>dy</sup>&frasl;<sub>dx</sub> = u<sup>dv</sup>&frasl;<sub>dx</sub> + v<sup>du</sup>&frasl;<sub>dx</sub></i></p>
+            <ul>
+                <li>Let <i>u = 4x²</i>, so <i><sup>du</sup>&frasl;<sub>dx</sub> = <span class="long-box"></span></i></li>
+                <li>Let <i>v = e<sup>2x</sup></i>, so <i><sup>dv</sup>&frasl;<sub>dx</sub> = <span class="long-box"></span></i> (Remember the chain rule!)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2: Apply the Product Rule</span>
+            <p>Substitute the parts from Step 1 into the formula:</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = (4x²)(<span class="long-box"></span>) + (e<sup>2x</sup>)(<span class="long-box"></span>)</i>
+            </p>
+            <p>Simplify the expression:</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = <span class="long-box"></span>e<sup>2x</sup> + <span class="long-box"></span>e<sup>2x</sup></i>
+            </p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3 (Part b): Start with the Left Hand Side (LHS)</span>
+            <p>The question asks to show that <i>x<sup>dy</sup>&frasl;<sub>dx</sub> = 2y(1 + x)</i>. Let's start with the LHS: <i>x<sup>dy</sup>&frasl;<sub>dx</sub></i>.</p>
+            <p>Multiply your answer from Step 2 by <i>x</i>:</p>
+            <p class="equation">
+                <i>x(<sup>dy</sup>&frasl;<sub>dx</sub>) = x ( <span class="long-box"></span>e<sup>2x</sup> + <span class="long-box"></span>e<sup>2x</sup> )</i>
+            </p>
+            <p>Expand the bracket:</p>
+            <p class="equation">
+                <i>x(<sup>dy</sup>&frasl;<sub>dx</sub>) = <span class="long-box"></span>e<sup>2x</sup> + <span class="long-box"></span>e<sup>2x</sup></i>
+            </p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4: Factorise and Substitute</span>
+            <p>Look at your expression from Step 3. We want to relate this back to <i>y = 4x²e<sup>2x</sup></i>.</p>
+            <p>Let's factor out <i><span class="long-box"></span>e<sup>2x</sup></i> from the expression:</p>
+            <p class="equation">
+                <i>x(<sup>dy</sup>&frasl;<sub>dx</sub>) = <span class="long-box"></span>e<sup>2x</sup> ( <span class="box"></span> + <span class="box"></span> )</i>
+            </p>
+            <p>Now, look at the part outside the bracket: <i><span class="long-box"></span>e<sup>2x</sup></i>.</p>
+            <p>How is this related to <i>y = 4x²e<sup>2x</sup></i>?</p>
+            <p class="equation">
+                <i><span class="long-box"></span>e<sup>2x</sup> = <span class="box"></span> × ( 4x²e<sup>2x</sup> ) = <span class="box"></span>y</i>
+            </p>
+            <p>Substitute <i><span class="box"></span>y</i> back into your factored expression:</p>
+            <p class="equation">
+                <i>x(<sup>dy</sup>&frasl;<sub>dx</sub>) = <span class="box"></span>y ( <span class="box"></span> + <span class="box"></span> )</i>
+            </p>
+            <p>This matches the Right Hand Side (RHS). You have shown it is true!</p>
+        </div>
+
+        <!-- Question 2 -->
+        <h2>Step-by-Step Guidance: Question 2 (Cylinder Optimization)</h2>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Show the Area Equation</span>
+            <p>We need two formulas: Volume (<i>V</i>) and Total Surface Area (<i>A</i>) of a cylinder.</p>
+            <p class="equation"><i>V = &pi;r²h</i> &nbsp; and &nbsp; <i>A = 2&pi;r² + 2&pi;rh</i></p>
+            <p>We are given <i>V = 50</i>. We need to eliminate <i>h</i> from the area formula.</p>
+            <p>From the volume formula: <i>50 = &pi;r²h</i>. Make <i>h</i> the subject:</p>
+            <p class="equation"><i>h = <sup>50</sup>&frasl;<sub>&pi;r²</sub></i></p>
+            <p>Substitute this expression for <i>h</i> into the area formula:</p>
+            <p class="equation"><i>A = 2&pi;r² + 2&pi;r ( <span class="frac"><span class="frac-num long-box"></span><span class="frac-den long-box"></span></span> )</i></p>
+            <p>Now, simplify the second term. The <i>&pi;</i> and one <i>r</i> will cancel out.</p>
+            <p class="equation"><i>A = 2&pi;r² + <sup>(2 × 50)</sup>&frasl;<sub>r</sub></i></p>
+            <p class="equation"><i>A = 2&pi;r² + <sup><span class="long-box"></span></sup>&frasl;<sub>r</sub></i></p>
+            <p>This matches the equation given in part (a).</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2 (Part b): Find the Derivative (<i>dA/dr</i>)</span>
+            <p>To find the minimum <i>A</i>, we first find the derivative of <i>A</i> with respect to <i>r</i>. Rewrite <i>A</i> using a negative exponent:</p>
+            <p class="equation"><i>A = 2&pi;r² + 100r⁻¹</i></p>
+            <p>Now, differentiate term by term:</p>
+            <p class="equation"><i><sup>dA</sup>&frasl;<sub>dr</sub> = <span class="long-box"></span>&pi;r - <span class="long-box"></span>r⁻²</i></p>
+            <p>Which is the same as:</p>
+            <p class="equation"><i><sup>dA</sup>&frasl;<sub>dr</sub> = <span class="long-box"></span>&pi;r - <sup><span class="long-box"></span></sup>&frasl;<sub>r²</sub></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3: Find the Stationary Point</span>
+            <p>Set the derivative <i>dA/dr</i> equal to zero to find the stationary point.</p>
+            <p class="equation"><i><span class="long-box"></span>&pi;r - <sup><span class="long-box"></span></sup>&frasl;<sub>r²</sub> = 0</i></p>
+            <p class="equation"><i><span class="long-box"></span>&pi;r = <sup><span class="long-box"></span></sup>&frasl;<sub>r²</sub></i></p>
+            <p>Multiply both sides by <i>r²</i>:</p>
+            <p class="equation"><i><span class="long-box"></span>&pi;r³ = <span class="long-box"></span></i></p>
+            <p>Solve for <i>r³</i>:</p>
+            <p class="equation"><i>r³ = <sup><span class="long-box"></span></sup>&frasl;<sub><span class="long-box"></span>&pi;</sub> = <sup><span class="box"></span></sup>&frasl;<sub>&pi;</sub></i></p>
+            <p>Now, find <i>r</i> by taking the cube root:</p>
+            <p class="equation"><i>r = ³&radic;(<sup><span class="box"></span></sup>&frasl;<sub>&pi;</sub>) &asymp; ³&radic;(7.9577...)</i></p>
+            <p class="equation"><i>r &asymp; <span class="long-box"></span></i> (to 4 significant figures)</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4 (Part c): Verify it is a Minimum</span>
+            <p>We use the second derivative, <i>d²A/dr²</i>, to check if this <i>r</i> value gives a minimum.</p>
+            <p>Our first derivative was: <i><sup>dA</sup>&frasl;<sub>dr</sub> = 4&pi;r - 100r⁻²</i></p>
+            <p>Differentiate this again:</p>
+            <p class="equation"><i><sup>d²A</sup>&frasl;<sub>dr²</sub> = <span class="box"></span>&pi; + <span class="long-box"></span>r⁻³ = <span class="box"></span>&pi; + <sup><span class="long-box"></span></sup>&frasl;<sub>r³</sub></i></p>
+            <p>When <i>r = 1.996</i>, <i>r</i> is positive, so <i>r³</i> is positive.
+            <p class="equation"><i><sup>d²A</sup>&frasl;<sub>dr²</sub> = 4&pi; + <sup>200</sup>&frasl;<sub>(positive number)</sub></i></p>
+            <p>This means <i>d²A/dr²</i> is (positive) + (positive), which is definitely <strong>positive</strong>.</p>
+            <p>Since <i><sup>d²A</sup>&frasl;<sub>dr²</sub> > 0</i>, the value <i>r = 1.996</i> gives a <strong>minimum</strong> value of A.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 5 (Part d): Find the Minimum Value of A</span>
+            <p>Substitute your value <i>r = 1.996</i> back into the original area equation from Step 1.</p>
+            <p class="equation"><i>A = 2&pi;r² + <sup>100</sup>&frasl;<sub>r</sub></i></p>
+            <p class="equation"><i>A = 2&pi;(<span class="long-box"></span>)² + <sup>100</sup>&frasl;<sub><span class="long-box"></span></sub></i></p>
+            <p class="equation"><i>A &asymp; 2&pi;(<span class="long-box"></span>) + <span class="long-box"></span></i></p>
+            <p class="equation"><i>A &asymp; <span class="long-box"></span> + <span class="long-box"></span> &asymp; 75.13...</i></p>
+            <p>To the nearest whole number, the minimum value of A is <span class="box"></span>.</p>
+        </div>
+
+        <!-- Question 3 -->
+        <h2>Step-by-Step Guidance: Question 3 (Related Rates - Triangle)</h2>
+        <p class="equation">Area <i>A = <sup>&radic;3</sup>&frasl;<sub>4</sub> x²</i></p>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Show the Area Equation</span>
+            <p>The area of any triangle can be found using <i>A = <sup>1</sup>&frasl;<sub>2</sub>ab sin C</i>.</p>
+            <p>For an equilateral triangle, all sides are <i>x</i> and all angles are 60°.</p>
+            <p class="equation"><i>A = <sup>1</sup>&frasl;<sub>2</sub>(x)(x) sin(60°)</i></p>
+            <p>We know <i>sin(60°) = <sup>&radic;3</sup>&frasl;<sub>2</sub></i>. Substitute this in:</p>
+            <p class="equation"><i>A = <sup>1</sup>&frasl;<sub>2</sub> x² ( <sup>&radic;3</sup>&frasl;<sub>2</sub> ) = <sup>&radic;3</sup>&frasl;<sub>4</sub> x²</i></p>
+            <p>This matches the equation given in part (a).</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2 (Part b): Identify the Rates</span>
+            <p>This is a related rates problem. We need to find all the given rates from the question.</p>
+            <ul>
+                <li>"length... is increasing at a rate of 0.1 cm/s": This is <i><sup>dx</sup>&frasl;<sub>dt</sub> = 0.1</i></li>
+                <li>"area... is increasing at a rate of <sup>&radic;3</sup>&frasl;<sub>10</sub> cm²/s": This is <i><sup>dA</sup>&frasl;<sub>dt</sub> = <sup>&radic;3</sup>&frasl;<sub>10</sub></i></li>
+                <li>We need to find the length <i>x</i>.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3: Use the Chain Rule</span>
+            <p>The chain rule links these rates together:</p>
+            <p class="equation"><i><sup>dA</sup>&frasl;<sub>dt</sub> = <sup>dA</sup>&frasl;<sub>dx</sub> × <sup>dx</sup>&frasl;<sub>dt</sub></i></p>
+            <p>We have <i><sup>dA</sup>&frasl;<sub>dt</sub></i> and <i><sup>dx</sup>&frasl;<sub>dt</sub></i>. We need to find <i><sup>dA</sup>&frasl;<sub>dx</sub></i> from the area formula.</p>
+            <p class="equation"><i>A = <sup>&radic;3</sup>&frasl;<sub>4</sub> x²</i></p>
+            <p>Differentiate <i>A</i> with respect to <i>x</i>:</p>
+            <p class="equation"><i><sup>dA</sup>&frasl;<sub>dx</sub> = <sup>&radic;3</sup>&frasl;<sub>4</sub> ( <span class="box"></span>x ) = <sup>&radic;3</sup>&frasl;<sub><span class="box"></span></sub> x</i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4: Substitute and Solve for <i>x</i></span>
+            <p>Substitute all the known values into the chain rule equation:</p>
+            <p class="equation"><i><sup>dA</sup>&frasl;<sub>dt</sub> = <sup>dA</sup>&frasl;<sub>dx</sub> × <sup>dx</sup>&frasl;<sub>dt</sub></i></p>
+            <p class="equation">
+                <i><sup>&radic;3</sup>&frasl;<sub>10</sub> = ( <sup>&radic;3</sup>&frasl;<sub><span class="box"></span></sub> x ) × ( 0.1 )</i>
+            </p>
+            <p>Let's write 0.1 as a fraction <i><sup>1</sup>&frasl;<sub>10</sub></i> to make it easier.</p>
+            <p class="equation">
+                <i><sup>&radic;3</sup>&frasl;<sub>10</sub> = ( <sup>&radic;3</sup>&frasl;<sub><span class="box"></span></sub> x ) × ( <sup>1</sup>&frasl;<sub>10</sub> )</i>
+            </p>
+            <p class="equation">
+                <i><sup>&radic;3</sup>&frasl;<sub>10</sub> = <sup>&radic;3</sup>&frasl;<sub><span class="box"></span></sub> x</i>
+            </p>
+            <p>We can divide both sides by <i>&radic;3</i>:</p>
+            <p class="equation">
+                <i><sup>1</sup>&frasl;<sub>10</sub> = <sup>1</sup>&frasl;<sub><span class="box"></span></sub> x</i>
+            </p>
+            <p>Now, solve for <i>x</i>:</p>
+            <p class="equation"><i>x = <sup><span class="box"></span></sup>&frasl;<sub>10</sub> = <span class="box"></span></i></p>
+            <p>The length of each side is <span class="box"></span> cm.</p>
+        </div>
+
+        <!-- Question 4 -->
+        <h2>Step-by-Step Guidance: Question 4 (Differentiation & Integration)</h2>
+        <p class="equation">f(x) = 3x³ + 2sin(x) - <sup>4</sup>&frasl;<sub>x²</sub></p>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Find <i>f'(x)</i> (Differentiation)</span>
+            <p>First, rewrite <i>f(x)</i> using a negative exponent to make differentiation easier.</p>
+            <p class="equation"><i>f(x) = 3x³ + 2sin(x) - 4x<span class="box"><sup></sup></span></i></p>
+            <p>Now, differentiate each term one by one:</p>
+            <ul>
+                <li>The derivative of <i>3x³</i> is <i><span class="long-box"></span>x²</i></li>
+                <li>The derivative of <i>2sin(x)</i> is <i><span class="long-box"></span>cos(x)</i></li>
+                <li>The derivative of <i>-4x⁻²</i> is <i>(-4)(<span class="box"></span>)x⁻³ = +<span class="box"></span>x⁻³</i></li>
+            </ul>
+            <p>Combine these terms to get <i>f'(x)</i>:</p>
+            <p class="equation"><i>f'(x) = <span class="long-box"></span>x² + <span class="long-box"></span>cos(x) + <span class="box"></span>x⁻³</i></p>
+            <p>You can also write the last term as a fraction:</p>
+            <p class="equation"><i>f'(x) = 9x² + 2cos(x) + <sup>8</sup>&frasl;<sub>x³</sub></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2 (Part b): Find <i>&int;f(x)dx</i> (Integration)</span>
+            <p>We integrate the original function <i>f(x) = 3x³ + 2sin(x) - 4x⁻²</i> term by term.</p>
+            <ul>
+                <li>The integral of <i>3x³</i> is <i><sup>3x<span class="box"><sup></sup></span></sup>&frasl;<sub><span class="box"></span></sub></i></li>
+                <li>The integral of <i>2sin(x)</i> is <i><span class="long-box"></span>cos(x)</i></li>
+                <li>The integral of <i>-4x⁻²</i> is <i><sup>-4x<span class="box"><sup></sup></span></sup>&frasl;<sub><span class="box"></span></sub> = +<span class="box"></span>x⁻¹</i></li>
+                <li>Don't forget the constant of integration, <i>+ c</i>!</li>
+            </ul>
+        </div>
+        
+        <div class="step">
+            <span class="step-title">Step 3: Combine the Integrated Terms</span>
+            <p>Put all the parts from Step 2 together:</p>
+            <p class="equation">
+                <i>&int;f(x)dx = 
+                <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span>x<span class="box"><sup></sup></span>
+                <span class="box"></span> 2cos(x) 
+                + <span class="box"></span>x⁻¹ 
+                + c
+                </i>
+            </p>
+            <p>You can also write the final answer with fractions:</p>
+            <p class="equation">
+                <i>&int;f(x)dx = 
+                <sup>3x⁴</sup>&frasl;<sub>4</sub>
+                - 2cos(x) 
+                + <sup>4</sup>&frasl;<sub>x</sub>
+                + c
+                </i>
+            </p>
+        </div>
+
+        <!-- Question 5 -->
+        <h2>Step-by-Step Guidance: Question 5 (Related Rates - Sphere)</h2>
+
+        <div class="step">
+            <span class="step-title">Step 1: Identify Formulas and Rates</span>
+            <p>This is another related rates problem. We need the formula for the volume of a sphere.</p>
+            <p class="equation"><i>V = <sup>4</sup>&frasl;<sub>3</sub>&pi;r³</i></p>
+            <p>Let's find the given rates from the question:</p>
+            <ul>
+                <li>"volume... is increasing at the rate of 60 cm³/s": This is <i><sup>dV</sup>&frasl;<sub>dt</sub> = 60</i></li>
+                <li>We need to find "the rate of increase of the radius": This is <i><sup>dr</sup>&frasl;<sub>dt</sub></i></li>
+                <li>We need to find this "when the volume is 36000&pi; cm³": This is <i>V = 36000&pi;</i></li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2: Find the Radius <i>r</i> at the Specific Moment</span>
+            <p>We need to find the value of <i>r</i> when <i>V = 36000&pi;</i>. Use the volume formula:</p>
+            <p class="equation"><i>36000&pi; = <sup>4</sup>&frasl;<sub>3</sub>&pi;r³</i></p>
+            <p>We can divide both sides by <i>&pi;</i>:</p>
+            <p class="equation"><i>36000 = <sup>4</sup>&frasl;<sub>3</sub>r³</i></p>
+            <p>Now, solve for <i>r³</i>:</p>
+            <p class="equation"><i>r³ = <sup>(36000 × 3)</sup>&frasl;<sub>4</sub> = 9000 × 3 = <span class="long-box"></span></i></p>
+            <p>Take the cube root to find <i>r</i>:</p>
+            <p class="equation"><i>r = ³&radic;(<span class="long-box"></span>) = <span class="box"></span></i> cm</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3: Find <i>dV/dr</i></span>
+            <p>We need to differentiate the volume formula with respect to <i>r</i> to use the chain rule.</p>
+            <p class="equation"><i>V = <sup>4</sup>&frasl;<sub>3</sub>&pi;r³</i></p>
+            <p>Differentiate:</p>
+            <p class="equation"><i><sup>dV</sup>&frasl;<sub>dr</sub> = <sup>4</sup>&frasl;<sub>3</sub>&pi; ( <span class="box"></span>r² ) = <span class="box"></span>&pi;r²</i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4: Use the Chain Rule</span>
+            <p>The chain rule for this problem is:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = <sup>dV</sup>&frasl;<sub>dt</sub> × <sup>dr</sup>&frasl;<sub>dV</sub></i></p>
+            <p>Remember that <i><sup>dr</sup>&frasl;<sub>dV</sub></i> is the reciprocal (the "flipped" version) of <i><sup>dV</sup>&frasl;<sub>dr</sub></i>.</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = <sup>dV</sup>&frasl;<sub>dt</sub> × ( <sup>1</sup>&frasl;<sub>(dV/dr)</sub> )</i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 5: Substitute and Solve</span>
+            <p>Now substitute all the values we know: <i><sup>dV</sup>&frasl;<sub>dt</sub> = 60</i>, <i><sup>dV</sup>&frasl;<sub>dr</sub> = <span class="box"></span>&pi;r²</i>, and <i>r = <span class="box"></span></i>.</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = 60 × ( <sup>1</sup>&frasl;<sub><span class="box"></span>&pi;r²</sub> )</i></p>
+            <p>Substitute <i>r = <span class="box"></span></i>:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = 60 × ( <sup>1</sup>&frasl;<sub><span class="box"></span>&pi;(<span class="box"></span>)²</sub> )</i></p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = 60 × ( <sup>1</sup>&frasl;<sub><span class="box"></span>&pi;(<span class="long-box"></span>)</sub> ) = 60 × ( <sup>1</sup>&frasl;<sub><span class="long-box"></span>&pi;</sub> )</i></p>
+            <p>Simplify the fraction:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = <sup>60</sup>&frasl;<sub><span class="long-box"></span>&pi;</sub> = <sup>1</sup>&frasl;<sub><span class="long-box"></span>&pi;</sub></i></p>
+            <p>Now, calculate the decimal value:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> &asymp; 0.005305...</i></p>
+            <p>Correct to 2 significant figures, the answer is <span class="long-box"></span> cm/s.</p>
+        </div>
+
+        <!-- Question 6 -->
+        <h2>Step-by-Step Guidance: Question 6 (Curve Analysis)</h2>
+        <p class="equation">Given: f(x) = 4 + 3x - x²</p>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Complete the Square</span>
+            <p>We want to write <i>f(x)</i> in the form <i>P - Q(x + R)²</i>. This is "completing the square".</p>
+            <p>First, factor out -1 from the x-terms: <i>f(x) = 4 - (x² - 3x)</i></p>
+            <p>Complete the square for <i>(x² - 3x)</i>. Half of -3 is -3/2. (<i>-3/2</i>)² is <i>9/4</i>.</p>
+            <p class="equation"><i>f(x) = 4 - [ (x - <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span>)² - <span class="frac"><span class="frac-num">9</span><span class="frac-den">4</span></span> ]</i></p>
+            <p>Now, distribute the negative sign and combine the constants:</p>
+            <p class="equation"><i>f(x) = 4 - (x - <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span>)² + <span class="frac"><span class="frac-num">9</span><span class="frac-den">4</span></span></i></p>
+            <p class="equation"><i>f(x) = <span class="frac"><span class="frac-num">25</span><span class="frac-den">4</span></span> - (x - <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span>)²</i></p>
+            <p>(So, P=25/4, Q=1, R=-3/2)</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2 (Part b): Find the Maximum Point</span>
+            <p>The form <i>f(x) = <span class="frac"><span class="frac-num">25</span><span class="frac-den">4</span></span> - (x - <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span>)²</i> tells us the maximum value. Since <i>(x - 3/2)²</i> is always zero or positive, the function <i>f(x)</i> is at its maximum when <i>(x - 3/2)² = 0</i>.</p>
+            <p>This occurs when <i>x = <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span></i>.</p>
+            <p>The maximum value (the y-coordinate) is <i><span class="frac"><span class="frac-num">25</span><span class="frac-den">4</span></span></i>.</p>
+            <p>Coordinates: ( <i><span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span></i> , <i><span class="frac"><span class="frac-num">25</span><span class="frac-den">4</span></span></i> )</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3 (Part c): Find Equation of Tangent <i>l₁</i></span>
+            <p>We need the gradient <i>m</i> and a point (<i>x₁, y₁</i>). We are given <i>x₁ = 1</i>.</p>
+            <p>First, find the derivative: <i>f'(x) = <sup>d</sup>&frasl;<sub>dx</sub> (4 + 3x - x²)</i></p>
+            <p class="equation"><i>f'(x) = <span class="box"></span> - <span class="box"></span>x</i></p>
+            <p>Now, find the gradient <i>m</i> at <i>x = 1</i>:</p>
+            <p class="equation"><i>m = f'(1) = 3 - 2(1) = <span class="box"></span></i></p>
+            <p>Find the y-coordinate <i>y₁</i> at <i>x = 1</i>:</p>
+            <p class="equation"><i>y₁ = f(1) = 4 + 3(1) - (1)² = <span class="box"></span></i></p>
+            <p>Use the line formula <i>y - y₁ = m(x - x₁)</i>:</p>
+            <p class="equation"><i>y - <span class="box"></span> = <span class="box"></span>(x - 1)</i></p>
+            <p>Simplify to <i>y = x + 5</i>.</p>
+        </div>
+        
+        <div class="step">
+            <span class="step-title">Step 4 (Part d): Find Coordinates of A</span>
+            <p>Line <i>l₂</i> is perpendicular to <i>l₁</i>, so its gradient <i>m₂</i> is the negative reciprocal of <i>m₁</i>.</p>
+            <p class="equation"><i>m₁ = 1</i>, so <i>m₂ = <span class="box"></span></i></p>
+            <p><i>l₂</i> is also a tangent, so we find where <i>f'(x)</i> equals this new gradient:</p>
+            <p class="equation"><i>3 - 2x = <span class="box"></span></i></p>
+            <p class="equation"><i>4 = 2x</i>, so <i>x = <span class="box"></span></i></p>
+            <p>Find the y-coordinate at <i>x = 2</i>: <i>f(2) = 4 + 3(2) - (2)² = <span class="box"></span></i>. Point is (2, 6).</p>
+            <p>Equation of <i>l₂</i>: <i>y - 6 = -1(x - 2)</i> &rArr; <i>y = -x + 8</i>.</p>
+            <p>Point A is the intersection of <i>l₁</i> and <i>l₂</i>. Set the equations equal:</p>
+            <p class="equation"><i>x + 5 = -x + 8</i></p>
+            <p class="equation"><i>2x = <span class="box"></span></i> &rArr; <i>x = <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span></i></p>
+            <p>Find y: <i>y = (<span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span>) + 5 = <span class="frac"><span class="frac-num">13</span><span class="frac-den">2</span></span></i>. A = ( <i><span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span></i> , <i><span class="frac"><span class="frac-num">13</span><span class="frac-den">2</span></span></i> ).</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 5 (Part e): Find Length of AB</span>
+            <p>Use the distance formula &radic;( (x₂-x₁)² + (y₂-y₁)² )</p>
+            <p>A = (3/2, 13/2), B = (-3, 2)</p>
+            <p class="equation"><i>&Delta;x = ( <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span> - (-3) ) = <span class="frac"><span class="frac-num">9</span><span class="frac-den">2</span></span></i></p>
+            <p class="equation"><i>&Delta;y = ( <span class="frac"><span class="frac-num">13</span><span class="frac-den">2</span></span> - 2 ) = <span class="frac"><span class="frac-num">9</span><span class="frac-den">2</span></span></i></p>
+            <p class="equation"><i>Length = &radic;( ( <span class="frac"><span class="frac-num">9</span><span class="frac-den">2</span></span> )² + ( <span class="frac"><span class="frac-num">9</span><span class="frac-den">2</span></span> )² ) = &radic;( 2 × ( <span class="frac"><span class="frac-num">81</span><span class="frac-den">4</span></span> ) ) = &radic;( <span class="frac"><span class="frac-num">81</span><span class="frac-den">2</span></span> ) = <span class="frac"><span class="frac-num">9&radic;2</span><span class="frac-den">2</span></span></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 6 (Part f): Find Area of Triangle ABD</span>
+            <p>B lies on <i>l₁</i>, D(8,0) lies on <i>l₂</i> (since <i>0 = -8 + 8</i>). Since <i>l₁</i> and <i>l₂</i> are perpendicular, &triangle;ABD is a right-angled triangle with the right angle at A.</p>
+            <p>Area = <i><sup>1</sup>&frasl;<sub>2</sub> × (Length AB) × (Length AD)</i></p>
+            <p>We need Length AD. A = (3/2, 13/2), D = (8, 0)</p>
+            <p class="equation"><i>&Delta;x = ( <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span> - 8 ) = -<span class="frac"><span class="frac-num">13</span><span class="frac-den">2</span></span></i></p>
+            <p class="equation"><i>&Delta;y = ( <span class="frac"><span class="frac-num">13</span><span class="frac-den">2</span></span> - 0 ) = <span class="frac"><span class="frac-num">13</span><span class="frac-den">2</span></span></i></p>
+            <p class="equation"><i>Length AD = &radic;( (-<span class="frac"><span class="frac-num">13</span><span class="frac-den">2</span></span>)² + ( <span class="frac"><span class="frac-num">13</span><span class="frac-den">2</span></span> )² ) = <span class="frac"><span class="frac-num">13&radic;2</span><span class="frac-den">2</span></span></i></p>
+            <p>Area = <i><sup>1</sup>&frasl;<sub>2</sub> × ( <span class="frac"><span class="frac-num">9&radic;2</span><span class="frac-den">2</span></span> ) × ( <span class="frac"><span class="frac-num">13&radic;2</span><span class="frac-den">2</span></span> )</i></p>
+            <p class="equation"><i>Area = <sup>1</sup>&frasl;<sub>2</sub> × ( <sup>(9 × 13 × 2)</sup>&frasl;<sub>(2 × 2)</sub> ) = <sup>(9 × 13)</sup>&frasl;<sub>4</sub> = <span class="frac"><span class="frac-num">117</span><span class="frac-den">4</span></span></i></p>
+        </div>
+
+        <!-- Question 7 -->
+        <h2>Step-by-Step Guidance: Question 7 (Related Rates - Cone)</h2>
+
+        <div class="step">
+            <span class="step-title">Step 1: Identify Formulas and Rates</span>
+            <p>We are given: <i>V = <sup>1</sup>&frasl;<sub>3</sub>&pi;r²h</i> (Volume of cone).</p>
+            <p>Rates and conditions:</p>
+            <ul>
+                <li>"poured... at a rate of 50 cm³/s": This is <i><sup>dV</sup>&frasl;<sub>dt</sub> = 50</i></li>
+                <li>"radius... is always three times the height": <i>r = 3h</i></li>
+                <li>Find "rate of change... of the radius": Find <i><sup>dr</sup>&frasl;<sub>dt</sub></i></li>
+                <li>"when the radius is 10cm": Find this when <i>r = 10</i></li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2: Write Volume in terms of <i>r</i> only</span>
+            <p>We need a formula linking <i>V</i> and <i>r</i>. We must eliminate <i>h</i>.</p>
+            <p>From <i>r = 3h</i>, we get <i>h = <sup>r</sup>&frasl;<sub><span class="box"></span></sub></i></p>
+            <p>Substitute this into the volume formula:</p>
+            <p class="equation"><i>V = <sup>1</sup>&frasl;<sub>3</sub>&pi;r² ( <sup>r</sup>&frasl;<sub><span class="box"></span></sub> ) = <sup>1</sup>&frasl;<sub><span class="box"></span></sub>&pi;r³</i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3: Use the Chain Rule</span>
+            <p>The chain rule that links our rates is:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = <sup>dV</sup>&frasl;<sub>dt</sub> × <sup>dr</sup>&frasl;<sub>dV</sub></i></p>
+            <p>We need to find <i><sup>dr</sup>&frasl;<sub>dV</sub></i>. It's easier to find <i><sup>dV</sup>&frasl;<sub>dr</sub></i> first and then flip it.</p>
+            <p class="equation"><i>V = <sup>1</sup>&frasl;<sub>9</sub>&pi;r³</i></p>
+            <p>Differentiate <i>V</i> with respect to <i>r</i>:</p>
+            <p class="equation"><i><sup>dV</sup>&frasl;<sub>dr</sub> = <sup>1</sup>&frasl;<sub>9</sub>&pi; ( <span class="box"></span>r² ) = <sup>1</sup>&frasl;<sub><span class="box"></span></sub>&pi;r²</i></p>
+            <p>Now, flip it to find <i><sup>dr</sup>&frasl;<sub>dV</sub></i>:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dV</sub> = <sup><span class="box"></span></sup>&frasl;<sub>&pi;r²</sub></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4: Substitute and Solve</span>
+            <p>Substitute all the known values into the chain rule equation:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = ( 50 ) × ( <sup><span class="box"></span></sup>&frasl;<sub>&pi;r²</sub> )</i></p>
+            <p>Now, substitute the specific moment, <i>r = 10</i>:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = 50 × ( <sup><span class="box"></span></sup>&frasl;<sub>&pi;(10)²</sub> ) = 50 × ( <sup><span class="box"></span></sup>&frasl;<sub><span class="long-box"></span>&pi;</sub> )</i></p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> = <sup>150</sup>&frasl;<sub>100&pi;</sub> = <sup><span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span></sup>&frasl;<sub>&pi;</sub></i></p>
+            <p>Calculate the decimal value:</p>
+            <p class="equation"><i><sup>dr</sup>&frasl;<sub>dt</sub> &asymp; 0.47746...</i></p>
+            <p>To 3 significant figures, the answer is <span class="long-box"></span> cm/s.</p>
+        </div>
+
+        <!-- Question 8 -->
+        <h2>Step-by-Step Guidance: Question 8 (Curve Analysis)</h2>
+        <p class="equation">Given: y = 8x + <sup>1</sup>&frasl;<sub>(2x - 1)</sub></p>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Vertical Asymptote</span>
+            <p>The asymptote parallel to the y-axis occurs when the denominator is zero.</p>
+            <p class="equation"><i>2x - 1 = 0</i> &rArr; <i>x = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2 (Part b): Find Stationary Points</span>
+            <p>First, find the derivative, <i><sup>dy</sup>&frasl;<sub>dx</sub></i>. Rewrite y:</p>
+            <p class="equation"><i>y = 8x + (2x - 1)⁻¹</i></p>
+            <p class="equation"><i><sup>dy</sup>&frasl;<sub>dx</sub> = 8 + (-1)(2x - 1)⁻² × (2) = 8 - <span class="box"></span>(2x - 1)⁻²</i></p>
+            <p>Set <i><sup>dy</sup>&frasl;<sub>dx</sub> = 0</i> to find stationary points:</p>
+            <p class="equation"><i>8 = <span class="box"></span>(2x - 1)⁻²</i> &rArr; <i>8 = <sup><span class="box"></span></sup>&frasl;<sub>(2x - 1)²</sub></i></p>
+            <p class="equation"><i>(2x - 1)² = <sup><span class="box"></span></sup>&frasl;<sub>8</sub> = <sup>1</sup>&frasl;<sub>4</sub></i></p>
+            <p>Take the square root of both sides (remembering the &plusmn;):</p>
+            <p class="equation"><i>2x - 1 = &plusmn; <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span></i></p>
+            <p><b>Case 1:</b> <i>2x - 1 = +<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span></i> &rArr; <i>2x = <span class="frac"><span class="frac-num">3</span><span class="frac-den">2</span></span></i> &rArr; <i>x = <span class="frac"><span class="frac-num">3</span><span class="frac-den">4</span></span></i></p>
+            <p><b>Case 2:</b> <i>2x - 1 = -<span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span></i> &rArr; <i>2x = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span></i> &rArr; <i>x = <span class="frac"><span class="frac-num">1</span><span class="frac-den">4</span></span></i></p>
+        </div>
+        
+        <div class="step">
+            <span class="step-title">Step 3: Justify Nature of Stationary Points</span>
+            <p>We use the second derivative, <i><sup>d²y</sup>&frasl;<sub>dx²</sub></i>.</p>
+            <p class="equation"><i><sup>dy</sup>&frasl;<sub>dx</sub> = 8 - 2(2x - 1)⁻²</i></p>
+            <p class="equation"><i><sup>d²y</sup>&frasl;<sub>dx²</sub> = 0 - 2(-2)(2x - 1)⁻³ × (2) = <span class="box"></span>(2x - 1)⁻³</i></p>
+            <p>Test <i>x = 3/4</i> (for minimum):</p>
+            <p class="equation"><i><sup>d²y</sup>&frasl;<sub>dx²</sub> = 8(2(<sup>3</sup>&frasl;<sub>4</sub>) - 1)⁻³ = 8(<sup>1</sup>&frasl;<sub>2</sub>)⁻³ = 8(8) = <span class="box"></span></i>. Since <i><span class="box"></span> > 0</i>, it is a <b>minimum</b>.</p>
+            <p>Test <i>x = 1/4</i> (for maximum):</p>
+            <p class="equation"><i><sup>d²y</sup>&frasl;<sub>dx²</sub> = 8(2(<sup>1</sup>&frasl;<sub>4</sub>) - 1)⁻³ = 8(<sup>-1</sup>&frasl;<sub>2</sub>)⁻³ = 8(-8) = <span class="long-box"></span></i>. Since <i><span class="long-box"></span> < 0</i>, it is a <b>maximum</b>.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4 (Part c): Find y-coordinates</span>
+            <p>(i) Minimum point (at <i>x = 3/4</i>):</p>
+            <p class="equation"><i>y = 8(<sup>3</sup>&frasl;<sub>4</sub>) + <sup>1</sup>&frasl;<sub>(2(<sup>3</sup>&frasl;<sub>4</sub>) - 1)</sub> = 6 + <sup>1</sup>&frasl;<sub>(<sup>1</sup>&frasl;<sub>2</sub>)</sub> = 6 + 2 = <span class="box"></span></i></p>
+            <p>(ii) Maximum point (at <i>x = 1/4</i>):</p>
+            <p class="equation"><i>y = 8(<sup>1</sup>&frasl;<sub>4</sub>) + <sup>1</sup>&frasl;<sub>(2(<sup>1</sup>&frasl;<sub>4</sub>) - 1)</sub> = 2 + <sup>1</sup>&frasl;<sub>(<sup>-1</sup>&frasl;<sub>2</sub>)</sub> = 2 - 2 = <span class="box"></span></i></p>
+            <p>(iii) y-intercept (at <i>x = 0</i>):</p>
+            <p class="equation"><i>y = 8(0) + <sup>1</sup>&frasl;<sub>(2(0) - 1)</sub> = 0 + <sup>1</sup>&frasl;<sub>-1</sub> = <span class="box"></span></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 5 (Part d): Sketch the Curve</span>
+            <p>Use all the key information you've found:</p>
+            <ul>
+                <li>Vertical Asymptote: <i>x = 1/2</i></li>
+                <li>Minimum Point: (<i>3/4</i>, <span class="box"></span>)</li>
+                <li>Maximum Point: (<i>1/4</i>, <span class="box"></span>)</li>
+                <li>Y-intercept: (0, <span class="box"></span>)</li>
+            </ul>
+            <p>Draw the axes, the asymptote, plot the three points, and draw the two branches of the curve.</p>
+        </div>
+
+        <!-- Question 9 -->
+        <h2>Step-by-Step Guidance: Question 9 (Stationary Points & Volume)</h2>
+        <p class="equation">Given: y = px + qx²</p>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Find <i>p</i> and <i>q</i></span>
+            <p>We are given a stationary point at (3, 9).</p>
+            <p>First, "point at (3, 9)" means when <i>x=3, y=9</i>. Substitute into the equation:</p>
+            <p class="equation"><i>9 = p(3) + q(3)²</i> &rArr; <i>9 = 3p + <span class="box"></span>q</i> (Equation 1)</p>
+            <p>Second, "stationary point" means <i><sup>dy</sup>&frasl;<sub>dx</sub> = 0</i> at that x-value. Find the derivative:</p>
+            <p class="equation"><i><sup>dy</sup>&frasl;<sub>dx</sub> = p + <span class="box"></span>qx</i></p>
+            <p>Now, substitute <i>x=3</i> and <i><sup>dy</sup>&frasl;<sub>dx</sub> = 0</i>:</p>
+            <p class="equation"><i>0 = p + <span class="box"></span>q(3)</i> &rArr; <i>p + <span class="box"></span>q = 0</i> (Equation 2)</p>
+            <p>Solve the simultaneous equations. From Eq 2, <i>p = -6q</i>. Substitute into Eq 1:</p>
+            <p class="equation"><i>9 = 3(-6q) + 9q</i> &rArr; <i>9 = -18q + 9q</i> &rArr; <i>9 = -<span class="box"></span>q</i> &rArr; <i>q = <span class="box"></span></i></p>
+            <p>Now find <i>p</i>: <i>p = -6(<span class="box"></span>)</i> &rArr; <i>p = <span class="box"></span></i></p>
+        </div>
+        
+        <div class="step">
+            <span class="step-title">Step 2: Nature of Stationary Point</span>
+            <p>We use the second derivative, <i><sup>d²y</sup>&frasl;<sub>dx²</sub></i>.</p>
+            <p class="equation"><i><sup>dy</sup>&frasl;<sub>dx</sub> = p + 2qx</i></p>
+            <p class="equation"><i><sup>d²y</sup>&frasl;<sub>dx²</sub> = <span class="box"></span>q</i></p>
+            <p>Substitute our value <i>q = -1</i>:</p>
+            <p class="equation"><i><sup>d²y</sup>&frasl;<sub>dx²</sub> = 2(<span class="box"></span>) = <span class="long-box"></span></i></p>
+            <p>Since <i><sup>d²y</sup>&frasl;<sub>dx²</sub> < 0</i>, the stationary point is a <b>Maximum</b>.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3 (Part b): Find Intersections</span>
+            <p>Find intersections of the curve <i>y = 6x - x²</i> and the line <i>y = -x + 10</i>.</p>
+            <p>Set the y-values equal to each other:</p>
+            <p class="equation"><i>6x - x² = -x + 10</i></p>
+            <p>Rearrange into a standard quadratic equation (<i>ax² + bx + c = 0</i>):</p>
+            <p class="equation"><i>0 = x² - <span class="box"></span>x + <span class="box"></span></i></p>
+            <p>Factorise the quadratic:</p>
+            <p class="equation"><i>(x - <span class="box"></span>)(x - <span class="box"></span>) = 0</i></p>
+            <p>The x-coordinates are <i>x = <span class="box"></span></i> and <i>x = <span class="box"></span></i>.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4 (Part c): Volume of Revolution</span>
+            <p>We use the formula <i>V = &pi; &int; [ (y_upper)² - (y_lower)² ] dx</i>.</p>
+            <p>Between <i>x=2</i> and <i>x=5</i>, the curve <i>y = 6x - x²</i> is the upper boundary.</p>
+            <p class="equation"><i>V = &pi; &int;<sub>2</sub><sup>5</sup> [ (6x - x²)² - (-x + 10)² ] dx</i></p>
+            <p>Expand the squares:</p>
+            <p><i>(6x - x²)² = 36x² - 12x³ + x⁴</i></p>
+            <p><i>(-x + 10)² = x² - 20x + 100</i></p>
+            <p>Subtract them: <i>(36x² - 12x³ + x⁴) - (x² - 20x + 100)</i></p>
+            <p class="equation"><i>Integrand = x⁴ - 12x³ + <span class="box"></span>x² + <span class="box"></span>x - <span class="long-box"></span></i></p>
+            <p>Integrate this expression term by term:</p>
+            <p class="equation">
+                <i>V = &pi; [ <sup>x⁵</sup>&frasl;<sub>5</sub> - <span class="box"></span>x⁴ + <sup><span class="box"></span>x³</sup>&frasl;<sub>3</sub> + <span class="box"></span>x² - <span class="long-box"></span>x ]<sub>2</sub><sup>5</sup>
+            </p>
+            <p>Substitute the limits <i>x=5</i> and <i>x=2</i> (This is a lot of calculation!):</p>
+            <p class="equation"><i>V = &pi; ( [ Value at x=5 ] - [ Value at x=2 ] )</i></p>
+            <p class="equation"><i>V = &pi; ( [ -<span class="frac"><span class="frac-num">125</span><span class="frac-den">3</span></span> ] - [ -<span class="frac"><span class="frac-num">1624</span><span class="frac-den">15</span></span> ] )</i></p>
+            <p>Find a common denominator and solve:</p>
+            <p class="equation"><i>V = &pi; ( <span class="long-box"></span> ) = <span class="frac"><span class="frac-num">33</span><span class="frac-den">5</span></span>&pi;</i></p>
+        </div>
+
+        <!-- Question 10 -->
+        <h2>Step-by-Step Guidance: Question 10 (Related Rates - Cone)</h2>
+
+        <div class="step">
+            <span class="step-title">Step 1: Identify Formulas and Rates</span>
+            <p>We are given: <i>V = <sup>1</sup>&frasl;<sub>3</sub>&pi;r²h</i> (Volume of cone).</p>
+            <p>Rates and conditions:</p>
+            <ul>
+                <li>"volume... is increasing at... 27 cm³/s": This is <i><sup>dV</sup>&frasl;<sub>dt</sub> = 27</i></li>
+                <li>"radius... is always 1.5 times the height": <i>r = 1.5h</i> or <i>r = <sup>3</sup>&frasl;<sub>2</sub>h</i></li>
+                <li>Find "rate of change of the height": Find <i><sup>dh</sup>&frasl;<sub>dt</sub></i></li>
+                <li>"when the height is 4 cm": Find this when <i>h = 4</i></li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2: Write Volume in terms of <i>h</i> only</span>
+            <p>We need a formula linking <i>V</i> and <i>h</i>. We must eliminate <i>r</i>.</p>
+            <p>Substitute <i>r = <sup>3</sup>&frasl;<sub>2</sub>h</i> into the volume formula:</p>
+            <p class="equation"><i>V = <sup>1</sup>&frasl;<sub>3</sub>&pi;( <sup>3</sup>&frasl;<sub>2</sub>h )² h = <sup>1</sup>&frasl;<sub>3</sub>&pi;( <sup>9</sup>&frasl;<sub>4</sub>h² ) h</i></p>
+            <p class="equation"><i>V = <sup><span class="box"></span></sup>&frasl;<sub><span class="box"></span></sub>&pi;h³</i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3: Use the Chain Rule</span>
+            <p>The chain rule that links our rates is:</p>
+            <p class="equation"><i><sup>dh</sup>&frasl;<sub>dt</sub> = <sup>dV</sup>&frasl;<sub>dt</sub> × <sup>dh</sup>&frasl;<sub>dV</sub></i></p>
+            <p>We need to find <i><sup>dh</sup>&frasl;<sub>dV</sub></i>. First, find <i><sup>dV</sup>&frasl;<sub>dh</sub></i> from our new formula.</p>
+            <p class="equation"><i>V = <sup>3</sup>&frasl;<sub>4</sub>&pi;h³</i></p>
+            <p>Differentiate <i>V</i> with respect to <i>h</i>:</p>
+            <p class="equation"><i><sup>dV</sup>&frasl;<sub>dh</sub> = <sup>3</sup>&frasl;<sub>4</sub>&pi; ( <span class="box"></span>h² ) = <sup><span class="box"></span></sup>&frasl;<sub><span class="box"></span></sub>&pi;h²</i></p>
+            <p>Now, flip it to find <i><sup>dh</sup>&frasl;<sub>dV</sub></i>:</p>
+            <p class="equation"><i><sup>dh</sup>&frasl;<sub>dV</sub> = <sup><span class="box"></span></sup>&frasl;<sub>9&pi;h²</sub></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4: Substitute and Solve</span>
+            <p>Substitute all the known values into the chain rule equation:</p>
+            <p class="equation"><i><sup>dh</sup>&frasl;<sub>dt</sub> = ( 27 ) × ( <sup><span class="box"></span></sup>&frasl;<sub>9&pi;h²</sub> )</i></p>
+            <p>Now, substitute the specific moment, <i>h = 4</i>:</p>
+            <p class="equation"><i><sup>dh</sup>&frasl;<sub>dt</sub> = 27 × ( <sup><span class="box"></span></sup>&frasl;<sub>9&pi;(4)²</sub> ) = 27 × ( <sup><span class="box"></span></sup>&frasl;<sub>9&pi;(<span class="box"></span>)</sub> )</i></p>
+            <p class="equation"><i><sup>dh</sup>&frasl;<sub>dt</sub> = 27 × ( <sup>4</sup>&frasl;<sub>144&pi;</sub> ) = <sup>108</sup>&frasl;<sub>144&pi;</sub></i></p>
+            <p>Simplify the fraction:</p>
+            <p class="equation"><i><sup>dh</sup>&frasl;<sub>dt</sub> = <sup><span class="box"></span></sup>&frasl;<sub><span class="box"></span>&pi;</sub></i></p>
+            <p>Calculate the decimal value:</p>
+            <p class="equation"><i><sup>dh</sup>&frasl;<sub>dt</sub> &asymp; 0.23873...</i></p>
+            <p>To 3 significant figures, the answer is <span class="long-box"></span> cm/s.</p>
+        </div>
+
+        <!-- Question 11 -->
+        <h2>Step-by-Step Guidance: Question 11 (Product & Chain Rule)</h2>
+        <p class="equation">Given: y = x²&radic;(2x - 3)</p>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Find <i>dy/dx</i></span>
+            <p>We must use the Product Rule: <i><sup>dy</sup>&frasl;<sub>dx</sub> = u<sup>dv</sup>&frasl;<sub>dx</sub> + v<sup>du</sup>&frasl;<sub>dx</sub></i>. Let's write <i>y = x²(2x - 3)<sup>&frac12;</sup></i>.</p>
+            <ul>
+                <li>Let <i>u = x²</i>, so <i><sup>du</sup>&frasl;<sub>dx</sub> = <span class="long-box"></span></i></li>
+                <li>Let <i>v = (2x - 3)<sup>&frac12;</sup></i>. Use the Chain Rule: <i><sup>dv</sup>&frasl;<sub>dx</sub> = <sup>1</sup>&frasl;<sub>2</sub>(2x - 3)<sup>-&frac12;</sup> × (<span class="box"></span>) = (2x - 3)<sup>-&frac12;</sup></i></li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2: Apply the Product Rule</span>
+            <p>Substitute the parts from Step 1 into the formula:</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = (x²)(<span class="long-box"></span>) + ( (2x - 3)<sup>&frac12;</sup> )(<span class="long-box"></span>)</i>
+            </p>
+            <p>Rewrite with fractions and square roots:</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>x²</sup>&frasl;<sub>&radic;(2x - 3)</sub> + 2x&radic;(2x - 3)</i>
+            </p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3: Combine into a Single Fraction</span>
+            <p>To show the given answer, we must find a common denominator, which is <i>&radic;(2x - 3)</i>.</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>x²</sup>&frasl;<sub>&radic;(2x - 3)</sub> + <sup>( 2x&radic;(2x - 3) × <span class="long-box"></span> )</sup>&frasl;<sub>&radic;(2x - 3)</sub></i>
+            </p>
+            <p>Remember <i>&radic;A × &radic;A = A</i>. So <i>&radic;(2x - 3) × &radic;(2x - 3) = (2x - 3)</i>.</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>( x² + 2x(<span class="long-box"></span>) )</sup>&frasl;<sub>&radic;(2x - 3)</sub></i>
+            </p>
+            <p>Expand the numerator:</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>( x² + <span class="long-box"></span>x² - <span class="long-box"></span>x )</sup>&frasl;<sub>&radic;(2x - 3)</sub></i>
+            </p>
+            <p>Simplify and factorise the numerator:</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>( <span class="long-box"></span>x² - 6x )</sup>&frasl;<sub>&radic;(2x - 3)</sub> = <sup>x(<span class="long-box"></span>)</sup>&frasl;<sub>&radic;(2x - 3)</sub></i>
+            </p>
+            <p>This shows the required result.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4 (Part b): Find <i>dy/dx</i> at <i>x = 2</i></span>
+            <p>Substitute <i>x = 2</i> into the final expression for <i><sup>dy</sup>&frasl;<sub>dx</sub></i>.</p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>( 2(5(2) - 6) )</sup>&frasl;<sub>&radic;(2(2) - 3)</sub></i>
+            </p>
+            <p class="equation">
+                <i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>( 2(10 - 6) )</sup>&frasl;<sub>&radic;(4 - 3)</sub> = <sup>( 2(<span class="box"></span>) )</sup>&frasl;<sub>&radic;(1)</sub> = <span class="box"></span></i>
+            </p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 5 (Part c): Find the Equation of the Normal</span>
+            <p>We need the point (<i>x₁, y₁</i>) and the normal gradient <i>m_norm</i>.</p>
+            <p>We are given <i>x₁ = 2</i>.</p>
+            <p>Find <i>y₁</i> using the original equation: <i>y₁ = (2)²&radic;(2(2) - 3) = 4&radic;(1) = <span class="box"></span></i>.</p>
+            <p>The tangent gradient <i>m_tan</i> is <i><span class="box"></span></i> (from Part b).</p>
+            <p>The normal gradient <i>m_norm</i> is the negative reciprocal: <i>m_norm = -<sup>1</sup>&frasl;<sub><span class="box"></span></sub></i>.</p>
+            <p>Use the line formula <i>y - y₁ = m(x - x₁)</i>:</p>
+            <p class="equation">
+                <i>y - <span class="box"></span> = -<span class="frac"><span class="frac-num">1</span><span class="frac-den">8</span></span> (x - 2)</i>
+            </p>
+            <p>Multiply the whole equation by 8 to remove the fraction:</p>
+            <p class="equation">
+                <i><span class="box"></span>(y - 4) = -1(x - 2)</i>
+            </p>
+            <p class="equation">
+                <i><span class="box"></span>y - <span class="box"></span> = -x + 2</i>
+            </p>
+            <p>Rearrange into the form <i>ax + by + c = 0</i>:</p>
+            <p class="equation">
+                <i>x + <span class="box"></span>y - <span class="box"></span> = 0</i>
+            </p>
+        </div>
+
+        <!-- Question 12 -->
+        <h2>Step-by-Step Guidance: Question 12 (Optimization - Box)</h2>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Show the Volume Equation</span>
+            <p>When squares of side <i>x</i> are cut from the corners:</p>
+            <ul>
+                <li>The height of the box will be <i>x</i>.</li>
+                <li>The length (originally 16) becomes <i>16 - <span class="box"></span>x</i>.</li>
+                <li>The width (originally 10) becomes <i>10 - <span class="box"></span>x</i>.</li>
+            </ul>
+            <p>Volume <i>V = height × length × width</i></p>
+            <p class="equation"><i>V = x (16 - 2x) (10 - 2x)</i></p>
+            <p>Expand the brackets:</p>
+            <p class="equation"><i>V = x ( 160 - 32x - <span class="box"></span>x + <span class="box"></span>x² )</i></p>
+            <p class="equation"><i>V = x ( 160 - <span class="box"></span>x + 4x² )</i></p>
+            <p>Multiply by <i>x</i> and reorder from highest power:</p>
+            <p class="equation"><i>V = <span class="box"></span>x³ - <span class="box"></span>x² + <span class="long-box"></span>x</i></p>
+            <p>This shows the required result.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2 (Part b): Find the Derivative (<i>dV/dx</i>)</span>
+            <p>To find the maximum <i>V</i>, we first find the derivative of <i>V</i> with respect to <i>x</i>.</p>
+            <p class="equation"><i>V = 4x³ - 52x² + 160x</i></p>
+            <p>Differentiate term by term:</p>
+            <p class="equation"><i><sup>dV</sup>&frasl;<sub>dx</sub> = <span class="long-box"></span>x² - <span class="long-box"></span>x + <span class="long-box"></span></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3: Find the Stationary Points</span>
+            <p>Set the derivative <i><sup>dV</sup>&frasl;<sub>dx</sub></i> equal to zero.</p>
+            <p class="equation"><i>12x² - 104x + 160 = 0</i></p>
+            <p>We can simplify by dividing everything by 4:</p>
+            <p class="equation"><i><span class="box"></span>x² - <span class="box"></span>x + <span class="box"></span> = 0</i></p>
+            <p>Factorise the quadratic:</p>
+            <p class="equation"><i>(3x - <span class="box"></span>)(x - <span class="box"></span>) = 0</i></p>
+            <p>This gives two possible values for <i>x</i>: <i>x = <sup>20</sup>&frasl;<sub>3</sub></i> or <i>x = <span class="box"></span></i>.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 4: Justify the Maximum</span>
+            <p>We must check which value of <i>x</i> is physically possible. The width is <i>10 - 2x</i>, which must be positive. <i>10 - 2x > 0</i> &rArr; <i>10 > 2x</i> &rArr; <i><span class="box"></span> > x</i>.</p>
+            <p>Since <i>x = <sup>20</sup>&frasl;<sub>3</sub></i> (approx 6.7) is greater than 5, it is not a valid solution. Therefore, <i>x = <span class="box"></span></i> must be the correct value.</p>
+            <p>To justify it's a maximum, we use the second derivative:</p>
+            <p class="equation"><i><sup>dV</sup>&frasl;<sub>dx</sub> = 12x² - 104x + 160</i></p>
+            <p class="equation"><i><sup>d²V</sup>&frasl;<sub>dx²</sub> = <span class="box"></span>x - <span class="long-box"></span></i></p>
+            <p>Substitute our valid <i>x = 2</i>:</p>
+            <p class="equation"><i><sup>d²V</sup>&frasl;<sub>dx²</sub> = 24(2) - 104 = 48 - 104 = <span class="long-box"></span></i></p>
+            <p>Since <i><sup>d²V</sup>&frasl;<sub>dx²</sub> < 0</i>, this value of <i>x</i> gives a <b>Maximum</b> value for V.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 5 (Part c): Find the Maximum Value of V</span>
+            <p>Substitute the value <i>x = <span class="box"></span></i> back into the original volume formula.</p>
+            <p class="equation"><i>V = 4x³ - 52x² + 160x</i></p>
+            <p class="equation"><i>V = 4(<span class="box"></span>)³ - 52(<span class="box"></span>)² + 160(<span class="box"></span>)</i></p>
+            <p class="equation"><i>V = 4(<span class="box"></span>) - 52(<span class="box"></span>) + <span class="long-box"></span></i></p>
+            <p class="equation"><i>V = <span class="box"></span> - <span class="long-box"></span> + <span class="long-box"></span> = <span class="long-box"></span></i></p>
+            <p>The maximum value of V is <span class="long-box"></span> cm³.</p>
+        </div>
+        
+        <!-- Question 13 -->
+        <h2>Step-by-Step Guidance: Question 13 (Curve Sketching)</h2>
+        <p class="equation">y = <sup>(5x - 3)</sup>&frasl;<sub>(2x - 1)</sub></p>
+
+        <div class="step">
+            <span class="step-title">Step 1 (Part a): Find the Asymptotes</span>
+            <p>(i) The vertical asymptote occurs when the denominator is zero.</p>
+            <p class="equation"><i>2x - 1 = 0</i> &rArr; <i>x = <span class="frac"><span class="frac-num">1</span><span class="frac-den">2</span></span></i></p>
+            <p>(ii) The horizontal asymptote is found by considering <i>x &rarr; &infin;</i>.</p>
+            <p class="equation"><i>y &asymp; <sup>5x</sup>&frasl;<sub>2x</sub></i> &rArr; <i>y = <span class="frac"><span class="frac-num">5</span><span class="frac-den">2</span></span></i></p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 2 (Part b): Find Intercepts</span>
+            <p>To find the y-intercept, set <i>x = 0</i>:</p>
+            <p class="equation"><i>y = <sup>(5(0) - 3)</sup>&frasl;<sub>(2(0) - 1)</sub> = <sup>-3</sup>&frasl;<sub>-1</sub> = <span class="box"></span></i>. Point is (0, <span class="box"></span>).</p>
+            <p>To find the x-intercept, set <i>y = 0</i> (which means the numerator is 0):</p>
+            <p class="equation"><i>5x - 3 = 0</i> &rArr; <i>x = <span class="frac"><span class="frac-num">3</span><span class="frac-den">5</span></span></i>. Point is (<span class="frac"><span class="frac-num">3</span><span class="frac-den">5</span></span>, 0).</p>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 3 (Part c): Show Gradient is Positive</span>
+            <p>We must use the Quotient Rule: <i><sup>(v(du/dx) - u(dv/dx))</sup>&frasl;<sub>v²</sub></i></p>
+            <ul>
+                <li>Let <i>u = 5x - 3</i>, so <i>du/dx = <span class="box"></span></i></li>
+                <li>Let <i>v = 2x - 1</i>, so <i>dv/dx = <span class="box"></span></i></li>
+            </ul>
+            <p class="equation"><i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>( (2x - 1)(<span class="box"></span>) - (5x - 3)(<span class="box"></span>) )</sup>&frasl;<sub>(2x - 1)²</sub></i></p>
+            <p>Expand the numerator:</p>
+            <p class="equation"><i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>( <span class="long-box"></span> - 5 ) - ( <span class="long-box"></span> - 6 )</sup>&frasl;<sub>(2x - 1)²</sub></i></p>
+            <p class="equation"><i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup>( 10x - 5 - 10x + 6 )</sup>&frasl;<sub>(2x - 1)²</sub></i></p>
+            <p class="equation"><i><sup>dy</sup>&frasl;<sub>dx</sub> = <sup><span class="box"></span></sup>&frasl;<sub>(2x - 1)²</sub></i></p>
+            <p>The numerator is <span class="box"></span> (positive). The denominator <i>(2x - 1)²</i> is a square, so it is always positive. Since <i>(positive) / (positive)</i> is positive, the gradient is always positive.</p>
+        </div>
+        
+        <div class="step">
+            <span class="step-title">Step 4 (Part d): Sketch the Curve</span>
+            <p>Use all the information from Steps 1, 2, and 3:</p>
+            <ul>
+                <li>Draw dashed lines for asymptotes at <i>x = 1/2</i> and <i>y = 5/2</i>.</li>
+                <li>Plot the intercept points (0, 3) and (3/5, 0).</li>
+                <li>Draw the two branches of the hyperbola in the correct quadrants, passing through your points and approaching the asymptotes.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <span class="step-title">Step 5 (Part e): Find the Tangent Equation at <i>x = 1</i></span>
+            <p>We need the point (<i>x₁, y₁</i>) and the gradient <i>m</i>.</p>
+            <p>First, find <i>y₁</i> when <i>x₁ = 1</i>:</p>
+            <p class="equation"><i>y₁ = <sup>(5(1) - 3)</sup>&frasl;<sub>(2(1) - 1)</sub> = <sup>2</sup>&frasl;<sub>1</sub> = <span class="box"></span></i>. Point is (1, <span class="box"></span>).</p>
+            <p>Next, find the gradient <i>m</i> by substituting <i>x = 1</i> into your <i>dy/dx</i> from Step 3:</p>
+            <p class="equation"><i>m = <sup>1</sup>&frasl;<sub>(2(1) - 1)²</sub> = <sup>1</sup>&frasl;<sub>(1)²</sub> = <span class="box"></span></i></p>
+            <p>Now, use the line equation <i>y - y₁ = m(x - x₁)</i>:</p>
+            <p class="equation"><i>y - <span class="box"></span> = <span class="box"></span>(x - 1)</i></p>
+            <p>Rearrange into the form <i>y = mx + c</i>:</p>
+            <p class="equation"><i>y = x - 1 + <span class="box"></span></i></p>
+            <p class="equation"><i>y = x + <span class="box"></span></i></p>
+        </div>
+
+    </div>
+
+</body>
+</html>
