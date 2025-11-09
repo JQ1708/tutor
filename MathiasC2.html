@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Excretory System</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark blue-gray background */
+            color: #E5E7EB; /* Light gray text */
+        }
+
+        /* --- Custom Styles for Interactivity --- */
+
+        /* Mind Map Node */
+        .mind-map-node {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .mind-map-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); /* Blue glow */
+        }
+        .mind-map-node.active {
+            background-color: #3B82F6; /* Blue-500 */
+            color: #FFFFFF;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+        }
+        .mind-map-line {
+            display: none; /* Simplification for this format, but would be lines */
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Flippable Card */
+        .card-container {
+            perspective: 1000px;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .card-container:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .card-front {
+            background-color: #374151; /* Gray-700 */
+            color: #F3F4F6;
+        }
+        .card-back {
+            background-color: #3B82F6; /* Blue-500 */
+            color: #FFFFFF;
+            transform: rotateY(180deg);
+        }
+
+        /* Diagram Placeholder */
+        .diagram-placeholder {
+            border: 4px dashed #4B5563; /* Gray-600 */
+            background-color: #1F2937; /* Gray-800 */
+            color: #9CA3AF; /* Gray-400 */
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Accordion (Skills Check) */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        /* Quiz Styling */
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+        .quiz-option:hover {
+            background-color: #374151; /* Gray-700 */
+        }
+        .quiz-option.selected {
+            background-color: #3B82F6; /* Blue-500 */
+            color: white;
+        }
+        .quiz-result.correct {
+            background-color: #10B981; /* Emerald-500 */
+            color: #064E3B; /* Emerald-900 */
+        }
+        .quiz-result.incorrect {
+            background-color: #EF4444; /* Red-500 */
+            color: #7F1D1D; /* Red-900 */
+        }
+        
+        /* Floating word effect */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-word {
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        /* Keyword Highlighting */
+        .keyword-waste {
+            color: #F87171; /* Red-400 */
+            font-weight: 600;
+        }
+        .keyword-filter {
+            color: #34D399; /* Emerald-400 */
+            font-weight: 600;
+        }
+        .keyword-store {
+            color: #FBBF24; /* Amber-400 */
+            font-weight: 600;
+        }
+        .keyword-special {
+            color: #60A5FA; /* Blue-400 */
+            font-weight: 600;
+            text-decoration: underline wavy #60A5FA;
+            text-underline-offset: 4px;
+        }
+
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto bg-gray-900 p-6 md:p-10 rounded-2xl shadow-2xl border border-gray-700">
+
+        <!-- Header -->
+        <header class="text-center mb-10 border-b border-gray-700 pb-6">
+            <h1 class="text-4xl md:text-5xl font-bold text-white">
+                Chapter 2: The Excretory System
+            </h1>
+-            <p class="text-xl text-gray-400 mt-2">
+-                Let's learn how your body stays clean!
+-            </p>
+         </header>
+ 
+         <!-- Mind Map Navigation -->
+         <nav id="mind-map" class="mb-12">
+-            <h2 class="text-2xl font-semibold text-center text-white mb-6">
+-                Your Learning Path
+-            </h2>
+-            <p class="text-center text-gray-400 mb-8">Click on a topic to start. The path will guide you!</p>
+             <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
+                 <!-- Node 1 -->
+                 <div id="nav-definition" class="mind-map-node bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700 w-60 text-center" onclick="showSection('section-definition', this)">
+                    <span class="text-3xl">🧠</span>
+                    <h3 class="text-xl font-semibold mt-2">What is Excretion?</h3>
+                    <p class="text-sm text-gray-400">The big idea</p>
+                </div>
+                
+                <!-- Node 2 -->
+                <div id="nav-organs" class="mind-map-node bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700 w-60 text-center" onclick="showSection('section-organs', this)">
+                    <span class="text-3xl">🗺️</span>
+                    <h3 class="text-xl font-semibold mt-2">Organs & Structure</h3>
+                    <p class="text-sm text-gray-400">The parts list</p>
+                </div>
+                
+                <!-- Node 3 -->
+                <div id="nav-process" class="mind-map-node bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700 w-60 text-center" onclick="showSection('section-process', this)">
+                    <span class="text-3xl">⚙️</span>
+                    <h3 class="text-xl font-semibold mt-2">How Urine is Made</h3>
+                    <p class="text-sm text-gray-400">The process</p>
+                </div>
+                
+                <!-- Node 4 -->
+                <div id="nav-skills" class="mind-map-node bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700 w-60 text-center" onclick="showSection('section-skills', this)">
+                    <span class="text-3xl">🔬</span>
+                    <h3 class="text-xl font-semibold mt-2">Skills Check</h3>
+                    <p class="text-sm text-gray-400">Think like a scientist</p>
+                </div>
+            </div>
+        </nav>
+
+        <!-- === CONTENT SECTIONS === -->
+
+        <!-- Section 1: Definition -->
+        <section id="section-definition" class="content-section p-6 bg-gray-800 rounded-lg border border-gray-700">
+            <h2 class="text-3xl font-bold text-white mb-6">🧠 What is Excretion?</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4 text-lg text-gray-300">
+                    <p>Let's break it down. Think of your body like a busy factory.</p>
+                    <p>Excretion is the process of <strong class="keyword-waste">getting rid of waste substances</strong> from an organism.</p>
+                    <p>These aren't just any wastes! They are substances the body has <strong class="keyword-special">made inside its cells</strong>. This is <span class="italic">different</span> from getting rid of undigested food (which is egestion).</p>
+                    <p>It's so important that it's one of the <strong class="text-xl font-bold text-cyan-400">seven life processes</strong> (Remember MRS GREN?).</p>
+                </div>
+                
+                <div class="bg-gray-900 p-6 rounded-lg shadow-inner">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Mini-Quiz: Check Your Understanding!</h3>
+                    <p class="mb-2 text-gray-300">Which statement <span class="font-bold">best</span> describes excretion?</p>
+                    <div id="mini-quiz" class="space-y-2">
+                        <button class="mini-quiz-option w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition" onclick="checkMiniQuiz(this, false)">A) The removal of solid waste (faeces) from an organism.</button>
+                        <button class="mini-quiz-option w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition" onclick="checkMiniQuiz(this, true)">B) Getting rid of waste substances made by the body's cells.</button>
+                        <button class="mini-quiz-option w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition" onclick="checkMiniQuiz(this, false)">C) Breathing out carbon dioxide.</button>
+                        <button class="mini-quiz-option w-full text-left p-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition" onclick="checkMiniQuiz(this, false)">D) The removal of water from an organism.</button>
+                    </div>
+                    <p id="mini-quiz-result" class="mt-4 text-center font-semibold"></p>
+                    <p id="mini-quiz-explanation" class="mt-2 text-center text-sm text-gray-400"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Organs & Structure -->
+        <section id="section-organs" class="content-section p-6 bg-gray-800 rounded-lg border border-gray-700">
+            <h2 class="text-3xl font-bold text-white mb-6">🗺️ Organs & Structure</h2>
+            <p class="text-lg text-gray-300 mb-6">The excretory system, also known as the <strong class="keyword-special">renal system</strong>, is a team of organs. Here are the main players!</p>
+            
+            <!-- Diagram Placeholder -->
+            <div class="my-4 text-center">
+    <img src="data:image/jpeg;base64,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"
+         alt="🖼️ Diagram Placeholder Space for: Human Excretory (Renal) System (This diagram should show and label the Kidneys, Ureters, Bladder, and Urethra)"
+         style="max-width:100%; height:auto; border-radius:1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display:block; margin:0 auto;">
+</div>
+
+            <!-- Organ Functions -->
+            <h3 class="text-2xl font-semibold text-white mb-4">Meet the Team</h3>
+            <ul class="space-y-4 text-lg">
+                <li class="p-4 bg-gray-900 rounded-lg shadow-inner">
+                    <strong class="text-2xl keyword-filter">Kidney:</strong> The <span class="italic">main filter!</span> Its job is to <strong class="keyword-filter">filter the blood</strong> and <strong class="keyword-waste">remove wastes like urea</strong>.
+                </li>
+                <li class="p-4 bg-gray-900 rounded-lg shadow-inner">
+                    <strong class="text-2xl text-blue-400">Ureter:</strong> The <span class="italic">transport tube.</span> There are two of them, one from each kidney. They carry urine from the kidney <span class="font-bold">to the bladder</span>.
+                </li>
+                <li class="p-4 bg-gray-900 rounded-lg shadow-inner">
+                    <strong class="text-2xl keyword-store">Bladder:</strong> The <span class="italic">storage tank.</span> It's a muscular bag that <strong class="keyword-store">stores urine</strong> until you're ready to go.
+                </li>
+                <li class="p-4 bg-gray-900 rounded-lg shadow-inner">
+                    <strong class="text-2xl text-purple-400">Urethra:</strong> The <span class="italic">exit pipe.</span> This is the tube that releases urine from the bladder <span class="font-bold">out of the body</span>.
+                </li>
+            </ul>
+
+            <!-- Floating Word Box -->
+            <div class="text-center bg-gray-900 p-6 rounded-lg shadow-inner my-8">
+                <p class="text-lg text-gray-300">Don't forget the... <span class="floating-word text-cyan-300">LUNGS!</span></p>
+                <p class="text-lg text-gray-300 mt-2">That's right! Your lungs are excretory organs too. They excrete <strong class="keyword-waste">carbon dioxide</strong> every time you breathe out.</p>
+            </div>
+
+            <!-- Quiz 1 -->
+            <div id="quiz-organs" class="mt-10">
+                <h3 class="text-2xl font-bold text-white mb-4">Quiz Time: Organs & Structure</h3>
+                <div id="quiz-organs-container" class="space-y-4"></div>
+                <button class="mt-6 py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg transition" onclick="checkQuiz('organs')">Check My Answers</button>
+                <div id="quiz-organs-results" class="mt-4 text-lg font-semibold"></div>
+            </div>
+        </section>
+
+        <!-- Section 3: How Urine is Made -->
+        <section id="section-process" class="content-section p-6 bg-gray-800 rounded-lg border border-gray-700">
+            <h2 class="text-3xl font-bold text-white mb-6">⚙️ How Urine is Made (The Journey)</h2>
+            <p class="text-lg text-gray-300 mb-8">Follow the flow! Urine production is a clear 4-step process. <span class="italic">(Hover over the cards to flip them!)</span></p>
+
+            <div class="grid md:grid-cols-4 gap-6 mb-10">
+                <!-- Card 1 -->
+                <div class="card-container h-56">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h3 class="text-2xl font-bold">Step 1: The Filter</h3>
+                        </div>
+                        <div class="card-back">
+                            <p class="text-lg font-semibold">The <strong class="keyword-filter">KIDNEY</strong> <strong class="keyword-filter">filters the blood</strong>. It pulls out <strong class="keyword-waste">urea</strong>, plus extra water and salts.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card-container h-56">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h3 class="text-2xl font-bold">Step 2: The Tubes</h3>
+                        </div>
+                        <div class="card-back">
+                            <p class="text-lg font-semibold">The waste fluid (now called urine) flows <span class="font-bold">from the kidney</span> down the <strong class="text-blue-300">URETERS</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card-container h-56">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h3 class="text-2xl font-bold">Step 3: Storage</h3>
+                        </div>
+                        <div class="card-back">
+                            <p class="text-lg font-semibold">The <strong class="keyword-store">BLADDER</strong> fills up and <strong class="keyword-store">stores the urine</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="card-container h-56">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h3 class="text-2xl font-bold">Step 4: The Exit</h3>
+                        </div>
+                        <div class="card-back">
+                            <p class="text-lg font-semibold">Urine is released from the bladder and flows <span class="font-bold">out of the body</span> through the <strong class="text-purple-300">URETHRA</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-semibold text-white mb-4">What's Excreted?</h3>
+            <p class="text-lg text-gray-300 mb-4">The body excretes several key waste substances:</p>
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-max text-left bg-gray-900 rounded-lg overflow-hidden shadow-inner">
+                    <thead>
+                        <tr class="bg-gray-700 text-gray-200">
+                            <th class="p-4 text-lg">Waste Substance</th>
+                            <th class="p-4 text-lg">Excreted By...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-700">
+                            <td class="p-4 text-xl font-bold keyword-waste">Urea</td>
+                            <td class="p-4 text-lg"><strong class="keyword-filter">Kidneys</strong> (as part of urine)</td>
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="p-4 text-xl font-bold keyword-waste">Carbon Dioxide</td>
+                            <td class="p-4 text-lg"><strong class="text-cyan-400">Lungs</strong> (when you breathe out)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-xl font-bold text-gray-300">Water & Salts</td>
+                            <td class="p-4 text-lg"><strong class="keyword-filter">Kidneys</strong> (as part of urine, to balance the body)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Quiz 2 -->
+            <div id="quiz-process" class="mt-10">
+                <h3 class="text-2xl font-bold text-white mb-4">Quiz Time: The Urine Process</h3>
+                <div id="quiz-process-container" class="space-y-4"></div>
+                <button class="mt-6 py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg transition" onclick="checkQuiz('process')">Check My Answers</button>
+                <div id="quiz-process-results" class="mt-4 text-lg font-semibold"></div>
+            </div>
+        </section>
+
+        <!-- Section 4: Skills Check -->
+        <section id="section-skills" class="content-section p-6 bg-gray-800 rounded-lg border border-gray-700">
+            <h2 class="text-3xl font-bold text-white mb-6">🔬 Skills Check</h2>
+            <p class="text-lg text-gray-300 mb-6">Knowing the facts is great, but a good scientist also knows <span class="italic">how</span> to think about science. Here's what you need to be able to do:</p>
+
+            <div class="space-y-4">
+                <!-- Accordion Item 1 -->
+                <div>
+                    <button class="w-full p-5 text-left text-xl font-semibold bg-gray-900 hover:bg-gray-700 rounded-lg transition" onclick="toggleAccordion(this)">
+                        <span>➡️</span>
+                        <span class="ml-3">Models & Analogies</span>
+                    </button>
+                    <div class="accordion-content bg-gray-900 p-5 rounded-b-lg">
+                        <p class="text-lg text-gray-300">You should be able to describe the <strong class="text-green-400">uses</strong>, <strong class="text-green-400">strengths</strong>, and <strong class="text-red-400">limitations</strong> of scientific models and analogies (e.g., "the kidney is like a filter" - how is this a good <span class="italic">and</span> a bad comparison?).</p>
+                    </div>
+                </div>
+                <!-- Accordion Item 2 -->
+                <div>
+                    <button class="w-full p-5 text-left text-xl font-semibold bg-gray-900 hover:bg-gray-700 rounded-lg transition" onclick="toggleAccordion(this)">
+                        <span>➡️</span>
+                        <span class="ml-3">Evaluating Experiments</span>
+                    </button>
+                    <div class="accordion-content bg-gray-900 p-5 rounded-b-lg">
+                        <p class="text-lg text-gray-300">You should be able to <strong class="text-yellow-400">evaluate experimental methods</strong>. This means looking at how an experiment was done and explaining any <strong class="text-yellow-400">improvements</strong> you could suggest to make it more accurate or reliable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- Navigation ---
+        let currentSection = null;
+        const navNodes = document.querySelectorAll('.mind-map-node');
+        
+        function showSection(sectionId, navElement) {
+            // Hide current section
+            if (currentSection) {
+                currentSection.style.display = 'none';
+            }
+            
+            // Remove active class from all nav nodes
+            navNodes.forEach(node => node.classList.remove('active'));
+
+            // Show new section
+            const newSection = document.getElementById(sectionId);
+            if (newSection) {
+                newSection.style.display = 'block';
+                currentSection = newSection;
+                // Add active class to clicked nav node
+                if (navElement) {
+                    navElement.classList.add('active');
+                }
+            }
+            
+            // Scroll to the new section
+            if (currentSection) {
+                currentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        // --- Mini-Quiz (Section 1) ---
+        function checkMiniQuiz(selectedButton, isCorrect) {
+            const options = document.querySelectorAll('.mini-quiz-option');
+            const resultText = document.getElementById('mini-quiz-result');
+            const explanationText = document.getElementById('mini-quiz-explanation');
+            
+            options.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-gray-600');
+                if (btn === selectedButton) {
+                    btn.classList.add(isCorrect ? 'bg-green-600' : 'bg-red-600');
+                    btn.classList.remove('bg-gray-700');
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+            
+            if (isCorrect) {
+                resultText.textContent = 'Correct! 🎉';
+                resultText.className = 'mt-4 text-center font-semibold text-green-400';
+                explanationText.textContent = 'Excretion is specifically about waste made by cells (metabolic waste), like urea and CO2.';
+            } else {
+                resultText.textContent = 'Not quite.';
+                resultText.className = 'mt-4 text-center font-semibold text-red-400';
+                if (selectedButton.textContent.includes('solid waste')) {
+                    explanationText.textContent = "That's egestion, not excretion. Excretion is for waste made *inside* your cells.";
+                } else if (selectedButton.textContent.includes('Breathing out')) {
+                    explanationText.textContent = "You're close! That's *an example* of excretion, but B is the best *definition* of the whole process.";
+                } else {
+                    explanationText.textContent = "The correct answer is B. Excretion is specifically about waste made by cells (metabolic waste).";
+                }
+            }
+        }
+
+        // --- Accordion (Section 4) ---
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const isOpen = content.style.maxHeight;
+
+            if (isOpen && isOpen !== "0px") {
+                content.style.maxHeight = "0px";
+                button.querySelector('span').textContent = '➡️';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                button.querySelector('span').textContent = '⬇️';
+            }
+        }
+        
+        // --- Quiz Data (Rule 11) ---
+        const quizData = {
+            'organs': [
+                {
+                    q: "Which organ's main job is to filter blood?",
+                    a: ["Bladder", "Ureter", "Kidney", "Lungs"],
+                    correct: 2
+                },
+                {
+                    q: "What is another name for the excretory system?",
+                    a: ["The Digestive System", "The Renal System", "The Circular System", "The Respiratory System"],
+                    correct: 1
+                },
+                {
+                    q: "Which organ stores urine?",
+                    a: ["Kidney", "Urethra", "Liver", "Bladder"],
+                    correct: 3
+                },
+                {
+                    q: "Which tube carries urine from the kidney to the bladder?",
+                    a: ["Ureter", "Urethra", "Vena Cava", "Aorta"],
+                    correct: 0
+                },
+                {
+                    q: "Which tube releases urine from the body?",
+                    a: ["Ureter", "Bladder", "Urethra", "Kidney"],
+                    correct: 2
+                },
+                {
+                    q: "Which of these is an excretory organ, but NOT part of the renal system?",
+                    a: ["Liver", "Stomach", "Lungs", "Heart"],
+                    correct: 2
+                },
+                {
+                    q: "What waste substance do the lungs excrete?",
+                    a: ["Urea", "Carbon Dioxide", "Oxygen", "Water Vapour"],
+                    correct: 1 // Note: Water vapour is also true, but CO2 is the primary one from the PDF
+                },
+                {
+                    q: "What waste substance do the kidneys primarily remove from the blood?",
+                    a: ["Urea", "Faeces", "Carbon Dioxide", "Sugar"],
+                    correct: 0
+                },
+                {
+                    q: "Excretion is one of the...",
+                    a: ["Three states of matter", "Seven life processes", "Five senses", "Nine planets"],
+                    correct: 1
+                },
+                {
+                    q: "Where are the waste substances made that excretion removes?",
+                    a: ["In the stomach", "In the environment", "Inside the body's cells", "In the food we eat"],
+                    correct: 2
+                }
+            ],
+            'process': [
+                {
+                    q: "What is the FIRST step in the process of urine production?",
+                    a: ["Urine is stored in the bladder", "Kidneys filter the blood", "Urine flows down the ureter", "Urine exits the urethra"],
+                    correct: 1
+                },
+                {
+                    q: "What is the LAST step in the process of urine production?",
+                    a: ["Urine is stored in the bladder", "Kidneys filter the blood", "Urine flows down the ureter", "Urine exits the urethra"],
+                    correct: 3
+                },
+                {
+                    q: "What is the correct order of urine flow?",
+                    a: ["Kidney -> Urethra -> Bladder -> Ureter", "Kidney -> Ureter -> Bladder -> Urethra", "Bladder -> Kidney -> Ureter -> Urethra", "Ureter -> Bladder -> Kidney -> Urethra"],
+                    correct: 1
+                },
+                {
+                    q: "Which organ removes urea from the blood?",
+                    a: ["Bladder", "Lungs", "Kidney", "Liver"],
+                    correct: 2
+                },
+                {
+                    q: "What is the main waste product in urine?",
+                    a: ["Carbon Dioxide", "Sugar", "Urea", "Protein"],
+                    correct: 2
+                },
+                {
+                    q: "What is the function of the bladder?",
+                    a: ["Filter blood", "Make urine", "Store urine", "Excrete carbon dioxide"],
+                    correct: 2
+                },
+                {
+                    q: "The fluid waste produced by the kidneys is called...",
+                    a: ["Sweat", "Blood", "Saliva", "Urine"],
+                    correct: 3
+                },
+                {
+                    q: "Which two substances are excreted by humans?",
+                    a: ["Oxygen and Sugar", "Urea and Carbon Dioxide", "Protein and Starch", "Faeces and Oxygen"],
+                    correct: 1
+                },
+                {
+                    q: "The tube connecting the kidney and the bladder is the...",
+                    a: ["Urethra", "Renal Artery", "Ureter", "Intestine"],
+                    correct: 2
+                },
+                {
+                    q: "The overall process of excretion is to get rid of...",
+                    a: ["Undigested food", "Waste substances made by cells", "Excess heat", "Bacteria and viruses"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // --- Quiz Functions ---
+        
+        function initQuiz(quizId) {
+            const questions = quizData[quizId];
+            const container = document.getElementById(`quiz-${quizId}-container`);
+            if (!questions || !container) return;
+
+            container.innerHTML = ''; // Clear old quiz
+            
+            questions.forEach((q, qIndex) => {
+                let questionBlock = document.createElement('div');
+                questionBlock.className = 'p-4 bg-gray-900 rounded-lg shadow-inner';
+                
+                let questionText = document.createElement('p');
+                questionText.className = 'text-lg font-semibold mb-3 text-gray-200';
+                questionText.textContent = `${qIndex + 1}. ${q.q}`;
+                questionBlock.appendChild(questionText);
+                
+                let optionsList = document.createElement('div');
+                optionsList.className = 'space-y-2';
+                optionsList.setAttribute('role', 'radiogroup');
+                
+                q.a.forEach((option, oIndex) => {
+                    let optionId = `q-${quizId}-${qIndex}-o-${oIndex}`;
+                    
+                    let optionWrapper = document.createElement('div');
+                    
+                    let input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `q-${quizId}-${qIndex}`;
+                    input.id = optionId;
+                    input.value = oIndex;
+                    input.className = 'sr-only'; // Hidden, we style the label
+                    
+                    let label = document.createElement('label');
+                    label.htmlFor = optionId;
+                    label.textContent = option;
+                    label.className = 'quiz-option block w-full p-3 bg-gray-800 rounded-lg cursor-pointer transition';
+                    
+                    // Add click listener to label to update selected state
+                    input.addEventListener('change', () => {
+                        // Remove 'selected' from siblings
+                        optionsList.querySelectorAll('label').forEach(lbl => lbl.classList.remove('selected'));
+                        // Add 'selected' to this one
+                        label.classList.add('selected');
+                    });
+                    
+                    optionWrapper.appendChild(input);
+                    optionWrapper.appendChild(label);
+                    optionsList.appendChild(optionWrapper);
+                });
+                
+                questionBlock.appendChild(optionsList);
+                
+                // Add a div for individual question feedback
+                let feedbackDiv = document.createElement('div');
+                feedbackDiv.id = `feedback-${quizId}-${qIndex}`;
+                feedbackDiv.className = 'quiz-result mt-2 p-2 rounded-lg text-sm font-semibold hidden';
+                questionBlock.appendChild(feedbackDiv);
+                
+                container.appendChild(questionBlock);
+            });
+        }
+
+        function checkQuiz(quizId) {
+            const questions = quizData[quizId];
+            const resultsContainer = document.getElementById(`quiz-${quizId}-results`);
+            let score = 0;
+            
+            if (!questions) return;
+
+            questions.forEach((q, qIndex) => {
+                const selected = document.querySelector(`input[name="q-${quizId}-${qIndex}"]:checked`);
+                const feedbackDiv = document.getElementById(`feedback-${quizId}-${qIndex}`);
+                
+                if (selected) {
+                    const selectedLabel = document.querySelector(`label[for="${selected.id}"]`);
+                    
+                    if (parseInt(selected.value) === q.correct) {
+                        score++;
+                        feedbackDiv.textContent = `Correct!`;
+                        feedbackDiv.className = 'quiz-result correct mt-2 p-2 rounded-lg text-sm font-semibold';
+                    } else {
+                        feedbackDiv.textContent = `Incorrect. The correct answer was: ${q.a[q.correct]}`;
+                        feedbackDiv.className = 'quiz-result incorrect mt-2 p-2 rounded-lg text-sm font-semibold';
+                    }
+                } else {
+                    feedbackDiv.textContent = `You missed this one! The correct answer was: ${q.a[q.correct]}`;
+                    feedbackDiv.className = 'quiz-result incorrect mt-2 p-2 rounded-lg text-sm font-semibold';
+                }
+                feedbackDiv.style.display = 'block';
+            });
+            
+            let total = questions.length;
+            resultsContainer.innerHTML = `You scored ${score} out of ${total}!`;
+            if (score === total) {
+                resultsContainer.innerHTML += ' 🎉 Perfect score!';
+                resultsContainer.className = 'mt-4 text-lg font-semibold text-green-400';
+            } else if (score > total / 2) {
+                resultsContainer.innerHTML += ' 👍 Good job!';
+                resultsContainer.className = 'mt-4 text-lg font-semibold text-yellow-400';
+            } else {
+                resultsContainer.innerHTML += ' 🧐 Keep revising!';
+                resultsContainer.className = 'mt-4 text-lg font-semibold text-red-400';
+            }
+        }
+        
+        // --- Initialize Page ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show the mind map by default, no section
+            document.getElementById('mind-map').style.display = 'block';
+            
+            // Initialize all quizzes
+            initQuiz('organs');
+            initQuiz('process');
+        });
+
+    </script>
+</body>
+</html>
