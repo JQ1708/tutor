@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>慈济60周年 - 浴佛节万人点灯</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .tzuchi-gold { color: #fbbf24; }
+        
+        /* === 核心点阵样式 === */
+        .dot {
+            fill: #334155; /* 默认：暗色 */
+            opacity: 0.3;  
+            r: 1.2; /* 默认半径 */
+            
+            /* Slow Off: 当全亮模式结束时，慢慢变回暗色的过渡时间 */
+            transition: fill 2.5s ease-out, opacity 2.5s ease-out, r 2.5s ease-out, filter 2.5s ease-out;
+            
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+
+        /* 状态1：被点亮的那颗星 (Target) */
+        .dot.active {
+            fill: #fbbf24; /* 金色 */
+            opacity: 1;
+            r: 3.5; /* 放大 */
+            filter: drop-shadow(0 0 5px #fbbf24);
+        }
+
+        /* 状态2：全图亮起模式 (Flash Mode - Instant On) */
+        .flash-mode .dot {
+            fill: #ffffff !important;   /* 纯白 */
+            opacity: 1 !important;      /* 不透明 */
+            r: 3.0 !important;          /* 全体放大 */
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) !important;
+            
+            /* 关键：瞬间点亮，不需要过渡 */
+            transition: none !important;
+        }
+
+        /* 状态3：Target 在全亮模式下的特殊样式 */
+        .flash-mode .dot.active {
+            fill: #fef08a !important; /* 带一点金的白 */
+            r: 4.5 !important;        /* 更大 */
+            z-index: 10;
+        }
+
+        /* 屏幕闪光层 */
+        #screen-flash {
+            position: fixed;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 60;
+            transition: opacity 2.0s ease-out;
+        }
+        #screen-flash.active {
+            opacity: 0.3; /* 瞬间闪一下 */
+            transition: none;
+        }
+
+        /* 飞行光球 */
+        #flying-light {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #fff 40%, #fbbf24 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px #fff, 0 0 40px #fbbf24;
+            pointer-events: none;
+            z-index: 50;
+            display: none;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
+        }
+
+        /* 莲花灯浮动 */
+        .lotus-lamp {
+            filter: drop-shadow(0 0 20px #fbbf24);
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        #analysis-canvas { display: none; }
+        .input-focus-effect:focus {
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+            border-color: #fbbf24;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-between min-h-screen relative">
+
+    <div id="screen-flash"></div>
+
+    <!-- 顶部数据栏 -->
+    <div class="fixed top-0 left-0 w-full z-20 flex justify-between items-start p-4 md:p-8 pointer-events-none">
+        <div class="text-left bg-black/40 backdrop-blur-md p-4 rounded-lg border-l-4 border-yellow-500 shadow-lg">
+            <div class="text-gray-400 text-xs md:text-sm uppercase tracking-wider">已点灯菩萨</div>
+            <div class="text-3xl md:text-5xl font-bold text-white tracking-widest mt-1" id="count-display">0</div>
+        </div>
+        <div class="text-right bg-black/40 backdrop-blur-md p-4 rounded-lg border-r-4 border-gray-500 shadow-lg">
+            <div class="text-gray-400 text-xs md:text-sm uppercase tracking-wider">距离圆满目标</div>
+            <div class="text-3xl md:text-5xl font-bold text-gray-300 tracking-widest mt-1" id="remaining-display">8000</div>
+        </div>
+    </div>
+
+    <!-- 核心区域：SVG 图腾 -->
+    <div class="flex-grow w-full flex flex-col items-center justify-center relative mt-20 mb-32 md:my-0 px-4">
+        
+        <!-- 自动加载状态提示 -->
+        <div id="loading-spinner" class="absolute z-30 flex flex-col items-center justify-center text-yellow-500 transition-opacity duration-300">
+            <svg class="animate-spin h-8 w-8 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="font-bold tracking-widest text-lg">图腾生成中...</span>
+        </div>
+
+        <!-- 手动加载回退 UI (默认隐藏，只有出错时才显示) -->
+        <div id="fallback-ui" class="hidden absolute z-30 flex flex-col items-center bg-slate-900/90 p-8 rounded-xl border border-yellow-500/50 shadow-2xl backdrop-blur text-center max-w-md">
+            <div class="text-yellow-500 text-4xl mb-4">⚠️</div>
+            <h3 class="text-xl text-white font-bold mb-2">本地预览模式</h3>
+            <p class="text-gray-400 text-sm mb-6">
+                无法自动读取 <b>Shape.jpeg</b> (浏览器安全限制)。<br>
+                请点击下方按钮手动选择该图片以继续测试。<br>
+                <span class="text-yellow-600 text-xs block mt-2">(上传至 GitHub 后将自动加载，不再显示此按钮)</span>
+            </p>
+            <label class="cursor-pointer bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-full transition transform active:scale-95">
+                选择 Shape.jpeg
+                <input type="file" id="file-input" accept="image/*" class="hidden">
+            </label>
+        </div>
+
+        <svg id="main-stage" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet" class="w-full max-w-7xl h-auto z-10 opacity-0 transition-opacity duration-1000">
+            <!-- 所有的圆点将通过 JS 动态插入这里 -->
+        </svg>
+    </div>
+
+    <!-- 底部：报名处 -->
+    <div class="w-full bg-slate-900/90 backdrop-blur-xl border-t border-white/10 p-6 z-30 fixed bottom-0 md:relative md:bg-transparent md:border-none md:bottom-auto md:p-10 md:w-auto">
+        <div class="max-w-md mx-auto text-center" id="form-section">
+            <h2 class="text-xl md:text-2xl mb-6 text-white font-light tracking-wide">
+                <span class="text-yellow-500">点亮心灯</span> &middot; 共聚善念
+            </h2>
+            
+            <form id="prayer-form" class="space-y-4">
+                <input type="text" id="name" required placeholder="请输入您的大名" 
+                       class="w-full bg-white/10 border border-white/20 text-white p-4 rounded-lg text-center placeholder-gray-400 input-focus-effect outline-none transition">
+                
+                <input type="tel" id="phone" required placeholder="手机号码" 
+                       class="w-full bg-white/10 border border-white/20 text-white p-4 rounded-lg text-center placeholder-gray-400 input-focus-effect outline-none transition">
+                
+                <button type="submit" 
+                        class="w-full bg-gradient-to-r from-yellow-700 to-yellow-500 hover:from-yellow-600 hover:to-yellow-400 text-white hover:text-black font-bold py-4 px-6 rounded-lg shadow-[0_0_20px_rgba(234,179,8,0.3)] transition-all transform active:scale-95 uppercase tracking-widest">
+                    呈交祈愿
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 动画层 -->
+    <div id="animation-overlay" class="fixed inset-0 bg-black/85 z-40 flex items-center justify-center hidden opacity-0 transition-opacity duration-500">
+        <div id="lamp-container" class="text-center transform scale-0 transition-transform duration-700">
+            <svg width="180" height="140" viewBox="0 0 200 150" class="lotus-lamp mx-auto">
+                <defs>
+                    <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                        <stop offset="0%" style="stop-color:rgb(255, 255, 200);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(250, 204, 21);stop-opacity:0" />
+                    </radialGradient>
+                </defs>
+                <ellipse cx="100" cy="100" rx="60" ry="20" fill="url(#lampGlow)" opacity="0.6" />
+                <path d="M100 130 C 60 130, 40 100, 20 80 C 40 90, 80 110, 100 110 C 120 110, 160 90, 180 80 C 160 100, 140 130, 100 130 Z" fill="#ca8a04" />
+                <path d="M100 115 C 90 85, 70 65, 50 55 C 70 75, 90 95, 100 105 C 110 95, 130 75, 150 55 C 130 65, 110 85, 100 115 Z" fill="#eab308" />
+                <path d="M100 105 C 95 75, 90 45, 100 25 C 110 45, 105 75, 100 105 Z" fill="#fef08a" class="animate-pulse" style="filter: drop-shadow(0 0 5px #fff);" />
+            </svg>
+            <div class="text-yellow-400 mt-6 text-xl tracking-[0.2em] font-light border-t border-b border-yellow-500/30 py-2 inline-block">心灯已点亮</div>
+        </div>
+    </div>
+
+    <!-- 成功弹窗 -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden pointer-events-none">
+        <div class="bg-slate-900/95 p-8 rounded-2xl max-w-sm text-center border border-yellow-500/50 shadow-2xl transform scale-90 opacity-0 transition-all duration-500 pointer-events-auto" id="modal-content">
+            <div class="text-5xl mb-6 animate-bounce">🙏</div>
+            <h3 class="text-xl text-yellow-400 font-bold mb-3 leading-relaxed">
+                感恩报名，<br>我们会尽快与你联系
+            </h3>
+            
+            <button onclick="closeModal()" class="w-full mt-6 border border-yellow-600 text-yellow-500 hover:bg-yellow-600 hover:text-black px-6 py-3 rounded-lg transition font-bold uppercase tracking-wider">
+                关闭
+            </button>
+        </div>
+    </div>
+
+    <div id="flying-light"></div>
+    <canvas id="analysis-canvas"></canvas>
+
+    <script>
+        const CONFIG = {
+            totalDots: 8000,
+            targetCount: 8000,
+            storageKey: 'tzuchi_event_data_v2',
+            imagePath: 'Shape.jpeg' 
+        };
+
+        let state = {
+            count: parseInt(localStorage.getItem(CONFIG.storageKey)) || 0,
+            dots: [], 
+            availableIndices: [] 
+        };
+
+        const ui = {
+            stage: document.getElementById('main-stage'),
+            count: document.getElementById('count-display'),
+            remaining: document.getElementById('remaining-display'),
+            form: document.getElementById('prayer-form'),
+            overlay: document.getElementById('animation-overlay'),
+            lamp: document.getElementById('lamp-container'),
+            flyer: document.getElementById('flying-light'),
+            modal: document.getElementById('success-modal'),
+            modalContent: document.getElementById('modal-content'),
+            spinner: document.getElementById('loading-spinner'),
+            fallback: document.getElementById('fallback-ui'),
+            fileInput: document.getElementById('file-input'),
+            screenFlash: document.getElementById('screen-flash')
+        };
+
+        function init() {
+            updateStats();
+            
+            // 自动加载图片
+            const img = new Image();
+            img.crossOrigin = "Anonymous"; 
+            
+            img.onload = () => processImage(img);
+            
+            img.onerror = () => {
+                // 如果自动加载失败（通常是因为本地环境/预览环境的安全限制）
+                // 则隐藏 Loading，显示手动选择按钮
+                // 注意：在 GitHub Pages 等服务器环境下，只要文件名正确，这里不会触发
+                console.log("自动加载失败 (CORS/Path limit)，切换至手动模式。");
+                ui.spinner.classList.add('opacity-0');
+                setTimeout(() => ui.spinner.classList.add('hidden'), 300);
+                
+                ui.fallback.classList.remove('hidden');
+            };
+            
+            // 开始加载
+            img.src = CONFIG.imagePath;
+        }
+
+        // 监听手动选择文件 (仅用于本地/预览调试)
+        ui.fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                ui.fallback.classList.add('hidden');
+                ui.spinner.classList.remove('hidden', 'opacity-0');
+                
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => processImage(img);
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function processImage(img) {
+            // 给一点延迟让UI显得更自然
+            setTimeout(() => {
+                const canvas = document.getElementById('analysis-canvas');
+                const ctx = canvas.getContext('2d');
+                
+                const w = 1000;
+                const h = 400;
+                canvas.width = w;
+                canvas.height = h;
+
+                // 保持比例绘制图片
+                const scale = Math.min(w / img.width, h / img.height);
+                const drawW = img.width * scale;
+                const drawH = img.height * scale;
+                const offsetX = (w - drawW) / 2;
+                const offsetY = (h - drawH) / 2;
+
+                // 绘制背景和图片
+                ctx.fillStyle = "#FFFFFF"; 
+                ctx.fillRect(0, 0, w, h);
+                ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
+
+                const imageData = ctx.getImageData(0, 0, w, h);
+                const data = imageData.data;
+                const darkPixels = [];
+
+                // 采样像素
+                for (let y = 0; y < h; y += 2) {
+                    for (let x = 0; x < w; x += 2) {
+                        const i = (y * w + x) * 4;
+                        const r = data[i];
+                        const g = data[i+1];
+                        const b = data[i+2];
+                        const alpha = data[i+3];
+
+                        // 识别深色区域
+                        if (alpha > 128 && r < 180 && g < 180 && b < 180) {
+                            darkPixels.push({x, y});
+                        }
+                    }
+                }
+
+                generateDotsFromPixels(darkPixels);
+            }, 500);
+        }
+
+        function generateDotsFromPixels(pixelPool) {
+            const fragment = document.createDocumentFragment();
+            state.dots = [];
+            state.availableIndices = [];
+            
+            for (let i = 0; i < CONFIG.totalDots; i++) {
+                let p;
+                if (pixelPool.length > 0) {
+                    const randIndex = Math.floor(Math.random() * pixelPool.length);
+                    p = pixelPool[randIndex];
+                    // 微小抖动，增加自然感
+                    p = {
+                        x: p.x + (Math.random() - 0.5) * 3, 
+                        y: p.y + (Math.random() - 0.5) * 3
+                    };
+                } else {
+                    p = {x: 500, y: 200};
+                }
+
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", p.x.toFixed(1));
+                circle.setAttribute("cy", p.y.toFixed(1));
+                
+                // 随机大小 1.0 - 1.8
+                const r = 1.0 + Math.random() * 0.8;
+                circle.setAttribute("r", r);
+                circle.setAttribute("class", "dot");
+                
+                fragment.appendChild(circle);
+
+                state.dots.push({
+                    el: circle,
+                    x: p.x,
+                    y: p.y
+                });
+            }
+
+            // 随机化点灯顺序
+            const indices = Array.from({length: CONFIG.totalDots}, (_, k) => k);
+            shuffleArray(indices);
+            state.availableIndices = indices;
+
+            // 渲染到舞台
+            ui.stage.innerHTML = '';
+            ui.stage.appendChild(fragment);
+            
+            // 隐藏Loading，显示舞台
+            ui.spinner.classList.add('hidden');
+            ui.stage.classList.remove('opacity-0');
+
+            restoreProgress();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function updateStats() {
+            ui.count.innerText = state.count;
+            const remaining = CONFIG.targetCount - state.count;
+            ui.remaining.innerText = Math.max(0, remaining);
+        }
+
+        function restoreProgress() {
+            for (let i = 0; i < state.count && i < state.availableIndices.length; i++) {
+                const dotIndex = state.availableIndices[i];
+                const dot = state.dots[dotIndex];
+                if (dot) {
+                    dot.el.classList.add('active');
+                }
+            }
+        }
+
+        ui.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            if (!name || !phone) return;
+
+            const btn = ui.form.querySelector('button');
+            const originalText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = "祈愿传送中...";
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            startRitual(() => {
+                state.count++;
+                localStorage.setItem(CONFIG.storageKey, state.count);
+                updateStats();
+
+                btn.disabled = false;
+                btn.innerText = originalText;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                ui.form.reset();
+            });
+        });
+
+        function startRitual(callback) {
+            ui.overlay.classList.remove('hidden');
+            void ui.overlay.offsetWidth; 
+            ui.overlay.classList.remove('opacity-0');
+            
+            setTimeout(() => {
+                ui.lamp.classList.remove('scale-0');
+                ui.lamp.classList.add('scale-100');
+            }, 100);
+
+            // 停留 1.5s 后，化光飞入
+            setTimeout(() => {
+                const nextIndexPtr = state.count; 
+                
+                if (nextIndexPtr >= state.availableIndices.length) {
+                    alert("功德圆满！");
+                    ui.overlay.classList.add('hidden');
+                    return;
+                }
+
+                const targetDotIndex = state.availableIndices[nextIndexPtr];
+                const targetDot = state.dots[targetDotIndex];
+
+                const lampRect = ui.lamp.getBoundingClientRect();
+                const startX = lampRect.left + lampRect.width / 2;
+                const startY = lampRect.top + lampRect.height / 2;
+
+                const pt = ui.stage.createSVGPoint();
+                pt.x = targetDot.x;
+                pt.y = targetDot.y;
+                const globalPt = pt.matrixTransform(ui.stage.getScreenCTM());
+
+                ui.flyer.style.display = 'block';
+                ui.flyer.style.transform = `translate(${startX}px, ${startY}px) scale(2)`;
+                ui.flyer.style.opacity = '1';
+
+                ui.lamp.classList.remove('scale-100');
+                ui.lamp.classList.add('scale-0');
+
+                requestAnimationFrame(() => {
+                    ui.flyer.style.transform = `translate(${globalPt.x}px, ${globalPt.y}px) scale(0.5)`;
+                });
+
+                // 1.5s 后到达
+                setTimeout(() => {
+                    ui.flyer.style.opacity = '0';
+                    setTimeout(() => ui.flyer.style.display = 'none', 500);
+
+                    targetDot.el.classList.add('active');
+
+                    // === 视觉高潮：Flash Mode + Screen Flash ===
+                    ui.stage.classList.add('flash-mode');
+                    ui.screenFlash.classList.add('active');
+
+                    // 维持 1.2 秒的全亮状态
+                    setTimeout(() => {
+                        // 移除高亮 -> 触发 Slow Off (2.5s)
+                        ui.stage.classList.remove('flash-mode');
+                        ui.screenFlash.classList.remove('active');
+
+                        // 等待收缩动画进行一部分 (2s) 后再弹出视窗
+                        setTimeout(() => {
+                            ui.overlay.classList.add('opacity-0');
+                            setTimeout(() => {
+                                ui.overlay.classList.add('hidden');
+                                ui.modal.classList.remove('hidden');
+                                setTimeout(() => {
+                                    ui.modalContent.classList.remove('scale-90', 'opacity-0');
+                                    ui.modalContent.classList.add('scale-100', 'opacity-100');
+                                }, 50);
+
+                                callback(); 
+                            }, 500);
+                        }, 2000); 
+
+                    }, 1200); // 维持全亮时间
+
+                }, 1500); // 飞行时间
+
+            }, 2000); // 停留时间
+        }
+
+        function closeModal() {
+            ui.modalContent.classList.remove('scale-100', 'opacity-100');
+            ui.modalContent.classList.add('scale-90', 'opacity-0');
+            setTimeout(() => {
+                ui.modal.classList.add('hidden');
+            }, 300);
+        }
+
+        window.onload = init;
+
+    </script>
+</body>
+</html>
