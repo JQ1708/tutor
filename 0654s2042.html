@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0654/42 Summer 2020 Revision</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Light grey background */
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Soft drop shadow */
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50; /* Medium blue */
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e0e0e0; /* Light divider */
+            padding-bottom: 30px;
+        }
+
+        .question-header {
+            font-size: 0.9em;
+            color: #7f8c8d; /* Grey text */
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .sub-question {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .diagram-placeholder {
+            border: 2px dashed #bdc3c7; /* Dashed grey border */
+            background-color: #f9f9f9; /* Light grey background */
+            color: #7f8c8d;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        /* Interactive Answer Bar */
+        .answer-trigger {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-top: 20px;
+            user-select: none;
+            position: relative;
+        }
+
+        .answer-trigger::after {
+            content: "Tap to reveal answer";
+        }
+
+        .answer-trigger:hover {
+            background-color: #f8f9fa;
+            border-color: #bdc3c7;
+            color: #7f8c8d;
+        }
+
+        .answer-content {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-left: 3px solid #2c3e50;
+            margin-top: 10px;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .keyword {
+            color: #c0392b; /* Bold red for keywords */
+            font-weight: bold;
+        }
+
+        /* Recap Section - Glassmorphism */
+        .recap-container {
+            margin-top: 20px;
+        }
+
+        .recap-header {
+            background: rgba(189, 195, 199, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(200, 200, 200, 0.3);
+            color: #7f8c8d;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .recap-header:hover {
+            background: rgba(189, 195, 199, 0.5);
+        }
+
+        .recap-content {
+            display: none;
+            background-color: #fffcf0; /* Soft yellow */
+            border: 1px solid #f1c40f; /* Gold border */
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #444;
+        }
+
+        .recap-content ul, .recap-content ol {
+            padding-left: 20px;
+            margin: 5px 0;
+        }
+        
+        .recap-content li {
+            margin-bottom: 5px;
+        }
+
+        /* Math Formatting */
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .numerator {
+            display: block;
+            border-bottom: 1px solid black;
+            padding: 0 2px;
+        }
+        .denominator {
+            display: block;
+            padding: 0 2px;
+        }
+        .sqrt-symbol {
+            font-size: 1.2em;
+            vertical-align: bottom;
+        }
+        .sqrt-content {
+            border-top: 1px solid black;
+            padding-top: 1px;
+        }
+        .equation {
+            font-style: italic;
+        }
+
+        /* Specific Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+    <script>
+        function toggleAnswer(id) {
+            var element = document.getElementById('ans-' + id);
+            var trigger = document.getElementById('trig-' + id);
+            
+            if (element.style.display === 'block') {
+                element.style.display = 'none';
+                trigger.style.display = 'block';
+            } else {
+                element.style.display = 'block';
+                trigger.style.display = 'none';
+            }
+        }
+
+        function toggleRecap(id) {
+            var element = document.getElementById('recap-' + id);
+            if (element.style.display === 'block') {
+                element.style.display = 'none';
+            } else {
+                element.style.display = 'block';
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h1>0654/42 Summer 2020 Revision</h1>
+
+    <!-- Question 1 -->
+    <div class="question-block">
+        <div class="question-header">Question 1 (0654/42_Summer_2020_Q1) - Biology</div>
+        
+        <div class="question-text">
+            (a) Fig. 1.1 is a photomicrograph of pollen from an insect-pollinated plant.
+            <div class="diagram-placeholder">Space for Question 1a (Fig 1.1)</div>
+            Describe one visible piece of evidence that shows this pollen is from an insect-pollinated plant. [1]
+        </div>
+
+        <div id="trig-1a" class="answer-trigger" onclick="toggleAnswer('1a')"></div>
+        <div id="ans-1a" class="answer-content">
+            <span class="keyword">spiky</span> (surface); [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('1a')">RECAP</div>
+                <div id="recap-1a" class="recap-content">
+                    <strong>Pollen Adaptations:</strong>
+                    <ul>
+                        <li><strong>Insect-pollinated:</strong> Spiky or sticky (to attach to insects), larger, heavier, produced in smaller numbers.</li>
+                        <li><strong>Wind-pollinated:</strong> Smooth, light, small (to be carried by wind), produced in large amounts.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (b) Fig. 1.2 is a diagram of a flower from a wind-pollinated plant.
+            <div class="diagram-placeholder">Space for Question 1b (Fig 1.2)</div>
+            Describe two ways the stigma shown in Fig. 1.2 is specialised for wind-pollination. [2]
+            <br>1
+            <br>2
+        </div>
+
+        <div id="trig-1b" class="answer-trigger" onclick="toggleAnswer('1b')"></div>
+        <div id="ans-1b" class="answer-content">
+            1. stigma <span class="keyword">feathery</span>; [1]<br>
+            2. stigma <span class="keyword">hangs outside</span> flower; [1]
+        </div>
+
+        <div class="question-text">
+            (c) Pollination is the transfer of pollen. This can lead to fertilisation.
+            Describe the process of fertilisation in plants. [2]
+        </div>
+
+        <div id="trig-1c" class="answer-trigger" onclick="toggleAnswer('1c')"></div>
+        <div id="ans-1c" class="answer-content">
+            <span class="keyword">fusion</span> of <span class="keyword">nuclei</span>; [1]<br>
+            ref to <span class="keyword">pollen</span> and <span class="keyword">ovule</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (d) A species of flowering plant has 18 chromosomes in its mesophyll cells.
+            Deduce the number of chromosomes in its:
+            <br><br>
+            male gametes in its pollen ..............................................................
+            <br><br>
+            root hair cells. .............................................................. [2]
+        </div>
+
+        <div id="trig-1d" class="answer-trigger" onclick="toggleAnswer('1d')"></div>
+        <div id="ans-1d" class="answer-content">
+            male gametes: <span class="keyword">9</span>; [1]<br>
+            root hair cells: <span class="keyword">18</span>; [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('1d')">RECAP</div>
+                <div id="recap-1d" class="recap-content">
+                    <strong>Chromosome Numbers:</strong>
+                    <ul>
+                        <li><strong>Diploid (2n):</strong> Body cells (e.g., leaf, root, skin). Full set of chromosomes (e.g., 46 in humans, 18 in this plant).</li>
+                        <li><strong>Haploid (n):</strong> Gametes (Sperm, Egg, Pollen). Half set of chromosomes (e.g., 23 in humans, 9 in this plant).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (e) Plants can reproduce asexually or sexually.
+            Describe one advantage and one disadvantage of plants reproducing asexually in the wild. [2]
+            <br><br>
+            advantage ....................................................................................................................................
+            <br><br>
+            disadvantage .................................................................................................................................
+        </div>
+
+        <div id="trig-1e" class="answer-trigger" onclick="toggleAnswer('1e')"></div>
+        <div id="ans-1e" class="answer-content">
+            <strong>advantage:</strong> <span class="keyword">fast</span> / <span class="keyword">colonise</span> areas quickly / only requires <span class="keyword">one parent</span>; [1]<br>
+            <strong>disadvantage:</strong> <span class="keyword">no variety</span> / more prone to <span class="keyword">extinction</span> / more susceptible to <span class="keyword">disease</span>; [1]
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-block">
+        <div class="question-header">Question 2 (0654/42_Summer_2020_Q2) - Chemistry</div>
+        
+        <div class="question-text">
+            (a) (i) Fig. 2.1 shows the three states of matter.
+            Complete the labels on Fig. 2.1. [2]
+            <div class="diagram-placeholder">Space for Question 2a(i) (Fig 2.1)</div>
+            (Arrows indicating changes of state between solid, liquid and gas)
+        </div>
+
+        <div id="trig-2ai" class="answer-trigger" onclick="toggleAnswer('2ai')"></div>
+        <div id="ans-2ai" class="answer-content">
+            solid to liquid = <span class="keyword">melting</span>; [1]<br>
+            gas to liquid = <span class="keyword">condensing</span>; [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('2ai')">RECAP</div>
+                <div id="recap-2ai" class="recap-content">
+                    <strong>Changes of State:</strong>
+                    <ul>
+                        <li>Solid &rarr; Liquid: Melting</li>
+                        <li>Liquid &rarr; Gas: Boiling / Evaporation</li>
+                        <li>Gas &rarr; Liquid: Condensing</li>
+                        <li>Liquid &rarr; Solid: Freezing</li>
+                        <li>Solid &rarr; Gas: Sublimation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (ii) Describe what happens to the total kinetic energy of the particles as the gas changes to a liquid and then to a solid. [1]
+        </div>
+
+        <div id="trig-2aii" class="answer-trigger" onclick="toggleAnswer('2aii')"></div>
+        <div id="ans-2aii" class="answer-content">
+            (kinetic energy) <span class="keyword">decreases</span> / owtte [1]
+        </div>
+
+        <div class="question-text">
+            (b) A scientist analyses an unknown ink sample and four dyes, A, B, C and D.
+            <div class="diagram-placeholder">Space for Question 2b (Fig 2.2 Chromatogram)</div>
+            Fig. 2.2 shows the chromatogram produced.
+            <br><br>
+            (i) Calculate the <span class="equation">R<sub>f</sub></span> value for dye A. [2]
+            <br>
+            <span class="equation">R<sub>f</sub></span> value = ..............................................................
+        </div>
+
+        <div id="trig-2bi" class="answer-trigger" onclick="toggleAnswer('2bi')"></div>
+        <div id="ans-2bi" class="answer-content">
+            <span class="equation">(R<sub>f</sub>=)</span> <div class="fraction"><span class="numerator">distance travelled by substance</span><span class="denominator">distance travelled by solvent</span></div> or <span class="keyword">2.3 &divide; 5.8</span>; [1]<br>
+            = <span class="keyword">0.4</span>; [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('2bi')">RECAP</div>
+                <div id="recap-2bi" class="recap-content">
+                    <strong>Chromatography:</strong>
+                    <ul>
+                        <li><span class="equation">R<sub>f</sub></span> value is always less than 1.</li>
+                        <li>Formula: <div class="fraction"><span class="numerator">Distance moved by spot</span><span class="denominator">Distance moved by solvent front</span></div></li>
+                        <li>Used to identify pure substances (they produce one spot).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (ii) State which dye cannot be in the ink sample.
+            Explain your answer. [2]
+            <br><br>
+            dye ..............................................................
+            <br><br>
+            explanation ..............................................................
+        </div>
+
+        <div id="trig-2bii" class="answer-trigger" onclick="toggleAnswer('2bii')"></div>
+        <div id="ans-2bii" class="answer-content">
+            dye: <span class="keyword">dye B</span>; [1]<br>
+            explanation: idea that the <span class="keyword">colours</span> (in dye B) <span class="keyword">moved different distances</span> up the paper from the colours in the ink sample; [1]
+        </div>
+
+        <div class="question-text">
+            (iii) A solvent is used during chromatography.
+            Define the term solvent. [1]
+        </div>
+
+        <div id="trig-2biii" class="answer-trigger" onclick="toggleAnswer('2biii')"></div>
+        <div id="ans-2biii" class="answer-content">
+            a substance that can <span class="keyword">dissolve</span> a solute (to form a solution) [1]
+        </div>
+
+        <div class="question-text">
+            (c) Table 2.1 shows the melting point of two substances, X and Y.
+            <br><br>
+            <strong>Table 2.1</strong>
+            <table>
+                <tr>
+                    <th>substance</th>
+                    <th>melting point/&deg;C</th>
+                </tr>
+                <tr>
+                    <td>X</td>
+                    <td>84</td>
+                </tr>
+                <tr>
+                    <td>Y</td>
+                    <td>78-82</td>
+                </tr>
+            </table>
+            <br>
+            State which substance is pure.
+            Explain your answer. [1]
+            <br><br>
+            pure substance ..............................................................
+            <br><br>
+            explanation ..............................................................
+        </div>
+
+        <div id="trig-2c" class="answer-trigger" onclick="toggleAnswer('2c')"></div>
+        <div id="ans-2c" class="answer-content">
+            pure substance is <span class="keyword">X</span><br>
+            idea that pure substances have a <span class="keyword">specific melting point</span> / ORA / idea that pure substances do not melt over a range (of temperatures) / ORA; [1]
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-block">
+        <div class="question-header">Question 3 (0654/42_Summer_2020_Q3) - Physics</div>
+        
+        <div class="question-text">
+            (a) A car has two identical headlamps <span class="equation">L<sub>1</sub></span> and <span class="equation">L<sub>2</sub></span>.
+            The lamps are connected in parallel across a 12V battery as shown in Fig. 3.1.
+            <div class="diagram-placeholder">Space for Question 3a (Fig 3.1 Circuit Diagram)</div>
+            (i) The current passing through <span class="equation">L<sub>1</sub></span> is 5.0A.
+            Show that the resistance of <span class="equation">L<sub>1</sub></span> is 2.4 &Omega;. [2]
+        </div>
+
+        <div id="trig-3ai" class="answer-trigger" onclick="toggleAnswer('3ai')"></div>
+        <div id="ans-3ai" class="answer-content">
+            <span class="equation">R = V &divide; I</span> [1]<br>
+            = <span class="keyword">12 &divide; 5.0</span>; [1]<br>
+            (= 2.4 &Omega;)
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('3ai')">RECAP</div>
+                <div id="recap-3ai" class="recap-content">
+                    <strong>Ohm's Law:</strong>
+                    <br>
+                    <span class="equation">V = I x R</span>
+                    <br>
+                    Where V is Voltage (Volts), I is Current (Amps), and R is Resistance (Ohms).
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (ii) Calculate the combined resistance of the two lamps connected in parallel. [2]
+            <br>
+            resistance = .............................................................. &Omega;
+        </div>
+
+        <div id="trig-3aii" class="answer-trigger" onclick="toggleAnswer('3aii')"></div>
+        <div id="ans-3aii" class="answer-content">
+            <span class="equation">1/R<sub>T</sub> = 1/R<sub>1</sub> + 1/R<sub>2</sub></span> or <span class="equation">R<sub>T</sub> = (R<sub>1</sub> x R<sub>2</sub>)/(R<sub>1</sub> + R<sub>2</sub>)</span> or correct substitution; [1]<br>
+            <span class="keyword">1.2</span> (&Omega;); [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('3aii')">RECAP</div>
+                <div id="recap-3aii" class="recap-content">
+                    <strong>Resistors in Parallel:</strong>
+                    <br>
+                    Total resistance is always <em>less</em> than the smallest individual resistor.
+                    <br>
+                    Formula: <div class="fraction"><span class="numerator">1</span><span class="denominator">R<sub>total</sub></span></div> = <div class="fraction"><span class="numerator">1</span><span class="denominator">R<sub>1</sub></span></div> + <div class="fraction"><span class="numerator">1</span><span class="denominator">R<sub>2</sub></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (iii) State one reason why the lamps are connected in parallel rather than in series. [1]
+        </div>
+
+        <div id="trig-3aiii" class="answer-trigger" onclick="toggleAnswer('3aiii')"></div>
+        <div id="ans-3aiii" class="answer-content">
+            both lamps get <span class="keyword">full voltage</span>; [1]<br>
+            if one lamp fails the other <span class="keyword">will still work</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (b) The headlamps emit visible light. The frequency of some of this light is <span class="equation">6.0 x 10<sup>14</sup> Hz</span>.
+            Calculate the wavelength of this light. [3]
+            <br>
+            wavelength = .............................................................. m
+        </div>
+
+        <div id="trig-3b" class="answer-trigger" onclick="toggleAnswer('3b')"></div>
+        <div id="ans-3b" class="answer-content">
+            <span class="equation">v = f x &lambda;</span> or correct substitution; [1]<br>
+            (speed of light =) <span class="keyword">3 x 10<sup>8</sup></span> (m) seen; [1]<br>
+            = <span class="keyword">5 x 10<sup>-7</sup></span> (m); [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('3b')">RECAP</div>
+                <div id="recap-3b" class="recap-content">
+                    <strong>Wave Equation:</strong>
+                    <br>
+                    <span class="equation">speed (v) = frequency (f) x wavelength (&lambda;)</span>
+                    <br>
+                    <strong>Speed of Light (c):</strong> Constant in a vacuum: <span class="equation">3.0 x 10<sup>8</sup> m/s</span>.
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (c) The car engine is noisy and emits sound waves that pass through the air as a series of compressions and rarefactions.
+            Fig. 3.2 shows the positions of the compressions and rarefactions as the sound wave passes through the air.
+            <div class="diagram-placeholder">Space for Question 3c (Fig 3.2)</div>
+            (i) On Fig. 3.2 label the centre of a rarefaction with the letter R. [1]
+        </div>
+
+        <div id="trig-3ci" class="answer-trigger" onclick="toggleAnswer('3ci')"></div>
+        <div id="ans-3ci" class="answer-content">
+            <span class="keyword">R</span>; [1]<br>
+            rarefaction correctly labelled with the letter R (region where lines are furthest apart);
+        </div>
+
+        <div class="question-text">
+            (ii) Explain in terms of compressions what is meant by the frequency of a sound wave. [1]
+        </div>
+
+        <div id="trig-3cii" class="answer-trigger" onclick="toggleAnswer('3cii')"></div>
+        <div id="ans-3cii" class="answer-content">
+            number of <span class="keyword">compressions per second</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (d) The steel radiator on the car transfers thermal energy through the radiator wall by conduction.
+            Describe how thermal energy passes through a metal by conduction. [2]
+        </div>
+
+        <div id="trig-3d" class="answer-trigger" onclick="toggleAnswer('3d')"></div>
+        <div id="ans-3d" class="answer-content">
+            thermal energy transferred as <span class="keyword">(vibrational) energy of atoms</span>; [1]<br>
+            vibrations passed from atom to atom;<br>
+            <span class="keyword">delocalised electrons</span> transfer energy; [1]
+        </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question-block">
+        <div class="question-header">Question 4 (0654/42_Summer_2020_Q4) - Biology</div>
+        
+        <div class="question-text">
+            (a) A student measures his breathing rate at rest and during exercise.
+            The results are shown in Table 4.1.
+            <br>
+            <strong>Table 4.1</strong>
+            <table>
+                <tr>
+                    <th rowspan="2">average breathing rate/number of breaths per minute</th>
+                    <th>at rest</th>
+                    <th>during exercise</th>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>62</td>
+                </tr>
+            </table>
+            <br>
+            (i) The student exercises for 30 minutes.
+            Calculate the average number of breaths taken during 30 minutes of exercise. [1]
+        </div>
+
+        <div id="trig-4ai" class="answer-trigger" onclick="toggleAnswer('4ai')"></div>
+        <div id="ans-4ai" class="answer-content">
+            <span class="equation">(62 x 30)</span> = <span class="keyword">1860</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (ii) Explain the reasons for the difference in breathing rate shown in Table 4.1. [3]
+        </div>
+
+        <div id="trig-4aii" class="answer-trigger" onclick="toggleAnswer('4aii')"></div>
+        <div id="ans-4aii" class="answer-content">
+            (increase in physical activity)<br>
+            increases need for <span class="keyword">energy</span> (for muscle contraction); [1]<br>
+            increase in <span class="keyword">respiration</span>; [1]<br>
+            increase in requirement for <span class="keyword">oxygen</span>; [1]<br>
+            increase on concentration of <span class="keyword">carbon dioxide</span> in blood;
+        </div>
+
+        <div class="question-text">
+            (iii) Describe two ways that the composition of inspired air differs from expired air. [2]
+            <br>1
+            <br>2
+        </div>
+
+        <div id="trig-4aiii" class="answer-trigger" onclick="toggleAnswer('4aiii')"></div>
+        <div id="ans-4aiii" class="answer-content">
+            more <span class="keyword">oxygen</span>; [1]<br>
+            less <span class="keyword">carbon dioxide</span>; [1]<br>
+            less <span class="keyword">water vapour</span>;
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('4aiii')">RECAP</div>
+                <div id="recap-4aiii" class="recap-content">
+                    <strong>Composition of Air:</strong>
+                    <ul>
+                        <li><strong>Inhaled (Inspired):</strong> 21% Oxygen, 0.04% Carbon Dioxide, Variable Water Vapour.</li>
+                        <li><strong>Exhaled (Expired):</strong> 16% Oxygen, 4% Carbon Dioxide, Saturated Water Vapour.</li>
+                        <li><strong>Nitrogen:</strong> 78% in both (not used by body).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (b) Alveoli are the site of gas exchange.
+            One of the features of gas exchange surfaces is that they are surrounded by capillaries providing a good blood supply.
+            (i) List two other features of gas exchange surfaces in humans. [2]
+            <br>1
+            <br>2
+        </div>
+
+        <div id="trig-4bi" class="answer-trigger" onclick="toggleAnswer('4bi')"></div>
+        <div id="ans-4bi" class="answer-content">
+            any two from:<br>
+            <span class="keyword">thin</span>; [1]<br>
+            <span class="keyword">ventilated</span>; [1]<br>
+            <span class="keyword">large surface area</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (ii) Describe how capillaries are adapted for their function. [2]
+        </div>
+
+        <div id="trig-4bii" class="answer-trigger" onclick="toggleAnswer('4bii')"></div>
+        <div id="ans-4bii" class="answer-content">
+            <span class="keyword">thin (wall)</span> / (wall) only one cell thick; [1]<br>
+            reduces <span class="keyword">diffusion distance</span>; [1]
+        </div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question-block">
+        <div class="question-header">Question 5 (0654/42_Summer_2020_Q5) - Chemistry</div>
+        
+        <div class="question-text">
+            5 Aluminium is used to make aircraft parts.
+            (a) State how aluminium is extracted from aluminium oxide. [1]
+        </div>
+
+        <div id="trig-5a" class="answer-trigger" onclick="toggleAnswer('5a')"></div>
+        <div id="ans-5a" class="answer-content">
+            <span class="keyword">electrolysis</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (b) Explain why aluminium is used to make aircraft parts. [2]
+        </div>
+
+        <div id="trig-5b" class="answer-trigger" onclick="toggleAnswer('5b')"></div>
+        <div id="ans-5b" class="answer-content">
+            <span class="keyword">strong</span>; [1]<br>
+            <span class="keyword">low density</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (c) Table 5.1 shows information about the reactions of some metals.
+            <br>
+            <strong>Table 5.1</strong>
+            <table>
+                <tr>
+                    <th>metal</th>
+                    <th>reaction with dilute hydrochloric acid</th>
+                </tr>
+                <tr>
+                    <td>gold</td>
+                    <td>no reaction</td>
+                </tr>
+                <tr>
+                    <td>magnesium</td>
+                    <td>reacts quickly to make hydrogen gas</td>
+                </tr>
+                <tr>
+                    <td>sodium</td>
+                    <td>reacts explosively to make hydrogen gas</td>
+                </tr>
+                <tr>
+                    <td>tin</td>
+                    <td>reacts very slowly to make hydrogen gas</td>
+                </tr>
+                <tr>
+                    <td>zinc</td>
+                    <td>reacts slowly to make hydrogen gas</td>
+                </tr>
+            </table>
+            <br>
+            (i) Use the information in Table 5.1 to complete the order of reactivity of the metals. [2]
+            <br><br>
+            most reactive ..............................................................
+            <br>..............................................................
+            <br>..............................................................
+            <br>..............................................................
+            <br>least reactive ..............................................................
+        </div>
+
+        <div id="trig-5ci" class="answer-trigger" onclick="toggleAnswer('5ci')"></div>
+        <div id="ans-5ci" class="answer-content">
+            order of reactivity (most to least):<br>
+            <span class="keyword">sodium</span> [1]<br>
+            <span class="keyword">magnesium</span><br>
+            <span class="keyword">zinc</span><br>
+            <span class="keyword">tin</span> [1]<br>
+            <span class="keyword">gold</span>
+        </div>
+
+        <div class="question-text">
+            (ii) Write a balanced symbol equation for the reaction of magnesium with hydrochloric acid, HCl [2]
+        </div>
+
+        <div id="trig-5cii" class="answer-trigger" onclick="toggleAnswer('5cii')"></div>
+        <div id="ans-5cii" class="answer-content">
+            <span class="equation">Mg + 2HCl &rarr; MgCl<sub>2</sub> + H<sub>2</sub></span><br>
+            <span class="keyword">correct formulae</span>; [1]<br>
+            <span class="keyword">correctly balanced</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (iii) Aluminium is more reactive than zinc.
+            When aluminium is added to cold dilute hydrochloric acid there appears to be no reaction.
+            Explain this apparent unreactivity. [2]
+        </div>
+
+        <div id="trig-5ciii" class="answer-trigger" onclick="toggleAnswer('5ciii')"></div>
+        <div id="ans-5ciii" class="answer-content">
+            (aluminium) reacts with oxygen to form an <span class="keyword">oxide layer</span> / aluminium oxide; [1]<br>
+            (oxide layer) <span class="keyword">adheres</span> to the metal / does not flake off; [1]
+        </div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question-block">
+        <div class="question-header">Question 6 (0654/42_Summer_2020_Q6) - Physics</div>
+        
+        <div class="question-text">
+            6 The nuclear fuel used in some power stations is plutonium-239.
+            (a) (i) Plutonium-239 decays by &alpha;-particle emission.
+            Use nuclide notation to complete the symbol equation for this decay process. [3]
+            <div class="diagram-placeholder">
+                <span class="equation"><sup>239</sup><sub>94</sub>Pu &rarr; ............... + ...............</span>
+            </div>
+        </div>
+
+        <div id="trig-6ai" class="answer-trigger" onclick="toggleAnswer('6ai')"></div>
+        <div id="ans-6ai" class="answer-content">
+            <span class="equation"><sup>239</sup><sub>94</sub>Pu &rarr; <sup>235</sup><sub>92</sub>U + <sup>4</sup><sub>2</sub>He</span><br>
+            <span class="keyword">uranium</span> identified; [1]<br>
+            <span class="keyword">235 and 92</span>; [1]<br>
+            <span class="keyword">helium notation</span> correct; [1]
+        </div>
+
+        <div class="question-text">
+            (ii) Plutonium-239 has a half-life of 24000 years.
+            2 kg of plutonium-239 is sealed in a lead container.
+            Calculate the mass of plutonium-239 remaining after 120000 years. [2]
+            <br>
+            mass .............................................................. kg
+        </div>
+
+        <div id="trig-6aii" class="answer-trigger" onclick="toggleAnswer('6aii')"></div>
+        <div id="ans-6aii" class="answer-content">
+            <span class="keyword">five half-lives</span>; [1]<br>
+            (120,000 / 24,000 = 5)<br>
+            <span class="keyword">0.0625</span> (kg); [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('6aii')">RECAP</div>
+                <div id="recap-6aii" class="recap-content">
+                    <strong>Half-life:</strong>
+                    <ul>
+                        <li>Definition: Time taken for half the nuclei in a sample to decay.</li>
+                        <li>Calculation: 2kg &rarr; 1kg &rarr; 0.5kg &rarr; 0.25kg &rarr; 0.125kg &rarr; 0.0625kg (5 steps).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (b) The nuclear fuel releases <span class="equation">8.6 x 10<sup>13</sup> J</span> of energy.
+            From this, only <span class="equation">3.2 x 10<sup>13</sup> J</span> of electrical energy is generated.
+            Calculate the efficiency of this generation process. [2]
+            <br>
+            efficiency = .............................................................. %
+        </div>
+
+        <div id="trig-6b" class="answer-trigger" onclick="toggleAnswer('6b')"></div>
+        <div id="ans-6b" class="answer-content">
+            formula or correct substitution; [1]<br>
+            <span class="equation">(3.2 x 10<sup>13</sup>) &divide; (8.6 x 10<sup>13</sup>) x 100</span><br>
+            <span class="keyword">37</span> (%); [1]
+        </div>
+
+        <div class="question-text">
+            (c) The power station generates electricity at 25000 V.
+            A transformer increases this voltage to 400000 V before the electricity is transmitted over large distances through transmission cables.
+            The number of turns on the secondary coil of the transformer is 500000.
+            Calculate the number of turns on the primary coil of the transformer. [2]
+            <br>
+            number of turns = ..............................................................
+        </div>
+
+        <div id="trig-6c" class="answer-trigger" onclick="toggleAnswer('6c')"></div>
+        <div id="ans-6c" class="answer-content">
+            <span class="equation">V<sub>1</sub>/V<sub>2</sub> = N<sub>1</sub>/N<sub>2</sub></span> or correct substitution; [1]<br>
+            <span class="equation">25000 / 400000 = N<sub>p</sub> / 500000</span><br>
+            <span class="keyword">31 250</span>; [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('6c')">RECAP</div>
+                <div id="recap-6c" class="recap-content">
+                    <strong>Transformer Equation:</strong>
+                    <br>
+                    <div class="fraction"><span class="numerator">Voltage<sub>primary</sub></span><span class="denominator">Voltage<sub>secondary</sub></span></div> = <div class="fraction"><span class="numerator">Turns<sub>primary</sub></span><span class="denominator">Turns<sub>secondary</sub></span></div>
+                    <br>
+                    (Note: The answer provided here is mathematically derived from the question values. Check if your MS gives a different value (e.g. 62,500), which would imply different starting values).
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (d) When electricity has been generated at the power station the voltage is increased by a transformer to reduce power losses in the transmission cables.
+            Explain why power losses in cables are lower when the voltage is high. [2]
+        </div>
+
+        <div id="trig-6d" class="answer-trigger" onclick="toggleAnswer('6d')"></div>
+        <div id="ans-6d" class="answer-content">
+            higher voltage means <span class="keyword">lower current</span>; [1]<br>
+            power loss increases with current / <span class="keyword">power loss is I<sup>2</sup>R</span>; [1]
+        </div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="question-block">
+        <div class="question-header">Question 7 (0654/42_Summer_2020_Q7) - Biology</div>
+        
+        <div class="question-text">
+            (a) A lake is an example of an ecosystem.
+            Fig. 7.1 shows a food chain from a lake.
+            <div class="diagram-placeholder">
+                algae &rarr; freshwater shrimp &rarr; minnow &rarr; perch &rarr; pike &rarr; osprey
+                <br>
+                (Fig. 7.1)
+            </div>
+            (i) Identify the quaternary consumer in this food chain. [1]
+        </div>
+
+        <div id="trig-7ai" class="answer-trigger" onclick="toggleAnswer('7ai')"></div>
+        <div id="ans-7ai" class="answer-content">
+            <span class="keyword">pike</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (ii) State the number of trophic levels in this food chain. [1]
+        </div>
+
+        <div id="trig-7aii" class="answer-trigger" onclick="toggleAnswer('7aii')"></div>
+        <div id="ans-7aii" class="answer-content">
+            <span class="keyword">6</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (iii) Explain why the number of trophic levels in this food chain is unusual. [3]
+        </div>
+
+        <div id="trig-7aiii" class="answer-trigger" onclick="toggleAnswer('7aiii')"></div>
+        <div id="ans-7aiii" class="answer-content">
+            it has <span class="keyword">more than five</span> trophic levels; [1]<br>
+            <span class="keyword">energy is lost</span> between the trophic levels; [1]<br>
+            by <span class="keyword">respiration</span> / excretion / movement / heat / not all animal is eaten; [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('7aiii')">RECAP</div>
+                <div id="recap-7aiii" class="recap-content">
+                    <strong>Energy Transfer:</strong>
+                    <ul>
+                        <li>Only about 10% of energy is passed from one trophic level to the next.</li>
+                        <li>90% is lost as heat, movement, respiration, or uneaten parts.</li>
+                        <li>This limits food chains to usually 4 or 5 levels.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (b) Table 7.1 shows definitions for three terms related to the environment.
+            Complete Table 7.1 by adding the term that matches each definition. [3]
+            <br>
+            <strong>Table 7.1</strong>
+            <table>
+                <tr>
+                    <th>definition</th>
+                    <th>term</th>
+                </tr>
+                <tr>
+                    <td>a network of interconnected food chains</td>
+                    <td>........................</td>
+                </tr>
+                <tr>
+                    <td>an organism that makes its own organic nutrients</td>
+                    <td>........................</td>
+                </tr>
+                <tr>
+                    <td>an organism that gets its energy from dead or waste organic matter</td>
+                    <td>........................</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="trig-7b" class="answer-trigger" onclick="toggleAnswer('7b')"></div>
+        <div id="ans-7b" class="answer-content">
+            <span class="keyword">food web</span>; [1]<br>
+            <span class="keyword">producer</span>; [1]<br>
+            <span class="keyword">decomposer</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (c) A forest is also an ecosystem.
+            Deforestation has negative impacts on the environment.
+            Landslides are one example.
+            Fig. 7.2 is a photograph of a landslide.
+            <div class="diagram-placeholder">Space for Question 7c (Fig 7.2)</div>
+            (i) Explain why deforestation can increase the chance of a landslide. [2]
+        </div>
+
+        <div id="trig-7ci" class="answer-trigger" onclick="toggleAnswer('7ci')"></div>
+        <div id="ans-7ci" class="answer-content">
+            <span class="keyword">tree roots stabilise soil</span>; [1]<br>
+            (tree removal causes) soil to be <span class="keyword">exposed to wind / rain</span>; [1]<br>
+            causing <span class="keyword">soil erosion</span>;
+        </div>
+
+        <div class="question-text">
+            (ii) Describe how deforestation can lead to a decrease in the concentration of oxygen in the atmosphere. [2]
+        </div>
+
+        <div id="trig-7cii" class="answer-trigger" onclick="toggleAnswer('7cii')"></div>
+        <div id="ans-7cii" class="answer-content">
+            <span class="keyword">photosynthesis</span> produces oxygen; [1]<br>
+            fewer trees means <span class="keyword">less photosynthesis</span>; [1]<br>
+            combustion (of trees) <span class="keyword">uses oxygen</span>;
+        </div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="question-block">
+        <div class="question-header">Question 8 (0654/42_Summer_2020_Q8) - Chemistry</div>
+        
+        <div class="question-text">
+            8 Diamond and graphite are different forms of the element carbon.
+            Fig. 8.1 shows the structures of diamond and graphite.
+            <div class="diagram-placeholder">Space for Question 8 (Fig 8.1)</div>
+            (a) (i) Diamond is used in cutting tools.
+            Explain why.
+            Use ideas about the structure and bonding in diamond. [2]
+        </div>
+
+        <div id="trig-8ai" class="answer-trigger" onclick="toggleAnswer('8ai')"></div>
+        <div id="ans-8ai" class="answer-content">
+            (diamond) has <span class="keyword">many strong bonds</span>; [1]<br>
+            bonds are <span class="keyword">covalent bonds</span>; [1]<br>
+            (diamond) is giant molecular / macromolecular / giant tetrahedral (lattice);
+        </div>
+
+        <div class="question-text">
+            (ii) Graphite is used to make electrodes because it conducts electricity.
+            Explain why graphite conducts electricity.
+            Use ideas about the structure and bonding in graphite. [2]
+        </div>
+
+        <div id="trig-8aii" class="answer-trigger" onclick="toggleAnswer('8aii')"></div>
+        <div id="ans-8aii" class="answer-content">
+            (graphite has) <span class="keyword">electrons</span>; [1]<br>
+            that can <span class="keyword">move</span> / that are <span class="keyword">delocalised</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (b) Carbon can bond with hydrogen to form hydrocarbons.
+            Ethene, <span class="equation">C<sub>2</sub>H<sub>4</sub></span>, is a hydrocarbon.
+            Draw a dot-and-cross diagram to show the bonding in ethene.
+            Show all of the outer shell electrons. Do not show the inner electrons. [2]
+            <div class="diagram-placeholder">Space for Question 8b (Dot and Cross Diagram)</div>
+        </div>
+
+        <div id="trig-8b" class="answer-trigger" onclick="toggleAnswer('8b')"></div>
+        <div id="ans-8b" class="answer-content">
+            <span class="keyword">double bond</span> between C atoms; [1]<br>
+            <span class="keyword">single bonds</span> between C and H; [1]
+        </div>
+
+        <div class="question-text">
+            (c) Ethene burns in oxygen to form carbon dioxide.
+            Carbon dioxide is a greenhouse gas.
+            State an effect of increased concentrations of greenhouse gases in the atmosphere. [1]
+        </div>
+
+        <div id="trig-8c" class="answer-trigger" onclick="toggleAnswer('8c')"></div>
+        <div id="ans-8c" class="answer-content">
+            <span class="keyword">global warming</span> / climate change; [1]
+        </div>
+
+        <div class="question-text">
+            (d) Carbon monoxide is made in a car engine.
+            The carbon monoxide is removed by a catalytic converter.
+            <div class="diagram-placeholder">Space for Question 8d (Fig 8.2)</div>
+            Describe how a catalytic converter removes carbon monoxide.
+            Include a balanced symbol equation in your answer. [3]
+        </div>
+
+        <div id="trig-8d" class="answer-trigger" onclick="toggleAnswer('8d')"></div>
+        <div id="ans-8d" class="answer-content">
+            (catalytic converter) changes carbon monoxide into <span class="keyword">carbon dioxide</span>; [1]<br>
+            balanced symbol equation: <span class="equation">2CO + O<sub>2</sub> &rarr; 2CO<sub>2</sub></span> OR <span class="equation">2CO + 2NO &rarr; N<sub>2</sub> + 2CO<sub>2</sub></span>; [2]
+        </div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="question-block">
+        <div class="question-header">Question 9 (0654/42_Summer_2020_Q9) - Physics</div>
+        
+        <div class="question-text">
+            9 A mountaineer climbs a mountain.
+            (a) At the top of the mountain there is some ice that is melting in the sunshine.
+            (i) State the melting point of water. [1]
+            <br>.............................................................. &deg;C
+        </div>
+
+        <div id="trig-9ai" class="answer-trigger" onclick="toggleAnswer('9ai')"></div>
+        <div id="ans-9ai" class="answer-content">
+            <span class="keyword">0</span> (&deg;C); [1]
+        </div>
+
+        <div class="question-text">
+            (ii) Describe, in terms of molecular motion and arrangement, how liquid water is different from ice. [2]
+            <br><br>
+            motion ..............................................................
+            <br><br>
+            arrangement ..............................................................
+        </div>
+
+        <div id="trig-9aii" class="answer-trigger" onclick="toggleAnswer('9aii')"></div>
+        <div id="ans-9aii" class="answer-content">
+            molecular motion - molecules in liquid water can <span class="keyword">move throughout</span> but molecules in ice <span class="keyword">vibrate about a fixed point</span>; [1]<br>
+            molecular arrangement - molecules in liquid water in <span class="keyword">random arrangement</span> / molecules in ice in <span class="keyword">regular arrangement</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (b) On the mountain, the mountaineer is exposed to ultraviolet radiation.
+            Ultraviolet radiation is an electromagnetic wave.
+            On Fig. 9.1 write ultraviolet in the correct place in the incomplete electromagnetic spectrum. [1]
+            <div class="diagram-placeholder">
+                X-rays &nbsp;|&nbsp; ........................ &nbsp;|&nbsp; visible light &nbsp;|&nbsp; radio waves
+            </div>
+        </div>
+
+        <div id="trig-9b" class="answer-trigger" onclick="toggleAnswer('9b')"></div>
+        <div id="ans-9b" class="answer-content">
+            ultraviolet placed between <span class="keyword">X-rays and visible light</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (c) The mountaineer observes lightning striking a nearby mountain.
+            (i) There is an electric field between the negative charge on a cloud and the positive charge on the mountain.
+            State what is meant by an electric field. [1]
+        </div>
+
+        <div id="trig-9ci" class="answer-trigger" onclick="toggleAnswer('9ci')"></div>
+        <div id="ans-9ci" class="answer-content">
+            a region in which an electric charge experiences a <span class="keyword">force</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (ii) The lightning occurs when the cloud loses some of its charge to the mountain.
+            The lightning flash discharges 3.0 C in 0.00012 s.
+            Calculate the current that passes. [2]
+            <br>
+            current = .............................................................. A
+        </div>
+
+        <div id="trig-9cii" class="answer-trigger" onclick="toggleAnswer('9cii')"></div>
+        <div id="ans-9cii" class="answer-content">
+            <span class="equation">I = Q/t</span> or correct substitution; [1]<br>
+            <span class="keyword">25 000</span> (A); [1]
+        </div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="question-block">
+        <div class="question-header">Question 10 (0654/42_Summer_2020_Q10) - Biology</div>
+        
+        <div class="question-text">
+            10 (a) Fig. 10.1 is a sketch graph showing the effect of temperature on the rate of transpiration (loss of water from leaves).
+            <div class="diagram-placeholder">Space for Question 10a (Fig 10.1 Graph)</div>
+            (i) Explain the trend seen in the part of the graph labelled X.
+            Include in your answer a reference to water molecules and the name of the part of the leaf where transpiration occurs. [3]
+        </div>
+
+        <div id="trig-10ai" class="answer-trigger" onclick="toggleAnswer('10ai')"></div>
+        <div id="ans-10ai" class="answer-content">
+            increase in <span class="keyword">kinetic energy</span> of water molecules; [1]<br>
+            increased rate of <span class="keyword">evaporation</span>; [1]<br>
+            increased loss of water (vapour) through <span class="keyword">stomata</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (ii) State one other factor that affects the rate of transpiration. [1]
+        </div>
+
+        <div id="trig-10aii" class="answer-trigger" onclick="toggleAnswer('10aii')"></div>
+        <div id="ans-10aii" class="answer-content">
+            <span class="keyword">humidity</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (b) Table 10.1 compares transpiration with translocation.
+            Complete Table 10.1. [3]
+            <br>
+            <strong>Table 10.1</strong>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>transpiration</th>
+                    <th>translocation</th>
+                </tr>
+                <tr>
+                    <td>substances moved</td>
+                    <td>water</td>
+                    <td>1 ........................</td>
+                </tr>
+                <tr>
+                    <td>direction of movement</td>
+                    <td>from roots to leaves</td>
+                    <td>2 ........................</td>
+                </tr>
+                <tr>
+                    <td>name of tissue used for transport</td>
+                    <td>........................</td>
+                    <td>........................</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="trig-10b" class="answer-trigger" onclick="toggleAnswer('10b')"></div>
+        <div id="ans-10b" class="answer-content">
+            1. <span class="keyword">sucrose</span> / amino acids; [1]<br>
+            2. from <span class="keyword">source to storage / sink</span>; [1]<br>
+            Tissue: <span class="keyword">xylem</span> (transpiration) / <span class="keyword">phloem</span> (translocation); [1]
+        </div>
+
+        <div class="question-text">
+            (c) State the balanced symbol equation for photosynthesis. [2]
+        </div>
+
+        <div id="trig-10c" class="answer-trigger" onclick="toggleAnswer('10c')"></div>
+        <div id="ans-10c" class="answer-content">
+            <span class="equation">6CO<sub>2</sub> + 6H<sub>2</sub>O &rarr; C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub></span><br>
+            <span class="keyword">left hand side</span>; [1]<br>
+            <span class="keyword">right hand side</span>; [1]
+        </div>
+    </div>
+
+    <!-- Question 11 -->
+    <div class="question-block">
+        <div class="question-header">Question 11 (0654/42_Summer_2020_Q11) - Chemistry</div>
+        
+        <div class="question-text">
+            11 Ammonium sulfate is used as a fertiliser.
+            (a) Ammonium sulfate contains the ions <span class="equation">NH<sub>4</sub><sup>+</sup></span> and <span class="equation">SO<sub>4</sub><sup>2-</sup></span>.
+            Determine the formula of ammonium sulfate. [1]
+        </div>
+
+        <div id="trig-11a" class="answer-trigger" onclick="toggleAnswer('11a')"></div>
+        <div id="ans-11a" class="answer-content">
+            <span class="keyword">(NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub></span>; [1]
+        </div>
+
+        <div class="question-text">
+            (b) Describe why it is important that farmers use fertilisers containing nitrogen, phosphorus and potassium. [2]
+        </div>
+
+        <div id="trig-11b" class="answer-trigger" onclick="toggleAnswer('11b')"></div>
+        <div id="ans-11b" class="answer-content">
+            to improve <span class="keyword">crop yield</span> / idea of producing better quality crops; [1]<br>
+            fertilisers provide the <span class="keyword">essential elements</span> for plant growth / owtte;<br>
+            plants remove NPK (from soil), which needs to be replaced / owtte; [1]
+        </div>
+
+        <div class="question-text">
+            (c) Ammonium sulfate is made by reacting dilute sulfuric acid with ammonia.
+            Ammonia is made in the Haber process.
+            Nitrogen gas reacts with hydrogen gas as shown in the equation.
+            <br>
+            <span class="equation">N<sub>2</sub> + 3H<sub>2</sub> &rarr; 2NH<sub>3</sub></span>
+            <br><br>
+            (i) Explain why a temperature of 450 &deg;C is used rather than a temperature of 800 &deg;C. Do not include cost in your answer. [1]
+        </div>
+
+        <div id="trig-11ci" class="answer-trigger" onclick="toggleAnswer('11ci')"></div>
+        <div id="ans-11ci" class="answer-content">
+            idea that 450 &deg;C gives <span class="keyword">higher yield</span> (than 800 &deg;C) / ORA; [1]
+        </div>
+
+        <div class="question-text">
+            (ii) Explain why a temperature of 450 &deg;C is used rather than a temperature of 200 &deg;C. Do not include cost in your answer. [1]
+        </div>
+
+        <div id="trig-11cii" class="answer-trigger" onclick="toggleAnswer('11cii')"></div>
+        <div id="ans-11cii" class="answer-content">
+            idea that <span class="keyword">rate of reaction is faster</span> at 450 &deg;C (than at 200 &deg;C) / ORA; [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('11c')">RECAP</div>
+                <div id="recap-11c" class="recap-content">
+                    <strong>Haber Process Conditions:</strong>
+                    <ul>
+                        <li><strong>Temp:</strong> 450&deg;C. Compromise between Rate (needs high temp) and Yield (needs low temp for exothermic reaction).</li>
+                        <li><strong>Pressure:</strong> 200 atm. High pressure increases yield.</li>
+                        <li><strong>Catalyst:</strong> Iron. Increases rate, does not affect yield.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-text">
+            (iii) State why iron is needed in the Haber process. [1]
+        </div>
+
+        <div id="trig-11ciii" class="answer-trigger" onclick="toggleAnswer('11ciii')"></div>
+        <div id="ans-11ciii" class="answer-content">
+            iron is a <span class="keyword">catalyst</span> / iron increases the <span class="keyword">rate</span> of the reaction; [1]
+        </div>
+    </div>
+
+    <!-- Question 12 -->
+    <div class="question-block">
+        <div class="question-header">Question 12 (0654/42_Summer_2020_Q12) - Physics</div>
+        
+        <div class="question-text">
+            12 (a) A cyclist accelerates along a straight road from a speed of 4 m/s to maximum speed.
+            The combined mass of the cyclist and bicycle is 80 kg.
+            Fig. 12.1 is the speed-time graph for the bicycle and cyclist.
+            <div class="diagram-placeholder">Space for Question 12a (Fig 12.1 Speed-Time Graph)</div>
+            (i) Use Fig. 12.1 to calculate the acceleration at 2 s.
+            Show your working. [2]
+            <br>
+            acceleration = .............................................................. m/s<sup>2</sup>
+        </div>
+
+        <div id="trig-12ai" class="answer-trigger" onclick="toggleAnswer('12ai')"></div>
+        <div id="ans-12ai" class="answer-content">
+            change of speed or correct substitution (e.g. <span class="equation">1.55 &divide; 2</span>); [1]<br>
+            <span class="keyword">0.775</span> (m/s<sup>2</sup>); [1]
+        </div>
+
+        <div class="question-text">
+            (ii) Calculate the resultant force acting on the cyclist and bicycle during this acceleration. [2]
+            <br>
+            force = .............................................................. N
+        </div>
+
+        <div id="trig-12aii" class="answer-trigger" onclick="toggleAnswer('12aii')"></div>
+        <div id="ans-12aii" class="answer-content">
+            <span class="equation">F = ma</span> or <span class="equation">80 x 0.775</span>; [1]<br>
+            <span class="keyword">62</span> (N); [1]
+        </div>
+
+        <div class="question-text">
+            (iii) Calculate the maximum kinetic energy of the cyclist and bicycle during the 12 second period in Fig. 12.1. [3]
+            <br>
+            kinetic energy = .............................................................. J
+        </div>
+
+        <div id="trig-12aiii" class="answer-trigger" onclick="toggleAnswer('12aiii')"></div>
+        <div id="ans-12aiii" class="answer-content">
+            max speed = 9 m/s<br>
+            <span class="equation">KE = <div class="fraction"><span class="numerator">1</span><span class="denominator">2</span></div>mv<sup>2</sup></span> or <span class="equation"><div class="fraction"><span class="numerator">1</span><span class="denominator">2</span></div> x 80 x 9 x 9</span>; [2]<br>
+            <span class="keyword">3240</span> (J); [1]
+        </div>
+
+        <div class="question-text">
+            (b) Fig. 12.2 shows a section through a plastic reflector on the bicycle. A ray of light from a car is incident on the flat surface of the reflector.
+            <div class="diagram-placeholder">Space for Question 12b (Fig 12.2)</div>
+            The incident ray is totally internally reflected.
+            Continue the incident ray on Fig. 12.2 to show the path of the ray of light until it leaves the reflector. [2]
+        </div>
+
+        <div id="trig-12b" class="answer-trigger" onclick="toggleAnswer('12b')"></div>
+        <div id="ans-12b" class="answer-content">
+            <span class="keyword">reflection</span> only shown at first reflection; [1]<br>
+            after second reflection ray emerges <span class="keyword">parallel</span> to incident ray; [1]
+        </div>
+
+        <div class="question-text">
+            (c) Fig. 12.3 shows a metal nut on the bicycle wheel.
+            <div class="diagram-placeholder">Space for Question 12c (Fig 12.3)</div>
+            The nut must be turned by either spanner A or spanner B.
+            State why spanner B will turn the nut more easily than spanner A. [1]
+        </div>
+
+        <div id="trig-12c" class="answer-trigger" onclick="toggleAnswer('12c')"></div>
+        <div id="ans-12c" class="answer-content">
+            spanner B is <span class="keyword">longer</span> / gives a bigger <span class="keyword">moment</span> / turning force; [1]
+        </div>
+    </div>
+
+    <!-- Question 13 -->
+    <div class="question-block">
+        <div class="question-header">Question 13 (0654/42_Summer_2020_Q13) - Chemistry</div>
+        
+        <div class="question-text">
+            13 Polymers are made from small molecules called monomers.
+            (a) The structure of a polymer is shown.
+            <div class="diagram-placeholder">Space for Question 13a (Polymer Diagram)</div>
+            Draw the structure of the monomer. [1]
+        </div>
+
+        <div id="trig-13a" class="answer-trigger" onclick="toggleAnswer('13a')"></div>
+        <div id="ans-13a" class="answer-content">
+            Structure of <span class="keyword">Propene</span>;<br>
+            Double bond between carbons, correct hydrogens and methyl group.
+        </div>
+
+        <div class="question-text">
+            (b) Poly(ethene) is an addition polymer.
+            Nylon is a condensation polymer.
+            Describe the differences between addition polymerisation and condensation polymerisation. [2]
+        </div>
+
+        <div id="trig-13b" class="answer-trigger" onclick="toggleAnswer('13b')"></div>
+        <div id="ans-13b" class="answer-content">
+            in addition polymerisation molecules react together to form <span class="keyword">one larger molecule</span>; [1]<br>
+            in condensation polymerisation molecules react together to form one larger molecule and <span class="keyword">smaller molecules</span>; [1]
+        </div>
+
+        <div class="question-text">
+            (c) A mixture containing 3.9 g of ethene and 4.0 g of steam is allowed to react.
+            Ethanol, <span class="equation">C<sub>2</sub>H<sub>6</sub>O</span>, is made.
+            <br>
+            <span class="equation">C<sub>2</sub>H<sub>4</sub> + H<sub>2</sub>O &rarr; C<sub>2</sub>H<sub>6</sub>O</span>
+            <br>
+            Determine the limiting reactant in this reaction.
+            Show your working and explain your answer.
+            [A<sub>r</sub>: C, 12; H, 1; O, 16] [3]
+            <br><br>
+            limiting reactant ..............................................................
+            <br><br>
+            explanation ..............................................................
+        </div>
+
+        <div id="trig-13c" class="answer-trigger" onclick="toggleAnswer('13c')"></div>
+        <div id="ans-13c" class="answer-content">
+            moles of ethene = 3.9 &divide; 28 = <span class="keyword">0.14</span> OR moles of water = 4.0 &divide; 18 = <span class="keyword">0.22</span>; [1]<br>
+            ethene is the <span class="keyword">limiting reactant</span>; [1]<br>
+            explanation demonstrating understanding of the term 'limiting reactant' (0.14 is less than 0.22 and ratio is 1:1); [1]
+            
+            <div class="recap-container">
+                <div class="recap-header" onclick="toggleRecap('13c')">RECAP</div>
+                <div id="recap-13c" class="recap-content">
+                    <strong>Limiting Reactant Calculation:</strong>
+                    <ol>
+                        <li>Calculate Moles of each reactant: <span class="equation">n = mass / M<sub>r</sub></span></li>
+                        <li>(Ethene M<sub>r</sub> = 28, Water M<sub>r</sub> = 18)</li>
+                        <li>Compare moles using the stoichiometry of the equation (1:1 ratio).</li>
+                        <li>The reactant with fewer moles is limiting.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
