@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <!-- 关键：确保手机屏幕比例正确 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>慈濟60周年 - 萬人浴佛聚福緣</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --tzuchi-gold: #fbbf24;
+            --tzuchi-cream: #fef3c7;
+            --deep-slate-start: #1e293b; 
+            --deep-slate-end: #020617;   
+            --modal-bg: #0f172a;         
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background: radial-gradient(circle at top, var(--deep-slate-start), var(--deep-slate-end));
+            background-color: var(--deep-slate-end);
+            color: var(--tzuchi-cream);
+            overflow-x: hidden; 
+            margin: 0;
+            padding: 0;
+            /* 手机高度适配优化 */
+            min-height: 100vh;
+            min-height: 100dvh; 
+        }
+
+        .no-scroll { overflow: hidden; height: 100vh; height: 100dvh; }
+
+        /* --- 层级与动效 --- */
+        #intro-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 3000;
+            background-color: var(--deep-slate-end); 
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 3.0s ease-in-out; /* 3秒柔和淡出 */
+        }
+        #lang-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000;
+            background-color: rgba(2, 6, 23, 0.98); 
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 1.5s ease;
+        }
+        #main-content {
+            position: relative; z-index: 10; width: 100%; opacity: 0; transition: opacity 1.5s ease;
+        }
+
+        /* --- 视频容器 (16:9) --- */
+        .video-container {
+            width: 100%; max-width: 900px; aspect-ratio: 16/9;
+            background: #000; border-radius: 12px; overflow: hidden;
+            position: relative; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 3rem;
+        }
+
+        /* --- 按钮美化 --- */
+        .btn-gold {
+            border: 1px solid var(--tzuchi-gold); color: var(--tzuchi-gold);
+            padding: 12px 40px; font-size: 1.1rem; border-radius: 50px;
+            transition: all 0.3s; cursor: pointer; background: rgba(0,0,0,0.3); margin: 10px;
+            /* 手机点击区域优化 */
+            min-width: 140px; text-align: center;
+        }
+        .btn-gold:active, .btn-gold:hover { background: var(--tzuchi-gold); color: #000; transform: scale(1.05); }
+
+        /* --- 手动上传覆盖层 (优雅版) --- */
+        .manual-upload-overlay {
+            position: absolute; inset: 0;
+            background: rgba(15, 23, 42, 0.9); /* 深蓝背景 */
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 20; padding: 20px; text-align: center;
+        }
+        .btn-upload {
+            position: relative; overflow: hidden;
+            background: linear-gradient(to right, #b45309, #d97706); /* 慈济金渐变 */
+            color: white; border: none;
+            padding: 12px 24px; border-radius: 8px;
+            font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+        .btn-upload input[type=file] {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+        }
+
+        /* --- 点阵特效 --- */
+        .dot { fill: #475569; opacity: 0.3; transition: all 2.0s ease; }
+        .dot.active { fill: var(--tzuchi-gold); opacity: 1; filter: drop-shadow(0 0 3px var(--tzuchi-gold)); }
+        .flash-mode .dot {
+            fill: #fbbf24 !important; opacity: 0.8 !important; r: 2.5 !important;
+            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5)) !important;
+            transition: all 1.5s ease-in-out !important;
+        }
+        .flash-mode .dot.active { fill: #fff !important; r: 4.0 !important; z-index: 100; }
+
+        /* --- 表单元素优化 --- */
+        select, input {
+            -webkit-appearance: none; appearance: none;
+            background-color: rgba(255,255,255,0.1); color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23fbbf24' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 1rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em;
+        }
+        .input-focus-effect:focus {
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+            border-color: var(--tzuchi-gold);
+        }
+        
+        /* Dropdown 分组样式 */
+        optgroup { color: #fbbf24; background: #1e293b; font-weight: bold; font-style: normal; }
+        option { color: white; background: #0f172a; padding: 10px; }
+    </style>
+
+    <!-- 预加载脚本 (头部) -->
+    <script>
+        // 通用文件加载器
+        function loadFile(input, type, callback) {
+            const file = input.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            if (type === 'image') {
+                const reader = new FileReader();
+                reader.onload = (e) => callback(e.target.result);
+                reader.readAsDataURL(file);
+            } else if (type === 'video') {
+                callback(url);
+            }
+            input.closest('.manual-upload-overlay').style.display = 'none';
+        }
+        // 显示上传按钮 (出错时调用)
+        function showUploadUi(id) {
+            const el = document.getElementById(id);
+            if(el) el.style.display = 'flex';
+        }
+    </script>
+</head>
+<body class="no-scroll">
+
+    <!-- LAYER 1: 开场佛像 -->
+    <div id="intro-layer">
+        <div class="relative w-full h-full flex justify-center items-center p-4">
+            <!-- 佛像 -->
+            <img id="buddha-img" src="Buddha.jpeg" class="max-w-full max-h-[80vh] object-contain drop-shadow-2xl" 
+                 onerror="showUploadUi('buddha-upload')">
+            
+            <!-- 备用上传按钮 -->
+            <div id="buddha-upload" class="manual-upload-overlay" style="display:none;">
+                <p class="text-white mb-4 text-lg">無法讀取 Buddha.jpeg</p>
+                <div class="btn-upload">
+                    <span>📂 選擇佛像照片</span>
+                    <input type="file" accept="image/*" onchange="loadFile(this, 'image', (src) => { 
+                        document.getElementById('buddha-img').src = src; 
+                        startIntro(); 
+                    })">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAYER 2: 语言选择 -->
+    <div id="lang-layer">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl text-yellow-400 mb-2 tracking-widest font-light">慈濟浴佛</h2>
+            <p class="text-gray-400 text-sm tracking-wide">Tzu Chi Buddha Day</p>
+        </div>
+        <div class="flex flex-col gap-4 w-full max-w-xs px-8">
+            <button class="btn-gold" onclick="selectLang('zh')">中文 (Chinese)</button>
+            <button class="btn-gold" onclick="selectLang('en')">English (英文)</button>
+        </div>
+    </div>
+
+    <!-- LAYER 3: 主界面 -->
+    <div id="main-content" class="hidden">
+        
+        <!-- 顶部数据栏 -->
+        <div class="fixed top-0 left-0 w-full z-20 flex justify-between items-start p-4 pointer-events-none">
+            <div class="bg-slate-900/80 backdrop-blur-md p-3 rounded-xl border-l-4 border-yellow-500 shadow-lg">
+                <div class="text-gray-400 text-[10px] uppercase tracking-wider lang-text" data-zh="已點燈" data-en="Lit">已點燈</div>
+                <div class="text-xl font-bold text-white leading-none mt-1" id="count-display">0</div>
+            </div>
+            <div class="bg-slate-900/80 backdrop-blur-md p-3 rounded-xl border-r-4 border-gray-500 shadow-lg text-right">
+                <div class="text-gray-400 text-[10px] uppercase tracking-wider lang-text" data-zh="剩餘" data-en="Left">剩餘</div>
+                <div class="text-xl font-bold text-gray-300 leading-none mt-1" id="remaining-display">6000</div>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center pt-28 pb-24 px-4 w-full max-w-4xl mx-auto">
+            
+            <h1 class="text-3xl md:text-5xl font-bold text-yellow-500 mb-8 tracking-[0.2em] text-center lang-text" data-zh="慈濟浴佛" data-en="Tzu Chi Buddha Day">慈濟浴佛</h1>
+
+            <!-- 视频播放区 -->
+            <div class="video-container">
+                <video id="main-video" class="w-full h-full object-contain" controls playsinline webkit-playsinline>
+                    <source src="Video.mp4" type="video/mp4">
+                </video>
+                
+                <!-- 手动选择视频覆盖层 -->
+                <div id="video-upload" class="manual-upload-overlay">
+                    <p class="text-white mb-6 text-lg lang-text" data-zh="請載入活動影片" data-en="Load Video">請載入活動影片</p>
+                    <div class="btn-upload">
+                        <span class="text-lg lang-text" data-zh="▶️ 點擊選擇 Video.mp4" data-en="Select Video">▶️ 點擊選擇 Video.mp4</span>
+                        <input type="file" accept="video/*" onchange="loadFile(this, 'video', (url) => {
+                            const v = document.getElementById('main-video');
+                            v.src = url;
+                            v.play().catch(e => console.log('Autoplay blocked', e));
+                        })">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG 图腾区 -->
+            <div class="w-full relative mb-12" style="min-height: 300px; background: rgba(255,255,255,0.03); border-radius: 12px; overflow: hidden;">
+                <div id="shape-loading" class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
+                    <svg class="animate-spin h-8 w-8 text-yellow-500 mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    <span class="text-yellow-500 text-sm font-bold tracking-widest animate-pulse">LOADING...</span>
+                </div>
+                
+                <div id="shape-upload" class="manual-upload-overlay" style="display:none;">
+                    <p class="text-white mb-4">無法讀取 Shape.jpeg</p>
+                    <div class="btn-upload">
+                        <span>📂 選擇 Shape.jpeg</span>
+                        <input type="file" accept="image/*" onchange="loadFile(this, 'image', processShapeImage)">
+                    </div>
+                </div>
+                
+                <svg id="svg-stage" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet" class="w-full h-auto opacity-0 transition-opacity duration-1000"></svg>
+            </div>
+
+            <!-- 报名表格 -->
+            <div class="w-full max-w-md bg-slate-800/50 p-6 rounded-2xl border border-white/10 backdrop-blur-md shadow-xl">
+                <h2 class="text-xl text-center text-yellow-500 mb-6 font-light tracking-widest lang-text" data-zh="點亮心燈 · 共聚善念" data-en="Light a Lamp · Gather Love">點亮心燈 · 共聚善念</h2>
+                <form id="prayer-form" class="space-y-5">
+                    <div>
+                        <input type="text" id="name" required class="w-full p-4 rounded-xl bg-black/20 text-white text-center outline-none focus:border-yellow-500 transition input-focus-effect placeholder-gray-500" placeholder="您的姓名">
+                    </div>
+                    <div>
+                        <input type="tel" id="phone" required class="w-full p-4 rounded-xl bg-black/20 text-white text-center outline-none focus:border-yellow-500 transition input-focus-effect placeholder-gray-500" placeholder="手機號碼">
+                    </div>
+                    
+                    <div class="relative">
+                        <select id="area" required class="w-full p-4 rounded-xl bg-black/20 text-white text-center outline-none focus:border-yellow-500 transition cursor-pointer input-focus-effect">
+                            <option value="" disabled selected class="text-gray-500 lang-text" data-zh="請選擇區域 (和氣/互愛)" data-en="Select Area">請選擇區域 (和氣/互愛)</option>
+                            <!-- 选项由 JS 动态生成 -->
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-bold text-lg shadow-[0_0_20px_rgba(234,179,8,0.3)] hover:shadow-yellow-500/50 hover:scale-[0.98] transition transform active:scale-95">
+                        <span class="lang-text" data-zh="呈交祈願" data-en="Submit Prayer">呈交祈願</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 弹窗 (全屏遮罩) -->
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 hidden opacity-0 transition-opacity duration-500 p-4">
+        <div class="bg-slate-900 border-2 border-yellow-500 p-8 rounded-2xl text-center max-w-sm w-full transform scale-90 transition-transform duration-300 shadow-2xl" id="modal-box">
+            <div class="text-6xl mb-6">🙏</div>
+            <h3 class="text-xl text-yellow-400 font-bold mb-8 leading-relaxed lang-text" 
+                data-zh="感恩報名，<br>我們會儘快與您聯繫" 
+                data-en="Thank you.<br>We will contact you soon.">
+                感恩報名，<br>我們會儘快與您聯繫
+            </h3>
+            <button onclick="closeModal()" class="w-full border border-yellow-500 text-yellow-500 px-6 py-3 rounded-xl hover:bg-yellow-500 hover:text-black transition font-bold tracking-widest">關閉</button>
+        </div>
+    </div>
+
+    <!-- 隐藏画布 -->
+    <canvas id="analysis-canvas" style="display: none;"></canvas>
+
+    <!-- 主逻辑脚本 -->
+    <script>
+        // ==========================================
+        // 区域数据配置 (已整理更新)
+        // ==========================================
+        const AREA_DATA = [
+            { zone: "東1", areas: ["加影", "双溪龙镇"] },
+            { zone: "東2", areas: ["大同", "太子园", "安邦"] },
+            { zone: "中1", areas: ["大城堡", "旧吧生路"] },
+            { zone: "中2", areas: ["沙登新区", "沙登旧区"] },
+            { zone: "中3", areas: ["蒲种城", "蒲种市", "蒲种都", "蒲种镇"] },
+            { zone: "中4", areas: ["布高原", "梳邦再也"] },
+            { zone: "中5", areas: ["武吉日落洞", "莎亚南"] },
+            { zone: "功能組", areas: ["功能組", "英文組", "醫療組"] },
+            { zone: "北1", areas: ["SVD", "万挠", "斯里白沙罗"] },
+            { zone: "北2", areas: ["八打灵", "白沙罗"] },
+            { zone: "北B", areas: ["增江", "峇都急", "文良港", "旺沙玛珠", "甲洞卫星市", "甲洞帝沙", "甲洞马鲁里"] },
+            { zone: "合心", areas: ["功能組", "蒲种市"] },
+            { zone: "西北", areas: ["加埔卫星市", "实达阿南", "永安镇", "适耕庄大港"] },
+            { zone: "西南1", areas: ["圣淘沙", "快乐园"] },
+            { zone: "西南2", areas: ["武吉丁宜", "萬絨"] }
+        ];
+
+        const CONFIG = {
+            totalDots: 6000,
+            targetCount: 6000,
+            storageKey: 'tzuchi_final_prod_v1',
+            imagePath: 'Shape.jpeg'
+        };
+
+        let state = {
+            count: parseInt(localStorage.getItem(CONFIG.storageKey)) || 0,
+            dots: [], availableIndices: [], lang: 'zh'
+        };
+
+        let ui = {};
+
+        // --- 启动流程 ---
+        window.onload = function() {
+            // 绑定 UI 元素
+            ui = {
+                intro: document.getElementById('intro-layer'),
+                lang: document.getElementById('lang-layer'),
+                main: document.getElementById('main-content'),
+                svg: document.getElementById('svg-stage'),
+                count: document.getElementById('count-display'),
+                remaining: document.getElementById('remaining-display'),
+                modal: document.getElementById('modal'),
+                modalBox: document.getElementById('modal-box')
+            };
+
+            initAreaDropdown();
+
+            // 检查佛像加载 (尝试自动，失败则显示手动)
+            const img = document.getElementById('buddha-img');
+            if (img.complete && img.naturalHeight !== 0) {
+                startIntro();
+            }
+            // 否则 onerror 会自动触发显示按钮
+
+            // 检查视频加载
+            const v = document.getElementById('main-video');
+            v.oncanplay = () => document.getElementById('video-upload').style.display = 'none';
+            v.onerror = () => document.getElementById('video-upload').style.display = 'flex';
+
+            // 开始生成图形
+            initShape();
+        };
+
+        // --- 初始化下拉菜单 ---
+        function initAreaDropdown() {
+            const select = document.getElementById('area');
+            while(select.options.length > 1) { select.remove(1); }
+            
+            AREA_DATA.forEach(group => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = group.zone;
+                group.areas.forEach(area => {
+                    const option = document.createElement('option');
+                    option.value = `${group.zone}-${area}`;
+                    option.textContent = area;
+                    optgroup.appendChild(option);
+                });
+                select.appendChild(optgroup);
+            });
+        }
+
+        // --- 流程控制 ---
+        window.startIntro = function() {
+            setTimeout(() => {
+                // 强制重绘，触发3秒淡出
+                if (ui.intro) { void ui.intro.offsetWidth; ui.intro.style.opacity = '0'; }
+                if (ui.lang) { ui.lang.style.display = 'flex'; void ui.lang.offsetWidth; ui.lang.style.opacity = '1'; }
+                setTimeout(() => { if (ui.intro) ui.intro.style.display = 'none'; }, 3100);
+            }, 1000);
+        }
+
+        window.selectLang = function(lang) {
+            state.lang = lang;
+            updateText();
+            if (ui.lang) ui.lang.style.opacity = '0';
+            if (ui.main) { ui.main.classList.remove('hidden'); void ui.main.offsetWidth; ui.main.style.opacity = '1'; }
+            
+            // 手机端解锁滚动
+            document.body.classList.remove('no-scroll');
+
+            setTimeout(() => {
+                if (ui.lang) ui.lang.style.display = 'none';
+                // 尝试播放视频
+                const v = document.getElementById('main-video');
+                if(v && v.paused) v.play().catch(() => {}); 
+            }, 1000);
+        }
+
+        function updateText() {
+            document.querySelectorAll('.lang-text').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${state.lang}`);
+            });
+            // 简单处理 placeholder
+            const nameInput = document.getElementById('name');
+            const phoneInput = document.getElementById('phone');
+            if (state.lang === 'en') {
+                nameInput.placeholder = "Your Name";
+                phoneInput.placeholder = "Phone Number";
+            } else {
+                nameInput.placeholder = "您的姓名";
+                phoneInput.placeholder = "手機號碼";
+            }
+        }
+
+        // --- 图形处理 ---
+        function initShape() {
+            updateStats();
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.onload = () => processShapeImage(img);
+            img.onerror = () => showUploadUi('shape-upload');
+            img.src = CONFIG.imagePath;
+        }
+
+        window.processShapeImage = function(imgSource) {
+            document.getElementById('shape-upload').style.display = 'none';
+            document.getElementById('shape-loading').style.display = 'flex';
+            const img = (imgSource instanceof Image) ? imgSource : new Image();
+            if (!(imgSource instanceof Image)) img.src = imgSource;
+            
+            img.onload = () => {
+                const canvas = document.getElementById('analysis-canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 1000; canvas.height = 400;
+                ctx.fillStyle = "#FFFFFF"; ctx.fillRect(0, 0, 1000, 400);
+                
+                const scale = Math.min(1000/img.width, 400/img.height);
+                const w = img.width * scale, h = img.height * scale;
+                ctx.drawImage(img, (1000-w)/2, (400-h)/2, w, h);
+                
+                const data = ctx.getImageData(0,0,1000,400).data;
+                const pixels = [];
+                // 优化采样密度
+                for(let y=0; y<400; y+=3) { 
+                    for(let x=0; x<1000; x+=3) {
+                        const i = (y*1000 + x) * 4;
+                        if (data[i] < 200 && data[i+1] < 200 && data[i+2] < 200 && data[i+3] > 128) {
+                            pixels.push({x, y});
+                        }
+                    }
+                }
+                generateDots(pixels);
+            };
+        }
+
+        function generateDots(pixels) {
+            const fragment = document.createDocumentFragment();
+            state.dots = [];
+            for(let i=0; i<CONFIG.totalDots; i++) {
+                let p = pixels.length ? pixels[Math.floor(Math.random()*pixels.length)] : {x:500, y:200};
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", (p.x + (Math.random()-0.5)*4).toFixed(1));
+                circle.setAttribute("cy", (p.y + (Math.random()-0.5)*4).toFixed(1));
+                circle.setAttribute("r", (1 + Math.random()).toFixed(1));
+                circle.setAttribute("class", "dot");
+                fragment.appendChild(circle);
+                state.dots.push({el: circle});
+            }
+            state.availableIndices = Array.from({length: CONFIG.totalDots}, (_, k) => k).sort(() => Math.random() - 0.5);
+            
+            ui.svg.innerHTML = '';
+            ui.svg.appendChild(fragment);
+            document.getElementById('shape-loading').style.display = 'none';
+            ui.svg.style.opacity = '1';
+            restoreLitDots();
+        }
+
+        function updateStats() {
+            if (!ui.count) return;
+            ui.count.innerText = state.count;
+            ui.remaining.innerText = Math.max(0, CONFIG.targetCount - state.count);
+        }
+
+        function restoreLitDots() {
+            for(let i=0; i<state.count && i<state.availableIndices.length; i++) {
+                if (state.dots[state.availableIndices[i]]) state.dots[state.availableIndices[i]].el.classList.add('active');
+            }
+        }
+
+        // --- 交互逻辑 ---
+        document.getElementById('prayer-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const origText = btn.querySelector('span').innerText;
+            btn.disabled = true;
+            btn.querySelector('span').innerText = state.lang === 'zh' ? '祈願傳送中...' : 'Sending...';
+            btn.classList.add('opacity-50');
+
+            setTimeout(() => {
+                if(state.count < CONFIG.totalDots) {
+                    const idx = state.availableIndices[state.count];
+                    const target = state.dots[idx];
+                    
+                    // 点灯特效
+                    if (target) target.el.classList.add('active');
+                    if (ui.svg) ui.svg.classList.add('flash-mode');
+                    
+                    setTimeout(() => {
+                        if (ui.svg) ui.svg.classList.remove('flash-mode');
+                        setTimeout(() => {
+                            ui.modal.classList.remove('hidden');
+                            void ui.modal.offsetWidth; ui.modal.style.opacity = '1';
+                            ui.modalBox.style.transform = 'scale(1)';
+                        }, 1500);
+                    }, 2500);
+                    
+                    state.count++;
+                    localStorage.setItem(CONFIG.storageKey, state.count);
+                    updateStats();
+                } else { alert("功德圓滿"); }
+
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.querySelector('span').innerText = origText;
+                    btn.classList.remove('opacity-50');
+                    e.target.reset();
+                }, 3000);
+            }, 500);
+        });
+
+        window.closeModal = function() {
+            ui.modal.style.opacity = '0';
+            ui.modalBox.style.transform = 'scale(0.9)';
+            setTimeout(() => ui.modal.classList.add('hidden'), 500);
+        }
+    </script>
+</body>
+</html>
