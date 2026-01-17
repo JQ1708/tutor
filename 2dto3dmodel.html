@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Prism Folder - Academic Tool</title>
+    <!-- Tailwind CSS for UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- OrbitControls -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #1a202c; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #canvas-container { width: 100vw; height: 100vh; }
+        .control-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 320px;
+            backdrop-filter: blur(4px);
+        }
+        .slider-container { margin-top: 15px; }
+        input[type=range] { width: 100%; cursor: pointer; }
+        .label { font-size: 0.875rem; font-weight: 600; color: #4a5568; margin-bottom: 5px; display: block; }
+        .btn {
+            background-color: #3182ce; color: white; padding: 8px 16px; border-radius: 6px;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+            border: none; width: 100%; margin-top: 10px;
+        }
+        .btn:hover { background-color: #2b6cb0; }
+        .info-text { font-size: 0.8rem; color: #718096; margin-top: 10px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div class="control-panel">
+        <h1 class="text-xl font-bold text-gray-800 mb-2">Prism Fold Explorer for Kaavish</h1>
+        
+        <div class="mb-4">
+            <label class="label">Polygon Type (Base)</label>
+            <select id="shapeSelect" class="w-full p-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:border-blue-500">
+                <option value="3" selected>Triangular Prism (3 Sides)</option>
+                <option value="4">Rectangular Prism / Cuboid (4 Sides)</option>
+                <option value="5">Pentagonal Prism (5 Sides)</option>
+                <option value="6">Hexagonal Prism (6 Sides)</option>
+            </select>
+        </div>
+
+        <div class="slider-container">
+            <label class="label">Fold Progress: <span id="foldValue">0</span>%</label>
+            <input type="range" id="foldSlider" min="0" max="100" value="0">
+        </div>
+
+        <button id="toggleWireframe" class="btn bg-gray-600 hover:bg-gray-700">Toggle Transparency</button>
+        <button id="resetCam" class="btn mt-2">Reset Camera</button>
+
+        <p class="info-text">
+            • Drag slider to animate the net folding.
+        </p>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        const config = {
+            sideLength: 2,
+            prismHeight: 3.5,
+            colorBase: 0x3182ce, // Blue
+            colorSide: 0xed8936, // Orange
+            colorEdge: 0xffffff,
+            opacity: 0.9,
+            transparent: false
+        };
+
+        // --- Scene Setup ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf7fafc); // Light gray background
+        
+        // Grid Helper (Floor)
+        const gridHelper = new THREE.GridHelper(30, 30, 0xcbd5e0, 0xe2e8f0);
+        scene.add(gridHelper);
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(5, 8, 12);
+        camera.lookAt(0, 0, 0);
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        container.appendChild(renderer.domElement);
+
+        // Controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        dirLight.position.set(10, 20, 10);
+        dirLight.castShadow = true;
+        scene.add(dirLight);
+
+        // --- Global Variables for Geometry ---
+        let rootGroup;
+        let hinges = []; // Array to store hinge groups for animation
+        let lidHinges = []; // Top and Bottom lids
+
+        // --- Geometry Builders ---
+
+        function createRectangleMesh(w, h, color) {
+            const geometry = new THREE.PlaneGeometry(w, h);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: color, 
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: config.opacity,
+                flatShading: true
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            
+            // Add edges
+            const edges = new THREE.EdgesGeometry(geometry);
+            const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: config.colorEdge }));
+            mesh.add(line);
+            
+            return mesh;
+        }
+
+        function createPolygonMesh(sides, radius, color) {
+            const shape = new THREE.Shape();
+            const angleStep = (Math.PI * 2) / sides;
+            
+            // Start at top
+            // Rotate by -PI/2 - (PI/sides) to align bottom edge horizontally for attachment
+            const rotationOffset = -Math.PI / 2 + (Math.PI / sides); 
+
+            for (let i = 0; i < sides; i++) {
+                const angle = i * angleStep + rotationOffset;
+                const x = radius * Math.cos(angle);
+                const y = radius * Math.sin(angle);
+                if (i === 0) shape.moveTo(x, y);
+                else shape.lineTo(x, y);
+            }
+            shape.closePath();
+
+            const geometry = new THREE.ShapeGeometry(shape);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: color, 
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: config.opacity
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+
+            const edges = new THREE.EdgesGeometry(geometry);
+            const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: config.colorEdge }));
+            mesh.add(line);
+
+            return mesh;
+        }
+
+        // Helper to calculate polygon parameters based on side length
+        function getPolygonRadius(sideLength, sides) {
+            return sideLength / (2 * Math.sin(Math.PI / sides));
+        }
+
+        function getApothem(sideLength, sides) {
+            return sideLength / (2 * Math.tan(Math.PI / sides));
+        }
+
+        // --- Main Construction Logic ---
+        function buildPrismNet(sides) {
+            // Clear previous model
+            if (rootGroup) scene.remove(rootGroup);
+            hinges = [];
+            lidHinges = [];
+
+            rootGroup = new THREE.Group();
+            scene.add(rootGroup);
+
+            const w = config.sideLength;
+            const h = config.prismHeight;
+
+            // 1. Create the "Fixed" Face (Base of the net strip)
+            // We position this flat on the grid initially.
+            // Center of geometry is 0,0.
+            const fixedFace = createRectangleMesh(w, h, config.colorSide);
+            // Rotate flat (PlaneGeometry is XY, we want it XZ for "floor" layout usually, 
+            // but let's build it vertically first then rotate whole group? 
+            // Actually simpler: Build in XY plane (standing up), then rotate root to lay flat.
+            // Let's stick to XY plane for construction logic.
+            // Fixed Face:
+            rootGroup.add(fixedFace);
+
+            // 2. Add Top and Bottom Polygons (Lids) to the Fixed Face
+            const radius = getPolygonRadius(w, sides);
+            const apothem = getApothem(w, sides);
+            
+            // Top Lid Hinge
+            const topHinge = new THREE.Group();
+            topHinge.position.set(0, h/2, 0); // Top edge of rectangle
+            rootGroup.add(topHinge);
+            
+            const topPoly = createPolygonMesh(sides, radius, config.colorBase);
+            // Shift polygon so its bottom edge sits on the hinge
+            // The polygon creation logic centers it. We need to move it up by 'apothem'.
+            topPoly.position.set(0, apothem, 0);
+            topHinge.add(topPoly);
+            
+            // Bottom Lid Hinge
+            const botHinge = new THREE.Group();
+            botHinge.position.set(0, -h/2, 0); // Bottom edge
+            rootGroup.add(botHinge);
+
+            const botPoly = createPolygonMesh(sides, radius, config.colorBase);
+            // Shift polygon down
+            botPoly.position.set(0, -apothem, 0);
+            // We need to mirror it or just rotate the hinge correctly? 
+            // If we move it -apothem, it points down.
+            // However, for the net, it usually folds "out".
+            // Let's assume standard orientation.
+            botPoly.rotation.z = Math.PI; // Flip it so it points down visually if we used same generation
+            botHinge.add(botPoly);
+
+            lidHinges.push({ group: topHinge, dir: -1 }); // dir controls fold direction
+            lidHinges.push({ group: botHinge, dir: 1 });
+
+
+            // 3. Create the Chain of Lateral Faces
+            // Net: [Fixed] - [Face1] - [Face2] ...
+            // We need (sides - 1) more faces attached in a chain.
+            
+            let currentParent = rootGroup;
+            // The hinge is at the RIGHT edge of the current parent rectangle.
+            // Parent Center is 0,0 (locally). Width is w. Edge is at x = w/2.
+            
+            // Special handling for the first link to offset from the fixed face
+            let prevHingePos = w/2; 
+
+            for (let i = 0; i < sides - 1; i++) {
+                const hinge = new THREE.Group();
+                hinge.position.set(prevHingePos, 0, 0);
+                
+                // Add hinge to current parent
+                // If it's the first one, add to rootGroup. 
+                // If it's subsequent, add to the previous Hinge group (because that group rotates).
+                // Wait, if we add Hinge2 to Hinge1, Hinge2 moves when Hinge1 rotates. Correct.
+                
+                // Problem: Hinge1 is added to rootGroup.
+                // Inside Hinge1, we have Face1.
+                // Hinge2 should be attached to Face1? Yes.
+                // Face1 is inside Hinge1. So Hinge2 should be inside Hinge1 as well.
+                
+                if (i === 0) {
+                    rootGroup.add(hinge);
+                } else {
+                    // Find the last hinge group and add this new one to it
+                    hinges[i-1].add(hinge);
+                }
+                
+                // Create Face
+                const face = createRectangleMesh(w, h, config.colorSide);
+                // Shift face so its LEFT edge is at the hinge (0,0 of hinge group)
+                face.position.set(w/2, 0, 0);
+                
+                hinge.add(face);
+                hinges.push(hinge);
+
+                // For the next loop, the hinge position is relative to the CURRENT hinge group.
+                // The current hinge is at 0,0 local. The face extends to x=w.
+                // So the NEXT hinge needs to be at x=w.
+                prevHingePos = w; 
+            }
+
+            // 4. Position the whole Net flat on the floor
+            // Currently it's standing up in XY plane.
+            // Rotate root -90 deg around X.
+            rootGroup.rotation.x = -Math.PI / 2;
+            // Lift it slightly so z-fighting doesn't happen with grid
+            rootGroup.position.y = 0.01;
+            
+            // Center the whole strip roughly
+            // The strip extends to the right. Shift left to center.
+            const totalWidth = w * sides;
+            rootGroup.position.x = -(totalWidth / 2) + w/2;
+            rootGroup.position.z = 0;
+        }
+
+
+        // --- Animation Logic ---
+        function updateFold(value) {
+            // value is 0 to 1
+            const sides = parseInt(document.getElementById('shapeSelect').value);
+            
+            // 1. Fold the Lateral Chain
+            // The exterior angle for a regular polygon is 360/sides.
+            // This is the angle each face must turn relative to the previous one to form the ring.
+            const targetAngle = (Math.PI * 2) / sides;
+            
+            hinges.forEach(hinge => {
+                hinge.rotation.y = value * targetAngle; 
+                // Note: rotation.y because in the local coordinate system of the strip (before we rotated root),
+                // the folding happens around the vertical join lines (Y axis).
+            });
+
+            // 2. Fold the Lids
+            // They fold 90 degrees (PI/2) relative to the Fixed Face.
+            // Axis: X axis in local space.
+            lidHinges.forEach(item => {
+                item.group.rotation.x = value * (Math.PI / 2) * item.dir;
+            });
+        }
+
+        // --- Interaction Handlers ---
+        
+        const slider = document.getElementById('foldSlider');
+        const foldValue = document.getElementById('foldValue');
+        const shapeSelect = document.getElementById('shapeSelect');
+        const toggleBtn = document.getElementById('toggleWireframe');
+        const resetBtn = document.getElementById('resetCam');
+
+        slider.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value) / 100;
+            foldValue.innerText = e.target.value;
+            updateFold(val);
+        });
+
+        shapeSelect.addEventListener('change', (e) => {
+            const sides = parseInt(e.target.value);
+            buildPrismNet(sides);
+            // Reset slider
+            slider.value = 0;
+            foldValue.innerText = "0";
+        });
+
+        toggleBtn.addEventListener('click', () => {
+            config.transparent = !config.transparent;
+            config.opacity = config.transparent ? 0.4 : 0.9;
+            
+            // Update all materials
+            scene.traverse((object) => {
+                if (object.isMesh && object.material) {
+                    object.material.opacity = config.opacity;
+                }
+            });
+        });
+
+        resetBtn.addEventListener('click', () => {
+            controls.reset();
+            camera.position.set(5, 8, 12);
+            camera.lookAt(0,0,0);
+        });
+
+        // --- Init ---
+        buildPrismNet(3); // Default Triangle
+
+        // --- Render Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+
+    </script>
+</body>
+</html>
