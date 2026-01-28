@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 大和氣報名進度 - 彩色卡片版</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; color: #667eea; margin-bottom: 10px; }
+        .countdown {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .overall-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-box .label { font-size: 0.9em; color: #666; margin-bottom: 5px; }
+        .stat-box .value { font-size: 1.8em; font-weight: bold; color: #667eea; }
+        .stat-box .sub-value { font-size: 0.85em; color: #999; margin-top: 3px; }
+        .refresh-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .refresh-btn:hover { background: #5568d3; }
+        .auto-badge {
+            display: inline-block;
+            background: #00b894;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+        .last-update { color: #999; font-size: 0.85em; }
+        .dept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+            border-left: 6px solid #667eea;
+            transition: transform 0.3s;
+        }
+        .dept-card:hover { transform: translateY(-3px); }
+        .dept-card.excellent { border-left-color: #27ae60; }
+        .dept-card.good { border-left-color: #f39c12; }
+        .dept-card.warning { border-left-color: #e74c3c; }
+        .dept-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .dept-name { font-size: 1.6em; font-weight: bold; color: #333; }
+        .dept-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            color: white;
+        }
+        .dept-badge.excellent { background: #27ae60; }
+        .dept-badge.good { background: #f39c12; }
+        .dept-badge.warning { background: #e74c3c; }
+        .progress-bar-container {
+            background: #e9ecef;
+            border-radius: 12px;
+            height: 32px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .progress-bar {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            min-width: 50px;
+        }
+        .progress-bar.excellent { background: linear-gradient(90deg, #27ae60, #2ecc71); }
+        .progress-bar.good { background: linear-gradient(90deg, #f39c12, #f1c40f); }
+        .progress-bar.warning { background: linear-gradient(90deg, #e74c3c, #e67e22); }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-item .s-label { font-size: 0.8em; color: #888; }
+        .stat-item .s-value { font-size: 1.3em; font-weight: bold; margin-top: 3px; }
+        .stat-item .s-value.deficit { color: #e74c3c; }
+        .stat-item .s-value.surplus { color: #27ae60; }
+        .chart-container { position: relative; height: 280px; margin: 15px 0; }
+        .sub-section { margin-top: 20px; }
+        .sub-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px dashed #e0e0e0;
+        }
+        .mini-progress {
+            background: #e9ecef;
+            border-radius: 8px;
+            height: 24px;
+            margin: 8px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .mini-bar {
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.6s ease;
+        }
+        .mini-label {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-size: 0.75em;
+            font-weight: bold;
+            color: #333;
+        }
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.3em;
+            color: white;
+        }
+        .loading .spinner {
+            display: inline-block;
+            width: 40px; height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error-box {
+            background: #ff7675;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.4em; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .chart-container { height: 220px; }
+            .overall-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>2026 大和氣報名進度</h1>
+            <div class="countdown" id="countdown">載入中...</div>
+            <div class="overall-stats" id="overall-stats"></div>
+            <div class="refresh-bar">
+                <button class="refresh-btn" onclick="loadData()">重新整理</button>
+                <span class="auto-badge" id="auto-badge">自動同步中 (60s)</span>
+                <span class="last-update" id="last-update"></span>
+            </div>
+        </div>
+        <div id="loading" class="loading">
+            <div class="spinner"></div><br>
+            正在從 Google Sheets 讀取資料...
+        </div>
+        <div id="error" class="error-box" style="display:none;"></div>
+        <div id="content" style="display:none;"></div>
+    </div>
+
+<script>
+const SPREADSHEET_ID = '1LqAxIhHF_CwlAUWKkmx5dvE76HzUPEWrA16mnXhF5v8';
+const GID = '844567347';
+const REFRESH_INTERVAL = 60000;
+let chartInstances = {};
+let refreshTimer = null;
+
+function parseCSV(text) {
+    const rows = [];
+    let current = '';
+    let inQuotes = false;
+    let row = [];
+    for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        if (inQuotes) {
+            if (ch === '"') {
+                if (i + 1 < text.length && text[i + 1] === '"') {
+                    current += '"';
+                    i++;
+                } else {
+                    inQuotes = false;
+                }
+            } else {
+                current += ch;
+            }
+        } else {
+            if (ch === '"') {
+                inQuotes = true;
+            } else if (ch === ',') {
+                row.push(current.trim());
+                current = '';
+            } else if (ch === '\n' || ch === '\r') {
+                if (ch === '\r' && i + 1 < text.length && text[i + 1] === '\n') i++;
+                row.push(current.trim());
+                rows.push(row);
+                row = [];
+                current = '';
+            } else {
+                current += ch;
+            }
+        }
+    }
+    if (current || row.length) {
+        row.push(current.trim());
+        rows.push(row);
+    }
+    return rows;
+}
+
+function safeNum(val) {
+    if (!val || val === '' || val === '#DIV/0!' || val === '#REF!' || val === '#N/A') return 0;
+    const n = parseFloat(String(val).replace(/[,%]/g, ''));
+    return isNaN(n) ? 0 : n;
+}
+
+function safePct(val) {
+    if (!val || val === '' || val === '#DIV/0!' || val === '#REF!' || val === '#N/A') return '0';
+    return String(val).replace(/[^0-9.%-]/g, '');
+}
+
+function getStatus(pct) {
+    if (pct >= 100) return 'excellent';
+    if (pct >= 80) return 'good';
+    return 'warning';
+}
+
+function getStatusLabel(pct) {
+    if (pct >= 100) return '已達標';
+    if (pct >= 80) return '接近達標';
+    return '需加油';
+}
+
+function calcPct(registered, target) {
+    if (!target || target === 0) return 0;
+    return (registered / target * 100);
+}
+
+function extractData(rows) {
+    // Row 0: Title
+    const title = rows[0] ? rows[0][0] : '2026 大和氣報名進度';
+
+    // Row 1: dates & countdown
+    const r1 = rows[1] || [];
+    const eventDate = r1[10] || '';
+    const todayDate = r1[12] || '';
+    const countdownDays = safeNum(r1[14]);
+    const overallCompletion = safePct(r1[16]);
+
+    // Dept indices: rows 5-8
+    const deptNames = ['大東', '大北', '大中', '大西'];
+    const depts = [];
+
+    for (let i = 0; i < 4; i++) {
+        const r = rows[5 + i] || [];
+        const target = safeNum(r[1]);
+        const registered = safeNum(r[2]);
+        const deficit = safeNum(r[3]);
+
+        // 法師邀約 cols 8-12
+        const monkData = {
+            col8: safeNum(r[8]), col9: safeNum(r[9]),
+            col10: safeNum(r[10]), col11: safeNum(r[11]), col12: safeNum(r[12])
+        };
+
+        // 慈济身份 cols 17-23
+        const identityLabels = ['志工', '慈少', '慈青', '会员', '大德', '荣董', '總人數'];
+        const identity = {};
+        for (let j = 0; j < 7; j++) {
+            identity[identityLabels[j]] = safeNum(r[17 + j]);
+        }
+
+        // 報名% breakdown #1 (row 13+i): 圖形浴佛/動線組/標兵組
+        const b1 = rows[13 + i] || [];
+        const breakdown1 = {
+            bathingBB: { target: safeNum(b1[1]), registered: safeNum(b1[2]) },
+            bathingW: { target: safeNum(b1[5]), registered: safeNum(b1[6]) },
+            routeBB: { target: safeNum(b1[9]), registered: safeNum(b1[10]) },
+            routeW: { target: safeNum(b1[13]), registered: safeNum(b1[14]) },
+            guard: { target: safeNum(b1[17]), registered: safeNum(b1[18]) }
+        };
+
+        // 報名% breakdown #2 (row 19+i): 獻供組
+        const b2 = rows[19 + i] || [];
+        const breakdown2 = {
+            ciCheng: { target: safeNum(b2[1]), registered: safeNum(b2[2]) },
+            weiYuan: { target: safeNum(b2[5]), registered: safeNum(b2[6]) },
+            shiYe: { target: safeNum(b2[9]), registered: safeNum(b2[10]) },
+            tima: { target: safeNum(b2[13]), registered: safeNum(b2[14]) },
+            jiaoLian: { target: safeNum(b2[17]), registered: safeNum(b2[18]) }
+        };
+
+        // 已领养 (row 25+i)
+        const a = rows[25 + i] || [];
+        const adopted = {
+            liuLi: { target: safeNum(a[1]), registered: safeNum(a[2]), deficit: safeNum(a[3]), pct: safePct(a[4]) },
+            lanHua: { target: safeNum(a[5]), adopted: safeNum(a[6]), remaining: safeNum(a[7]), paid: safeNum(a[8]), unpaid: safeNum(a[9]) },
+            ribenZhu: { target: safeNum(a[10]), adopted: safeNum(a[11]), remaining: safeNum(a[12]), paid: safeNum(a[13]), unpaid: safeNum(a[14]) },
+            huaHui: { target: safeNum(a[15]), adopted: safeNum(a[16]), remaining: safeNum(a[17]), paid: safeNum(a[18]), unpaid: safeNum(a[19]) },
+            yuanZhuo: { target: safeNum(a[20]), adopted: safeNum(a[21]), remaining: safeNum(a[22]), paid: safeNum(a[23]), unpaid: safeNum(a[24]) },
+            faShi: { target: safeNum(a[25]), adopted: safeNum(a[26]), remaining: safeNum(a[27]), paid: safeNum(a[28]), unpaid: safeNum(a[29]) }
+        };
+
+        depts.push({
+            name: deptNames[i],
+            target, registered, deficit,
+            monkData, identity,
+            breakdown1, breakdown2, adopted
+        });
+    }
+
+    // Totals (row 9)
+    const rt = rows[9] || [];
+    const totals = {
+        target: safeNum(rt[1]),
+        registered: safeNum(rt[2])
+    };
+
+    // 已领养 totals (row 29)
+    const at = rows[29] || [];
+    const adoptedTotals = {
+        liuLi: { target: safeNum(at[1]), registered: safeNum(at[2]) },
+        lanHua: { target: safeNum(at[5]), adopted: safeNum(at[6]) },
+        ribenZhu: { target: safeNum(at[10]), adopted: safeNum(at[11]) },
+        huaHui: { target: safeNum(at[15]), adopted: safeNum(at[16]) },
+        yuanZhuo: { target: safeNum(at[20]), adopted: safeNum(at[21]) },
+        faShi: { target: safeNum(at[25]), adopted: safeNum(at[26]) }
+    };
+
+    return { title, eventDate, todayDate, countdownDays, overallCompletion, depts, totals, adoptedTotals };
+}
+
+function renderOverall(data) {
+    const totalTarget = data.totals.target || data.depts.reduce((s, d) => s + d.target, 0);
+    const totalReg = data.totals.registered || data.depts.reduce((s, d) => s + d.registered, 0);
+    const deficit = totalTarget - totalReg;
+    const pct = totalTarget > 0 ? (totalReg / totalTarget * 100).toFixed(1) : '0.0';
+
+    document.getElementById('countdown').textContent = `倒數 ${data.countdownDays} 天`;
+
+    document.getElementById('overall-stats').innerHTML = `
+        <div class="stat-box"><div class="label">總目標</div><div class="value">${totalTarget.toLocaleString()}</div><div class="sub-value">人</div></div>
+        <div class="stat-box"><div class="label">已報名</div><div class="value">${totalReg.toLocaleString()}</div><div class="sub-value">人</div></div>
+        <div class="stat-box"><div class="label">${deficit > 0 ? '還差' : '超額'}</div><div class="value" style="color:${deficit > 0 ? '#e74c3c' : '#27ae60'}">${Math.abs(deficit).toLocaleString()}</div><div class="sub-value">人</div></div>
+        <div class="stat-box"><div class="label">完成率</div><div class="value">${pct}</div><div class="sub-value">%</div></div>
+    `;
+}
+
+function renderMiniBar(label, target, registered, color) {
+    if (!target && !registered) return '';
+    const pct = target > 0 ? Math.min((registered / target) * 100, 100) : 0;
+    const diff = target - registered;
+    return `<div class="mini-progress">
+        <div class="mini-bar" style="width:${pct}%;background:${color};"></div>
+        <div class="mini-label">
+            <span>${label}</span>
+            <span>${registered}/${target} ${diff > 0 ? '(差' + diff + ')' : diff < 0 ? '(超' + Math.abs(diff) + ')' : '(達標)'}</span>
+        </div>
+    </div>`;
+}
+
+function destroyCharts() {
+    Object.values(chartInstances).forEach(c => c.destroy());
+    chartInstances = {};
+}
+
+function renderDept(dept, idx) {
+    const pct = calcPct(dept.registered, dept.target);
+    const status = getStatus(pct);
+    const statusLabel = getStatusLabel(pct);
+    const deficit = dept.target - dept.registered;
+    const chartId = `chart-${idx}`;
+    const adoptChartId = `adopt-chart-${idx}`;
+
+    // Build adopted items data
+    const adoptItems = [
+        { name: '琉璃佛', target: dept.adopted.liuLi.target, done: dept.adopted.liuLi.registered },
+        { name: '蘭花', target: dept.adopted.lanHua.target, done: dept.adopted.lanHua.adopted },
+        { name: '日本竹', target: dept.adopted.ribenZhu.target, done: dept.adopted.ribenZhu.adopted },
+        { name: '花卉(圆桌)', target: dept.adopted.huaHui.target, done: dept.adopted.huaHui.adopted },
+        { name: '圓桌供佛花品', target: dept.adopted.yuanZhuo.target, done: dept.adopted.yuanZhuo.adopted },
+        { name: '供佛花品(法師)', target: dept.adopted.faShi.target, done: dept.adopted.faShi.adopted }
+    ].filter(x => x.target > 0 || x.done > 0);
+
+    const hasAdopted = adoptItems.length > 0;
+
+    let html = `<div class="dept-card ${status}">
+        <div class="dept-header">
+            <span class="dept-name">${dept.name}</span>
+            <span class="dept-badge ${status}">${statusLabel}</span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar ${status}" style="width:${Math.min(pct, 100)}%">${pct.toFixed(1)}%</div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item"><div class="s-label">目標</div><div class="s-value">${dept.target}</div></div>
+            <div class="stat-item"><div class="s-label">已報名</div><div class="s-value">${dept.registered}</div></div>
+            <div class="stat-item"><div class="s-label">${deficit > 0 ? '還差' : '超額'}</div><div class="s-value ${deficit > 0 ? 'deficit' : 'surplus'}">${Math.abs(deficit)}</div></div>
+            <div class="stat-item"><div class="s-label">完成率</div><div class="s-value">${pct.toFixed(1)}%</div></div>
+        </div>`;
+
+    // Bar chart for breakdown categories
+    html += `<div class="sub-section">
+        <div class="sub-title">報名分析 (圖形浴佛 / 動線組 / 標兵組)</div>
+        <div class="chart-container"><canvas id="${chartId}"></canvas></div>
+    </div>`;
+
+    // Mini bars for breakdown #1
+    const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#00b894'];
+    html += renderMiniBar('浴佛-藍/黑衣', dept.breakdown1.bathingBB.target, dept.breakdown1.bathingBB.registered, colors[0]);
+    html += renderMiniBar('浴佛-白衣', dept.breakdown1.bathingW.target, dept.breakdown1.bathingW.registered, colors[1]);
+    html += renderMiniBar('動線-藍/黑衣', dept.breakdown1.routeBB.target, dept.breakdown1.routeBB.registered, colors[2]);
+    html += renderMiniBar('動線-白衣', dept.breakdown1.routeW.target, dept.breakdown1.routeW.registered, colors[3]);
+    html += renderMiniBar('標兵-灰衣白褲', dept.breakdown1.guard.target, dept.breakdown1.guard.registered, colors[4]);
+
+    // Breakdown #2 (獻供組)
+    html += `<div class="sub-section"><div class="sub-title">獻供組分析</div></div>`;
+    html += renderMiniBar('慈誠', dept.breakdown2.ciCheng.target, dept.breakdown2.ciCheng.registered, '#3498db');
+    html += renderMiniBar('委員', dept.breakdown2.weiYuan.target, dept.breakdown2.weiYuan.registered, '#9b59b6');
+    html += renderMiniBar('實業組', dept.breakdown2.shiYe.target, dept.breakdown2.shiYe.registered, '#e67e22');
+    html += renderMiniBar('TIMA', dept.breakdown2.tima.target, dept.breakdown2.tima.registered, '#1abc9c');
+    html += renderMiniBar('教聯', dept.breakdown2.jiaoLian.target, dept.breakdown2.jiaoLian.registered, '#e74c3c');
+
+    // 已领养 section
+    if (hasAdopted) {
+        html += `<div class="sub-section">
+            <div class="sub-title">已领养 (供品認領)</div>
+            <div class="chart-container"><canvas id="${adoptChartId}"></canvas></div>
+        </div>`;
+        adoptItems.forEach(item => {
+            html += renderMiniBar(item.name, item.target, item.done, '#27ae60');
+        });
+    }
+
+    html += '</div>';
+    return html;
+}
+
+function createCharts(data) {
+    data.depts.forEach((dept, idx) => {
+        // Breakdown bar chart
+        const chartId = `chart-${idx}`;
+        const canvas = document.getElementById(chartId);
+        if (!canvas) return;
+
+        const labels = ['浴佛-藍/黑', '浴佛-白衣', '動線-藍/黑', '動線-白衣', '標兵'];
+        const targets = [
+            dept.breakdown1.bathingBB.target, dept.breakdown1.bathingW.target,
+            dept.breakdown1.routeBB.target, dept.breakdown1.routeW.target,
+            dept.breakdown1.guard.target
+        ];
+        const regs = [
+            dept.breakdown1.bathingBB.registered, dept.breakdown1.bathingW.registered,
+            dept.breakdown1.routeBB.registered, dept.breakdown1.routeW.registered,
+            dept.breakdown1.guard.registered
+        ];
+
+        chartInstances[chartId] = new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    { label: '目標', data: targets, backgroundColor: 'rgba(102,126,234,0.7)', borderRadius: 4 },
+                    { label: '已報名', data: regs, backgroundColor: 'rgba(118,75,162,0.7)', borderRadius: 4 }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'top' } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 5 } }
+                }
+            }
+        });
+
+        // Adopted bar chart
+        const adoptChartId = `adopt-chart-${idx}`;
+        const adoptCanvas = document.getElementById(adoptChartId);
+        if (!adoptCanvas) return;
+
+        const adoptItems = [
+            { name: '琉璃佛', target: dept.adopted.liuLi.target, done: dept.adopted.liuLi.registered },
+            { name: '蘭花', target: dept.adopted.lanHua.target, done: dept.adopted.lanHua.adopted },
+            { name: '日本竹', target: dept.adopted.ribenZhu.target, done: dept.adopted.ribenZhu.adopted },
+            { name: '花卉(圆桌)', target: dept.adopted.huaHui.target, done: dept.adopted.huaHui.adopted },
+            { name: '圓桌供佛花品', target: dept.adopted.yuanZhuo.target, done: dept.adopted.yuanZhuo.adopted },
+            { name: '供佛花品(法師)', target: dept.adopted.faShi.target, done: dept.adopted.faShi.adopted }
+        ].filter(x => x.target > 0 || x.done > 0);
+
+        if (adoptItems.length > 0) {
+            chartInstances[adoptChartId] = new Chart(adoptCanvas, {
+                type: 'bar',
+                data: {
+                    labels: adoptItems.map(x => x.name),
+                    datasets: [
+                        { label: '目標', data: adoptItems.map(x => x.target), backgroundColor: 'rgba(46,204,113,0.5)', borderRadius: 4 },
+                        { label: '已领养/報名', data: adoptItems.map(x => x.done), backgroundColor: 'rgba(39,174,96,0.8)', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top' } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+    });
+}
+
+async function loadData() {
+    const loadingEl = document.getElementById('loading');
+    const errorEl = document.getElementById('error');
+    const contentEl = document.getElementById('content');
+
+    loadingEl.style.display = 'block';
+    errorEl.style.display = 'none';
+    contentEl.style.display = 'none';
+
+    try {
+        const ts = Date.now();
+        const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}&_t=${ts}`;
+        const resp = await fetch(url, { cache: 'no-store' });
+        if (!resp.ok) throw new Error('無法讀取 Google Sheets (HTTP ' + resp.status + ')');
+        const text = await resp.text();
+        const rows = parseCSV(text);
+        if (rows.length < 10) throw new Error('數據格式不正確，行數不足');
+
+        const data = extractData(rows);
+        destroyCharts();
+        renderOverall(data);
+
+        contentEl.innerHTML = data.depts.map((d, i) => renderDept(d, i)).join('');
+        contentEl.style.display = 'block';
+        loadingEl.style.display = 'none';
+
+        createCharts(data);
+
+        document.getElementById('last-update').textContent =
+            '更新: ' + new Date().toLocaleString('zh-TW');
+    } catch (err) {
+        console.error('載入錯誤:', err);
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+        errorEl.textContent = '載入失敗: ' + err.message;
+    }
+}
+
+window.addEventListener('load', () => {
+    loadData();
+    refreshTimer = setInterval(loadData, REFRESH_INTERVAL);
+});
+</script>
+</body>
+</html>

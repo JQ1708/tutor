@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 大和氣報名進度 - 專業儀表版</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            color: #333;
+        }
+        .top-header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 25px 30px;
+        }
+        .top-header .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .top-header h1 { font-size: 1.6em; font-weight: 600; }
+        .kpi-row {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .kpi { text-align: center; }
+        .kpi .kpi-val { font-size: 2em; font-weight: 700; }
+        .kpi .kpi-label { font-size: 0.8em; opacity: 0.8; margin-top: 2px; }
+        .countdown-bar {
+            background: #e74c3c;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        .toolbar {
+            max-width: 1200px;
+            margin: 15px auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .toolbar .left { display: flex; align-items: center; gap: 12px; }
+        .auto-indicator {
+            display: flex; align-items: center; gap: 6px;
+            color: #27ae60; font-size: 0.85em; font-weight: 600;
+        }
+        .auto-indicator .dot {
+            width: 8px; height: 8px;
+            background: #27ae60;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .refresh-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .refresh-btn:hover { background: #2980b9; }
+        .last-update { color: #888; font-size: 0.8em; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 30px; }
+        .panel {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .panel-header {
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 5px solid #3498db;
+        }
+        .panel-header.east { border-left-color: #e74c3c; }
+        .panel-header.north { border-left-color: #3498db; }
+        .panel-header.central { border-left-color: #f39c12; }
+        .panel-header.west { border-left-color: #27ae60; }
+        .panel-title { font-size: 1.3em; font-weight: 700; }
+        .status-dot {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.9em; font-weight: 600;
+        }
+        .status-dot .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+        .status-dot.excellent .dot { background: #27ae60; }
+        .status-dot.excellent { color: #27ae60; }
+        .status-dot.good .dot { background: #f39c12; }
+        .status-dot.good { color: #f39c12; }
+        .status-dot.warning .dot { background: #e74c3c; }
+        .status-dot.warning { color: #e74c3c; }
+        .panel-body { padding: 0 24px 24px; }
+        .chart-container { position: relative; height: 250px; margin: 15px 0; }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+        .data-table th {
+            background: #f8f9fa;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #555;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .data-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .data-table tr:nth-child(even) { background: #fafbfc; }
+        .data-table tr:hover { background: #f0f4ff; }
+        .data-table .num { text-align: right; font-weight: 600; }
+        .data-table .deficit { color: #e74c3c; }
+        .data-table .surplus { color: #27ae60; }
+        .pct-cell {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .pct-cell.excellent { background: #d5f5e3; color: #27ae60; }
+        .pct-cell.good { background: #fef9e7; color: #f39c12; }
+        .pct-cell.warning { background: #fdedec; color: #e74c3c; }
+        .section-divider {
+            padding: 12px 24px;
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.95em;
+            border-top: 1px solid #e9ecef;
+        }
+        .loading {
+            text-align: center;
+            padding: 80px 20px;
+            font-size: 1.2em;
+            color: #666;
+        }
+        .loading .spinner {
+            display: inline-block;
+            width: 36px; height: 36px;
+            border: 3px solid #e0e0e0;
+            border-top-color: #3498db;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error-box {
+            background: #fdedec;
+            color: #e74c3c;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px;
+            text-align: center;
+            border: 1px solid #f5c6cb;
+        }
+        @media (max-width: 768px) {
+            .top-header .inner { flex-direction: column; text-align: center; }
+            .kpi-row { justify-content: center; }
+            .chart-container { height: 200px; }
+            .data-table { font-size: 0.8em; }
+            .data-table th, .data-table td { padding: 8px 6px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-header">
+        <div class="inner">
+            <h1 id="main-title">2026 大和氣報名進度</h1>
+            <div class="kpi-row" id="kpi-row"></div>
+        </div>
+    </div>
+    <div class="countdown-bar" id="countdown-bar">載入中...</div>
+    <div class="toolbar">
+        <div class="left">
+            <button class="refresh-btn" onclick="loadData()">重新整理</button>
+            <div class="auto-indicator"><div class="dot"></div>自動同步 (60s)</div>
+        </div>
+        <span class="last-update" id="last-update"></span>
+    </div>
+    <div class="container">
+        <div id="loading" class="loading">
+            <div class="spinner"></div><br>正在從 Google Sheets 讀取資料...
+        </div>
+        <div id="error" class="error-box" style="display:none;"></div>
+        <div id="content" style="display:none;"></div>
+    </div>
+
+<script>
+const SPREADSHEET_ID = '1LqAxIhHF_CwlAUWKkmx5dvE76HzUPEWrA16mnXhF5v8';
+const GID = '844567347';
+const REFRESH_INTERVAL = 60000;
+let chartInstances = {};
+let refreshTimer = null;
+
+function parseCSV(text) {
+    const rows = [];
+    let current = '', inQuotes = false, row = [];
+    for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        if (inQuotes) {
+            if (ch === '"') {
+                if (i + 1 < text.length && text[i + 1] === '"') { current += '"'; i++; }
+                else inQuotes = false;
+            } else current += ch;
+        } else {
+            if (ch === '"') inQuotes = true;
+            else if (ch === ',') { row.push(current.trim()); current = ''; }
+            else if (ch === '\n' || ch === '\r') {
+                if (ch === '\r' && i + 1 < text.length && text[i + 1] === '\n') i++;
+                row.push(current.trim()); rows.push(row); row = []; current = '';
+            } else current += ch;
+        }
+    }
+    if (current || row.length) { row.push(current.trim()); rows.push(row); }
+    return rows;
+}
+
+function safeNum(val) {
+    if (!val || val === '' || val === '#DIV/0!' || val === '#REF!' || val === '#N/A') return 0;
+    const n = parseFloat(String(val).replace(/[,%]/g, ''));
+    return isNaN(n) ? 0 : n;
+}
+
+function safePct(val) {
+    if (!val || val === '' || val === '#DIV/0!' || val === '#REF!' || val === '#N/A') return '0%';
+    return String(val).includes('%') ? val : val + '%';
+}
+
+function getStatus(pct) {
+    if (pct >= 100) return 'excellent';
+    if (pct >= 80) return 'good';
+    return 'warning';
+}
+
+function getStatusLabel(pct) {
+    if (pct >= 100) return '已達標';
+    if (pct >= 80) return '接近';
+    return '需加油';
+}
+
+function calcPct(reg, target) {
+    if (!target || target === 0) return 0;
+    return reg / target * 100;
+}
+
+function extractData(rows) {
+    const r1 = rows[1] || [];
+    const countdownDays = safeNum(r1[14]);
+    const overallCompletion = r1[16] || '';
+
+    const deptNames = ['大東', '大北', '大中', '大西'];
+    const deptClasses = ['east', 'north', 'central', 'west'];
+    const depts = [];
+
+    for (let i = 0; i < 4; i++) {
+        const r = rows[5 + i] || [];
+        const target = safeNum(r[1]);
+        const registered = safeNum(r[2]);
+
+        const b1 = rows[13 + i] || [];
+        const breakdown1 = [
+            { name: '浴佛-藍天藍褲/黑衣黑褲', target: safeNum(b1[1]), reg: safeNum(b1[2]) },
+            { name: '浴佛-白衣白褲', target: safeNum(b1[5]), reg: safeNum(b1[6]) },
+            { name: '動線-藍天藍褲/黑衣黑褲', target: safeNum(b1[9]), reg: safeNum(b1[10]) },
+            { name: '動線-白衣白褲', target: safeNum(b1[13]), reg: safeNum(b1[14]) },
+            { name: '標兵-灰衣白褲', target: safeNum(b1[17]), reg: safeNum(b1[18]) }
+        ];
+
+        const b2 = rows[19 + i] || [];
+        const breakdown2 = [
+            { name: '慈誠', target: safeNum(b2[1]), reg: safeNum(b2[2]) },
+            { name: '委員', target: safeNum(b2[5]), reg: safeNum(b2[6]) },
+            { name: '實業組', target: safeNum(b2[9]), reg: safeNum(b2[10]) },
+            { name: 'TIMA', target: safeNum(b2[13]), reg: safeNum(b2[14]) },
+            { name: '教聯', target: safeNum(b2[17]), reg: safeNum(b2[18]) }
+        ];
+
+        const a = rows[25 + i] || [];
+        const adopted = [
+            { name: '琉璃佛', target: safeNum(a[1]), done: safeNum(a[2]), deficit: safeNum(a[3]), pct: a[4] || '' },
+            { name: '蘭花', target: safeNum(a[5]), done: safeNum(a[6]), remaining: safeNum(a[7]), paid: safeNum(a[8]), unpaid: safeNum(a[9]) },
+            { name: '日本竹', target: safeNum(a[10]), done: safeNum(a[11]), remaining: safeNum(a[12]), paid: safeNum(a[13]), unpaid: safeNum(a[14]) },
+            { name: '花卉(圆桌)', target: safeNum(a[15]), done: safeNum(a[16]), remaining: safeNum(a[17]), paid: safeNum(a[18]), unpaid: safeNum(a[19]) },
+            { name: '圓桌供佛花品', target: safeNum(a[20]), done: safeNum(a[21]), remaining: safeNum(a[22]), paid: safeNum(a[23]), unpaid: safeNum(a[24]) },
+            { name: '供佛花品(法師)', target: safeNum(a[25]), done: safeNum(a[26]), remaining: safeNum(a[27]), paid: safeNum(a[28]), unpaid: safeNum(a[29]) }
+        ].filter(x => x.target > 0 || x.done > 0);
+
+        // 慈济身份
+        const identityLabels = ['志工', '慈少', '慈青', '会员', '大德', '荣董', '總人數'];
+        const identity = identityLabels.map((lbl, j) => ({
+            name: lbl, value: safeNum(r[17 + j])
+        }));
+
+        depts.push({
+            name: deptNames[i], cssClass: deptClasses[i],
+            target, registered,
+            breakdown1, breakdown2, adopted, identity
+        });
+    }
+
+    const rt = rows[9] || [];
+    const totals = { target: safeNum(rt[1]), registered: safeNum(rt[2]) };
+
+    return { countdownDays, overallCompletion, depts, totals };
+}
+
+function renderKPI(data) {
+    const t = data.totals.target || data.depts.reduce((s, d) => s + d.target, 0);
+    const r = data.totals.registered || data.depts.reduce((s, d) => s + d.registered, 0);
+    const deficit = t - r;
+    const pct = t > 0 ? (r / t * 100).toFixed(1) : '0.0';
+
+    document.getElementById('kpi-row').innerHTML = `
+        <div class="kpi"><div class="kpi-val">${t.toLocaleString()}</div><div class="kpi-label">總目標</div></div>
+        <div class="kpi"><div class="kpi-val">${r.toLocaleString()}</div><div class="kpi-label">已報名</div></div>
+        <div class="kpi"><div class="kpi-val" style="color:${deficit > 0 ? '#e74c3c' : '#2ecc71'}">${deficit > 0 ? deficit : '+' + Math.abs(deficit)}</div><div class="kpi-label">${deficit > 0 ? '還差' : '超額'}</div></div>
+        <div class="kpi"><div class="kpi-val">${pct}%</div><div class="kpi-label">完成率</div></div>
+    `;
+
+    document.getElementById('countdown-bar').textContent =
+        `倒數 ${data.countdownDays} 天 | 完成率 ${pct}%`;
+}
+
+function destroyCharts() {
+    Object.values(chartInstances).forEach(c => c.destroy());
+    chartInstances = {};
+}
+
+function renderTableRows(items) {
+    return items.map(item => {
+        const pct = calcPct(item.done !== undefined ? item.done : item.reg, item.target);
+        const status = getStatus(pct);
+        const diff = item.target - (item.done !== undefined ? item.done : item.reg);
+        return `<tr>
+            <td>${item.name}</td>
+            <td class="num">${item.target}</td>
+            <td class="num">${item.done !== undefined ? item.done : item.reg}</td>
+            <td class="num ${diff > 0 ? 'deficit' : diff < 0 ? 'surplus' : ''}">${diff > 0 ? diff : diff < 0 ? '+' + Math.abs(diff) : '0'}</td>
+            <td><span class="pct-cell ${status}">${pct.toFixed(1)}%</span></td>
+        </tr>`;
+    }).join('');
+}
+
+function renderPanel(dept, idx) {
+    const pct = calcPct(dept.registered, dept.target);
+    const status = getStatus(pct);
+    const chartId = `hbar-${idx}`;
+
+    // Merge all items for horizontal bar chart
+    const allItems = [
+        ...dept.breakdown1.map(x => ({ name: x.name, target: x.target, done: x.reg })),
+        ...dept.breakdown2.map(x => ({ name: x.name, target: x.target, done: x.reg }))
+    ].filter(x => x.target > 0 || x.done > 0);
+
+    let html = `<div class="panel">
+        <div class="panel-header ${dept.cssClass}">
+            <span class="panel-title">${dept.name}</span>
+            <div class="status-dot ${status}"><div class="dot"></div>${getStatusLabel(pct)}</div>
+        </div>
+        <div class="panel-body">`;
+
+    // Horizontal bar chart for all breakdown categories
+    if (allItems.length > 0) {
+        html += `<div class="chart-container"><canvas id="${chartId}"></canvas></div>`;
+    }
+
+    // Summary table - 大和氣總數
+    html += `<div class="section-divider">大和氣總數</div>
+        <table class="data-table">
+            <tr><th>項目</th><th class="num">目標</th><th class="num">已報名</th><th class="num">差額</th><th>完成率</th></tr>
+            <tr>
+                <td>總計</td><td class="num">${dept.target}</td><td class="num">${dept.registered}</td>
+                <td class="num ${dept.target - dept.registered > 0 ? 'deficit' : 'surplus'}">${dept.target - dept.registered > 0 ? (dept.target - dept.registered) : '+' + Math.abs(dept.target - dept.registered)}</td>
+                <td><span class="pct-cell ${status}">${pct.toFixed(1)}%</span></td>
+            </tr>
+        </table>`;
+
+    // Breakdown #1 table
+    const b1Active = dept.breakdown1.filter(x => x.target > 0 || x.reg > 0);
+    if (b1Active.length > 0) {
+        html += `<div class="section-divider">圖形浴佛 / 動線組 / 標兵組</div>
+            <table class="data-table">
+                <tr><th>類別</th><th class="num">目標</th><th class="num">已報名</th><th class="num">差額</th><th>完成率</th></tr>
+                ${renderTableRows(b1Active.map(x => ({ ...x, done: x.reg })))}
+            </table>`;
+    }
+
+    // Breakdown #2 table
+    const b2Active = dept.breakdown2.filter(x => x.target > 0 || x.reg > 0);
+    if (b2Active.length > 0) {
+        html += `<div class="section-divider">獻供組</div>
+            <table class="data-table">
+                <tr><th>類別</th><th class="num">目標</th><th class="num">已報名</th><th class="num">差額</th><th>完成率</th></tr>
+                ${renderTableRows(b2Active.map(x => ({ ...x, done: x.reg })))}
+            </table>`;
+    }
+
+    // Adopted table
+    if (dept.adopted.length > 0) {
+        html += `<div class="section-divider">已领养 (供品認領)</div>
+            <table class="data-table">
+                <tr><th>供品</th><th class="num">目標</th><th class="num">已领养</th><th class="num">差額</th><th>完成率</th></tr>
+                ${renderTableRows(dept.adopted)}
+            </table>`;
+    }
+
+    // Identity table
+    const identityActive = dept.identity.filter(x => x.value > 0);
+    if (identityActive.length > 0) {
+        html += `<div class="section-divider">慈济身份</div>
+            <table class="data-table">
+                <tr><th>身份</th><th class="num">人數</th></tr>
+                ${identityActive.map(x => `<tr><td>${x.name}</td><td class="num">${x.value}</td></tr>`).join('')}
+            </table>`;
+    }
+
+    html += '</div></div>';
+    return html;
+}
+
+function createCharts(data) {
+    const deptColors = ['#e74c3c', '#3498db', '#f39c12', '#27ae60'];
+    data.depts.forEach((dept, idx) => {
+        const chartId = `hbar-${idx}`;
+        const canvas = document.getElementById(chartId);
+        if (!canvas) return;
+
+        const allItems = [
+            ...dept.breakdown1.map(x => ({ name: x.name, target: x.target, done: x.reg })),
+            ...dept.breakdown2.map(x => ({ name: x.name, target: x.target, done: x.reg }))
+        ].filter(x => x.target > 0 || x.done > 0);
+
+        if (allItems.length === 0) return;
+
+        chartInstances[chartId] = new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: allItems.map(x => x.name),
+                datasets: [
+                    { label: '目標', data: allItems.map(x => x.target), backgroundColor: 'rgba(52,152,219,0.4)', borderColor: '#3498db', borderWidth: 1, borderRadius: 3 },
+                    { label: '已報名', data: allItems.map(x => x.done), backgroundColor: deptColors[idx] + 'CC', borderColor: deptColors[idx], borderWidth: 1, borderRadius: 3 }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' }
+                },
+                scales: {
+                    x: { beginAtZero: true }
+                }
+            }
+        });
+    });
+}
+
+async function loadData() {
+    const loadingEl = document.getElementById('loading');
+    const errorEl = document.getElementById('error');
+    const contentEl = document.getElementById('content');
+
+    loadingEl.style.display = 'block';
+    errorEl.style.display = 'none';
+    contentEl.style.display = 'none';
+
+    try {
+        const ts = Date.now();
+        const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}&_t=${ts}`;
+        const resp = await fetch(url, { cache: 'no-store' });
+        if (!resp.ok) throw new Error('無法讀取 Google Sheets (HTTP ' + resp.status + ')');
+        const text = await resp.text();
+        const rows = parseCSV(text);
+        if (rows.length < 10) throw new Error('數據格式不正確');
+
+        const data = extractData(rows);
+        destroyCharts();
+        renderKPI(data);
+
+        contentEl.innerHTML = data.depts.map((d, i) => renderPanel(d, i)).join('');
+        contentEl.style.display = 'block';
+        loadingEl.style.display = 'none';
+
+        createCharts(data);
+
+        document.getElementById('last-update').textContent =
+            '最後更新: ' + new Date().toLocaleString('zh-TW');
+    } catch (err) {
+        console.error('載入錯誤:', err);
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+        errorEl.textContent = '載入失敗: ' + err.message;
+    }
+}
+
+window.addEventListener('load', () => {
+    loadData();
+    refreshTimer = setInterval(loadData, REFRESH_INTERVAL);
+});
+</script>
+</body>
+</html>
