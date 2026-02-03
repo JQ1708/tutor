@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>慈济浴佛 2026 - Tzu Chi Buddha Bathing Ceremony</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -14,7 +14,7 @@
         }
 
         body {
-            font-family: 'Noto Serif TC', 'Noto Serif', serif;
+            font-family: 'Noto Serif SC', 'Noto Serif', serif;
             background: linear-gradient(180deg, #0a1628 0%, #001233 50%, #000814 100%);
             color: #f8fafc;
             overflow-x: hidden;
@@ -89,7 +89,7 @@
         .lang-btn {
             padding: 1.2rem 3rem;
             font-size: 1.3rem;
-            font-family: 'Noto Serif TC', serif;
+            font-family: 'Noto Serif SC', serif;
             background: transparent;
             border: 2px solid #c9a227;
             color: #c9a227;
@@ -192,9 +192,40 @@
             border: 1px solid rgba(201, 162, 39, 0.3);
         }
 
-        .video-container video {
+        .video-container video,
+        .video-container iframe {
             width: 100%;
             display: block;
+        }
+
+        /* === 活动地址信息 === */
+        .event-info {
+            text-align: center;
+            margin: 2.5rem auto;
+            padding: 1.5rem 2rem;
+            max-width: 600px;
+            background: rgba(201, 162, 39, 0.08);
+            border: 1px solid rgba(201, 162, 39, 0.25);
+            border-radius: 12px;
+        }
+
+        .event-date {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            color: #c9a227;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.8rem;
+        }
+
+        .event-venue-zh {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #f8fafc;
+            margin-bottom: 0.3rem;
+        }
+
+        .event-venue-en {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: #94a3b8;
         }
 
         /* === 图形区域 === */
@@ -591,6 +622,50 @@
             color: #000;
         }
 
+        /* === 浴佛意义视频区域 === */
+        .meaning-videos-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, rgba(0, 18, 51, 0.5) 0%, transparent 100%);
+        }
+
+        .meaning-videos-title {
+            text-align: center;
+            font-size: clamp(1.3rem, 4vw, 2rem);
+            color: #c9a227;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.2em;
+        }
+
+        .meaning-videos-subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        .meaning-videos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .meaning-video-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            background: rgba(10, 22, 40, 0.6);
+        }
+
+        .meaning-video-item iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: block;
+        }
+
         /* === 页脚 === */
         .footer {
             text-align: center;
@@ -707,7 +782,7 @@
 
     <!-- 语言选择 -->
     <div id="language-overlay">
-        <h2 class="language-title" data-zh="請選擇語言" data-en="Select Language">請選擇語言</h2>
+        <h2 class="language-title" data-zh="请选择语言 / Select Language" data-en="Select Language">请选择语言 / Select Language</h2>
         <div class="language-buttons">
             <button class="lang-btn" onclick="selectLanguage('zh')">中文</button>
             <button class="lang-btn" onclick="selectLanguage('en')">English</button>
@@ -721,30 +796,42 @@
     <div id="main-content">
         <!-- Hero Section -->
         <section class="hero-section">
-            <h1 class="main-title" data-zh="慈濟浴佛" data-en="Tzu Chi Buddha Bathing">慈濟浴佛</h1>
-            <p class="sub-title" data-zh="萬人浴佛 聚福緣" data-en="Ten Thousand People Bathing Buddha, Gathering Blessings">萬人浴佛 聚福緣</p>
+            <h1 class="main-title" data-zh="慈济浴佛" data-en="Tzu Chi Buddha Bathing">慈济浴佛</h1>
+            <p class="sub-title" data-zh="万人浴佛 聚福缘" data-en="Ten Thousand People Bathing Buddha, Gathering Blessings">万人浴佛 聚福缘</p>
 
             <!-- 浴佛意义文案 -->
             <div class="ceremony-description">
-                <p class="ceremony-text" data-zh="以淨水沐佛，洗滌內心煩惱；以善念共修，凝聚和平的願力。" data-en="Bathe the Buddha with pure water to cleanse inner worries; cultivate together with good intentions to gather the power of peace.">以淨水沐佛，洗滌內心煩惱；以善念共修，凝聚和平的願力。</p>
+                <p class="ceremony-text" data-zh="以净水沐佛，洗涤内心烦恼；以善念共修，凝聚和平的愿力。" data-en="Bathe the Buddha with pure water to cleanse inner worries; cultivate together with good intentions to gather the power of peace.">以净水沐佛，洗涤内心烦恼；以善念共修，凝聚和平的愿力。</p>
 
-                <h4 class="ceremony-section-title" data-zh="浴佛節的意義" data-en="Significance of Buddha Bathing">浴佛節的意義</h4>
-                <p class="ceremony-text" data-zh="浴佛象徵潔淨身心，憶念佛陀慈悲與智慧。慈濟以莊嚴儀式引導大眾回歸清淨、發願行善。" data-en="Buddha Bathing symbolizes purifying body and mind, remembering Buddha's compassion and wisdom. Tzu Chi guides everyone to return to purity and vow to do good through solemn ceremonies.">浴佛象徵潔淨身心，憶念佛陀慈悲與智慧。慈濟以莊嚴儀式引導大眾回歸清淨、發願行善。</p>
+                <h4 class="ceremony-section-title" data-zh="浴佛节的意义" data-en="Significance of Buddha Bathing">浴佛节的意义</h4>
+                <p class="ceremony-text" data-zh="浴佛象征洁净身心，忆念佛陀慈悲与智慧。慈济以庄严仪式引导大众回归清净、发愿行善。" data-en="Buddha Bathing symbolizes purifying body and mind, remembering Buddha's compassion and wisdom. Tzu Chi guides everyone to return to purity and vow to do good through solemn ceremonies.">浴佛象征洁净身心，忆念佛陀慈悲与智慧。慈济以庄严仪式引导大众回归清净、发愿行善。</p>
 
-                <h4 class="ceremony-section-title" data-zh="萬人點燈" data-en="Lighting of Ten Thousand Lamps">萬人點燈</h4>
-                <p class="ceremony-text" data-zh="當千人同心排成圖騰、點亮心燈，願社會祥和，人人平安。" data-en="When thousands unite to form a formation and light their heart lamps, may society be harmonious and everyone be at peace.">當千人同心排成圖騰、點亮心燈，願社會祥和，人人平安。</p>
+                <h4 class="ceremony-section-title" data-zh="万人点灯" data-en="Lighting of Ten Thousand Lamps">万人点灯</h4>
+                <p class="ceremony-text" data-zh="当千人同心排成图腾、点亮心灯，愿社会祥和，人人平安。" data-en="When thousands unite to form a formation and light their heart lamps, may society be harmonious and everyone be at peace.">当千人同心排成图腾、点亮心灯，愿社会祥和，人人平安。</p>
             </div>
 
             <div class="video-section">
                 <div class="video-container">
-                    <video id="promo-video" playsinline loop poster="buddha.png" controls>
-                        <source src="video.mp4" type="video/mp4">
-                    </video>
+                    <iframe id="promo-video"
+                        src="https://www.youtube-nocookie.com/embed/uCESAyzTSlc"
+                        title="慈济浴佛宣传视频"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        style="width:100%; aspect-ratio:16/9;">
+                    </iframe>
                 </div>
             </div>
 
-            <div class="scroll-indicator" data-zh="向下滑動" data-en="Scroll Down">
-                向下滑動
+            <!-- 活动地址信息 -->
+            <div class="event-info">
+                <p class="event-date">10.5.2026（日）7am</p>
+                <p class="event-venue-zh">武吉加里尔国家曲棍球体育场</p>
+                <p class="event-venue-en">National Hockey Stadium, Bukit Jalil</p>
+            </div>
+
+            <div class="scroll-indicator" data-zh="向下滑动" data-en="Scroll Down">
+                向下滑动
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
                 </svg>
@@ -753,17 +840,17 @@
 
         <!-- 图腾区域 -->
         <section class="formation-section">
-            <h2 class="section-title" data-zh="萬人圖騰" data-en="Formation of Ten Thousand">萬人圖騰</h2>
-            <p class="section-subtitle" data-zh="點亮您的心燈，匯聚善念" data-en="Light your heart lamp, gather blessings">點亮您的心燈，匯聚善念</p>
+            <h2 class="section-title" data-zh="万人图腾" data-en="Formation of Ten Thousand">万人图腾</h2>
+            <p class="section-subtitle" data-zh="点亮您的心灯，汇聚善念" data-en="Light your heart lamp, gather blessings">点亮您的心灯，汇聚善念</p>
 
             <!-- 计数器 -->
             <div class="stats-container">
                 <div class="stat-box left">
-                    <div class="stat-label" data-zh="點燈民眾" data-en="Participants">點燈民眾</div>
+                    <div class="stat-label" data-zh="点灯民众" data-en="Participants">点灯民众</div>
                     <div class="stat-number" id="count-display">0</div>
                 </div>
                 <div class="stat-box right">
-                    <div class="stat-label" data-zh="目標剩餘" data-en="Remaining">目標剩餘</div>
+                    <div class="stat-label" data-zh="目标剩余" data-en="Remaining">目标剩余</div>
                     <div class="stat-number" id="remaining-display">6000</div>
                 </div>
             </div>
@@ -772,20 +859,20 @@
             <div class="svg-container">
                 <div id="loading-spinner">
                     <div class="spinner"></div>
-                    <span data-zh="圖騰生成中..." data-en="Generating formation...">圖騰生成中...</span>
+                    <span data-zh="图腾生成中..." data-en="Generating formation...">图腾生成中...</span>
                 </div>
 
                 <!-- 手动加载回退 UI (默认隐藏，只有出错时才显示) -->
                 <div id="fallback-ui" class="fallback-ui hidden">
                     <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚠️</div>
-                    <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;" data-zh="本地預覽模式" data-en="Local Preview Mode">本地預覽模式</h3>
+                    <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;" data-zh="本地预览模式" data-en="Local Preview Mode">本地预览模式</h3>
                     <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
-                        <span data-zh="無法自動讀取圖片（瀏覽器安全限制）。" data-en="Cannot auto-load image (browser security).">無法自動讀取圖片（瀏覽器安全限制）。</span><br>
-                        <span data-zh="請點擊下方按鈕手動選擇 shape.png" data-en="Please click below to select shape.png">請點擊下方按鈕手動選擇 shape.png</span><br>
-                        <span style="color: #c9a227; font-size: 0.75rem;" data-zh="（上傳至 GitHub 後將自動加載）" data-en="(Will auto-load after uploading to GitHub)">（上傳至 GitHub 後將自動加載）</span>
+                        <span data-zh="无法自动读取图片（浏览器安全限制）。" data-en="Cannot auto-load image (browser security).">无法自动读取图片（浏览器安全限制）。</span><br>
+                        <span data-zh="请点击下方按钮手动选择 shape.png" data-en="Please click below to select shape.png">请点击下方按钮手动选择 shape.png</span><br>
+                        <span style="color: #c9a227; font-size: 0.75rem;" data-zh="（上传至 GitHub 后将自动加载）" data-en="(Will auto-load after uploading to GitHub)">（上传至 GitHub 后将自动加载）</span>
                     </p>
                     <label class="fallback-btn">
-                        <span data-zh="選擇 shape.png" data-en="Select shape.png">選擇 shape.png</span>
+                        <span data-zh="选择 shape.png" data-en="Select shape.png">选择 shape.png</span>
                         <input type="file" id="file-input" accept="image/*" style="display: none;">
                     </label>
                 </div>
@@ -799,112 +886,112 @@
         <!-- 报名区域 -->
         <section class="registration-section">
             <div class="form-container">
-                <h3 class="form-title" data-zh="點亮心燈" data-en="Light Your Lamp">點亮心燈</h3>
-                <p class="form-subtitle" data-zh="填寫以下資料完成報名" data-en="Fill in the form to register">填寫以下資料完成報名</p>
+                <h3 class="form-title" data-zh="报名参与" data-en="Register Now">报名参与</h3>
+                <p class="form-subtitle" data-zh="填写以下资料完成报名" data-en="Fill in the form to register">填写以下资料完成报名</p>
 
                 <form id="registration-form">
                     <div class="form-group">
                         <label data-zh="姓名" data-en="Name">姓名</label>
                         <input type="text" class="form-input" id="name" required
-                               data-placeholder-zh="請輸入您的姓名"
+                               data-placeholder-zh="请输入您的姓名"
                                data-placeholder-en="Enter your name"
-                               placeholder="請輸入您的姓名">
+                               placeholder="请输入您的姓名">
                     </div>
 
                     <div class="form-group">
-                        <label data-zh="手機號碼" data-en="Phone Number">手機號碼</label>
+                        <label data-zh="手机号码" data-en="Phone Number">手机号码</label>
                         <input type="tel" class="form-input" id="phone" required
-                               data-placeholder-zh="請輸入手機號碼"
+                               data-placeholder-zh="请输入手机号码"
                                data-placeholder-en="Enter your phone number"
-                               placeholder="請輸入手機號碼">
+                               placeholder="请输入手机号码">
                     </div>
 
                     <div class="form-group">
-                        <label data-zh="區域" data-en="Region">區域</label>
+                        <label data-zh="居住区域（请选择最靠近您住处的区域）" data-en="Region (Please select the region closest to your residence)">居住区域（请选择最靠近您住处的区域）</label>
                         <select class="form-input" id="region" required>
-                            <option value="" data-zh="請選擇區域" data-en="Select region">請選擇區域</option>
+                            <option value="" data-zh="请选择区域" data-en="Select region">请选择区域</option>
 
-                            <optgroup label="和氣互愛">
-                                <option value="和氣互愛">和氣互愛</option>
+                            <optgroup label="和气互爱" data-label-zh="和气互爱" data-label-en="Heqi Huai">
+                                <option value="和气互爱" data-zh="和气互爱" data-en="Heqi Huai">和气互爱</option>
                             </optgroup>
 
-                            <optgroup label="東區">
-                                <option value="東1-加影">東1 - 加影</option>
-                                <option value="東1-雙溪龍鎮">東1 - 雙溪龍鎮</option>
-                                <option value="東2-大同">東2 - 大同</option>
-                                <option value="東2-太子園">東2 - 太子園</option>
-                                <option value="東2-安邦">東2 - 安邦</option>
+                            <optgroup label="东区" data-label-zh="东区" data-label-en="East">
+                                <option value="东1-加影" data-zh="东1 - 加影" data-en="East 1 - Kajang">东1 - 加影</option>
+                                <option value="东1-双溪龙镇" data-zh="东1 - 双溪龙镇" data-en="East 1 - Bandar Sungai Long">东1 - 双溪龙镇</option>
+                                <option value="东2-大同" data-zh="东2 - 大同" data-en="East 2 - Taman Connaught">东2 - 大同</option>
+                                <option value="东2-太子园" data-zh="东2 - 太子园" data-en="East 2 - Taman Putra">东2 - 太子园</option>
+                                <option value="东2-安邦" data-zh="东2 - 安邦" data-en="East 2 - Ampang">东2 - 安邦</option>
                             </optgroup>
 
-                            <optgroup label="中區">
-                                <option value="中1-大城堡">中1 - 大城堡</option>
-                                <option value="中1-舊吧生路">中1 - 舊吧生路</option>
-                                <option value="中2-沙登新區">中2 - 沙登新區</option>
-                                <option value="中2-沙登舊區">中2 - 沙登舊區</option>
-                                <option value="中3-蒲種城">中3 - 蒲種城</option>
-                                <option value="中3-蒲種市">中3 - 蒲種市</option>
-                                <option value="中3-蒲種都">中3 - 蒲種都</option>
-                                <option value="中3-蒲種鎮">中3 - 蒲種鎮</option>
-                                <option value="中4-布高原">中4 - 布高原</option>
-                                <option value="中4-梳邦再也">中4 - 梳邦再也</option>
-                                <option value="中5-武吉日落洞">中5 - 武吉日落洞</option>
-                                <option value="中5-莎亞南">中5 - 莎亞南</option>
+                            <optgroup label="中区" data-label-zh="中区" data-label-en="Central">
+                                <option value="中1-大城堡" data-zh="中1 - 大城堡" data-en="Central 1 - Sri Petaling">中1 - 大城堡</option>
+                                <option value="中1-旧巴生路" data-zh="中1 - 旧巴生路" data-en="Central 1 - Old Klang Road">中1 - 旧巴生路</option>
+                                <option value="中2-沙登新区" data-zh="中2 - 沙登新区" data-en="Central 2 - Seri Kembangan">中2 - 沙登新区</option>
+                                <option value="中2-沙登旧区" data-zh="中2 - 沙登旧区" data-en="Central 2 - Serdang Lama">中2 - 沙登旧区</option>
+                                <option value="中3-蒲种城" data-zh="中3 - 蒲种城" data-en="Central 3 - Bandar Puchong">中3 - 蒲种城</option>
+                                <option value="中3-蒲种市" data-zh="中3 - 蒲种市" data-en="Central 3 - Puchong Jaya">中3 - 蒲种市</option>
+                                <option value="中3-蒲种都" data-zh="中3 - 蒲种都" data-en="Central 3 - Puchong Utama">中3 - 蒲种都</option>
+                                <option value="中3-蒲种镇" data-zh="中3 - 蒲种镇" data-en="Central 3 - Taman Puchong">中3 - 蒲种镇</option>
+                                <option value="中4-布高原" data-zh="中4 - 布高原" data-en="Central 4 - Putra Heights">中4 - 布高原</option>
+                                <option value="中4-梳邦再也" data-zh="中4 - 梳邦再也" data-en="Central 4 - Subang Jaya">中4 - 梳邦再也</option>
+                                <option value="中5-武吉日落洞" data-zh="中5 - 武吉日落洞" data-en="Central 5 - Bukit Jalil">中5 - 武吉日落洞</option>
+                                <option value="中5-莎亚南" data-zh="中5 - 莎亚南" data-en="Central 5 - Shah Alam">中5 - 莎亚南</option>
                             </optgroup>
 
-                            <optgroup label="北區">
-                                <option value="北1-SVD">北1 - SVD</option>
-                                <option value="北1-萬撓">北1 - 萬撓</option>
-                                <option value="北1-斯里白沙羅">北1 - 斯里白沙羅</option>
-                                <option value="北2-八打靈">北2 - 八打靈</option>
-                                <option value="北2-白沙羅">北2 - 白沙羅</option>
-                                <option value="北B-增江">北B - 增江</option>
-                                <option value="北B-峇都急">北B - 峇都急</option>
-                                <option value="北B-文良港">北B - 文良港</option>
-                                <option value="北B-旺沙瑪珠">北B - 旺沙瑪珠</option>
-                                <option value="北B-甲洞衛星市">北B - 甲洞衛星市</option>
-                                <option value="北B-甲洞帝沙">北B - 甲洞帝沙</option>
-                                <option value="北B-甲洞馬魯里">北B - 甲洞馬魯里</option>
+                            <optgroup label="北区" data-label-zh="北区" data-label-en="North">
+                                <option value="北1-SVD" data-zh="北1 - SVD" data-en="North 1 - SVD">北1 - SVD</option>
+                                <option value="北1-万挠" data-zh="北1 - 万挠" data-en="North 1 - Rawang">北1 - 万挠</option>
+                                <option value="北1-斯里白沙罗" data-zh="北1 - 斯里白沙罗" data-en="North 1 - Sri Damansara">北1 - 斯里白沙罗</option>
+                                <option value="北2-八打灵" data-zh="北2 - 八打灵" data-en="North 2 - Petaling Jaya">北2 - 八打灵</option>
+                                <option value="北2-白沙罗" data-zh="北2 - 白沙罗" data-en="North 2 - Damansara">北2 - 白沙罗</option>
+                                <option value="北B-增江" data-zh="北B - 增江" data-en="North B - Jinjang">北B - 增江</option>
+                                <option value="北B-峇都急" data-zh="北B - 峇都急" data-en="North B - Batu Caves">北B - 峇都急</option>
+                                <option value="北B-文良港" data-zh="北B - 文良港" data-en="North B - Setapak">北B - 文良港</option>
+                                <option value="北B-旺沙玛珠" data-zh="北B - 旺沙玛珠" data-en="North B - Wangsa Maju">北B - 旺沙玛珠</option>
+                                <option value="北B-甲洞卫星市" data-zh="北B - 甲洞卫星市" data-en="North B - Kepong Baru">北B - 甲洞卫星市</option>
+                                <option value="北B-甲洞帝沙" data-zh="北B - 甲洞帝沙" data-en="North B - Desa Jaya">北B - 甲洞帝沙</option>
+                                <option value="北B-甲洞马鲁里" data-zh="北B - 甲洞马鲁里" data-en="North B - Metro Prima">北B - 甲洞马鲁里</option>
                             </optgroup>
 
-                            <optgroup label="西北區">
-                                <option value="西北-加埔衛星市">西北 - 加埔衛星市</option>
-                                <option value="西北-實達阿南">西北 - 實達阿南</option>
-                                <option value="西北-永安鎮">西北 - 永安鎮</option>
-                                <option value="西北-適耕莊大港">西北 - 適耕莊大港</option>
+                            <optgroup label="西北区" data-label-zh="西北区" data-label-en="Northwest">
+                                <option value="西北-加埔卫星市" data-zh="西北 - 加埔卫星市" data-en="Northwest - Kapar">西北 - 加埔卫星市</option>
+                                <option value="西北-实达阿南" data-zh="西北 - 实达阿南" data-en="Northwest - Setia Alam">西北 - 实达阿南</option>
+                                <option value="西北-永安镇" data-zh="西北 - 永安镇" data-en="Northwest - Bandar Bukit Raja">西北 - 永安镇</option>
+                                <option value="西北-适耕庄大港" data-zh="西北 - 适耕庄大港" data-en="Northwest - Sekinchan">西北 - 适耕庄大港</option>
                             </optgroup>
 
-                            <optgroup label="西南區">
-                                <option value="西南1-聖淘沙">西南1 - 聖淘沙</option>
-                                <option value="西南1-快樂園">西南1 - 快樂園</option>
-                                <option value="西南2-武吉丁宜">西南2 - 武吉丁宜</option>
-                                <option value="西南2-萬絨">西南2 - 萬絨</option>
+                            <optgroup label="西南区" data-label-zh="西南区" data-label-en="Southwest">
+                                <option value="西南1-圣淘沙" data-zh="西南1 - 圣淘沙" data-en="Southwest 1 - Kota Kemuning">西南1 - 圣淘沙</option>
+                                <option value="西南1-快乐园" data-zh="西南1 - 快乐园" data-en="Southwest 1 - Taman Sentosa">西南1 - 快乐园</option>
+                                <option value="西南2-武吉丁宜" data-zh="西南2 - 武吉丁宜" data-en="Southwest 2 - Bukit Tinggi">西南2 - 武吉丁宜</option>
+                                <option value="西南2-万绒" data-zh="西南2 - 万绒" data-en="Southwest 2 - Bandar Botanic">西南2 - 万绒</option>
                             </optgroup>
 
-                            <optgroup label="功能組">
-                                <option value="功能組">功能組</option>
-                                <option value="功能組-英文組">功能組 - 英文組</option>
-                                <option value="功能組-醫療組">功能組 - 醫療組</option>
+                            <optgroup label="功能组" data-label-zh="功能组" data-label-en="Functional Group">
+                                <option value="功能组" data-zh="功能组" data-en="Functional Group">功能组</option>
+                                <option value="功能组-英文组" data-zh="功能组 - 英文组" data-en="Functional Group - English">功能组 - 英文组</option>
+                                <option value="功能组-医疗组" data-zh="功能组 - 医疗组" data-en="Functional Group - Medical">功能组 - 医疗组</option>
                             </optgroup>
 
-                            <optgroup label="合心">
-                                <option value="合心-功能組">合心 - 功能組</option>
-                                <option value="合心-蒲種市">合心 - 蒲種市</option>
+                            <optgroup label="合心" data-label-zh="合心" data-label-en="Hexin">
+                                <option value="合心-功能组" data-zh="合心 - 功能组" data-en="Hexin - Functional Group">合心 - 功能组</option>
+                                <option value="合心-蒲种市" data-zh="合心 - 蒲种市" data-en="Hexin - Puchong Jaya">合心 - 蒲种市</option>
                             </optgroup>
                         </select>
                     </div>
 
-                    <!-- 角色選擇 -->
+                    <!-- 角色选择 -->
                     <div class="role-selection">
-                        <label data-zh="你想成為" data-en="I want to be">你想成為</label>
+                        <label data-zh="你想成为" data-en="I want to be">你想成为</label>
                         <div class="role-buttons">
                             <button type="button" class="role-btn" id="role-audience" onclick="selectRole('audience')">
                                 <span class="role-icon">👀</span>
-                                <span class="role-label" data-zh="做觀眾" data-en="Audience">做觀眾</span>
-                                <span class="role-desc" data-zh="現場觀禮" data-en="Watch the ceremony">現場觀禮</span>
+                                <span class="role-label" data-zh="观礼当观众" data-en="Be an Audience">观礼当观众</span>
+                                <span class="role-desc" data-zh="现场观礼" data-en="Watch the ceremony">现场观礼</span>
                             </button>
                             <button type="button" class="role-btn" id="role-formation" onclick="selectRole('formation')">
                                 <span class="role-icon">🪷</span>
-                                <span class="role-label" data-zh="入圖騰" data-en="Join Formation">入圖騰</span>
+                                <span class="role-label" data-zh="入庄严图形" data-en="Join Formation">入庄严图形</span>
                                 <span class="role-desc" data-zh="融入大我" data-en="Become part of the whole">融入大我</span>
                             </button>
                         </div>
@@ -912,14 +999,50 @@
                     </div>
 
                     <button type="submit" class="submit-btn" id="submit-btn"
-                            data-zh="呈交祈願" data-en="Submit Prayer">呈交祈願</button>
+                            data-zh="呈交祈愿" data-en="Submit Prayer">呈交祈愿</button>
                 </form>
+            </div>
+        </section>
+
+        <!-- 浴佛意义视频区域 -->
+        <section class="meaning-videos-section">
+            <h2 class="meaning-videos-title" data-zh="浴佛节的意义" data-en="Significance of Buddha Bathing">浴佛节的意义</h2>
+            <p class="meaning-videos-subtitle" data-zh="了解更多关于浴佛节的意义" data-en="Learn more about the significance of Buddha Bathing">了解更多关于浴佛节的意义</p>
+
+            <div class="meaning-videos-container">
+                <div class="meaning-video-item">
+                    <iframe
+                        src="https://www.youtube-nocookie.com/embed/PqKX4WgakbQ"
+                        title="浴佛节意义视频1"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="meaning-video-item">
+                    <iframe
+                        src="https://www.youtube-nocookie.com/embed/LdL_vymXnlc"
+                        title="浴佛节意义视频2"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="meaning-video-item">
+                    <iframe
+                        src="https://www.youtube-nocookie.com/embed/ggAxSXqViYI"
+                        title="浴佛节意义视频3"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
         </section>
 
         <!-- 页脚 -->
         <footer class="footer">
-            <p>台灣佛教慈濟基金會馬來西亞（雪隆分會）</p>
+            <p>台湾佛教慈济基金会马来西亚（雪隆分会）</p>
             <p style="margin-top: 0.5rem;">Taiwan Buddhist Tzu-Chi Foundation Malaysia (KL & Selangor)</p>
         </footer>
     </div>
@@ -928,9 +1051,9 @@
     <div id="success-modal">
         <div class="modal-content">
             <div class="modal-icon">🙏</div>
-            <h3 class="modal-title" data-zh="感恩報名" data-en="Thank You for Registering">感恩報名</h3>
-            <p class="modal-text" data-zh="我們會儘快與您聯繫" data-en="We will contact you soon">我們會儘快與您聯繫</p>
-            <button class="modal-btn" onclick="closeModal()" data-zh="關閉" data-en="Close">關閉</button>
+            <h3 class="modal-title" data-zh="感恩报名" data-en="Thank You for Registering">感恩报名</h3>
+            <p class="modal-text" data-zh="我们会尽快与您联系" data-en="We will contact you soon">我们会尽快与您联系</p>
+            <button class="modal-btn" onclick="closeModal()" data-zh="关闭" data-en="Close">关闭</button>
         </div>
     </div>
 
@@ -1000,14 +1123,7 @@
                 // 应用语言
                 applyLanguage(lang);
 
-                // 用户已交互，可以播放有声视频（音量设为25%避免惊吓用户）
-                ui.video.volume = 0.25;
-                ui.video.muted = false;
-                ui.video.play().catch(e => {
-                    console.log('Video autoplay blocked, trying muted');
-                    ui.video.muted = true;
-                    ui.video.play();
-                });
+                // YouTube iframe 不需要自动播放控制，由用户点击播放
 
                 // 初始化图腾
                 initFormation();
@@ -1031,8 +1147,27 @@
                 }
             });
 
+            // 更新区域选择下拉菜单的选项文字
+            const regionSelect = document.getElementById('region');
+            if (regionSelect) {
+                // 更新 optgroup 标签
+                regionSelect.querySelectorAll('optgroup').forEach(group => {
+                    const labelAttr = `data-label-${lang}`;
+                    if (group.hasAttribute(labelAttr)) {
+                        group.label = group.getAttribute(labelAttr);
+                    }
+                });
+
+                // 更新 option 文字
+                regionSelect.querySelectorAll('option').forEach(option => {
+                    if (option.hasAttribute(attr)) {
+                        option.textContent = option.getAttribute(attr);
+                    }
+                });
+            }
+
             // 更新 HTML lang 属性
-            document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
         }
 
         // === 初始化图腾 ===
@@ -1295,15 +1430,15 @@
             // 验证所有必填项
             if (!name || !phone || !region) return;
 
-            // 驗證角色選擇
+            // 验证角色选择
             if (!role) {
-                alert(state.language === 'zh' ? '請選擇「做觀眾」或「入圖騰」' : 'Please select "Audience" or "Join Formation"');
+                alert(state.language === 'zh' ? '请选择「观礼当观众」或「入庄严图形」' : 'Please select "Be an Audience" or "Join Formation"');
                 return;
             }
 
-            // 禁用按鈕
+            // 禁用按钮
             ui.submitBtn.disabled = true;
-            ui.submitBtn.textContent = state.language === 'zh' ? '處理中...' : 'Processing...';
+            ui.submitBtn.textContent = state.language === 'zh' ? '处理中...' : 'Processing...';
 
             // 准备报名数据
             const formData = {
@@ -1312,7 +1447,7 @@
                 phone,
                 region,
                 role,  // 'audience' 或 'formation'
-                roleLabel: role === 'audience' ? '做觀眾' : '入圖騰',
+                roleLabel: role === 'audience' ? '观礼当观众' : '入庄严图形',
                 language: state.language,
                 timestamp: new Date().toISOString()
             };
@@ -1334,7 +1469,7 @@
                 document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('selected'));
                 document.getElementById('role').value = '';
                 ui.submitBtn.disabled = false;
-                ui.submitBtn.textContent = state.language === 'zh' ? '呈交祈願' : 'Submit Prayer';
+                ui.submitBtn.textContent = state.language === 'zh' ? '呈交祈愿' : 'Submit Prayer';
 
                 // 显示成功弹窗
                 ui.modal.classList.add('active');
@@ -1346,7 +1481,7 @@
             const nextIndexPtr = state.count;
 
             if (nextIndexPtr >= state.availableIndices.length) {
-                alert(state.language === 'zh' ? '功德圓滿！' : 'All positions filled!');
+                alert(state.language === 'zh' ? '功德圆满！' : 'All positions filled!');
                 callback();
                 return;
             }
