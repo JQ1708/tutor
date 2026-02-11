@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Stadium Hockey Bukit Jalil - 3D Briefing Model</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="spinner"></div>
+    <div class="loading-title">Loading 3D Venue...</div>
+    <div class="loading-subtitle">Stadium Hockey Bukit Jalil</div>
+  </div>
+  <div id="app">
+    <canvas id="scene"></canvas>
+    <div id="annotation-container" class="annotation-container"></div>
+    <div class="hud">
+      <div class="title">Stadium Hockey Bukit Jalil - 3D Briefing (Daytime)</div>
+      <div class="controls">
+        <button id="style-realistic" class="active" type="button">Realistic</button>
+        <button id="style-clean" type="button">Clean Plan</button>
+      </div>
+      <div class="controls controls-view">
+        <button id="view-aerial" class="active" type="button">Aerial</button>
+        <button id="view-main" type="button">Main Stadium</button>
+        <button id="view-secondary" type="button">Secondary</button>
+        <button id="view-tour" type="button">Start Tour</button>
+      </div>
+      <div class="note">Pinch to zoom, drag to orbit. Mouse drag + wheel also supported.</div>
+    </div>
+    <div class="stats-panel">
+      <div class="stats-title">Briefing Snapshot</div>
+      <div class="stats-row"><span>Main Venue</span><strong>National Hockey Stadium</strong></div>
+      <div class="stats-row"><span>Secondary Venue</span><strong>Stadium Hoki 2</strong></div>
+      <div class="stats-row"><span>Expected Crowd</span><strong>10,000+</strong></div>
+      <div class="stats-row"><span>Staff (est.)</span><strong>500+</strong></div>
+    </div>
+    <div class="legend-panel">
+      <div class="legend-item"><span class="swatch swatch-field"></span>Hockey pitch</div>
+      <div class="legend-item"><span class="swatch swatch-track"></span>Perimeter track</div>
+      <div class="legend-item"><span class="swatch swatch-roof"></span>Stadium roof</div>
+      <div class="legend-item"><span class="swatch swatch-road"></span>Road access</div>
+    </div>
+    <div id="status" class="status">Loading model...</div>
+  </div>
+
+  <script type="module">
+    import("./app.js").catch((error) => {
+      console.error(error);
+      const status = document.getElementById("status");
+      status.textContent = "Load failed: " + (error && error.message ? error.message : "unknown module error");
+      status.style.display = "block";
+    });
+  </script>
+</body>
+</html>
