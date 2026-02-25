@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materials and their structure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0fdfa;
+            color: #1e293b;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* iPad Scrollbar hiding for clean look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent; 
+        }
+
+        /* Math Fractions */
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.25rem;
+            font-style: italic;
+            font-family: serif;
+        }
+        .math-frac .num {
+            border-bottom: 2px solid #1e293b;
+            padding: 0 0.2rem;
+            line-height: 1.2;
+        }
+        .math-frac .den {
+            padding: 0 0.2rem;
+            line-height: 1.2;
+        }
+
+        /* Keyword Effects */
+        .kw-bold-color {
+            font-weight: 900;
+            color: #e11d48;
+            transition: all 0.3s ease;
+        }
+        .kw-italic-underline {
+            font-style: italic;
+            text-decoration: underline wavy #3b82f6;
+            text-underline-offset: 4px;
+            font-weight: 700;
+        }
+        .kw-circle {
+            border: 2px solid #10b981;
+            border-radius: 9999px;
+            padding: 0.1rem 0.6rem;
+            font-weight: 900;
+            background: #ecfdf5;
+            color: #047857;
+            display: inline-block;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+        }
+        @keyframes floatWord {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+        .kw-float {
+            display: inline-block;
+            animation: floatWord 2s ease-in-out infinite;
+            font-weight: 900;
+            color: #8b5cf6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .kw-highlight {
+            background-color: #fef08a;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.25rem;
+            font-weight: 900;
+            color: #854d0e;
+        }
+
+        /* Slide Container */
+        .slides-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            padding: 1rem;
+        }
+
+        /* Card styles */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-radius: 1.5rem;
+        }
+
+        /* Animations */
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse-node { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col items-center p-4 md:p-8 relative">
+
+    <!-- Header -->
+    <header class="w-full max-w-4xl text-center mb-6 z-10">
+        <h1 class="text-4xl md:text-5xl font-black text-slate-800 tracking-tight drop-shadow-sm">
+            Materials and their structure
+        </h1>
+        <p class="text-slate-500 mt-2 font-bold">Interactive iPad Study Notes</p>
+    </header>
+
+    <!-- App Container -->
+    <main id="app" class="w-full max-w-4xl flex-1 flex flex-col relative">
+        
+        <!-- View 1: Mind Map (Home) -->
+        <div id="view-mindmap" class="flex-1 flex flex-col items-center justify-center fade-in w-full h-full relative">
+            <div class="glass-card w-full h-full p-8 flex flex-col items-center justify-center relative bg-slate-50">
+                <p class="text-xl font-bold text-slate-600 mb-12 text-center">Tap a topic to start learning!</p>
+                
+                <!-- SVG Connecting Lines -->
+                <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none" preserveAspectRatio="xMidYMid meet">
+                    <line x1="50%" y1="30%" x2="25%" y2="65%" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="8" />
+                    <line x1="50%" y1="30%" x2="75%" y2="65%" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="8" />
+                </svg>
+
+                <!-- Mind Map Nodes -->
+                <div class="relative z-10 flex flex-col items-center w-full">
+                    <!-- Main Node -->
+                    <div class="bg-indigo-600 text-white font-black text-2xl py-4 px-8 rounded-full shadow-lg mb-16 border-4 border-indigo-200">
+                        Materials
+                    </div>
+                    
+                    <div class="flex justify-between w-full md:w-3/4 px-4">
+                        <!-- Sub Node 1 -->
+                        <button onclick="openTopic('5.1')" class="pulse-node bg-blue-500 hover:bg-blue-400 text-white font-bold py-6 px-4 md:px-8 rounded-3xl shadow-xl transition-transform transform hover:scale-105 active:scale-95 text-center w-5/12">
+                            <span class="block text-sm md:text-lg opacity-80 mb-1">Topic 5.1</span>
+                            <span class="block text-lg md:text-2xl">Structure of the Atom</span>
+                        </button>
+
+                        <!-- Sub Node 2 -->
+                        <button onclick="openTopic('5.2')" class="pulse-node bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-6 px-4 md:px-8 rounded-3xl shadow-xl transition-transform transform hover:scale-105 active:scale-95 text-center w-5/12" style="animation-delay: 1s;">
+                            <span class="block text-sm md:text-lg opacity-80 mb-1">Topic 5.2</span>
+                            <span class="block text-lg md:text-2xl">Purity</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 2: Content Slider -->
+        <div id="view-content" class="hidden flex-1 flex flex-col w-full h-full fade-in relative">
+            
+            <div class="flex justify-between items-center mb-4">
+                <button onclick="goHome()" class="bg-white border-2 border-slate-200 text-slate-600 font-bold py-2 px-6 rounded-full shadow-sm hover:bg-slate-50 active:scale-95 transition-all">
+                    &larr; Back to Map
+                </button>
+                <div id="topic-title" class="text-xl font-black text-slate-700">Topic Title</div>
+            </div>
+
+            <div class="glass-card flex-1 relative overflow-hidden flex flex-col">
+                <!-- Navigation Hints -->
+                <div class="absolute top-4 left-0 w-full flex justify-between px-4 z-20 pointer-events-none opacity-50">
+                    <span class="bg-black text-white text-xs px-2 py-1 rounded-full">&larr; Swipe</span>
+                    <span class="bg-black text-white text-xs px-2 py-1 rounded-full">Swipe &rarr;</span>
+                </div>
+
+                <!-- Slider -->
+                <div id="slides-container" class="slides-container flex-1 w-full h-full pb-16">
+                    <!-- Slides injected via JS -->
+                </div>
+
+                <!-- Slide Indicators -->
+                <div id="slide-indicators" class="absolute bottom-4 left-0 w-full flex justify-center space-x-2 z-10">
+                    <!-- Dots injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- View 3: Quiz Module -->
+        <div id="view-quiz" class="hidden flex-1 flex flex-col w-full h-full fade-in relative">
+            <div class="glass-card flex-1 p-6 md:p-12 flex flex-col relative bg-indigo-50">
+                <button onclick="openTopic(currentTopic)" class="absolute top-4 left-4 bg-white border-2 border-indigo-200 text-indigo-600 font-bold py-1 px-4 rounded-full shadow-sm hover:bg-indigo-50 active:scale-95 transition-all">
+                    &larr; Exit Quiz
+                </button>
+                
+                <div class="flex-1 flex flex-col items-center justify-center w-full max-w-2xl mx-auto text-center mt-8">
+                    <div class="text-indigo-400 font-bold mb-2">Question <span id="q-current">1</span> of 10</div>
+                    
+                    <div class="w-full bg-indigo-100 rounded-full h-2.5 mb-8">
+                      <div id="q-progress" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 10%"></div>
+                    </div>
+
+                    <h2 id="q-text" class="text-2xl md:text-3xl font-black text-slate-800 mb-8 leading-snug">
+                        Question goes here?
+                    </h2>
+
+                    <div id="q-options" class="w-full space-y-4">
+                        <!-- Buttons injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 4: Quiz Results -->
+        <div id="view-results" class="hidden flex-1 flex flex-col w-full h-full fade-in relative">
+            <div class="glass-card flex-1 p-8 flex flex-col items-center justify-center text-center">
+                <div class="text-6xl mb-4">🏆</div>
+                <h2 class="text-4xl font-black text-slate-800 mb-2">Quiz Complete!</h2>
+                <p class="text-2xl text-slate-600 mb-8 font-bold">You scored <span id="result-score" class="text-emerald-500 font-black text-5xl mx-2">0</span> out of 10</p>
+                
+                <div class="flex space-x-4">
+                    <button onclick="startQuiz(currentTopic)" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform active:scale-95 text-xl">
+                        Retry Quiz
+                    </button>
+                    <button onclick="goHome()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform active:scale-95 text-xl">
+                        Back to Map
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Slide Content Data (HTML injected dynamically) -->
+    <script>
+        const contentData = {
+            '5.1': {
+                title: "5.1 The structure of the atom",
+                theme: "blue",
+                slides: [
+                    `
+                    <div class="h-full flex flex-col justify-center text-center px-4 md:px-12">
+                        <h2 class="text-3xl font-black text-blue-600 mb-6">What is an Atom?</h2>
+                        <p class="text-xl md:text-2xl leading-relaxed text-slate-700 mb-6">
+                            Atoms are so extremely small that you cannot see them without using the most powerful microscopes yet invented!
+                        </p>
+                        <p class="text-xl md:text-2xl leading-relaxed text-slate-700 mb-6 bg-blue-50 p-4 rounded-xl border-2 border-blue-100">
+                            The word <span class="kw-bold-color">'atom'</span> comes from a Greek word that means <span class="kw-italic-underline">'cannot be split'</span>.
+                        </p>
+                        <p class="text-xl md:text-2xl leading-relaxed text-slate-700">
+                            All the atoms of a particular element are the <span class="kw-highlight">same</span>. Different elements have <span class="kw-highlight">different</span> atoms.
+                        </p>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center px-4 md:px-12">
+                        <h2 class="text-3xl font-black text-blue-600 mb-4 text-center">Sub-atomic Particles</h2>
+                        <p class="text-lg text-slate-700 mb-6 text-center">
+                            Atoms are made of smaller <span class="kw-bold-color">sub-atomic particles</span>: <span class="kw-circle">protons</span>, <span class="kw-circle">neutrons</span>, and <span class="kw-circle">electrons</span>.
+                        </p>
+                        
+                        <div class="flex flex-col md:flex-row items-center gap-6">
+                            <div class="flex-1 space-y-4">
+                                <ul class="list-none space-y-3 text-lg">
+                                    <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-red-500 mr-3"></span> <strong>Protons:</strong> <span class="kw-float ml-2">Positive (+)</span> electrical charge.</li>
+                                    <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-gray-400 mr-3"></span> <strong>Neutrons:</strong> No electrical charge.</li>
+                                    <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-blue-400 mr-3"></span> <strong>Electrons:</strong> <span class="kw-float ml-2">Negative (-)</span> electrical charge.</li>
+                                </ul>
+                                <div class="bg-orange-50 p-3 rounded-lg border-l-4 border-orange-400 text-md">
+                                    <strong>Mass Fact:</strong> Protons and neutrons have the same mass and are much heavier than electrons. Electrons have almost NO mass!
+                                </div>
+                            </div>
+                            <!-- SVG Helium Atom -->
+                            <div class="w-48 h-48 md:w-64 md:h-64 relative bg-white rounded-full shadow-inner border-2 border-slate-100 flex items-center justify-center">
+                                <svg viewBox="0 0 100 100" class="w-full h-full">
+                                    <!-- Orbit -->
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4" />
+                                    <!-- Electrons -->
+                                    <circle cx="50" cy="10" r="3" fill="#3b82f6" />
+                                    <circle cx="50" cy="90" r="3" fill="#3b82f6" />
+                                    <!-- Nucleus -->
+                                    <circle cx="47" cy="47" r="5" fill="#ef4444" />
+                                    <text x="47" y="49" font-size="5" fill="white" text-anchor="middle" font-weight="bold">+</text>
+                                    
+                                    <circle cx="53" cy="53" r="5" fill="#ef4444" />
+                                    <text x="53" y="55" font-size="5" fill="white" text-anchor="middle" font-weight="bold">+</text>
+
+                                    <circle cx="45" cy="54" r="5" fill="#9ca3af" />
+                                    <circle cx="55" cy="46" r="5" fill="#9ca3af" />
+                                    
+                                    <!-- Labels -->
+                                    <text x="10" y="25" font-size="4" fill="#333">electron</text>
+                                    <line x1="18" y1="23" x2="45" y2="12" stroke="#333" stroke-width="0.5"/>
+                                    
+                                    <text x="10" y="45" font-size="4" fill="#333">proton</text>
+                                    <line x1="18" y1="44" x2="42" y2="47" stroke="#333" stroke-width="0.5"/>
+                                    
+                                    <text x="10" y="55" font-size="4" fill="#333">neutron</text>
+                                    <line x1="18" y1="54" x2="40" y2="54" stroke="#333" stroke-width="0.5"/>
+                                    
+                                    <text x="75" y="50" font-size="4" fill="#333">nucleus</text>
+                                    <line x1="74" y1="49" x2="60" y2="49" stroke="#333" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center text-center px-4 md:px-12">
+                        <h2 class="text-3xl font-black text-blue-600 mb-6">Inside the Atom</h2>
+                        <div class="bg-indigo-50 border-4 border-indigo-200 rounded-3xl p-6 mb-6">
+                            <h3 class="text-2xl font-black text-indigo-800 mb-4">The <span class="kw-highlight">nucleus</span></h3>
+                            <p class="text-xl text-slate-700">
+                                Protons and neutrons are grouped closely together in the centre to form the nucleus. 
+                                <br><span class="text-sm italic text-red-500">(Be careful not to confuse the nucleus of a cell with the nucleus of an atom!)</span>
+                            </p>
+                        </div>
+                        <p class="text-xl md:text-2xl leading-relaxed text-slate-700 mb-6">
+                            There is a lot of <span class="kw-italic-underline">empty space</span> between parts of the atom. It is completely empty — nothing in it at all!
+                        </p>
+                        <p class="text-xl md:text-2xl leading-relaxed text-slate-700">
+                            The atoms are held together by <span class="kw-bold-color">electrostatic attraction</span> between the positive charge on the protons and the negative charge on the electrons.
+                        </p>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center px-4 md:px-12">
+                        <h2 class="text-3xl font-black text-blue-600 mb-6 text-center">J.J. Thomson's Model</h2>
+                        <p class="text-lg text-slate-700 mb-6 text-center">
+                            In the late 1890s, a British scientist named J.J. Thomson discovered the electron.
+                        </p>
+                        
+                        <div class="flex flex-col md:flex-row items-center gap-8 justify-center">
+                            <div class="flex-1">
+                                <div class="bg-rose-50 p-6 rounded-2xl border-2 border-rose-200">
+                                    <h4 class="text-xl font-bold text-rose-700 mb-2">The <span class="kw-float">'Plum Pudding'</span> Model</h4>
+                                    <p class="text-slate-700 text-lg">
+                                        He believed electrons were scattered randomly throughout the positively charged structure of the atom, much like fruit scattered inside a pudding or cake!
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- SVG Plum Pudding -->
+                            <div class="w-48 h-48 md:w-56 md:h-56">
+                                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-lg">
+                                    <circle cx="50" cy="50" r="45" fill="url(#grad1)" />
+                                    <defs>
+                                        <radialGradient id="grad1" cx="30%" cy="30%" r="70%">
+                                            <stop offset="0%" style="stop-color:#ff9a9e;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#ff6a88;stop-opacity:1" />
+                                        </radialGradient>
+                                    </defs>
+                                    <!-- Electrons -->
+                                    <g fill="#0ea5e9" stroke="#fff" stroke-width="1">
+                                        <circle cx="30" cy="30" r="6" /><text x="30" y="32" font-size="6" fill="#fff" text-anchor="middle" font-weight="bold">-</text>
+                                        <circle cx="70" cy="40" r="6" /><text x="70" y="42" font-size="6" fill="#fff" text-anchor="middle" font-weight="bold">-</text>
+                                        <circle cx="50" cy="70" r="6" /><text x="50" y="72" font-size="6" fill="#fff" text-anchor="middle" font-weight="bold">-</text>
+                                        <circle cx="20" cy="60" r="6" /><text x="20" y="62" font-size="6" fill="#fff" text-anchor="middle" font-weight="bold">-</text>
+                                        <circle cx="80" cy="65" r="6" /><text x="80" y="67" font-size="6" fill="#fff" text-anchor="middle" font-weight="bold">-</text>
+                                        <circle cx="55" cy="15" r="6" /><text x="55" y="17" font-size="6" fill="#fff" text-anchor="middle" font-weight="bold">-</text>
+                                    </g>
+                                    <!-- Labels -->
+                                    <text x="100" y="20" font-size="5" fill="#333">positively charged matter</text>
+                                    <line x1="98" y1="21" x2="65" y2="35" stroke="#333" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center px-4 md:px-12 text-center">
+                        <h2 class="text-3xl font-black text-blue-600 mb-2">Ernest Rutherford</h2>
+                        <h3 class="text-xl font-bold text-slate-500 mb-6">The Gold Foil Experiment</h3>
+                        
+                        <p class="text-lg text-slate-700 mb-4">
+                            A student of Thomson, Rutherford discovered the proton (1909) and the nucleus (1911).
+                        </p>
+                        
+                        <!-- SVG Gold Foil Experiment -->
+                        <div class="w-full max-w-lg mx-auto h-40 bg-white rounded-xl shadow-inner border border-slate-200 mb-4 p-2 relative">
+                            <svg viewBox="0 0 200 80" class="w-full h-full">
+                                <!-- Source Box -->
+                                <rect x="10" y="25" width="20" height="30" fill="#6366f1" rx="2" />
+                                <text x="20" y="20" font-size="6" fill="#333" text-anchor="middle">particle source</text>
+                                
+                                <!-- Beams -->
+                                <g stroke="#ec4899" stroke-width="0.5">
+                                    <line x1="30" y1="30" x2="100" y2="30" />
+                                    <line x1="30" y1="35" x2="100" y2="35" />
+                                    <line x1="30" y1="40" x2="100" y2="40" />
+                                    <line x1="30" y1="45" x2="100" y2="45" />
+                                    <line x1="30" y1="50" x2="100" y2="50" />
+                                    <!-- Deflected back -->
+                                    <line x1="100" y1="40" x2="60" y2="65" />
+                                </g>
+                                
+                                <!-- Gold Foil -->
+                                <rect x="98" y="15" width="4" height="50" fill="#fbbf24" stroke="#d97706" stroke-width="0.5"/>
+                                <text x="100" y="10" font-size="6" fill="#333" text-anchor="middle">gold foil</text>
+                                
+                                <!-- Passed beams -->
+                                <g stroke="#ec4899" stroke-width="0.5">
+                                    <line x1="102" y1="30" x2="170" y2="30" />
+                                    <line x1="102" y1="35" x2="170" y2="35" />
+                                    <line x1="102" y1="45" x2="170" y2="45" />
+                                    <line x1="102" y1="50" x2="170" y2="50" />
+                                </g>
+
+                                <!-- Detector -->
+                                <rect x="170" y="15" width="8" height="50" fill="#cbd5e1" rx="1" />
+                                <text x="174" y="10" font-size="6" fill="#333" text-anchor="middle">detector</text>
+                            </svg>
+                        </div>
+
+                        <div class="bg-amber-50 p-4 rounded-xl border-2 border-amber-200 text-left text-md space-y-2">
+                            <p>🎯 He fired fast-moving particles at thin gold foil.</p>
+                            <p>🎯 Most passed straight through. Only a few (1 in 8000) were <span class="kw-italic-underline">deflected</span> (direction changed).</p>
+                            <p>🎯 <strong>Conclusion:</strong> Atoms are mostly empty space, with particles packed into a dense <span class="kw-bold-color">nucleus</span> at the centre.</p>
+                        </div>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center text-center px-4 md:px-12">
+                        <h2 class="text-3xl font-black text-blue-600 mb-4">Chadwick & Collaboration</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                                <h4 class="font-bold text-lg mb-2">James Chadwick</h4>
+                                <p class="text-slate-700">Worked with Rutherford. In 1932, he proved that <span class="kw-circle">neutrons</span> exist, completing our modern atomic model.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                                <h4 class="font-bold text-lg mb-2">Science is a Team Effort</h4>
+                                <p class="text-slate-700"><span class="kw-highlight">Collaboration:</span> Scientists globally working together. <br><span class="kw-highlight">Peer Review:</span> Checking experiments to find mistakes or prove discoveries true.</p>
+                            </div>
+                        </div>
+
+                        <!-- Manual Picture Placeholder -->
+                        <div class="border-dashed border-4 border-slate-300 bg-slate-100 rounded-xl p-6 flex flex-col items-center justify-center h-32 mb-4">
+                            <svg class="w-8 h-8 text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="text-slate-500 font-bold">Space for [Photo of Large Hadron Collider]</span>
+                        </div>
+                        <p class="text-sm text-slate-500 italic">Scientists still use machines like the Large Hadron Collider in Switzerland to study the structure of matter today!</p>
+
+                        <button onclick="startQuiz('5.1')" class="mt-6 mx-auto bg-green-500 hover:bg-green-400 text-white font-black py-4 px-12 rounded-full shadow-lg transition-transform transform active:scale-95 text-xl animate-bounce">
+                            Take Topic 5.1 Quiz!
+                        </button>
+                    </div>
+                    `
+                ]
+            },
+            '5.2': {
+                title: "5.2 Purity",
+                theme: "emerald",
+                slides: [
+                    `
+                    <div class="h-full flex flex-col justify-center text-center px-4 md:px-12">
+                        <h2 class="text-3xl font-black text-emerald-600 mb-6">What does 'Pure' mean?</h2>
+                        <p class="text-xl md:text-2xl leading-relaxed text-slate-700 mb-6 bg-emerald-50 p-4 rounded-xl border-2 border-emerald-100">
+                            If an element is <span class="kw-float text-emerald-600">pure</span>, it means that every one of its atoms is exactly the same and made of just one type of atom.
+                        </p>
+                        
+                        <div class="bg-white rounded-2xl shadow border border-slate-200 p-6 text-left">
+                            <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Example: Diamonds (Carbon)</h3>
+                            <ul class="space-y-3 text-lg">
+                                <li>💎 <strong>Pure:</strong> Colourless and <span class="kw-italic-underline">translucent</span> (lets light through). No other elements.</li>
+                                <li>💛 <strong>Yellow:</strong> Replaced with Nitrogen atoms.</li>
+                                <li>💙 <strong>Blue:</strong> Replaced with Boron atoms.</li>
+                                <li>💚 <strong>Green (Rarest):</strong> Replaced with Nitrogen, Nickel, or Hydrogen (1 in 1000 atoms).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center text-center px-4 md:px-12">
+                        <h2 class="text-3xl font-black text-emerald-600 mb-4">Alloys & Purity Calculations</h2>
+                        
+                        <!-- Manual Picture Placeholder -->
+                        <div class="flex gap-4 justify-center mb-6">
+                            <div class="border-dashed border-2 border-slate-300 bg-slate-50 rounded-lg p-2 flex flex-col items-center justify-center w-32 h-20">
+                                <span class="text-slate-400 text-xs font-bold text-center">Space for<br>[Gold Bars]</span>
+                            </div>
+                            <div class="border-dashed border-2 border-slate-300 bg-slate-50 rounded-lg p-2 flex flex-col items-center justify-center w-32 h-20">
+                                <span class="text-slate-400 text-xs font-bold text-center">Space for<br>[Silver Ring]</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                            <!-- Gold -->
+                            <div class="bg-yellow-50 p-4 rounded-xl border-2 border-yellow-200">
+                                <h4 class="font-black text-yellow-700 mb-2">Gold (<span class="kw-highlight">carat</span>)</h4>
+                                <p class="text-sm mb-2">24 carat = Pure Gold. Alloys mix gold with copper or silver.</p>
+                                <p class="text-sm mb-3">18 carat = 18 parts gold, 6 parts other (out of 24).</p>
+                                <div class="bg-white py-2 px-4 rounded shadow-sm text-center flex items-center justify-center">
+                                    <span class="math-frac text-lg text-yellow-900"><span class="num">18</span><span class="den">24</span></span>
+                                    <span class="italic font-serif text-lg text-yellow-900"> x 100 = 75%</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Silver -->
+                            <div class="bg-slate-100 p-4 rounded-xl border-2 border-slate-300">
+                                <h4 class="font-black text-slate-700 mb-2">Silver (Parts per 1000)</h4>
+                                <p class="text-sm mb-2">Marked '925' = 925 parts silver, 75 parts other (out of 1000).</p>
+                                <br>
+                                <div class="bg-white py-2 px-4 rounded shadow-sm text-center flex items-center justify-center">
+                                    <span class="math-frac text-lg text-slate-800"><span class="num">925</span><span class="den">1000</span></span>
+                                    <span class="italic font-serif text-lg text-slate-800"> x 100 = 92.5%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center px-4 md:px-12 text-center">
+                        <h2 class="text-3xl font-black text-emerald-600 mb-4">Mixtures: Seawater</h2>
+                        <p class="text-lg text-slate-700 mb-2">
+                            Seawater is a mixture of water and salts. Water evaporates in flat beds using heat from the Sun.
+                        </p>
+                        
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-4">
+                            <!-- SVG Pie Chart -->
+                            <div class="w-40 h-40">
+                                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                                    <!-- Water 96.5% -->
+                                    <circle r="40" cx="50" cy="50" fill="#0ea5e9" />
+                                    <!-- Salt 3.5% slice (approximate small wedge) -->
+                                    <path d="M50 50 L 50 10 A 40 40 0 0 1 58 11 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.5"/>
+                                    <text x="30" y="55" font-size="6" fill="#fff" font-weight="bold">water 96.5%</text>
+                                    <text x="65" y="15" font-size="5" fill="#333" font-weight="bold">salt</text>
+                                    <text x="65" y="22" font-size="5" fill="#333" font-weight="bold">3.5%</text>
+                                </svg>
+                            </div>
+                            
+                            <div class="text-left bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                                <h4 class="font-bold text-slate-800 border-b pb-1 mb-2">Salt Breakdown</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li><span class="kw-circle text-xs border-blue-400 text-blue-700 bg-blue-50">68%</span> Sodium chloride</li>
+                                    <li><span class="kw-circle text-xs border-pink-400 text-pink-700 bg-pink-50">14.6%</span> Magnesium chloride</li>
+                                    <li><span class="kw-circle text-xs border-green-400 text-green-700 bg-green-50">11.4%</span> Sodium sulfate</li>
+                                    <li><span class="kw-circle text-xs border-orange-400 text-orange-700 bg-orange-50">3.1%</span> Calcium chloride</li>
+                                    <li><span class="text-xs ml-2 text-slate-500">2.9% Other salts</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-cyan-50 p-3 rounded-lg border border-cyan-200 flex items-center justify-center">
+                            <span class="text-sm text-cyan-800 font-bold mr-4">Mass of NaCl in 1000g Seawater:</span>
+                            <span class="math-frac text-lg text-cyan-900"><span class="num">35</span><span class="den">1000</span></span>
+                            <span class="italic font-serif text-lg text-cyan-900"> x 68 = 23.8g</span>
+                        </div>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center text-center px-4 md:px-12">
+                        <h2 class="text-3xl font-black text-emerald-600 mb-6">Pure Products in Reactions</h2>
+                        
+                        <div class="bg-red-50 p-6 rounded-3xl border-2 border-red-200 mb-8">
+                            <h3 class="text-2xl font-black text-red-800 mb-2">Why is purity important?</h3>
+                            <p class="text-xl text-slate-800">
+                                When making <span class="kw-highlight">medicines</span>, the product needs to be free from impurities that may upset how the medicine works or harm the patient!
+                            </p>
+                        </div>
+
+                        <div class="text-left space-y-4">
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                                <p class="font-bold text-indigo-700 mb-1">Simple Reactions:</p>
+                                <p class="text-slate-600">Only one product is formed.</p>
+                                <p class="bg-slate-100 p-2 mt-2 font-mono text-sm rounded text-center">magnesium + oxygen &rarr; magnesium oxide</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                                <p class="font-bold text-indigo-700 mb-1">Complex Reactions:</p>
+                                <p class="text-slate-600">More than one product formed. They are mixed together and require <span class="kw-bold-color">separation and purification</span> to get a pure product.</p>
+                            </div>
+                        </div>
+                    </div>
+                    `,
+                    `
+                    <div class="h-full flex flex-col justify-center text-center px-2 md:px-8">
+                        <h2 class="text-2xl font-black text-emerald-600 mb-4">Complex Reaction Equations</h2>
+                        
+                        <p class="text-sm text-slate-500 mb-4">Salts are named from their acids (e.g., hydrochloric acid makes chlorides, sulfuric acid makes sulfates).</p>
+
+                        <div class="space-y-3 text-left">
+                            <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-slate-700">
+                                silver nitrate + sodium chloride &rarr; sodium nitrate + silver chloride
+                            </div>
+                            <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-slate-700">
+                                sulfuric acid + sodium hydroxide &rarr; sodium sulfate + water
+                            </div>
+                            <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-slate-700">
+                                barium chloride + sodium sulfate &rarr; barium sulfate + sodium chloride
+                            </div>
+                            <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-slate-700">
+                                lead nitrate + potassium iodide &rarr; potassium nitrate + lead iodide
+                            </div>
+                            <div class="bg-white p-3 rounded shadow-sm text-xs md:text-sm font-bold text-slate-700 border-l-4 border-emerald-500">
+                                copper carbonate + hydrochloric acid &rarr; copper chloride + water + carbon dioxide
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 justify-center mt-6">
+                            <div class="border-dashed border-2 border-slate-300 bg-slate-50 rounded p-2 text-center w-32 h-16">
+                                <span class="text-slate-400 text-[10px] font-bold">Space for<br>[Titration Lab Setup]</span>
+                            </div>
+                            <div class="border-dashed border-2 border-slate-300 bg-slate-50 rounded p-2 text-center w-32 h-16">
+                                <span class="text-slate-400 text-[10px] font-bold">Space for<br>[Gas Lab Setup]</span>
+                            </div>
+                        </div>
+
+                        <button onclick="startQuiz('5.2')" class="mt-4 mx-auto bg-green-500 hover:bg-green-400 text-white font-black py-3 px-8 rounded-full shadow-lg transition-transform transform active:scale-95 text-lg animate-pulse">
+                            Take Topic 5.2 Quiz!
+                        </button>
+                    </div>
+                    `
+                ]
+            }
+        };
+
+        const quizData = {
+            '5.1': [
+                { q: "Where does the word 'atom' come from?", options: ["Greek word for 'cannot be split'", "Latin word for 'tiny'", "English word for 'particle'"], a: 0 },
+                { q: "Which sub-atomic particles are found grouped in the nucleus?", options: ["Electrons and protons", "Protons and neutrons", "Neutrons and electrons"], a: 1 },
+                { q: "Which sub-atomic particle has almost NO mass?", options: ["Proton", "Neutron", "Electron"], a: 2 },
+                { q: "What holds individual atoms together?", options: ["Magnetic forces", "Electrostatic attraction", "Gravity"], a: 1 },
+                { q: "What did J.J. Thomson discover in the late 1890s?", options: ["Proton", "Neutron", "Electron"], a: 2 },
+                { q: "What is the name of J.J. Thomson's model of the atom?", options: ["Gold Foil Model", "Plum Pudding Model", "Planetary Model"], a: 1 },
+                { q: "Who discovered the dense nucleus at the centre of the atom?", options: ["James Chadwick", "J.J. Thomson", "Ernest Rutherford"], a: 2 },
+                { q: "In the gold foil experiment, what happened to most of the particles?", options: ["They bounced back", "They were deflected slightly", "They passed straight through"], a: 2 },
+                { q: "What sub-atomic particle did James Chadwick prove the existence of in 1932?", options: ["Proton", "Electron", "Neutron"], a: 2 },
+                { q: "What is the process called where scientists actively look for mistakes in each other's work?", options: ["Collaboration", "Peer Review", "Experimentation"], a: 1 }
+            ],
+            '5.2': [
+                { q: "What does it mean if an element is pure?", options: ["It has no colour", "Every atom is exactly the same", "It is mixed with water"], a: 1 },
+                { q: "What is the percentage of gold in 18 carat gold?", options: ["50%", "75%", "92.5%"], a: 1 },
+                { q: "What does the mark '925' on a silver ring mean?", options: ["925 parts silver out of 1000", "925% pure silver", "Made in the year 1925"], a: 0 },
+                { q: "What element replaces carbon to make a diamond blue?", options: ["Nitrogen", "Nickel", "Boron"], a: 2 },
+                { q: "Which colour of diamond is the rarest?", options: ["Yellow", "Blue", "Green"], a: 2 },
+                { q: "What is the most abundant salt dissolved in seawater?", options: ["Sodium sulfate", "Sodium chloride", "Magnesium chloride"], a: 1 },
+                { q: "Why is purity highly important in medicines?", options: ["To make them taste better", "To make them look white", "Impurities can harm the patient"], a: 2 },
+                { q: "What is the single product formed from magnesium + oxygen?", options: ["Magnesium dioxide", "Magnesium oxide", "Magnesium carbonate"], a: 1 },
+                { q: "Which acid is used to form the salt sodium chloride?", options: ["Sulfuric acid", "Nitric acid", "Hydrochloric acid"], a: 2 },
+                { q: "In the reaction of copper carbonate + hydrochloric acid, what gas is produced?", options: ["Oxygen", "Hydrogen", "Carbon dioxide"], a: 2 }
+            ]
+        };
+
+        // State Variables
+        let currentTopic = '';
+        let currentSlide = 0;
+        let currentQuestion = 0;
+        let score = 0;
+
+        // View Management
+        const views = {
+            mindmap: document.getElementById('view-mindmap'),
+            content: document.getElementById('view-content'),
+            quiz: document.getElementById('view-quiz'),
+            results: document.getElementById('view-results')
+        };
+
+        function hideAllViews() {
+            Object.values(views).forEach(v => v.classList.add('hidden'));
+        }
+
+        function goHome() {
+            hideAllViews();
+            views.mindmap.classList.remove('hidden');
+        }
+
+        // Slides Logic
+        function openTopic(id) {
+            currentTopic = id;
+            const data = contentData[id];
+            
+            // Set Titles/Colors
+            document.getElementById('topic-title').innerText = data.title;
+            const container = document.getElementById('slides-container');
+            const indicators = document.getElementById('slide-indicators');
+            
+            container.innerHTML = '';
+            indicators.innerHTML = '';
+
+            // Inject Slides
+            data.slides.forEach((htmlContent, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'slide w-full h-full flex-shrink-0 flex items-center justify-center';
+                slide.innerHTML = htmlContent;
+                container.appendChild(slide);
+
+                const dot = document.createElement('div');
+                dot.className = `w-3 h-3 rounded-full transition-colors ${index === 0 ? 'bg-slate-800' : 'bg-slate-300'}`;
+                dot.id = `dot-${index}`;
+                indicators.appendChild(dot);
+            });
+
+            // Handle Scroll detection for dots
+            container.onscroll = () => {
+                let index = Math.round(container.scrollLeft / container.clientWidth);
+                updateDots(index, data.slides.length);
+            };
+
+            container.scrollLeft = 0;
+            hideAllViews();
+            views.content.classList.remove('hidden');
+        }
+
+        function updateDots(activeIndex, total) {
+            for(let i=0; i<total; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if(dot) {
+                    dot.className = `w-3 h-3 rounded-full transition-colors ${i === activeIndex ? 'bg-slate-800' : 'bg-slate-300'}`;
+                }
+            }
+        }
+
+        // Quiz Logic
+        function startQuiz(id) {
+            currentTopic = id;
+            currentQuestion = 0;
+            score = 0;
+            renderQuestion();
+            hideAllViews();
+            views.quiz.classList.remove('hidden');
+        }
+
+        function renderQuestion() {
+            const qData = quizData[currentTopic][currentQuestion];
+            document.getElementById('q-current').innerText = currentQuestion + 1;
+            document.getElementById('q-progress').style.width = `${((currentQuestion) / 10) * 100}%`;
+            
+            document.getElementById('q-text').innerText = qData.q;
+            
+            const optionsContainer = document.getElementById('q-options');
+            optionsContainer.innerHTML = '';
+
+            qData.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left bg-white border-2 border-indigo-100 p-4 rounded-xl text-lg font-bold text-slate-700 hover:bg-indigo-50 hover:border-indigo-300 transition-all active:scale-95 shadow-sm";
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            const correctIndex = quizData[currentTopic][currentQuestion].a;
+            const allBtns = document.getElementById('q-options').children;
+            
+            // Disable all buttons immediately
+            for(let btn of allBtns) {
+                btn.onclick = null;
+                btn.classList.remove('hover:bg-indigo-50', 'hover:border-indigo-300', 'active:scale-95');
+            }
+
+            if(selectedIndex === correctIndex) {
+                btnElement.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+                score++;
+            } else {
+                btnElement.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+                allBtns[correctIndex].classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                if(currentQuestion < 10) {
+                    renderQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1200);
+        }
+
+        function showResults() {
+            document.getElementById('q-progress').style.width = `100%`;
+            hideAllViews();
+            document.getElementById('result-score').innerText = score;
+            views.results.classList.remove('hidden');
+        }
+
+    </script>
+</body>
+</html>
