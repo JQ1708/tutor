@@ -315,51 +315,33 @@
             position: relative;
         }
 
-        #main-stage {
+        #formation-photo {
             width: 100%;
             height: auto;
             display: block;
+            object-fit: contain;
+        }
+
+        #main-stage {
+            width: 100%;
+            height: auto;
+            display: none;
             transition: filter 0.8s ease, transform 0.8s ease;
         }
 
+        .svg-container.show-stage #formation-photo {
+            display: none;
+        }
+
+        .svg-container.show-stage #main-stage {
+            display: block;
+        }
+
         /* 点样式 */
-        .formation-base {
-            opacity: 0.42;
-            pointer-events: none;
-            transition: opacity 0.8s ease;
-        }
-
-        .edge-vignette {
-            pointer-events: none;
-            opacity: 0.95;
-            transition: opacity 0.8s ease;
-        }
-
         .dot {
             fill: var(--dot-fill, #1e3a5f);
             opacity: var(--dot-opacity, 0.55);
             transition: fill 2s ease-out, opacity 2s ease-out, r 2s ease-out, filter 2s ease-out;
-        }
-
-        #main-stage.photo-mode .formation-base {
-            opacity: 0.98;
-        }
-
-        #main-stage.photo-mode .edge-vignette {
-            opacity: 0.72;
-        }
-
-        #main-stage.photo-mode .dot {
-            opacity: 0 !important;
-            filter: none !important;
-        }
-
-        #main-stage.interactive-mode .formation-base {
-            opacity: 0.45;
-        }
-
-        #main-stage.interactive-mode .edge-vignette {
-            opacity: 0.95;
         }
 
         .dot.active {
@@ -418,6 +400,7 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: #c9a227;
+            display: none;
         }
 
         .spinner {
@@ -925,7 +908,7 @@
             </div>
 
             <!-- SVG 图腾 -->
-            <div class="svg-container">
+            <div class="svg-container show-photo" id="formation-stage">
                 <div id="loading-spinner">
                     <div class="spinner"></div>
                     <span data-zh="图腾生成中..." data-en="Generating formation...">图腾生成中...</span>
@@ -950,6 +933,7 @@
                     </label>
                 </div>
 
+                <img id="formation-photo" src="shape.jpg" alt="Formation reference image">
                 <svg id="main-stage" viewBox="0 0 1000 495" preserveAspectRatio="xMidYMid meet">
                     <!-- 点将通过JS动态生成 -->
                 </svg>
@@ -1173,7 +1157,8 @@
             count: parseInt(localStorage.getItem(CONFIG.storageKey)) || 0,
             dots: [],
             availableIndices: [],
-            language: 'zh'
+            language: 'zh',
+            stageMode: 'photo'
         };
 
         // === DOM 元素 ===
@@ -1181,6 +1166,8 @@
             buddhaOverlay: document.getElementById('buddha-overlay'),
             languageOverlay: document.getElementById('language-overlay'),
             mainContent: document.getElementById('main-content'),
+            formationContainer: document.getElementById('formation-stage'),
+            formationPhoto: document.getElementById('formation-photo'),
             stage: document.getElementById('main-stage'),
             countDisplay: document.getElementById('count-display'),
             remainingDisplay: document.getElementById('remaining-display'),
@@ -1396,80 +1383,26 @@
             }, 300);
         }
 
-        // === 渲染底图层（保证文字结构可见，且边缘不方） ===
-        function createStageLayers(src = CONFIG.imagePath) {
-            const fragment = document.createDocumentFragment();
+        function showPhotoMode() {
+            state.stageMode = 'photo';
+            ui.formationContainer.classList.remove('show-stage');
+            ui.formationContainer.classList.add('show-photo');
+            ui.stage.classList.remove('celebrate-mode');
+        }
 
-            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-            const gradient = document.createElementNS("http://www.w3.org/2000/svg", "radialGradient");
-            gradient.setAttribute("id", "edge-vignette-gradient");
-            gradient.setAttribute("cx", "50%");
-            gradient.setAttribute("cy", "50%");
-            gradient.setAttribute("r", "68%");
-
-            const s1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            s1.setAttribute("offset", "68%");
-            s1.setAttribute("stop-color", "#000814");
-            s1.setAttribute("stop-opacity", "0");
-            const s2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            s2.setAttribute("offset", "88%");
-            s2.setAttribute("stop-color", "#000814");
-            s2.setAttribute("stop-opacity", "0.35");
-            const s3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            s3.setAttribute("offset", "100%");
-            s3.setAttribute("stop-color", "#000814");
-            s3.setAttribute("stop-opacity", "0.92");
-
-            gradient.appendChild(s1);
-            gradient.appendChild(s2);
-            gradient.appendChild(s3);
-            defs.appendChild(gradient);
-
-            const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-            image.setAttribute("x", "0");
-            image.setAttribute("y", "0");
-            image.setAttribute("width", "1000");
-            image.setAttribute("height", "495");
-            image.setAttribute("preserveAspectRatio", "xMidYMid meet");
-            image.setAttribute("href", src);
-            image.setAttributeNS("http://www.w3.org/1999/xlink", "href", src);
-            image.setAttribute("class", "formation-base");
-
-            const vignette = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-            vignette.setAttribute("x", "0");
-            vignette.setAttribute("y", "0");
-            vignette.setAttribute("width", "1000");
-            vignette.setAttribute("height", "495");
-            vignette.setAttribute("fill", "url(#edge-vignette-gradient)");
-            vignette.setAttribute("class", "edge-vignette");
-
-            fragment.appendChild(defs);
-            fragment.appendChild(image);
-            fragment.appendChild(vignette);
-            return fragment;
+        function showStageMode() {
+            state.stageMode = 'stage';
+            ui.formationContainer.classList.remove('show-photo');
+            ui.formationContainer.classList.add('show-stage');
         }
 
         function mountStageWithDots(fragment) {
             ui.stage.innerHTML = '';
-            ui.stage.appendChild(createStageLayers());
             ui.stage.appendChild(fragment);
             ui.spinner.style.display = 'none';
             ui.stage.style.opacity = '1';
-
-            ui.stage.classList.remove('photo-mode', 'interactive-mode', 'celebrate-mode');
-            if (state.count > 0) {
-                ui.stage.classList.add('interactive-mode');
-            } else {
-                ui.stage.classList.add('photo-mode');
-            }
+            showPhotoMode();
             restoreProgress();
-        }
-
-        function ensureInteractiveMode() {
-            if (ui.stage.classList.contains('interactive-mode')) return false;
-            ui.stage.classList.remove('photo-mode');
-            ui.stage.classList.add('interactive-mode');
-            return true;
         }
 
         // === 从预生成点位渲染（不再做随机采样） ===
@@ -1787,6 +1720,13 @@
         function startLightingAnimation(callback) {
             const nextIndexPtr = state.count;
 
+            if (state.availableIndices.length === 0 || state.dots.length === 0) {
+                alert(state.language === 'zh' ? '图腾尚在加载中，请稍候再提交。' : 'Formation is still loading. Please try again in a moment.');
+                ui.submitBtn.disabled = false;
+                ui.submitBtn.textContent = state.language === 'zh' ? '呈交祈愿' : 'Submit Prayer';
+                return;
+            }
+
             if (nextIndexPtr >= state.availableIndices.length) {
                 alert(state.language === 'zh' ? '功德圆满！' : 'All positions filled!');
                 callback();
@@ -1795,7 +1735,8 @@
 
             const targetDotIndex = state.availableIndices[nextIndexPtr];
             const targetDot = state.dots[targetDotIndex];
-            const switchedFromPhoto = ensureInteractiveMode();
+            const switchedFromPhoto = state.stageMode !== 'stage';
+            if (switchedFromPhoto) showStageMode();
 
             // 滚动到图腾区域
             const svgContainer = document.querySelector('.svg-container');
@@ -1821,7 +1762,7 @@
                     }, 420);
                 }, 1200);
 
-            }, switchedFromPhoto ? 900 : 500);
+            }, switchedFromPhoto ? 600 : 260);
         }
 
         // === 关闭弹窗 ===
