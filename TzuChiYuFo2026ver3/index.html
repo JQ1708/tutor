@@ -392,13 +392,6 @@
             filter: drop-shadow(0 0 18px rgba(255, 245, 183, 1)) drop-shadow(0 0 26px rgba(250, 204, 21, 0.95));
         }
 
-        .dot.wave-hit {
-            fill: #fffbea !important;
-            opacity: 1 !important;
-            r: 4.6 !important;
-            filter: drop-shadow(0 0 22px rgba(255, 255, 255, 1)) drop-shadow(0 0 34px rgba(250, 204, 21, 1));
-        }
-
         #main-stage.celebrate-mode {
             filter: drop-shadow(0 0 34px rgba(255, 245, 183, 0.9)) drop-shadow(0 0 52px rgba(250, 204, 21, 0.8)) saturate(1.5) brightness(1.28);
             transform: scale(1.015);
@@ -1459,7 +1452,8 @@
                 const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 circle.setAttribute("cx", x.toFixed(1));
                 circle.setAttribute("cy", y.toFixed(1));
-                circle.setAttribute("r", (1.0 + Math.random() * 0.6).toFixed(2));
+                const baseR = 1.0 + Math.random() * 0.6;
+                circle.setAttribute("r", baseR.toFixed(2));
                 circle.setAttribute("class", "dot");
                 if (typeof p.c === 'string') {
                     circle.style.setProperty('--dot-fill', p.c);
@@ -1469,7 +1463,7 @@
                 }
                 fragment.appendChild(circle);
 
-                state.dots.push({ el: circle, x, y });
+                state.dots.push({ el: circle, x, y, baseR });
             }
 
             const indices = Array.from({ length: state.dots.length }, (_, k) => k);
@@ -1503,8 +1497,8 @@
                 circle.setAttribute("cy", p.y.toFixed(1));
 
                 // 随机大小
-                const r = 1.0 + Math.random() * 0.6;
-                circle.setAttribute("r", r);
+                const baseR = 1.0 + Math.random() * 0.6;
+                circle.setAttribute("r", baseR);
                 circle.setAttribute("class", "dot");
 
                 fragment.appendChild(circle);
@@ -1512,7 +1506,8 @@
                 state.dots.push({
                     el: circle,
                     x: p.x,
-                    y: p.y
+                    y: p.y,
+                    baseR
                 });
             }
 
@@ -1543,11 +1538,12 @@
                 const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 circle.setAttribute("cx", x.toFixed(1));
                 circle.setAttribute("cy", y.toFixed(1));
-                circle.setAttribute("r", 1.0 + Math.random() * 0.6);
+                const baseR = 1.0 + Math.random() * 0.6;
+                circle.setAttribute("r", baseR);
                 circle.setAttribute("class", "dot");
 
                 fragment.appendChild(circle);
-                state.dots.push({ el: circle, x, y });
+                state.dots.push({ el: circle, x, y, baseR });
             }
 
             const indices = Array.from({ length: CONFIG.totalDots }, (_, k) => k);
@@ -1676,24 +1672,72 @@
         });
 
         // === 点灯动画 ===
-        function emitCenterWave(targetDot) {
+        function playCenterWave(targetDot, onDone) {
             const centerX = 500;
             const centerY = 247.5;
             const maxDist = Math.hypot(500, 247.5);
-            const travelMs = 1180;
-            const holdMs = 760;
-
-            state.dots.forEach((dot) => {
-                const d = Math.hypot(dot.x - centerX, dot.y - centerY);
-                const delay = Math.floor((d / maxDist) * travelMs);
-                setTimeout(() => dot.el.classList.add('wave-hit'), delay);
-                setTimeout(() => dot.el.classList.remove('wave-hit'), delay + holdMs);
-            });
+            const durationMs = 1900;
+            const bandWidth = 95;
+            const trailDecay = 230;
+            const dotsWithDist = state.dots.map((dot) => ({
+                dot,
+                dist: Math.hypot(dot.x - centerX, dot.y - centerY)
+            }));
             const targetDist = Math.hypot(targetDot.x - centerX, targetDot.y - centerY);
-            const targetDelay = Math.floor((targetDist / maxDist) * travelMs) + 60;
-            setTimeout(() => targetDot.el.classList.add('active'), targetDelay);
 
-            return travelMs + holdMs + 120;
+            let targetActivated = false;
+            const start = performance.now();
+
+            function frame(now) {
+                const t = Math.min(1, (now - start) / durationMs);
+                const easeOut = 1 - Math.pow(1 - t, 1.35);
+                const radius = maxDist * easeOut;
+                const globalFade = 1 - t * 0.68;
+
+                for (const item of dotsWithDist) {
+                    const dot = item.dot;
+                    const dist = item.dist;
+
+                    const front = Math.exp(-Math.pow((dist - radius) / bandWidth, 2));
+                    const trail = dist <= radius ? Math.exp(-(radius - dist) / trailDecay) * 0.72 : 0;
+                    const centerBoost = Math.exp(-dist / 120) * Math.exp(-t * 4.4) * 1.45;
+                    const energy = Math.max(front, trail, centerBoost) * globalFade;
+
+                    if (energy > 0.02) {
+                        const waveOpacityBase = dot.el.classList.contains('active') ? 0.9 : 0.22;
+                        const waveOpacity = Math.min(1, waveOpacityBase + energy * 0.95);
+                        const glowSize = 4 + 34 * energy;
+                        const radiusScale = 1 + 2.7 * energy;
+
+                        dot.el.style.opacity = String(waveOpacity);
+                        dot.el.style.fill = energy > 0.55 ? '#fffef3' : (energy > 0.3 ? '#fff7c2' : '#fde68a');
+                        dot.el.style.filter = `drop-shadow(0 0 ${glowSize.toFixed(1)}px rgba(255,245,183,${Math.min(1, 0.5 + energy * 0.7).toFixed(2)}))`;
+                        dot.el.setAttribute('r', (dot.baseR * radiusScale).toFixed(2));
+                    }
+                }
+
+                if (!targetActivated && radius >= targetDist) {
+                    targetActivated = true;
+                    targetDot.el.classList.add('active');
+                }
+
+                if (t < 1) {
+                    requestAnimationFrame(frame);
+                    return;
+                }
+
+                for (const item of dotsWithDist) {
+                    const dot = item.dot;
+                    dot.el.style.opacity = '';
+                    dot.el.style.fill = '';
+                    dot.el.style.filter = '';
+                    dot.el.setAttribute('r', dot.baseR.toFixed(2));
+                }
+
+                onDone();
+            }
+
+            requestAnimationFrame(frame);
         }
 
         function startLightingAnimation(callback) {
@@ -1725,8 +1769,7 @@
                 // 中心最亮 -> 向外扩散 -> 逐步变暗
                 ui.stage.classList.add('celebrate-mode');
                 ui.screenFlash.classList.add('active');
-                const effectDuration = emitCenterWave(targetDot);
-                setTimeout(() => {
+                playCenterWave(targetDot, () => {
                     ui.stage.classList.remove('celebrate-mode');
                     ui.screenFlash.classList.remove('active');
 
@@ -1734,7 +1777,7 @@
                     setTimeout(() => {
                         callback();
                     }, 620);
-                }, effectDuration);
+                });
 
             }, switchedFromPhoto ? 600 : 260);
         }
