@@ -325,58 +325,49 @@
         .dot {
             fill: #1e3a5f;
             opacity: 0.4;
-            transition: fill 2.5s ease-out, opacity 2.5s ease-out, r 2.5s ease-out, filter 2.5s ease-out;
+            transition: fill 2s ease-out, opacity 2s ease-out, r 2s ease-out, filter 2s ease-out;
         }
 
         .dot.active {
             fill: #c9a227;
             opacity: 1;
             r: 3;
-            filter: drop-shadow(0 0 6px #c9a227);
-            animation: solemnBreathing 4s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 5px #c9a227);
         }
 
-        /* 庄严呼吸光晕效果 */
-        @keyframes solemnBreathing {
-            0% {
-                filter: drop-shadow(0 0 4px rgba(201, 162, 39, 0.6));
-                r: 3;
-            }
-
-            100% {
-                filter: drop-shadow(0 0 10px rgba(201, 162, 39, 1));
-                r: 3.5;
-            }
+        /* Flash Mode — 点灯瞬间全图亮起 */
+        .flash-mode .dot {
+            fill: #d4a83a !important;
+            opacity: 0.85 !important;
+            r: 2.5 !important;
+            filter: drop-shadow(0 0 5px rgba(212, 168, 58, 0.7)) !important;
+            transition: none !important;
         }
 
-        /* 庄严点亮光晕 (Ripple) */
-        .solemn-ripple {
-            fill: none;
-            stroke: #c9a227;
-            stroke-width: 1.5;
-            opacity: 0.8;
-            transform-origin: center;
-            animation: solemnExpand 3.5s cubic-bezier(0.1, 0.5, 0.3, 1) forwards;
+        .flash-mode .dot.active {
+            fill: #c9a227 !important;
+            opacity: 1 !important;
+            r: 4 !important;
+            filter: drop-shadow(0 0 8px #c9a227) !important;
         }
 
-        @keyframes solemnExpand {
-            0% {
-                r: 0;
-                opacity: 0.8;
-                stroke-width: 2;
-                filter: drop-shadow(0 0 5px rgba(201, 162, 39, 0.8));
-            }
+        /* 屏幕金光叠层 */
+        #screen-flash {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center,
+                    rgba(201, 162, 39, 0.22) 0%,
+                    rgba(180, 130, 20, 0.10) 60%,
+                    transparent 100%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 60;
+            transition: opacity 2s ease-out;
+        }
 
-            50% {
-                opacity: 0.5;
-                filter: drop-shadow(0 0 15px rgba(201, 162, 39, 0.5));
-            }
-
-            100% {
-                r: 80;
-                opacity: 0;
-                stroke-width: 0.5;
-            }
+        #screen-flash.active {
+            opacity: 1;
+            transition: none;
         }
 
         /* Loading */
@@ -920,7 +911,7 @@
                     </label>
                 </div>
 
-                <svg id="main-stage" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+                <svg id="main-stage" viewBox="0 0 1000 495" preserveAspectRatio="xMidYMid meet">
                     <!-- 点将通过JS动态生成 -->
                 </svg>
             </div>
@@ -1158,6 +1149,7 @@
             submitBtn: document.getElementById('submit-btn'),
             modal: document.getElementById('success-modal'),
             spinner: document.getElementById('loading-spinner'),
+            screenFlash: document.getElementById('screen-flash'),
             video: document.getElementById('promo-video'),
             fallback: document.getElementById('fallback-ui'),
             fileInput: document.getElementById('file-input')
@@ -1287,8 +1279,9 @@
                 const canvas = document.getElementById('analysis-canvas');
                 const ctx = canvas.getContext('2d');
 
+                // Canvas 尺寸匹配 SVG viewBox (1000x495) 以对应图片宽高比 ~2.02:1
                 const w = 1000;
-                const h = 600;
+                const h = 495;
                 canvas.width = w;
                 canvas.height = h;
 
@@ -1296,16 +1289,13 @@
                 ctx.fillStyle = "#FFFFFF";
                 ctx.fillRect(0, 0, w, h);
 
-                // 计算缩放比例，相当于 object-fit: contain，加上 5% 的内边距
-                const padding = 0.05;
+                // object-fit: contain — 保证整张图完整落在 canvas 内，留 3% 边距
+                const padding = 0.03;
                 const availableW = w * (1 - padding * 2);
                 const availableH = h * (1 - padding * 2);
                 const scale = Math.min(availableW / img.width, availableH / img.height);
-
                 const drawW = img.width * scale;
                 const drawH = img.height * scale;
-
-                // 居中偏移量
                 const offsetX = (w - drawW) / 2;
                 const offsetY = (h - drawH) / 2;
 
@@ -1571,32 +1561,28 @@
             const targetDotIndex = state.availableIndices[nextIndexPtr];
             const targetDot = state.dots[targetDotIndex];
 
-            // 先滚动到图腾区域，使用 svg-container 作为滚动目标
-            // 使用 block:'start' 确保从顶部显示完整图腾
+            // 滚动到图腾区域
             const svgContainer = document.querySelector('.svg-container');
             svgContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             setTimeout(() => {
+                // 全图亮起 — 庄严金光
+                ui.stage.classList.add('flash-mode');
+                ui.screenFlash.classList.add('active');
+
                 // 点亮目标点
                 targetDot.el.classList.add('active');
 
-                // 创建庄严的涟漪波纹动画
-                const ripple = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                ripple.setAttribute("cx", targetDot.x);
-                ripple.setAttribute("cy", targetDot.y);
-                ripple.setAttribute("class", "solemn-ripple");
-                ui.stage.appendChild(ripple);
-
-                // 播放音频（如果有需求可以后来加上，现仅显示动画）
-
-                // 维持并等待涟漪动画完成后回调 (缩放和渐隐3.5秒)
+                // 维持金光 1.5 秒后慢慢退去
                 setTimeout(() => {
-                    // 动画结束后移除波纹元素以保持DOM干净
-                    if (ripple.parentNode) {
-                        ripple.parentNode.removeChild(ripple);
-                    }
-                    callback();
-                }, 3500);
+                    ui.stage.classList.remove('flash-mode');
+                    ui.screenFlash.classList.remove('active');
+
+                    // 等待过渡动画完成后回调
+                    setTimeout(() => {
+                        callback();
+                    }, 1500);
+                }, 1500);
 
             }, 800);
         }
