@@ -347,30 +347,41 @@
         .dot.active {
             fill: #c9a227 !important;
             opacity: 1 !important;
-            r: 3.8;
-            filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.95));
+            r: 4.8;
+            filter: drop-shadow(0 0 18px rgba(255, 245, 183, 1)) drop-shadow(0 0 26px rgba(250, 204, 21, 0.95));
         }
 
         #main-stage.celebrate-mode {
-            filter: drop-shadow(0 0 30px rgba(250, 204, 21, 0.55)) saturate(1.3) brightness(1.12);
-            transform: scale(1.01);
+            filter: drop-shadow(0 0 48px rgba(255, 245, 183, 0.95)) drop-shadow(0 0 70px rgba(250, 204, 21, 0.85)) saturate(1.65) brightness(1.35);
+            transform: scale(1.015);
         }
 
         #main-stage.celebrate-mode .dot {
-            filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.95));
+            filter: drop-shadow(0 0 15px rgba(255, 245, 183, 1)) drop-shadow(0 0 24px rgba(250, 204, 21, 0.95));
         }
 
         .light-ripple {
             fill: none;
-            stroke: rgba(250, 204, 21, 0.9);
-            stroke-width: 2;
-            opacity: 0.9;
+            stroke: rgba(250, 204, 21, 1);
+            stroke-width: 2.4;
+            opacity: 1;
             pointer-events: none;
         }
 
         .light-particle {
-            opacity: 0.9;
+            opacity: 1;
             pointer-events: none;
+        }
+
+        .light-ray {
+            stroke-linecap: round;
+            pointer-events: none;
+            opacity: 1;
+        }
+
+        .light-core {
+            pointer-events: none;
+            opacity: 0.95;
         }
 
         /* 屏幕金光叠层 */
@@ -378,14 +389,15 @@
             position: fixed;
             inset: 0;
             background: radial-gradient(ellipse at center,
-                    rgba(255, 245, 183, 0.55) 0%,
-                    rgba(250, 204, 21, 0.34) 34%,
-                    rgba(125, 211, 252, 0.16) 58%,
+                    rgba(255, 255, 255, 0.9) 0%,
+                    rgba(255, 245, 183, 0.72) 18%,
+                    rgba(250, 204, 21, 0.52) 36%,
+                    rgba(125, 211, 252, 0.24) 62%,
                     transparent 100%);
             opacity: 0;
             pointer-events: none;
             z-index: 60;
-            transition: opacity 1.1s ease-out;
+            transition: opacity 1.4s ease-out;
             mix-blend-mode: screen;
         }
 
@@ -924,8 +936,8 @@
                     <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
                         <span data-zh="无法自动读取图片（浏览器安全限制）。"
                             data-en="Cannot auto-load image (browser security).">无法自动读取图片（浏览器安全限制）。</span><br>
-                        <span data-zh="请点击下方按钮手动选择 shape.jpg"
-                            data-en="Please click below to select shape.jpg">请点击下方按钮手动选择 shape.jpg</span><br>
+                        <span data-zh="请点击下方按钮手动选择 shape.png"
+                            data-en="Please click below to select shape.png">请点击下方按钮手动选择 shape.png</span><br>
                         <span style="color: #c9a227; font-size: 0.75rem;" data-zh="（上传至 GitHub 后将自动加载）"
                             data-en="(Will auto-load after uploading to GitHub)">（上传至 GitHub 后将自动加载）</span>
                     </p>
@@ -935,7 +947,7 @@
                     </label>
                 </div>
 
-                <img id="formation-photo" src="shape.jpg" alt="Formation reference image">
+                <img id="formation-photo" src="shape.png" alt="Formation reference image">
                 <svg id="main-stage" viewBox="0 0 1000 495" preserveAspectRatio="xMidYMid meet">
                     <!-- 点将通过JS动态生成 -->
                 </svg>
@@ -1150,8 +1162,8 @@
             totalDots: 6000,
             targetCount: 6000,
             storageKey: 'tzuchi_yufo_2026_v1',
-            pointsPath: 'shape-points.json?v=20260227-2',
-            imagePath: 'shape.jpg'
+            pointsPath: 'shape.json?v=20260227-3',
+            imagePath: 'shape.png'
         };
 
         // === 状态 ===
@@ -1283,7 +1295,7 @@
                     onSuccess(payload.points);
                 })
                 .catch((err) => {
-                    console.log('读取 shape-points.json 失败，回退图片识别:', err);
+                    console.log('读取 shape.json 失败，回退图片识别:', err);
                     onFail();
                 });
         }
@@ -1640,11 +1652,23 @@
         });
 
         // === 点灯动画 ===
-        function emitRipple(cx, cy) {
+        function emitRipple(targetX, targetY) {
+            const centerX = 500;
+            const centerY = 247.5;
+
+            const core = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            core.setAttribute("cx", centerX.toFixed(1));
+            core.setAttribute("cy", centerY.toFixed(1));
+            core.setAttribute("r", "8");
+            core.setAttribute("class", "light-core");
+            core.style.fill = "rgba(255,245,183,0.95)";
+            core.style.filter = "drop-shadow(0 0 24px rgba(255,245,183,1)) drop-shadow(0 0 46px rgba(250,204,21,0.95))";
+            ui.stage.appendChild(core);
+
             const rings = [
-                { color: "rgba(255, 245, 183, 1)", radius: 78, duration: 1000, width: 3.1, delay: 0 },
-                { color: "rgba(250, 204, 21, 0.95)", radius: 106, duration: 1240, width: 2.5, delay: 90 },
-                { color: "rgba(125, 211, 252, 0.90)", radius: 130, duration: 1420, width: 2.1, delay: 190 }
+                { color: "rgba(255, 255, 255, 1)", radius: 115, duration: 1050, width: 4.2, delay: 0 },
+                { color: "rgba(255, 245, 183, 1)", radius: 158, duration: 1320, width: 3.4, delay: 70 },
+                { color: "rgba(250, 204, 21, 0.98)", radius: 198, duration: 1540, width: 2.8, delay: 160 }
             ];
 
             const animateCircle = (circle, duration, targetRadius, startWidth, delay) => {
@@ -1656,7 +1680,7 @@
                     }
                     const t = Math.min(1, (now - start) / duration);
                     const easeOut = 1 - Math.pow(1 - t, 3);
-                    circle.setAttribute("r", (2 + targetRadius * easeOut).toFixed(1));
+                    circle.setAttribute("r", (8 + targetRadius * easeOut).toFixed(1));
                     circle.style.opacity = String(1 * (1 - t));
                     circle.style.strokeWidth = String(Math.max(0.2, startWidth * (1 - t)));
                     if (t < 1) {
@@ -1670,30 +1694,74 @@
 
             rings.forEach((ring) => {
                 const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                circle.setAttribute("cx", cx.toFixed(1));
-                circle.setAttribute("cy", cy.toFixed(1));
-                circle.setAttribute("r", "2");
+                circle.setAttribute("cx", centerX.toFixed(1));
+                circle.setAttribute("cy", centerY.toFixed(1));
+                circle.setAttribute("r", "8");
                 circle.setAttribute("class", "light-ripple");
                 circle.style.stroke = ring.color;
+                circle.style.filter = "drop-shadow(0 0 12px rgba(255,245,183,0.95))";
                 ui.stage.appendChild(circle);
                 animateCircle(circle, ring.duration, ring.radius, ring.width, ring.delay);
             });
 
-            const particleCount = 30;
+            const rays = [
+                { dx: 1, dy: 0, len: 470, color: "rgba(255,255,255,0.98)" },
+                { dx: -1, dy: 0, len: 470, color: "rgba(255,245,183,0.98)" },
+                { dx: 0, dy: 1, len: 235, color: "rgba(250,204,21,0.95)" },
+                { dx: 0, dy: -1, len: 235, color: "rgba(125,211,252,0.92)" }
+            ];
+
+            rays.forEach((ray, idx) => {
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", centerX.toFixed(1));
+                line.setAttribute("y1", centerY.toFixed(1));
+                line.setAttribute("x2", centerX.toFixed(1));
+                line.setAttribute("y2", centerY.toFixed(1));
+                line.setAttribute("class", "light-ray");
+                line.style.stroke = ray.color;
+                line.style.strokeWidth = idx < 2 ? "7.2" : "6";
+                line.style.filter = "drop-shadow(0 0 16px rgba(255,245,183,0.95))";
+                ui.stage.appendChild(line);
+
+                const start = performance.now() + idx * 28;
+                const duration = 760;
+                function tick(now) {
+                    if (now < start) {
+                        requestAnimationFrame(tick);
+                        return;
+                    }
+                    const t = Math.min(1, (now - start) / duration);
+                    const easeOut = 1 - Math.pow(1 - t, 3);
+                    const x2 = centerX + ray.dx * ray.len * easeOut;
+                    const y2 = centerY + ray.dy * ray.len * easeOut;
+                    line.setAttribute("x2", x2.toFixed(1));
+                    line.setAttribute("y2", y2.toFixed(1));
+                    line.style.opacity = String(1 - 0.72 * t);
+                    line.style.strokeWidth = String((idx < 2 ? 7.2 : 6) * (1 - 0.62 * t));
+                    if (t < 1) {
+                        requestAnimationFrame(tick);
+                    } else {
+                        line.remove();
+                    }
+                }
+                requestAnimationFrame(tick);
+            });
+
+            const particleCount = 44;
             for (let i = 0; i < particleCount; i++) {
                 const p = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 const angle = (Math.PI * 2 * i / particleCount) + Math.random() * 0.32;
-                const distance = 46 + Math.random() * 70;
-                const duration = 780 + Math.random() * 520;
-                const baseR = 1.4 + Math.random() * 2.2;
+                const distance = 72 + Math.random() * 120;
+                const duration = 980 + Math.random() * 560;
+                const baseR = 1.8 + Math.random() * 2.6;
                 const color = i % 4 === 0 ? "#fff7c2" : (i % 4 === 1 ? "#facc15" : (i % 4 === 2 ? "#7dd3fc" : "#fb923c"));
 
-                p.setAttribute("cx", cx.toFixed(1));
-                p.setAttribute("cy", cy.toFixed(1));
+                p.setAttribute("cx", centerX.toFixed(1));
+                p.setAttribute("cy", centerY.toFixed(1));
                 p.setAttribute("r", baseR.toFixed(2));
                 p.setAttribute("class", "light-particle");
                 p.style.fill = color;
-                p.style.filter = "drop-shadow(0 0 6px rgba(255, 245, 183, 0.9))";
+                p.style.filter = "drop-shadow(0 0 12px rgba(255, 245, 183, 1))";
                 ui.stage.appendChild(p);
 
                 const start = performance.now() + Math.random() * 120;
@@ -1704,8 +1772,8 @@
                     }
                     const t = Math.min(1, (now - start) / duration);
                     const easeOut = 1 - Math.pow(1 - t, 2);
-                    const px = cx + Math.cos(angle) * distance * easeOut;
-                    const py = cy + Math.sin(angle) * distance * easeOut;
+                    const px = centerX + Math.cos(angle) * distance * easeOut;
+                    const py = centerY + Math.sin(angle) * distance * easeOut;
                     p.setAttribute("cx", px.toFixed(1));
                     p.setAttribute("cy", py.toFixed(1));
                     p.style.opacity = String(1 * (1 - t));
@@ -1718,6 +1786,52 @@
                 }
                 requestAnimationFrame(tick);
             }
+
+            const comet = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            comet.setAttribute("cx", centerX.toFixed(1));
+            comet.setAttribute("cy", centerY.toFixed(1));
+            comet.setAttribute("r", "5.2");
+            comet.setAttribute("class", "light-particle");
+            comet.style.fill = "#fff7c2";
+            comet.style.filter = "drop-shadow(0 0 18px rgba(255,245,183,1)) drop-shadow(0 0 28px rgba(250,204,21,0.95))";
+            ui.stage.appendChild(comet);
+
+            const cometStart = performance.now() + 260;
+            const cometDur = 760;
+            function cometTick(now) {
+                if (now < cometStart) {
+                    requestAnimationFrame(cometTick);
+                    return;
+                }
+                const t = Math.min(1, (now - cometStart) / cometDur);
+                const easeInOut = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+                const x = centerX + (targetX - centerX) * easeInOut;
+                const y = centerY + (targetY - centerY) * easeInOut;
+                comet.setAttribute("cx", x.toFixed(1));
+                comet.setAttribute("cy", y.toFixed(1));
+                comet.style.opacity = String(1 - 0.15 * t);
+                comet.setAttribute("r", (5.2 - 1.8 * t).toFixed(2));
+                if (t < 1) {
+                    requestAnimationFrame(cometTick);
+                } else {
+                    comet.remove();
+                }
+            }
+            requestAnimationFrame(cometTick);
+
+            const coreStart = performance.now();
+            const coreDur = 900;
+            function coreTick(now) {
+                const t = Math.min(1, (now - coreStart) / coreDur);
+                core.setAttribute("r", (8 + 14 * t).toFixed(1));
+                core.style.opacity = String(0.95 * (1 - t));
+                if (t < 1) {
+                    requestAnimationFrame(coreTick);
+                } else {
+                    core.remove();
+                }
+            }
+            requestAnimationFrame(coreTick);
         }
 
         function startLightingAnimation(callback) {
@@ -1762,8 +1876,8 @@
                     // 等待过渡完成后回调
                     setTimeout(() => {
                         callback();
-                    }, 520);
-                }, 1450);
+                    }, 620);
+                }, 1850);
 
             }, switchedFromPhoto ? 600 : 260);
         }
