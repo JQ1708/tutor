@@ -324,16 +324,6 @@
             display: block;
             object-fit: contain;
             transition: opacity 0.8s ease, filter 0.8s ease;
-            -webkit-mask-image: linear-gradient(to right,
-                    transparent 0%,
-                    #000 12%,
-                    #000 88%,
-                    transparent 100%);
-            mask-image: linear-gradient(to right,
-                    transparent 0%,
-                    #000 12%,
-                    #000 88%,
-                    transparent 100%);
         }
 
         #main-stage {
@@ -348,8 +338,8 @@
 
         .svg-container.show-stage #formation-photo {
             display: block;
-            opacity: 0.3;
-            filter: saturate(0.82) brightness(0.72);
+            opacity: 0.72;
+            filter: saturate(0.95) brightness(0.9);
         }
 
         .svg-container.show-stage #main-stage {
@@ -371,43 +361,19 @@
         }
 
         .dot.wave-hit {
-            fill: #fff7c2 !important;
+            fill: #fffbea !important;
             opacity: 1 !important;
-            r: 4 !important;
-            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.98)) drop-shadow(0 0 22px rgba(250, 204, 21, 0.95));
+            r: 4.6 !important;
+            filter: drop-shadow(0 0 22px rgba(255, 255, 255, 1)) drop-shadow(0 0 34px rgba(250, 204, 21, 1));
         }
 
         #main-stage.celebrate-mode {
-            filter: drop-shadow(0 0 48px rgba(255, 245, 183, 0.95)) drop-shadow(0 0 70px rgba(250, 204, 21, 0.85)) saturate(1.65) brightness(1.35);
+            filter: drop-shadow(0 0 34px rgba(255, 245, 183, 0.9)) drop-shadow(0 0 52px rgba(250, 204, 21, 0.8)) saturate(1.5) brightness(1.28);
             transform: scale(1.015);
         }
 
         #main-stage.celebrate-mode .dot {
-            filter: drop-shadow(0 0 15px rgba(255, 245, 183, 1)) drop-shadow(0 0 24px rgba(250, 204, 21, 0.95));
-        }
-
-        .light-ripple {
-            fill: none;
-            stroke: rgba(250, 204, 21, 1);
-            stroke-width: 2.4;
-            opacity: 1;
-            pointer-events: none;
-        }
-
-        .light-particle {
-            opacity: 1;
-            pointer-events: none;
-        }
-
-        .light-ray {
-            stroke-linecap: round;
-            pointer-events: none;
-            opacity: 1;
-        }
-
-        .light-core {
-            pointer-events: none;
-            opacity: 0.95;
+            filter: drop-shadow(0 0 13px rgba(255, 245, 183, 1)) drop-shadow(0 0 20px rgba(250, 204, 21, 0.9));
         }
 
         /* 屏幕金光叠层 */
@@ -415,15 +381,15 @@
             position: fixed;
             inset: 0;
             background: radial-gradient(ellipse at center,
-                    rgba(255, 255, 255, 0.9) 0%,
-                    rgba(255, 245, 183, 0.72) 18%,
-                    rgba(250, 204, 21, 0.52) 36%,
-                    rgba(125, 211, 252, 0.24) 62%,
+                    rgba(255, 255, 255, 0.8) 0%,
+                    rgba(255, 245, 183, 0.62) 18%,
+                    rgba(250, 204, 21, 0.42) 36%,
+                    rgba(125, 211, 252, 0.16) 62%,
                     transparent 100%);
             opacity: 0;
             pointer-events: none;
             z-index: 60;
-            transition: opacity 1.4s ease-out;
+            transition: opacity 1.8s ease-out;
             mix-blend-mode: screen;
         }
 
@@ -1188,7 +1154,7 @@
             totalDots: 6000,
             targetCount: 6000,
             storageKey: 'tzuchi_yufo_2026_v1',
-            pointsPath: 'shape.json?v=20260227-3',
+            pointsPath: 'shape.json?v=20260227-4',
             imagePath: 'shape.png'
         };
 
@@ -1678,201 +1644,24 @@
         });
 
         // === 点灯动画 ===
-        function emitCenterWave(centerX, centerY) {
+        function emitCenterWave(targetDot) {
+            const centerX = 500;
+            const centerY = 247.5;
             const maxDist = Math.hypot(500, 247.5);
-            const travelMs = 900;
-            const holdMs = 620;
+            const travelMs = 1180;
+            const holdMs = 760;
+
             state.dots.forEach((dot) => {
                 const d = Math.hypot(dot.x - centerX, dot.y - centerY);
                 const delay = Math.floor((d / maxDist) * travelMs);
                 setTimeout(() => dot.el.classList.add('wave-hit'), delay);
                 setTimeout(() => dot.el.classList.remove('wave-hit'), delay + holdMs);
             });
-        }
+            const targetDist = Math.hypot(targetDot.x - centerX, targetDot.y - centerY);
+            const targetDelay = Math.floor((targetDist / maxDist) * travelMs) + 60;
+            setTimeout(() => targetDot.el.classList.add('active'), targetDelay);
 
-        function emitRipple(targetX, targetY) {
-            const centerX = 500;
-            const centerY = 247.5;
-
-            const core = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            core.setAttribute("cx", centerX.toFixed(1));
-            core.setAttribute("cy", centerY.toFixed(1));
-            core.setAttribute("r", "8");
-            core.setAttribute("class", "light-core");
-            core.style.fill = "rgba(255,245,183,0.95)";
-            core.style.filter = "drop-shadow(0 0 24px rgba(255,245,183,1)) drop-shadow(0 0 46px rgba(250,204,21,0.95))";
-            ui.stage.appendChild(core);
-
-            const rings = [
-                { color: "rgba(255, 255, 255, 1)", radius: 115, duration: 1050, width: 4.2, delay: 0 },
-                { color: "rgba(255, 245, 183, 1)", radius: 158, duration: 1320, width: 3.4, delay: 70 },
-                { color: "rgba(250, 204, 21, 0.98)", radius: 198, duration: 1540, width: 2.8, delay: 160 }
-            ];
-
-            const animateCircle = (circle, duration, targetRadius, startWidth, delay) => {
-                const start = performance.now() + delay;
-                function tick(now) {
-                    if (now < start) {
-                        requestAnimationFrame(tick);
-                        return;
-                    }
-                    const t = Math.min(1, (now - start) / duration);
-                    const easeOut = 1 - Math.pow(1 - t, 3);
-                    circle.setAttribute("r", (8 + targetRadius * easeOut).toFixed(1));
-                    circle.style.opacity = String(1 * (1 - t));
-                    circle.style.strokeWidth = String(Math.max(0.2, startWidth * (1 - t)));
-                    if (t < 1) {
-                        requestAnimationFrame(tick);
-                    } else {
-                        circle.remove();
-                    }
-                }
-                requestAnimationFrame(tick);
-            };
-
-            rings.forEach((ring) => {
-                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                circle.setAttribute("cx", centerX.toFixed(1));
-                circle.setAttribute("cy", centerY.toFixed(1));
-                circle.setAttribute("r", "8");
-                circle.setAttribute("class", "light-ripple");
-                circle.style.stroke = ring.color;
-                circle.style.filter = "drop-shadow(0 0 12px rgba(255,245,183,0.95))";
-                ui.stage.appendChild(circle);
-                animateCircle(circle, ring.duration, ring.radius, ring.width, ring.delay);
-            });
-
-            // 全图波前：从中心扩散到四周，所有点按距离依次被点亮
-            emitCenterWave(centerX, centerY);
-
-            const rays = [
-                { dx: 1, dy: 0, len: 470, color: "rgba(255,255,255,0.98)" },
-                { dx: -1, dy: 0, len: 470, color: "rgba(255,245,183,0.98)" },
-                { dx: 0, dy: 1, len: 235, color: "rgba(250,204,21,0.95)" },
-                { dx: 0, dy: -1, len: 235, color: "rgba(125,211,252,0.92)" }
-            ];
-
-            rays.forEach((ray, idx) => {
-                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                line.setAttribute("x1", centerX.toFixed(1));
-                line.setAttribute("y1", centerY.toFixed(1));
-                line.setAttribute("x2", centerX.toFixed(1));
-                line.setAttribute("y2", centerY.toFixed(1));
-                line.setAttribute("class", "light-ray");
-                line.style.stroke = ray.color;
-                line.style.strokeWidth = idx < 2 ? "7.2" : "6";
-                line.style.filter = "drop-shadow(0 0 16px rgba(255,245,183,0.95))";
-                ui.stage.appendChild(line);
-
-                const start = performance.now() + idx * 28;
-                const duration = 760;
-                function tick(now) {
-                    if (now < start) {
-                        requestAnimationFrame(tick);
-                        return;
-                    }
-                    const t = Math.min(1, (now - start) / duration);
-                    const easeOut = 1 - Math.pow(1 - t, 3);
-                    const x2 = centerX + ray.dx * ray.len * easeOut;
-                    const y2 = centerY + ray.dy * ray.len * easeOut;
-                    line.setAttribute("x2", x2.toFixed(1));
-                    line.setAttribute("y2", y2.toFixed(1));
-                    line.style.opacity = String(1 - 0.72 * t);
-                    line.style.strokeWidth = String((idx < 2 ? 7.2 : 6) * (1 - 0.62 * t));
-                    if (t < 1) {
-                        requestAnimationFrame(tick);
-                    } else {
-                        line.remove();
-                    }
-                }
-                requestAnimationFrame(tick);
-            });
-
-            const particleCount = 44;
-            for (let i = 0; i < particleCount; i++) {
-                const p = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                const angle = (Math.PI * 2 * i / particleCount) + Math.random() * 0.32;
-                const distance = 72 + Math.random() * 120;
-                const duration = 980 + Math.random() * 560;
-                const baseR = 1.8 + Math.random() * 2.6;
-                const color = i % 4 === 0 ? "#fff7c2" : (i % 4 === 1 ? "#facc15" : (i % 4 === 2 ? "#7dd3fc" : "#fb923c"));
-
-                p.setAttribute("cx", centerX.toFixed(1));
-                p.setAttribute("cy", centerY.toFixed(1));
-                p.setAttribute("r", baseR.toFixed(2));
-                p.setAttribute("class", "light-particle");
-                p.style.fill = color;
-                p.style.filter = "drop-shadow(0 0 12px rgba(255, 245, 183, 1))";
-                ui.stage.appendChild(p);
-
-                const start = performance.now() + Math.random() * 120;
-                function tick(now) {
-                    if (now < start) {
-                        requestAnimationFrame(tick);
-                        return;
-                    }
-                    const t = Math.min(1, (now - start) / duration);
-                    const easeOut = 1 - Math.pow(1 - t, 2);
-                    const px = centerX + Math.cos(angle) * distance * easeOut;
-                    const py = centerY + Math.sin(angle) * distance * easeOut;
-                    p.setAttribute("cx", px.toFixed(1));
-                    p.setAttribute("cy", py.toFixed(1));
-                    p.style.opacity = String(1 * (1 - t));
-                    p.setAttribute("r", (baseR * (1 - 0.6 * t)).toFixed(2));
-                    if (t < 1) {
-                        requestAnimationFrame(tick);
-                    } else {
-                        p.remove();
-                    }
-                }
-                requestAnimationFrame(tick);
-            }
-
-            const comet = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            comet.setAttribute("cx", centerX.toFixed(1));
-            comet.setAttribute("cy", centerY.toFixed(1));
-            comet.setAttribute("r", "5.2");
-            comet.setAttribute("class", "light-particle");
-            comet.style.fill = "#fff7c2";
-            comet.style.filter = "drop-shadow(0 0 18px rgba(255,245,183,1)) drop-shadow(0 0 28px rgba(250,204,21,0.95))";
-            ui.stage.appendChild(comet);
-
-            const cometStart = performance.now() + 260;
-            const cometDur = 760;
-            function cometTick(now) {
-                if (now < cometStart) {
-                    requestAnimationFrame(cometTick);
-                    return;
-                }
-                const t = Math.min(1, (now - cometStart) / cometDur);
-                const easeInOut = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-                const x = centerX + (targetX - centerX) * easeInOut;
-                const y = centerY + (targetY - centerY) * easeInOut;
-                comet.setAttribute("cx", x.toFixed(1));
-                comet.setAttribute("cy", y.toFixed(1));
-                comet.style.opacity = String(1 - 0.15 * t);
-                comet.setAttribute("r", (5.2 - 1.8 * t).toFixed(2));
-                if (t < 1) {
-                    requestAnimationFrame(cometTick);
-                } else {
-                    comet.remove();
-                }
-            }
-            requestAnimationFrame(cometTick);
-
-            const coreStart = performance.now();
-            const coreDur = 900;
-            function coreTick(now) {
-                const t = Math.min(1, (now - coreStart) / coreDur);
-                core.setAttribute("r", (8 + 14 * t).toFixed(1));
-                core.style.opacity = String(0.95 * (1 - t));
-                if (t < 1) {
-                    requestAnimationFrame(coreTick);
-                } else {
-                    core.remove();
-                }
-            }
-            requestAnimationFrame(coreTick);
+            return travelMs + holdMs + 120;
         }
 
         function startLightingAnimation(callback) {
@@ -1901,15 +1690,10 @@
             svgContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             setTimeout(() => {
-                // fancy 点灯：舞台发光 + 多环涟漪 + 粒子
+                // 中心最亮 -> 向外扩散 -> 逐步变暗
                 ui.stage.classList.add('celebrate-mode');
                 ui.screenFlash.classList.add('active');
-
-                // 点亮目标点
-                targetDot.el.classList.add('active');
-                emitRipple(targetDot.x, targetDot.y);
-
-                // 保持短暂辉光后退去
+                const effectDuration = emitCenterWave(targetDot);
                 setTimeout(() => {
                     ui.stage.classList.remove('celebrate-mode');
                     ui.screenFlash.classList.remove('active');
@@ -1918,7 +1702,7 @@
                     setTimeout(() => {
                         callback();
                     }, 620);
-                }, 1850);
+                }, effectDuration);
 
             }, switchedFromPhoto ? 600 : 260);
         }
