@@ -899,9 +899,8 @@
                     <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
                         <span data-zh="无法自动读取图片（浏览器安全限制）。"
                             data-en="Cannot auto-load image (browser security).">无法自动读取图片（浏览器安全限制）。</span><br>
-                        <span data-zh="请点击下方按钮手动选择 shape.svg 或 shape.png"
-                            data-en="Please click below to select shape.svg or shape.png">请点击下方按钮手动选择 shape.svg 或
-                            shape.png</span><br>
+                        <span data-zh="请点击下方按钮手动选择 shape.jpg"
+                            data-en="Please click below to select shape.jpg">请点击下方按钮手动选择 shape.jpg</span><br>
                         <span style="color: #c9a227; font-size: 0.75rem;" data-zh="（上传至 GitHub 后将自动加载）"
                             data-en="(Will auto-load after uploading to GitHub)">（上传至 GitHub 后将自动加载）</span>
                     </p>
@@ -1125,8 +1124,8 @@
             totalDots: 6000,
             targetCount: 6000,
             storageKey: 'tzuchi_yufo_2026_v1',
-            imagePath: 'shape.jpg',
-            fallbackImagePath: 'shape.jpg'
+            pointsPath: 'shape-points.json',
+            imagePath: 'shape.jpg'
         };
 
         // === 状态 ===
@@ -1233,26 +1232,44 @@
         // === 初始化图腾 ===
         function initFormation() {
             updateStats();
+            loadPrecomputedPoints((points) => {
+                generateDotsFromFixedPoints(points);
+            }, () => {
+                loadFromImageFallback();
+            });
+        }
 
+        // === 优先读取预生成坐标（稳定方案） ===
+        function loadPrecomputedPoints(onSuccess, onFail) {
+            fetch(CONFIG.pointsPath, { cache: 'no-store' })
+                .then((res) => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.json();
+                })
+                .then((payload) => {
+                    if (!payload || !Array.isArray(payload.points) || payload.points.length === 0) {
+                        throw new Error('Invalid points payload');
+                    }
+                    console.log('已加载预生成点位:', payload.points.length);
+                    onSuccess(payload.points);
+                })
+                .catch((err) => {
+                    console.log('读取 shape-points.json 失败，回退图片识别:', err);
+                    onFail();
+                });
+        }
+
+        // === 回退方案：从图片识别点位 ===
+        function loadFromImageFallback() {
             const img = new Image();
             img.crossOrigin = "Anonymous";
 
             img.onload = () => processImage(img);
             img.onerror = () => {
-                // SVG加载失败，尝试PNG备用
-                console.log('SVG加载失败，尝试PNG备用...');
-                const fallbackImg = new Image();
-                fallbackImg.crossOrigin = "Anonymous";
-                fallbackImg.onload = () => processImage(fallbackImg);
-                fallbackImg.onerror = () => {
-                    // 两者都失败，显示手动选择按钮
-                    console.log('自动加载失败 (CORS/Path)，切换至手动模式');
-                    ui.spinner.style.display = 'none';
-                    ui.fallback.classList.remove('hidden');
-                };
-                fallbackImg.src = CONFIG.fallbackImagePath;
+                console.log('自动加载失败 (CORS/Path)，切换至手动模式');
+                ui.spinner.style.display = 'none';
+                ui.fallback.classList.remove('hidden');
             };
-
             img.src = CONFIG.imagePath;
         }
 
@@ -1337,6 +1354,40 @@
                     generateFallbackDots();
                 }
             }, 300);
+        }
+
+        // === 从预生成点位渲染（不再做随机采样） ===
+        function generateDotsFromFixedPoints(points) {
+            const fragment = document.createDocumentFragment();
+            state.dots = [];
+            state.availableIndices = [];
+
+            const total = Math.min(CONFIG.totalDots, points.length);
+            for (let i = 0; i < total; i++) {
+                const p = points[i];
+                const x = Number(p.x);
+                const y = Number(p.y);
+                if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
+
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", x.toFixed(1));
+                circle.setAttribute("cy", y.toFixed(1));
+                circle.setAttribute("r", (1.0 + Math.random() * 0.6).toFixed(2));
+                circle.setAttribute("class", "dot");
+                fragment.appendChild(circle);
+
+                state.dots.push({ el: circle, x, y });
+            }
+
+            const indices = Array.from({ length: state.dots.length }, (_, k) => k);
+            shuffleArray(indices);
+            state.availableIndices = indices;
+
+            ui.stage.innerHTML = '';
+            ui.stage.appendChild(fragment);
+            ui.spinner.style.display = 'none';
+            ui.stage.style.opacity = '1';
+            restoreProgress();
         }
 
         // === 从像素生成点 ===
