@@ -313,6 +313,9 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
+            background: #001233;
+            overflow: hidden;
+            isolation: isolate;
         }
 
         #formation-photo {
@@ -320,17 +323,33 @@
             height: auto;
             display: block;
             object-fit: contain;
+            transition: opacity 0.8s ease, filter 0.8s ease;
+            -webkit-mask-image: linear-gradient(to right,
+                    transparent 0%,
+                    #000 12%,
+                    #000 88%,
+                    transparent 100%);
+            mask-image: linear-gradient(to right,
+                    transparent 0%,
+                    #000 12%,
+                    #000 88%,
+                    transparent 100%);
         }
 
         #main-stage {
+            position: absolute;
+            inset: 0;
             width: 100%;
-            height: auto;
+            height: 100%;
             display: none;
             transition: filter 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
         }
 
         .svg-container.show-stage #formation-photo {
-            display: none;
+            display: block;
+            opacity: 0.3;
+            filter: saturate(0.82) brightness(0.72);
         }
 
         .svg-container.show-stage #main-stage {
@@ -349,6 +368,13 @@
             opacity: 1 !important;
             r: 4.8;
             filter: drop-shadow(0 0 18px rgba(255, 245, 183, 1)) drop-shadow(0 0 26px rgba(250, 204, 21, 0.95));
+        }
+
+        .dot.wave-hit {
+            fill: #fff7c2 !important;
+            opacity: 1 !important;
+            r: 4 !important;
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.98)) drop-shadow(0 0 22px rgba(250, 204, 21, 0.95));
         }
 
         #main-stage.celebrate-mode {
@@ -1652,6 +1678,18 @@
         });
 
         // === 点灯动画 ===
+        function emitCenterWave(centerX, centerY) {
+            const maxDist = Math.hypot(500, 247.5);
+            const travelMs = 900;
+            const holdMs = 620;
+            state.dots.forEach((dot) => {
+                const d = Math.hypot(dot.x - centerX, dot.y - centerY);
+                const delay = Math.floor((d / maxDist) * travelMs);
+                setTimeout(() => dot.el.classList.add('wave-hit'), delay);
+                setTimeout(() => dot.el.classList.remove('wave-hit'), delay + holdMs);
+            });
+        }
+
         function emitRipple(targetX, targetY) {
             const centerX = 500;
             const centerY = 247.5;
@@ -1703,6 +1741,9 @@
                 ui.stage.appendChild(circle);
                 animateCircle(circle, ring.duration, ring.radius, ring.width, ring.delay);
             });
+
+            // 全图波前：从中心扩散到四周，所有点按距离依次被点亮
+            emitCenterWave(centerX, centerY);
 
             const rays = [
                 { dx: 1, dy: 0, len: 470, color: "rgba(255,255,255,0.98)" },
