@@ -322,9 +322,14 @@
         }
 
         /* 点样式 */
+        .formation-base {
+            opacity: 0.52;
+            pointer-events: none;
+        }
+
         .dot {
             fill: var(--dot-fill, #1e3a5f);
-            opacity: var(--dot-opacity, 0.4);
+            opacity: var(--dot-opacity, 0.55);
             transition: fill 2s ease-out, opacity 2s ease-out, r 2s ease-out, filter 2s ease-out;
         }
 
@@ -335,20 +340,20 @@
             filter: drop-shadow(0 0 5px #c9a227);
         }
 
-        /* Flash Mode — 点灯瞬间全图亮起 */
-        .flash-mode .dot {
-            fill: #d4a83a !important;
-            opacity: 0.85 !important;
-            r: 2.5 !important;
-            filter: drop-shadow(0 0 5px rgba(212, 168, 58, 0.7)) !important;
-            transition: none !important;
+        .stage-glow .dot {
+            filter: drop-shadow(0 0 3px rgba(201, 162, 39, 0.42));
         }
 
-        .flash-mode .dot.active {
-            fill: #c9a227 !important;
-            opacity: 1 !important;
-            r: 4 !important;
-            filter: drop-shadow(0 0 8px #c9a227) !important;
+        .stage-glow .formation-base {
+            opacity: 0.62;
+        }
+
+        .light-ripple {
+            fill: none;
+            stroke: rgba(250, 204, 21, 0.9);
+            stroke-width: 2;
+            opacity: 0.9;
+            pointer-events: none;
         }
 
         /* 屏幕金光叠层 */
@@ -356,13 +361,13 @@
             position: fixed;
             inset: 0;
             background: radial-gradient(ellipse at center,
-                    rgba(201, 162, 39, 0.22) 0%,
-                    rgba(180, 130, 20, 0.10) 60%,
+                    rgba(201, 162, 39, 0.16) 0%,
+                    rgba(180, 130, 20, 0.06) 60%,
                     transparent 100%);
             opacity: 0;
             pointer-events: none;
             z-index: 60;
-            transition: opacity 2s ease-out;
+            transition: opacity 0.9s ease-out;
         }
 
         #screen-flash.active {
@@ -1356,6 +1361,29 @@
             }, 300);
         }
 
+        // === 渲染底图层（保证文字结构可见） ===
+        function createBaseLayer(src = CONFIG.imagePath) {
+            const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+            image.setAttribute("x", "0");
+            image.setAttribute("y", "0");
+            image.setAttribute("width", "1000");
+            image.setAttribute("height", "495");
+            image.setAttribute("preserveAspectRatio", "xMidYMid meet");
+            image.setAttribute("href", src);
+            image.setAttributeNS("http://www.w3.org/1999/xlink", "href", src);
+            image.setAttribute("class", "formation-base");
+            return image;
+        }
+
+        function mountStageWithDots(fragment) {
+            ui.stage.innerHTML = '';
+            ui.stage.appendChild(createBaseLayer());
+            ui.stage.appendChild(fragment);
+            ui.spinner.style.display = 'none';
+            ui.stage.style.opacity = '1';
+            restoreProgress();
+        }
+
         // === 从预生成点位渲染（不再做随机采样） ===
         function generateDotsFromFixedPoints(points) {
             const fragment = document.createDocumentFragment();
@@ -1388,12 +1416,7 @@
             const indices = Array.from({ length: state.dots.length }, (_, k) => k);
             shuffleArray(indices);
             state.availableIndices = indices;
-
-            ui.stage.innerHTML = '';
-            ui.stage.appendChild(fragment);
-            ui.spinner.style.display = 'none';
-            ui.stage.style.opacity = '1';
-            restoreProgress();
+            mountStageWithDots(fragment);
         }
 
         // === 从像素生成点 ===
@@ -1438,17 +1461,7 @@
             const indices = Array.from({ length: CONFIG.totalDots }, (_, k) => k);
             shuffleArray(indices);
             state.availableIndices = indices;
-
-            // 渲染
-            ui.stage.innerHTML = '';
-            ui.stage.appendChild(fragment);
-
-            // 隐藏加载，显示图腾
-            ui.spinner.style.display = 'none';
-            ui.stage.style.opacity = '1';
-
-            // 恢复已点亮的点
-            restoreProgress();
+            mountStageWithDots(fragment);
         }
 
         // === 备用方案：生成圆形点阵 ===
@@ -1481,13 +1494,7 @@
             const indices = Array.from({ length: CONFIG.totalDots }, (_, k) => k);
             shuffleArray(indices);
             state.availableIndices = indices;
-
-            ui.stage.innerHTML = '';
-            ui.stage.appendChild(fragment);
-            ui.spinner.style.display = 'none';
-            ui.stage.style.opacity = '1';
-
-            restoreProgress();
+            mountStageWithDots(fragment);
         }
 
         // === 工具函数：随机打乱数组 ===
@@ -1610,6 +1617,32 @@
         });
 
         // === 点灯动画 ===
+        function emitRipple(cx, cy) {
+            const ripple = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            ripple.setAttribute("cx", cx.toFixed(1));
+            ripple.setAttribute("cy", cy.toFixed(1));
+            ripple.setAttribute("r", "2");
+            ripple.setAttribute("class", "light-ripple");
+            ui.stage.appendChild(ripple);
+
+            const duration = 900;
+            const start = performance.now();
+            function tick(now) {
+                const t = Math.min(1, (now - start) / duration);
+                const easeOut = 1 - Math.pow(1 - t, 2);
+                const radius = 2 + 55 * easeOut;
+                ripple.setAttribute("r", radius.toFixed(1));
+                ripple.style.opacity = String(0.95 * (1 - t));
+                ripple.style.strokeWidth = String(2.2 - 1.6 * t);
+                if (t < 1) {
+                    requestAnimationFrame(tick);
+                } else {
+                    ripple.remove();
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+
         function startLightingAnimation(callback) {
             const nextIndexPtr = state.count;
 
@@ -1627,25 +1660,26 @@
             svgContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             setTimeout(() => {
-                // 全图亮起 — 庄严金光
-                ui.stage.classList.add('flash-mode');
+                // 轻微舞台发光 + 单点涟漪
+                ui.stage.classList.add('stage-glow');
                 ui.screenFlash.classList.add('active');
 
                 // 点亮目标点
                 targetDot.el.classList.add('active');
+                emitRipple(targetDot.x, targetDot.y);
 
-                // 维持金光 1.5 秒后慢慢退去
+                // 保持短暂金光后退去
                 setTimeout(() => {
-                    ui.stage.classList.remove('flash-mode');
+                    ui.stage.classList.remove('stage-glow');
                     ui.screenFlash.classList.remove('active');
 
-                    // 等待过渡动画完成后回调
+                    // 等待过渡完成后回调
                     setTimeout(() => {
                         callback();
-                    }, 1500);
-                }, 1500);
+                    }, 700);
+                }, 900);
 
-            }, 800);
+            }, 500);
         }
 
         // === 关闭弹窗 ===
