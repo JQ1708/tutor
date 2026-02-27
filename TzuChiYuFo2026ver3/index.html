@@ -868,11 +868,11 @@
                     <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;" data-zh="本地预览模式" data-en="Local Preview Mode">本地预览模式</h3>
                     <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
                         <span data-zh="无法自动读取图片（浏览器安全限制）。" data-en="Cannot auto-load image (browser security).">无法自动读取图片（浏览器安全限制）。</span><br>
-                        <span data-zh="请点击下方按钮手动选择 shape.svg" data-en="Please click below to select shape.svg">请点击下方按钮手动选择 shape.svg</span><br>
+                        <span data-zh="请点击下方按钮手动选择 shape.jpg 或 shape.svg" data-en="Please click below to select shape.jpg or shape.svg">请点击下方按钮手动选择 shape.jpg 或 shape.svg</span><br>
                         <span style="color: #c9a227; font-size: 0.75rem;" data-zh="（上传至 GitHub 后将自动加载）" data-en="(Will auto-load after uploading to GitHub)">（上传至 GitHub 后将自动加载）</span>
                     </p>
                     <label class="fallback-btn">
-                        <span data-zh="选择 shape.svg" data-en="Select shape.svg">选择 shape.svg</span>
+                        <span data-zh="选择形状图片" data-en="Select shape image">选择形状图片</span>
                         <input type="file" id="file-input" accept="image/*" style="display: none;">
                     </label>
                 </div>
@@ -1066,7 +1066,7 @@
             totalDots: 6000,
             targetCount: 6000,
             storageKey: 'tzuchi_yufo_2026_v1',
-            imagePath: 'shape.svg'
+            imagePaths: ['shape.jpg', 'shape.svg']
         };
 
         // === 状态 ===
@@ -1173,19 +1173,41 @@
         // === 初始化图腾 ===
         function initFormation() {
             updateStats();
-
-            const img = new Image();
-            img.crossOrigin = "Anonymous";
-
-            img.onload = () => processImage(img);
-            img.onerror = () => {
+            loadFormationImage(CONFIG.imagePaths, (img) => {
+                processImage(img);
+            }, () => {
                 // 自动加载失败，显示手动选择按钮
                 console.log('自动加载失败 (CORS/Path)，切换至手动模式');
                 ui.spinner.style.display = 'none';
                 ui.fallback.classList.remove('hidden');
+            });
+        }
+
+        // === 顺序尝试加载图片（优先 JPG，再回退 SVG） ===
+        function loadFormationImage(paths, onSuccess, onFail) {
+            const tryLoad = (index) => {
+                if (index >= paths.length) {
+                    onFail();
+                    return;
+                }
+
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+
+                img.onload = () => {
+                    console.log('已加载图形资源:', paths[index]);
+                    onSuccess(img);
+                };
+
+                img.onerror = () => {
+                    console.log('加载失败，尝试下一个资源:', paths[index]);
+                    tryLoad(index + 1);
+                };
+
+                img.src = paths[index];
             };
 
-            img.src = CONFIG.imagePath;
+            tryLoad(0);
         }
 
         // === 监听手动选择文件 ===
@@ -1216,8 +1238,8 @@
                 canvas.width = w;
                 canvas.height = h;
 
-                // 绘制白色背景
-                ctx.fillStyle = "#FFFFFF";
+                // 先用浅色背景清空，再绘制图像
+                ctx.fillStyle = "#F0F0F0";
                 ctx.fillRect(0, 0, w, h);
 
                 // 计算缩放比例保持图片比例
@@ -1232,10 +1254,11 @@
 
                 const imageData = ctx.getImageData(0, 0, w, h);
                 const data = imageData.data;
-                const darkPixels = [];
+                const featurePixels = [];
+                const bg = estimateBackgroundColor(data, w, h);
 
-                // 采样深色像素 - Shape.png 是体育场俯视图
-                // 背景是浅灰色，图腾部分是深色/黑色点
+                // 采样非背景像素：
+                // 使用「与背景色距离 + 饱和度」识别，避免只抓到深色导致图形残缺
                 for (let y = 0; y < h; y += 2) {
                     for (let x = 0; x < w; x += 2) {
                         const i = (y * w + x) * 4;
@@ -1244,23 +1267,62 @@
                         const b = data[i + 2];
                         const alpha = data[i + 3];
 
-                        // 识别深色区域（莲花图腾的点阵部分）
-                        // Shape.png 背景约 200+，图腾深色部分约 0-180
-                        if (alpha > 128 && r < 180 && g < 180 && b < 180) {
-                            darkPixels.push({ x, y });
-                        }
+                        if (alpha <= 128) continue;
+
+                        const dr = r - bg.r;
+                        const dg = g - bg.g;
+                        const db = b - bg.b;
+                        const dist2 = dr * dr + dg * dg + db * db;
+                        const maxC = Math.max(r, g, b);
+                        const minC = Math.min(r, g, b);
+                        const saturation = maxC - minC;
+
+                        const isFeature = dist2 > (18 * 18) || saturation > 24;
+                        if (isFeature) featurePixels.push({ x, y });
                     }
                 }
 
-                console.log('识别到深色像素数量:', darkPixels.length);
+                console.log('识别到特征像素数量:', featurePixels.length, '背景色:', bg);
 
-                if (darkPixels.length > 100) {
-                    generateDotsFromPixels(darkPixels);
+                if (featurePixels.length > 100) {
+                    generateDotsFromPixels(featurePixels);
                 } else {
                     console.log('像素数量不足，使用备用方案');
                     generateFallbackDots();
                 }
             }, 300);
+        }
+
+        // === 估算背景色（边缘采样平均） ===
+        function estimateBackgroundColor(data, w, h) {
+            let sumR = 0, sumG = 0, sumB = 0, count = 0;
+            const step = 8;
+
+            function sample(x, y) {
+                const i = (y * w + x) * 4;
+                const a = data[i + 3];
+                if (a < 16) return;
+                sumR += data[i];
+                sumG += data[i + 1];
+                sumB += data[i + 2];
+                count++;
+            }
+
+            for (let x = 0; x < w; x += step) {
+                sample(x, 0);
+                sample(x, h - 1);
+            }
+            for (let y = 0; y < h; y += step) {
+                sample(0, y);
+                sample(w - 1, y);
+            }
+
+            if (count === 0) return { r: 240, g: 240, b: 240 };
+            return {
+                r: Math.round(sumR / count),
+                g: Math.round(sumG / count),
+                b: Math.round(sumB / count)
+            };
         }
 
         // === 从像素生成点 ===
