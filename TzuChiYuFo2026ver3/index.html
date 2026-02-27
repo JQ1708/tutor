@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>慈济浴佛 2026 - Tzu Chi Buddha Bathing Ceremony</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Serif:wght@400;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         * {
@@ -137,8 +140,13 @@
         }
 
         @keyframes titleGlow {
-            from { text-shadow: 0 0 40px rgba(201, 162, 39, 0.3); }
-            to { text-shadow: 0 0 60px rgba(201, 162, 39, 0.6); }
+            from {
+                text-shadow: 0 0 40px rgba(201, 162, 39, 0.3);
+            }
+
+            to {
+                text-shadow: 0 0 60px rgba(201, 162, 39, 0.6);
+            }
         }
 
         .sub-title {
@@ -378,7 +386,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* === 报名表单区域 === */
@@ -741,8 +751,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
         }
 
         /* === Responsive === */
@@ -774,6 +791,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- 开场佛陀像 -->
     <div id="buddha-overlay">
@@ -782,7 +800,8 @@
 
     <!-- 语言选择 -->
     <div id="language-overlay">
-        <h2 class="language-title" data-zh="请选择语言 / Select Language" data-en="Select Language">请选择语言 / Select Language</h2>
+        <h2 class="language-title" data-zh="请选择语言 / Select Language" data-en="Select Language">请选择语言 / Select Language
+        </h2>
         <div class="language-buttons">
             <button class="lang-btn" onclick="selectLanguage('zh')">中文</button>
             <button class="lang-btn" onclick="selectLanguage('en')">English</button>
@@ -797,28 +816,32 @@
         <!-- Hero Section -->
         <section class="hero-section">
             <h1 class="main-title" data-zh="慈济浴佛" data-en="Tzu Chi Buddha Bathing">慈济浴佛</h1>
-            <p class="sub-title" data-zh="万人浴佛 聚福缘" data-en="Ten Thousand People Bathing Buddha, Gathering Blessings">万人浴佛 聚福缘</p>
+            <p class="sub-title" data-zh="万人浴佛 聚福缘" data-en="Ten Thousand People Bathing Buddha, Gathering Blessings">
+                万人浴佛 聚福缘</p>
 
             <!-- 浴佛意义文案 -->
             <div class="ceremony-description">
-                <p class="ceremony-text" data-zh="以净水沐佛，洗涤内心烦恼；以善念共修，凝聚和平的愿力。" data-en="Bathe the Buddha with pure water to cleanse inner worries; cultivate together with good intentions to gather the power of peace.">以净水沐佛，洗涤内心烦恼；以善念共修，凝聚和平的愿力。</p>
+                <p class="ceremony-text" data-zh="以净水沐佛，洗涤内心烦恼；以善念共修，凝聚和平的愿力。"
+                    data-en="Bathe the Buddha with pure water to cleanse inner worries; cultivate together with good intentions to gather the power of peace.">
+                    以净水沐佛，洗涤内心烦恼；以善念共修，凝聚和平的愿力。</p>
 
                 <h4 class="ceremony-section-title" data-zh="浴佛节的意义" data-en="Significance of Buddha Bathing">浴佛节的意义</h4>
-                <p class="ceremony-text" data-zh="浴佛象征洁净身心，忆念佛陀慈悲与智慧。慈济以庄严仪式引导大众回归清净、发愿行善。" data-en="Buddha Bathing symbolizes purifying body and mind, remembering Buddha's compassion and wisdom. Tzu Chi guides everyone to return to purity and vow to do good through solemn ceremonies.">浴佛象征洁净身心，忆念佛陀慈悲与智慧。慈济以庄严仪式引导大众回归清净、发愿行善。</p>
+                <p class="ceremony-text" data-zh="浴佛象征洁净身心，忆念佛陀慈悲与智慧。慈济以庄严仪式引导大众回归清净、发愿行善。"
+                    data-en="Buddha Bathing symbolizes purifying body and mind, remembering Buddha's compassion and wisdom. Tzu Chi guides everyone to return to purity and vow to do good through solemn ceremonies.">
+                    浴佛象征洁净身心，忆念佛陀慈悲与智慧。慈济以庄严仪式引导大众回归清净、发愿行善。</p>
 
                 <h4 class="ceremony-section-title" data-zh="万人点灯" data-en="Lighting of Ten Thousand Lamps">万人点灯</h4>
-                <p class="ceremony-text" data-zh="当千人同心排成图腾、点亮心灯，愿社会祥和，人人平安。" data-en="When thousands unite to form a formation and light their heart lamps, may society be harmonious and everyone be at peace.">当千人同心排成图腾、点亮心灯，愿社会祥和，人人平安。</p>
+                <p class="ceremony-text" data-zh="当千人同心排成图腾、点亮心灯，愿社会祥和，人人平安。"
+                    data-en="When thousands unite to form a formation and light their heart lamps, may society be harmonious and everyone be at peace.">
+                    当千人同心排成图腾、点亮心灯，愿社会祥和，人人平安。</p>
             </div>
 
             <div class="video-section">
                 <div class="video-container">
-                    <iframe id="promo-video"
-                        src="https://www.youtube-nocookie.com/embed/uCESAyzTSlc"
-                        title="慈济浴佛宣传视频"
+                    <iframe id="promo-video" src="https://www.youtube-nocookie.com/embed/uCESAyzTSlc" title="慈济浴佛宣传视频"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen
-                        style="width:100%; aspect-ratio:16/9;">
+                        allowfullscreen style="width:100%; aspect-ratio:16/9;">
                     </iframe>
                 </div>
             </div>
@@ -833,7 +856,7 @@
             <div class="scroll-indicator" data-zh="向下滑动" data-en="Scroll Down">
                 向下滑动
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
                 </svg>
             </div>
         </section>
@@ -841,7 +864,8 @@
         <!-- 图腾区域 -->
         <section class="formation-section">
             <h2 class="section-title" data-zh="万人图腾" data-en="Formation of Ten Thousand">万人图腾</h2>
-            <p class="section-subtitle" data-zh="点亮您的心灯，汇聚善念" data-en="Light your heart lamp, gather blessings">点亮您的心灯，汇聚善念</p>
+            <p class="section-subtitle" data-zh="点亮您的心灯，汇聚善念" data-en="Light your heart lamp, gather blessings">
+                点亮您的心灯，汇聚善念</p>
 
             <!-- 计数器 -->
             <div class="stats-container">
@@ -865,14 +889,19 @@
                 <!-- 手动加载回退 UI (默认隐藏，只有出错时才显示) -->
                 <div id="fallback-ui" class="fallback-ui hidden">
                     <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚠️</div>
-                    <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;" data-zh="本地预览模式" data-en="Local Preview Mode">本地预览模式</h3>
+                    <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;" data-zh="本地预览模式"
+                        data-en="Local Preview Mode">本地预览模式</h3>
                     <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
-                        <span data-zh="无法自动读取图片（浏览器安全限制）。" data-en="Cannot auto-load image (browser security).">无法自动读取图片（浏览器安全限制）。</span><br>
-                        <span data-zh="请点击下方按钮手动选择 shape.jpg 或 shape.svg" data-en="Please click below to select shape.jpg or shape.svg">请点击下方按钮手动选择 shape.jpg 或 shape.svg</span><br>
-                        <span style="color: #c9a227; font-size: 0.75rem;" data-zh="（上传至 GitHub 后将自动加载）" data-en="(Will auto-load after uploading to GitHub)">（上传至 GitHub 后将自动加载）</span>
+                        <span data-zh="无法自动读取图片（浏览器安全限制）。"
+                            data-en="Cannot auto-load image (browser security).">无法自动读取图片（浏览器安全限制）。</span><br>
+                        <span data-zh="请点击下方按钮手动选择 shape.svg 或 shape.png"
+                            data-en="Please click below to select shape.svg or shape.png">请点击下方按钮手动选择 shape.svg 或
+                            shape.png</span><br>
+                        <span style="color: #c9a227; font-size: 0.75rem;" data-zh="（上传至 GitHub 后将自动加载）"
+                            data-en="(Will auto-load after uploading to GitHub)">（上传至 GitHub 后将自动加载）</span>
                     </p>
                     <label class="fallback-btn">
-                        <span data-zh="选择形状图片" data-en="Select shape image">选择形状图片</span>
+                        <span data-zh="选择图片" data-en="Select Image">选择图片</span>
                         <input type="file" id="file-input" accept="image/*" style="display: none;">
                     </label>
                 </div>
@@ -892,22 +921,19 @@
                 <form id="registration-form">
                     <div class="form-group">
                         <label data-zh="姓名" data-en="Name">姓名</label>
-                        <input type="text" class="form-input" id="name" required
-                               data-placeholder-zh="请输入您的姓名"
-                               data-placeholder-en="Enter your name"
-                               placeholder="请输入您的姓名">
+                        <input type="text" class="form-input" id="name" required data-placeholder-zh="请输入您的姓名"
+                            data-placeholder-en="Enter your name" placeholder="请输入您的姓名">
                     </div>
 
                     <div class="form-group">
                         <label data-zh="手机号码" data-en="Phone Number">手机号码</label>
-                        <input type="tel" class="form-input" id="phone" required
-                               data-placeholder-zh="请输入手机号码"
-                               data-placeholder-en="Enter your phone number"
-                               placeholder="请输入手机号码">
+                        <input type="tel" class="form-input" id="phone" required data-placeholder-zh="请输入手机号码"
+                            data-placeholder-en="Enter your phone number" placeholder="请输入手机号码">
                     </div>
 
                     <div class="form-group">
-                        <label data-zh="居住区域（请选择最靠近您住处的区域）" data-en="Region (Please select the region closest to your residence)">居住区域（请选择最靠近您住处的区域）</label>
+                        <label data-zh="居住区域（请选择最靠近您住处的区域）"
+                            data-en="Region (Please select the region closest to your residence)">居住区域（请选择最靠近您住处的区域）</label>
                         <select class="form-input" id="region" required>
                             <option value="" data-zh="请选择区域" data-en="Select region">请选择区域</option>
 
@@ -917,65 +943,100 @@
 
                             <optgroup label="东区" data-label-zh="东区" data-label-en="East">
                                 <option value="东1-加影" data-zh="东1 - 加影" data-en="East 1 - Kajang">东1 - 加影</option>
-                                <option value="东1-双溪龙镇" data-zh="东1 - 双溪龙镇" data-en="East 1 - Bandar Sungai Long">东1 - 双溪龙镇</option>
-                                <option value="东2-大同" data-zh="东2 - 大同" data-en="East 2 - Taman Connaught">东2 - 大同</option>
-                                <option value="东2-太子园" data-zh="东2 - 太子园" data-en="East 2 - Taman Putra">东2 - 太子园</option>
+                                <option value="东1-双溪龙镇" data-zh="东1 - 双溪龙镇" data-en="East 1 - Bandar Sungai Long">东1 -
+                                    双溪龙镇</option>
+                                <option value="东2-大同" data-zh="东2 - 大同" data-en="East 2 - Taman Connaught">东2 - 大同
+                                </option>
+                                <option value="东2-太子园" data-zh="东2 - 太子园" data-en="East 2 - Taman Putra">东2 - 太子园
+                                </option>
                                 <option value="东2-安邦" data-zh="东2 - 安邦" data-en="East 2 - Ampang">东2 - 安邦</option>
                             </optgroup>
 
                             <optgroup label="中区" data-label-zh="中区" data-label-en="Central">
-                                <option value="中1-大城堡" data-zh="中1 - 大城堡" data-en="Central 1 - Sri Petaling">中1 - 大城堡</option>
-                                <option value="中1-旧巴生路" data-zh="中1 - 旧巴生路" data-en="Central 1 - Old Klang Road">中1 - 旧巴生路</option>
-                                <option value="中2-沙登新区" data-zh="中2 - 沙登新区" data-en="Central 2 - Seri Kembangan">中2 - 沙登新区</option>
-                                <option value="中2-沙登旧区" data-zh="中2 - 沙登旧区" data-en="Central 2 - Serdang Lama">中2 - 沙登旧区</option>
-                                <option value="中3-蒲种城" data-zh="中3 - 蒲种城" data-en="Central 3 - Bandar Puchong">中3 - 蒲种城</option>
-                                <option value="中3-蒲种市" data-zh="中3 - 蒲种市" data-en="Central 3 - Puchong Jaya">中3 - 蒲种市</option>
-                                <option value="中3-蒲种都" data-zh="中3 - 蒲种都" data-en="Central 3 - Puchong Utama">中3 - 蒲种都</option>
-                                <option value="中3-蒲种镇" data-zh="中3 - 蒲种镇" data-en="Central 3 - Taman Puchong">中3 - 蒲种镇</option>
-                                <option value="中4-布高原" data-zh="中4 - 布高原" data-en="Central 4 - Putra Heights">中4 - 布高原</option>
-                                <option value="中4-梳邦再也" data-zh="中4 - 梳邦再也" data-en="Central 4 - Subang Jaya">中4 - 梳邦再也</option>
-                                <option value="中5-武吉日落洞" data-zh="中5 - 武吉日落洞" data-en="Central 5 - Bukit Jalil">中5 - 武吉日落洞</option>
-                                <option value="中5-莎亚南" data-zh="中5 - 莎亚南" data-en="Central 5 - Shah Alam">中5 - 莎亚南</option>
+                                <option value="中1-大城堡" data-zh="中1 - 大城堡" data-en="Central 1 - Sri Petaling">中1 - 大城堡
+                                </option>
+                                <option value="中1-旧巴生路" data-zh="中1 - 旧巴生路" data-en="Central 1 - Old Klang Road">中1 -
+                                    旧巴生路</option>
+                                <option value="中2-沙登新区" data-zh="中2 - 沙登新区" data-en="Central 2 - Seri Kembangan">中2 -
+                                    沙登新区</option>
+                                <option value="中2-沙登旧区" data-zh="中2 - 沙登旧区" data-en="Central 2 - Serdang Lama">中2 - 沙登旧区
+                                </option>
+                                <option value="中3-蒲种城" data-zh="中3 - 蒲种城" data-en="Central 3 - Bandar Puchong">中3 - 蒲种城
+                                </option>
+                                <option value="中3-蒲种市" data-zh="中3 - 蒲种市" data-en="Central 3 - Puchong Jaya">中3 - 蒲种市
+                                </option>
+                                <option value="中3-蒲种都" data-zh="中3 - 蒲种都" data-en="Central 3 - Puchong Utama">中3 - 蒲种都
+                                </option>
+                                <option value="中3-蒲种镇" data-zh="中3 - 蒲种镇" data-en="Central 3 - Taman Puchong">中3 - 蒲种镇
+                                </option>
+                                <option value="中4-布高原" data-zh="中4 - 布高原" data-en="Central 4 - Putra Heights">中4 - 布高原
+                                </option>
+                                <option value="中4-梳邦再也" data-zh="中4 - 梳邦再也" data-en="Central 4 - Subang Jaya">中4 - 梳邦再也
+                                </option>
+                                <option value="中5-武吉日落洞" data-zh="中5 - 武吉日落洞" data-en="Central 5 - Bukit Jalil">中5 -
+                                    武吉日落洞</option>
+                                <option value="中5-莎亚南" data-zh="中5 - 莎亚南" data-en="Central 5 - Shah Alam">中5 - 莎亚南
+                                </option>
                             </optgroup>
 
                             <optgroup label="北区" data-label-zh="北区" data-label-en="North">
                                 <option value="北1-SVD" data-zh="北1 - SVD" data-en="North 1 - SVD">北1 - SVD</option>
                                 <option value="北1-万挠" data-zh="北1 - 万挠" data-en="North 1 - Rawang">北1 - 万挠</option>
-                                <option value="北1-斯里白沙罗" data-zh="北1 - 斯里白沙罗" data-en="North 1 - Sri Damansara">北1 - 斯里白沙罗</option>
-                                <option value="北2-八打灵" data-zh="北2 - 八打灵" data-en="North 2 - Petaling Jaya">北2 - 八打灵</option>
-                                <option value="北2-白沙罗" data-zh="北2 - 白沙罗" data-en="North 2 - Damansara">北2 - 白沙罗</option>
+                                <option value="北1-斯里白沙罗" data-zh="北1 - 斯里白沙罗" data-en="North 1 - Sri Damansara">北1 -
+                                    斯里白沙罗</option>
+                                <option value="北2-八打灵" data-zh="北2 - 八打灵" data-en="North 2 - Petaling Jaya">北2 - 八打灵
+                                </option>
+                                <option value="北2-白沙罗" data-zh="北2 - 白沙罗" data-en="North 2 - Damansara">北2 - 白沙罗
+                                </option>
                                 <option value="北B-增江" data-zh="北B - 增江" data-en="North B - Jinjang">北B - 增江</option>
-                                <option value="北B-峇都急" data-zh="北B - 峇都急" data-en="North B - Batu Caves">北B - 峇都急</option>
+                                <option value="北B-峇都急" data-zh="北B - 峇都急" data-en="North B - Batu Caves">北B - 峇都急
+                                </option>
                                 <option value="北B-文良港" data-zh="北B - 文良港" data-en="North B - Setapak">北B - 文良港</option>
-                                <option value="北B-旺沙玛珠" data-zh="北B - 旺沙玛珠" data-en="North B - Wangsa Maju">北B - 旺沙玛珠</option>
-                                <option value="北B-甲洞卫星市" data-zh="北B - 甲洞卫星市" data-en="North B - Kepong Baru">北B - 甲洞卫星市</option>
-                                <option value="北B-甲洞帝沙" data-zh="北B - 甲洞帝沙" data-en="North B - Desa Jaya">北B - 甲洞帝沙</option>
-                                <option value="北B-甲洞马鲁里" data-zh="北B - 甲洞马鲁里" data-en="North B - Metro Prima">北B - 甲洞马鲁里</option>
+                                <option value="北B-旺沙玛珠" data-zh="北B - 旺沙玛珠" data-en="North B - Wangsa Maju">北B - 旺沙玛珠
+                                </option>
+                                <option value="北B-甲洞卫星市" data-zh="北B - 甲洞卫星市" data-en="North B - Kepong Baru">北B - 甲洞卫星市
+                                </option>
+                                <option value="北B-甲洞帝沙" data-zh="北B - 甲洞帝沙" data-en="North B - Desa Jaya">北B - 甲洞帝沙
+                                </option>
+                                <option value="北B-甲洞马鲁里" data-zh="北B - 甲洞马鲁里" data-en="North B - Metro Prima">北B - 甲洞马鲁里
+                                </option>
                             </optgroup>
 
                             <optgroup label="西北区" data-label-zh="西北区" data-label-en="Northwest">
-                                <option value="西北-加埔卫星市" data-zh="西北 - 加埔卫星市" data-en="Northwest - Kapar">西北 - 加埔卫星市</option>
-                                <option value="西北-实达阿南" data-zh="西北 - 实达阿南" data-en="Northwest - Setia Alam">西北 - 实达阿南</option>
-                                <option value="西北-永安镇" data-zh="西北 - 永安镇" data-en="Northwest - Bandar Bukit Raja">西北 - 永安镇</option>
-                                <option value="西北-适耕庄大港" data-zh="西北 - 适耕庄大港" data-en="Northwest - Sekinchan">西北 - 适耕庄大港</option>
+                                <option value="西北-加埔卫星市" data-zh="西北 - 加埔卫星市" data-en="Northwest - Kapar">西北 - 加埔卫星市
+                                </option>
+                                <option value="西北-实达阿南" data-zh="西北 - 实达阿南" data-en="Northwest - Setia Alam">西北 - 实达阿南
+                                </option>
+                                <option value="西北-永安镇" data-zh="西北 - 永安镇" data-en="Northwest - Bandar Bukit Raja">西北 -
+                                    永安镇</option>
+                                <option value="西北-适耕庄大港" data-zh="西北 - 适耕庄大港" data-en="Northwest - Sekinchan">西北 - 适耕庄大港
+                                </option>
                             </optgroup>
 
                             <optgroup label="西南区" data-label-zh="西南区" data-label-en="Southwest">
-                                <option value="西南1-圣淘沙" data-zh="西南1 - 圣淘沙" data-en="Southwest 1 - Kota Kemuning">西南1 - 圣淘沙</option>
-                                <option value="西南1-快乐园" data-zh="西南1 - 快乐园" data-en="Southwest 1 - Taman Sentosa">西南1 - 快乐园</option>
-                                <option value="西南2-武吉丁宜" data-zh="西南2 - 武吉丁宜" data-en="Southwest 2 - Bukit Tinggi">西南2 - 武吉丁宜</option>
-                                <option value="西南2-万绒" data-zh="西南2 - 万绒" data-en="Southwest 2 - Bandar Botanic">西南2 - 万绒</option>
+                                <option value="西南1-圣淘沙" data-zh="西南1 - 圣淘沙" data-en="Southwest 1 - Kota Kemuning">西南1 -
+                                    圣淘沙</option>
+                                <option value="西南1-快乐园" data-zh="西南1 - 快乐园" data-en="Southwest 1 - Taman Sentosa">西南1 -
+                                    快乐园</option>
+                                <option value="西南2-武吉丁宜" data-zh="西南2 - 武吉丁宜" data-en="Southwest 2 - Bukit Tinggi">西南2 -
+                                    武吉丁宜</option>
+                                <option value="西南2-万绒" data-zh="西南2 - 万绒" data-en="Southwest 2 - Bandar Botanic">西南2 -
+                                    万绒</option>
                             </optgroup>
 
                             <optgroup label="功能组" data-label-zh="功能组" data-label-en="Functional Group">
                                 <option value="功能组" data-zh="功能组" data-en="Functional Group">功能组</option>
-                                <option value="功能组-英文组" data-zh="功能组 - 英文组" data-en="Functional Group - English">功能组 - 英文组</option>
-                                <option value="功能组-医疗组" data-zh="功能组 - 医疗组" data-en="Functional Group - Medical">功能组 - 医疗组</option>
+                                <option value="功能组-英文组" data-zh="功能组 - 英文组" data-en="Functional Group - English">功能组 -
+                                    英文组</option>
+                                <option value="功能组-医疗组" data-zh="功能组 - 医疗组" data-en="Functional Group - Medical">功能组 -
+                                    医疗组</option>
                             </optgroup>
 
                             <optgroup label="合心" data-label-zh="合心" data-label-en="Hexin">
-                                <option value="合心-功能组" data-zh="合心 - 功能组" data-en="Hexin - Functional Group">合心 - 功能组</option>
-                                <option value="合心-蒲种市" data-zh="合心 - 蒲种市" data-en="Hexin - Puchong Jaya">合心 - 蒲种市</option>
+                                <option value="合心-功能组" data-zh="合心 - 功能组" data-en="Hexin - Functional Group">合心 - 功能组
+                                </option>
+                                <option value="合心-蒲种市" data-zh="合心 - 蒲种市" data-en="Hexin - Puchong Jaya">合心 - 蒲种市
+                                </option>
                             </optgroup>
                         </select>
                     </div>
@@ -989,7 +1050,8 @@
                                 <span class="role-label" data-zh="观礼当观众" data-en="Be an Audience">观礼当观众</span>
                                 <span class="role-desc" data-zh="现场观礼" data-en="Watch the ceremony">现场观礼</span>
                             </button>
-                            <button type="button" class="role-btn" id="role-formation" onclick="selectRole('formation')">
+                            <button type="button" class="role-btn" id="role-formation"
+                                onclick="selectRole('formation')">
                                 <span class="role-icon">🪷</span>
                                 <span class="role-label" data-zh="入庄严图形" data-en="Join Formation">入庄严图形</span>
                                 <span class="role-desc" data-zh="融入大我" data-en="Become part of the whole">融入大我</span>
@@ -998,8 +1060,8 @@
                         <input type="hidden" id="role" name="role" required>
                     </div>
 
-                    <button type="submit" class="submit-btn" id="submit-btn"
-                            data-zh="呈交祈愿" data-en="Submit Prayer">呈交祈愿</button>
+                    <button type="submit" class="submit-btn" id="submit-btn" data-zh="呈交祈愿"
+                        data-en="Submit Prayer">呈交祈愿</button>
                 </form>
             </div>
         </section>
@@ -1007,32 +1069,24 @@
         <!-- 浴佛意义视频区域 -->
         <section class="meaning-videos-section">
             <h2 class="meaning-videos-title" data-zh="浴佛节的意义" data-en="Significance of Buddha Bathing">浴佛节的意义</h2>
-            <p class="meaning-videos-subtitle" data-zh="了解更多关于浴佛节的意义" data-en="Learn more about the significance of Buddha Bathing">了解更多关于浴佛节的意义</p>
+            <p class="meaning-videos-subtitle" data-zh="了解更多关于浴佛节的意义"
+                data-en="Learn more about the significance of Buddha Bathing">了解更多关于浴佛节的意义</p>
 
             <div class="meaning-videos-container">
                 <div class="meaning-video-item">
-                    <iframe
-                        src="https://www.youtube-nocookie.com/embed/PqKX4WgakbQ"
-                        title="浴佛节意义视频1"
-                        frameborder="0"
+                    <iframe src="https://www.youtube-nocookie.com/embed/PqKX4WgakbQ" title="浴佛节意义视频1" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen>
                     </iframe>
                 </div>
                 <div class="meaning-video-item">
-                    <iframe
-                        src="https://www.youtube-nocookie.com/embed/LdL_vymXnlc"
-                        title="浴佛节意义视频2"
-                        frameborder="0"
+                    <iframe src="https://www.youtube-nocookie.com/embed/LdL_vymXnlc" title="浴佛节意义视频2" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen>
                     </iframe>
                 </div>
                 <div class="meaning-video-item">
-                    <iframe
-                        src="https://www.youtube-nocookie.com/embed/ggAxSXqViYI"
-                        title="浴佛节意义视频3"
-                        frameborder="0"
+                    <iframe src="https://www.youtube-nocookie.com/embed/ggAxSXqViYI" title="浴佛节意义视频3" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen>
                     </iframe>
@@ -1066,7 +1120,8 @@
             totalDots: 6000,
             targetCount: 6000,
             storageKey: 'tzuchi_yufo_2026_v1',
-            imagePaths: ['shape.jpg', 'shape.svg']
+            imagePath: 'shape.svg',
+            fallbackImagePath: 'shape.png'
         };
 
         // === 状态 ===
@@ -1173,41 +1228,27 @@
         // === 初始化图腾 ===
         function initFormation() {
             updateStats();
-            loadFormationImage(CONFIG.imagePaths, (img) => {
-                processImage(img);
-            }, () => {
-                // 自动加载失败，显示手动选择按钮
-                console.log('自动加载失败 (CORS/Path)，切换至手动模式');
-                ui.spinner.style.display = 'none';
-                ui.fallback.classList.remove('hidden');
-            });
-        }
 
-        // === 顺序尝试加载图片（优先 JPG，再回退 SVG） ===
-        function loadFormationImage(paths, onSuccess, onFail) {
-            const tryLoad = (index) => {
-                if (index >= paths.length) {
-                    onFail();
-                    return;
-                }
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
 
-                const img = new Image();
-                img.crossOrigin = "Anonymous";
-
-                img.onload = () => {
-                    console.log('已加载图形资源:', paths[index]);
-                    onSuccess(img);
+            img.onload = () => processImage(img);
+            img.onerror = () => {
+                // SVG加载失败，尝试PNG备用
+                console.log('SVG加载失败，尝试PNG备用...');
+                const fallbackImg = new Image();
+                fallbackImg.crossOrigin = "Anonymous";
+                fallbackImg.onload = () => processImage(fallbackImg);
+                fallbackImg.onerror = () => {
+                    // 两者都失败，显示手动选择按钮
+                    console.log('自动加载失败 (CORS/Path)，切换至手动模式');
+                    ui.spinner.style.display = 'none';
+                    ui.fallback.classList.remove('hidden');
                 };
-
-                img.onerror = () => {
-                    console.log('加载失败，尝试下一个资源:', paths[index]);
-                    tryLoad(index + 1);
-                };
-
-                img.src = paths[index];
+                fallbackImg.src = CONFIG.fallbackImagePath;
             };
 
-            tryLoad(0);
+            img.src = CONFIG.imagePath;
         }
 
         // === 监听手动选择文件 ===
@@ -1238,8 +1279,8 @@
                 canvas.width = w;
                 canvas.height = h;
 
-                // 先用浅色背景清空，再绘制图像
-                ctx.fillStyle = "#F0F0F0";
+                // 绘制白色背景
+                ctx.fillStyle = "#FFFFFF";
                 ctx.fillRect(0, 0, w, h);
 
                 // 计算缩放比例保持图片比例
@@ -1254,11 +1295,10 @@
 
                 const imageData = ctx.getImageData(0, 0, w, h);
                 const data = imageData.data;
-                const featurePixels = [];
-                const bg = estimateBackgroundColor(data, w, h);
+                const darkPixels = [];
 
-                // 采样非背景像素：
-                // 使用「与背景色距离 + 饱和度」识别，避免只抓到深色导致图形残缺
+                // 采样深色像素 - Shape.png 是体育场俯视图
+                // 背景是浅灰色，图腾部分是深色/黑色点
                 for (let y = 0; y < h; y += 2) {
                     for (let x = 0; x < w; x += 2) {
                         const i = (y * w + x) * 4;
@@ -1267,62 +1307,23 @@
                         const b = data[i + 2];
                         const alpha = data[i + 3];
 
-                        if (alpha <= 128) continue;
-
-                        const dr = r - bg.r;
-                        const dg = g - bg.g;
-                        const db = b - bg.b;
-                        const dist2 = dr * dr + dg * dg + db * db;
-                        const maxC = Math.max(r, g, b);
-                        const minC = Math.min(r, g, b);
-                        const saturation = maxC - minC;
-
-                        const isFeature = dist2 > (18 * 18) || saturation > 24;
-                        if (isFeature) featurePixels.push({ x, y });
+                        // 识别深色区域（莲花图腾的点阵部分）
+                        // Shape.png 背景约 200+，图腾深色部分约 0-180
+                        if (alpha > 128 && r < 180 && g < 180 && b < 180) {
+                            darkPixels.push({ x, y });
+                        }
                     }
                 }
 
-                console.log('识别到特征像素数量:', featurePixels.length, '背景色:', bg);
+                console.log('识别到深色像素数量:', darkPixels.length);
 
-                if (featurePixels.length > 100) {
-                    generateDotsFromPixels(featurePixels);
+                if (darkPixels.length > 100) {
+                    generateDotsFromPixels(darkPixels);
                 } else {
                     console.log('像素数量不足，使用备用方案');
                     generateFallbackDots();
                 }
             }, 300);
-        }
-
-        // === 估算背景色（边缘采样平均） ===
-        function estimateBackgroundColor(data, w, h) {
-            let sumR = 0, sumG = 0, sumB = 0, count = 0;
-            const step = 8;
-
-            function sample(x, y) {
-                const i = (y * w + x) * 4;
-                const a = data[i + 3];
-                if (a < 16) return;
-                sumR += data[i];
-                sumG += data[i + 1];
-                sumB += data[i + 2];
-                count++;
-            }
-
-            for (let x = 0; x < w; x += step) {
-                sample(x, 0);
-                sample(x, h - 1);
-            }
-            for (let y = 0; y < h; y += step) {
-                sample(0, y);
-                sample(w - 1, y);
-            }
-
-            if (count === 0) return { r: 240, g: 240, b: 240 };
-            return {
-                r: Math.round(sumR / count),
-                g: Math.round(sumG / count),
-                b: Math.round(sumB / count)
-            };
         }
 
         // === 从像素生成点 ===
@@ -1551,8 +1552,10 @@
             const targetDotIndex = state.availableIndices[nextIndexPtr];
             const targetDot = state.dots[targetDotIndex];
 
-            // 先滚动到图腾位置
-            ui.stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // 先滚动到图腾区域，使用 svg-container 作为滚动目标
+            // 使用 block:'start' 确保从顶部显示完整图腾
+            const svgContainer = document.querySelector('.svg-container');
+            svgContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             setTimeout(() => {
                 // 全图闪光
@@ -1575,7 +1578,7 @@
 
                 }, 1200);
 
-            }, 500);
+            }, 800);
         }
 
         // === 关闭弹窗 ===
@@ -1596,4 +1599,5 @@
         });
     </script>
 </body>
+
 </html>
