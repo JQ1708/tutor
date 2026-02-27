@@ -325,44 +325,58 @@
         .dot {
             fill: #1e3a5f;
             opacity: 0.4;
-            transition: fill 2s ease-out, opacity 2s ease-out, r 2s ease-out, filter 2s ease-out;
+            transition: fill 2.5s ease-out, opacity 2.5s ease-out, r 2.5s ease-out, filter 2.5s ease-out;
         }
 
         .dot.active {
             fill: #c9a227;
             opacity: 1;
             r: 3;
-            filter: drop-shadow(0 0 4px #c9a227);
+            filter: drop-shadow(0 0 6px #c9a227);
+            animation: solemnBreathing 4s ease-in-out infinite alternate;
         }
 
-        /* Flash Mode */
-        .flash-mode .dot {
-            fill: #fef3c7 !important;
-            opacity: 1 !important;
-            r: 2.5 !important;
-            filter: drop-shadow(0 0 6px rgba(254, 243, 199, 0.8)) !important;
-            transition: none !important;
+        /* 庄严呼吸光晕效果 */
+        @keyframes solemnBreathing {
+            0% {
+                filter: drop-shadow(0 0 4px rgba(201, 162, 39, 0.6));
+                r: 3;
+            }
+
+            100% {
+                filter: drop-shadow(0 0 10px rgba(201, 162, 39, 1));
+                r: 3.5;
+            }
         }
 
-        .flash-mode .dot.active {
-            fill: #c9a227 !important;
-            r: 4 !important;
+        /* 庄严点亮光晕 (Ripple) */
+        .solemn-ripple {
+            fill: none;
+            stroke: #c9a227;
+            stroke-width: 1.5;
+            opacity: 0.8;
+            transform-origin: center;
+            animation: solemnExpand 3.5s cubic-bezier(0.1, 0.5, 0.3, 1) forwards;
         }
 
-        /* 屏幕闪光 */
-        #screen-flash {
-            position: fixed;
-            inset: 0;
-            background: rgba(254, 243, 199, 0.3);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 60;
-            transition: opacity 1.5s ease-out;
-        }
+        @keyframes solemnExpand {
+            0% {
+                r: 0;
+                opacity: 0.8;
+                stroke-width: 2;
+                filter: drop-shadow(0 0 5px rgba(201, 162, 39, 0.8));
+            }
 
-        #screen-flash.active {
-            opacity: 1;
-            transition: none;
+            50% {
+                opacity: 0.5;
+                filter: drop-shadow(0 0 15px rgba(201, 162, 39, 0.5));
+            }
+
+            100% {
+                r: 80;
+                opacity: 0;
+                stroke-width: 0.5;
+            }
         }
 
         /* Loading */
@@ -1120,8 +1134,8 @@
             totalDots: 6000,
             targetCount: 6000,
             storageKey: 'tzuchi_yufo_2026_v1',
-            imagePath: 'shape.svg',
-            fallbackImagePath: 'shape.png'
+            imagePath: 'shape.jpg',
+            fallbackImagePath: 'shape.jpg'
         };
 
         // === 状态 ===
@@ -1144,7 +1158,6 @@
             submitBtn: document.getElementById('submit-btn'),
             modal: document.getElementById('success-modal'),
             spinner: document.getElementById('loading-spinner'),
-            screenFlash: document.getElementById('screen-flash'),
             video: document.getElementById('promo-video'),
             fallback: document.getElementById('fallback-ui'),
             fileInput: document.getElementById('file-input')
@@ -1283,10 +1296,16 @@
                 ctx.fillStyle = "#FFFFFF";
                 ctx.fillRect(0, 0, w, h);
 
-                // 计算缩放比例保持图片比例
-                const scale = Math.min(w / img.width, h / img.height) * 0.98;
+                // 计算缩放比例，相当于 object-fit: contain，加上 5% 的内边距
+                const padding = 0.05;
+                const availableW = w * (1 - padding * 2);
+                const availableH = h * (1 - padding * 2);
+                const scale = Math.min(availableW / img.width, availableH / img.height);
+
                 const drawW = img.width * scale;
                 const drawH = img.height * scale;
+
+                // 居中偏移量
                 const offsetX = (w - drawW) / 2;
                 const offsetY = (h - drawH) / 2;
 
@@ -1558,25 +1577,26 @@
             svgContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             setTimeout(() => {
-                // 全图闪光
-                ui.stage.classList.add('flash-mode');
-                ui.screenFlash.classList.add('active');
-
                 // 点亮目标点
                 targetDot.el.classList.add('active');
 
-                // 维持闪光 1.2 秒
+                // 创建庄严的涟漪波纹动画
+                const ripple = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                ripple.setAttribute("cx", targetDot.x);
+                ripple.setAttribute("cy", targetDot.y);
+                ripple.setAttribute("class", "solemn-ripple");
+                ui.stage.appendChild(ripple);
+
+                // 播放音频（如果有需求可以后来加上，现仅显示动画）
+
+                // 维持并等待涟漪动画完成后回调 (缩放和渐隐3.5秒)
                 setTimeout(() => {
-                    // 移除闪光，开始收缩
-                    ui.stage.classList.remove('flash-mode');
-                    ui.screenFlash.classList.remove('active');
-
-                    // 等待收缩动画完成后回调
-                    setTimeout(() => {
-                        callback();
-                    }, 1500);
-
-                }, 1200);
+                    // 动画结束后移除波纹元素以保持DOM干净
+                    if (ripple.parentNode) {
+                        ripple.parentNode.removeChild(ripple);
+                    }
+                    callback();
+                }, 3500);
 
             }, 800);
         }
