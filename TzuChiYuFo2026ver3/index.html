@@ -1316,9 +1316,13 @@
                         const b = data[i + 2];
                         const alpha = data[i + 3];
 
-                        // 识别深色区域（莲花图腾的点阵部分）
-                        // Shape.png 背景约 200+，图腾深色部分约 0-180
-                        if (alpha > 128 && r < 180 && g < 180 && b < 180) {
+                        // 识别非背景像素：
+                        // 1) 深色像素（黑/灰点）：亮度 < 170
+                        // 2) 有颜色的像素（红/蓝/青点）：饱和度高，即最大通道 - 最小通道 > 60
+                        // 背景色是浅灰 (~200,200,200)：亮度高且饱和度低，两条件都不满足 → 被排除
+                        const brightness = (r + g + b) / 3;
+                        const saturation = Math.max(r, g, b) - Math.min(r, g, b);
+                        if (alpha > 128 && (brightness < 170 || saturation > 60)) {
                             darkPixels.push({ x, y });
                         }
                     }
