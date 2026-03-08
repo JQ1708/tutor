@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chapter 2</title>
+    <style>
+        :root {
+            --primary: #E91E63;
+            --secondary: #F06292;
+            --accent: #FFC107;
+            --dark: #212121;
+            --light: #FCE4EC;
+            --white: #FFFFFF;
+            --text: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .tab-btn {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 8px rgba(233, 30, 99, 0.4);
+        }
+
+        .content-section {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyword Effects */
+        .kw-bold {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.1em;
+        }
+
+        .kw-italic {
+            font-style: italic;
+            color: #9C27B0;
+        }
+
+        .kw-color {
+            color: #2196F3;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(33, 150, 243, 0.2);
+        }
+
+        .kw-underline {
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 3px;
+        }
+
+        .kw-circle {
+            display: inline-block;
+            border: 2px dashed #FF5722;
+            border-radius: 30px;
+            padding: 2px 10px;
+            margin: 0 2px;
+            color: #FF5722;
+            font-weight: bold;
+        }
+
+        .kw-float {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            color: #009688;
+            font-weight: bold;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-3px) rotate(2deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        /* Mind Map */
+        .mind-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .mm-node {
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: 30px;
+            padding: 15px 30px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mm-node:active {
+            transform: scale(0.95);
+        }
+
+        .mm-line {
+            width: 4px;
+            height: 30px;
+            background-color: var(--secondary);
+            margin: -25px 0;
+        }
+
+        /* Notes Cards */
+        .note-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid var(--primary);
+        }
+
+        .note-card h2 {
+            margin-top: 0;
+            color: var(--dark);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        /* Flashcards Grid */
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .flashcard-back {
+            background: var(--white);
+            color: var(--dark);
+            transform: rotateY(180deg);
+            font-size: 1.1em;
+            border: 2px solid #E91E63;
+        }
+
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+            background: #FAFAFA;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px dashed #CCC;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="For%20Mathias.html" class="back-btn">&#8592; Homepage</a>
+        <h1>Chapter 2</h1>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('mindmap')">Mind Map</button>
+            <button class="tab-btn" onclick="switchTab('notes')">Notes</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">Flashcards</button>
+        </div>
+    </header>
+
+    <!-- MIND MAP SECTION -->
+    <div id="mindmap" class="content-section active">
+        <div class="mind-map">
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-excretion').offsetTop)">1.
+                Excretion vs Digestion</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-system').offsetTop)">2. The
+                Excretory (Renal) System</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-dialysis').offsetTop)">3.
+                Kidney Disease & Dialysis</div>
+        </div>
+    </div>
+
+    <!-- NOTES SECTION -->
+    <div id="notes" class="content-section">
+
+        <div class="note-card" id="sec-excretion">
+            <h2>Excretion</h2>
+            <ul>
+                <li><span class="kw-float">Excretion</span> is getting rid of waste substances made inside an organism's
+                    cells.</li>
+                <li>Lungs excrete <span class="kw-bold">carbon dioxide</span> from respiration.</li>
+                <li>Kidneys excrete <span class="kw-underline">urea</span>, a waste made when breaking down proteins.
+                </li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-system">
+            <h2>The Excretory (Renal) System</h2>
+            <ul>
+                <li>Also called the <span class="kw-color">renal system</span>. Its job is to filter blood and remove
+                    wastes.</li>
+                <li><span class="kw-bold">Kidneys</span>: Clean the blood by removing urea and some water to make <span
+                        class="kw-circle">urine</span>.</li>
+                <li><span class="kw-italic">Ureters</span>: Tubes that carry urine from the kidneys to the bladder.</li>
+                <li><span class="kw-bold">Bladder</span>: Stores urine like a balloon.</li>
+                <li><span class="kw-italic">Urethra</span>: A tube that carries urine out of the body when you urinate.
+                </li>
+            </ul>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 200 250" width="200" height="250">
+                    <!-- Kidneys -->
+                    <path d="M 60 70 C 40 50, 40 100, 60 110 C 70 110, 80 90, 60 70 Z" fill="#8D6E63" stroke="#5D4037"
+                        stroke-width="2" />
+                    <path d="M 140 70 C 160 50, 160 100, 140 110 C 130 110, 120 90, 140 70 Z" fill="#8D6E63"
+                        stroke="#5D4037" stroke-width="2" />
+                    <text x="60" y="45" font-size="12" fill="#3e2723" text-anchor="middle">Kidneys</text>
+
+                    <!-- Ureters -->
+                    <path d="M 65 95 Q 70 150 90 180" fill="none" stroke="#FFCA28" stroke-width="4" />
+                    <path d="M 135 95 Q 130 150 110 180" fill="none" stroke="#FFCA28" stroke-width="4" />
+                    <text x="40" y="150" font-size="10" fill="#FF8F00">Ureters</text>
+
+                    <!-- Bladder -->
+                    <ellipse cx="100" cy="190" rx="25" ry="20" fill="#FFCC80" stroke="#EF6C00" stroke-width="2" />
+                    <text x="145" y="195" font-size="12" fill="#E65100">Bladder</text>
+
+                    <!-- Urethra -->
+                    <rect x="96" y="210" width="8" height="20" fill="#FFE0B2" stroke="#EF6C00" stroke-width="2" />
+                    <text x="100" y="245" font-size="10" fill="#E65100" text-anchor="middle">Urethra</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="note-card" id="sec-dialysis">
+            <h2>Kidney Disease & Dialysis</h2>
+            <ul>
+                <li>Damaged kidney filters can allow <span class="kw-float">proteins</span> to leak into the urine.</li>
+                <li><span class="kw-color">Dialysis</span> is a medical treatment that filters the blood of people whose
+                    kidneys are failing.</li>
+                <li>A dialysis machine pumps blood through fine filters to remove urea before returning it to the body.
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- FLASHCARDS SECTION -->
+    <div id="flashcards" class="content-section">
+        <h2 style="text-align: center; color: var(--primary);">Tap a card to flip!</h2>
+        <div class="flashcards-grid">
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Excretion</div>
+                    <div class="flashcard-back">Getting rid of wastes that are made inside an organism.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Kidney</div>
+                    <div class="flashcard-back">An organ that removes waste substances from the blood.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Renal System</div>
+                    <div class="flashcard-back">Another name for the excretory system (contains kidneys, ureters,
+                        bladder, urethra).</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Urea</div>
+                    <div class="flashcard-back">The main waste substance removed from the blood by the kidneys. Made by
+                        breaking down proteins.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Ureter</div>
+                    <div class="flashcard-back">A tube-shaped organ that carries urine from a kidney down to the
+                        bladder.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Urethra</div>
+                    <div class="flashcard-back">A tube-shaped organ that carries urine from the bladder to the outside
+                        of the body.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Dialysis</div>
+                    <div class="flashcard-back">A machine-based treatment that filters a patient's blood when their
+                        kidneys no longer work.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

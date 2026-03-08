@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chapter 7</title>
+    <style>
+        :root {
+            --primary: #E91E63;
+            --secondary: #F48FB1;
+            --accent: #4CAF50;
+            --dark: #212121;
+            --light: #FCE4EC;
+            --white: #FFFFFF;
+            --text: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .tab-btn {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 8px rgba(233, 30, 99, 0.4);
+        }
+
+        .content-section {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyword Effects */
+        .kw-bold {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.1em;
+        }
+
+        .kw-italic {
+            font-style: italic;
+            color: #00BCD4;
+        }
+
+        .kw-color {
+            color: #673AB7;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(103, 58, 183, 0.2);
+        }
+
+        .kw-underline {
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 3px;
+        }
+
+        .kw-circle {
+            display: inline-block;
+            border: 2px solid #FF9800;
+            border-radius: 20px;
+            padding: 2px 8px;
+            margin: 0 2px;
+            color: #FF9800;
+            font-weight: bold;
+        }
+
+        .kw-float {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            color: #3F51B5;
+            font-weight: bold;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-3px) rotate(1deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        /* Mind Map */
+        .mind-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .mm-node {
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: 30px;
+            padding: 15px 30px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mm-node:active {
+            transform: scale(0.95);
+        }
+
+        .mm-line {
+            width: 4px;
+            height: 30px;
+            background-color: var(--secondary);
+            margin: -25px 0;
+        }
+
+        /* Notes Cards */
+        .note-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid var(--primary);
+        }
+
+        .note-card h2 {
+            margin-top: 0;
+            color: var(--dark);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        /* Flashcards Grid */
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #E91E63, #3F51B5);
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .flashcard-back {
+            background: var(--white);
+            color: var(--dark);
+            transform: rotateY(180deg);
+            font-size: 1.1em;
+            border: 2px solid #E91E63;
+        }
+
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+            background: #FAFAFA;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px dashed #CCC;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="For%20Mathias.html" class="back-btn">&#8592; Homepage</a>
+        <h1>Chapter 7</h1>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('mindmap')">Mind Map</button>
+            <button class="tab-btn" onclick="switchTab('notes')">Notes</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">Flashcards</button>
+        </div>
+    </header>
+
+    <!-- MIND MAP SECTION -->
+    <div id="mindmap" class="content-section active">
+        <div class="mind-map">
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-conservation').offsetTop)">
+                1. Conservation of Mass & Energy</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-salts').offsetTop)">2.
+                Making & Purifying Salts</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-displacement').offsetTop)">
+                3. Displacement Reactions</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-rates').offsetTop)">4.
+                Rates of Reaction</div>
+        </div>
+    </div>
+
+    <!-- NOTES SECTION -->
+    <div id="notes" class="content-section">
+
+        <div class="note-card" id="sec-conservation">
+            <h2>Conservation of Mass & Energy</h2>
+            <ul>
+                <li><span class="kw-bold">Law of conservation of mass</span>: In a chemical reaction, no atoms are lost
+                    or gained. Mass of reactants = Mass of products.</li>
+                <li>When charcoal burns, its mass decreases because carbon dioxide <span class="kw-italic">gas
+                        escapes</span> into the air, but the total mass of the atoms remains the same.</li>
+                <li>When metals are heated in air, mass <strong>increases</strong> because <span
+                        class="kw-color">oxygen</span> from the air joins the metal to form an oxide.</li>
+                <li><span class="kw-underline">Law of conservation of energy</span>: Energy cannot be created or
+                    destroyed; it is transferred from the chemical bonds of the reactants to the products or to the
+                    surroundings.</li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-salts">
+            <h2>Making & Purifying Salts</h2>
+            <ul>
+                <li><strong>Metals + Acids</strong>: Produce salt + <span class="kw-float">hydrogen</span> gas. (e.g.,
+                    zinc + sulfuric acid &rarr; zinc sulfate + hydrogen)</li>
+                <li><strong>Metal Carbonates + Acids</strong>: Produce salt + water + <span class="kw-circle">carbon
+                        dioxide</span> gas.</li>
+                <li><span class="kw-underline">Purification Process</span>:
+                    <ol>
+                        <li>React metal/carbonate with acid until there is unreacted solid left (excess).</li>
+                        <li><strong>Filtration</strong>: Use filter paper and funnel to remove the unreacted solid.</li>
+                        <li><strong>Evaporation & Crystallisation</strong>: Heat the salt solution gently to evaporate
+                            water, then let it cool slowly to form large <span class="kw-color">crystals</span>.</li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-displacement">
+            <h2>Displacement Reactions</h2>
+            <ul>
+                <li>A <span class="kw-bold">displacement reaction</span> occurs when a <i>more reactive</i> element
+                    takes the place of a <i>less reactive</i> element in a compound.</li>
+                <li><strong>Example</strong>: Iron + Copper sulfate &rarr; Iron sulfate + Copper. (Because Iron is
+                    higher in the Reactivity Series than Copper).</li>
+                <li><strong>Example</strong>: Copper + Magnesium sulfate &rarr; <span class="kw-color">No
+                        Reaction</span>. (Copper is less reactive than Magnesium).</li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-rates">
+            <h2>Rates of Reaction</h2>
+            <ul>
+                <li>Rate is the speed of a reaction. Measured by calculating how fast gas escapes (measuring mass) or
+                    how fast gas is collected (using a gas syringe/cylinder).</li>
+                <li>Reactions happen when particles <span class="kw-underline">collide</span> with enough energy. Rate
+                    increases when you increase:</li>
+                <li><span class="kw-color">Temperature</span>: Particles move faster, collide more often, and with more
+                    energy.</li>
+                <li><span class="kw-float">Concentration</span>: More particles in the same space = more frequent
+                    collisions.</li>
+                <li><span class="kw-bold">Surface Area</span>: Breaking a solid into powder exposes more particles to
+                    react, leading to more frequent collisions.</li>
+            </ul>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 300 200" width="300" height="200">
+                    <!-- Graph Axes -->
+                    <line x1="30" y1="170" x2="280" y2="170" stroke="#000" stroke-width="2" />
+                    <line x1="30" y1="170" x2="30" y2="20" stroke="#000" stroke-width="2" />
+                    <text x="140" y="195" font-size="12" fill="#333">Time</text>
+                    <text x="15" y="140" font-size="12" fill="#333" transform="rotate(-90 15,140)">Volume of Gas
+                        Collected</text>
+
+                    <!-- Fast Reaction Line -->
+                    <path d="M 30,170 Q 50,50 150,50 L 280,50" fill="none" stroke="#E91E63" stroke-width="3" />
+
+                    <!-- Slow Reaction Line -->
+                    <path d="M 30,170 Q 150,150 220,50 L 280,50" fill="none" stroke="#3F51B5" stroke-width="3"
+                        stroke-dasharray="5,5" />
+
+                    <!-- Legend -->
+                    <line x1="160" y1="100" x2="180" y2="100" stroke="#E91E63" stroke-width="3" />
+                    <text x="185" y="104" font-size="10" fill="#333">Fast Rate (E.g. Hot Acid)</text>
+
+                    <line x1="160" y1="120" x2="180" y2="120" stroke="#3F51B5" stroke-width="3"
+                        stroke-dasharray="5,5" />
+                    <text x="185" y="124" font-size="10" fill="#333">Slow Rate (E.g. Cold Acid)</text>
+                </svg>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FLASHCARDS SECTION -->
+    <div id="flashcards" class="content-section">
+        <h2 style="text-align: center; color: var(--primary);">Tap a card to flip!</h2>
+        <div class="flashcards-grid">
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Law of Conservation of Mass</div>
+                    <div class="flashcard-back">In a chemical reaction, mass is neither created nor destroyed. The mass
+                        of reactants equals the mass of products.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Displacement Reaction</div>
+                    <div class="flashcard-back">A reaction where a more reactive element takes the place of a less
+                        reactive element in a compound.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Filtration</div>
+                    <div class="flashcard-back">A separation technique used to remove an insoluble solid (like excess
+                        unreacted metal) from a solution.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Crystallisation</div>
+                    <div class="flashcard-back">A separation technique used to isolate a soluble solid (salt) from a
+                        liquid by evaporating the solvent.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Reactivity Series</div>
+                    <div class="flashcard-back">A list of metals ordered by their reactivity with the most reactive
+                        metals at the top.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Rate of Reaction</div>
+                    <div class="flashcard-back">The speed at which a chemical reaction happens. It is increased by
+                        higher temperature, concentration, or surface area.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Collision Theory</div>
+                    <div class="flashcard-back">For a chemical reaction to occur, the particles of the reactants must
+                        collide with each other with enough energy.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

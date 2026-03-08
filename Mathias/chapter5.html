@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chapter 5</title>
+    <style>
+        :root {
+            --primary: #00BCD4;
+            --secondary: #80DEEA;
+            --accent: #FFC107;
+            --dark: #212121;
+            --light: #E0F7FA;
+            --white: #FFFFFF;
+            --text: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .tab-btn {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 8px rgba(0, 188, 212, 0.4);
+        }
+
+        .content-section {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyword Effects */
+        .kw-bold {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.1em;
+        }
+
+        .kw-italic {
+            font-style: italic;
+            color: #E91E63;
+        }
+
+        .kw-color {
+            color: #8BC34A;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(139, 195, 74, 0.2);
+        }
+
+        .kw-underline {
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 3px;
+        }
+
+        .kw-circle {
+            display: inline-block;
+            border: 2px solid #9C27B0;
+            border-radius: 20px;
+            padding: 2px 8px;
+            margin: 0 2px;
+            color: #9C27B0;
+            font-weight: bold;
+        }
+
+        .kw-float {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            color: #FF5722;
+            font-weight: bold;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-3px) rotate(2deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        /* Mind Map */
+        .mind-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .mm-node {
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: 30px;
+            padding: 15px 30px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mm-node:active {
+            transform: scale(0.95);
+        }
+
+        .mm-line {
+            width: 4px;
+            height: 30px;
+            background-color: var(--secondary);
+            margin: -25px 0;
+        }
+
+        /* Notes Cards */
+        .note-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid var(--primary);
+        }
+
+        .note-card h2 {
+            margin-top: 0;
+            color: var(--dark);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        /* Flashcards Grid */
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #0288D1, #7B1FA2);
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .flashcard-back {
+            background: var(--white);
+            color: var(--dark);
+            transform: rotateY(180deg);
+            font-size: 1.1em;
+            border: 2px solid #7B1FA2;
+        }
+
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+            background: #FAFAFA;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px dashed #CCC;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="For%20Mathias.html" class="back-btn">&#8592; Homepage</a>
+        <h1>Chapter 5</h1>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('mindmap')">Mind Map</button>
+            <button class="tab-btn" onclick="switchTab('notes')">Notes</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">Flashcards</button>
+        </div>
+    </header>
+
+    <!-- MIND MAP SECTION -->
+    <div id="mindmap" class="content-section active">
+        <div class="mind-map">
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-atom').offsetTop)">1.
+                Atomic Structure</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-periodic').offsetTop)">2.
+                The Periodic Table</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-trends').offsetTop)">3.
+                Trends in Groups (Group 1)</div>
+        </div>
+    </div>
+
+    <!-- NOTES SECTION -->
+    <div id="notes" class="content-section">
+
+        <div class="note-card" id="sec-atom">
+            <h2>Atomic Structure</h2>
+            <ul>
+                <li>Atoms are very small. They have a central <span class="kw-bold">nucleus</span> surrounded by <span
+                        class="kw-italic">electron shells</span>.</li>
+                <li><strong>Nucleus</strong> contains <span class="kw-color">Protons</span> (positive charge) and <span
+                        class="kw-color">Neutrons</span> (no charge).</li>
+                <li><strong>Shells</strong> contain <span class="kw-float">Electrons</span> (negative charge).</li>
+                <li><span class="kw-underline">Atomic Number</span> = Number of protons (also = number of electrons in a
+                    neutral atom).</li>
+                <li><span class="kw-underline">Mass Number</span> = Total number of protons + neutrons.</li>
+                <li><strong>Electron Arrangement</strong>: 1st shell holds 2, 2nd holds 8, 3rd holds 8.</li>
+            </ul>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 200 200" width="200" height="200">
+                    <!-- Shells -->
+                    <circle cx="100" cy="100" r="40" fill="none" stroke="#2196F3" stroke-width="2"
+                        stroke-dasharray="4,4" />
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="#2196F3" stroke-width="2"
+                        stroke-dasharray="4,4" />
+
+                    <!-- Nucleus (Protons = Red, Neutrons = Grey) -->
+                    <circle cx="95" cy="95" r="8" fill="#F44336" /> <!-- P -->
+                    <circle cx="105" cy="95" r="8" fill="#9E9E9E" /> <!-- N -->
+                    <circle cx="95" cy="105" r="8" fill="#9E9E9E" /> <!-- N -->
+                    <circle cx="105" cy="105" r="8" fill="#F44336" /> <!-- P -->
+                    <circle cx="100" cy="90" r="8" fill="#F44336" /> <!-- P -->
+                    <circle cx="100" cy="110" r="8" fill="#9E9E9E" /> <!-- N -->
+
+                    <text x="125" y="95" font-size="10" fill="#333">Nucleus</text>
+
+                    <!-- Electrons (Blue) -->
+                    <!-- 1st Shell (2) -->
+                    <circle cx="72" cy="72" r="5" fill="#00BCD4" />
+                    <circle cx="128" cy="128" r="5" fill="#00BCD4" />
+                    <!-- 2nd Shell (1) for Lithium-like abstract demo -->
+                    <circle cx="170" cy="100" r="5" fill="#00BCD4" />
+
+                    <text x="100" y="195" font-size="12" text-anchor="middle" fill="#333">Model of an Atom</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="note-card" id="sec-periodic">
+            <h2>The Periodic Table</h2>
+            <ul>
+                <li>Developed by <span class="kw-bold">Dmitri Mendeleev</span> in 1869 based on properties; he left gaps
+                    for undiscovered elements.</li>
+                <li>Elements are arranged in order of increasing <span class="kw-italic">atomic number</span>.</li>
+                <li><strong>Periods (rows)</strong>: The period number tells you how many <span
+                        class="kw-color">electron shells</span> the atom has.</li>
+                <li><strong>Groups (columns)</strong>: The group number tells you how many electrons are in the <span
+                        class="kw-float">outer shell</span>. Elements in the same group have similar chemical
+                    properties.</li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-trends">
+            <h2>Trends in Groups (e.g., Group 1)</h2>
+            <ul>
+                <li>Group 1 elements are <span class="kw-circle">alkali metals</span> (Lithium, Sodium, Potassium,
+                    Rubidium, Caesium, Francium).</li>
+                <li><strong>Chemical Reaction</strong>: They all react with water to produce <span
+                        class="kw-italic">hydrogen</span> and an <span class="kw-italic">alkaline solution</span> (metal
+                    hydroxide).</li>
+                <li>Example: <i>sodium + water &rarr; sodium hydroxide + hydrogen</i></li>
+                <li><span class="kw-underline">Reactivity Trend</span>: They become <strong>more reactive</strong> as
+                    you go down the group (Lithium is slow, Potassium ignites, Caesium is explosive).</li>
+                <li><span class="kw-underline">Physical Trend</span>: Melting points <strong>decrease</strong> as you go
+                    down the group. They are also soft enough to cut with a knife.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- FLASHCARDS SECTION -->
+    <div id="flashcards" class="content-section">
+        <h2 style="text-align: center; color: var(--primary);">Tap a card to flip!</h2>
+        <div class="flashcards-grid">
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Proton</div>
+                    <div class="flashcard-back">A positively charged particle found in the nucleus of an atom.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Neutron</div>
+                    <div class="flashcard-back">A particle with no charge (neutral) found in the nucleus of an atom.
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Electron</div>
+                    <div class="flashcard-back">A negatively charged particle that orbits the nucleus in electron
+                        shells.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Atomic Number</div>
+                    <div class="flashcard-back">The number of protons in an atom (also equals the number of electrons).
+                        It determines the element.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Mass Number</div>
+                    <div class="flashcard-back">The total number of protons + neutrons in the nucleus of an atom.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Group Number</div>
+                    <div class="flashcard-back">The column in the Periodic Table. It tells you the number of electrons
+                        in the outer shell.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Period Number</div>
+                    <div class="flashcard-back">The row in the Periodic Table. It tells you how many electron shells the
+                        atom has.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Alkali Metals</div>
+                    <div class="flashcard-back">Group 1 elements. They are soft, reactive metals that react with water
+                        to produce hydrogen gas and an alkaline solution.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

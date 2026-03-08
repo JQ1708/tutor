@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chapter 1</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #8BC34A;
+            --accent: #FFC107;
+            --dark: #212121;
+            --light: #F1F8E9;
+            --white: #FFFFFF;
+            --text: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .tab-btn {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+        }
+
+        .content-section {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyword Effects */
+        .kw-bold {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.1em;
+        }
+
+        .kw-italic {
+            font-style: italic;
+            color: #E91E63;
+        }
+
+        .kw-color {
+            color: #2196F3;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(33, 150, 243, 0.2);
+        }
+
+        .kw-underline {
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 3px;
+        }
+
+        .kw-circle {
+            display: inline-block;
+            border: 2px solid #FF5722;
+            border-radius: 50%;
+            padding: 2px 8px;
+            margin: 0 2px;
+            color: #FF5722;
+            font-weight: bold;
+        }
+
+        .kw-float {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            color: #9C27B0;
+            font-weight: bold;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Equations */
+        .equation {
+            font-style: italic;
+            font-family: "Georgia", serif;
+            display: block;
+            text-align: center;
+            background: var(--white);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            margin: 15px 0;
+            font-size: 1.2em;
+            color: #3F51B5;
+        }
+
+        /* Mind Map */
+        .mind-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .mm-node {
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: 30px;
+            padding: 15px 30px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mm-node:active {
+            transform: scale(0.95);
+        }
+
+        .mm-line {
+            width: 4px;
+            height: 30px;
+            background-color: var(--secondary);
+            margin: -25px 0;
+        }
+
+        /* Notes Cards */
+        .note-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid var(--primary);
+        }
+
+        .note-card h2 {
+            margin-top: 0;
+            color: var(--dark);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        /* Flashcards Grid */
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #FF9800, #FFC107);
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .flashcard-back {
+            background: var(--white);
+            color: var(--dark);
+            transform: rotateY(180deg);
+            font-size: 1.1em;
+            border: 2px solid #FF9800;
+        }
+
+        /* Math overrides for specific notations */
+        .math-frac {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 0.2em;
+            text-align: center;
+        }
+
+        .math-frac>span {
+            display: block;
+            padding: 0.1em;
+        }
+
+        .math-frac span.numer {
+            border-bottom: 1px solid #000;
+        }
+
+        .math-sqrt {
+            white-space: nowrap;
+        }
+
+        .math-sqrt::before {
+            content: '\221A';
+        }
+
+        .math-sqrt-bar {
+            border-top: 1px solid black;
+            padding-top: 1px;
+        }
+
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+            background: #FAFAFA;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px dashed #CCC;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="For%20Mathias.html" class="back-btn">&#8592; Homepage</a>
+        <h1>Chapter 1</h1>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('mindmap')">Mind Map</button>
+            <button class="tab-btn" onclick="switchTab('notes')">Notes</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">Flashcards</button>
+        </div>
+    </header>
+
+    <!-- MIND MAP SECTION -->
+    <div id="mindmap" class="content-section active">
+        <div class="mind-map">
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-photo').offsetTop)">1.
+                Photosynthesis</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-leaves').offsetTop)">2.
+                Leaf Adaptations</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-carbs').offsetTop)">3.
+                Plant Carbohydrates</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-water').offsetTop)">4.
+                Transport of Water</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-minerals').offsetTop)">5.
+                Mineral Salts</div>
+        </div>
+    </div>
+
+    <!-- NOTES SECTION -->
+    <div id="notes" class="content-section">
+
+        <div class="note-card" id="sec-photo">
+            <h2>Photosynthesis</h2>
+            <ul>
+                <li>Plants are <span class="kw-bold">producers</span>; they make their own food.</li>
+                <li>Uses energy from light absorbed by a green substance called <span
+                        class="kw-color">chlorophyll</span> (found in <span class="kw-italic">chloroplasts</span>).</li>
+                <li>Process converts <span class="kw-underline">carbon dioxide and water</span> into glucose and oxygen.
+                </li>
+            </ul>
+            <div class="equation">
+                carbon dioxide + water &rarr; glucose + oxygen
+                <br><small style="font-size: 0.6em; color: gray;">(Requires light and chlorophyll)</small>
+            </div>
+            <ul>
+                <li>It is an <span class="kw-float">endothermic</span> chemical reaction.</li>
+            </ul>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 200 150" width="300" height="225">
+                    <!-- Leaf Cell -->
+                    <rect x="20" y="20" width="160" height="110" rx="10" fill="#E8F5E9" stroke="#4CAF50"
+                        stroke-width="4" />
+                    <rect x="25" y="25" width="150" height="100" rx="8" fill="#C8E6C9" stroke="#8BC34A"
+                        stroke-width="2" />
+                    <!-- Vacuole -->
+                    <ellipse cx="100" cy="75" rx="50" ry="30" fill="#BBDEFB" stroke="#2196F3" stroke-width="2" />
+                    <text x="100" y="80" font-size="10" text-anchor="middle" fill="#0D47A1">Sap Vacuole</text>
+                    <!-- Chloroplasts -->
+                    <ellipse cx="40" cy="40" rx="10" ry="6" fill="#4CAF50" />
+                    <ellipse cx="160" cy="40" rx="10" ry="6" fill="#4CAF50" />
+                    <ellipse cx="40" cy="110" rx="10" ry="6" fill="#4CAF50" />
+                    <ellipse cx="160" cy="110" rx="10" ry="6" fill="#4CAF50" />
+                    <!-- Nucleus -->
+                    <circle cx="140" cy="80" r="12" fill="#FFCC80" stroke="#EF6C00" stroke-width="2" />
+                    <text x="60" y="14" font-size="12" font-weight="bold" fill="#333">Plant Leaf Cell
+                        (Chloroplasts)</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="note-card" id="sec-leaves">
+            <h2>Leaf Adaptations</h2>
+            <ul>
+                <li><span class="kw-bold">Palisade cells</span>: contain many chloroplasts for photosynthesis.</li>
+                <li><span class="kw-circle">Stoma</span> (plural: stomata): tiny holes allowing gases to move by <span
+                        class="kw-float">diffusion</span>.</li>
+                <li><span class="kw-color">Guard cells</span>: control the opening and closing of a stoma.</li>
+                <li><span class="kw-italic">Xylem cells</span>: form hollow tubes carrying water into the leaf.</li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-carbs">
+            <h2>Plant Carbohydrates & Testing</h2>
+            <ul>
+                <li>Glucose is a sugar (small carbohydrate) used for <span class="kw-bold">aerobic respiration</span>.
+                </li>
+                <li>Plants store energy as <span class="kw-underline">starch</span> (a large, insoluble carbohydrate).
+                </li>
+                <li><strong>Testing for Starch:</strong></li>
+                <ol>
+                    <li>Boil leaf in water to soften.</li>
+                    <li>Heat in <span class="kw-italic">ethanol</span> to remove green chlorophyll.</li>
+                    <li>Add <span class="kw-color">iodine solution</span>. Changes from orange to <span
+                            class="kw-bold">blue-black</span> if starch is present.</li>
+                </ol>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-water">
+            <h2>Transport of Water</h2>
+            <ul>
+                <li><span class="kw-bold">Root hair cells</span>: have huge surface area to absorb water and minerals
+                    quickly.</li>
+                <li><span class="kw-color">Xylem vessels</span>: dead cells forming hollow tubes, stiffened with <span
+                        class="kw-italic">lignin</span>, carrying water up the stem.</li>
+                <li><span class="kw-float">Transpiration</span>: the loss of water vapour through the stomata on the
+                    leaf surface.</li>
+                <li>Without water, the sap vacuole shrinks, cells lose shape, and the plant <span
+                        class="kw-underline">wilts</span>.</li>
+            </ul>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 200 150" width="300" height="225">
+                    <!-- Root Hair Cell -->
+                    <rect x="50" y="30" width="100" height="40" fill="#D7CCC8" stroke="#795548" stroke-width="2" />
+                    <path d="M 150 40 Q 190 40 190 50 Q 190 60 150 60" fill="#D7CCC8" stroke="#795548"
+                        stroke-width="2" />
+                    <text x="100" y="55" font-size="12" text-anchor="middle" fill="#3E2723">Root Hair Cell</text>
+                    <text x="165" y="54" font-size="10" fill="#3E2723">Root Hair</text>
+                    <path d="M 195 50 L 160 50" stroke="#2196F3" stroke-width="2" marker-end="url(#arrow)" />
+                    <text x="150" y="85" font-size="10" fill="#2196F3">Water enters</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="note-card" id="sec-minerals">
+            <h2>Mineral Salts</h2>
+            <p>Minerals are needed in small amounts for healthy growth. Deficiency causes issues.</p>
+            <table>
+                <tr>
+                    <th>Element</th>
+                    <th>Why it's needed</th>
+                    <th>Deficiency Symptom</th>
+                </tr>
+                <tr>
+                    <td><span class="kw-bold">Nitrogen</span> (Nitrates)</td>
+                    <td>To make proteins for plant growth and repair.</td>
+                    <td>Reduced plant growth, yellow leaves, weak stems.</td>
+                </tr>
+                <tr>
+                    <td><span class="kw-bold">Magnesium</span></td>
+                    <td>To make chlorophyll (green pigment).</td>
+                    <td>Leaves turn yellow.</td>
+                </tr>
+            </table>
+            <p>Farmers use <span class="kw-float">fertilisers</span> (natural like manure or artificial) to add minerals
+                to soil. Excess can wash into rivers and harm ecosystems.</p>
+        </div>
+    </div>
+
+    <!-- FLASHCARDS SECTION -->
+    <div id="flashcards" class="content-section">
+        <h2 style="text-align: center; color: var(--primary);">Tap a card to flip!</h2>
+        <div class="flashcards-grid">
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Photosynthesis</div>
+                    <div class="flashcard-back">A series of chemical reactions in which plants convert carbon dioxide
+                        and water into glucose and oxygen using light energy.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Chlorophyll</div>
+                    <div class="flashcard-back">The green substance that absorbs light energy for photosynthesis, found
+                        inside chloroplasts.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Stoma (Stomata)</div>
+                    <div class="flashcard-back">A small hole in a leaf formed between two guard cells, allowing gases to
+                        move in and out.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Starch</div>
+                    <div class="flashcard-back">A large, insoluble carbohydrate made by plants to store energy. Tested
+                        using iodine solution (turns blue-black).</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Transpiration</div>
+                    <div class="flashcard-back">The loss of water vapour through the stomata on the surface of the
+                        leaves.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Xylem</div>
+                    <div class="flashcard-back">Dead cells forming hollow vessels/tubes. Carries water and minerals from
+                        roots to leaves.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Wilting</div>
+                    <div class="flashcard-back">When a plant becomes floppy because its cells lose shape due to a lack
+                        of water pushing on the sap vacuole.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Remove active from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show target
+            document.getElementById(tabId).classList.add('active');
+            // Highlight button
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

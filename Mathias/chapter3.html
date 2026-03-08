@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chapter 3</title>
+    <style>
+        :root {
+            --primary: #9C27B0;
+            --secondary: #CE93D8;
+            --accent: #FFCA28;
+            --dark: #212121;
+            --light: #F3E5F5;
+            --white: #FFFFFF;
+            --text: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .tab-btn {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 8px rgba(156, 39, 176, 0.4);
+        }
+
+        .content-section {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyword Effects */
+        .kw-bold {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.1em;
+        }
+
+        .kw-italic {
+            font-style: italic;
+            color: #E91E63;
+        }
+
+        .kw-color {
+            color: #03A9F4;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(3, 169, 244, 0.2);
+        }
+
+        .kw-underline {
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 3px;
+        }
+
+        .kw-circle {
+            display: inline-block;
+            border: 2px solid #4CAF50;
+            border-radius: 20px;
+            padding: 2px 8px;
+            margin: 0 2px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .kw-float {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            color: #FF5722;
+            font-weight: bold;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-3px) scale(1.05);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Mind Map */
+        .mind-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .mm-node {
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: 30px;
+            padding: 15px 30px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            width: 80%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mm-node:active {
+            transform: scale(0.95);
+        }
+
+        .mm-line {
+            width: 4px;
+            height: 30px;
+            background-color: var(--secondary);
+            margin: -25px 0;
+        }
+
+        /* Notes Cards */
+        .note-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid var(--primary);
+        }
+
+        .note-card h2 {
+            margin-top: 0;
+            color: var(--dark);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        /* Flashcards Grid */
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #00BCD4, #3F51B5);
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .flashcard-back {
+            background: var(--white);
+            color: var(--dark);
+            transform: rotateY(180deg);
+            font-size: 1.1em;
+            border: 2px solid #3F51B5;
+        }
+
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+            background: #FAFAFA;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px dashed #CCC;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="For%20Mathias.html" class="back-btn">&#8592; Homepage</a>
+        <h1>Chapter 3</h1>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('mindmap')">Mind Map</button>
+            <button class="tab-btn" onclick="switchTab('notes')">Notes</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">Flashcards</button>
+        </div>
+    </header>
+
+    <!-- MIND MAP SECTION -->
+    <div id="mindmap" class="content-section active">
+        <div class="mind-map">
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-variation').offsetTop)">1.
+                Variation Within a Species</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-dna').offsetTop)">2.
+                Chromosomes, Genes & DNA</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-fert').offsetTop)">3.
+                Fertilisation & Sex Determination</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-fetal').offsetTop)">4.
+                Fetal Growth & Development</div>
+            <div class="mm-line"></div>
+            <div class="mm-node"
+                onclick="switchTab('notes'); window.scrollTo(0, document.getElementById('sec-evolution').offsetTop)">5.
+                Natural Selection & Evolution</div>
+        </div>
+    </div>
+
+    <!-- NOTES SECTION -->
+    <div id="notes" class="content-section">
+
+        <div class="note-card" id="sec-variation">
+            <h2>Variation Within a Species</h2>
+            <ul>
+                <li><span class="kw-bold">Continuous variation</span>: Can be any value within a range (e.g., height,
+                    skin color). Shown on a <span class="kw-italic">frequency diagram</span> without gaps.</li>
+                <li><span class="kw-bold">Discontinuous variation</span>: Has distinct options (e.g., rolling tongues,
+                    blood group). Shown on a <span class="kw-italic">bar chart</span> with gaps.</li>
+                <li>Causes: <span class="kw-float">Inherited variation</span> (from parents) and <span
+                        class="kw-color">Environmental variation</span> (from surroundings, e.g., wind shaping a tree).
+                    Some traits are both.</li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-dna">
+            <h2>Chromosomes, Genes & DNA</h2>
+            <ul>
+                <li>Every cell nucleus contains <span class="kw-bold">chromosomes</span>. Humans have 46 chromosomes (23
+                    pairs).</li>
+                <li>Chromosomes are made of a long <span class="kw-circle">DNA</span> molecule folded with proteins.
+                </li>
+                <li>DNA forms a <span class="kw-float">double-helix</span> shape. Discovered by Watson & Crick (using
+                    Rosalind Franklin's X-ray photos).</li>
+                <li><span class="kw-underline">Genes</span> are sections of DNA that contain instructions for a
+                    characteristic (e.g., eye color).</li>
+            </ul>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 100 200" width="150" height="300">
+                    <!-- DNA Double Helix SVG -->
+                    <path d="M 30,10 Q 70,30 70,50 T 30,90 T 30,130 T 70,170 T 30,190" fill="none" stroke="#9C27B0"
+                        stroke-width="4" />
+                    <path d="M 70,10 Q 30,30 30,50 T 70,90 T 70,130 T 30,170 T 70,190" fill="none" stroke="#03A9F4"
+                        stroke-width="4" />
+                    <!-- Rungs -->
+                    <line x1="45" y1="20" x2="55" y2="20" stroke="#FF9800" stroke-width="3" />
+                    <line x1="30" y1="50" x2="70" y2="50" stroke="#4CAF50" stroke-width="3" />
+                    <line x1="45" y1="80" x2="55" y2="80" stroke="#E91E63" stroke-width="3" />
+                    <line x1="30" y1="110" x2="70" y2="110" stroke="#FFEB3B" stroke-width="3" />
+                    <line x1="45" y1="140" x2="55" y2="140" stroke="#FF9800" stroke-width="3" />
+                    <line x1="30" y1="170" x2="70" y2="170" stroke="#4CAF50" stroke-width="3" />
+                    <text x="50" y="210" font-size="10" text-anchor="middle" fill="#333">DNA Double-Helix</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="note-card" id="sec-fert">
+            <h2>Fertilisation & Sex Determination</h2>
+            <ul>
+                <li><span class="kw-float">Gametes</span> (sex cells) have half the chromosomes (23 in humans). Male:
+                    Sperm cell, Female: Egg cell.</li>
+                <li><span class="kw-bold">Fertilisation</span> occurs when sperm and egg nuclei fuse, making a
+                    fertilised egg cell (46 chromosomes).</li>
+                <li><strong>Sex Determination</strong>: Females have <span class="kw-color">XX</span> sex chromosomes.
+                    Males have <span class="kw-color">XY</span>.</li>
+                <li>An egg always has an X. A sperm has either an X or Y. If an X-sperm fertilises the egg = female. If
+                    a Y-sperm fertilises = male.</li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-fetal">
+            <h2>Fetal Growth & Development</h2>
+            <ul>
+                <li>The fertilised egg becomes an <span class="kw-italic">embryo</span>, then a <span
+                        class="kw-bold">fetus</span> after organs and heartbeat form for the 40-week gestation.</li>
+                <li><strong>Diet & Health</strong>: Pregnant women need folic acid (prevents spina bifida) and balanced
+                    nutrients.</li>
+                <li><strong>Avoid</strong>: Certain foods with bacteria (e.g., blue cheese), drugs, and tobacco smoke.
+                </li>
+                <li><span class="kw-underline">Carbon monoxide and Nicotine</span> in smoke reduce oxygen for the fetus,
+                    causing low birth weight or stillbirth.</li>
+            </ul>
+        </div>
+
+        <div class="note-card" id="sec-evolution">
+            <h2>Natural Selection & Evolution</h2>
+            <ul>
+                <li><span class="kw-circle">Adaptations</span> are characteristics that help organisms survive in an
+                    ecosystem (e.g., polar bear fur).</li>
+                <li>Because of genetic variation, some individuals have slightly better adaptations.</li>
+                <li>They survive longer and reproduce, passing these genes on. This process is <span
+                        class="kw-bold">Natural Selection</span>.</li>
+                <li>Over millions of years, this causes gradual changes in a species, known as <span
+                        class="kw-float">Evolution</span> (theory by Charles Darwin).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FLASHCARDS SECTION -->
+    <div id="flashcards" class="content-section">
+        <h2 style="text-align: center; color: var(--primary);">Tap a card to flip!</h2>
+        <div class="flashcards-grid">
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Continuous Variation</div>
+                    <div class="flashcard-back">Variation that can have any value within a range (e.g., human height).
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Discontinuous Variation</div>
+                    <div class="flashcard-back">Variation with a distinct set of options or categories (e.g., blood
+                        type, rolling tongue).</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Gene</div>
+                    <div class="flashcard-back">A section of DNA that controls the development of a specific
+                        characteristic.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Sex Chromosomes</div>
+                    <div class="flashcard-back">Chromosomes that determine whether someone is male (XY) or female (XX).
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Embryo</div>
+                    <div class="flashcard-back">A small ball of cells developing from a fertilised egg cell, eventually
+                        becoming a fetus.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Adaptation</div>
+                    <div class="flashcard-back">A characteristic of an organism that helps it to survive in a certain
+                        ecosystem.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Natural Selection</div>
+                    <div class="flashcard-back">Process where better-adapted organisms survive and reproduce, passing on
+                        beneficial genes. Causes evolution.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Fertilisation</div>
+                    <div class="flashcard-back">When a sperm cell nucleus and an egg cell nucleus fuse to form a
+                        fertilised egg cell.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
