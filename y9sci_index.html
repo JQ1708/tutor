@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Year 9 Science — Revision Hub</title>
+<style>
+:root{
+  --ink:#1a1c1a; --muted:#5b6560; --line:#dfe5e1; --bg:#f4f6f4; --card:#fff;
+  --green:#14603c; --green-soft:#e7f1ea; --amber:#8a5a12; --amber-soft:#fdf3e2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 64px}
+
+header{background:var(--green);color:#fff;padding:38px 0 30px;margin-bottom:28px}
+header .wrap{padding-bottom:0}
+h1{margin:0 0 8px;font-size:30px;letter-spacing:-.4px}
+.sub{margin:0;opacity:.88;font-size:15px;max-width:70ch}
+.stats{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  border-radius:999px;padding:4px 12px;font-size:13px}
+
+.howto{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 18px;margin-bottom:26px}
+.howto h2{margin:0 0 8px;font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.howto ul{margin:0;padding-left:20px}
+.howto li{margin:4px 0}
+.howto b{color:var(--green)}
+
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 18px 16px;display:flex;flex-direction:column}
+.card .num{display:inline-block;background:var(--green-soft);color:var(--green);
+  font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:999px;padding:3px 10px;margin-bottom:10px}
+.card h3{margin:0 0 10px;font-size:19px;line-height:1.3;letter-spacing:-.2px}
+.card ol{margin:0 0 14px;padding:0;list-style:none;color:var(--muted);font-size:14px}
+.card ol li{margin:2px 0}
+.card ol li b{color:#39433e;font-weight:600;font-variant-numeric:tabular-nums}
+.meta{margin:0 0 14px;font-size:13px;color:var(--muted)}
+.links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+a.btn{flex:1 1 130px;text-align:center;text-decoration:none;border-radius:9px;
+  padding:10px 12px;font-weight:600;font-size:14px;border:1px solid transparent;
+  transition:transform .08s ease, filter .12s ease}
+a.btn:hover{filter:brightness(1.06)}
+a.btn:active{transform:translateY(1px)}
+a.notes{background:var(--green);color:#fff}
+a.cards{background:var(--amber-soft);color:var(--amber);border-color:#eddcbd}
+
+footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:13px}
+
+@media (max-width:520px){
+  h1{font-size:24px}
+  .grid{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff}
+  header{background:#fff;color:#000;border-bottom:2px solid #000}
+  .card{break-inside:avoid}
+  a.btn{border:1px solid #999;color:#000!important;background:#fff!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Year 9 Science — Revision Hub</h1>
+    <p class="sub">Nine chapters of revision notes and interactive flashcards. Work through a chapter's notes first, then use the flashcards until you can answer every card without hesitating.</p>
+    <div class="stats">
+      <span class="stat">9 chapters</span>
+      <span class="stat">1350 questions</span>
+      <span class="stat">Multiple choice · Gap fill · Short answer · Diagram labelling · Click-the-diagram</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="howto">
+    <h2>How to use this</h2>
+    <ul>
+      <li><b>Notes</b> — the whole chapter written out, with the diagrams from the book and worked answers. Read it before you revise, and come back to it whenever a flashcard catches you out.</li>
+      <li><b>Flashcards</b> — every card is one question. Press <b>space</b> to show the answer, then <b>g</b> if you got it or <b>a</b> to see it again later. Use the filters at the top to drill one question type or one section at a time.</li>
+      <li>Nothing is saved to a server, so your progress stays on the device you are using. Finish a session before you close the tab.</li>
+    </ul>
+  </section>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>Cambridge Lower Secondary Science, Stage 9. Built for classroom revision — everything works offline once the page has loaded.</footer>
+</div>
+
+<script>
+const CH = [
+ {n:1, slug:"photosynthesis",     title:"Photosynthesis and the carbon cycle",
+  secs:["Photosynthesis","More about photosynthesis","The carbon cycle","Climate change"]},
+ {n:2, slug:"materials",          title:"Properties of materials",
+  secs:["Atomic structure and the Periodic Table","Trends in Groups within the Periodic Table","Why elements react to form compounds","Simple and giant structures"]},
+ {n:3, slug:"forces",             title:"Forces and energy",
+  secs:["Density","Heat and temperature","Conservation of energy","Moving from hot to cold","Ways of transferring thermal energy","Cooling by evaporation"]},
+ {n:4, slug:"maintaining_life",   title:"Maintaining life",
+  secs:["Plants and water","Transpiration","Excretion in humans","Keeping a fetus healthy"]},
+ {n:5, slug:"reactivity",         title:"Reactivity",
+  secs:["Reactivity and displacement reactions","Using the reactivity series and displacement reactions","Salts","Other ways of making salts","Rearranging atoms"]},
+ {n:6, slug:"sound_space",        title:"Sound and space",
+  secs:["Loudness and pitch of sound","Interference of sound","Formation of the Moon","Nebulae","Tectonics"]},
+ {n:7, slug:"genes",              title:"Genes and inheritance",
+  secs:["Chromosomes, genes and DNA","Gametes and inheritance","Variation","Natural selection"]},
+ {n:8, slug:"rates",              title:"Rates of reaction",
+  secs:["Measuring the rate of reaction","Surface area and the rate of reaction","Temperature and the rate of reaction","Concentration and the rate of reaction"]},
+ {n:9, slug:"electricity",        title:"Electricity",
+  secs:["Parallel circuits","Current and voltage in parallel circuits","Resistance","Practical circuits"]}
+];
+
+document.getElementById('grid').innerHTML = CH.map(c => {
+  const base = `y9sci_c${c.n}_${c.slug}`;
+  return `<article class="card">
+    <span class="num">Chapter ${c.n}</span>
+    <h3>${c.title}</h3>
+    <ol>${c.secs.map((s,i)=>`<li><b>${c.n}.${i+1}</b> &nbsp;${s}</li>`).join('')}</ol>
+    <p class="meta">150 questions</p>
+    <div class="links">
+      <a class="btn notes" href="${base}_notes.html">Notes</a>
+      <a class="btn cards" href="${base}_flashcards.html">Flashcards</a>
+    </div>
+  </article>`;
+}).join('');
+</script>
+</body>
+</html>
