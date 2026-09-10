@@ -53,6 +53,7 @@ button.b.r{border-color:var(--bad);color:var(--bad)}
 kbd{background:#eef1f4;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;font:12px/1.6 ui-monospace,monospace}
 .foot{max-width:900px;margin:14px auto 0;font-size:12px;color:var(--mut);text-align:center}
 @media print{header,.acts,.foot{display:none}}
+.jump{background:#e7f1ea;border:1px solid #bcd8c8;color:#14603c;border-radius:9px;padding:8px 12px;font-size:13px;margin:0 0 12px}
 </style>
 </head>
 <body>
@@ -290,6 +291,346 @@ document.addEventListener('keydown', function(e){
   }
 });
 refresh();
+
+/* Arriving from site search: ?card=<id> puts that exact card on screen.
+   The set is not filtered down to it - the student lands on the card and can
+   keep going through the rest of the chapter from there. */
+(function(){
+  var want = (location.search.match(/[?&]card=([^&]*)/)||[])[1];
+  if(!want) return;
+  try{ want = decodeURIComponent(want); }catch(e){ return; }
+  var j = -1;
+  for(var i=0;i<view.length;i++){ if(view[i].id===want || view[i].id.indexOf(want+'-')===0){ j=i; break; } }
+  if(j<0) return;
+  idx = j; shown=false; picked=null; render();
+  var note = el('div','jump','↩ Jumped here from search — card '+(j+1)+' of '+view.length+'. Everything else is still in the set.');
+  var stage = document.getElementById('stage');
+  stage.parentNode.insertBefore(note, stage);
+})();
+})();
+</script>
+<script>
+/* Site-wide search for the Lower Secondary Science pages (Stages 7, 8, 9).
+ *
+ * Inlined into every notes and flashcards page at build time, so a page that a
+ * student was handed on its own still opens and still searches itself. The big
+ * part - the index of all 27 chapters - is fetched only when the widget is first
+ * opened, by injecting a <script> tag (works over file:// too, unlike fetch).
+ * If that fails, the widget silently falls back to searching the current page.
+ */
+(function () {
+  var IDX = null, LOADING = false, LOADED = false;
+  var box, inp, out, chips, year = 'all', timer = null;
+
+  /* ---------- styles ---------- */
+  var CSS = [
+    '.scBtn{position:fixed;right:18px;bottom:18px;z-index:9998;width:46px;height:46px;border-radius:50%;',
+    'border:1px solid rgba(0,0,0,.12);background:#14603c;color:#fff;font-size:19px;cursor:pointer;',
+    'box-shadow:0 3px 12px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center}',
+    '.scBtn:hover{filter:brightness(1.12)}',
+    '@media print{.scBtn,.scOv{display:none!important}}',
+    '.scOv{position:fixed;inset:0;z-index:9999;background:rgba(20,28,24,.42);display:flex;',
+    'align-items:flex-start;justify-content:center;padding:8vh 16px 16px}',
+    '.scPanel{background:#fff;width:min(720px,100%);max-height:78vh;border-radius:14px;overflow:hidden;',
+    'display:flex;flex-direction:column;box-shadow:0 18px 50px rgba(0,0,0,.3);',
+    'font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#1a1c1a}',
+    '.scTop{padding:12px 14px;border-bottom:1px solid #e4e9e5;display:flex;gap:8px;align-items:center}',
+    '.scTop input{flex:1;border:1px solid #d7ded9;border-radius:9px;padding:10px 12px;font-size:16px;outline:none;min-width:0}',
+    '.scTop input:focus{border-color:#14603c;box-shadow:0 0 0 3px rgba(20,96,60,.12)}',
+    '.scX{border:0;background:#eef2ef;border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:16px;color:#5b6560;flex:none}',
+    '.scChips{padding:9px 14px;border-bottom:1px solid #e4e9e5;display:flex;gap:6px;flex-wrap:wrap;font-size:13px}',
+    '.scChip{border:1px solid #d7ded9;border-radius:999px;padding:3px 11px;cursor:pointer;color:#5b6560;background:#fff}',
+    '.scChip.on{background:#e7f1ea;border-color:#14603c;color:#14603c;font-weight:600}',
+    '.scBody{overflow:auto;padding:6px 0 12px}',
+    '.scGrp{padding:11px 14px 4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8c968f}',
+    '.scRow{display:block;padding:9px 14px;border-bottom:1px solid #f0f3f1;text-decoration:none;color:inherit;cursor:pointer}',
+    '.scRow:hover,.scRow.sel{background:#f2f7f4}',
+    '.scWhere{font-size:12px;color:#6b7671;margin-bottom:2px}',
+    '.scWhere b{color:#14603c;font-weight:700}',
+    '.scTitle{font-weight:600;font-size:14.5px;line-height:1.35}',
+    '.scSnip{font-size:13px;color:#5b6560;margin-top:2px;line-height:1.45}',
+    '.scSnip mark,.scTitle mark{background:#ffd6e7;color:inherit;padding:0 1px;border-radius:2px}',
+    '.scTag{display:inline-block;background:#eef2ef;color:#6b7671;border-radius:4px;padding:0 5px;',
+    'font-size:11px;margin-right:6px;vertical-align:1px}',
+    '.scMsg{padding:22px 16px;text-align:center;color:#8c968f;font-size:14px}',
+    '.scFoot{border-top:1px solid #e4e9e5;padding:7px 14px;font-size:11.5px;color:#98a29b;display:flex;gap:12px;flex-wrap:wrap}',
+    'mark.scHit{background:#ffd6e7;color:inherit;border-radius:2px;padding:0 1px}'
+  ].join('');
+
+  function css() {
+    var s = document.createElement('style'); s.textContent = CSS;
+    document.head.appendChild(s);
+  }
+
+  /* ---------- helpers ---------- */
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+  // an all-lowercase query matches loosely; any capital (Na, DNA, N) matches exactly,
+  // so a symbol does not light up every "na" buried inside an ordinary word
+  function cased(q) { return q !== q.toLowerCase(); }
+
+  function markUp(text, q) {
+    var hay = cased(q) ? text : text.toLowerCase();
+    var needle = cased(q) ? q : q.toLowerCase();
+    var i = hay.indexOf(needle), o = '', last = 0;
+    while (i >= 0) {
+      o += esc(text.slice(last, i)) + '<mark>' + esc(text.substr(i, needle.length)) + '</mark>';
+      last = i + needle.length;
+      i = hay.indexOf(needle, last);
+    }
+    return o + esc(text.slice(last));
+  }
+
+  function inQ(text, q) {
+    return (cased(q) ? text : text.toLowerCase()).indexOf(cased(q) ? q : q.toLowerCase()) >= 0;
+  }
+
+  function snippet(text, q, span) {
+    var hay = cased(q) ? text : text.toLowerCase();
+    var i = hay.indexOf(cased(q) ? q : q.toLowerCase());
+    if (i < 0) return esc(text.slice(0, span));
+    var a = Math.max(0, i - Math.floor(span / 3));
+    var b = Math.min(text.length, a + span);
+    /* never start or end mid-word: a snippet reading '… nergy in sunlight' costs
+       the reader a second to re-parse, and the second is worth more than the letters */
+    if (a > 0) { var sp = text.indexOf(' ', a); if (sp > -1 && sp < i) a = sp + 1; }
+    if (b < text.length) { var sq = text.lastIndexOf(' ', b); if (sq > i) b = sq; }
+    var cut = text.slice(a, b);
+    return (a ? '… ' : '') + markUp(cut, q) + (b < text.length ? ' …' : '');
+  }
+
+  /* ---------- the index ---------- */
+  function base() {                      // directory this page sits in
+    return location.href.replace(/[?#].*$/, '').replace(/[^/]*$/, '');
+  }
+  function loadIndex(then) {
+    if (LOADED) return then();
+    if (LOADING) return;
+    LOADING = true;
+    var s = document.createElement('script');
+    s.src = base() + 'sci_search_index.js';
+    s.onload = function () {
+      IDX = window.__SCI_INDEX__ || null; LOADED = true; LOADING = false; then();
+    };
+    s.onerror = function () { LOADED = true; LOADING = false; then(); };
+    document.head.appendChild(s);
+  }
+
+  /* ---------- searching ---------- */
+  function pageLabel(p) {
+    return '<b>Year ' + p[0] + '</b> · Chapter ' + p[1] + ' ' + esc(p[2]);
+  }
+
+  function searchIndex(q) {
+    var notes = [], cards = [], i, r, p, hay, pos;
+    var needle = cased(q) ? q : q.toLowerCase();
+    for (i = 0; i < IDX.notes.length; i++) {
+      r = IDX.notes[i]; p = IDX.pages[r[0]];
+      if (year !== 'all' && p[0] !== year) continue;
+      hay = cased(q) ? r[2] + ' ' + r[3] : (r[2] + ' ' + r[3]).toLowerCase();
+      pos = hay.indexOf(needle);
+      if (pos < 0) continue;
+      // a hit in the section heading beats a hit buried in its prose
+      notes.push({ r: r, p: p, score: (r[2].toLowerCase().indexOf(needle.toLowerCase()) >= 0 ? 0 : 1) * 1e6 + pos });
+    }
+    for (i = 0; i < IDX.cards.length; i++) {
+      r = IDX.cards[i]; p = IDX.pages[r[0]];
+      if (year !== 'all' && p[0] !== year) continue;
+      // match the question AND its answer/options, but only ever SHOW the question:
+      // a search result that prints the answer has revised the card for the student
+      hay = r[3] + ' ' + (r[5] || '');
+      if (!cased(q)) hay = hay.toLowerCase();
+      pos = hay.indexOf(needle);
+      if (pos < 0) continue;
+      cards.push({ r: r, p: p, score: pos });
+    }
+    notes.sort(function (a, b) { return a.score - b.score; });
+    cards.sort(function (a, b) { return a.score - b.score; });
+    return { notes: notes.slice(0, 40), cards: cards.slice(0, 40) };
+  }
+
+  // no index (a page opened on its own): search what is on this page instead
+  function searchLocal(q) {
+    var hs = [].slice.call(document.querySelectorAll('main h2, main h3'));
+    var needle = cased(q) ? q : q.toLowerCase();
+    var hits = [];
+    hs.forEach(function (h) {
+      var text = '', n = h.nextElementSibling;
+      while (n && !/^H[23]$/.test(n.tagName)) { text += ' ' + n.textContent; n = n.nextElementSibling; }
+      text = text.replace(/\s+/g, ' ').trim();
+      var hay = cased(q) ? h.textContent + ' ' + text : (h.textContent + ' ' + text).toLowerCase();
+      if (hay.indexOf(needle) >= 0) hits.push({ id: h.id, title: h.textContent, text: text });
+    });
+    return hits.slice(0, 40);
+  }
+
+  /* ---------- rendering ---------- */
+  function href(p, kind, extra) {
+    return base() + p[3] + '_' + kind + '.html' + extra;
+  }
+
+  function render() {
+    var q = inp.value.trim();
+    if (q.length < 2) {
+      out.innerHTML = '<div class="scMsg">Type at least two letters.<br>' +
+        'Searches every chapter of Years 7, 8 and 9 — the notes and the flashcards.</div>';
+      return;
+    }
+    var h = '';
+    if (IDX) {
+      var res = searchIndex(q);
+      if (!res.notes.length && !res.cards.length) {
+        out.innerHTML = '<div class="scMsg">Nothing found for “' + esc(q) + '”.</div>'; return;
+      }
+      if (res.notes.length) {
+        h += '<div class="scGrp">📄 Notes · ' + res.notes.length + '</div>';
+        res.notes.forEach(function (x) {
+          h += '<a class="scRow" href="' + href(x.p, 'notes', '?q=' + encodeURIComponent(q) + '#' + x.r[1]) + '">' +
+            '<div class="scWhere">' + pageLabel(x.p) + '</div>' +
+            '<div class="scTitle">' + markUp(x.r[2], q) + '</div>' +
+            '<div class="scSnip">' + snippet(x.r[3], q, 170) + '</div></a>';
+        });
+      }
+      if (res.cards.length) {
+        h += '<div class="scGrp">🎴 Flashcards · ' + res.cards.length + '</div>';
+        res.cards.forEach(function (x) {
+          h += '<a class="scRow" href="' + href(x.p, 'flashcards', '?card=' + encodeURIComponent(x.r[1])) + '">' +
+            '<div class="scWhere">' + pageLabel(x.p) + (x.r[4] ? ' · ' + esc(x.r[4]) : '') + '</div>' +
+            '<div class="scTitle"><span class="scTag">' + esc(x.r[2]) + '</span>' + markUp(x.r[3], q) + '</div>' +
+            (inQ(x.r[3], q) ? '' : '<div class="scSnip">matches this card\u2019s answer</div>') + '</a>';
+        });
+      }
+    } else {
+      var hits = searchLocal(q);
+      h += '<div class="scMsg" style="padding:10px 14px;text-align:left">Searching this page only — ' +
+        'open the hub page for all-chapter search.</div>';
+      if (!hits.length) h += '<div class="scMsg">Nothing on this page matches “' + esc(q) + '”.</div>';
+      hits.forEach(function (x) {
+        h += '<a class="scRow" href="#' + x.id + '" data-local="' + esc(x.id) + '">' +
+          '<div class="scTitle">' + markUp(x.title, q) + '</div>' +
+          '<div class="scSnip">' + snippet(x.text, q, 170) + '</div></a>';
+      });
+    }
+    out.innerHTML = h;
+    [].forEach.call(out.querySelectorAll('[data-local]'), function (a) {
+      a.onclick = function () { close(); setTimeout(function () { highlight(inp.value.trim()); }, 30); };
+    });
+  }
+
+  /* ---------- highlight on arrival ---------- */
+  function highlight(q) {
+    if (!q || q.length < 2) return;
+    var root = document.querySelector('main') || document.body;
+    var needle = cased(q) ? q : q.toLowerCase();
+    var walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        if (!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var t = n.parentNode.nodeName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'MARK') return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nodes = [], n, first = null;
+    while ((n = walk.nextNode())) nodes.push(n);
+    nodes.forEach(function (node) {
+      var text = node.nodeValue;
+      var hay = cased(q) ? text : text.toLowerCase();
+      if (hay.indexOf(needle) < 0) return;
+      var frag = document.createDocumentFragment(), last = 0, i = hay.indexOf(needle);
+      while (i >= 0) {
+        if (i > last) frag.appendChild(document.createTextNode(text.slice(last, i)));
+        var m = document.createElement('mark');
+        m.className = 'scHit'; m.textContent = text.substr(i, needle.length);
+        frag.appendChild(m); if (!first) first = m;
+        last = i + needle.length;
+        i = hay.indexOf(needle, last);
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+    if (first && !location.hash) first.scrollIntoView({ block: 'center' });
+  }
+
+  /* ---------- open / close ---------- */
+  function close() { if (box) { box.remove(); box = null; } }
+
+  function open() {
+    if (box) { inp.focus(); return; }
+    box = document.createElement('div');
+    box.className = 'scOv';
+    box.innerHTML =
+      '<div class="scPanel" role="dialog" aria-label="Search">' +
+      '<div class="scTop"><input type="search" placeholder="Search notes and flashcards…" ' +
+      'autocomplete="off" spellcheck="false"><button class="scX" aria-label="Close">✕</button></div>' +
+      '<div class="scChips"></div><div class="scBody"></div>' +
+      '<div class="scFoot"><span>↵ open</span><span>esc close</span><span>press / anywhere</span></div></div>';
+    document.body.appendChild(box);
+    inp = box.querySelector('input');
+    out = box.querySelector('.scBody');
+    chips = box.querySelector('.scChips');
+    box.querySelector('.scX').onclick = close;
+    box.onclick = function (e) { if (e.target === box) close(); };
+    inp.oninput = function () { clearTimeout(timer); timer = setTimeout(render, 90); };
+    inp.onkeydown = function (e) {
+      if (e.key === 'Enter') { var a = out.querySelector('.scRow'); if (a) a.click(); }
+    };
+    render();
+    inp.focus();
+    loadIndex(function () { buildChips(); render(); });
+    buildChips();
+  }
+
+  function buildChips() {
+    if (!chips) return;
+    if (!IDX) { chips.style.display = 'none'; return; }
+    chips.style.display = '';
+    var years = [];
+    IDX.pages.forEach(function (p) { if (years.indexOf(p[0]) < 0) years.push(p[0]); });
+    years.sort();
+    var h = '<span class="scChip' + (year === 'all' ? ' on' : '') + '" data-y="all">All years</span>';
+    years.forEach(function (y) {
+      h += '<span class="scChip' + (year === y ? ' on' : '') + '" data-y="' + y + '">Year ' + y + '</span>';
+    });
+    chips.innerHTML = h;
+    [].forEach.call(chips.children, function (c) {
+      c.onclick = function () {
+        year = c.dataset.y === 'all' ? 'all' : +c.dataset.y;
+        buildChips(); render();
+      };
+    });
+  }
+
+  /* ---------- boot ---------- */
+  function boot() {
+    css();
+    var b = document.createElement('button');
+    b.className = 'scBtn'; b.type = 'button'; b.title = 'Search (press /)';
+    b.setAttribute('aria-label', 'Search'); b.textContent = '🔍';
+    b.onclick = open;
+    document.body.appendChild(b);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && box) { close(); return; }
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      var t = e.target.tagName;
+      if (t === 'INPUT' || t === 'TEXTAREA' || e.target.isContentEditable) return;
+      e.preventDefault(); open();
+    });
+
+    var q = (location.search.match(/[?&]q=([^&]*)/) || [])[1];
+    if (q) {
+      try { q = decodeURIComponent(q.replace(/\+/g, ' ')); } catch (err) { q = ''; }
+      setTimeout(function () { highlight(q); }, 40);
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+
+  window.SCI_SEARCH = { open: open, highlight: highlight };
 })();
 </script>
 </body>
