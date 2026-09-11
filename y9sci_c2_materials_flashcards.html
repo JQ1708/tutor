@@ -94,7 +94,7 @@ DATA.questions.forEach(function(q){
       seenText[k] = 1; return true;
     }).forEach(function(p, i){
       CARDS.push({id:q.id+'-'+p.n, type:'label', topic:q.topic, source:q.source,
-                  q:q.q.replace('{n}', p.n), image:q.image, pin:p, explain:q.explain, src:q.src});
+                  q:q.q.replace('{n}', p.n), image:q.image, pin:p, labels:pins, explain:q.explain, src:q.src});
     });
   } else { CARDS.push(q); }
 });
@@ -152,11 +152,15 @@ function figure(card, opts){
     var m = el('div','mask');
     m.style.cssText = 'left:'+p.x+'%;top:'+p.y+'%;width:'+p.w+'%;height:'+p.h+'%';
     wrap.appendChild(m);
-    if(opts.numberAll || (opts.pin && p.n===opts.pin.n)){
-      var d = el('div','pin'+(opts.pin && p.n===opts.pin.n ? '' : ' sm'), String(p.n));
-      d.style.cssText += 'left:'+(p.x+p.w/2)+'%;top:'+(p.y+p.h/2)+'%';
-      wrap.appendChild(d);
-    }
+  });
+  // the numbers must come from the same list the card is answering from; figures.json
+  // is renumbered independently, so reading pins here makes every dot point one label off
+  (card.labels || f.pins || []).forEach(function(p){
+    var on = !!(opts.pin && p.n===opts.pin.n);
+    if(!on && !opts.numberAll) return;
+    var d = el('div','pin'+(on ? '' : ' sm'), String(p.n));
+    d.style.cssText += 'left:'+(p.x+p.w/2)+'%;top:'+(p.y+p.h/2)+'%';
+    wrap.appendChild(d);
   });
   return wrap;
 }
