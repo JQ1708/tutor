@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IGCSE Chemistry — Gaming Section</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="game.css">
+<link rel="stylesheet" href="print.css" media="print">
+</head>
+<body>
+
+<!-- ══════════════════ MAP ══════════════════ -->
+<section id="v-map" class="view">
+  <div class="wrap">
+    <header class="mapHead">
+      <h1 class="title">IGCSE Chemistry — Gaming Section</h1>
+      <p class="lede">Pick the set your teacher gave you. 50 questions — get 40 right to earn your certificate.</p>
+    </header>
+    <div id="setGrid" class="setGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════ PLAY ══════════════════ -->
+<section id="v-play" class="view hidden">
+  <div class="wrap play">
+    <div class="topBar">
+      <button class="back" id="btnLeave" type="button">← Back to map</button>
+      <div class="setTag" id="setTag"></div>
+      <div class="stats"><span id="stQ"></span><span class="dot">·</span><span id="stC"></span></div>
+    </div>
+    <div class="roundBanner hidden" id="roundBanner"></div>
+    <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+
+    <article class="qcard" id="qcard">
+      <div class="topicTag" id="topicTag"></div>
+      <div class="q" id="qText"></div>
+      <figure class="fig hidden" id="fig"><img id="figImg" alt="Question diagram"></figure>
+      <div class="opts" id="opts"></div>
+      <div class="feedback hidden" id="feedback" role="status"></div>
+      <div class="why hidden" id="why"></div>
+      <button class="btn primary big hidden" id="btnNext" type="button">Next</button>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════════════ INTRO (after first round < 40) ══════════════════ -->
+<section id="v-intro" class="view hidden">
+  <div class="wrap intro">
+    <div class="introCard">
+      <p id="introText" class="introText"></p>
+      <button class="btn primary big" id="btnIntroNext" type="button">Next</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CERTIFICATE ══════════════════ -->
+<section id="v-cert" class="view hidden">
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div class="certWrap">
+    <h2 class="certTitle">SET COMPLETE!</h2>
+    <div class="certCard">
+      <div class="fields">
+        <div class="fld wide"><span class="lab">Student</span><span class="val" id="cStudent"></span></div>
+        <div class="fld"><span class="lab">Set</span><span class="val" id="cSet"></span></div>
+        <div class="fld"><span class="lab">Date &amp; time</span><span class="val date" id="cDate"></span><small id="cIso"></small></div>
+        <div class="fld"><span class="lab">First try</span><span class="val" id="cFirst"></span></div>
+        <div class="fld"><span class="lab">Final</span><span class="val" id="cFinal"></span></div>
+        <div class="fld"><span class="lab">Review rounds</span><span class="val" id="cRounds"></span></div>
+        <div class="fld"><span class="lab">Time taken</span><span class="val" id="cTime"></span></div>
+        <div class="fld wide code"><span class="lab">Code</span><span class="val mono" id="cCode"></span></div>
+      </div>
+    </div>
+    <div class="certBtns">
+      <button class="btn primary" id="btnSave" type="button">Save as image</button>
+      <button class="btn hidden" id="btnPdf" type="button">Save wrong questions as PDF</button>
+      <button class="btn" id="btnBack" type="button">Back to map</button>
+      <button class="btn" id="btnAgain" type="button">Play again</button>
+    </div>
+    <p class="certHint">Send this to your teacher. Mac: press ⇧⌘3. iPad: press the top button and volume up together.</p>
+    <a class="certJump hidden" id="certJump" href="#reviewWrap"></a>
+  </div>
+
+  <!-- questions missed on the first try: below the certificate, never inside it -->
+  <section class="reviewWrap" id="reviewWrap">
+    <div class="printHead" id="printHead"></div>
+    <h3 class="reviewTitle" id="reviewTitle"></h3>
+    <p class="reviewIntro" id="reviewIntro"></p>
+    <div id="reviewList"></div>
+  </section>
+</section>
+
+<!-- ══════════════════ DIALOGS ══════════════════ -->
+<div class="overlay hidden" id="dlgSet" role="dialog" aria-modal="true">
+  <div class="dlg">
+    <h3 id="dlgSetTitle"></h3>
+    <p class="dlgSub" id="dlgSetSub"></p>
+    <button class="btn big hidden" id="dlgView" type="button">View certificate &amp; review list</button>
+    <button class="btn primary big" id="dlgStart" type="button"></button>
+    <button class="btn ghost" id="dlgRestart" type="button">Restart set</button>
+    <button class="dlgX" id="dlgSetX" type="button" aria-label="Close">✕</button>
+  </div>
+</div>
+
+<div class="overlay hidden" id="dlgRestartC" role="dialog" aria-modal="true">
+  <div class="dlg">
+    <p class="dlgMsg">Restart this set? Your progress on it will be lost.</p>
+    <div class="dlgRow">
+      <button class="btn danger" id="rsYes" type="button">Restart</button>
+      <button class="btn" id="rsNo" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay hidden" id="dlgName" role="dialog" aria-modal="true">
+  <form class="dlg" id="nameForm">
+    <p class="dlgMsg">Type your name for the certificate:</p>
+    <input id="nameInput" type="text" maxlength="60" autocomplete="name" autocapitalize="words" required>
+    <div class="dlgRow"><button class="btn primary" type="submit">Save name</button></div>
+  </form>
+</div>
+
+<div id="lightbox" class="hidden"><img id="lbImg" alt=""><button class="lbClose" id="lbClose" type="button" aria-label="Close">✕</button></div>
+
+<script src="data/bank.js"></script>
+<script src="game-core.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
