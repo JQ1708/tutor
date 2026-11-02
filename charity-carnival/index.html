@@ -67,6 +67,14 @@ figcaption{font-size:12px;color:var(--inkSoft);margin-top:6px;text-align:right}
 .contact div{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;background:rgba(255,255,255,.55);border-radius:12px}
 .contact em{font-style:normal;color:var(--inkSoft)}
 footer{text-align:center;padding:30px 0 60px;font-size:13px;color:var(--inkSoft)}
+#gate{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 24px calc(18vh + env(safe-area-inset-bottom));text-align:center;color:#fff;
+  background:linear-gradient(180deg,rgba(20,24,36,.35) 0%,rgba(20,24,36,.2) 40%,rgba(20,24,36,.6) 100%);transition:opacity .8s ease}
+main{transition:opacity .8s ease} body.gated main,body.gated #clock,body.gated #cap,body.gated #music{opacity:0}
+#gate.out{opacity:0;pointer-events:none}
+#gate h1{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.45);margin-bottom:6px}
+#gate p{font-size:15px;letter-spacing:.08em;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+#gate .go{margin-top:22px;padding:14px 28px;border-radius:999px;border:0;background:rgba(250,245,236,.92);color:#4A3B2E;font:500 17px "Noto Sans SC",sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.25);animation:bob 2.4s ease-in-out infinite}
+#gate .mute{margin-top:14px;background:none;border:0;color:rgba(255,255,255,.85);font-size:13px;text-decoration:underline}
 /* clock + music */
 #clock{position:fixed;z-index:3;top:calc(10px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);
   padding:5px 14px;border-radius:999px;background:var(--card);border:1px solid var(--cardLine);font-family:"Noto Serif SC",serif;font-size:14px;color:var(--ink);letter-spacing:.05em;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
@@ -79,7 +87,7 @@ footer{text-align:center;padding:30px 0 60px;font-size:13px;color:var(--inkSoft)
 #player p{background:var(--card);color:var(--ink);font-size:11px;padding:4px 8px}
 </style>
 </head>
-<body>
+<body class="gated">
 
 <div id="scene">
   <div id="stage">
@@ -96,6 +104,12 @@ footer{text-align:center;padding:30px 0 60px;font-size:13px;color:var(--inkSoft)
 </div>
 <div id="cap">巴生静思堂（兴建中）· 示意图</div>
 
+<div id="gate" role="dialog" aria-label="进入">
+  <h1>吾爱吾家<br>嘉年华</h1>
+  <p>2026.12.12 · Dataran GM Klang</p>
+  <button class="go" id="gogo">♪ 点一下，开始这一天</button>
+  <button class="mute" id="gomute">静音浏览</button>
+</div>
 <div id="clock">清晨 07:00</div>
 <button id="music" aria-label="播放音乐">♪</button>
 <div id="player"><div id="pf"></div><p>慈济歌曲《一家人》</p></div>
@@ -260,6 +274,10 @@ footer{text-align:center;padding:30px 0 60px;font-size:13px;color:var(--inkSoft)
   const VID='C8rO0HGV5aI', btn=document.getElementById('music'), pl=document.getElementById('player');
   let ifr=null,on=false;
   const cmd=f=>ifr&&ifr.contentWindow.postMessage(JSON.stringify({event:'command',func:f,args:''}),'*');
+  const gate=document.getElementById('gate'), enter=m=>{gate.classList.add('out');document.body.style.overflow='';document.body.classList.remove('gated');if(m)btn.click();setTimeout(()=>gate.remove(),900)};
+  if(dbg){gate.remove();document.body.classList.remove('gated');} else {if('scrollRestoration' in history)history.scrollRestoration='manual';scrollTo(0,0);paint();document.body.style.overflow='hidden';document.body.classList.add('gated');}
+  document.getElementById('gogo').addEventListener('click',()=>enter(true));
+  document.getElementById('gomute').addEventListener('click',()=>enter(false));
   btn.addEventListener('click',()=>{
     if(!ifr){ifr=document.createElement('iframe');ifr.allow='autoplay; encrypted-media';
       ifr.src=`https://www.youtube-nocookie.com/embed/${VID}?autoplay=1&playsinline=1&loop=1&playlist=${VID}&enablejsapi=1&rel=0`;
