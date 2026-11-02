@@ -81,10 +81,9 @@ main{transition:opacity .8s ease} body.gated main,body.gated #clock,body.gated #
 #music{position:fixed;z-index:4;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:48px;height:48px;border-radius:50%;border:1px solid var(--cardLine);
   background:var(--card);color:var(--ink);font-size:20px;display:grid;place-items:center;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 #music.on{background:var(--olive);color:#fff}
-#player{position:fixed;z-index:4;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));width:168px;border-radius:12px;overflow:hidden;background:#000;display:none;box-shadow:0 6px 20px rgba(0,0,0,.25)}
-#player.show{display:block}
-#player iframe{display:block;width:168px;height:95px;border:0}
-#player p{background:var(--card);color:var(--ink);font-size:11px;padding:4px 8px}
+#player{position:fixed;z-index:4;left:16px;bottom:calc(28px + env(safe-area-inset-bottom));border-radius:999px;background:var(--card);border:1px solid var(--cardLine);opacity:0;transform:translateY(6px);transition:opacity .6s,transform .6s;pointer-events:none}
+#player.show{opacity:1;transform:none}
+#player p{color:var(--ink);font-size:12px;padding:6px 12px;white-space:nowrap}
 </style>
 </head>
 <body class="gated">
@@ -112,7 +111,8 @@ main{transition:opacity .8s ease} body.gated main,body.gated #clock,body.gated #
 </div>
 <div id="clock">清晨 07:00</div>
 <button id="music" aria-label="播放音乐">♪</button>
-<div id="player"><div id="pf"></div><p>慈济歌曲《一家人》</p></div>
+<div id="player"><p>♪ 慈济歌曲《一家人》· 许景淳</p></div>
+<audio id="bgm" src="audio/yijiaren.mp3" loop preload="auto" playsinline></audio>
 
 <main>
   <!-- 1 hero -->
@@ -270,21 +270,25 @@ main{transition:opacity .8s ease} body.gated main,body.gated #clock,body.gated #
   addEventListener('resize',paint);paint();
   const dbg=location.hash.match(/^#y=([\d.]+)/); // preview hook: #y=0.5 jumps to 50% of page
   if(dbg){const go=()=>{scrollTo(0,+dbg[1]*(document.documentElement.scrollHeight-innerHeight));paint()};go();setTimeout(go,300)}
-  // music: official Tzu Chi song via YouTube (user tap required)
-  const VID='C8rO0HGV5aI', btn=document.getElementById('music'), pl=document.getElementById('player');
-  let ifr=null,on=false;
-  const cmd=f=>ifr&&ifr.contentWindow.postMessage(JSON.stringify({event:'command',func:f,args:''}),'*');
-  const gate=document.getElementById('gate'), enter=m=>{gate.classList.add('out');document.body.style.overflow='';document.body.classList.remove('gated');if(m)btn.click();setTimeout(()=>gate.remove(),900)};
-  if(dbg){gate.remove();document.body.classList.remove('gated');} else {if('scrollRestoration' in history)history.scrollRestoration='manual';scrollTo(0,0);paint();document.body.style.overflow='hidden';document.body.classList.add('gated');}
-  document.getElementById('gogo').addEventListener('click',()=>enter(true));
-  document.getElementById('gomute').addEventListener('click',()=>enter(false));
-  btn.addEventListener('click',()=>{
-    if(!ifr){ifr=document.createElement('iframe');ifr.allow='autoplay; encrypted-media';
-      ifr.src=`https://www.youtube-nocookie.com/embed/${VID}?autoplay=1&playsinline=1&loop=1&playlist=${VID}&enablejsapi=1&rel=0`;
-      document.getElementById('pf').appendChild(ifr);on=true;}
-    else{on=!on;cmd(on?'playVideo':'pauseVideo');}
-    btn.classList.toggle('on',on);pl.classList.toggle('show',on);document.getElementById('cap').style.opacity=on?0:1;
-  });
+  // music: authorised Tzu Chi song (audio file); browsers need a tap before sound
+  const bgm=document.getElementById('bgm'), btn=document.getElementById('music'), pl=document.getElementById('player');
+  bgm.volume=.7; let on=false;
+  const ui=()=>{btn.classList.toggle('on',on);
+    const cp=document.getElementById('cap');
+    if(on){pl.classList.add('show');cp.style.opacity=0;clearTimeout(pl._t);pl._t=setTimeout(()=>{pl.classList.remove('show');cp.style.opacity='';},5000);} else {pl.classList.remove('show');cp.style.opacity='';}};
+  const play=()=>{const r=bgm.play(); on=true; ui(); if(r&&r.catch)r.catch(()=>{on=false;ui();}); return r;};
+  const stop=()=>{bgm.pause(); on=false; ui();};
+  btn.addEventListener('click',()=>on?stop():play());
+  const gate=document.getElementById('gate'); let entered=false;
+  const enter=m=>{if(entered)return; entered=true; gate.classList.add('out');document.body.style.overflow='';document.body.classList.remove('gated');if(m&&!on)play();setTimeout(()=>gate.remove(),900)};
+  if(dbg){entered=true;gate.remove();document.body.classList.remove('gated');}
+  else{
+    if('scrollRestoration' in history)history.scrollRestoration='manual';scrollTo(0,0);paint();document.body.style.overflow='hidden';document.body.classList.add('gated');
+    // try true autoplay first (works where the browser allows it); otherwise the first tap anywhere on the cover starts it
+    const r=bgm.play(); if(r&&r.then)r.then(()=>{on=true;ui();setTimeout(()=>enter(false),1800);}).catch(()=>{});
+  }
+  document.getElementById('gomute').addEventListener('click',e=>{e.stopPropagation();if(on)stop();enter(false);});
+  gate.addEventListener('click',()=>enter(true));
 })();
 </script>
 </body>
