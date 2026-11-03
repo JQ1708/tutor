@@ -2025,7 +2025,7 @@ function goHome(){
 
 // ======================== 资料卡 ========================
 const esc = s => String(s??'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const IMGS = ["changhua", "guandu", "hualien", "kaohsiung", "klang", "kuala-lumpur", "singapore", "taichung"];   // 有渲染图的静思堂 id（build.py 扫 halls/ 资料夹）
+const IMGS = ["bandung", "batam", "changhua", "dali", "guandu", "hsinchu", "hualien", "jakarta", "kaohsiung", "klang", "kuala-lumpur", "singapore", "taichung"];   // 有渲染图的静思堂 id（build.py 扫 halls/ 资料夹）
 const CN='〇一二三四五六七八九';
 const cnNum = n => n<10? CN[n] : n<20? '十'+(n%10?CN[n%10]:'') : CN[Math.floor(n/10)]+'十'+(n%10?CN[n%10]:'');
 const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
