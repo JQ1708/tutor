@@ -25,9 +25,9 @@ body.focus canvas#gl{cursor:default}
 body.focus .brand{opacity:.0}
 
 /* 待机提示 */
-.hint{position:fixed;left:0;right:0;bottom:clamp(28px,8vh,72px);text-align:center;pointer-events:none;transition:opacity .8s}
+.hint{position:fixed;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);bottom:clamp(28px,8vh,72px);padding:12px 26px;border-radius:14px;background:rgba(8,10,16,.68);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-align:center;pointer-events:none;transition:opacity .8s}
 .hint b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(15px,1.6vw,19px);letter-spacing:.3em;animation:breathe 3.2s ease-in-out infinite}
-.hint i{display:block;font-family:var(--en);font-size:clamp(13px,1.3vw,16px);color:var(--ink3);letter-spacing:.12em;margin-top:6px}
+.hint i{display:block;font-family:var(--en);font-size:clamp(13px,1.3vw,16px);color:var(--ink2);letter-spacing:.12em;margin-top:6px}
 @keyframes breathe{0%,100%{opacity:.45}50%{opacity:1}}
 body.focus .hint{opacity:0}
 
@@ -121,6 +121,9 @@ body.focus .nav{opacity:1;transform:translate(-50%,0);pointer-events:auto}
   .hall{--hh:min(40vh,94vw/1.5);--hb:calc(19vh - var(--hh)*.13)}
 }
 .menuBtn{position:fixed;right:clamp(16px,3vw,40px);top:clamp(16px,4vh,40px);font:inherit;font-size:14px;color:var(--ink);background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:8px 16px;cursor:pointer;letter-spacing:.1em;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:5}
+.styleBtn{position:fixed;left:clamp(16px,3vw,40px);bottom:clamp(16px,4vh,32px);font:inherit;font-size:13px;color:var(--ink2);background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:8px 16px;cursor:pointer;letter-spacing:.08em;transition:opacity .6s}
+.styleBtn small{font-family:var(--en);font-size:12.5px;letter-spacing:.04em;margin-left:4px}
+body.focus .styleBtn{opacity:0;pointer-events:none}
 .menuBtn small{font-family:var(--en);font-size:14px;color:var(--ink2);letter-spacing:.04em}
 .index{position:fixed;top:0;right:0;bottom:0;width:min(360px,100vw);background:rgba(8,10,18,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-left:1px solid var(--line);
   transform:translateX(100%);transition:transform .5s cubic-bezier(.2,.7,.2,1);z-index:10;display:flex;flex-direction:column}
@@ -158,6 +161,7 @@ body.snap *{transition:none!important}
 <div class="hint"><b>轻触地球　开始旅程</b><i>Tap the Earth to begin</i></div>
 
 <button class="menuBtn" id="menuBtn">☰ 目录 <small>Index</small></button>
+<button class="styleBtn" id="styleBtn" title="切换地球风格 Switch Earth style"></button>
 <aside class="index" id="index"><div class="ihead"><b>全部静思堂</b><small>All Jing Si Halls · <span id="icount"></span></small><button id="closeIdx" aria-label="关闭">✕</button></div><div class="ilist" id="ilist"></div></aside>
 <div class="veil"></div>
 <header class="verse" id="verse"></header>
@@ -198,6 +202,8 @@ const CONFIG = {
   flyTime: 3.6,           // 飞行秒数
   drawTime: 2.6,          // 线稿画出秒数
   holdTime: 7,            // 自动播放每座停留秒数
+  glassHold: 9,           // 琉璃／写实各停这么久（秒）
+  glassSweep: 6,          // 一道光扫过地球、换风格要这么久（秒）
 };
 
 // ======================== 资料 ========================
@@ -1758,8 +1764,16 @@ const idleSun = sunDir.clone();
 const tiltGroup = new THREE.Group(); tiltGroup.rotation.z = -CONFIG.tilt*D2R; scene.add(tiltGroup);
 const earth = new THREE.Group(); tiltGroup.add(earth);
 
+// 琉璃风格（慈济琉璃佛像手中的地球）：front 是一道光的位置，光扫过的地方换风格；on=0 时全部写实
+const GL = { front:{value:-2}, inv:{value:0}, on:{value:1}, axis:{value:new THREE.Vector3(1,0,0)} };
+const GLASS_FN = `
+  uniform float gFront,gInv,gOn; uniform vec3 gAxis;
+  float glassAmt(vec3 n,out float edge){ float u=dot(n,gAxis)+0.035*sin(n.y*9.0+n.z*5.0);
+    float x=gFront-u; float m=smoothstep(-0.16,0.16,x);
+    edge=exp(-x*x*90.0)*gOn; return mix(m,1.0-m,gInv)*gOn; }`;
+const GLU = { gFront:GL.front, gInv:GL.inv, gOn:GL.on, gAxis:GL.axis };
 const earthMat = new THREE.ShaderMaterial({
-  uniforms:{ dayMap:{value:T.day}, nightMap:{value:T.night}, specMap:{value:T.spec}, sunDir:{value:sunDir} },
+  uniforms:{ dayMap:{value:T.day}, nightMap:{value:T.night}, specMap:{value:T.spec}, sunDir:{value:sunDir}, ...GLU },
   vertexShader:`
     varying vec2 vUv; varying vec3 vN; varying vec3 vP;
     void main(){ vUv=uv; vN=normalize(mat3(modelMatrix)*normal); vec4 w=modelMatrix*vec4(position,1.); vP=w.xyz;
@@ -1767,6 +1781,32 @@ const earthMat = new THREE.ShaderMaterial({
   fragmentShader:`
     uniform sampler2D dayMap,nightMap,specMap; uniform vec3 sunDir;
     varying vec2 vUv; varying vec3 vN; varying vec3 vP;
+    ${GLASS_FN}
+    float landAt(vec2 uv){ return 1.0-texture2D(specMap,uv).r; }
+    vec3 glassCol(vec3 n,vec3 V,float d,vec3 day){
+      vec2 e=vec2(0.0016,0.0022);                                     // 陆地边缘略柔，像玻璃里的色料
+      float raw=(landAt(vUv)*2.0+landAt(vUv+e*vec2(1,0))+landAt(vUv-e*vec2(1,0))+landAt(vUv+e*vec2(0,1))+landAt(vUv-e*vec2(0,1)))/6.0;
+      float land=smoothstep(0.34,0.62,raw);
+      float dx=landAt(vUv+e*vec2(2,0))-landAt(vUv-e*vec2(2,0)), dy=landAt(vUv+e*vec2(0,2))-landAt(vUv-e*vec2(0,2));
+      float bevel=clamp((dx-dy)*0.9,-1.0,1.0);                        // 陆地像浮雕，边缘有一点斜面
+      float facing=max(dot(n,V),0.0);
+      float lum=dot(day,vec3(0.3,0.59,0.11));
+      vec3 rt=normalize(cross(vec3(0.0,1.0,0.0),V)), upv=cross(V,rt);
+      float below=smoothstep(0.75,-0.85,dot(n,upv));                  // 佛像的光从底座往上打，下半球最亮
+      vec3 sea=mix(vec3(0.70,0.75,0.78),vec3(1.0,0.99,0.96),0.30+0.70*below);    // 磨砂乳白
+      sea=mix(vec3(0.60,0.67,0.72),sea,smoothstep(0.0,0.55,facing));
+      vec3 gold=mix(vec3(0.56,0.36,0.15),vec3(0.84,0.62,0.32),smoothstep(0.10,0.60,lum)*0.55+below*0.45);  // 琥珀金，少留地形
+      vec3 c=mix(sea,gold,land);
+      c+=vec3(1.0,0.9,0.72)*bevel*0.05*land;
+      vec3 L=normalize(V*0.72+upv*0.56-rt*0.40), H=normalize(L+V);    // 高光固定在左上，不跟太阳走
+      float rimBand=smoothstep(.70,.76,1.-facing)*smoothstep(.84,.78,1.-facing);
+      float arc=smoothstep(.72,.95,dot(normalize(n-V*dot(n,V)),normalize(upv-rt*.7)));
+      c+=vec3(1.0,.99,.97)*rimBand*arc*.16;
+      float fr=pow(1.0-facing,3.0);
+      c=mix(c,vec3(0.90,0.95,1.0),fr*0.70);                           // 水晶边缘
+      c+=vec3(1.0,0.96,0.88)*pow(1.0-facing,7.0)*below*0.5;           // 底部边缘透出的光
+      return c;
+    }
     void main(){
       vec3 n=normalize(vN); vec3 V=normalize(cameraPosition-vP);
       float d=dot(n,sunDir);
@@ -1780,6 +1820,9 @@ const earthMat = new THREE.ShaderMaterial({
       col+=vec3(0.8,0.35,0.12)*exp(-pow((d-0.04)*12.0,2.0))*0.07*(1.0-dayMix*0.5);              // 晨昏线暖色
       float fr=pow(1.0-max(dot(n,V),0.0),2.6);
       col+=vec3(0.32,0.58,1.0)*fr*smoothstep(-0.25,0.45,d)*0.9;          // 边缘大气
+      float edge; float g=glassAmt(n,edge);
+      if(g>0.001) col=mix(col,glassCol(n,V,d,day),g);
+      col+=vec3(1.0,0.82,0.52)*edge*0.55;                               // 换风格的那道金光
       gl_FragColor=vec4(col,1.0);
     }`
 });
@@ -1788,23 +1831,24 @@ earth.add(earthMesh);
 
 const cloudMat = new THREE.ShaderMaterial({
   transparent:true, depthWrite:false,
-  uniforms:{ map:{value:T.clouds}, sunDir:{value:sunDir}, amt:{value:1} },
+  uniforms:{ map:{value:T.clouds}, sunDir:{value:sunDir}, amt:{value:1}, ...GLU },
   vertexShader:`varying vec2 vUv; varying vec3 vN; void main(){ vUv=uv; vN=normalize(mat3(modelMatrix)*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
   fragmentShader:`uniform sampler2D map; uniform vec3 sunDir; uniform float amt; varying vec2 vUv; varying vec3 vN;
-    void main(){ float c=texture2D(map,vUv).r; float d=dot(normalize(vN),sunDir);
-      float lit=smoothstep(-0.15,0.3,d); gl_FragColor=vec4(vec3(1.0)*(0.08+0.95*max(d,0.0)), c*mix(0.12,0.85,lit)*amt); }`
+    ${GLASS_FN}
+    void main(){ float c=texture2D(map,vUv).r; vec3 n=normalize(vN); float d=dot(n,sunDir); float e; float g=glassAmt(n,e);
+      float lit=smoothstep(-0.15,0.3,d); gl_FragColor=vec4(vec3(1.0)*(0.08+0.95*max(d,0.0)), c*mix(0.12,0.85,lit)*amt*(1.0-g)); }`
 });
 const clouds = new THREE.Mesh(new THREE.SphereGeometry(1.006, 96, 64), cloudMat);
 earth.add(clouds);
 
 const atmo = new THREE.Mesh(new THREE.SphereGeometry(1.09, 96, 64), new THREE.ShaderMaterial({
   side:THREE.BackSide, transparent:true, blending:THREE.AdditiveBlending, depthWrite:false,
-  uniforms:{ sunDir:{value:sunDir} },
+  uniforms:{ sunDir:{value:sunDir}, cover:{value:0} },
   vertexShader:`varying vec3 vN; varying vec3 vW; void main(){ vN=normalize(normalMatrix*normal); vW=normalize(mat3(modelMatrix)*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
-  fragmentShader:`uniform vec3 sunDir; varying vec3 vN; varying vec3 vW;
+  fragmentShader:`uniform vec3 sunDir; uniform float cover; varying vec3 vN; varying vec3 vW;
     void main(){ float i=pow(max(0.74-dot(vN,vec3(0.,0.,1.)),0.0),4.0)*0.55;   // BackSide：越靠近地球边缘越亮
       float s=smoothstep(-0.35,0.5,dot(vW,sunDir));
-      gl_FragColor=vec4(vec3(0.35,0.62,1.0)*i*(0.18+0.95*s),1.0); }`
+      gl_FragColor=vec4(mix(vec3(0.35,0.62,1.0)*(0.18+0.95*s),vec3(0.95,0.86,0.70)*0.55,cover)*i,1.0); }`
 }));
 scene.add(atmo);
 
@@ -1826,9 +1870,14 @@ function glowTex(){ const c=document.createElement('canvas'); c.width=c.height=1
   r.addColorStop(.45,'rgba(255,170,80,.22)'); r.addColorStop(1,'rgba(255,150,60,0)'); g.fillStyle=r; g.fillRect(0,0,128,128);
   return new THREE.CanvasTexture(c); }
 const GLOW = glowTex();
+const DOT = (()=>{ const c=document.createElement('canvas'); c.width=c.height=64; const g=c.getContext('2d');
+  const r=g.createRadialGradient(32,32,0,32,32,32); r.addColorStop(0,'rgba(120,52,8,.95)'); r.addColorStop(.42,'rgba(120,52,8,.8)'); r.addColorStop(1,'rgba(120,52,8,0)');
+  g.fillStyle=r; g.fillRect(0,0,64,64); return new THREE.CanvasTexture(c); })();
 const markers = HALLS.map(h=>{
   const s=new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:.0}));
-  s.position.copy(latLon(h.lat,h.lon,1.004)); s.scale.setScalar(.045); s.userData.h=h; earth.add(s); return s; });
+  s.position.copy(latLon(h.lat,h.lon,1.004)); s.scale.setScalar(.045); s.userData.h=h; earth.add(s);
+  const u=new THREE.Sprite(new THREE.SpriteMaterial({map:DOT,depthWrite:false,transparent:true,opacity:0}));
+  u.position.copy(s.position).multiplyScalar(.9995); u.scale.setScalar(.03); earth.add(u); s.userData.under=u; return s; });
 
 // ======================== 区域高清卫星图（聚焦飞近时盖在地球上） ========================
 // 来源：EOxCloudless Sentinel-2 cloudless 2020（CC BY-NC-SA 4.0），data/make_patches.py 预先拼好 → patches/<n>.jpg
@@ -2105,10 +2154,40 @@ function applyShift(){
   camera.setViewOffset(W,H,dx,dy,W,H);
 }
 
+// ======================== 地球风格：写实 ⇄ 琉璃 ========================
+// auto：转动时一道金光扫过，两种风格轮流；glass／real：固定。聚焦静思堂时一律回写实（要看地图）
+const STYLES=[['auto','◐ 琉璃轮转','Glass cycle'],['glass','◉ 琉璃地球','Glass Earth'],['real','○ 真实地球','Real Earth']];
+let styleI=0, gT=0, gPhase=0;   // gPhase 0 写实停留、1 扫成琉璃、2 琉璃停留、3 扫回写实
+const styleBtn=document.getElementById('styleBtn');
+function paintStyle(){ const s=STYLES[styleI]; styleBtn.innerHTML=`${s[1]}<small>${s[2]}</small>`; }
+styleBtn.onclick=e=>{ e.stopPropagation(); styleI=(styleI+1)%STYLES.length; paintStyle(); }; paintStyle();
+{ const q=new URLSearchParams(location.search).get('style'); if(q) styleI=Math.max(0,STYLES.findIndex(s=>s[0]===q)); paintStyle(); }
+const gFix=new URLSearchParams(location.search).get('front');   // 自查用：?front=0 让光停在中间
+const axisTmp=new THREE.Vector3();
+function stepStyle(dt,camDir){
+  const R=1.35, mode_=STYLES[styleI][0];
+  axisTmp.crossVectors(new THREE.Vector3(0,1,0).applyAxisAngle(new THREE.Vector3(0,0,1),-CONFIG.tilt*D2R),camDir).normalize();
+  GL.axis.value.copy(axisTmp);                     // 光沿地球自转方向走（镜头看是由左往右）
+  let want;                                        // want=0..1：画面被琉璃盖住的比例
+  if(gFix!==null){ GL.front.value=+gFix; GL.inv.value=0; want=(+gFix+1)/2; }
+  else if(mode_==='real'){ gPhase=0; gT=0; GL.front.value=-R; GL.inv.value=0; want=0; }
+  else if(mode_==='glass'){ gPhase=2; gT=0; GL.front.value=R; GL.inv.value=0; want=1; }
+  else { gT+=dt; const d=(gPhase%2)?CONFIG.glassSweep:CONFIG.glassHold; if(gT>=d){ gT=0; gPhase=(gPhase+1)%4; }
+    const k=gPhase%2? gT/CONFIG.glassSweep : 0, e=k*k*(3-2*k);
+    if(gPhase===0){ GL.front.value=-R; GL.inv.value=0; want=0; }
+    if(gPhase===1){ GL.front.value=-R+2*R*e; GL.inv.value=0; want=e; }
+    if(gPhase===2){ GL.front.value=R; GL.inv.value=0; want=1; }
+    if(gPhase===3){ GL.front.value=-R+2*R*e; GL.inv.value=1; want=1-e; } }
+  const on=mode==='focus'?0:1;
+  GL.on.value += (on-GL.on.value)*(SNAP?1:1-Math.exp(-dt*2.4));
+  const cov=want*GL.on.value; atmo.material.uniforms.cover.value=cov;
+  markers.forEach(m=>{ const u=m.userData.under; u.material.opacity=Math.min(1,m.material.opacity*1.6)*cov; });
+}
 // ======================== 主循环 ========================
 const qs=new URLSearchParams(location.search); const SNAP=qs.has('shot'); if(SNAP) document.body.classList.add('snap');   // 截图模式：过渡一步到位
 const label=document.getElementById('label'), pin=document.getElementById('pin');
 const clock=new THREE.Clock(); const tmpSun=new THREE.Vector3();
+{ const r=new URLSearchParams(location.search).get('rot'); if(r!==null) earth.rotation.y=+r; }
 function frame(){
   const dt=Math.min(clock.getDelta(),0.05), t=clock.elapsedTime;
   if(mode==='idle' && !fly) earth.rotation.y += CONFIG.idleSpin*dt;
@@ -2120,6 +2199,7 @@ function frame(){
     tmpSun.copy(camDir).addScaledVector(right,-0.55).add(new THREE.Vector3(0,.35,0)).normalize(); }
   else tmpSun.copy(idleSun);
   sunDir.lerp(tmpSun, SNAP?1:1-Math.exp(-dt*1.6)).normalize();
+  stepStyle(dt,camDir);
   shift += ((mode==='focus' && staged ? 1 : 0) - shift) * (SNAP?1:1-Math.exp(-dt*2.2));
   for(const k in patchMeshes){ const u=patchMeshes[k].material.uniforms.amt, near=Math.max(0,Math.min(1,(1.75-camera.position.length())/0.4));
     u.value += (((+k===patchCur && mode==='focus' && patchMeshes[k].userData.ready)? near : 0)-u.value)*(SNAP?1:1-Math.exp(-dt*3)); }
