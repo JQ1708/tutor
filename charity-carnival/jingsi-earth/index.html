@@ -304,7 +304,8 @@ const HALLS = [
     "title": "慈济社区网（tcopen.tzuchi-org.tw）"
    }
   ],
-  "note": "最早落成的静思堂（1991-04-12）。The earliest Jing Si Hall to be completed (12 Apr 1991)."
+  "note": "最早落成的静思堂（1991-04-12）。The earliest Jing Si Hall to be completed (12 Apr 1991).",
+  "imgNote": "依拆除前实拍照绘制之示意图 · Illustration based on photographs taken before demolition"
  },
  {
   "id": "melaka",
@@ -624,8 +625,8 @@ const HALLS = [
   "placeEn": "Taitung City, Taitung County",
   "groundbreaking": "核实中 · Pending",
   "opened": "2006-12-25",
-  "status": "核实中",
-  "statusEn": "Pending",
+  "status": "已启用",
+  "statusEn": "In use",
   "key": "2006-12-25",
   "sources": [
    {
@@ -645,7 +646,8 @@ const HALLS = [
     "title": "《曙光：臺東慈濟志工口述歷史》"
    }
   ],
-  "note": "2025 年有报道称四维路堂预定改建，现况核实中。"
+  "note": "2025 年有报道称四维路堂预定改建，现况核实中。",
+  "imgNote": "依街景补绘之示意图 · Illustration based on street-view imagery"
  },
  {
   "id": "taichung",
@@ -701,7 +703,8 @@ const HALLS = [
     "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=118620:832157004EED11EEA2108898678F7363&catid=155:2010-01-18-10-13-16&Itemid=381",
     "title": "慈济社区网（tcopen.tzuchi-org.tw）"
    }
-  ]
+  ],
+  "imgNote": "依街景补绘之示意图 · Illustration based on street-view imagery"
  },
  {
   "id": "wanhua",
@@ -2082,7 +2085,7 @@ function goHome(){
 
 // ======================== 资料卡 ========================
 const esc = s => String(s??'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const IMGS = ["bade", "bandung", "batam", "changhua", "dali", "dongda", "fengshan", "guandu", "hsinchu", "hualien", "jakarta", "kaohsiung", "kedah", "klang", "kuala-lumpur", "linkou", "lumbini", "luzhou", "melaka", "muar", "penang", "quezon-city", "ruisui", "sanyi", "singapore", "south-africa", "taichung", "tainan", "taipei-branch", "thailand", "wanhua", "yilan", "yuli", "zhushan"];   // 有渲染图的静思堂 id（build.py 扫 halls/ 资料夹）
+const IMGS = ["bade", "bandung", "banqiao", "batam", "changhua", "dali", "dongda", "fengshan", "guandu", "houston", "hsinchu", "hualien", "jakarta", "kaohsiung", "kedah", "kelantan", "klang", "kuala-lumpur", "linkou", "lumbini", "luzhou", "melaka", "muar", "penang", "pingtung-branch", "quezon-city", "ruisui", "sanyi", "singapore", "south-africa", "taichung", "tainan", "taipei-branch", "thailand", "wanhua", "xizhi", "yilan", "yuli", "zhushan"];   // 有渲染图的静思堂 id（build.py 扫 halls/ 资料夹）
 const CN='〇一二三四五六七八九';
 const cnNum = n => n<10? CN[n] : n<20? '十'+(n%10?CN[n%10]:'') : CN[Math.floor(n/10)]+'十'+(n%10?CN[n%10]:'');
 const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -2108,7 +2111,7 @@ function renderCard(h){
     ${chip?`<span class="chip">${chip}</span>`:''}`;
   const has=IMGS.includes(h.id), fig=document.getElementById('hall'), img=document.getElementById('hallImg');
   fig.classList.toggle('none',!has); img.src = has? `halls/${h.id}.webp` : ''; img.style.display = has? '' : 'none';
-  document.getElementById('hallCap').textContent = has? (h.building? '依官方效果图绘制之示意图 · Illustration based on official renderings' : '依实拍照绘制之示意图 · Illustration based on photographs') : '外观绘制中 · Illustration in progress';
+  document.getElementById('hallCap').textContent = has? (h.imgNote || (h.building? '依官方效果图绘制之示意图 · Illustration based on official renderings' : '依实拍照绘制之示意图 · Illustration based on photographs')) : '外观绘制中 · Illustration in progress';
   const src = h.sources?.length ? h.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title||s.url)}</a>`).join('<br>') : '核实中 · Pending';
   document.getElementById('srcPanel').innerHTML = `<h3>地址 · ADDRESS</h3>${esc(h.place)}<br>${esc(h.placeEn)}<h3>资料来源 · SOURCES</h3>${src}
     <h3>说明 · NOTE</h3>只列两份以上来源对得上的资料；「核实中」表示仍在查证。Only facts confirmed by two or more sources are shown.`;
