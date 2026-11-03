@@ -1,0 +1,129 @@
+[
+ {
+  "z": 8,
+  "x0": 209,
+  "y0": 106,
+  "x1": 219,
+  "y1": 121,
+  "halls": [
+   "hualien",
+   "taipei-branch",
+   "pingtung-branch",
+   "changhua",
+   "tainan",
+   "quezon-city",
+   "kaohsiung",
+   "banqiao",
+   "luzhou",
+   "taitung",
+   "taichung",
+   "wanhua",
+   "yuli",
+   "hsinchu",
+   "zhushan",
+   "bade",
+   "guandu",
+   "dongda",
+   "dali",
+   "yilan",
+   "fengshan",
+   "xizhi",
+   "sanyi",
+   "pingtung-city",
+   "linkou",
+   "ruisui",
+   "shalu",
+   "gangshan"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 195,
+  "y0": 120,
+  "x1": 209,
+  "y1": 136,
+  "halls": [
+   "melaka",
+   "penang",
+   "singapore",
+   "jakarta",
+   "kedah",
+   "kuala-lumpur",
+   "bandung",
+   "batam",
+   "muar",
+   "kelantan",
+   "klang"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 233,
+  "y0": 145,
+  "x1": 242,
+  "y1": 152,
+  "halls": [
+   "gold-coast"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 56,
+  "y0": 102,
+  "x1": 65,
+  "y1": 109,
+  "halls": [
+   "houston"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 195,
+  "y0": 115,
+  "x1": 204,
+  "y1": 122,
+  "halls": [
+   "thailand"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 144,
+  "y0": 144,
+  "x1": 153,
+  "y1": 151,
+  "halls": [
+   "south-africa"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 205,
+  "y0": 121,
+  "x1": 214,
+  "y1": 128,
+  "halls": [
+   "miri"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 183,
+  "y0": 104,
+  "x1": 192,
+  "y1": 111,
+  "halls": [
+   "lumbini"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 146,
+  "y0": 137,
+  "x1": 155,
+  "y1": 144,
+  "halls": [
+   "zimbabwe"
+  ]
+ }
+]

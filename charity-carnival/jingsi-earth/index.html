@@ -137,6 +137,13 @@ body.show-index .index{transform:none}
 .ilist button.cur{color:var(--gold)}
 .credit{position:fixed;right:16px;bottom:10px;font-size:10.5px;color:var(--ink3);letter-spacing:.04em;pointer-events:none;transition:opacity .6s}
 body.focus .credit{opacity:0}
+.credit2{position:fixed;right:16px;bottom:10px;font-size:10px;color:var(--ink3);letter-spacing:.04em;pointer-events:none;opacity:0;transition:opacity .6s}
+body.focus .credit2{opacity:.8}
+.pin{position:fixed;left:0;top:0;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);pointer-events:none;opacity:0;transition:opacity .5s}
+.pin::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--gold);animation:pinring 2s ease-out infinite}
+@keyframes pinring{0%{transform:scale(.6);opacity:.9}100%{transform:scale(3.2);opacity:0}}
+.label small{display:block;font-family:var(--serif);font-style:italic;font-size:12px;letter-spacing:.08em;color:var(--ink2);margin-top:2px}
+.label{font-size:20px!important;letter-spacing:.3em!important}
 body.snap *{transition:none!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
 </style>
@@ -166,7 +173,9 @@ body.snap *{transition:none!important}
   <button id="auto" class="auto">▶ 自动</button>
 </nav>
 <div class="label" id="label"></div>
+<div class="pin" id="pin"></div>
 <div class="credit">Earth imagery: NASA · Solar System Scope (CC BY 4.0)</div>
+<div class="credit2">Regional imagery: EOxCloudless https://cloudless.eox.at by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2020) · CC BY-NC-SA 4.0</div>
 
 <script>console.warn('Scripts "build/three.js" and "build/three.min.js" are deprecated with r150+, and will be removed with r160. Please use ES Modules or alternatives: https://threejs.org/docs/index.html#manual/en/introduction/Installation'),
 /**
@@ -184,7 +193,8 @@ const CONFIG = {
   cloudSpin: 0.006,       // 云层相对漂移
   idleDist: 3.3,          // 待机镜头距离（地球半径=1）
   focusDist: 1.75,        // 停在静思堂上方的距离
-  zoom: {'台湾':1.3, '马来西亚':1.5},   // 静思堂密的地方飞近一点
+  regionDist: 1.11,       // 飞近到「看得清所在地区」的距离（台湾约占满画面）
+  arriveHold: 1.8,        // 到站后先停这么久（秒），亮出地名，静思堂才升起
   flyTime: 3.6,           // 飞行秒数
   drawTime: 2.6,          // 线稿画出秒数
   holdTime: 7,            // 自动播放每座停留秒数
@@ -1820,6 +1830,171 @@ const markers = HALLS.map(h=>{
   const s=new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:.0}));
   s.position.copy(latLon(h.lat,h.lon,1.004)); s.scale.setScalar(.045); s.userData.h=h; earth.add(s); return s; });
 
+// ======================== 区域高清卫星图（聚焦飞近时盖在地球上） ========================
+// 来源：EOxCloudless Sentinel-2 cloudless 2020（CC BY-NC-SA 4.0），data/make_patches.py 预先拼好 → patches/<n>.jpg
+const PATCHES = [
+ {
+  "z": 8,
+  "x0": 209,
+  "y0": 106,
+  "x1": 219,
+  "y1": 121,
+  "halls": [
+   "hualien",
+   "taipei-branch",
+   "pingtung-branch",
+   "changhua",
+   "tainan",
+   "quezon-city",
+   "kaohsiung",
+   "banqiao",
+   "luzhou",
+   "taitung",
+   "taichung",
+   "wanhua",
+   "yuli",
+   "hsinchu",
+   "zhushan",
+   "bade",
+   "guandu",
+   "dongda",
+   "dali",
+   "yilan",
+   "fengshan",
+   "xizhi",
+   "sanyi",
+   "pingtung-city",
+   "linkou",
+   "ruisui",
+   "shalu",
+   "gangshan"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 195,
+  "y0": 120,
+  "x1": 209,
+  "y1": 136,
+  "halls": [
+   "melaka",
+   "penang",
+   "singapore",
+   "jakarta",
+   "kedah",
+   "kuala-lumpur",
+   "bandung",
+   "batam",
+   "muar",
+   "kelantan",
+   "klang"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 233,
+  "y0": 145,
+  "x1": 242,
+  "y1": 152,
+  "halls": [
+   "gold-coast"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 56,
+  "y0": 102,
+  "x1": 65,
+  "y1": 109,
+  "halls": [
+   "houston"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 195,
+  "y0": 115,
+  "x1": 204,
+  "y1": 122,
+  "halls": [
+   "thailand"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 144,
+  "y0": 144,
+  "x1": 153,
+  "y1": 151,
+  "halls": [
+   "south-africa"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 205,
+  "y0": 121,
+  "x1": 214,
+  "y1": 128,
+  "halls": [
+   "miri"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 183,
+  "y0": 104,
+  "x1": 192,
+  "y1": 111,
+  "halls": [
+   "lumbini"
+  ]
+ },
+ {
+  "z": 8,
+  "x0": 146,
+  "y0": 137,
+  "x1": 155,
+  "y1": 144,
+  "halls": [
+   "zimbabwe"
+  ]
+ }
+];
+const patchOf = {}; PATCHES.forEach((p,n)=>p.halls.forEach(id=>patchOf[id]=n));
+const patchMeshes = {};
+function mercLatLon(x,y,z){ const n=2**z; return [Math.atan(Math.sinh(Math.PI*(1-2*y/n)))/D2R, x/n*360-180]; }
+function makePatch(n){
+  const P=PATCHES[n], S=96, pos=[], uv=[], idx=[];
+  for(let j=0;j<=S;j++) for(let i=0;i<=S;i++){
+    const [la,lo]=mercLatLon(P.x0+(P.x1-P.x0)*i/S, P.y0+(P.y1-P.y0)*j/S, P.z);
+    const v=latLon(la,lo,1.0006); pos.push(v.x,v.y,v.z); uv.push(i/S, 1-j/S); }
+  for(let j=0;j<S;j++) for(let i=0;i<S;i++){ const a=j*(S+1)+i, b=a+1, c=a+S+1, d=c+1; idx.push(a,c,b, b,c,d); }
+  const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2)); g.setIndex(idx); g.computeVertexNormals();
+  const ex=[(P.x1-P.x0),(P.y1-P.y0)];
+  const mat=new THREE.ShaderMaterial({ transparent:true, depthWrite:false,
+    uniforms:{ map:{value:null}, sunDir:{value:sunDir}, amt:{value:0}, fade:{value:new THREE.Vector2(1.6/ex[0],1.6/ex[1])} },
+    vertexShader:`varying vec2 vUv; varying vec3 vN; varying vec3 vP;
+      void main(){ vUv=uv; vec4 w=modelMatrix*vec4(position,1.); vP=w.xyz; vN=normalize(w.xyz); gl_Position=projectionMatrix*viewMatrix*w; }`,
+    fragmentShader:`uniform sampler2D map; uniform vec3 sunDir; uniform float amt; uniform vec2 fade;
+      varying vec2 vUv; varying vec3 vN; varying vec3 vP;
+      void main(){ vec3 n=normalize(vN); vec3 V=normalize(cameraPosition-vP); float d=dot(n,sunDir);
+        vec3 day=texture2D(map,vUv).rgb; day=pow(day,vec3(1.08))*vec3(0.96,1.0,1.06);
+        vec3 col=day*(0.06+1.05*max(d,0.0));
+        float fr=pow(1.0-max(dot(n,V),0.0),2.6); col+=vec3(0.32,0.58,1.0)*fr*smoothstep(-0.25,0.45,d)*0.9;
+        vec2 e=min(vUv,1.0-vUv)/fade; float a=smoothstep(0.0,1.0,min(e.x,e.y));   // 四边约 1.6 块宽柔和淡出
+        gl_FragColor=vec4(col, a*amt); }` });
+  const m=new THREE.Mesh(g,mat); m.renderOrder=1; earth.add(m);
+  loader.load(`patches/${n}.jpg`, t=>{ t.anisotropy=8; t.colorSpace=T.day.colorSpace; mat.uniforms.map.value=t; m.userData.ready=true; });
+  return m;
+}
+let patchCur=-1;
+function usePatch(i){ const n=patchOf[HALLS[i].id]; if(n===undefined) return; patchCur=n;
+  if(!patchMeshes[n]) patchMeshes[n]=makePatch(n);
+  for(const k in patchMeshes) if(+k!==n && patchMeshes[k].material.uniforms.amt.value<0.01){   // 用不到的释放掉，省 iPad 记忆体
+    const m=patchMeshes[k]; earth.remove(m); m.geometry.dispose(); m.material.uniforms.map.value?.dispose(); m.material.dispose(); delete patchMeshes[k]; } }
+
 // ======================== 镜头飞行 ========================
 const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
 let mode='idle', cur=-1, fly=null, auto=false, autoTimer=null;
@@ -1834,9 +2009,13 @@ function flyTo(dirEnd, distEnd, lookEnd, dur, done){
       camera.position.copy(p0.clone().normalize().applyQuaternion(qq).multiplyScalar(dist));
       look.lerpVectors(look0,lookEnd,e); }, done};
 }
+let staged=false, arrived=false, arriveTimer=null;
 function goHall(i){
+  arrived=false;
   cur=(i+HALLS.length)%HALLS.length; mode='focus'; document.body.classList.add('focus'); document.body.classList.remove('show-card');
-  const w=worldOf(cur); const zd=CONFIG.zoom[HALLS[cur].country]??CONFIG.focusDist; flyTo(w, 1+(zd-1)*(camera.aspect<1?1.45:1), w.clone().multiplyScalar(.0), CONFIG.flyTime, ()=>{ renderCard(HALLS[cur]); document.body.classList.add('show-card'); drawArt(); scheduleAuto(); });
+  const w=worldOf(cur); const zd=CONFIG.regionDist; usePatch(cur); staged=false; const me=cur; clearTimeout(arriveTimer);
+  flyTo(w, 1+(zd-1)*(camera.aspect<1?1.45:1), w.clone().multiplyScalar(.0), CONFIG.flyTime, ()=>{ arrived=true;
+    arriveTimer=setTimeout(()=>{ if(cur!==me||mode!=='focus') return; staged=true; renderCard(HALLS[cur]); document.body.classList.add('show-card'); drawArt(); scheduleAuto(); }, SNAP?(qs.has('beat')?1e7:0):CONFIG.arriveHold*1000); });
   updateNav();
 }
 function goHome(){
@@ -1928,7 +2107,7 @@ function applyShift(){
 
 // ======================== 主循环 ========================
 const qs=new URLSearchParams(location.search); const SNAP=qs.has('shot'); if(SNAP) document.body.classList.add('snap');   // 截图模式：过渡一步到位
-const label=document.getElementById('label');
+const label=document.getElementById('label'), pin=document.getElementById('pin');
 const clock=new THREE.Clock(); const tmpSun=new THREE.Vector3();
 function frame(){
   const dt=Math.min(clock.getDelta(),0.05), t=clock.elapsedTime;
@@ -1941,8 +2120,10 @@ function frame(){
     tmpSun.copy(camDir).addScaledVector(right,-0.55).add(new THREE.Vector3(0,.35,0)).normalize(); }
   else tmpSun.copy(idleSun);
   sunDir.lerp(tmpSun, SNAP?1:1-Math.exp(-dt*1.6)).normalize();
-  shift += ((mode==='focus' && !fly ? 1 : (mode==='focus'? Math.max(0,fly.t-0.6)/0.4 : 0)) - shift) * (SNAP?1:1-Math.exp(-dt*3));
-  const ca=cloudMat.uniforms.amt; ca.value += ((mode==='focus'?0.3:1)-ca.value)*(SNAP?1:1-Math.exp(-dt*1.5));
+  shift += ((mode==='focus' && staged ? 1 : 0) - shift) * (SNAP?1:1-Math.exp(-dt*2.2));
+  for(const k in patchMeshes){ const u=patchMeshes[k].material.uniforms.amt, near=Math.max(0,Math.min(1,(1.75-camera.position.length())/0.4));
+    u.value += (((+k===patchCur && mode==='focus' && patchMeshes[k].userData.ready)? near : 0)-u.value)*(SNAP?1:1-Math.exp(-dt*3)); }
+  const ca=cloudMat.uniforms.amt; ca.value += ((mode==='focus'?0.0:1)-ca.value)*(SNAP?1:1-Math.exp(-dt*1.5));
   camera.lookAt(look); applyShift();
   // 心灯：当前那座最亮，下一座低调闪
   markers.forEach((m,i)=>{ const on = mode==='focus' && i===cur, nx = mode==='focus' && i===cur+1;
@@ -1951,11 +2132,12 @@ function frame(){
     const f=Math.min(1,(camera.position.length()-1)/0.75);   // 镜头越近，光点越小，台湾那一簇才分得开
     m.scale.setScalar(f*(on? 0.034+0.004*Math.sin(t*3) : 0.02)); });
   // 名字标签
-  if(false){ const p=worldOf(cur).project(camera);
-    const lx=(p.x+1)/2*W; label.textContent=HALLS[cur].zh; const flip = lx+label.offsetWidth+30>W;
+  if(mode==='focus' && arrived && !staged && cur>=0){ const p=worldOf(cur).project(camera); const h=HALLS[cur];
+    const lx=(p.x+1)/2*W; const nm=`${h.zh.replace(/（.*）/,'').replace(/静思堂$/,'')}<small>${h.en.replace(/ Jing Si Hall.*$/,'')}</small>`; if(label.innerHTML!==nm) label.innerHTML=nm; const flip = lx+label.offsetWidth+30>W;
     label.style.transform = flip?'translate(calc(-100% - 14px),-50%)':'translate(14px,-50%)';
-    label.style.left=lx+'px'; label.style.top=((1-p.y)/2*H)+'px'; label.style.opacity=1; }
-  else label.style.opacity=0;
+    label.style.left=lx+'px'; label.style.top=((1-p.y)/2*H)+'px'; label.style.opacity=1;
+    pin.style.left=lx+'px'; pin.style.top=((1-p.y)/2*H)+'px'; pin.style.opacity=1; }
+  else { label.style.opacity=0; pin.style.opacity=0; }
   renderer.render(scene,camera);
   requestAnimationFrame(frame);
 }
