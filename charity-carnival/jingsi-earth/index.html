@@ -32,7 +32,7 @@ body.focus .brand{opacity:.0}
 body.focus .hint{opacity:0}
 
 /* 资料卡 */
-.card{position:fixed;right:clamp(16px,3vw,40px);top:50%;width:min(420px,38vw);max-height:calc(100vh - 140px);
+.card{position:fixed;right:clamp(16px,3vw,40px);top:calc(50% - 30px);width:min(440px,38vw);max-height:calc(100vh - 200px);
   transform:translate(24px,-50%);opacity:0;pointer-events:none;transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1);
   background:var(--glass);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
   border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
@@ -81,6 +81,8 @@ body.focus .nav{opacity:1;transform:translate(-50%,0);pointer-events:auto}
   text-shadow:0 1px 6px rgba(0,0,0,.9);transform:translate(14px,-50%);white-space:nowrap;opacity:0;transition:opacity .5s}
 
 /* 手机：资料卡变底部抽屉 */
+@media (min-width:761px) and (max-width:1100px){ .card{width:min(440px,47vw)} }
+@media (min-width:761px) and (max-height:880px){ .art{aspect-ratio:16/8;margin:12px 0 10px} }
 @media (max-width:760px){
   .card{left:16px;right:16px;width:auto;top:auto;bottom:84px;max-height:52vh;transform:translateY(30px)}
   body.show-card .card{transform:none}
@@ -111,23 +113,7 @@ body.show-index .index{transform:none}
 .ilist button span small{display:block;font-family:var(--en);font-size:13px;color:var(--ink2)}
 .ilist button.cur{color:var(--gold)}
 .credit{position:fixed;right:16px;bottom:10px;font-size:10.5px;color:var(--ink3);letter-spacing:.04em;pointer-events:none;transition:opacity .6s}
-body.focus .menuBtn{position:fixed;right:clamp(16px,3vw,40px);top:clamp(16px,4vh,40px);font:inherit;font-size:14px;color:var(--ink);background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:8px 16px;cursor:pointer;letter-spacing:.1em;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:5}
-.menuBtn small{font-family:var(--en);font-size:14px;color:var(--ink2);letter-spacing:.04em}
-body.show-card .menuBtn{opacity:0;pointer-events:none}
-.index{position:fixed;top:0;right:0;bottom:0;width:min(360px,100vw);background:rgba(8,10,18,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-left:1px solid var(--line);
-  transform:translateX(100%);transition:transform .5s cubic-bezier(.2,.7,.2,1);z-index:10;display:flex;flex-direction:column}
-body.show-index .index{transform:none}
-.ihead{display:flex;align-items:baseline;gap:10px;padding:22px 20px 14px;border-bottom:1px solid rgba(232,194,122,.14)}
-.ihead b{font-family:var(--serif);font-size:19px;letter-spacing:.14em}.ihead small{font-family:var(--en);font-size:15px;color:var(--ink2);flex:1}
-.ihead button{background:none;border:0;color:var(--ink2);font-size:18px;cursor:pointer;padding:4px 6px}
-.ilist{overflow-y:auto;padding:8px 0 24px}
-.ilist h4{font-size:12px;letter-spacing:.2em;color:var(--gold);font-weight:500;padding:14px 20px 6px}
-.ilist button{display:flex;gap:12px;align-items:baseline;width:100%;text-align:left;background:none;border:0;color:var(--ink);font:inherit;font-size:14.5px;padding:8px 20px;cursor:pointer}
-.ilist button:hover{background:rgba(255,255,255,.05)}
-.ilist button i{font-style:normal;font-family:var(--en);color:var(--ink3);font-size:14px;min-width:22px}
-.ilist button span small{display:block;font-family:var(--en);font-size:13px;color:var(--ink2)}
-.ilist button.cur{color:var(--gold)}
-.credit{opacity:0}
+body.focus .credit{opacity:0}
 body.snap *{transition:none!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
 </style>
@@ -142,7 +128,7 @@ body.snap *{transition:none!important}
 <div class="hint"><b>轻触地球　开始旅程</b><i>Tap the Earth to begin</i></div>
 
 <button class="menuBtn" id="menuBtn">☰ 目录 <small>Index</small></button>
-<aside class="index" id="index"><div class="ihead"><b>全部静思堂</b><small>All Jing Si Halls</small><button id="closeIdx" aria-label="关闭">✕</button></div><div class="ilist" id="ilist"></div></aside>
+<aside class="index" id="index"><div class="ihead"><b>全部静思堂</b><small>All Jing Si Halls · <span id="icount"></span></small><button id="closeIdx" aria-label="关闭">✕</button></div><div class="ilist" id="ilist"></div></aside>
 <article class="card" id="card"><div class="scroll" id="cardBody"></div></article>
 
 <nav class="nav" id="nav">
@@ -171,27 +157,1547 @@ const CONFIG = {
   cloudSpin: 0.006,       // 云层相对漂移
   idleDist: 3.3,          // 待机镜头距离（地球半径=1）
   focusDist: 1.75,        // 停在静思堂上方的距离
+  zoom: {'台湾':1.3, '马来西亚':1.5},   // 静思堂密的地方飞近一点
   flyTime: 3.6,           // 飞行秒数
   drawTime: 2.6,          // 线稿画出秒数
   holdTime: 7,            // 自动播放每座停留秒数
 };
 
-// ======================== 资料（待核实后填入） ========================
-// ⚠️ 下面两笔只是版面示例（demo:true），不是核实过的资料。正式资料等核实表定案后整批替换。
+// ======================== 资料 ========================
+// 由 data/make_halls.py 产生 data/halls.json，build.py 塞进来。只放两份报告都对得上的静思堂；单方说法显示「核实中」。
 const HALLS = [
-  { demo:true, id:'demo-a', zh:'示例静思堂（台湾）', en:'Sample Jing Si Hall (Taiwan)',
-    lat:23.98, lon:121.60, country:'台湾', countryEn:'Taiwan',
-    place:'（资料核实中）', placeEn:'(being verified)',
-    groundbreaking:'—', opened:'—', status:'—', statusEn:'—',
-    story:'这里放缘起介绍：为什么建、由谁发起、建筑特色。正式内容等资料核实后填入。',
-    quote:'（静思语待配对）', quoteEn:'(Jing Si Aphorism to be paired)',
-    note:'', sources:[] },
-  { demo:true, id:'demo-b', zh:'示例静思堂（马来西亚）', en:'Sample Jing Si Hall (Malaysia)',
-    lat:3.14, lon:101.69, country:'马来西亚', countryEn:'Malaysia',
-    place:'（资料核实中）', placeEn:'(being verified)',
-    groundbreaking:'—', opened:'—', status:'兴建中·示意', statusEn:'Under construction · illustrative',
-    story:'马来西亚各座会多一个「360° 外观」按钮。', quote:'（静思语待配对）', quoteEn:'(Jing Si Aphorism to be paired)',
-    model:true, building:true, sources:[] },
+ {
+  "id": "hualien",
+  "zh": "花莲静思堂",
+  "en": "Hualien Jing Si Hall",
+  "lat": 23.998,
+  "lon": 121.623,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "花莲县花莲市中央路三段703号",
+  "placeEn": "Hualien City, Hualien County",
+  "groundbreaking": "1986-08-17",
+  "opened": "2001-05-12",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "1986-08-17",
+  "sources": [
+   {
+    "url": "https://tcmaster.daai.tv/2021/09/27/%E7%A4%BE%E5%8D%80%E9%81%93%E5%A0%B4%E3%80%82%E5%BF%83%E9%84%B0%E5%B1%85/",
+    "title": "大爱电视（tcmaster.daai.tv）"
+   },
+   {
+    "url": "https://daai.tv/news/565568",
+    "title": "大爱电视（daai.tv）"
+   },
+   {
+    "url": "https://www.daai.tv/news/history/598077",
+    "title": "大愛電視（動土）"
+   },
+   {
+    "url": "https://web.tzuchiculture.org.tw/tpenquart/monthly/426/426c4-1.htm",
+    "title": "慈濟月刊426期（開工與啟用）"
+   }
+  ],
+  "note": "全球第一座静思堂。The first Jing Si Hall in the world."
+ },
+ {
+  "id": "taipei-branch",
+  "zh": "台北分会静思堂（旧址）",
+  "en": "Taipei Branch Jing Si Hall (former site)",
+  "lat": 25.0415,
+  "lon": 121.544,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台北市大安区忠孝东路三段",
+  "placeEn": "Da'an District, Taipei",
+  "groundbreaking": "1988-12-13",
+  "opened": "1991",
+  "status": "已改名",
+  "statusEn": "Renamed",
+  "key": "1988-12-13",
+  "sources": [
+   {
+    "url": "https://tcmaster.daai.tv/2021/09/27/%E5%8C%97%E5%8D%80%E7%AC%AC%E4%B8%80%E5%80%8B%E9%9D%9C%E6%80%9D%E5%A0%82/",
+    "title": "大爱电视（tcmaster.daai.tv）"
+   },
+   {
+    "url": "https://www.jingsi.com/stores",
+    "title": "www.jingsi.com"
+   }
+  ],
+  "note": "2017 年 12 月台北分会迁入新店，原址改称「台北旧分会／大安联络处」，仍在使用。Renamed Da'an Liaison Office in Dec 2017; still in use."
+ },
+ {
+  "id": "pingtung-branch",
+  "zh": "屏东分会静思堂",
+  "en": "Pingtung Branch Jing Si Hall",
+  "lat": 22.68,
+  "lon": 120.527,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "屏东县长治乡中兴路83之1号",
+  "placeEn": "Changzhi Township, Pingtung County",
+  "groundbreaking": "1989-10-04",
+  "opened": "1991-04-12",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "1989-10-04",
+  "sources": [
+   {
+    "url": "https://tcmaster.daai.tv/2021/09/27/%E7%AC%AC%E4%B8%80%E5%80%8B%E8%93%8B%E5%A5%BD%E7%9A%84%E9%9D%9C%E6%80%9D%E5%A0%82/",
+    "title": "大爱电视（tcmaster.daai.tv）"
+   },
+   {
+    "url": "https://web.tzuchiculture.org.tw/docs/pdf/574.pdf",
+    "title": "慈济人文志业（web.tzuchiculture.org.tw）"
+   },
+   {
+    "url": "https://www.daai.tv/news/history/599612",
+    "title": "大愛電視（史上的今天）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/contact/",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   }
+  ],
+  "note": "最早落成的静思堂（1991-04-12）。The earliest Jing Si Hall to be completed (12 Apr 1991)."
+ },
+ {
+  "id": "melaka",
+  "zh": "马六甲静思堂",
+  "en": "Melaka Jing Si Hall",
+  "lat": 2.258,
+  "lon": 102.252,
+  "country": "马来西亚",
+  "countryEn": "Malaysia",
+  "place": "马六甲 Batu Berendam 工业区",
+  "placeEn": "Kawasan Perindustrian Batu Berendam, Melaka",
+  "groundbreaking": "1996-02",
+  "opened": "1997-05-21",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "1996-02-26",
+  "sources": [
+   {
+    "url": "https://mail.tzuchi.my/zh/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC/%E5%A4%A7%E9%A9%AC%E6%85%88%E6%B5%8E/%E7%BC%98%E8%B5%B7",
+    "title": "慈济马来西亚（mail.tzuchi.my）"
+   },
+   {
+    "url": "https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_19940410-1/",
+    "title": "慈济人文志业（tzuchiculture.org）"
+   },
+   {
+    "url": "https://www.tzuchi.my/zh/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC/%E5%A4%A7%E9%A9%AC%E6%85%8E%E6%B5%8E/%E7%BC%98%E8%B5%B7",
+    "title": "慈濟馬來西亞官網（緣起）"
+   },
+   {
+    "url": "https://web.tzuchiculture.org.tw/tpenquart/monthly/476/476c5-1.htm",
+    "title": "慈济人文志业（web.tzuchiculture.org.tw）"
+   }
+  ],
+  "note": "马来西亚第一座静思堂。The first Jing Si Hall in Malaysia.",
+  "model": true
+ },
+ {
+  "id": "changhua",
+  "zh": "彰化静思堂",
+  "en": "Changhua Jing Si Hall",
+  "lat": 24.035,
+  "lon": 120.505,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "彰化县秀水乡彰鹿路626号",
+  "placeEn": "Xiushui Township, Changhua County",
+  "groundbreaking": "1998",
+  "opened": "2002-01-22",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "1998-10",
+  "sources": [
+   {
+    "url": "https://syntromed.com/%E4%B8%AD%E7%BE%8E%E6%9E%97%E6%BB%84%E6%B4%B2%E5%85%88%E7%94%9F%E4%B8%80%E7%94%9F%E5%8B%A4%E5%A5%AE%E7%9A%84%E6%95%85%E4%BA%8B/",
+    "title": "syntromed.com"
+   },
+   {
+    "url": "https://daai.tv/news/137123",
+    "title": "大爱电视（daai.tv）"
+   },
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/detail/W_TC001_54075?keyword=%E8%8C%B9%E7%B4%A0",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.youtube.com/watch?v=0-JUmCmKl94",
+    "title": "慈济官方影片 YouTube（www.youtube.com）"
+   }
+  ]
+ },
+ {
+  "id": "tainan",
+  "zh": "台南静思堂",
+  "en": "Tainan Jing Si Hall",
+  "lat": 22.955,
+  "lon": 120.243,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台南市仁德区仁义路222号",
+  "placeEn": "Rende District, Tainan",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2002-01-18",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "1998-11-21",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?Itemid=283&catid=62%3Atainan&id=111948%3ABA6F5910127011EDAC5BB8A99F75E6C6&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=283&catid=62%3Atainan&id=107878%3ABE7B7E20AC1F11EBB89C0FB93DEBE0D2&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tw.tzuchi.org/community/index.php?option=com_content&view=article&id=111948:BA6F5910127011EDAC5BB8A99F75E6C6&catid=62:tainan&Itemid=283",
+    "title": "慈济基金会（tw.tzuchi.org）"
+   },
+   {
+    "url": "https://tw.tzuchi.org/community/index.php?option=com_content&view=article&id=68439:7ACDB84D55669C3248257E060029904B&catid=62:tainan&Itemid=200",
+    "title": "慈济基金会（tw.tzuchi.org）"
+   }
+  ]
+ },
+ {
+  "id": "penang",
+  "zh": "槟城静思堂",
+  "en": "Penang Jing Si Hall",
+  "lat": 5.4145,
+  "lon": 100.322,
+  "country": "马来西亚",
+  "countryEn": "Malaysia",
+  "place": "槟城乔治市 Jalan Macalister 316号",
+  "placeEn": "316 Jalan Macalister, George Town, Penang",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2003-08",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2000-08-13",
+  "sources": [
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/detail/20231203-173850022-7219?keyword=%E7%99%BC%E6%94%BE",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.tzuchi.org.my/2013/10/02/pg20131002/?lang=zh-hant",
+    "title": "慈济马来西亚（www.tzuchi.org.my）"
+   },
+   {
+    "url": "https://www.tzuchi.org.my/malaixiyafenhuijingsitang/?lang=zh-hant",
+    "title": "慈济马来西亚（www.tzuchi.org.my）"
+   },
+   {
+    "url": "https://www.daai.tv/news/596068",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ],
+  "note": "启用年份另有 2004 年一说，核实中。",
+  "model": true
+ },
+ {
+  "id": "quezon-city",
+  "zh": "菲律宾奎松静思堂",
+  "en": "Quezon City Jing Si Hall",
+  "lat": 14.628,
+  "lon": 121.008,
+  "country": "菲律宾",
+  "countryEn": "Philippines",
+  "place": "菲律宾奎松市 Cordillera St.",
+  "placeEn": "Cordillera St., Quezon City, Philippines",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2008-03-29",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2002-09-30",
+  "sources": [
+   {
+    "url": "https://tw.tzuchi.org/images/stories/book/2008TCyear.pdf",
+    "title": "慈济基金会（tw.tzuchi.org）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=383&catid=157%3A2010-01-18-10-13-56&id=34686%3A29FB79AD97AA637048257A690031939D&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://events.tzuchi.org.ph/",
+    "title": "慈济基金会（events.tzuchi.org.ph）"
+   },
+   {
+    "url": "https://www.daai.tv/news/412117",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "kaohsiung",
+  "zh": "高雄静思堂",
+  "en": "Kaohsiung Jing Si Hall",
+  "lat": 22.66,
+  "lon": 120.307,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "高雄市三民区河堤南路50号",
+  "placeEn": "Sanmin District, Kaohsiung",
+  "groundbreaking": "2002-11-02",
+  "opened": "2006-04",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2002-11-02",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?Itemid=273&catid=45%3Ashop&id=122134%3A754F1160FA3911EE9C4EF77C14A15598&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://daai.tv/news/history/600473",
+    "title": "大爱电视（daai.tv）"
+   },
+   {
+    "url": "https://www.daai.tv/news/history/600473",
+    "title": "大愛電視（史上的今天）"
+   },
+   {
+    "url": "https://neecs.moenv.gov.tw/Home/PlaceQryView?id=2892f81b-155e-4c4a-ba16-942ca30978f1",
+    "title": "neecs.moenv.gov.tw"
+   }
+  ]
+ },
+ {
+  "id": "banqiao",
+  "zh": "板桥静思堂",
+  "en": "Banqiao Jing Si Hall",
+  "lat": 25.003,
+  "lon": 121.452,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "新北市板桥区大观路二段",
+  "placeEn": "Banqiao District, New Taipei",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2005",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2003",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=290&catid=90%3A2009-12-21-02-51-46&id=130805%3A1F0FB6307B3211F090C3C72C8EF2E5B6&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.jingsi.com/stores",
+    "title": "www.jingsi.com"
+   },
+   {
+    "url": "https://web.tzuchiculture.org.tw/tpenquart/monthly/465/465c12-1.htm",
+    "title": "慈济人文志业（web.tzuchiculture.org.tw）"
+   },
+   {
+    "url": "https://web.tzuchiculture.org.tw/?book=654&mp=9808",
+    "title": "慈济人文志业（web.tzuchiculture.org.tw）"
+   }
+  ]
+ },
+ {
+  "id": "singapore",
+  "zh": "新加坡静思堂",
+  "en": "Singapore Jing Si Hall",
+  "lat": 1.379,
+  "lon": 103.944,
+  "country": "新加坡",
+  "countryEn": "Singapore",
+  "place": "新加坡巴西立 9 Elias Road",
+  "placeEn": "9 Elias Road, Pasir Ris, Singapore",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2005-10-30",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2003-08",
+  "sources": [
+   {
+    "url": "https://tzuchimerit.org.sg/about-us/jing-si-hall/",
+    "title": "慈济（tzuchimerit.org.sg）"
+   },
+   {
+    "url": "https://www.tzuchi.org.sg/about-us/tzu-chi-foundation-singapore/jing-si-hall/",
+    "title": "慈济基金会（www.tzuchi.org.sg）"
+   },
+   {
+    "url": "https://www.tzuchimerit.org.sg/news-and-stories/local-news/20251003-1/",
+    "title": "慈济（www.tzuchimerit.org.sg）"
+   }
+  ]
+ },
+ {
+  "id": "luzhou",
+  "zh": "芦洲静思堂",
+  "en": "Luzhou Jing Si Hall",
+  "lat": 25.087,
+  "lon": 121.468,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "新北市芦洲区长乐路",
+  "placeEn": "Luzhou District, New Taipei",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2010-07-10",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2006-06-26",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?id=104693&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.jingsi.com/stores",
+    "title": "www.jingsi.com"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=104693:8B53D770E6DD11EAA7B447AC1B2945FA&catid=90:2009-12-21-02-51-46&Itemid=200",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.tcsec.org.tw/TSC/public/centers/",
+    "title": "www.tcsec.org.tw"
+   }
+  ]
+ },
+ {
+  "id": "taitung",
+  "zh": "台东静思堂",
+  "en": "Taitung Jing Si Hall",
+  "lat": 22.757,
+  "lon": 121.145,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台东县台东市四维路二段",
+  "placeEn": "Taitung City, Taitung County",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2006-12-25",
+  "status": "核实中",
+  "statusEn": "Pending",
+  "key": "2006-12-25",
+  "sources": [
+   {
+    "url": "https://fliphtml5.com/pkeed/pjyh/%25E6%259B%2599%25E5%2585%2589%25EF%25BC%259A%25E8%2587%25BA%25E6%259D%25B1%25E6%2585%2588%25E6%25BF%259F%25E5%25BF%2597%25E5%25B7%25A5%25E5%258F%25A3%25E8%25BF%25B0%25E6%25AD%25B7%25E5%258F%25B2/",
+    "title": "fliphtml5.com"
+   },
+   {
+    "url": "https://www.tcnews.com.tw/event/item/17617.html",
+    "title": "www.tcnews.com.tw"
+   },
+   {
+    "url": "https://www.tcnews.com.tw/event/item/8629.html",
+    "title": "www.tcnews.com.tw"
+   },
+   {
+    "url": "https://fliphtml5.com/pkeed/pjyh/%E6%9B%99%E5%85%89%EF%BC%9A%E8%87%BA%E6%9D%B1%E6%85%88%E6%BF%9F%E5%BF%97%E5%B7%A5%E5%8F%A3%E8%BF%B0%E6%AD%B7%E5%8F%B2/317/",
+    "title": "《曙光：臺東慈濟志工口述歷史》"
+   }
+  ],
+  "note": "2025 年有报道称四维路堂预定改建，现况核实中。"
+ },
+ {
+  "id": "taichung",
+  "zh": "台中静思堂",
+  "en": "Taichung Jing Si Hall",
+  "lat": 24.13,
+  "lon": 120.653,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台中市南屯区文心南路113号",
+  "placeEn": "Nantun District, Taichung",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2013-01-13",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2008-05-11",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=284&catid=54%3Ataichong&id=40553%3AE1CD18D275F61D7248257AF7004E299A&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://vsty.tycg.gov.tw/Upload/BoardNews/240621104457040166Q9TQC.pdf",
+    "title": "vsty.tycg.gov.tw"
+   },
+   {
+    "url": "https://www.daai.tv/news/history/591641",
+    "title": "大愛電視（史上的今天）"
+   }
+  ]
+ },
+ {
+  "id": "gold-coast",
+  "zh": "黄金海岸静思堂",
+  "en": "Gold Coast Jing Si Hall",
+  "lat": -27.94,
+  "lon": 153.365,
+  "country": "澳大利亚",
+  "countryEn": "Australia",
+  "place": "澳大利亚昆士兰州黄金海岸",
+  "placeEn": "Gold Coast, Queensland, Australia",
+  "groundbreaking": "2008-07-20",
+  "opened": "2009-09-09",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2008-07-20",
+  "sources": [
+   {
+    "url": "https://tzuchi.org.au/tw/gold-coast-liaison-office/",
+    "title": "慈济基金会（tzuchi.org.au）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=118620:832157004EED11EEA2108898678F7363&catid=155:2010-01-18-10-13-16&Itemid=381",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   }
+  ]
+ },
+ {
+  "id": "wanhua",
+  "zh": "万华静思堂",
+  "en": "Wanhua Jing Si Hall",
+  "lat": 25.032,
+  "lon": 121.497,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台北市万华区莒光路",
+  "placeEn": "Wanhua District, Taipei",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2012-06-30",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2009-05-05",
+  "sources": [
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/detail/W_TC001_131448?keyword=%E8%8C%B9%E7%B4%A0",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.jingsi.com/stores",
+    "title": "www.jingsi.com"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=98983:7FFFFB30848511E9B5288061D0B56DFF&catid=90:2009-12-21-02-51-46&Itemid=290",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.daai.tv/news/574725",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "jakarta",
+  "zh": "印尼雅加达静思堂",
+  "en": "Jakarta Jing Si Hall",
+  "lat": -6.11,
+  "lon": 106.745,
+  "country": "印度尼西亚",
+  "countryEn": "Indonesia",
+  "place": "雅加达北区 Pantai Indah Kapuk 慈济园区",
+  "placeEn": "Tzu Chi Center, Pantai Indah Kapuk, North Jakarta",
+  "groundbreaking": "2009-05-10",
+  "opened": "2012-10-07",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2009-05-10",
+  "sources": [
+   {
+    "url": "https://daai.tv/news/history/599689",
+    "title": "大爱电视（daai.tv）"
+   },
+   {
+    "url": "https://www.tzuchi.or.id/eng/tentang-kami/indonesian-jing-si-hall/7",
+    "title": "慈济（www.tzuchi.or.id）"
+   },
+   {
+    "url": "https://www.tzuchi.or.id/tentang-kami/aula-jing-si-indonesia/7",
+    "title": "慈济（www.tzuchi.or.id）"
+   }
+  ]
+ },
+ {
+  "id": "yuli",
+  "zh": "玉里静思堂",
+  "en": "Yuli Jing Si Hall",
+  "lat": 23.335,
+  "lon": 121.313,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "花莲县玉里镇民权街56号",
+  "placeEn": "Yuli Township, Hualien County",
+  "groundbreaking": "—（旧院舍改建）",
+  "opened": "2010-03-14",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2010-03-14",
+  "sources": [
+   {
+    "url": "https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_20100314-1/",
+    "title": "慈济人文志业（tzuchiculture.org）"
+   },
+   {
+    "url": "https://www.tzuchi.com.tw/tcmed/images/NEW/75/n77.pdf",
+    "title": "慈济（www.tzuchi.com.tw）"
+   },
+   {
+    "url": "https://www.daai.tv/news/history/593337",
+    "title": "大愛電視（史上的今天）"
+   },
+   {
+    "url": "https://news.ltn.com.tw/news/local/paper/379825",
+    "title": "news.ltn.com.tw"
+   }
+  ],
+  "note": "由玉里慈济医院旧院舍改建。"
+ },
+ {
+  "id": "kedah",
+  "zh": "吉打静思堂",
+  "en": "Kedah Jing Si Hall",
+  "lat": 6.14,
+  "lon": 100.38,
+  "country": "马来西亚",
+  "countryEn": "Malaysia",
+  "place": "吉打亚罗士打 Jalan Perak 535A",
+  "placeEn": "535A Jalan Perak, Mergong, Alor Setar, Kedah",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2010-07-31",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2010-07-31",
+  "sources": [
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/detail/W_TC001_8300?keyword=7",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/download_asset_file?name=2023%E5%B9%B4%E6%85%88%E6%BF%9F%E5%B9%B4%E9%91%91_%E5%B9%B4%E8%A1%A8_%E7%B8%BD%E8%AB%96%E5%B9%B4%E8%A1%A8.pdf&path=files%2Fpublic%2F2024%2F09%2F20240701-105111001-9032.pdf",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.tzuchi.org.my/2010/09/03/%E5%90%89%E6%89%93%E5%88%86%E6%9C%83%E9%9D%9C%E6%80%9D%E5%A0%82%E5%95%9F%E7%94%A8-%E8%8F%A9%E8%96%A9%E5%AE%B6%E6%97%8F%E7%B6%BF%E5%BB%B6/?lang=zh-hant",
+    "title": "慈济马来西亚（www.tzuchi.org.my）"
+   },
+   {
+    "url": "https://daai.tv/news/570984?from=yahoo",
+    "title": "大爱电视（daai.tv）"
+   }
+  ],
+  "model": true
+ },
+ {
+  "id": "hsinchu",
+  "zh": "新竹静思堂",
+  "en": "Hsinchu Jing Si Hall",
+  "lat": 24.776,
+  "lon": 120.92,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "新竹市香山区中华路五段",
+  "placeEn": "Xiangshan District, Hsinchu",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2014-01-04",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2010-09",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=320&catid=120%3A2009-12-21-03-01-26&id=53789%3A30847DEF471D411448257C5800420262&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.jingsi.com/stores",
+    "title": "www.jingsi.com"
+   },
+   {
+    "url": "https://www.daai.tv/news/history/568744",
+    "title": "大愛電視（史上的今天）"
+   },
+   {
+    "url": "https://www.tcsec.org.tw/TSC/public/centers/index.php?Did=HC&OpType=Dtl",
+    "title": "www.tcsec.org.tw"
+   }
+  ]
+ },
+ {
+  "id": "kuala-lumpur",
+  "zh": "吉隆坡静思堂",
+  "en": "Kuala Lumpur Jing Si Hall",
+  "lat": 3.205,
+  "lon": 101.657,
+  "country": "马来西亚",
+  "countryEn": "Malaysia",
+  "place": "吉隆坡 Jalan Kepong 359号",
+  "placeEn": "No.359 Jalan Kepong, Kuala Lumpur",
+  "groundbreaking": "2010-09-16",
+  "opened": "2014",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2010-09-16",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?Itemid=375&catid=150%3A2010-01-08-07-26-28&id=10818%3A702F584A5DDD68B5482577A600117381&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_20060201-1/",
+    "title": "慈济人文志业（tzuchiculture.org）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?option=com_content&view=article&id=10818:702F584A5DDD68B5482577A600117381&catid=150:2010-01-08-07-26-28&Itemid=375",
+    "title": "慈濟全球社區網（動土）"
+   },
+   {
+    "url": "https://www.sinchew.com.my/20140511/%E5%BB%BA%E7%AB%A3%E9%A6%96%E5%9C%BA%E6%B4%BB%E5%8A%A8%EF%BC%8E%E6%85%8E%E6%B5%8E2%E4%B8%87%E4%BA%BA%E9%9D%99%E6%80%9D%E5%A0%82%E6%B5%B4%E4%BD%9B/",
+    "title": "星洲網（啟用浴佛）"
+   }
+  ],
+  "model": true
+ },
+ {
+  "id": "zhushan",
+  "zh": "竹山静思堂",
+  "en": "Zhushan Jing Si Hall",
+  "lat": 23.757,
+  "lon": 120.684,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "南投县竹山镇大智路52号",
+  "placeEn": "Zhushan Township, Nantou County",
+  "groundbreaking": "2012-09-20",
+  "opened": "2014-07-01",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2012-09-20",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=156&catid=58%3Anantoo&id=60246%3A085593506F0BD7C848257D0B005437D1&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://web.tzuchiculture.org.tw/docs/pdf/665.pdf",
+    "title": "慈济人文志业（web.tzuchiculture.org.tw）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?option=com_content&view=article&id=60246:085593506F0BD7C848257D0B005437D1&catid=58:nantoo&Itemid=156",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.daai.tv/news/582485",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "houston",
+  "zh": "美国休士顿静思堂",
+  "en": "Houston Jing Si Hall",
+  "lat": 29.7,
+  "lon": -95.56,
+  "country": "美国",
+  "countryEn": "United States",
+  "place": "美国德州休士顿 Corporate Drive",
+  "placeEn": "Corporate Drive, Houston, Texas",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2014-10-18（二期）",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2012-12",
+  "sources": [
+   {
+    "url": "https://journal.tzuchi.us/zh/article/253/southern-region-origin/",
+    "title": "慈济（journal.tzuchi.us）"
+   },
+   {
+    "url": "https://tcdata.tzuchi-org.tw/files/public/2024/05/20231203-104150117-9041.pdf",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tzuchi.us/zh/blog/southern-opening-ceremony-2014",
+    "title": "慈济（tzuchi.us）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?option=com_content&view=category&id=27:new-to-joomla&layout=blog&Itemid=208&limitstart=435",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   }
+  ],
+  "note": "德州分会会所 1996 年启用；静思堂为二期工程。"
+ },
+ {
+  "id": "bandung",
+  "zh": "印尼万隆静思堂",
+  "en": "Bandung Jing Si Hall",
+  "lat": -6.912,
+  "lon": 107.585,
+  "country": "印度尼西亚",
+  "countryEn": "Indonesia",
+  "place": "万隆 Jl. Jenderal Sudirman 628号",
+  "placeEn": "Jl. Jenderal Sudirman 628, Bandung",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2019-11-03",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2014-05-16",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?Itemid=370&catid=145%3A2010-01-08-07-24-02&id=101255%3ABA9E5990FFA411E9AE6069D4E3186266&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.jingsi.com/?catid=2&id=54:stores-overseas&view=article",
+    "title": "www.jingsi.com"
+   },
+   {
+    "url": "https://www.tzuchi.or.id/read-berita/semakin-menyentuh-masyarakat/4369",
+    "title": "慈济（www.tzuchi.or.id）"
+   },
+   {
+    "url": "https://www.tzuchi.or.id/read-berita/rumah-batin-insan-tzu-chi-di-bumi-parahyangan/8668",
+    "title": "慈济（www.tzuchi.or.id）"
+   }
+  ]
+ },
+ {
+  "id": "thailand",
+  "zh": "泰国静思堂",
+  "en": "Thailand Jing Si Hall",
+  "lat": 13.688,
+  "lon": 100.68,
+  "country": "泰国",
+  "countryEn": "Thailand",
+  "place": "泰国曼谷巴威区",
+  "placeEn": "Prawet, Bangkok",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2016-05-08",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2014-06",
+  "sources": [
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/detail/W_TA001_22182?keyword=%E7%99%BC%E6%94%BE",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.daai.tv/news/235725",
+    "title": "大爱电视（www.daai.tv）"
+   },
+   {
+    "url": "https://www.daai.tv/news/history/596039",
+    "title": "大爱电视（www.daai.tv）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=category&layout=blog&id=159&Itemid=432&limitstart=145",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   }
+  ]
+ },
+ {
+  "id": "batam",
+  "zh": "印尼巴淡静思堂",
+  "en": "Batam Jing Si Hall",
+  "lat": 1.14,
+  "lon": 104.02,
+  "country": "印度尼西亚",
+  "countryEn": "Indonesia",
+  "place": "印尼廖内群岛巴淡 Lubuk Baja",
+  "placeEn": "Lubuk Baja, Batam, Riau Islands",
+  "groundbreaking": "2015-06-14",
+  "opened": "2018-08-18",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2015-06-14",
+  "sources": [
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/detail/20231205-041454383-4704?keyword=%E8%8C%B9%E7%B4%A0",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/download_asset_file?name=2018%E5%B9%B4%E6%85%88%E6%BF%9F%E5%B9%B4%E9%91%91_%E7%B8%BD%E8%AB%96%E5%B9%B4%E8%A1%A8.pdf&path=files%2Fpublic%2F2024%2F11%2F20241120-204721517-3521.pdf",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.tzuchi.or.id/berita-foto/peletakan-batu-pertama-aula-jing-si-tzu-chi-batam/423",
+    "title": "慈济（www.tzuchi.or.id）"
+   },
+   {
+    "url": "https://www.daai.tv/news/119519",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "bade",
+  "zh": "八德静思堂",
+  "en": "Bade Jing Si Hall",
+  "lat": 24.948,
+  "lon": 121.297,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "桃园市八德区兴丰路1139号",
+  "placeEn": "Bade District, Taoyuan",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2020",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2016-09-25",
+  "sources": [
+   {
+    "url": "https://www.daai.tv/master/daily-journal/P00501171",
+    "title": "大爱电视（www.daai.tv）"
+   },
+   {
+    "url": "https://www.jingsi.com/stores",
+    "title": "www.jingsi.com"
+   },
+   {
+    "url": "https://www.shunting.com.tw/%E5%B7%A5%E7%A8%8B%E5%AF%A6%E7%B8%BE/%E5%AE%97%E6%95%99%E5%BB%BA%E7%AF%89/%E6%85%88%E6%BF%9F%E5%85%AB%E5%BE%B7%E9%9D%9C%E6%80%9D%E5%A0%82%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B",
+    "title": "www.shunting.com.tw"
+   },
+   {
+    "url": "https://www.daai.tv/news/taiwan/480320",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "guandu",
+  "zh": "关渡静思堂",
+  "en": "Guandu Jing Si Hall",
+  "lat": 25.12,
+  "lon": 121.466,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台北市北投区立德路8号",
+  "placeEn": "Beitou District, Taipei",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2023-01-01",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2017-04",
+  "sources": [
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/download_asset_file?name=2023%E5%B9%B4%E6%85%88%E6%BF%9F%E5%B9%B4%E9%91%91_%E5%B9%B4%E8%A1%A8_%E4%BA%BA%E6%96%87%E5%B9%B4%E8%A1%A8.pdf&path=files%2Fpublic%2F2024%2F09%2F20240701-102329499-7392.pdf",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.jingsi.com/stores",
+    "title": "www.jingsi.com"
+   },
+   {
+    "url": "https://www.daai.tv/announcement/119",
+    "title": "大愛電視（啟用公告）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=85352%3A9FEE0930BB9411E68677C7EDC3463B84&catid=90%3A2009-12-21-02-51-46&Itemid=290",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   }
+  ]
+ },
+ {
+  "id": "muar",
+  "zh": "麻坡静思堂",
+  "en": "Muar Jing Si Hall",
+  "lat": 2.045,
+  "lon": 102.57,
+  "country": "马来西亚",
+  "countryEn": "Malaysia",
+  "place": "柔佛州麻坡",
+  "placeEn": "Muar, Johor",
+  "groundbreaking": "2017-05-27",
+  "opened": "2024-04-27",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2017-05-27",
+  "sources": [
+   {
+    "url": "https://tw.tzuchi.org/ebook/almanac/2017almanac/files/assets/common/downloads/publication.pdf",
+    "title": "慈济基金会（tw.tzuchi.org）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=374&catid=149%3A2010-01-08-07-26-13&id=98461%3A71EC6B70512511E9AF4DA04342B84633&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.tzuchi.my/zh/%E6%85%8E%E6%B5%8E%E6%96%B0%E7%9F%A5/%E6%85%8E%E6%B5%8E%E6%8A%A5%E5%AF%BC/%E7%A4%BE%E5%8C%BA%E5%BF%97%E5%B7%A5%E7%BA%AA%E5%AE%9E/cat/%E4%BA%BA%E6%96%87%E7%BA%AA%E5%AE%9E/%E9%BA%BB%E5%9D%A1%E9%9D%99%E6%80%9D%E5%A0%82%E5%90%AF%E7%94%A8%E8%BF%8E%E6%8E%A5%E5%BF%83%E5%AE%B6",
+    "title": "慈济马来西亚（www.tzuchi.my）"
+   },
+   {
+    "url": "https://johor.sinchew.com.my/news/20240427/johor/5566648",
+    "title": "johor.sinchew.com.my"
+   }
+  ],
+  "model": true
+ },
+ {
+  "id": "dongda",
+  "zh": "东大静思堂",
+  "en": "Dongda Jing Si Hall",
+  "lat": 24.183,
+  "lon": 120.597,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台中市西屯区东大路一段888号",
+  "placeEn": "Xitun District, Taichung",
+  "groundbreaking": "2017-06-13",
+  "opened": "2023-02-05",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2017-06-13",
+  "sources": [
+   {
+    "url": "https://tcdata.tzuchi-org.tw/asset/download_asset_file?name=2023%E5%B9%B4%E6%85%88%E6%BF%9F%E5%B9%B4%E9%91%91_%E5%B9%B4%E8%A1%A8_%E7%B8%BD%E8%AB%96%E5%B9%B4%E8%A1%A8.pdf&path=files%2Fpublic%2F2024%2F09%2F20240701-105111001-9032.pdf",
+    "title": "慈济典藏资料（tcdata.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tw.tzuchi.org/doc/tzuchibooks/9789869909068.pdf",
+    "title": "慈济基金会（tw.tzuchi.org）"
+   },
+   {
+    "url": "https://www.tcnews.com.tw/news/item/17495.html",
+    "title": "www.tcnews.com.tw"
+   },
+   {
+    "url": "https://www.daai.tv/news/555771",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "dali",
+  "zh": "大里静思堂",
+  "en": "Dali Jing Si Hall",
+  "lat": 24.093,
+  "lon": 120.693,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台中市大里区里科街66号",
+  "placeEn": "Dali District, Taichung",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2021-05",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2017-08-21",
+  "sources": [
+   {
+    "url": "https://tw.tzuchi.org/doc/tzuchibooks/9789869909068.pdf",
+    "title": "慈济基金会（tw.tzuchi.org）"
+   },
+   {
+    "url": "https://www.daait.com/index.php/tc/2011-08-16-09-05-29/2011-09-27-09-04-07",
+    "title": "www.daait.com"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=89366:3FCAC1908CD311E781DF0FAA35C9A099&catid=54:taichong&Itemid=284",
+    "title": "慈濟全球社區網（動土）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?view=article&catid=54%3Ataichong&id=108503%3A998AA3E0FF3D11EBA9B86C9D06DFDAB4&tmpl=component&print=1&layout=default&page=&option=com_content&Itemid=284",
+    "title": "慈濟全球社區網（啟用）"
+   }
+  ]
+ },
+ {
+  "id": "yilan",
+  "zh": "宜兰静思堂",
+  "en": "Yilan Jing Si Hall",
+  "lat": 24.748,
+  "lon": 121.749,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "宜兰县宜兰市泰山路5号",
+  "placeEn": "Yilan City, Yilan County",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2025-05-04",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2018-09",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=281&catid=28%3Ailan&id=129088%3A0EF781D02F3111F0868F2FF92A5FA2C8&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?Itemid=281&catid=28%3Ailan&id=128518%3A3469E3F0192311F0868E2FF92A5FA2C8&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?option=com_content&view=article&id=129088:0EF781D02F3111F0868F2FF92A5FA2C8&catid=28:ilan&Itemid=281",
+    "title": "慈濟全球社區網（啟用）"
+   },
+   {
+    "url": "https://www.daai.tv/news/583390",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "fengshan",
+  "zh": "凤山静思堂",
+  "en": "Fengshan Jing Si Hall",
+  "lat": 22.64,
+  "lon": 120.354,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "高雄市凤山区国泰路二段396号",
+  "placeEn": "Fengshan District, Kaohsiung",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2024-10",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2019-04-28",
+  "sources": [
+   {
+    "url": "https://www.youtube.com/watch?v=Rgw06irfQvk",
+    "title": "慈济官方影片 YouTube（www.youtube.com）"
+   },
+   {
+    "url": "https://n.yam.com/Article/20250316825121",
+    "title": "n.yam.com"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=122564:7E47915006ED11EF9C4EF77C14A15598&catid=45:shop&Itemid=273",
+    "title": "慈濟全球社區網（動土）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?view=article&catid=45%3Ashop&id=132823%3A653A4410CAA411F0AD37542CDC45A775&tmpl=component&print=1&layout=default&page=&option=com_content&Itemid=273",
+    "title": "慈濟全球社區網（啟用）"
+   }
+  ]
+ },
+ {
+  "id": "xizhi",
+  "zh": "汐止静思堂",
+  "en": "Xizhi Jing Si Hall",
+  "lat": 25.071,
+  "lon": 121.649,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "新北市汐止区福德一路",
+  "placeEn": "Xizhi District, New Taipei",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2022-12-29",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2020-03",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?Itemid=290&catid=90%3A2009-12-21-02-51-46&id=114534%3A14201A3094D011ED8CC69CFEAA051988&layout=default&option=com_content&page=&print=1&tmpl=component&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.jingsi.com/stores",
+    "title": "www.jingsi.com"
+   },
+   {
+    "url": "https://tcmonthly.tzuchiculture.org.tw/?p=65781",
+    "title": "慈济人文志业（tcmonthly.tzuchiculture.org.tw）"
+   },
+   {
+    "url": "https://www.daai.tv/news/taiwan/554896",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ],
+  "note": "由原汐止共修处拆除重建。"
+ },
+ {
+  "id": "sanyi",
+  "zh": "三义静思堂",
+  "en": "Sanyi Jing Si Hall",
+  "lat": 24.417,
+  "lon": 120.77,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "苗栗县三义乡",
+  "placeEn": "Sanyi Township, Miaoli County",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2024-08",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2020-10-27",
+  "sources": [
+   {
+    "url": "https://daai.tv/news/576290?from=yahoo",
+    "title": "大爱电视（daai.tv）"
+   },
+   {
+    "url": "https://www.jsnews.org.tw/awareness/itemlist/category/324.html?start=30",
+    "title": "www.jsnews.org.tw"
+   },
+   {
+    "url": "https://www.miaoli.gov.tw/News_Content2.aspx?n=285&s=357960&sms=9459",
+    "title": "苗栗縣政府（動土）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=124714",
+    "title": "慈濟全球社區網（啟用）"
+   }
+  ]
+ },
+ {
+  "id": "south-africa",
+  "zh": "南非静思堂",
+  "en": "South Africa Jing Si Hall",
+  "lat": -26.18,
+  "lon": 28.135,
+  "country": "南非",
+  "countryEn": "South Africa",
+  "place": "南非约翰内斯堡 Bedfordview",
+  "placeEn": "Bedfordview, Johannesburg, South Africa",
+  "groundbreaking": "2020-11-15",
+  "opened": "2022-06-19",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2020-11-15",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?Itemid=427&catid=182%3A2022-09-01-00-10-12&id=111581%3A27D390A0F3A611ECA476110C63CCF5C9&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=111362:8BB8D4A0D69511EC869C6B31F48B099F&catid=83:2009-12-08-15-17-14&Itemid=200",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?option=com_content&view=article&id=111581:27D390A0F3A611ECA476110C63CCF5C9&catid=182:2022-09-01-00-10-12&Itemid=427",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   }
+  ],
+  "note": "非洲第一座静思堂。The first Jing Si Hall in Africa."
+ },
+ {
+  "id": "pingtung-city",
+  "zh": "屏东静思堂（屏东市新堂）",
+  "en": "Pingtung City Jing Si Hall (new)",
+  "lat": 22.672,
+  "lon": 120.488,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "屏东县屏东市",
+  "placeEn": "Pingtung City, Pingtung County",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "—",
+  "status": "兴建中",
+  "statusEn": "Under construction",
+  "key": "2021-10-06",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?Itemid=319&catid=119%3A2009-12-21-03-01-11&id=132605%3A1249B5F0C36111F0AD37542CDC45A775&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=126594%3AF5BA1740BAE711EF821B3BDFAAF57DAD&catid=119%3A2009-12-21-03-01-11&Itemid=319",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.daai.tv/news/579429",
+    "title": "大爱电视（www.daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "linkou",
+  "zh": "林口静思堂",
+  "en": "Linkou Jing Si Hall",
+  "lat": 25.077,
+  "lon": 121.39,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "新北市林口区文化北路一段",
+  "placeEn": "Linkou District, New Taipei",
+  "groundbreaking": "2022",
+  "opened": "2026-01-10",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2022-03-03",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?id=133570&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tvms.tzuchi.com.my/news/7237",
+    "title": "慈济（tvms.tzuchi.com.my）"
+   },
+   {
+    "url": "https://www.youtube.com/watch?v=qUWlvMFoR2I",
+    "title": "大愛電視YouTube（動土）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=132052:8AEA7360A76D11F0AEEF6CA054E58197&catid=90:2009-12-21-02-51-46&Itemid=1194",
+    "title": "慈濟全球社區網（2025-10試運作）"
+   }
+  ]
+ },
+ {
+  "id": "ruisui",
+  "zh": "瑞穗静思堂",
+  "en": "Ruisui Jing Si Hall",
+  "lat": 23.497,
+  "lon": 121.376,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "花莲县瑞穗乡",
+  "placeEn": "Ruisui Township, Hualien County",
+  "groundbreaking": "核实中 · Pending",
+  "opened": "2024-05-26",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2022-06",
+  "sources": [
+   {
+    "url": "https://daai.tv/master/life-wisdom/P00239551?p=22",
+    "title": "大爱电视（daai.tv）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/?option=com_content&view=article&id=123262",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://daai.tv/news/taiwan/576495",
+    "title": "大爱电视（daai.tv）"
+   }
+  ]
+ },
+ {
+  "id": "kelantan",
+  "zh": "吉兰丹静思堂",
+  "en": "Kelantan Jing Si Hall",
+  "lat": 6.15,
+  "lon": 102.27,
+  "country": "马来西亚",
+  "countryEn": "Malaysia",
+  "place": "吉兰丹哥打巴鲁",
+  "placeEn": "Kota Bharu, Kelantan",
+  "groundbreaking": "2023-05-13",
+  "opened": "核实中 · Pending",
+  "status": "核实中",
+  "statusEn": "Pending",
+  "key": "2023-05-13",
+  "sources": [
+   {
+    "url": "https://www.youtube.com/watch?v=XoMgZE3nRhE",
+    "title": "慈济官方影片 YouTube（www.youtube.com）"
+   },
+   {
+    "url": "https://tw.news.yahoo.com/%E9%95%B7%E7%85%A7%E6%B4%BB%E5%8B%95%E9%87%8D%E6%96%B0%E5%95%9F%E8%88%AA-%E9%95%B7%E8%80%85%E5%BF%97%E5%B7%A5%E6%AD%A1%E5%96%9C%E9%87%8D%E9%80%A2-223554925.html",
+    "title": "新闻报道（tw.news.yahoo.com）"
+   },
+   {
+    "url": "https://www.tzuchi.org.my/2023/05/13/20230513_%E5%90%8C%E6%85%B6%E6%85%8E%E6%BF%9F57%E3%80%82%E6%B7%B1%E8%80%95%E4%B8%B9%E5%B7%9E27-11/?lang=zh-hant",
+    "title": "慈济马来西亚（www.tzuchi.org.my）"
+   },
+   {
+    "url": "https://eastcoast.sinchew.com.my/news/20230515/eastcoast/4679872?variant=zh-hant",
+    "title": "eastcoast.sinchew.com.my"
+   }
+  ],
+  "model": true
+ },
+ {
+  "id": "shalu",
+  "zh": "沙鹿静思堂",
+  "en": "Shalu Jing Si Hall",
+  "lat": 24.235,
+  "lon": 120.565,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "台中市沙鹿区镇南路二段",
+  "placeEn": "Shalu District, Taichung",
+  "groundbreaking": "2024-01-20",
+  "opened": "—",
+  "status": "兴建中",
+  "statusEn": "Under construction",
+  "key": "2024-01-20",
+  "sources": [
+   {
+    "url": "https://tw.tzuchi.org/community/index.php?Itemid=284&catid=54%3Ataichong&id=120987%3A31774790B93511EE8715A2155D080D85&option=com_content&view=article",
+    "title": "慈济基金会（tw.tzuchi.org）"
+   },
+   {
+    "url": "https://www.bookzone.com.tw/event/GB350/canvass/gooddeed.html",
+    "title": "www.bookzone.com.tw"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?option=com_content&view=article&id=120987:31774790B93511EE8715A2155D080D85&catid=54:taichong&Itemid=284",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://www.tcnews.com.tw/news/item/21230.html",
+    "title": "www.tcnews.com.tw"
+   }
+  ]
+ },
+ {
+  "id": "klang",
+  "zh": "巴生静思堂",
+  "en": "Klang Jing Si Hall",
+  "lat": 2.995,
+  "lon": 101.455,
+  "country": "马来西亚",
+  "countryEn": "Malaysia",
+  "place": "雪兰莪州巴生 Bandar Botanic",
+  "placeEn": "Bandar Botanic, Klang, Selangor",
+  "groundbreaking": "2024-11",
+  "opened": "—",
+  "status": "兴建中",
+  "statusEn": "Under construction",
+  "key": "2024-11-09",
+  "sources": [
+   {
+    "url": "https://www.youtube.com/watch?v=HhALiGLzVbU",
+    "title": "慈济官方影片 YouTube（www.youtube.com）"
+   },
+   {
+    "url": "https://tcmonthly.tzuchiculture.org.tw/?p=82438",
+    "title": "慈济人文志业（tcmonthly.tzuchiculture.org.tw）"
+   },
+   {
+    "url": "https://www.tzuchi.my/zh/%E6%85%8E%E6%B5%8E%E6%96%B0%E7%9F%A5/%E6%85%8E%E6%B5%8E%E6%8A%A5%E5%AF%BC/%E7%A4%BE%E5%8C%BA%E5%BF%97%E5%B7%A5%E7%BA%AA%E5%AE%9E/cat/%E4%BA%BA%E6%96%87%E7%BA%AA%E5%AE%9E/%E4%BC%97%E5%BF%97%E6%88%90%E5%9F%8E-%E5%90%BE%E7%88%B1%E5%90%BE%E5%AE%B6",
+    "title": "慈济马来西亚（www.tzuchi.my）"
+   }
+  ],
+  "model": true,
+  "building": true
+ },
+ {
+  "id": "miri",
+  "zh": "美里静思堂",
+  "en": "Miri Jing Si Hall",
+  "lat": 4.405,
+  "lon": 113.99,
+  "country": "马来西亚",
+  "countryEn": "Malaysia",
+  "place": "砂拉越州美里",
+  "placeEn": "Miri, Sarawak",
+  "groundbreaking": "2024-11-10",
+  "opened": "—",
+  "status": "兴建中",
+  "statusEn": "Under construction",
+  "key": "2024-11-10",
+  "sources": [
+   {
+    "url": "https://www.youtube.com/watch?v=3ceERoU7ie0",
+    "title": "慈济官方影片 YouTube（www.youtube.com）"
+   },
+   {
+    "url": "https://tcmonthly.tzuchiculture.org.tw/?p=82438",
+    "title": "慈济人文志业（tcmonthly.tzuchiculture.org.tw）"
+   },
+   {
+    "url": "https://www.tzuchi.my/zh/%E6%85%8E%E6%B5%8E%E6%96%B0%E7%9F%A5/%E6%85%8E%E6%B5%8E%E6%8A%A5%E5%AF%BC/%E7%A4%BE%E5%8C%BA%E5%BF%97%E5%B7%A5%E7%BA%AA%E5%AE%9E/cat/%E7%A0%82%E6%8B%89%E8%B6%8A%E9%A6%96%E5%BA%A7%E9%9D%99%E6%80%9D%E5%A0%82-%E7%BE%8E%E9%87%8C%E7%B2%BE%E7%A5%9E%E5%A0%A1%E5%9E%92%E5%8A%A8%E5%9C%9F",
+    "title": "慈济马来西亚（www.tzuchi.my）"
+   },
+   {
+    "url": "https://sarawak.sinchew.com.my/news/20241108/sarawak/6056966?variant=zh-hant",
+    "title": "sarawak.sinchew.com.my"
+   }
+  ],
+  "model": true
+ },
+ {
+  "id": "lumbini",
+  "zh": "尼泊尔蓝毗尼静思堂",
+  "en": "Lumbini Jing Si Hall",
+  "lat": 27.48,
+  "lon": 83.275,
+  "country": "尼泊尔",
+  "countryEn": "Nepal",
+  "place": "尼泊尔蓝毗尼",
+  "placeEn": "Lumbini, Nepal",
+  "groundbreaking": "2025-01-11",
+  "opened": "2026-05-02",
+  "status": "已启用",
+  "statusEn": "In use",
+  "key": "2025-01-11",
+  "sources": [
+   {
+    "url": "https://tvms.tzuchi.com.my/news/7201",
+    "title": "慈济（tvms.tzuchi.com.my）"
+   },
+   {
+    "url": "https://www.jsnews.org.tw/awareness/item/14055.html",
+    "title": "www.jsnews.org.tw"
+   },
+   {
+    "url": "https://www.daai.tv/news/history/591592",
+    "title": "大爱电视（www.daai.tv）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?option=com_content&view=article&id=135376:93D24530461311F1AB9830378AEADEFD&catid=190:2023-12-12-01-54-59&Itemid=439",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   }
+  ],
+  "note": "佛陀诞生地。Lumbini, birthplace of the Buddha."
+ },
+ {
+  "id": "zimbabwe",
+  "zh": "辛巴威静思堂",
+  "en": "Zimbabwe Jing Si Hall",
+  "lat": -17.62,
+  "lon": 31.14,
+  "country": "津巴布韦",
+  "countryEn": "Zimbabwe",
+  "place": "津巴布韦哈拉雷 Domboshawa",
+  "placeEn": "Domboshawa, Harare, Zimbabwe",
+  "groundbreaking": "2025-09-07",
+  "opened": "—",
+  "status": "兴建中",
+  "statusEn": "Under construction",
+  "key": "2025-09-07",
+  "sources": [
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?Itemid=432&catid=187%3A2023-03-20-01-03-47&id=131406%3A8F527090984711F0AEEF6CA054E58197&option=com_content&view=article",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://tcopen.tzuchi-org.tw/community/index.php?option=com_content&view=article&id=131406:8F527090984711F0AEEF6CA054E58197&catid=187:2023-03-20-01-03-47&Itemid=432",
+    "title": "慈济社区网（tcopen.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://event.tzuchiculture.org/31%E5%B9%B4%E7%9A%84%E5%AE%88%E8%AD%B7/",
+    "title": "慈济人文志业（event.tzuchiculture.org）"
+   }
+  ]
+ },
+ {
+  "id": "gangshan",
+  "zh": "冈山静思堂",
+  "en": "Gangshan Jing Si Hall",
+  "lat": 22.797,
+  "lon": 120.297,
+  "country": "台湾",
+  "countryEn": "Taiwan",
+  "place": "高雄市冈山区",
+  "placeEn": "Gangshan District, Kaohsiung",
+  "groundbreaking": "2026-02-28",
+  "opened": "—",
+  "status": "兴建中",
+  "statusEn": "Under construction",
+  "key": "2026-02-28",
+  "sources": [
+   {
+    "url": "https://infobackend.tzuchi-org.tw/index.php?catid=15&id=4871%3Aqian-zhong-yi-xin-gang-shan-jing-si-tang-qi-jian-er-shi-nian-yuan-li-hui-ju-gao-xiong-ci-ji-ren-di-jia&view=article",
+    "title": "慈济（infobackend.tzuchi-org.tw）"
+   },
+   {
+    "url": "https://daai.tv/news/life/592989",
+    "title": "大爱电视（daai.tv）"
+   },
+   {
+    "url": "https://infobackend.tzuchi-org.tw/index.php?view=article&id=4871&catid=15",
+    "title": "慈济（infobackend.tzuchi-org.tw）"
+   }
+  ]
+ }
 ];
 
 // 自查用：?pin=lat,lon 把第一座换成测试点，核对贴图对位
@@ -303,7 +1809,7 @@ function flyTo(dirEnd, distEnd, lookEnd, dur, done){
 }
 function goHall(i){
   cur=(i+HALLS.length)%HALLS.length; mode='focus'; document.body.classList.add('focus'); document.body.classList.remove('show-card');
-  const w=worldOf(cur); flyTo(w, CONFIG.focusDist*(camera.aspect<1?1.45:1), w.clone().multiplyScalar(.0), CONFIG.flyTime, ()=>{ renderCard(HALLS[cur]); document.body.classList.add('show-card'); drawArt(); scheduleAuto(); });
+  const w=worldOf(cur); const zd=CONFIG.zoom[HALLS[cur].country]??CONFIG.focusDist; flyTo(w, 1+(zd-1)*(camera.aspect<1?1.45:1), w.clone().multiplyScalar(.0), CONFIG.flyTime, ()=>{ renderCard(HALLS[cur]); document.body.classList.add('show-card'); drawArt(); scheduleAuto(); });
   updateNav();
 }
 function goHome(){
@@ -331,8 +1837,8 @@ function renderCard(h){
       <dt>状态<small>Status</small></dt><dd>${esc(h.status)}<small>${esc(h.statusEn)}</small></dd>
     </dl>
     ${h.note?`<div class="sec"><p>${esc(h.note)}</p></div>`:''}
-    <div class="sec"><h3>缘起 · STORY</h3><p>${esc(h.story)}</p></div>
-    <div class="sec"><h3>静思语 · JING SI APHORISM</h3><p class="quote">${esc(h.quote)}<small>${esc(h.quoteEn)}</small></p></div>
+    ${h.story?`<div class="sec"><h3>缘起 · STORY</h3><p>${esc(h.story)}</p></div>`:''}
+    ${h.quote?`<div class="sec"><h3>静思语 · JING SI APHORISM</h3><p class="quote">${esc(h.quote)}<small>${esc(h.quoteEn)}</small></p></div>`:''}
     ${h.model?'<button class="btn3d" disabled>360° 外观（制作中）· 3D view coming</button>':''}
     <div class="sec"><h3>资料来源 · SOURCES</h3><p class="src">${src}</p></div>`;
 }
@@ -358,6 +1864,7 @@ function buildIndex(){
     `<h4>${esc(c)} · ${esc(HALLS[ids[0]].countryEn||'')}</h4>`+ids.map(i=>
       `<button data-i="${i}" class="${i===cur?'cur':''}"><i>${String(i+1).padStart(2,'0')}</i><span>${esc(HALLS[i].zh)}<small>${esc(HALLS[i].en)}</small></span></button>`).join('')).join('');
 }
+document.getElementById('icount').textContent=HALLS.length;
 document.getElementById('menuBtn').onclick=()=>{ buildIndex(); document.body.classList.add('show-index'); };
 document.getElementById('closeIdx').onclick=()=>document.body.classList.remove('show-index');
 document.getElementById('ilist').onclick=e=>{ const b=e.target.closest('button[data-i]'); if(!b) return; document.body.classList.remove('show-index'); stopAuto(); goHall(+b.dataset.i); };
@@ -405,7 +1912,8 @@ function frame(){
   markers.forEach((m,i)=>{ const on = mode==='focus' && i===cur, nx = mode==='focus' && i===cur+1;
     const target = on? 1 : nx? 0.45+0.35*Math.sin(t*2.4) : (mode==='idle'? 0.55 : 0.25);
     m.material.opacity += (target-m.material.opacity)*(SNAP?1:1-Math.exp(-dt*4));
-    m.scale.setScalar(on? 0.032+0.004*Math.sin(t*3) : 0.03); });
+    const f=Math.min(1,(camera.position.length()-1)/0.75);   // 镜头越近，光点越小，台湾那一簇才分得开
+    m.scale.setScalar(f*(on? 0.034+0.004*Math.sin(t*3) : 0.02)); });
   // 名字标签
   if(mode==='focus' && cur>=0 && !fly){ const p=worldOf(cur).project(camera);
     const lx=(p.x+1)/2*W; label.textContent=HALLS[cur].zh; const flip = lx+label.offsetWidth+30>W;
