@@ -1779,10 +1779,16 @@ const earthMat = new THREE.ShaderMaterial({
     void main(){ vUv=uv; vN=normalize(mat3(modelMatrix)*normal); vec4 w=modelMatrix*vec4(position,1.); vP=w.xyz;
       gl_Position=projectionMatrix*viewMatrix*w; }`,
   fragmentShader:`
-    uniform sampler2D dayMap,nightMap,specMap; uniform vec3 sunDir;
+    uniform sampler2D dayMap,nightMap,specMap; uniform vec3 sunDir; uniform mat4 modelMatrix;
     varying vec2 vUv; varying vec3 vN; varying vec3 vP;
     ${GLASS_FN}
     float landAt(vec2 uv){ return 1.0-texture2D(specMap,uv).r; }
+    float backLand(vec3 n,vec3 V){                                     // 光线穿过玻璃球，看到背面的陆地
+      vec3 r=refract(-V,n,1.0/1.45);
+      vec3 o=normalize(transpose(mat3(modelMatrix))*(n-2.0*dot(n,r)*r));
+      vec2 uv=vec2(fract(atan(o.z,-o.x)/6.2831853),1.0-acos(clamp(o.y,-1.0,1.0))/3.1415927);
+      return smoothstep(0.30,0.70,1.0-textureLod(specMap,uv,3.0).r);
+    }
     vec3 glassCol(vec3 n,vec3 V,float d,vec3 day){
       vec2 e=vec2(0.0016,0.0022);                                     // 陆地边缘略柔，像玻璃里的色料
       float raw=(landAt(vUv)*2.0+landAt(vUv+e*vec2(1,0))+landAt(vUv-e*vec2(1,0))+landAt(vUv+e*vec2(0,1))+landAt(vUv-e*vec2(0,1)))/6.0;
@@ -1793,18 +1799,20 @@ const earthMat = new THREE.ShaderMaterial({
       float lum=dot(day,vec3(0.3,0.59,0.11));
       vec3 rt=normalize(cross(vec3(0.0,1.0,0.0),V)), upv=cross(V,rt);
       float below=smoothstep(0.75,-0.85,dot(n,upv));                  // 佛像的光从底座往上打，下半球最亮
-      vec3 sea=mix(vec3(0.70,0.75,0.78),vec3(1.0,0.99,0.96),0.30+0.70*below);    // 磨砂乳白
-      sea=mix(vec3(0.60,0.67,0.72),sea,smoothstep(0.0,0.55,facing));
-      vec3 gold=mix(vec3(0.56,0.36,0.15),vec3(0.84,0.62,0.32),smoothstep(0.10,0.60,lum)*0.55+below*0.45);  // 琥珀金，少留地形
-      vec3 c=mix(sea,gold,land);
-      c+=vec3(1.0,0.9,0.72)*bevel*0.05*land;
+      // 颜色取自冷光实物照 hall3d/sources/_globe/g2.jpg：海 0.81 亮白、陆地是较深的白，不用金褐
+      vec3 sea=mix(vec3(0.83,0.85,0.87),vec3(0.97,0.98,0.98),0.20+0.80*below);
+      sea*=1.0-0.055*backLand(n,V);
+      vec3 ground=mix(vec3(0.50,0.52,0.54),vec3(0.70,0.71,0.72),below);
+      ground+=(lum-0.30)*0.07;                                        // 磨砂面的一点起伏
+      vec3 c=mix(sea,ground,land);
+      c+=vec3(1.0)*bevel*0.05*land;
+      c=mix(c,vec3(0.13,0.17,0.23),smoothstep(0.34,0.04,facing)*0.62);  // 球缘透明，透出后面的夜空
       vec3 L=normalize(V*0.72+upv*0.56-rt*0.40), H=normalize(L+V);    // 高光固定在左上，不跟太阳走
       float rimBand=smoothstep(.70,.76,1.-facing)*smoothstep(.84,.78,1.-facing);
       float arc=smoothstep(.72,.95,dot(normalize(n-V*dot(n,V)),normalize(upv-rt*.7)));
       c+=vec3(1.0,.99,.97)*rimBand*arc*.16;
-      float fr=pow(1.0-facing,3.0);
-      c=mix(c,vec3(0.90,0.95,1.0),fr*0.70);                           // 水晶边缘
-      c+=vec3(1.0,0.96,0.88)*pow(1.0-facing,7.0)*below*0.5;           // 底部边缘透出的光
+      c=mix(c,vec3(0.90,0.95,1.0),pow(1.0-facing,9.0)*0.80);             // 水晶边缘的细亮线
+      c+=vec3(0.96,0.98,1.0)*pow(1.0-facing,7.0)*below*0.5;           // 底部边缘透出的光
       return c;
     }
     void main(){
@@ -1822,7 +1830,7 @@ const earthMat = new THREE.ShaderMaterial({
       col+=vec3(0.32,0.58,1.0)*fr*smoothstep(-0.25,0.45,d)*0.9;          // 边缘大气
       float edge; float g=glassAmt(n,edge);
       if(g>0.001) col=mix(col,glassCol(n,V,d,day),g);
-      col+=vec3(1.0,0.82,0.52)*edge*0.55;                               // 换风格的那道金光
+      col+=vec3(0.92,0.96,1.0)*edge*0.55;                               // 换风格的那道白光
       gl_FragColor=vec4(col,1.0);
     }`
 });
@@ -1848,7 +1856,7 @@ const atmo = new THREE.Mesh(new THREE.SphereGeometry(1.09, 96, 64), new THREE.Sh
   fragmentShader:`uniform vec3 sunDir; uniform float cover; varying vec3 vN; varying vec3 vW;
     void main(){ float i=pow(max(0.74-dot(vN,vec3(0.,0.,1.)),0.0),4.0)*0.55;   // BackSide：越靠近地球边缘越亮
       float s=smoothstep(-0.35,0.5,dot(vW,sunDir));
-      gl_FragColor=vec4(mix(vec3(0.35,0.62,1.0)*(0.18+0.95*s),vec3(0.95,0.86,0.70)*0.55,cover)*i,1.0); }`
+      gl_FragColor=vec4(mix(vec3(0.35,0.62,1.0)*(0.18+0.95*s),vec3(0.86,0.90,0.95)*0.45,cover)*i,1.0); }`
 }));
 scene.add(atmo);
 
@@ -2155,7 +2163,7 @@ function applyShift(){
 }
 
 // ======================== 地球风格：写实 ⇄ 琉璃 ========================
-// auto：转动时一道金光扫过，两种风格轮流；glass／real：固定。聚焦静思堂时一律回写实（要看地图）
+// auto：转动时一道白光扫过，两种风格轮流；glass／real：固定。聚焦静思堂时一律回写实（要看地图）
 const STYLES=[['auto','◐ 琉璃轮转','Glass cycle'],['glass','◉ 琉璃地球','Glass Earth'],['real','○ 真实地球','Real Earth']];
 let styleI=0, gT=0, gPhase=0;   // gPhase 0 写实停留、1 扫成琉璃、2 琉璃停留、3 扫回写实
 const styleBtn=document.getElementById('styleBtn');
