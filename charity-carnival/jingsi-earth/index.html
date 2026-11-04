@@ -233,10 +233,10 @@ body.focus .kEntry{opacity:0;pointer-events:none}
 .intro cite{display:block;font-style:normal;font-family:var(--serif);font-size:clamp(14px,1.4vw,18px);letter-spacing:.2em;color:var(--gold);margin-top:26px}
 .intro cite small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.04em;color:var(--ink3);margin-top:8px}
 @keyframes qin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.handFx{position:fixed;left:calc(50% + 12.2vh);top:44.2vh;height:58vh;width:auto;max-width:none;transform:translate(-48.6%,-92.7%);z-index:49;opacity:0;pointer-events:none;transition:opacity 1.2s ease,transform 1.3s cubic-bezier(.22,.7,.3,1)}
+.handFx{position:fixed;left:calc(50% + 12vh);top:44.4vh;height:58vh;width:auto;max-width:none;transform-origin:0 0;transform:translate(-48.6%,-92.7%);z-index:49;opacity:0;pointer-events:none;transition:opacity 1.2s ease,transform 1.3s cubic-bezier(.22,.7,.3,1)}
 .handFx.on{opacity:.92;transform:translate(-48.6%,-87.7%)}
 .handFx.off{opacity:0;transition:opacity 2.2s ease}
-.touchFx{position:fixed;left:calc(50% + 12.2vh);top:44.2vh;width:17vh;height:5vh;margin:-2.5vh 0 0 -8.5vh;border-radius:50%;background:radial-gradient(closest-side,rgba(236,241,246,.75),rgba(236,241,246,.22) 55%,rgba(236,241,246,0));opacity:0;transform:scale(.15);z-index:48;pointer-events:none}
+.touchFx{position:fixed;left:calc(50% + 12vh);top:44.4vh;width:17vh;height:5vh;margin:-2.5vh 0 0 -8.5vh;border-radius:50%;background:radial-gradient(closest-side,rgba(236,241,246,.75),rgba(236,241,246,.22) 55%,rgba(236,241,246,0));opacity:0;transform:scale(.15);z-index:48;pointer-events:none}
 .touchFx.on{animation:touchR 1.6s ease-out 1s both}
 @keyframes touchR{0%{opacity:0;transform:scale(.15)}18%{opacity:.85}100%{opacity:0;transform:scale(1.25)}}
 body.intro .brand,body.intro .hint,body.intro .kEntry,body.intro .menuBtn,body.intro .styleBtn,body.intro .credit,body.intro .credit2{opacity:0!important;pointer-events:none}
@@ -4451,6 +4451,7 @@ addEventListener('keydown',e=>{ if(e.key==='Escape') document.body.classList.rem
 let W=0,H=0;
 function resize(){ W=innerWidth; H=innerHeight; renderer.setSize(W,H,false); camera.aspect=W/H; camera.updateProjectionMatrix(); }
 addEventListener('resize',resize); resize();
+const handAt=(d,k)=>{ const R=153.9/Math.sqrt(d*d-1); return {x:.4*R,y:50+22*k-.917*R,R}; };   // 指尖落点（vh）：球顶偏观者右 0.4R，镜头 fov 36
 let shift=0, introK=0;   // shift：0=居中，1=让位；introK：1=开场（地球退远、下移，留位置给佛手），0=待机
 function applyShift(){
   const mobile=W<=760;
@@ -4544,13 +4545,15 @@ function runIntro(){
   document.getElementById('introQ').innerHTML=quoteHTML(QUOTES.open);
   document.body.classList.add('intro'); introK=1;
   if(STYLES[styleI][0]==='auto'){ gPhase=2; gT=-7; }                    // 佛手触的是琉璃地球，开场先停在琉璃
+  const hb=handAt(5.2,1), follow=()=>{ const p=handAt(CONFIG.idleDist+(5.2-CONFIG.idleDist)*introK,introK), tr=`${(p.x-hb.x).toFixed(2)}vh ${(p.y-hb.y).toFixed(2)}vh`;
+    hf.style.translate=tr; hf.style.scale=(p.R/hb.R).toFixed(3); tf.style.translate=tr; };   // 地球放大时手跟着，指尖不插进球里
   let done=false, timer;
   const reveal=()=>{ if(done) return; done=true; clearTimeout(timer);
     el.classList.add('out'); hf.classList.add('on'); tf.classList.add('on');
     setTimeout(()=>hf.classList.add('off'),1500);
     setTimeout(()=>document.body.classList.remove('intro'),3200);
     const t0=performance.now();
-    (function glide(now){ const k=Math.max(0,Math.min(1,(now-t0-1300)/2800)); introK=1-ease(k);
+    (function glide(now){ const k=Math.max(0,Math.min(1,(now-t0-1300)/2800)); introK=1-ease(k); follow();
       if(k<1) requestAnimationFrame(glide); else { introK=0; el.remove(); hf.remove(); tf.remove(); } })(t0); };
   timer=setTimeout(reveal,reduce?2500:6000);
   el.addEventListener('pointerdown',reveal); addEventListener('keydown',reveal,{once:true});
