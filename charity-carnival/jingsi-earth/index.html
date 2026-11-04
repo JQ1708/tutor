@@ -136,6 +136,8 @@ body.focus .nav{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .styleBtn{position:fixed;left:clamp(16px,3vw,40px);bottom:clamp(16px,4vh,32px);font:inherit;font-size:13px;color:var(--ink2);background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:8px 16px;cursor:pointer;letter-spacing:.08em;transition:opacity .6s}
 .styleBtn small{font-family:var(--en);font-size:12.5px;letter-spacing:.04em;margin-left:4px}
 body.focus .styleBtn{opacity:0;pointer-events:none}
+.musicBtn{position:fixed;right:clamp(16px,3vw,40px);top:calc(clamp(16px,4vh,40px) + 46px);font:inherit;font-size:13px;color:var(--ink2);background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:6px 14px;cursor:pointer;letter-spacing:.08em;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .6s}
+.musicBtn small{font-family:var(--en);font-size:12.5px;letter-spacing:.04em;margin-left:4px}
 .menuBtn small{font-family:var(--en);font-size:14px;color:var(--ink2);letter-spacing:.04em}
 .index{position:fixed;top:0;right:0;bottom:0;width:min(360px,100vw);background:rgba(8,10,18,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-left:1px solid var(--line);
   transform:translateX(100%);transition:transform .5s cubic-bezier(.2,.7,.2,1);z-index:10;display:flex;flex-direction:column}
@@ -221,6 +223,7 @@ body.focus .kEntry{opacity:0;pointer-events:none}
   .kpanel{left:16px;right:16px;width:auto;top:46vh;bottom:92px}
   .kbar{bottom:92px}
   .knote{font-size:11px}
+  .credit{left:8px;right:8px;bottom:2px;font-size:8.5px;line-height:1.15;text-align:right}
   .credit2{left:8px;right:8px;bottom:2px;font-size:8.5px;line-height:1.15}
 }
 @media (prefers-reduced-motion:reduce){.kEntry{animation:none}}
@@ -239,7 +242,7 @@ body.focus .kEntry{opacity:0;pointer-events:none}
 .touchFx{position:fixed;left:calc(50% + 12vh);top:44.4vh;width:17vh;height:5vh;margin:-2.5vh 0 0 -8.5vh;border-radius:50%;background:radial-gradient(closest-side,rgba(236,241,246,.75),rgba(236,241,246,.22) 55%,rgba(236,241,246,0));opacity:0;transform:scale(.15);z-index:48;pointer-events:none}
 .touchFx.on{animation:touchR 1.6s ease-out 1s both}
 @keyframes touchR{0%{opacity:0;transform:scale(.15)}18%{opacity:.85}100%{opacity:0;transform:scale(1.25)}}
-body.intro .brand,body.intro .hint,body.intro .kEntry,body.intro .menuBtn,body.intro .styleBtn,body.intro .credit,body.intro .credit2{opacity:0!important;pointer-events:none}
+body.intro .brand,body.intro .hint,body.intro .kEntry,body.intro .menuBtn,body.intro .musicBtn,body.intro .styleBtn,body.intro .credit,body.intro .credit2{opacity:0!important;pointer-events:none}
 body.snap *{transition:none!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
 </style>
@@ -257,6 +260,8 @@ body.snap *{transition:none!important}
 <button class="kEntry" id="kEntry"><b>巴生静思堂</b><small>这一座还在盖<i>Klang: still being built</i></small></button>
 
 <button class="menuBtn" id="menuBtn">☰ 目录 <small>Index</small></button>
+<button class="musicBtn" id="musicBtn" title="背景音乐开关 Music on/off"></button>
+<audio id="bgm" src="music/echoes.mp3" loop preload="metadata"></audio>
 <button class="styleBtn" id="styleBtn" title="切换地球风格 Switch Earth style"></button>
 <aside class="index" id="index"><div class="ihead"><b>全部静思堂</b><small>All Jing Si Halls · <span id="icount"></span></small><button id="closeIdx" aria-label="关闭">✕</button></div><div class="ilist" id="ilist"></div></aside>
 <div class="veil"></div>
@@ -309,7 +314,7 @@ body.snap *{transition:none!important}
 </nav>
 <div class="label" id="label"></div>
 <div class="pin" id="pin"></div>
-<div class="credit">Earth imagery: NASA · Solar System Scope (CC BY 4.0)</div>
+<div class="credit">Earth imagery: NASA · Solar System Scope (CC BY 4.0)<br>Music: 'Echoes Of Home' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au</div>
 <div class="credit2">Regional imagery: EOxCloudless https://cloudless.eox.at by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2020) · CC BY-NC-SA 4.0</div>
 
 <script>console.warn('Scripts "build/three.js" and "build/three.min.js" are deprecated with r150+, and will be removed with r160. Please use ES Modules or alternatives: https://threejs.org/docs/index.html#manual/en/introduction/Installation'),
@@ -4559,6 +4564,16 @@ function runIntro(){
   el.addEventListener('pointerdown',reveal); addEventListener('keydown',reveal,{once:true});
 }
 runIntro();
+
+// 背景音乐：整首循环。浏览器不许网页没互动就出声，所以接在访客第一次点击／按键上；切到别的分页先停，回来接着放
+if(!SNAP){ const a=document.getElementById('bgm'), b=document.getElementById('musicBtn'); let want=true; a.volume=.6;
+  const start=()=>{ if(want&&a.paused) a.play().catch(()=>{}); };
+  const paint=()=>{ const on=!a.paused; b.innerHTML=`♪ 音乐${on?'开':'关'}<small>${on?'On':'Off'}</small>`; b.setAttribute('aria-pressed',on); };
+  a.addEventListener('play',paint); a.addEventListener('pause',paint); paint();
+  b.onclick=e=>{ e.stopPropagation(); want=a.paused; want?a.play().catch(()=>{}):a.pause(); };
+  ['pointerup','touchend','click','keydown'].forEach(n=>addEventListener(n,e=>{ if(!e.target.closest?.('#musicBtn')) start(); },true));
+  document.addEventListener('visibilitychange',()=>document.hidden?a.pause():start());
+  start(); }
 
 // 截图自查用：?shot=focus&i=0 直接跳到聚焦状态
 if(qs.get('shot')==='index'){ setTimeout(()=>document.getElementById('menuBtn').click(),50); }
