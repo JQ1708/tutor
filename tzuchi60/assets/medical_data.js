@@ -48,15 +48,15 @@
         p: [
           T('慈濟功德會借用花蓮市仁愛街二十八號，成立貧民施醫義診所。店面是德慈師父的俗家母親黃阿奶老太太提供的住家樓下。', 'The Tzu Chi Merit Society borrowed 28 Ren’ai Street in Hualien and opened a free clinic for the poor. The shopfront was the ground floor of a home offered by Huang A-Nai, the lay mother of Master De Ci.'),
           T('志工早早打掃整理，五十多坪的空間裡，掛號、看診、調藥的動線一應俱全。在地藥房義務提供藥品。', 'Volunteers came early to clean. In a little over fifty ping of floor space they laid out a path from registration to consultation to dispensing. A local pharmacy supplied medicine without charge.'),
-          T('當時社會普遍貧困，許多人生病捨不得花錢就醫。義診所一開，孤老無依、長期罹病的人不斷地湧來。有人建議，是不是規定持有政府發放的「貧民證」，或是先做身家調查。', 'Hardship was widespread, and many people would not spend money on a doctor. Once the clinic opened, the elderly and alone and the chronically ill kept coming. Some suggested requiring a government poverty certificate, or checking each family’s background first.')
+          T('當時社會普遍貧困，許多人生病捨不得花錢就醫。義診所一開，孤老無依、長期罹病的鄉親不斷前來。有人建議，是不是規定持有政府發放的「貧民證」，或是先做身家調查。', 'Hardship was widespread, and many people would not spend money on a doctor. Once the clinic opened, the elderly and alone and the chronically ill kept coming. Some suggested requiring a government poverty certificate, or checking each family’s background first.')
         ],
         q: { zh: '我希望人人有病都能及時得到醫治，才不會小病拖成大病，大病一來傾家蕩產，拖垮一家。所以無論有無貧民證，病人來了，我們就要為他治療。', en: 'I hope everyone who falls ill can be treated in time, so that a small illness does not grow into a serious one, and a serious one does not ruin a whole family. So whether or not they have a poverty certificate, when patients come, we will treat them.', who: SHANGREN },
         s: ['fm48', 'o720910'] },
       { k: 'story', lay: 'L', h: T('用休息時間看診的人', 'Those who gave their rest hours'),
         ph: [{ i: '19720910-1_06', c: T('義診現場，年份待確認。', 'At a free clinic; year to be confirmed.') }],
         p: [
-          T('靜善（鄧淑卿師姊）和靜良（林碧芑師姊）兩位委員服務於花蓮醫院，由她們負責張羅醫療事務。省立花蓮醫院的醫師張澄溫、黃博施，護士吳素蓮，南京街張藥房的張溪池，都來了。', 'Two commissioners, Sister Deng Shu-Ching and Sister Lin Bi-Chi, worked at Hualien Hospital and took charge of the medical side. Doctors Chang Cheng-Wen and Huang Po-Shih of Hualien Provincial Hospital, the nurse Wu Su-Lien, and the pharmacist Chang Hsi-Chih all came.'),
-          T('每週兩次義診，從醫師、護士到藥劑師，都是志工。他們利用休息時間看診，既不影響本職，又能付出愛心。', 'The clinic ran twice a week, and everyone from doctor to nurse to pharmacist was a volunteer. They came in their rest hours, keeping up their own jobs while giving what they could.')
+          T('靜善（鄧淑卿師姊）和靜良（林碧芑師姊）兩位慈濟委員服務於花蓮醫院，由她們負責張羅醫療事務。省立花蓮醫院的醫師張澄溫、黃博施，護士吳素蓮，南京街張藥房的張溪池，都來了。', 'Two commissioners, Sister Deng Shu-Ching and Sister Lin Bi-Chi, worked at Hualien Hospital and took charge of the medical side. Doctors Chang Cheng-Wen and Huang Po-Shih of Hualien Provincial Hospital, the nurse Wu Su-Lien, and the pharmacist Chang Hsi-Chih all came.'),
+          T('每週兩次義診，從醫師、護士到藥劑師，都是志工。他們利用休息時間看診，在不影響本職之下，付出一分愛心。', 'The clinic ran twice a week, and everyone from doctor to nurse to pharmacist was a volunteer. They came in their rest hours, keeping up their own jobs while giving what they could.')
         ],
         q: { zh: '正好我們兩位都是護理工作，就想說，若是有這樣的機會，真的很想能夠有義診、辦義診，因為感覺雖然是很克難，可是，因為醫療人員就有了，至於其它問題來克服來解決，都不會很難，因為人找到了就方便了。', en: 'We both happened to be nurses, so we thought that if there was a chance, we really wanted to run a free clinic. It would be hard going, but the medical people were already there. Any other problem could be solved. Once you have found the people, the rest is easy.', who: T('鄧淑卿', 'Deng Shu-Ching') },
         q2: { zh: '當時有一些貧苦的人，需要看病找不到醫生，他們看醫生也很麻煩，也沒有錢，那時候只有勞保、公保。', en: 'There were poor people then who needed treatment and could not find a doctor. Seeing one was hard for them, and they had no money. Back then there was only labour insurance and civil servants’ insurance.', who: T('張澄溫', 'Chang Cheng-Wen') },
@@ -70,8 +70,8 @@
         q2: { zh: '每到一個窮鄉僻壤，「慈濟義診團」的紅布條一拉起，總是有好幾百位患者圍繞在醫護和志工之間……。', en: 'In every poor and remote place, as soon as the “Tzu Chi Free Clinic” red banner went up, several hundred patients would gather around the medical staff and volunteers…', who: SHANGREN },
         s: ['fm48', 'o720910'] },
       { k: 'rec', items: [
-        { d: '1972.10', zh: '開辦頭三個星期，受益貧病者共計九十人次。', en: 'In its first three weeks, the clinic served 90 patient visits.' },
-        { d: '1973.08', zh: '至八月底，受惠的貧病患者統計三千二百六十六人次，含固定及巡迴義診。', en: 'By the end of August, 3,266 patient visits had been recorded, counting the clinic and mobile outings.' },
+        { d: '1972.10', zh: '開辦頭三個星期，共嘉惠貧病鄉親九十人次。', en: 'In its first three weeks, the clinic served 90 patient visits.' },
+        { d: '1973.08', zh: '至八月底，嘉惠貧病鄉親計三千二百六十六人次，含固定及巡迴義診。', en: 'By the end of August, 3,266 patient visits had been recorded, counting the clinic and mobile outings.' },
         { d: '1972–86', zh: '義診所看診超過十四萬人次。', en: 'The clinic served more than 140,000 patient visits.' },
         { d: '1986.12', zh: '義診所結束看診，貧戶可依義診券，至花蓮慈院免費就醫。', en: 'The clinic closed. Poor households could use clinic vouchers for free care at Hualien Tzu Chi Hospital.' }
       ], s: ['fm48', 'o720910'] }
@@ -82,13 +82,13 @@
       { k: 'story', lay: 'R', date: '1966', h: T('八千元', 'Eight thousand dollars'),
         ph: [{ i: 'ai_h1', c: T('情境重建：東部的鄉間道路。AI 畫面，非當年攝影。', 'Reconstruction: a country road in eastern Taiwan. AI image, not a historical photograph.') }],
         p: [
-          T('早在慈濟成立那一年的初春，上人到鳳林探病，在醫院門口看到地上的一攤血。旁人說，一位原住民婦女小產，被送到醫院，因為繳不出八千元的保證金，又被抬了回去。', 'In early spring of the year Tzu Chi began, the Master went to Fenglin to visit a patient and saw a pool of blood on the ground at the hospital door. Bystanders told her that an Indigenous woman had miscarried and been brought there, but could not pay a deposit of eight thousand dollars and was carried away again.'),
+          T('早在慈濟成立那一年的初春，證嚴上人到鳳林探病，在醫院門口看到地上的一攤血。旁人說，一位原住民婦女小產，被送到醫院，因為繳不出八千元的保證金，又被抬了回去。', 'In early spring of the year Tzu Chi began, the Master went to Fenglin to visit a patient and saw a pool of blood on the ground at the hospital door. Bystanders told her that an Indigenous woman had miscarried and been brought there, but could not pay a deposit of eight thousand dollars and was carried away again.'),
           T('上人當時沒有見到那位婦女，只看到那一攤血。', 'The Master never saw the woman herself. She saw only the blood.')
         ],
         q: { zh: '難道一條人命只值八千元？', en: 'Could a human life be worth only eight thousand dollars?', who: SHANGREN },
         s: ['fm28'] },
       { k: 'story', lay: 'T', h: T('看一次病不會好', 'One visit does not cure'),
-        p: [T('義診所開了幾年，來的多是長期病。店面能做的，有它的邊界。', 'After some years the clinic’s patients were mostly long-term cases. There was a limit to what a shopfront could do.')],
+        p: [T('義診所開了幾年，來看診的多是長期罹病的鄉親。店面能做的，終究有限。', 'After some years the clinic’s patients were mostly long-term cases. There was a limit to what a shopfront could do.')],
         q: { zh: '義診所資源有限，只能幫助感冒、慢性病或是營養不良的人改善症狀；若遇上病情較複雜，需要進一步檢查者，就必須轉介到西部的大醫院。', en: 'The clinic’s resources were limited. It could only ease the symptoms of colds, chronic illness or malnutrition. Anyone with a more complicated condition who needed further tests had to be referred to the big hospitals in the west.', who: SHANGREN },
         q2: { zh: '我就說你這個要蓋醫院才有辦法，因為我們看的病，都是長期病，我跟師父講說，我們有辦法就蓋個醫院起來，不然這些人，不是今天看一次病就會好。', en: 'I said a hospital was the only way, because what we were seeing were all long-term illnesses. I told the Master that if we could manage it we should build a hospital. Otherwise these people would not get well from one visit today.', who: T('張澄溫', 'Chang Cheng-Wen') },
         s: ['fm48', 'o720910'] },
@@ -125,14 +125,14 @@
       { k: 'bricks', bare: 1, i: '19860817-1_00', zh: '我寧願10元、50元去收，讓每一個人一塊磚、一把沙，都是自己人(募來)的。', en: 'I would rather collect ten dollars, fifty dollars, so that every brick, every handful of sand, comes from our own people.', who: T('證嚴上人，2006.08.14', 'Dharma Master Cheng Yen, 14 Aug 2006'), c: T('花蓮慈濟醫院啟業當天。', 'Hualien Tzu Chi Hospital on its opening day.'), s: ['o840424'] },
       { k: 'story', lay: 'R', h: T('一間病房三十萬', 'Three hundred thousand for one ward'),
         ph: [{ i: 'ai_h9', c: T('情境重建：賣水果的手。AI 畫面，非當年攝影。', 'Reconstruction: hands selling fruit. AI image, not a historical photograph.') }, { i: 'ai_h10', c: T('情境重建：半夜的橋。AI 畫面，非當年攝影。', 'Reconstruction: a bridge at night. AI image, not a historical photograph.') }],
-        p: [T('高愛師姊聽到了建院的心願，就動起來。', 'When Sister Kao Ai heard of the wish to build a hospital, she set to work.')],
+        p: [T('高愛師姊聽到了建院的心願，就動了起來。', 'When Sister Kao Ai heard of the wish to build a hospital, she set to work.')],
         q: { zh: '聽到師父說一間病房30萬，我就去賣水果、一直勸募。我當時是掃華中橋，都是(半夜)一點出門。只要有錢了，我就一直要捐出來。', en: 'When I heard the Master say one ward cost three hundred thousand, I went to sell fruit and kept asking people to give. I was sweeping Huazhong Bridge then, going out at one in the morning. Whenever I had money, I wanted to give it.', who: T('高愛，2006', 'Kao Ai, 2006') },
         s: ['o840424'] },
       { k: 'story', lay: 'L', h: T('一朵一萬元的心蓮', 'A lotus of the heart for ten thousand dollars'),
         ph: [{ i: '19860309-1_07', c: T('捐款賬冊特寫，姓名已虛化。', 'A close view of a donation ledger, names blurred.') }],
         p: [
           T('一九八〇年十月二十七日，樂生療養院棲蓮精舍的蓮友，為響應慈濟醫院籌建，發心募集六萬一千九百元，郵政劃撥至慈濟。', 'On 27 October 1980, the lotus friends of Qilian Hall at Losheng Sanatorium raised NT$61,900 for the planned hospital and sent it to Tzu Chi by postal transfer.'),
-          T('後來，失明的宋金緣老菩薩以掃把柄當拐杖，挨家挨戶去募「心蓮」。一個月下來，勸募了三十幾朵。', 'Later the blind elder Song Jin-Yuan, using a broom handle as her cane, went door to door offering “lotuses of the heart.” In one month, more than thirty were taken up.')
+          T('後來，失明的宋金緣老菩薩（慈濟對長者的敬稱）以掃把柄當拐杖，挨家挨戶為建院募「心蓮」。一個月下來，勸募了三十幾朵。', 'Later the blind elder Song Jin-Yuan, using a broom handle as her cane, went door to door offering “lotuses of the heart” for the hospital. In one month, more than thirty were taken up.')
         ],
         q: { zh: '要買蓮花嗎？清淨莊嚴的蓮花，一朵一萬元。', en: 'Would you like to buy a lotus? A pure and dignified lotus, ten thousand dollars each.', who: T('宋金緣', 'Song Jin-Yuan') },
         q2: { zh: '我們不可輕視自己，這一百元所供養的，不是慈濟所需要的經費，而是供養慈濟所需要的精神。', en: 'We must not look down on ourselves. What this hundred dollars offers is not the funds Tzu Chi needs, but the spirit Tzu Chi needs.', who: T('金義楨', 'Jin Yi-Zhen') },
@@ -153,7 +153,7 @@
       { k: 'story', lay: 'R', date: '1986.08.17', h: T('病房裡的人', 'The people in the wards'),
         ph: [{ i: 'ai_h12', c: T('情境重建：握著病人的手。AI 畫面，非當年攝影。', 'Reconstruction: holding a patient’s hand. AI image, not a historical photograph.') }],
         p: [
-          T('啟業這一天，志工顏惠美、杜張瑤珍及陳卿子攜手組隊，走入病房慰問病人，這是「志工服務隊」最早期的雛型。', 'On opening day the volunteers Yen Hui-Mei, Tu Chang Yao-Chen and Chen Ching-Tzu formed a team and walked into the wards to comfort patients. This was the earliest form of the volunteer service team.'),
+          T('啟業這一天，志工顏惠美、杜張瑤珍及陳卿子攜手組隊，走入病房膚慰病人（親手撫觸、陪伴安慰），這是「志工服務隊」最早期的雛型。', 'On opening day the volunteers Yen Hui-Mei, Tu Chang Yao-Chen and Chen Ching-Tzu formed a team and walked into the wards to comfort patients. This was the earliest form of the volunteer service team.'),
           T('十二月七日，「慈濟服務隊」首期招募一百五十餘位志工，並於十五日正式服務。志工把阿公阿媽當作親人；護理長陳惠蘭說，志工就像病人與醫護之間的潤滑劑。', 'On 7 December the Tzu Chi Service Team held its first training for over 150 recruits, and service began on the 15th. Volunteers treated the elderly patients as family. Head nurse Chen Hui-Lan described them as the lubricant between patients and staff.')
         ],
         more: [T('志工自稱是「活動的服務台」，證嚴上人則讚譽志工為「慈濟醫院軟體中的軟體」。', 'The volunteers called themselves “a walking service desk.” The Master praised them as “the software within the software of Tzu Chi Hospital.”')],
@@ -163,17 +163,17 @@
     /* 五 */
     { id: 'm5a', era: 'e90', y: '走進家門', yen: 'Into homes', nav: T('走進家門', 'Into homes'), ask: T('媽媽，走不到醫院的人呢？', 'Mama, what about people who can’t reach a hospital?'), b: [
       { k: 'story', lay: 'R', h: T('「推」車', 'A van that had to be pushed'),
-        ph: [{ i: '19961012-1_06', c: T('往診，走進照顧戶的家門。', 'A home visit.') }],
+        ph: [{ i: '19961012-1_06', c: T('往診（醫護到家中看診），走進照顧戶的家門。', 'A home visit.') }],
         p: [
           T('慈濟醫院家庭醫學科決定作巡迴醫療時，選擇的服務區域，就是「不能到的地方」。東部交通不便，很需要一輛四輪傳動的巡迴醫療車上山下海。', 'When the hospital’s family medicine team began mobile care, the area they chose was “the places no one can reach.” Travel in the east was hard, and they needed a four-wheel-drive van for the mountains and the coast.'),
-          T('很快有人捐車了，雖不是理想中的「傳動」，但是醫師、志工、社工仍是「推」車走遍了花蓮，直抵最南端的富里，「遠不是問題，他們需要才是問題。」', 'Someone soon donated a van. It was not the four-wheel drive they had hoped for, but the doctors, volunteers and social workers still “pushed” it across Hualien, as far south as Fuli. “Distance is not the problem. Their need is the problem.”')
+          T('很快有人捐了車，雖不是理想中的「傳動」，但是醫師、志工、社工仍是「推」車走遍了花蓮，直抵最南端的富里，「遠不是問題，他們需要才是問題。」', 'Someone soon donated a van. It was not the four-wheel drive they had hoped for, but the doctors, volunteers and social workers still “pushed” it across Hualien, as far south as Fuli. “Distance is not the problem. Their need is the problem.”')
         ],
         s: ['fm199'] },
       { k: 'story', lay: 'L', date: '1998.01.18', h: T('街頭的診間', 'A clinic on the street'),
         ph: [{ i: '19961012-1_15', c: T('二〇〇六年印尼中爪哇強震，點滴瓶掛在香蕉樹上。', 'After the 2006 Central Java earthquake, a drip bag hung from a banana tree.') }],
         p: [
-          T('一九九六年十月十二日，慈濟醫事人員聯誼會成立。一九九八年一月十八日更名為慈濟人醫會，並首次為遊民舉辦街頭義診。', 'The Tzu Chi medical personnel association was founded on 12 October 1996. On 18 January 1998 it took the name Tzu Chi Medical Association and held its first street clinic for homeless people.'),
-          T('那一天，在萬華龍山寺對面的停車場，四十五位人醫會成員及五十位慈濟人，檢診了三百五十五位遊民。', 'That day, in a car park across from Wanhua’s Longshan Temple, 45 association members and 50 Tzu Chi volunteers examined 355 homeless people.'),
+          T('一九九六年十月十二日，慈濟醫事人員聯誼會成立。一九九八年一月十八日更名為慈濟人醫會，並首次為街友舉辦街頭義診。', 'The Tzu Chi medical personnel association was founded on 12 October 1996. On 18 January 1998 it took the name Tzu Chi Medical Association and held its first street clinic for homeless people.'),
+          T('那一天，在萬華龍山寺對面的停車場，四十五位人醫會成員及五十位慈濟人，為三百五十五位街友檢診。', 'That day, in a car park across from Wanhua’s Longshan Temple, 45 association members and 50 Tzu Chi volunteers examined 355 homeless people.'),
           T('二〇〇四年，定名為國際慈濟人醫會。', 'In 2004 it took the name Tzu Chi International Medical Association.')
         ],
         q: { zh: '一次就醫都要1千多元，我哪有錢。', en: 'One doctor’s visit costs over a thousand dollars. Where would I get the money?', who: T('一位街友', 'A homeless man') },
@@ -194,7 +194,7 @@
         ph: [{ i: '19960917-1_10', c: T('模擬手術教學。', 'Simulated surgery teaching.') }],
         p: [
           T('一九九四年底，慈濟醫學院接到彰化林蕙敏女士的電話，表達遺體捐贈的意願。隔年二月三日，林女士往生，家屬遵循遺願，捐贈遺體給慈濟醫學院。', 'At the end of 1994 Tzu Chi College of Medicine received a call from Ms. Lin Hui-Min of Changhua, who wished to donate her body. On 3 February 1995 she passed away, and her family honoured her wish.'),
-          T('三月四日，上人提及這件事，呼籲大體捐贈。慈濟人尊稱捐贈遺體的人為「大體老師」、「無語良師」。', 'On 4 March the Master spoke of this and called for body donation. Tzu Chi people honour those who choose to donate as “Great Teachers” or “Silent Mentors.”'),
+          T('三月四日，上人提及這分因緣，呼籲大體捐贈。慈濟人尊稱捐贈遺體的人為「大體老師」、「無語良師」。', 'On 4 March the Master spoke of this and called for body donation. Tzu Chi people honour those who choose to donate as “Great Teachers” or “Silent Mentors.”'),
           T('一九九六年九月十七日，大體解剖教學實習室啟用。二〇〇二年五月，慈濟大學全臺首創大體模擬手術教學。', 'The anatomy teaching lab opened on 17 September 1996. In May 2002 Tzu Chi University began Taiwan’s first simulated surgery teaching on donated bodies.')
         ],
         q: { zh: '大體老師完完整整地交在你手裏，你學習完了之後，至少要把大體老師完完整整復原，完完整整的交還給家人，然後一起送大體老師去火化，所以這是一個託付，對同學來講，就是實踐自己的承諾。', en: 'The Silent Mentor is placed whole in your hands. When your learning is done, you must at the least restore the Mentor whole, return the Mentor whole to the family, and accompany the Mentor to cremation together. So this is an entrustment. For students, it is keeping a promise.', who: T('曾國藩', 'Tseng Kuo-Fan') },
@@ -208,7 +208,7 @@
         ph: [{ i: '19970803-1_02', c: T('檳城慈濟洗腎中心的洗腎室。', 'The dialysis room of the Tzu Chi centre in Penang.') }],
         p: [
           T('檳城慈濟洗腎中心在歌德路啟用，為家貧腎友提供免費服務。這是慈濟海外第一間洗腎中心，也是全馬第一家由非政府組織經營、費用全免的洗腎中心。', 'The Penang Tzu Chi dialysis centre opened on Jalan Gottlieb, offering free care to patients in need. It was Tzu Chi’s first dialysis centre overseas, and Malaysia’s first run by a non-governmental organisation entirely free of charge.'),
-          T('當時的照顧戶裡，一百三十五戶中有三十多戶需要洗腎。一位腎友陳亞惹，為了孩子撐了下來。', 'Among the 135 households then in care, more than thirty needed dialysis. One patient, Chen Ya-Re, held on for her children.')
+          T('當時慈濟關懷的一百三十五戶照顧戶中，有三十多戶需要洗腎。一位腎友陳亞惹，為了孩子撐了下來。', 'Among the 135 households then in care, more than thirty needed dialysis. One patient, Chen Ya-Re, held on for her children.')
         ],
         q: { zh: '我們希望這洗腎中心是專給那些，真正很孤老無依的，全免(醫藥費)的服務。', en: 'We hope this centre is for those who are truly old and alone, a service entirely free of charge.', who: T('郭濟航', 'Kuo Chi-Hang') },
         q2: { zh: '我看到我的孩子，可憐他們，(他們)沒有父親了，母親又患上腎病，要放棄他們也不可以，硬撐下去，為了孩子們。', en: 'I looked at my children and my heart ached for them. They had no father, and their mother had kidney disease. I could not give up on them. I held on, for the children.', who: T('陳亞惹', 'Chen Ya-Re') },
@@ -221,8 +221,8 @@
         s: ['fm203', 'o970803'] },
       { k: 'story', lay: 'R', h: T('半數成了志工', 'Half became volunteers'),
         p: [
-          T('二〇〇二年的報導裡，接受洗腎中心免費服務的五十四位病患中，成為志工的腎友有半數左右。阿里義務打掃，也整理園藝。李彩珠每週兩次跟著志工到腎友家關懷。', 'A 2002 report found that of the 54 patients receiving free care, about half had become volunteers. Ali swept and tended the garden. Lee Chai-Chu joined volunteers twice a week on visits to other patients’ homes.'),
-          T('治療一直在繼續，費用的負擔也一直都在。許多腎友翻轉手心，投入環保志業。腎友張梅英向鄰里收集報紙與紙箱，大概有一百多間。', 'Treatment does not end, and neither does its cost. Many patients turned their hands from receiving to giving and took up recycling. One of them, Chang Mei-Ying, gathered newspapers and cartons from about a hundred neighbours.')
+          T('二〇〇二年的報導裡，接受洗腎中心免費服務的五十四位腎友中，有半數左右成為志工。阿里義務打掃，也整理園藝。李彩珠每週兩次跟著志工到腎友家關懷。', 'A 2002 report found that of the 54 patients receiving free care, about half had become volunteers. Ali swept and tended the garden. Lee Chai-Chu joined volunteers twice a week on visits to other patients’ homes.'),
+          T('治療一直在繼續，洗腎中心的費用負擔也一直都在。許多腎友翻轉手心，從受助到付出，投入環保志業。腎友張梅英勸鄰里留下報紙與紙箱，大概有一百多間人家響應。', 'Treatment does not end, and neither does its cost. Many patients turned their hands from receiving to giving and took up recycling. One of them, Chang Mei-Ying, collected newspapers and cartons from more than a hundred homes.')
         ],
         q: { zh: '在我跌入生命谷底時，是慈濟拉了我一把，幫助我揮別病痛的陰霾。我想在有生之年，盡我所能地去幫助別人。', en: 'When I fell to the lowest point of my life, Tzu Chi pulled me up and helped me leave the shadow of illness behind. For as long as I live, I want to help others as much as I can.', who: T('李彩珠', 'Lee Chai-Chu') },
         s: ['fm203', 'o970803'] },
@@ -230,7 +230,7 @@
         ph: [{ i: 'ai_h15', c: T('情境重建：醫生的手。AI 畫面，非當年攝影。', 'Reconstruction: a doctor’s hand. AI image, not a historical photograph.') }, { i: 'ai_h17', c: T('情境重建：獻花。AI 畫面，非當年攝影。', 'Reconstruction: presenting flowers. AI image, not a historical photograph.') }],
         p: [
           T('黃春玲跌倒開了刀，沒有力氣工作，擔心手術費。', 'Huang Chun-Ling fell and needed surgery. She no longer had the strength to work and worried about the cost.'),
-          T('後來，她也出去家訪、募款。二〇二五年一月十二日，在吉隆坡靜思堂，她把一束花親手送到鄭醫生手裡。', 'Later she too went out on home visits and to raise funds. On 12 January 2025, at the Jing Si Hall in Kuala Lumpur, she placed a bunch of flowers in the hands of Dr. Cheng, who had come south for the occasion.')
+          T('後來，她也發心投入，家訪、募款。二〇二五年一月十二日，在吉隆坡靜思堂，她把一束花親手送到鄭醫生手裡。', 'Later she too went out on home visits and to raise funds. On 12 January 2025, at the Jing Si Hall in Kuala Lumpur, she placed a bunch of flowers in the hands of Dr. Cheng, who had come south for the occasion.')
         ],
         q: { zh: '那個靚仔醫生告訴我，慈濟會幫助你的手術費，不要擔心，他這一番話，我才放下心來。', en: 'That handsome young doctor told me Tzu Chi would help with my surgery fees and not to worry. Only with those words could I set my heart at ease.', who: T('黃春玲', 'Huang Chun-Ling') },
         s: ['my'] },
@@ -314,7 +314,7 @@
     ['1996.09.17', 'people', '大體解剖教學實習室啟用。', 'The anatomy teaching lab opens.', 'o960917'],
     ['1996.10.12', 'clinic people', '慈濟醫事人員聯誼會成立。', 'The medical personnel association is founded.', 'fm199'],
     ['1997.08.03', 'first my', '檳城慈濟洗腎中心啟用，提供家貧腎友免費服務。', 'The Penang dialysis centre opens, offering free care.', 'fm203'],
-    ['1998.01.18', 'first clinic', '更名慈濟人醫會，首次為遊民舉辦街頭義診。', 'Renamed the Tzu Chi Medical Association; first street clinic for homeless people.', 'fm199'],
+    ['1998.01.18', 'first clinic', '更名慈濟人醫會，首次為街友舉辦街頭義診。', 'Renamed the Tzu Chi Medical Association; first street clinic for homeless people.', 'fm199'],
     ['1999.03.15', 'hosp', '慈濟玉里分院啟業。', 'Yuli branch opens.', 'fm226'],
     ['2000.03.15', 'hosp', '慈濟關山分院啟用。', 'Guanshan branch opens.', 'fm235'],
     ['2000.08.13', 'hosp', '大林慈院啟業。', 'Dalin Tzu Chi Hospital opens.', 'fm236'],
