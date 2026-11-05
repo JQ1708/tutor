@@ -96,3 +96,9 @@ html[data-lang=both] .gap-c .en{display:block}
  .tn-s{position:static;padding-top:10px;padding-bottom:70px}
  .gap-r i{transform:none;transition:none}
 }
+
+/* 開場：醫院樓面偏暗，深色字看不清，改淺字加一層暗帶 */
+.hero-t{color:#fff8ea;text-shadow:0 1px 16px #000b;background:linear-gradient(180deg,#0000 14%,#0009 34%,#0009 68%,#0000 86%)}
+.hero-t .stop{opacity:.85}
+.hero-b .btn{color:#fff8ea;box-shadow:0 0 0 1px #fff8ea99;text-shadow:none}
+.hero-b .btn.solid{background:#fff8ea;color:#34230d;box-shadow:none}
