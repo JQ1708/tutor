@@ -546,7 +546,8 @@
   };
   CH.next = {
     ask: T('媽媽，沒有錢，醫院就不救嗎？', 'Mama, if people have no money, won’t the hospital save them?'),
-    stop: T('下一站・醫療　製作中', 'Next stop: Medicine · in progress')
+    stop: T('下一站・醫療', 'Next stop: Medicine'),
+    href: 'medical.html', tun: 'm_hall'
   };
 
   CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面；標示「情境重建」的畫面由 AI 依史料生成，非當年攝影。「」內為原文照錄。',

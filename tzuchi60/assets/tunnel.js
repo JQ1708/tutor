@@ -68,6 +68,12 @@
       ph(c, r, rnd(i + 20) * (W - w * .6) - w * .2 + Math.sin(z * 6 + i) * 34, -h - 20 + z * (H + h * 2 + 40), w, h, 1, Math.sin(z * 5 + i) * .24, 5);
     }
   }
+  /* 長廊：見 hall.js。沒有 WebGL2 的裝置改走橫流。 */
+  var HG, HF = rows(2, 1);
+  function hall(c, t, W, H, L) {
+    if (HG === undefined) { HG = window.HALL ? HALL() : null; if (HG) HG.load(L, img, 1.3); }
+    if (HG) c.drawImage(HG.render(t, Math.round(W * 1.25), Math.round(H * 1.25)), 0, 0, W, H); else HF(c, t, W, H, L);
+  }
   var M = {
     back: { d: 4400, y: [2026, 1966], from: 1966, to: 2026, bg: '#120f0c', tint: '#a98a55', a0: .05, a1: .86, f: rows(3, 1), pop: 1, close: '#d9cfb8' },
     road: { d: 2400, y: [1969, 1989], from: 1969, to: 1993, bg: '#1d150c', tint: '#c98f3f', a0: .3, a1: .42, f: rows(2, -1), pop: 1 },
@@ -77,7 +83,10 @@
     ledger: { d: 2500, from: 1966, to: 2025, bg: '#efe9da', tint: '#b9a36f', a0: .3, a1: .22, ink: '#2b2822', plate: 'rgba(239,233,218,', f: fall, max: 15 },
     big: { d: 3000, from: 1966, to: 2025, bg: '#0b0907', tint: '#6b5a3c', a0: .5, a1: .7, f: fly(1, .62, 22), max: 22, close: '#0b0907' }
   };
+  /* 別的站自己的隧道：ids 指定照片（見 assets/river/med.js），牆上的年份由長廊自己算 */
+  if (window.TUN_M) Object.keys(TUN_M).forEach(function (k) { var x = TUN_M[k]; x.f = { hall: hall, rows: rows(x.n || 3, x.dir || 1), fall: fall, cols: cols, fly: fly(x.dir || 1, x.spd || 1, 24) }[x.walk]; M[k] = x; });
   function list(m) {
+    if (m.ids) { var X = {}; (window.RIVER_M || []).forEach(function (r) { X[r[1]] = r; }); return m.ids.map(function (i) { return X[i]; }).filter(Boolean); }
     var L = RV.filter(function (r) { return m.only ? m.only.indexOf(r[0]) >= 0 : r[0] >= m.from && r[0] <= m.to; });
     if (L.length < 8) L = L.concat(RV.slice().sort(function (a, b) { return Math.abs(a[0] - L[0][0]) - Math.abs(b[0] - L[0][0]); }).slice(0, 10));
     /* 只畫得下 max 張的走法，平均抽各年代，也少載圖 */
@@ -125,7 +134,7 @@
     if (m.close) { c.globalAlpha = ramp(t, .8, .97); c.fillStyle = m.close; c.fillRect(0, 0, W, H); c.globalAlpha = 1; }
     qe.style.opacity = ramp(t, .08, .2) * (1 - ramp(t, .74, .86));
     /* 只有照片和年份對得上的隧道才跑年份 */
-    ye.textContent = m.y ? Math.round(m.y[0] + (m.y[1] - m.y[0]) * Math.min(1, t * 1.1)) : '';
+    ye.textContent = m.walk === 'hall' && HG ? HG.year(t) : m.y ? Math.round(m.y[0] + (m.y[1] - m.y[0]) * Math.min(1, t * 1.1)) : '';
     ye.style.opacity = (1 - ramp(t, .84, .94)) * .9;
   }
   function play(key, o) {

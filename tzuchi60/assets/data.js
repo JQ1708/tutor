@@ -147,7 +147,7 @@ window.CHARITY = {
 
 window.FOOT = [
   { k: 'charity', zh: '慈善', en: 'Charity', y: '1966', on: true },
-  { k: 'medical', zh: '醫療', en: 'Medicine', y: '1979' },
+  { k: 'medical', zh: '醫療', en: 'Medicine', y: '1972', on: true },
   { k: 'education', zh: '教育', en: 'Education', y: '1989' },
   { k: 'environment', zh: '環保', en: 'Environment', y: '1990' },
   { k: 'relief', zh: '國際賑災', en: 'Global Relief', y: '1991' },

@@ -1,6 +1,8 @@
 /* 慈善站渲染與交互。普通 script，可 file:// 打開，不用 fetch/module */
 (function () {
   var CH = window.CH, SRC = window.SRC || {}, PHS = window.PHS || {}, doc = document, root = doc.documentElement;
+  /* 每一站自己的設定；沒寫的就用慈善站的值。CH.page 由該站的 data 文件給 */
+  var PG = CH.page || {}, KEY = PG.key || 'charity', PRE = PG.pre || 'b', TITLE = PG.title || '慈善｜媽媽，慈濟是什麼？';
   var app = doc.getElementById('app');
   root.classList.add('js');
 
@@ -101,7 +103,7 @@
           return '<div class="row' + (r.big ? ' big' : '') + '"><div class="n">' + n + (r.u && r.u.zh ? '<small>' + B(r.u) + '</small>' : '') + '</div><div class="l">' + B(r.l) + '</div><div class="w">' + (r.w ? B(r.w) + ' · ' : '') + one(r.s) + '</div></div>';
         }).join('') + '</div>';
       }).join('');
-      return h + B(CH.ledgerNote, 'p', 'lnote') + '<div class="lold">' + CH.ledgerOld.map(function (r) { return '<div>' + '<span>' + B(r[0]) + '</span><b>' + B(r[1]) + '</b></div>'; }).join('') + '</div>';
+      return h + B(CH.ledgerNote, 'p', 'lnote') + (CH.ledgerOld ? '<div class="lold">' + CH.ledgerOld.map(function (r) { return '<div>' + '<span>' + B(r[0]) + '</span><b>' + B(r[1]) + '</b></div>'; }).join('') + '</div>' : '');
     },
     you: function () {
       var y = CH.you;
@@ -110,11 +112,11 @@
         y.links.map(function (l) { return '<a class="go" href="' + l.url + '" target="_blank" rel="noopener">' + B(l) + '</a>'; }).join('') + B(y.linkNote, 'p', 'ln') + '</div>';
     },
     films: function () {
-      var v = (window.CHARITY && CHARITY.videos) || [];
+      var v = CH.films || (window.CHARITY && CHARITY.videos) || [];
       return '<h3 class="h4"><span class="zh">影片</span><span class="en" lang="en">Films</span></h3><div class="vids">' + v.map(function (x) { return vid(x.id, x, x.y); }).join('') + '</div>';
     },
     records: function () {
-      return '<h3 class="h4"><span class="zh">慈善沿革</span><span class="en" lang="en">Timeline</span></h3><div class="filters" id="flt">' +
+      return '<h3 class="h4">' + (U.recH ? B(U.recH) : '<span class="zh">慈善沿革</span><span class="en" lang="en">Timeline</span>') + '</h3><div class="filters" id="flt">' +
         CH.filters.map(function (f, i) { return '<button data-f="' + f[0] + '" aria-pressed="' + (i === 0) + '">' + B(f[1]) + '</button>'; }).join('') + '</div><ol class="rlist" id="rl">' +
         CH.records.map(function (r) { return '<li data-t="' + r[1] + '"><div class="d">' + r[0] + '</div><div>' + B({ zh: r[2], en: r[3] }, 'p') + '<p class="src">' + one(r[4]) + '</p></div></li>'; }).join('') + '</ol>';
     },
@@ -131,6 +133,10 @@
   function vid(id, t, y) {
     return '<a class="vid" href="https://www.youtube.com/watch?v=' + id + '" target="_blank" rel="noopener"><span class="im"><img loading="lazy" src="assets/yt/' + id + '.jpg" alt=""></span>' + B(t) + (y ? '<small>' + y + '</small>' : '') + '</a>';
   }
+
+  /* 別的站可以加自己的區塊和效果：CH.R 是區塊，CH.onWire／CH.onFrame 是接線和逐幀 */
+  CH.api = { B: B, fig: fig, srcs: srcs, quote: quote, paras: paras };
+  if (CH.R) Object.keys(CH.R).forEach(function (k) { R[k] = CH.R[k]; });
 
   /* 組頁：hub 和六段靠 hash 切換，內容還是原來的章節 */
   var U = CH.ui, BL = CH.blocks, byId = {}, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, seen = {}, cur = -1;
@@ -150,17 +156,18 @@
         '<span class="bc-t"><span class="bc-y"><b>' + (i + 1) + '</b>' + yr(b) + '</span><span class="bc-h t">' + B(b.h) + '</span><span class="bc-q">' + B(askOf(b)) + '</span></span>' +
         (i === nx ? '<em>' + B(U.start) + '</em>' : '') + (seen[b.id] ? stamp() : '') + '</a>';
     }).join('');
-    return '<section id="hero" data-era="dark"><img class="still" src="assets/ph/hero.jpg" alt=""><video id="door" muted playsinline preload="auto" poster="assets/ph/hero0.jpg" src="assets/film/door.mp4"></video>' +
+    return '<section id="hero" data-era="dark"><img class="still" src="assets/ph/' + (PG.still || 'hero') + '.jpg" alt=""><video id="door" muted playsinline preload="auto" poster="assets/ph/' + (PG.poster || 'hero0') + '.jpg" src="assets/film/' + (PG.door || 'door') + '.mp4"></video>' +
       '<div class="hero-t"><p class="film t">' + B(h.film) + '</p><p class="stop">' + B(h.stop) + '</p><h1>' + B(h.title) + '</h1><p class="sub">' + B(h.sub) + '</p>' +
       '<div class="hero-b"><a class="btn solid" href="#film" id="watch">' + B(h.watch) + '</a><a class="btn" href="#hub" id="read">' + B(h.read) + '</a></div></div><div class="ai">' + B(h.ai) + '</div></section>' +
-      '<section id="hub" data-era="e60"><div class="wrap"><p class="hub-k">' + B(U.hubK) + '</p><h2 class="t">' + B(U.hubH) + '</h2><p class="hub-s">' + B(U.hubS) + '</p><div class="bcs">' + cards + '</div></div></section>' + foot();
+      '<section id="hub" data-era="e60"><div class="wrap"><p class="hub-k">' + B(U.hubK) + '</p><h2 class="t">' + B(U.hubH) + '</h2><p class="hub-s">' + B(U.hubS) + '</p><div class="bcs">' + cards + '</div></div></section>' + (PG.after || []).map(function (id) { return chapter(byId[id], true); }).join('') + foot();
   }
   function chapter(c, skipAsk) {
     var s = '<section class="ch" id="' + c.id + '" data-era="' + c.era + '">';
     if (c.ask && !skipAsk) s += '<div class="ask rv">' + B(c.ask, 'div', 't') + '</div>';
     s += '<div class="wrap' + (c.ask && !skipAsk ? '' : ' first') + '">';
     if (c.h) s += '<header class="ch-h rv"><div class="yr">' + (c.yen ? B({ zh: c.y, en: c.yen }) : c.y) + '</div><h2>' + B(c.h) + '</h2>' + (c.lead ? B(c.lead, 'p', 'lead') : '') + '</header>';
-    c.b.forEach(function (b) { s += '<div class="b rv">' + R[b.k](b) + '</div>'; });
+    /* bare：滿版效果塊，要跳出 .wrap，sticky 才黏得住 */
+    c.b.forEach(function (b) { s += b.bare ? '</div>' + R[b.k](b) + '<div class="wrap">' : '<div class="b rv">' + R[b.k](b) + '</div>'; });
     return s + '</div></section>';
   }
   function blockHTML(i) {
@@ -169,7 +176,7 @@
     b.ch.forEach(function (id, k) { s += chapter(byId[id], k === 0); });
     s += '<section class="bn" data-era="dark"><div class="bn-s">' + stamp() + '</div><p class="bn-d">' + B(U.done) + '</p>';
     if (n) s += '<p class="bn-k">' + B(U.nextOf) + '　' + yr(n) + '　' + B(n.h) + '</p><p class="bn-q t">' + B(askOf(n)) + '</p><a class="go2" href="#' + n.id + '" data-go="' + (i + 1) + '">' + B(U.nextTun) + ' →</a><a class="bn-b" href="#hub">' + B(U.back) + '</a>';
-    else s += '<p class="bn-q t">' + B(CH.next.ask) + '</p><p class="bn-k">' + B(CH.next.stop) + '</p><a class="go2" href="index.html#road" id="toroad">' + B(U.road) + ' →</a><a class="bn-b" href="#hub">' + B(U.back) + '</a>';
+    else s += '<p class="bn-q t">' + B(CH.next.ask) + '</p><p class="bn-k">' + B(CH.next.stop) + '</p><a class="go2" href="' + (CH.next.href || 'index.html#road') + '" id="toroad">' + B(CH.next.href ? U.nextTun : U.road) + ' →</a><a class="bn-b" href="#hub">' + B(U.back) + '</a>';
     return s + '</section>' + foot();
   }
 
@@ -184,11 +191,11 @@
   /* 門：一次瀏覽只開一次 */
   function wireDoor() {
     var hero = doc.getElementById('hero'), door = doc.getElementById('door'), once = false;
-    try { once = sessionStorage.getItem('tc60door'); sessionStorage.setItem('tc60door', '1'); } catch (e) {}
+    try { once = sessionStorage.getItem(PG.doorKey || 'tc60door'); sessionStorage.setItem(PG.doorKey || 'tc60door', '1'); } catch (e) {}
     function showTxt() { hero.classList.add('txt'); }
     function done() { hero.classList.add('done'); showTxt(); }
     if (reduce || once) { door.remove(); done(); return; }
-    door.addEventListener('timeupdate', function () { if (door.currentTime > 5.2) showTxt(); });
+    door.addEventListener('timeupdate', function () { if (door.currentTime > (PG.doorT || 5.2)) showTxt(); });
     door.addEventListener('ended', done);
     door.addEventListener('error', done);
     var pl = door.play(); if (pl && pl.catch) pl.catch(done);
@@ -235,7 +242,7 @@
   function paintPill() {
     if (cur < 0) return;
     var left = doc.querySelectorAll('.b.rv:not(.in)').length;
-    pb.innerHTML = '<b>' + (cur + 1) + '/6</b><span>' + tx(BL[cur].h) + '</span><i>' + (left ? tx(U.left) + ' ' + left + ' ' + tx(U.leftU) : tx(U.done)) + '</i><span aria-hidden="true">▴</span>';
+    pb.innerHTML = '<b>' + (cur + 1) + '/' + BL.length + '</b><span>' + tx(BL[cur].h) + '</span><i>' + (left ? tx(U.left) + ' ' + left + ' ' + tx(U.leftU) : tx(U.done)) + '</i><span aria-hidden="true">▴</span>';
   }
   function wire() {
     if (eio) eio.disconnect();
@@ -263,16 +270,17 @@
       doc.querySelectorAll('.rv,.cu,.bn,.sp-c').forEach(function (e) { rio.observe(e); });
     } else doc.querySelectorAll('.rv,.bn,.sp-c').forEach(function (e) { e.classList.add('in'); });
     paintPill();
-    if (window.TUN) TUN.prep(cur < 0 ? 'back' : BL[cur + 1] ? BL[cur + 1].tun : 'big');
+    if (window.TUN) TUN.prep(cur < 0 ? BL[0].tun : BL[cur + 1] ? BL[cur + 1].tun : (CH.next.tun || 'big'));
+    if (CH.onWire) CH.onWire();
     frame();
   }
   function render() {
-    var m = /^#b([1-6])$/.exec(location.hash), hub = location.hash === '#hub';
+    var m = new RegExp('^#' + PRE + '([1-' + BL.length + '])$').exec(location.hash), hub = location.hash === '#hub';
     cur = m ? +m[1] - 1 : -1;
     root.dataset.view = m ? 'block' : 'hub';
-    if (window.SND) SND.area(m ? 'b' + (cur + 1) : 'charity');
+    if (window.SND) SND.area(m ? PRE + (cur + 1) : KEY);
     app.innerHTML = m ? blockHTML(cur) : hubHTML();
-    doc.title = (m ? tx(BL[cur].h) + '｜' : '') + '慈善｜媽媽，慈濟是什麼？';
+    doc.title = (m ? tx(BL[cur].h) + '｜' : '') + TITLE;
     scrollTo(0, 0);
     wire();
     if (hub) doc.getElementById('hub').scrollIntoView();
@@ -291,8 +299,10 @@
     e.preventDefault();
     if (w.id === 'watch') { fl.hidden = false; root.style.overflow = 'hidden'; fv.play(); }
     else if (w.id === 'read') doc.getElementById('hub').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-    else if (window.TUN) TUN.play('big', { q: tx(U.road), skip: tx(U.skip), end: function () { location.href = 'index.html#road'; } });
-    else location.href = 'index.html#road';
+    else {
+      var to = CH.next.href || 'index.html#road';
+      if (window.TUN) TUN.play(CH.next.tun || 'big', { q: tx(CH.next.href ? CH.next.ask : U.road), skip: tx(U.skip), end: function () { location.href = to; } }); else location.href = to;
+    }
   });
   pb.onclick = function (e) { e.stopPropagation(); toc.hidden = !toc.hidden; pb.setAttribute('aria-expanded', !toc.hidden); };
   doc.addEventListener('click', function (e) { if (!toc.hidden && !toc.contains(e.target)) toc.hidden = true; });
@@ -307,6 +317,7 @@
       var r = s.getBoundingClientRect(), mx = s.scrollWidth - s.clientWidth;
       if (mx > 0 && r.bottom > 0 && r.top < innerHeight) s.scrollLeft = mx * Math.min(1, Math.max(0, (innerHeight - r.bottom + r.height * .4) / (innerHeight * .75)));
     });
+    if (CH.onFrame) CH.onFrame();
   }
   function ask() { if (!tick) { tick = true; requestAnimationFrame(frame); } }
   addEventListener('scroll', ask, { passive: true });
