@@ -172,7 +172,7 @@
             'By 1983 relief had reached over NT$150 million, for more than a thousand households and three thousand people across Taiwan. The archive says of this figure that it all came from each person’s small strength, an example of drops forming a river.'),
     b: [
       { k: 'story', lay: 'R', date: '1978.09', tall: 1, h: T('一個超越天堂的地方', 'A place beyond heaven'),
-        ph: [{ i: '19860309-1_05', c: T('棲蓮精舍蓮友的捐款賬冊。', 'The donation ledger of the Qilian Hall members.') }, { i: '19860309-1_07', c: T('賬冊特寫。', 'The ledger, close up.') }],
+        ph: [{ i: '19860309-1_05', c: T('棲蓮精舍蓮友的捐款賬冊，姓名已虛化。', 'The donation ledger of the Qilian Hall members, names blurred.') }, { i: '19860309-1_07', c: T('賬冊特寫，姓名已虛化。', 'The ledger, close up, names blurred.') }],
         p: [
           T('新莊樂生療養院，住著漢生病（痲瘋病）院友。院內念佛會會長金義楨為修繕院舍四處求援。一九七八年九月，上人首次來到樂生。',
             'Losheng Sanatorium in Xinzhuang was home to people with Hansen’s disease. Jin Yizhen, head of its Buddhist group, was seeking help to repair the buildings. In September 1978 the Master came to Losheng for the first time.'),
