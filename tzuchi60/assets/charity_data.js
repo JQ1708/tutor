@@ -125,8 +125,8 @@
         p: [
           T('李阿拋老人家八十一歲，雙眼失明，住在木瓜溪旁傾斜的茅草屋，以三粒石頭搭小灶。德慈法師回憶：「上人看到這樣很不忍心」。南華站站長張榮華捐出甘蔗園十坪地，慈濟蓋起一間五坪的空心磚屋，三扇窗，鐵皮屋頂。',
             'Li A-pao was eighty-one and blind. He lived in a leaning thatched hut by the Mugua River and cooked on three stones. Master De Ci recalled that the Master could not bear to see it. Stationmaster Zhang Ronghua gave ten ping of sugar-cane land, and Tzu Chi built a five-ping hollow-brick house with three windows and an iron roof.'),
-          T('這是慈濟的第一間永久屋。截至二〇二六年二月，慈濟已在十九個國家援建二萬六千一百〇六戶永久住宅。',
-            'It was Tzu Chi’s first permanent house. By February 2026 Tzu Chi had built 26,105 permanent homes in nineteen countries.')
+          T('這是慈濟的第一間永久屋。截至二〇二六年二月，慈濟已在十九個國家援建超過二萬六千戶永久住宅。',
+            'It was Tzu Chi’s first permanent house. By February 2026 Tzu Chi had built more than 26,000 permanent homes in nineteen countries.')
         ],
         note: T('上人後來回憶為四坪、里長撥地，此處依當年記載。', 'The Master later recalled four ping on land allotted by the village chief. This account follows the record of the time.'),
         s: ['fm39', 'o750905', 'exg'] }
@@ -465,7 +465,7 @@
   CH.ledger = [
     { h: T('全球', 'Worldwide'), rows: [
       { n: '139', u: T('個國家地區', 'countries and regions'), l: T('慈善足跡累計觸及', 'reached by Tzu Chi’s charity work'), w: T('截至 2025.12.31', 'to 31 Dec 2025'), s: 'a2', big: 1 },
-      { n: '26,105', u: T('戶', 'homes'), l: T('永久住宅，援建於 19 國', 'permanent homes built in 19 countries'), w: T('統計至 2026.02', 'to Feb 2026'), s: 'exg', big: 1 },
+      { n: '超過 2.6 萬', nen: 'Over 26,000', u: T('戶', 'homes'), l: T('永久住宅，援建於 19 國', 'permanent homes built in 19 countries'), w: T('統計至 2026.02', 'to Feb 2026'), s: 'exg', big: 1 },
       { n: '超過 16 萬', nen: 'Over 160,000', u: T('公噸', 'tonnes'), l: T('發放大米，20 個國家地區', 'of rice distributed in 20 countries and regions'), w: T('統計至 2026.02', 'to Feb 2026'), s: 'exg', big: 1 },
       { n: '32,658,740', u: T('人次受益', 'instances of people served'), l: T('全球慈善援助', 'charity aid worldwide'), w: T('2025 單年', '2025 alone'), s: 'a2', big: 1 },
       { n: '20,240,110', u: T('人次', 'volunteer shifts'), l: T('全球投入志工，志工分布 68 個國家地區', 'worldwide; volunteers in 68 countries and regions'), w: T('2025 單年', '2025 alone'), s: 'a2' },
