@@ -1,10 +1,10 @@
-/* 慈善站渲染与交互。普通 script，可 file:// 打开，不用 fetch/module */
+/* 慈善站渲染與交互。普通 script，可 file:// 打開，不用 fetch/module */
 (function () {
   var CH = window.CH, SRC = window.SRC || {}, PHS = window.PHS || {}, doc = document, root = doc.documentElement;
   var app = doc.getElementById('app');
   root.classList.add('js');
 
-  /* 语言：这一页默认只显示中文 */
+  /* 語言：這一頁默認只顯示中文 */
   var LK = 'tc60lang', lang = 'zh';
   try { lang = localStorage.getItem(LK) || 'zh'; } catch (e) {}
   root.dataset.lang = lang;
@@ -22,10 +22,10 @@
     var w = function (x) { return s.url ? '<a href="' + s.url + '" target="_blank" rel="noopener">' + x + '</a>' : x; };
     return '<span class="zh">' + w(z) + '</span><span class="en" lang="en">' + w(e) + '</span>';
   }
-  function srcs(a) { return a && a.length ? '<p class="src"><span class="zh">出处：</span><span class="en" lang="en">Source: </span>' + a.map(one).join('；') + '</p>' : ''; }
+  function srcs(a) { return a && a.length ? '<p class="src"><span class="zh">出處：</span><span class="en" lang="en">Source: </span>' + a.map(one).join('；') + '</p>' : ''; }
   function fig(p) {
     var z = PHS[p.i] || [3, 2];
-    return '<figure><button class="zoom" data-i="' + p.i + '" aria-label="放大看图 ' + plain(p.c) + '"><img loading="lazy" src="assets/ph/' + p.i + '.jpg" width="' + z[0] + '" height="' + z[1] + '" alt="' + plain(p.c) + '"></button><figcaption>' + B(p.c) + '</figcaption></figure>';
+    return '<figure><button class="zoom" data-i="' + p.i + '" aria-label="放大看圖 ' + plain(p.c) + '"><img loading="lazy" src="assets/ph/' + p.i + '.jpg" width="' + z[0] + '" height="' + z[1] + '" alt="' + plain(p.c) + '"></button><figcaption>' + B(p.c) + '</figcaption></figure>';
   }
   function quote(q) {
     if (!q) return '';
@@ -42,7 +42,7 @@
         '<p class="sen" lang="en">' + s.en + '</p></article>';
     },
     story: function (b) {
-      var more = b.more ? '<details class="more"><summary><span class="zh">读全文</span><span class="en" lang="en">Read more</span></summary>' + paras(b.more) + '</details>' : '';
+      var more = b.more ? '<details class="more"><summary><span class="zh">讀全文</span><span class="en" lang="en">Read more</span></summary>' + paras(b.more) + '</details>' : '';
       var t = '<div class="st-t">' + (b.date ? '<div class="date">' + b.date + '</div>' : '') + '<h3>' + B(b.h) + '</h3><div class="cols">' + paras(b.p) + '</div>' +
         quote(b.q) + quote(b.q2) + more + (b.note ? B(b.note, 'p', 'note') : '') + srcs(b.s) + '</div>';
       var lay = b.ph ? b.lay : 'T';
@@ -57,9 +57,33 @@
       return '<div class="rec"><ol>' + b.items.map(function (x) { return '<li><div class="d">' + x.d + '</div><div>' + B(x, 'p') + '</div></li>'; }).join('') + '</ol>' + srcs(b.s) + '</div>';
     },
     quote: function (b) {
-      return '<blockquote class="bq' + (b.big ? ' big' : '') + '"><p class="zh">「' + b.zh + '」</p><p class="en" lang="en">“' + b.en + '”</p><cite>' + B(b.who) + '</cite>' + srcs(b.s) + '</blockquote>';
+      var z = b.big ? b.zh.split(/(?<=[，。？！；])/).map(function (x, i) { return '<span class="qs" style="--i:' + i + '">' + x + '</span>'; }).join('') : b.zh;
+      return '<blockquote class="bq' + (b.big ? ' big' : '') + '"><p class="zh">「' + z + '」</p><p class="en" lang="en">“' + b.en + '”</p><cite>' + B(b.who) + '</cite>' + srcs(b.s) + '</blockquote>';
     },
-    photos: function (b) { return '<div class="' + (b.lay === 'one' ? 'ph1' : 'ph3') + '">' + b.ph.map(fig).join('') + '</div>'; },
+    photos: function (b) {
+      if (b.lay === 'one') return '<div class="ph1">' + b.ph.map(fig).join('') + '</div>';
+      return '<div class="strip"><div class="roll">' + b.ph.map(fig).join('') + '</div></div>';
+    },
+    coin: function () {
+      var c = CH.coin, g = '';
+      for (var i = 0; i < 30; i++) g += '<i></i>';
+      return '<div class="coin"><h3>' + B(c.h) + '</h3><div class="cn-g" aria-hidden="true">' + g + '</div>' +
+        '<div class="cn-v" aria-live="polite"><b>0</b><span class="zh"> 元</span></div><p class="cn-s">' + B(c.s0) + '</p>' +
+        '<button class="btn cn-b">' + B(c.tap) + '</button></div>';
+    },
+    spend: function () {
+      var s = CH.spend, mx = 120, show = { 2016: 1, 2021: 1, 2025: 1 };
+      function v(x) { return x.toFixed(2).replace(/0$/, ''); }
+      var bars = s.rows.map(function (r) {
+        var m = s.mark[r[0]];
+        return '<div class="sp-b' + (show[r[0]] ? ' lab' : '') + '" tabindex="0" style="--h:' + (r[1] / mx * 100).toFixed(1) + '%"><b>' + v(r[1]) + '</b><i></i><span data-s="\'' + String(r[0]).slice(2) + '">' + r[0] + '</span>' +
+          (m ? '<em>' + B(m) + '</em>' : '') + '</div>';
+      }).join('');
+      var tb = s.rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + v(r[1]) + '</td></tr>'; }).join('');
+      return '<div class="sp"><p class="sp-k">' + B(s.h) + '</p><p class="sp-big">' + B(s.big) + '</p>' + B(s.sub, 'p', 'sp-sub') +
+        '<div class="sp-u">' + B(s.unit) + '</div><div class="sp-c">' + bars + '</div>' + B(s.note, 'p', 'lnote') +
+        '<details class="sp-t"><summary>' + B(s.table) + '</summary><table>' + tb + '</table></details></div>';
+    },
     five: function (b) { return '<div class="five">' + b.items.map(function (x) { return '<div>' + B(x) + '</div>'; }).join('') + '</div>'; },
     chain: function (b) {
       return '<div class="chain">' + b.items.map(function (x) {
@@ -73,7 +97,7 @@
     ledger: function () {
       var h = CH.ledger.map(function (g) {
         return '<div class="lg"><h3>' + B(g.h) + '</h3>' + g.rows.map(function (r) {
-          var n = r.nen ? '<span class="zh">' + r.n + '</span><span class="en" lang="en">' + r.nen + '</span>' : r.n;
+          var n = r.nen ? '<span class="zh">' + cu(r.n) + '</span><span class="en" lang="en">' + cu(r.nen) + '</span>' : cu(r.n);
           return '<div class="row' + (r.big ? ' big' : '') + '"><div class="n">' + n + (r.u && r.u.zh ? '<small>' + B(r.u) + '</small>' : '') + '</div><div class="l">' + B(r.l) + '</div><div class="w">' + (r.w ? B(r.w) + ' · ' : '') + one(r.s) + '</div></div>';
         }).join('') + '</div>';
       }).join('');
@@ -100,33 +124,56 @@
       CH.chapters.forEach(function (c) { c.b.forEach(function (b) { (b.s || []).forEach(add); }); });
       CH.ledger.forEach(function (g) { g.rows.forEach(function (r) { add(r.s); }); });
       CH.records.forEach(function (r) { add(r[4]); });
-      return '<details class="all"><summary><span class="zh">本页全部出处（' + L.length + ' 条）</span><span class="en" lang="en">All sources on this page (' + L.length + ')</span></summary><ul>' + L.map(function (k) { return '<li>' + one(k) + '</li>'; }).join('') + '</ul></details>';
+      return '<details class="all"><summary><span class="zh">本頁全部出處（' + L.length + ' 條）</span><span class="en" lang="en">All sources on this page (' + L.length + ')</span></summary><ul>' + L.map(function (k) { return '<li>' + one(k) + '</li>'; }).join('') + '</ul></details>';
     }
   };
+  function cu(t) { return t.replace(/\d[\d,]*/, function (m) { return '<span class="cu" data-v="' + m.replace(/,/g, '') + '">' + m + '</span>'; }); }
   function vid(id, t, y) {
     return '<a class="vid" href="https://www.youtube.com/watch?v=' + id + '" target="_blank" rel="noopener"><span class="im"><img loading="lazy" src="assets/yt/' + id + '.jpg" alt=""></span>' + B(t) + (y ? '<small>' + y + '</small>' : '') + '</a>';
   }
 
-  /* 组页 */
-  var h = CH.hero, html = '';
-  html += '<section id="hero" data-era="dark"><img class="still" src="assets/ph/hero.jpg" alt=""><video id="door" muted playsinline preload="auto" poster="assets/ph/hero0.jpg" src="assets/film/door.mp4"></video>' +
-    '<div class="hero-t"><p class="film t">' + B(h.film) + '</p><p class="stop">' + B(h.stop) + '</p><h1>' + B(h.title) + '</h1><p class="sub">' + B(h.sub) + '</p>' +
-    '<div class="hero-b"><a class="btn solid" href="#film" id="watch">' + B(h.watch) + '</a><a class="btn" href="#river">' + B(h.read) + '</a></div></div><div class="ai">' + B(h.ai) + '</div></section>';
-  html += '<section id="river" data-era="dark" aria-label="照片河，从今天流回一九六六"><div id="rs"><div class="rrow"></div><div class="rrow"></div><div class="rrow"></div>' +
-    '<div id="ryear" aria-hidden="true">2026</div><img id="rpop" alt=""><div id="rtext"><div>' + B(CH.river.a) + '</div><div>' + B(CH.river.b) + '</div></div><div id="rgold"></div><div id="rpaper"></div></div></section>';
-  CH.chapters.forEach(function (c, i) {
-    html += '<section class="ch" id="' + c.id + '" data-era="' + c.era + '" data-i="' + i + '">';
-    if (c.ask) html += '<div class="ask rv">' + B(c.ask, 'div', 't') + '</div>';
-    html += '<div class="wrap' + (c.ask ? '' : ' first') + '">';
-    if (c.h) html += '<header class="ch-h rv"><div class="yr">' + (c.yen ? B({ zh: c.y, en: c.yen }) : c.y) + '</div><h2>' + B(c.h) + '</h2>' + (c.lead ? B(c.lead, 'p', 'lead') : '') + '</header>';
-    c.b.forEach(function (b) { html += '<div class="b rv">' + R[b.k](b) + '</div>'; });
-    html += '</div></section>';
-  });
-  html += '<section class="next" data-era="dark"><p class="a t zh">' + CH.next.ask.zh + '</p><p class="en" lang="en"><i>' + CH.next.ask.en + '</i></p><p class="s">' + B(CH.next.stop) + '</p></section>';
-  html += '<footer data-era="dark"><div class="wrap">' + B(CH.footer) + '</div></footer>';
-  app.innerHTML = html;
+  /* 組頁：hub 和六段靠 hash 切換，內容還是原來的章節 */
+  var U = CH.ui, BL = CH.blocks, byId = {}, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, seen = {}, cur = -1;
+  CH.chapters.forEach(function (c) { byId[c.id] = c; });
+  try { (JSON.parse(localStorage.getItem('tc60seen')) || []).forEach(function (k) { seen[k] = 1; }); } catch (e) {}
+  function mark(id) { if (seen[id]) return; seen[id] = 1; try { localStorage.setItem('tc60seen', JSON.stringify(Object.keys(seen))); } catch (e) {} }
+  function askOf(b) { return b.ask || byId[b.ch[0]].ask; }
+  function yr(b) { return typeof b.y === 'string' ? b.y : B(b.y); }
+  function tx(o) { return (lang === 'en' ? o.en : o.zh).replace(/<[^>]+>/g, ''); }
+  function stamp() { return '<span class="stamp t" aria-hidden="true">' + B(U.walked) + '</span>'; }
+  function foot() { return '<footer data-era="dark"><div class="wrap">' + B(CH.footer) + '</div></footer>'; }
+  function hubHTML() {
+    var h = CH.hero, nx = -1;
+    BL.some(function (b, i) { if (!seen[b.id]) { nx = i; return true; } });
+    var cards = BL.map(function (b, i) {
+      return '<a class="bc' + (i === nx ? ' nx' : '') + (seen[b.id] ? ' ok' : '') + '" href="#' + b.id + '" data-go="' + i + '"><span class="bc-i"><img loading="lazy" src="assets/ph/' + b.cover + '.jpg" alt=""></span>' +
+        '<span class="bc-t"><span class="bc-y"><b>' + (i + 1) + '</b>' + yr(b) + '</span><span class="bc-h t">' + B(b.h) + '</span><span class="bc-q">' + B(askOf(b)) + '</span></span>' +
+        (i === nx ? '<em>' + B(U.start) + '</em>' : '') + (seen[b.id] ? stamp() : '') + '</a>';
+    }).join('');
+    return '<section id="hero" data-era="dark"><img class="still" src="assets/ph/hero.jpg" alt=""><video id="door" muted playsinline preload="auto" poster="assets/ph/hero0.jpg" src="assets/film/door.mp4"></video>' +
+      '<div class="hero-t"><p class="film t">' + B(h.film) + '</p><p class="stop">' + B(h.stop) + '</p><h1>' + B(h.title) + '</h1><p class="sub">' + B(h.sub) + '</p>' +
+      '<div class="hero-b"><a class="btn solid" href="#film" id="watch">' + B(h.watch) + '</a><a class="btn" href="#hub" id="read">' + B(h.read) + '</a></div></div><div class="ai">' + B(h.ai) + '</div></section>' +
+      '<section id="hub" data-era="e60"><div class="wrap"><p class="hub-k">' + B(U.hubK) + '</p><h2 class="t">' + B(U.hubH) + '</h2><p class="hub-s">' + B(U.hubS) + '</p><div class="bcs">' + cards + '</div></div></section>' + foot();
+  }
+  function chapter(c, skipAsk) {
+    var s = '<section class="ch" id="' + c.id + '" data-era="' + c.era + '">';
+    if (c.ask && !skipAsk) s += '<div class="ask rv">' + B(c.ask, 'div', 't') + '</div>';
+    s += '<div class="wrap' + (c.ask && !skipAsk ? '' : ' first') + '">';
+    if (c.h) s += '<header class="ch-h rv"><div class="yr">' + (c.yen ? B({ zh: c.y, en: c.yen }) : c.y) + '</div><h2>' + B(c.h) + '</h2>' + (c.lead ? B(c.lead, 'p', 'lead') : '') + '</header>';
+    c.b.forEach(function (b) { s += '<div class="b rv">' + R[b.k](b) + '</div>'; });
+    return s + '</div></section>';
+  }
+  function blockHTML(i) {
+    var b = BL[i], n = BL[i + 1], seg = { zh: U.seg.zh.replace('{n}', i + 1), en: U.seg.en.replace('{n}', i + 1) };
+    var s = '<section class="bh" data-era="dark"><img src="assets/ph/' + b.cover + '.jpg" alt=""><div class="bh-t"><p class="bh-k">' + B(seg) + '　' + yr(b) + '</p><h1 class="t">' + B(b.h) + '</h1><p class="bh-q t">' + B(askOf(b)) + '</p><span class="bh-d" aria-hidden="true">↓</span></div></section>';
+    b.ch.forEach(function (id, k) { s += chapter(byId[id], k === 0); });
+    s += '<section class="bn" data-era="dark"><div class="bn-s">' + stamp() + '</div><p class="bn-d">' + B(U.done) + '</p>';
+    if (n) s += '<p class="bn-k">' + B(U.nextOf) + '　' + yr(n) + '　' + B(n.h) + '</p><p class="bn-q t">' + B(askOf(n)) + '</p><a class="go2" href="#' + n.id + '" data-go="' + (i + 1) + '">' + B(U.nextTun) + ' →</a><a class="bn-b" href="#hub">' + B(U.back) + '</a>';
+    else s += '<p class="bn-q t">' + B(CH.next.ask) + '</p><p class="bn-k">' + B(CH.next.stop) + '</p><a class="go2" href="index.html#road" id="toroad">' + B(U.road) + ' →</a><a class="bn-b" href="#hub">' + B(U.back) + '</a>';
+    return s + '</section>' + foot();
+  }
 
-  /* 语言钮 */
+  /* 語言鈕 */
   var lg = doc.getElementById('lang');
   [['zh', '中'], ['en', 'EN'], ['both', '中/EN']].forEach(function (x) {
     var b = doc.createElement('button'); b.textContent = x[1]; b.setAttribute('aria-pressed', x[0] === lang);
@@ -134,12 +181,13 @@
     lg.appendChild(b);
   });
 
-  /* 门 */
-  var hero = doc.getElementById('hero'), door = doc.getElementById('door');
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function showTxt() { hero.classList.add('txt'); }
-  function done() { hero.classList.add('done'); showTxt(); }
-  if (reduce) { door.remove(); done(); } else {
+  /* 門：一次瀏覽只開一次 */
+  function wireDoor() {
+    var hero = doc.getElementById('hero'), door = doc.getElementById('door'), once = false;
+    try { once = sessionStorage.getItem('tc60door'); sessionStorage.setItem('tc60door', '1'); } catch (e) {}
+    function showTxt() { hero.classList.add('txt'); }
+    function done() { hero.classList.add('done'); showTxt(); }
+    if (reduce || once) { door.remove(); done(); return; }
     door.addEventListener('timeupdate', function () { if (door.currentTime > 5.2) showTxt(); });
     door.addEventListener('ended', done);
     door.addEventListener('error', done);
@@ -147,86 +195,124 @@
     setTimeout(function () { if (door.paused || door.currentTime === 0) done(); }, 2500);
   }
 
-  /* 照片河 */
-  var RV = window.RIVER || [], rows = doc.querySelectorAll('.rrow');
-  RV.forEach(function (r, i) {
-    var im = doc.createElement('img'); im.src = 'assets/river/' + r[1] + '.jpg'; im.alt = ''; im.width = r[2]; im.height = 300; im.dataset.y = r[0]; rows[i % 3].appendChild(im);
-  });
-  var riv = doc.getElementById('river'), ry = doc.getElementById('ryear'), rp = doc.getElementById('rpop'), rg = doc.getElementById('rgold'), rpa = doc.getElementById('rpaper'), rt = doc.querySelectorAll('#rtext>div'), rs = doc.getElementById('rs');
-  var pops = [.3, .46, .62, .76].map(function (a, n) { var r = RV[Math.floor(a * (RV.length - 1))]; return { a: a, y: r[0], s: 'assets/river/' + r[1] + '.jpg' }; });
-  var off = [0, 90, 40], rowW = [0, 0, 0];
-  function meas() { [].forEach.call(rows, function (r, i) { rowW[i] = r.scrollWidth - innerWidth; }); }
-  function ramp(x, a, b) { return Math.min(1, Math.max(0, (x - a) / (b - a))); }
-  function tri(x, a, b, c, d) { return ramp(x, a, b) * (1 - ramp(x, c, d)); }
-  function river() {
-    var r = riv.getBoundingClientRect(), span = r.height - innerHeight, p = Math.min(1, Math.max(0, -r.top / span));
-    if (r.bottom < -50 || r.top > innerHeight + 50) return;
-    var q = ramp(p, .04, .9);
-    [].forEach.call(rows, function (e, i) { e.style.transform = 'translate3d(' + (-off[i] - q * (rowW[i] - off[i])) + 'px,0,0)'; });
-    /* 年份跟着屏幕中间那张真实照片走，不按滚动比例推算 */
-    var cx = off[1] + q * (rowW[1] - off[1]) + innerWidth / 2, ph = rows[1].children, yy = q > 0 ? ph[0].dataset.y : 2026;
-    for (var k = 0; k < ph.length && q > 0; k++) { if (ph[k].offsetLeft > cx) break; yy = ph[k].dataset.y; }
-    ry.textContent = yy;
-    ry.style.opacity = .92 * (1 - ramp(p, .9, .95));
-    rs.style.background = 'rgb(' + Math.round(18 + 70 * q) + ',' + Math.round(15 + 50 * q) + ',' + Math.round(12 + 26 * q) + ')';
-    rg.style.opacity = 1 - ramp(p, 0, .07);
-    rpa.style.opacity = ramp(p, .93, 1);
-    /* 纸幕快盖满时就把底色换好，1966 升上来时才不会露出黑底 */
-    if (p > .9) { var ee = p > .96 ? CH.chapters[0].era : 'dark'; if (root.dataset.era !== ee) root.dataset.era = ee; }
-    rt[0].style.opacity = tri(p, .08, .13, .24, .29);
-    rt[1].style.opacity = tri(p, .8, .84, .93, .95);
-    var hit = null; pops.forEach(function (o) { if (Math.abs(p - o.a) < .045) hit = o; });
-    if (hit) {
-      if (rp.dataset.s !== hit.s) { rp.src = hit.s; rp.dataset.s = hit.s; }
-      var d = (p - hit.a) / .045; rp.style.opacity = 1 - Math.pow(Math.abs(d), 3);
-      rp.style.transform = 'translate(-50%,-50%) scale(' + (1 + .06 * d) + ')';
-    } else rp.style.opacity = 0;
+  /* 竹筒互動 */
+  function wireCoin() {
+    var el = doc.querySelector('.coin'); if (!el) return;
+    var c = CH.coin, cells = el.querySelectorAll('.cn-g i'), v = el.querySelector('.cn-v b'), s = el.querySelector('.cn-s'), bt = el.querySelector('.cn-b'), tm = [];
+    function say(o) { s.innerHTML = B(o); }
+    function num(x) { v.textContent = (lang === 'en' ? 'NT$' : '') + x.toLocaleString('en-US'); }
+    function at(ms, f) { tm.push(setTimeout(f, ms)); }
+    function reset() { tm.forEach(clearTimeout); tm = []; el.classList.remove('day'); [].forEach.call(cells, function (x) { x.className = ''; }); num(0); }
+    bt.onclick = function () {
+      reset(); bt.hidden = true;
+      var t = reduce ? 0 : 1;
+      cells[0].className = 'on'; num(.5);
+      for (var i = 1; i < 30; i++) (function (i) { at(t * (500 + i * 55), function () { cells[i].className = 'on'; num((i + 1) / 2); if (i === 29) say(c.s1); }); })(i);
+      at(t * 3400, function () { el.classList.add('day'); [].forEach.call(cells, function (x) { x.className = ''; }); });
+      for (var d = 0; d < 30; d++) (function (d) { at(t * (3500 + d * 70), function () { cells[d].className = 'on'; num((d + 1) * 15); if (d === 29) say(c.s2); }); })(d);
+      at(t * 7000, function () { num(1170); say(c.s3); bt.innerHTML = B(c.again); bt.hidden = false; });
+    };
   }
 
-  /* 进度线、年代、胶囊 */
-  var bar = doc.getElementById('bar'), pill = doc.getElementById('pill'), pb = doc.getElementById('pillb'), toc = doc.getElementById('toc');
-  var chs = doc.querySelectorAll('.ch'), cur = -1, N = CH.chapters.length;
-  toc.innerHTML = CH.chapters.map(function (c) { return '<a href="#' + c.id + '"><span>' + (c.yen && lang === 'en' ? c.yen : c.y) + '</span><span>' + B(c.nav) + '</span></a>'; }).join('');
-  function paintPill() {
-    [].forEach.call(toc.children, function (a, i) { var x = CH.chapters[i]; a.firstChild.textContent = lang === 'en' && x.yen ? x.yen : x.y; });
-    if (cur < 0) return; var c = CH.chapters[cur];
-    pb.innerHTML = '<b>' + (cur + 1) + '/' + N + '</b><span>' + (lang === 'en' ? (c.yen || c.y) : c.y) + '</span><i>' + (lang === 'en' ? c.nav.en : c.nav.zh) + '</i><span aria-hidden="true">▴</span>';
-    [].forEach.call(toc.children, function (a, i) { if (i === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+  /* 數字跑上去 */
+  function run(e) {
+    var to = +e.dataset.v, t0 = 0, big = e.textContent.indexOf(',') >= 0;
+    if (reduce) return;
+    function f(t) {
+      t0 = t0 || t; var p = Math.min(1, (t - t0) / 1300), x = Math.round(to * (1 - Math.pow(1 - p, 3)));
+      e.textContent = big ? x.toLocaleString('en-US') : x; if (p < 1) requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
   }
-  if (window.IntersectionObserver) {
-    var eio = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var t = e.target; root.dataset.era = t.dataset.era;
-        if (t === riv && !reduce) river();
-        var i = t.dataset.i === undefined ? -1 : +t.dataset.i;
-        pill.classList.toggle('on', i >= 0);
-        if (i < 0) toc.hidden = true;
-        if (i >= 0 && i !== cur) { cur = i; paintPill(); }
-      });
-    }, { rootMargin: '-50% 0px -50% 0px' });
-    doc.querySelectorAll('#hero,#river,.ch,.next').forEach(function (s) { eio.observe(s); });
-    var rio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
-    doc.querySelectorAll('.rv').forEach(function (e) { rio.observe(e); });
-  } else doc.querySelectorAll('.rv').forEach(function (e) { e.classList.add('in'); });
+
+  /* 目錄、進度、年代 */
+  var bar = doc.getElementById('bar'), pill = doc.getElementById('pill'), pb = doc.getElementById('pillb'), toc = doc.getElementById('toc'), dots = doc.getElementById('dots'), bk = doc.querySelector('.back');
+  var eio, rio, strips = [];
+  function paintToc() {
+    toc.innerHTML = BL.map(function (b, i) { return '<a href="#' + b.id + '" data-go="' + i + '"' + (i === cur ? ' aria-current="true"' : '') + '><span>' + (i + 1) + '</span><span>' + B(b.h) + '</span><span>' + (seen[b.id] ? '✓' : '') + '</span></a>'; }).join('');
+    dots.innerHTML = cur < 0 ? '' : BL.map(function (b, i) { return '<a href="#' + b.id + '" data-go="' + i + '" aria-label="' + (i + 1) + '" class="' + (i === cur ? 'c' : seen[b.id] ? 's' : '') + '"></a>'; }).join('');
+  }
+  function paintPill() {
+    if (cur < 0) return;
+    var left = doc.querySelectorAll('.b.rv:not(.in)').length;
+    pb.innerHTML = '<b>' + (cur + 1) + '/6</b><span>' + tx(BL[cur].h) + '</span><i>' + (left ? tx(U.left) + ' ' + left + ' ' + tx(U.leftU) : tx(U.done)) + '</i><span aria-hidden="true">▴</span>';
+  }
+  function wire() {
+    if (eio) eio.disconnect();
+    if (rio) rio.disconnect();
+    paintToc();
+    pill.classList.toggle('on', cur >= 0); toc.hidden = true;
+    bk.innerHTML = cur < 0 ? '<span class="zh">← 八大腳印</span><span class="en" lang="en">← Eight Footprints</span>' : '<span class="zh">← 六段路</span><span class="en" lang="en">← Six stretches</span>';
+    bk.setAttribute('href', cur < 0 ? 'index.html#road' : '#hub');
+    if (cur < 0) wireDoor();
+    wireCoin();
+    strips = [].slice.call(doc.querySelectorAll('.strip'));
+    if (window.IntersectionObserver) {
+      eio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) root.dataset.era = e.target.dataset.era; }); }, { rootMargin: '-50% 0px -50% 0px' });
+      doc.querySelectorAll('#hero,#hub,.bh,.ch,.bn').forEach(function (s) { eio.observe(s); });
+      rio = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var t = e.target;
+          t.classList.add('in'); rio.unobserve(t);
+          if (t.classList.contains('cu')) run(t);
+          if (t.classList.contains('bn')) { mark(BL[cur].id); paintToc(); }
+          paintPill();
+        });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      doc.querySelectorAll('.rv,.cu,.bn,.sp-c').forEach(function (e) { rio.observe(e); });
+    } else doc.querySelectorAll('.rv,.bn,.sp-c').forEach(function (e) { e.classList.add('in'); });
+    paintPill();
+    if (window.TUN) TUN.prep(cur < 0 ? 'back' : BL[cur + 1] ? BL[cur + 1].tun : 'big');
+    frame();
+  }
+  function render() {
+    var m = /^#b([1-6])$/.exec(location.hash), hub = location.hash === '#hub';
+    cur = m ? +m[1] - 1 : -1;
+    root.dataset.view = m ? 'block' : 'hub';
+    app.innerHTML = m ? blockHTML(cur) : hubHTML();
+    doc.title = (m ? tx(BL[cur].h) + '｜' : '') + '慈善｜媽媽，慈濟是什麼？';
+    scrollTo(0, 0);
+    wire();
+    if (hub) doc.getElementById('hub').scrollIntoView();
+  }
+  /* 換段都走時空隧道；瀏覽器上一頁不走 */
+  function go(i) {
+    var b = BL[i], tg = '#' + b.id;
+    if (!window.TUN) { location.hash = tg; return; }
+    TUN.play(b.tun, { q: tx(askOf(b)), skip: tx(U.skip), mid: function () { if (location.hash === tg) render(); else location.hash = tg; } });
+  }
+  doc.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-go]');
+    if (a) { e.preventDefault(); toc.hidden = true; go(+a.dataset.go); return; }
+    var w = e.target.closest && e.target.closest('#watch,#read,#toroad');
+    if (!w) return;
+    e.preventDefault();
+    if (w.id === 'watch') { fl.hidden = false; root.style.overflow = 'hidden'; fv.play(); }
+    else if (w.id === 'read') doc.getElementById('hub').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    else if (window.TUN) TUN.play('big', { q: tx(U.road), skip: tx(U.skip), end: function () { location.href = 'index.html#road'; } });
+    else location.href = 'index.html#road';
+  });
   pb.onclick = function (e) { e.stopPropagation(); toc.hidden = !toc.hidden; pb.setAttribute('aria-expanded', !toc.hidden); };
-  toc.onclick = function () { toc.hidden = true; };
   doc.addEventListener('click', function (e) { if (!toc.hidden && !toc.contains(e.target)) toc.hidden = true; });
 
-  var tick = false;
+  var tick = false, wide = matchMedia('(hover:hover) and (pointer:fine)');
   function frame() {
     tick = false;
     var m = doc.documentElement.scrollHeight - innerHeight;
     bar.style.transform = 'scaleX(' + (m > 0 ? scrollY / m : 0) + ')';
-    if (!reduce) river();
+    /* 膠卷：桌面跟著滾動慢慢拉過去，手機用手指滑 */
+    if (wide.matches && !reduce) strips.forEach(function (s) {
+      var r = s.getBoundingClientRect(), mx = s.scrollWidth - s.clientWidth;
+      if (mx > 0 && r.bottom > 0 && r.top < innerHeight) s.scrollLeft = mx * Math.min(1, Math.max(0, (innerHeight - r.bottom + r.height * .4) / (innerHeight * .75)));
+    });
   }
   function ask() { if (!tick) { tick = true; requestAnimationFrame(frame); } }
   addEventListener('scroll', ask, { passive: true });
-  addEventListener('resize', function () { meas(); ask(); });
-  addEventListener('load', function () { meas(); ask(); });
-  meas(); ask();
+  addEventListener('resize', ask);
+  addEventListener('hashchange', render);
 
-  /* 灯箱 */
+  /* 燈箱 */
   var lb = doc.getElementById('lb'), lbi = doc.getElementById('lbi'), lbc = doc.getElementById('lbc'), last = null;
   app.addEventListener('click', function (e) {
     var z = e.target.closest && e.target.closest('.zoom'); if (!z) return;
@@ -241,15 +327,16 @@
   /* 影片 */
   var fl = doc.getElementById('film'), fv = doc.getElementById('filmv');
   function closeFilm() { fv.pause(); fl.hidden = true; root.style.overflow = ''; }
-  doc.getElementById('watch').addEventListener('click', function (e) { e.preventDefault(); fl.hidden = false; root.style.overflow = 'hidden'; fv.play(); });
   doc.getElementById('filmx').onclick = closeFilm;
   addEventListener('keydown', function (e) { if (e.key !== 'Escape') return; if (!lb.hidden) closeLb(); if (!fl.hidden) closeFilm(); });
 
-  /* 沿革筛选 */
-  var flt = doc.getElementById('flt'), rl = doc.getElementById('rl');
-  if (flt) flt.addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (!b) return; var f = b.dataset.f;
+  /* 沿革篩選 */
+  app.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('#flt button'); if (!b) return;
+    var flt = doc.getElementById('flt'), rl = doc.getElementById('rl'), f = b.dataset.f;
     [].forEach.call(flt.children, function (c) { c.setAttribute('aria-pressed', c === b); });
     [].forEach.call(rl.children, function (li) { li.hidden = f !== 'all' && (' ' + li.dataset.t + ' ').indexOf(' ' + f + ' ') < 0; });
   });
+
+  render();
 })();

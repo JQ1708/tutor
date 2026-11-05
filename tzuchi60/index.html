@@ -1,58 +1,127 @@
 <!doctype html>
-<html lang="zh" data-era="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>妈妈，慈济是什么？</title><meta name="robots" content="noindex">
+<html lang="zh-Hant" data-era="e60"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>媽媽，慈濟是什麼？</title><meta name="robots" content="noindex">
 <link rel="stylesheet" href="assets/charity_font.css"><link rel="stylesheet" href="assets/charity.css">
+<script>
+/* 片頭只在第一次來時播；從區塊走回來、或喜歡少動畫的人直接看路線 */
+(function(){var seen=0;try{seen=localStorage.getItem('tc60intro')}catch(e){}
+ if(!seen&&location.hash!=='#road'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro')})();
+</script>
 <style>
-#cover{position:relative;height:100vh;height:100svh;min-height:540px;overflow:hidden;background:#120f0c;color:#f7eedd}
-.wall{position:absolute;inset:0;display:grid;grid-template-rows:repeat(3,1fr);gap:10px;padding:10px 0}
-.wrow{display:flex;gap:10px;width:max-content;height:100%;min-height:0;animation:flow var(--d) linear infinite}
-.wrow img{height:100%;width:auto;max-width:none;flex:none;border:5px solid #e9dfc9}
-@keyframes flow{from{transform:translateX(-50%)}to{transform:none}}
-.veil{position:absolute;inset:0;background:radial-gradient(ellipse at center,#120f0ce6 0,#120f0cc4 46%,#120f0c8c 100%)}
-.cv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px var(--gut) 28px}
-.cv .yrs{font:15px/1 var(--sans);letter-spacing:.32em;margin:0 0 18px;opacity:.82}
-.cv h1{font:400 clamp(44px,8.6vw,112px)/1.25 Title,var(--song);margin:0}
-html[data-lang=en] .cv h1,.cv h1 .en{font:italic 400 clamp(34px,6vw,76px)/1.2 var(--en)}
-html[data-lang=both] .cv h1 .en{display:block;font-size:.36em;margin-top:.3em}
-.nb{display:inline-block}
-.doors{display:grid;grid-template-columns:repeat(2,minmax(0,300px));gap:14px;margin-top:clamp(26px,6vh,52px);text-align:left}
-.door{display:block;padding:18px 20px;text-decoration:none;border:1px solid #f7eedd66;background:#120f0ca6;transition:background-color .25s,color .25s}
-.door:hover,.door:focus-visible{background:#f2e8d6;color:#23201b}
-.door b{display:block;font:500 24px/1.35 var(--song)}.door b .en{font:italic 400 21px/1.35 var(--en)}
-html[data-lang=both] .door b .en{display:block;font-size:16px}
-.door small{display:block;margin-top:6px;font:14px/1.65 var(--sans);opacity:.86}.door small .en{font:inherit}
-html[data-lang=both] .door small .en{display:block}
-#feet{--pad:clamp(56px,10vh,104px);padding:var(--pad) var(--gut);background:#d9cfb8 url(assets/era/paper.jpg) center/cover;background-blend-mode:multiply;color:#23201b}
-footer .wrap{max-width:1040px;margin:0 auto}
-.fw{max-width:1040px;margin:0 auto}
-.kick{font:14px/1.5 var(--sans);letter-spacing:.2em;color:#5d5444;margin:0 0 6px}.kick .en{font:inherit}
-#feet h2{font:400 clamp(38px,6vw,64px)/1.3 Title,var(--song);margin:0 0 .6em}#feet h2 .en{font:italic 400 clamp(30px,5vw,50px)/1.3 var(--en)}
-html[data-lang=both] #feet h2 .en{display:block;font-size:.5em}
-.fg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid #3a352c;border-left:1px solid #3a352c66}
-.ft{display:flex;flex-direction:column;min-height:186px;padding:16px;text-decoration:none;color:#6e6452;border-right:1px solid #3a352c66;border-bottom:1px solid #3a352c66}
-.ft .y{font:13px/1 var(--sans);letter-spacing:.1em;font-variant-numeric:tabular-nums}
-.ft .n{font:400 32px/1.3 Title,var(--song);margin-top:12px}.ft .n .en{font:italic 400 23px/1.3 var(--en)}
-html[data-lang=both] .ft .n .en{display:block;font-size:16px}
-.ft em{margin-top:auto;font:13px/1.4 var(--sans)}.ft em .en{font:inherit}
-a.ft{background:#23201b;color:#f2e8d6;transition:background-color .25s}a.ft:hover,a.ft:focus-visible{background:#8c2f23}
-@media(max-width:720px){.doors{grid-template-columns:minmax(0,1fr);width:100%;max-width:340px;gap:10px}.door{padding:14px 16px}.door b{font-size:21px}
- .fg{grid-template-columns:repeat(2,minmax(0,1fr))}.ft{min-height:138px;padding:13px}.ft .n{font-size:27px}.veil{background:#120f0cc9}}
-@media(prefers-reduced-motion:reduce){.wrow{animation:none}}
+#intro{display:none}
+html.intro{overflow:hidden}
+html.intro #intro{display:block}
+#intro{--hw:55.5vw;--sx:0vw;--S:min(46vh,70vw);--gy:13vh;position:fixed;inset:0;z-index:100;overflow:hidden;background:radial-gradient(ellipse 90% 26% at 50% 96%,#d8c7a4 0,#d8c7a400 100%),#eee5d2}
+#intro img,#intro .i-d,#intro .i-l,.i-glow,.i-t{position:absolute;opacity:0}
+#intro.go .i-out{animation:iout .9s ease 15.5s forwards}
+.i-nun{height:72vh;bottom:9vh;left:calc(50% + 4vw);transform:translateX(-50%)}
+.i-hand{width:var(--hw);right:0;bottom:calc(var(--gy) + var(--S)*.33)}
+.i-sap{width:var(--S);left:calc(50% - var(--S)/2);bottom:var(--gy);transform-origin:50% 100%}
+.i-t2{width:min(96vh,120vw);left:50%;margin-left:calc(min(96vh,120vw)/-2);bottom:7vh;transform-origin:50% 100%}
+.i-tree{width:min(106vh,134vw);left:50%;margin-left:calc(min(106vh,134vw)/-2);bottom:3vh;transform-origin:50% 100%}
+.i-v1,.i-v2{height:40vh;bottom:7vh}
+.i-v1{left:calc(50% - min(42vw,430px))}.i-v2{right:calc(50% - min(44vw,450px))}
+.i-crowd{width:min(92vw,1080px);left:50%;margin-left:calc(min(92vw,1080px)/-2);bottom:-2.5vh}
+.i-d{width:6px;height:11px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:#8fb2c9;left:calc(50% + var(--x));bottom:calc(var(--gy) + var(--S)*.34)}
+.i-l{width:13px;height:8px;border-radius:0 80% 0 80%;background:var(--c);left:var(--x);top:-20px}
+.i-glow{left:50%;top:33%;width:min(130vw,1240px);height:44vh;transform:translate(-50%,-50%);background:radial-gradient(closest-side,#eee5d2f5 0,#eee5d2e0 55%,#eee5d200 100%)}
+.i-t{left:var(--gut);right:var(--gut);top:33%;transform:translateY(-50%);text-align:center;margin:0;color:#3b2a17;font:400 clamp(38px,7.2vw,92px)/1.3 Title,var(--song);text-wrap:balance}
+.i-t .nb{display:inline-block}
+@media(max-width:640px){.i-ai{top:16px!important;bottom:auto!important}}
+.i-t .en{font:italic 400 clamp(28px,4.6vw,56px)/1.25 var(--en)}
+html[data-lang=both] .i-t .en{display:block;font-size:.4em;margin-top:.4em}
+#intro.go .i-nun{animation:fin 1.3s ease .2s both,fout .7s ease 2.9s forwards}
+#intro.go .i-hand{animation:handin 1.1s ease-out 2.9s both,fout .8s ease 5.5s forwards}
+#intro.go .i-d{animation:drop .85s ease-in var(--d) 4 both}
+#intro.go .i-sap{animation:sprout 1.9s cubic-bezier(.3,1.25,.5,1) 3.7s both,panx 1.2s ease 5.3s both,fout .8s ease 6.1s forwards}
+#intro.go .i-t2{animation:grow2 3.6s cubic-bezier(.3,.8,.4,1) 5.7s both,fout 1.1s ease 9.2s forwards}
+#intro.go .i-v1{animation:sideL 1.5s ease-out 6.5s both,fout .9s ease 9.3s forwards}
+#intro.go .i-v2{animation:sideR 1.5s ease-out 7.2s both,fout .9s ease 9.3s forwards}
+#intro.go .i-tree{animation:grow3 4.2s cubic-bezier(.25,.8,.3,1) 9s both}
+#intro.go .i-crowd{animation:rise 1.8s ease-out 9.5s both}
+#intro.go .i-l{animation:leaf var(--t) linear var(--d) both}
+#intro.go .i-glow{animation:fin 1.4s ease 12.4s both}
+#intro.go .i-t{animation:tin 1.3s ease 12.8s both}
+@keyframes iout{to{opacity:0;visibility:hidden}}
+@keyframes fin{from{opacity:0}to{opacity:1}}
+@keyframes fout{from{opacity:1}to{opacity:0}}
+@keyframes handin{from{opacity:0;transform:translateX(5vw)}to{opacity:1;transform:none}}
+@keyframes drop{0%{opacity:0;transform:translateY(-54px)}18%{opacity:.9}100%{opacity:0;transform:translateY(4px)}}
+@keyframes sprout{from{opacity:0;transform:translateX(var(--sx)) scale(.15)}to{opacity:1;transform:translateX(var(--sx)) scale(1)}}
+@keyframes panx{from{transform:translateX(var(--sx))}to{transform:none}}
+@keyframes grow2{from{opacity:0;transform:scale(.3)}22%{opacity:1}to{opacity:1;transform:scale(1)}}
+@keyframes grow3{from{opacity:0;transform:scale(.62)}25%{opacity:1}to{opacity:1;transform:scale(1)}}
+@keyframes sideL{from{opacity:0;transform:translateX(-7vw)}to{opacity:1;transform:none}}
+@keyframes sideR{from{opacity:0;transform:translateX(7vw)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(6vh)}to{opacity:1;transform:none}}
+@keyframes leaf{0%{opacity:0;transform:translate(0,0) rotate(0)}10%{opacity:.85}90%{opacity:.85}100%{opacity:0;transform:translate(var(--w),105vh) rotate(420deg)}}
+@keyframes tin{from{opacity:0;transform:translateY(calc(-50% + 12px))}to{opacity:1;transform:translateY(-50%)}}
+.i-skip{position:absolute;right:var(--gut);bottom:18px;z-index:3;padding:11px 18px;border-radius:99px;font:14px/1 var(--sans);color:#3b2a17;background:#eee5d2cc;box-shadow:inset 0 0 0 1px #3b2a1766}.i-skip .en{font:inherit}
+.i-ai{position:absolute;left:var(--gut);bottom:24px;z-index:3;font:12px/1 var(--sans);color:#6b5a42}.i-ai .en{font:inherit}
+#road{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:64px var(--gut) 34px}
+.fw{width:min(1040px,100%);margin:0 auto}
+.kick{font:15px/1.5 var(--sans);letter-spacing:.2em;color:#5d5444;margin:0 0 2px;text-align:center}.kick .en{font:inherit}
+#road h1{font:400 clamp(36px,6vw,64px)/1.3 Title,var(--song);margin:0;text-align:center;text-wrap:balance}#road h1 .en{font:italic 400 clamp(30px,4.6vw,50px)/1.3 var(--en)}
+html[data-lang=both] #road h1 .en{display:block;font-size:.5em}
+.map{position:relative;aspect-ratio:1000/520;margin:clamp(6px,2vh,20px) auto 0;max-height:62vh;max-width:calc(62vh*1000/520)}
+.map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.map svg.m{display:none}
+.map path{fill:none;stroke-linecap:round}
+.pa{stroke:#3a352c;stroke-opacity:.42;stroke-width:2.5;stroke-dasharray:100;stroke-dashoffset:100;vector-effect:non-scaling-stroke}
+.pw{stroke:#8c2f23;stroke-width:5;vector-effect:non-scaling-stroke}
+.on .pa{stroke-dashoffset:0;transition:stroke-dashoffset 1.7s ease}
+.stp{--z:78px;position:absolute;left:var(--x);top:var(--y);width:var(--z);margin-left:calc(var(--z)/-2);margin-top:calc(var(--z)/-2);text-align:center;text-decoration:none;color:#5d5444;opacity:0;transform:scale(.7)}
+.on .stp{opacity:1;transform:none;transition:opacity .5s ease var(--dl),transform .5s cubic-bezier(.3,1.5,.5,1) var(--dl)}
+.stp.big{--z:100px}
+.stp .c{display:grid;place-items:center;width:var(--z);height:var(--z);padding:4px;border-radius:50%;background:#efe7d4;box-shadow:inset 0 0 0 1.5px #5d5444;font:400 21px/1.15 Title,var(--song)}
+.stp.big .c{font-size:29px;box-shadow:inset 0 0 0 1.5px #5d5444,inset 0 0 0 5px #efe7d4,inset 0 0 0 6px #5d5444}
+.stp .c .en{font:italic 12.5px/1.1 var(--en)}.stp.big .c .en{font-size:14px}
+html[data-lang=both] .stp .c .en{display:none}
+.stp small{position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);width:max-content;font:12.5px/1.35 var(--sans);font-variant-numeric:tabular-nums}.stp small .en{font:inherit}
+a.stp{color:#23201b}
+a.stp .c{background:#8c2f23;color:#fff6e6;box-shadow:inset 0 0 0 5px #8c2f23,inset 0 0 0 6px #fff6e6;animation:beat 2.2s ease-out infinite;transition:transform .25s}
+a.stp:hover .c,a.stp:focus-visible .c{transform:scale(1.07)}
+a.stp small{font-weight:600}
+.alt{display:flex;flex-wrap:wrap;gap:6px 22px;justify-content:center;margin:clamp(30px,5vh,48px) 0 0;font:15px/1.5 var(--sans)}
+.alt a,.alt button{color:#3a352c;text-decoration:underline;text-underline-offset:3px}.alt .en{font:inherit}
+@media(max-width:720px){
+ #intro{--hw:82vw;--sx:-23vw}
+ .i-nun{height:60vh;bottom:10vh;left:calc(50% + 2vw)}
+ .i-crowd{width:172vw;margin-left:-86vw;bottom:-1vh}
+ .i-v1,.i-v2{height:28vh;bottom:9vh}.i-v1{left:2vw}.i-v2{right:2vw}
+ .map{aspect-ratio:360/640;max-height:none;max-width:min(100%,calc((100svh - 240px)*360/640))}.map svg.d{display:none}.map svg.m{display:block}
+ .stp{--z:66px;left:var(--mx);top:var(--my)}.stp.big{--z:80px}
+ .stp .c{font-size:18px}.stp.big .c{font-size:24px}.stp .c .en{font-size:10.5px}.stp.big .c .en{font-size:12px}
+ #road{padding-top:58px;padding-bottom:18px}.alt{margin-top:26px;font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){.stp,.on .stp{opacity:1;transform:none;transition:none}.pa,.on .pa{stroke-dashoffset:0;transition:none}a.stp .c{animation:none}}
 </style></head><body>
+<div id="intro" aria-label="片頭動畫">
+ <div class="i-out" style="position:absolute;inset:0">
+ <img class="i-v1" alt="" src="assets/intro/vol1.webp"><img class="i-v2" alt="" src="assets/intro/vol2.webp">
+ <img class="i-t2" alt="" src="assets/intro/tree2.webp"><img class="i-tree" alt="" src="assets/intro/tree.webp">
+ <img class="i-crowd" alt="" src="assets/intro/crowd.webp">
+ <img class="i-sap" alt="" src="assets/intro/sapling.webp">
+ <span class="i-d" style="--x:-14px;--d:3.6s"></span><span class="i-d" style="--x:4px;--d:3.9s"></span><span class="i-d" style="--x:18px;--d:4.2s"></span>
+ <img class="i-hand" alt="" src="assets/intro/hands.webp"><img class="i-nun" alt="" src="assets/intro/nun3.webp">
+ <div id="leaves"></div>
+ <div class="i-glow"></div>
+ <p class="i-t"><span class="zh"><span class="nb">慈濟 60 週年，</span><span class="nb">一路走來</span></span><span class="en" lang="en">Tzu Chi at 60: the road we have walked</span></p>
+ </div>
+ <span class="i-ai"><span class="zh">插畫由 AI 繪製</span><span class="en" lang="en">Illustrations made with AI</span></span>
+ <button class="i-skip" id="iskip"><span class="zh">跳過</span><span class="en" lang="en">Skip</span></button>
+</div>
 <div class="top"><span></span><div class="lang" id="lang" role="group" aria-label="Language"></div></div>
-<header id="cover"><div class="wall" id="wall" aria-hidden="true"></div><div class="veil"></div>
- <div class="cv"><p class="yrs">1966 — 2026</p>
-  <h1><span class="zh"><span class="nb">妈妈，</span><span class="nb">慈济是什么？</span></span><span class="en" lang="en">Mama, what is Tzu Chi?</span></h1>
-  <nav class="doors" aria-label="怎么看">
-   <a class="door" href="#film" id="play"><b><span class="zh">听妈妈说</span><span class="en" lang="en">Let Mama tell it</span></b><small><span class="zh">第一部分：慈善，3 分 27 秒。其余七个脚印制作中。</span><span class="en" lang="en">Part one: Charity, 3 min 27 s. The other seven footprints are in production.</span></small></a>
-   <a class="door" href="#feet"><b><span class="zh">自己逛</span><span class="en" lang="en">Explore on your own</span></b><small><span class="zh">每一个人、每一件事，都记下了出处。</span><span class="en" lang="en">Every person and event, with its source.</span></small></a>
-  </nav></div>
-</header>
-<section id="feet"><div class="fw"><p class="kick"><span class="zh">六十年的足跡</span><span class="en" lang="en">Sixty years of footsteps</span></p>
- <h2><span class="zh">四大志业　八大脚印</span><span class="en" lang="en">Four Missions, Eight Footprints</span></h2><div class="fg" id="ft"></div></div></section>
-<footer data-era="dark"><div class="wrap"><span class="zh">本页为样板，尚未经马来西亚慈济分会审核，未发布。女孩与妈妈是说故事的人。照片取自慈济《歷史上的今天》等公开页面；影片中标示的情境画面由 AI 依史料生成，非当年摄影。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs.</span></div></footer>
-<div id="film" hidden><button id="filmx" aria-label="关闭 Close">×</button><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg" src="assets/film/charity.mp4"></video></div>
-<script src="assets/data.js"></script><script src="assets/river/list.js"></script>
+<section id="road"><div class="fw"><p class="kick"><span class="zh">媽媽，慈濟是什麼？</span><span class="en" lang="en">Mama, what is Tzu Chi?</span></p>
+ <h1><span class="zh">四大志業　八大腳印</span><span class="en" lang="en">Four Missions, Eight Footprints</span></h1>
+ <div class="map" id="map">
+  <svg class="d" viewBox="0 0 1000 520" aria-hidden="true"><path class="pa" pathLength="100" d="M110,130 C200,60 280,200 370,130 S540,60 630,130 S800,200 890,130 C990,130 990,390 890,390 C800,320 720,460 630,390 S460,320 370,390 S200,460 110,390"/><path class="pw" pathLength="100" d="M110,130 C200,60 280,200 370,130 S540,60 630,130 S800,200 890,130 C990,130 990,390 890,390 C800,320 720,460 630,390 S460,320 370,390 S200,460 110,390"/></svg>
+  <svg class="m" viewBox="0 0 360 640" aria-hidden="true"><path class="pa" pathLength="100" d="M90,75 C150,40 210,110 270,75 C345,75 345,235 270,235 C210,200 150,270 90,235 C15,235 15,405 90,405 C150,370 210,440 270,405 C345,405 345,565 270,565 C210,530 150,600 90,565"/><path class="pw" pathLength="100" d="M90,75 C150,40 210,110 270,75 C345,75 345,235 270,235 C210,200 150,270 90,235 C15,235 15,405 90,405 C150,370 210,440 270,405 C345,405 345,565 270,565 C210,530 150,600 90,565"/></svg>
+ </div>
+ <p class="alt"><a href="#film" id="play"><span class="zh">想直接看？看影片　慈善篇 3 分 27 秒</span><span class="en" lang="en">Rather watch? The Charity film, 3 min 27 s</span></a><button id="replay"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
+</div></section>
+<footer data-era="dark"><div class="wrap"><span class="zh">本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片取自慈濟《歷史上的今天》等公開頁面；影片中標示的情境畫面由 AI 依史料生成，非當年攝影。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs.</span></div></footer>
+<div id="film" hidden><button id="filmx" aria-label="關閉 Close">×</button><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg" src="assets/film/charity.mp4"></video></div>
+<script src="assets/data.js"></script>
 <script>
 (function(){
  var d=document,root=d.documentElement,K='tc60lang',lang='zh';
@@ -61,10 +130,38 @@ a.ft{background:#23201b;color:#f2e8d6;transition:background-color .25s}a.ft:hove
  var lg=d.getElementById('lang');
  [['zh','中'],['en','EN'],['both','中/EN']].forEach(function(x){var b=d.createElement('button');b.textContent=x[1];b.setAttribute('aria-pressed',x[0]===lang);
   b.onclick=function(){lang=x[0];root.dataset.lang=lang;try{localStorage.setItem(K,lang)}catch(e){}[].forEach.call(lg.children,function(c){c.setAttribute('aria-pressed',c===b)})};lg.appendChild(b)});
- /* 封面：真实老照片满屏往回流，和影片的隧道同一个意思 */
- var rows=[[],[],[]];RIVER.forEach(function(r,i){rows[i%3].push('<img alt="" src="assets/river/'+r[1]+'.jpg">')});
- d.getElementById('wall').innerHTML=rows.map(function(r,i){var h=r.join('');return '<div class="wrow" style="--d:'+[150,190,170][i]+'s">'+h+h+'</div>'}).join('');
- d.getElementById('ft').innerHTML=FOOT.map(function(f){var h='<span class="y">'+f.y+'</span><span class="n"><span class="zh">'+f.zh+'</span><span class="en" lang="en">'+f.en+'</span></span><em>'+(f.on?'<span class="zh">进入 →</span><span class="en" lang="en">Enter →</span>':'<span class="zh">制作中</span><span class="en" lang="en">In production</span>')+'</em>';return f.on?'<a class="ft" href="charity.html">'+h+'</a>':'<div class="ft">'+h+'</div>'}).join('');
+
+ /* 八個腳印照年份排成一條路：上排往右走，下排走回來；四大志業是大章 */
+ var P=[[11,25],[37,25],[63,25],[89,25],[89,75],[63,75],[37,75],[11,75]],Q=[[25,11.7],[75,11.7],[75,36.7],[25,36.7],[25,63.3],[75,63.3],[75,88.3],[25,88.3]],
+  order=['charity','medical','education','environment','relief','marrow','community','culture'],big={charity:1,medical:1,education:1,culture:1},n=0,done=0;
+ try{n=(JSON.parse(localStorage.getItem('tc60seen'))||[]).length}catch(e){}
+ var map=d.getElementById('map'),by={};FOOT.forEach(function(f){by[f.k]=f});
+ order.forEach(function(k,i){var f=by[k],on=f.on,e=d.createElement(on?'a':'div');
+  e.className='stp'+(big[k]?' big':'');
+  e.style.cssText='--x:'+P[i][0]+'%;--y:'+P[i][1]+'%;--mx:'+Q[i][0]+'%;--my:'+Q[i][1]+'%;--dl:'+(.15+i*.17)+'s';
+  if(on)e.href='charity.html';
+  e.innerHTML='<span class="c"><span class="zh">'+(f.zh.length>3?f.zh.slice(0,2)+'<br>'+f.zh.slice(2):f.zh)+'</span><span class="en" lang="en">'+f.en+'</span></span><small>'+(on?(n?'<span class="zh">走過 '+n+'／6</span><span class="en" lang="en">'+n+' of 6 walked</span>':f.y+' <span class="zh">從這裡開始</span><span class="en" lang="en">Start here</span>'):f.y+' <span class="zh">製作中</span><span class="en" lang="en">in production</span>')+'</small>';
+  map.appendChild(e)});
+ /* 走過的路染色：目前只有第一站，走完六段就到第二站門口 */
+ [].forEach.call(d.querySelectorAll('.pw'),function(p){var w=Math.min(n,6)/6*100/7;p.style.strokeDasharray=w+' 100';p.style.opacity=n?1:0});
+ function showRoad(){map.classList.add('on')}
+
+ /* 片頭 */
+ var I=d.getElementById('intro'),ended=false,lv='',C=['#7d9a4a','#9bb25c','#6f8f3f','#b7b866'];
+ for(var i=0;i<16;i++)lv+='<span class="i-l" style="--x:'+(6+i*5.6+(i%3)*2)+'%;--c:'+C[i%4]+';--w:'+(i%2?46:-38)+'px;--t:'+(3.2+i%4*.5)+'s;--d:'+(10+i%8*.42)+'s"></span>';
+ d.getElementById('leaves').innerHTML=lv;
+ function finish(){if(ended)return;ended=true;try{localStorage.setItem('tc60intro','1')}catch(e){}root.classList.remove('intro');I.classList.remove('go');showRoad()}
+ function start(){
+  ended=false;
+  var im=[].slice.call(I.querySelectorAll('.i-nun,.i-hand,.i-sap')),go=false;
+  function run(){if(go)return;go=true;I.classList.add('go');setTimeout(finish,16500)}
+  Promise.all(im.map(function(m){return m.decode?m.decode().catch(function(){}):0})).then(run);
+  setTimeout(run,2500);
+ }
+ d.getElementById('iskip').onclick=finish;
+ d.getElementById('replay').onclick=function(){map.classList.remove('on');root.classList.add('intro');scrollTo(0,0);start()};
+ if(root.classList.contains('intro'))start();else showRoad();
+
  var fl=d.getElementById('film'),v=d.getElementById('filmv');
  function close(){v.pause();fl.hidden=true;root.style.overflow=''}
  d.getElementById('play').addEventListener('click',function(e){e.preventDefault();fl.hidden=false;root.style.overflow='hidden';v.play()});
