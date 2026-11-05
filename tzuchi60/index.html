@@ -121,7 +121,7 @@ a.stp small{font-weight:600}
 </div></section>
 <footer data-era="dark"><div class="wrap"><span class="zh">本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片取自慈濟《歷史上的今天》等公開頁面；影片中標示的情境畫面由 AI 依史料生成，非當年攝影。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs.</span></div></footer>
 <div id="film" hidden><button id="filmx" aria-label="關閉 Close">×</button><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg" src="assets/film/charity.mp4"></video></div>
-<script src="assets/data.js"></script>
+<script src="assets/data.js"></script><script src="assets/music/list.js"></script><script src="assets/sound.js"></script>
 <script>
 (function(){
  var d=document,root=d.documentElement,K='tc60lang',lang='zh';
@@ -162,6 +162,7 @@ a.stp small{font-weight:600}
  d.getElementById('replay').onclick=function(){map.classList.remove('on');root.classList.add('intro');scrollTo(0,0);start()};
  if(root.classList.contains('intro'))start();else showRoad();
 
+ if(window.SND)SND.area('home');
  var fl=d.getElementById('film'),v=d.getElementById('filmv');
  function close(){v.pause();fl.hidden=true;root.style.overflow=''}
  d.getElementById('play').addEventListener('click',function(e){e.preventDefault();fl.hidden=false;root.style.overflow='hidden';v.play()});

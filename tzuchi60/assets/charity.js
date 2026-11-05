@@ -270,6 +270,7 @@
     var m = /^#b([1-6])$/.exec(location.hash), hub = location.hash === '#hub';
     cur = m ? +m[1] - 1 : -1;
     root.dataset.view = m ? 'block' : 'hub';
+    if (window.SND) SND.area(m ? 'b' + (cur + 1) : 'charity');
     app.innerHTML = m ? blockHTML(cur) : hubHTML();
     doc.title = (m ? tx(BL[cur].h) + '｜' : '') + '慈善｜媽媽，慈濟是什麼？';
     scrollTo(0, 0);

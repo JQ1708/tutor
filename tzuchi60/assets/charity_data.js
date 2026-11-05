@@ -398,7 +398,7 @@
         s: ['o940410', 'fm145'] },
       { k: 'photos', lay: 'three', ph: [{ i: '19940410-1_02', c: T('義診。', 'A free clinic.') }, { i: '19940410-1_10', c: T('居家訪視。', 'A home visit.') }, { i: '19940410-1_11', c: T('馬接峇汝安老院。', 'The old folks’ home at Machap Baru.') }] },
       { k: 'story', lay: 'L', date: '1993–1997', h: T('檳城', 'Penang'),
-        ph: [{ i: '19930613-1_09', c: T('Buddhist Tzu-Chi Dialysis Centre 招牌。', 'The Buddhist Tzu-Chi Dialysis Centre sign.') }, { i: '19930613-1_03', c: T('馬來西亞早期志工。', 'Early volunteers in Malaysia.') }],
+        ph: [{ i: '19930613-1_09', c: T('Buddhist Tzu-Chi Dialysis Centre 招牌。', 'The Buddhist Tzu-Chi Dialysis Centre sign.') }],
         p: [
           T('葉慈靖因工作調派檳城，把慈濟帶到這裡。一九九三年五月，十八位檳城志工回花蓮尋根。八月十一日，檳城聯絡處成立。一九九七年升格為馬來西亞分會。',
             'Ye Cijing came to Penang for work and brought Tzu Chi with her. In May 1993 eighteen Penang volunteers went to Hualien to find their roots. The Penang liaison office opened on 11 August, and in 1997 it became the Malaysia branch.'),
