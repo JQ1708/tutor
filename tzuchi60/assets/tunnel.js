@@ -71,15 +71,17 @@
   var M = {
     back: { d: 4400, y: [2026, 1966], from: 1966, to: 2026, bg: '#120f0c', tint: '#a98a55', a0: .05, a1: .86, f: rows(3, 1), pop: 1, close: '#d9cfb8' },
     road: { d: 2400, y: [1969, 1989], from: 1969, to: 1993, bg: '#1d150c', tint: '#c98f3f', a0: .3, a1: .42, f: rows(2, -1), pop: 1 },
-    far: { d: 2500, y: [1991, 2015], from: 1991, to: 2016, bg: '#07181c', tint: '#2c7f8f', a0: .4, a1: .3, f: fly(1, 1.1, 24) },
-    heart: { d: 2600, from: 2005, to: 2025, bg: '#1c1305', tint: '#d3a23c', a0: .45, a1: .36, f: fly(-1, 1, 24), glow: 'rgba(240,196,110,' },
+    far: { d: 2500, y: [1991, 2015], from: 1991, to: 2016, bg: '#07181c', tint: '#2c7f8f', a0: .4, a1: .3, f: fly(1, 1.1, 24), max: 24 },
+    heart: { d: 2600, from: 2005, to: 2025, bg: '#1c1305', tint: '#d3a23c', a0: .45, a1: .36, f: fly(-1, 1, 24), max: 24, glow: 'rgba(240,196,110,' },
     my: { d: 2400, y: [1993, 2017], only: [1993, 1994, 2017], bg: '#08170f', tint: '#2f8a62', a0: .34, a1: .3, f: cols },
-    ledger: { d: 2500, from: 1966, to: 2025, bg: '#efe9da', tint: '#b9a36f', a0: .3, a1: .22, ink: '#2b2822', plate: 'rgba(239,233,218,', f: fall },
-    big: { d: 3000, from: 1966, to: 2025, bg: '#0b0907', tint: '#6b5a3c', a0: .5, a1: .7, f: fly(1, .62, 22), close: '#0b0907' }
+    ledger: { d: 2500, from: 1966, to: 2025, bg: '#efe9da', tint: '#b9a36f', a0: .3, a1: .22, ink: '#2b2822', plate: 'rgba(239,233,218,', f: fall, max: 15 },
+    big: { d: 3000, from: 1966, to: 2025, bg: '#0b0907', tint: '#6b5a3c', a0: .5, a1: .7, f: fly(1, .62, 22), max: 22, close: '#0b0907' }
   };
   function list(m) {
     var L = RV.filter(function (r) { return m.only ? m.only.indexOf(r[0]) >= 0 : r[0] >= m.from && r[0] <= m.to; });
     if (L.length < 8) L = L.concat(RV.slice().sort(function (a, b) { return Math.abs(a[0] - L[0][0]) - Math.abs(b[0] - L[0][0]); }).slice(0, 10));
+    /* 只畫得下 max 張的走法，平均抽各年代，也少載圖 */
+    if (m.max && L.length > m.max) { var S = []; for (var i = 0; i < m.max; i++) S.push(L[Math.floor(i * L.length / m.max)]); L = S; }
     return L;
   }
   var el, cv, cx, qe, ye, sk, raf = 0, live = null;
