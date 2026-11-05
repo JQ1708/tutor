@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh" data-era="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>妈妈，慈济是什么？</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/charity_font.css"><link rel="stylesheet" href="assets/charity.css">
+<style>
+#cover{position:relative;height:100vh;height:100svh;min-height:540px;overflow:hidden;background:#120f0c;color:#f7eedd}
+.wall{position:absolute;inset:0;display:grid;grid-template-rows:repeat(3,1fr);gap:10px;padding:10px 0}
+.wrow{display:flex;gap:10px;width:max-content;height:100%;min-height:0;animation:flow var(--d) linear infinite}
+.wrow img{height:100%;width:auto;max-width:none;flex:none;border:5px solid #e9dfc9}
+@keyframes flow{from{transform:translateX(-50%)}to{transform:none}}
+.veil{position:absolute;inset:0;background:radial-gradient(ellipse at center,#120f0ce6 0,#120f0cc4 46%,#120f0c8c 100%)}
+.cv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px var(--gut) 28px}
+.cv .yrs{font:15px/1 var(--sans);letter-spacing:.32em;margin:0 0 18px;opacity:.82}
+.cv h1{font:400 clamp(44px,8.6vw,112px)/1.25 Title,var(--song);margin:0}
+html[data-lang=en] .cv h1,.cv h1 .en{font:italic 400 clamp(34px,6vw,76px)/1.2 var(--en)}
+html[data-lang=both] .cv h1 .en{display:block;font-size:.36em;margin-top:.3em}
+.nb{display:inline-block}
+.doors{display:grid;grid-template-columns:repeat(2,minmax(0,300px));gap:14px;margin-top:clamp(26px,6vh,52px);text-align:left}
+.door{display:block;padding:18px 20px;text-decoration:none;border:1px solid #f7eedd66;background:#120f0ca6;transition:background-color .25s,color .25s}
+.door:hover,.door:focus-visible{background:#f2e8d6;color:#23201b}
+.door b{display:block;font:500 24px/1.35 var(--song)}.door b .en{font:italic 400 21px/1.35 var(--en)}
+html[data-lang=both] .door b .en{display:block;font-size:16px}
+.door small{display:block;margin-top:6px;font:14px/1.65 var(--sans);opacity:.86}.door small .en{font:inherit}
+html[data-lang=both] .door small .en{display:block}
+#feet{--pad:clamp(56px,10vh,104px);padding:var(--pad) var(--gut);background:#d9cfb8 url(assets/era/paper.jpg) center/cover;background-blend-mode:multiply;color:#23201b}
+footer .wrap{max-width:1040px;margin:0 auto}
+.fw{max-width:1040px;margin:0 auto}
+.kick{font:14px/1.5 var(--sans);letter-spacing:.2em;color:#5d5444;margin:0 0 6px}.kick .en{font:inherit}
+#feet h2{font:400 clamp(38px,6vw,64px)/1.3 Title,var(--song);margin:0 0 .6em}#feet h2 .en{font:italic 400 clamp(30px,5vw,50px)/1.3 var(--en)}
+html[data-lang=both] #feet h2 .en{display:block;font-size:.5em}
+.fg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid #3a352c;border-left:1px solid #3a352c66}
+.ft{display:flex;flex-direction:column;min-height:186px;padding:16px;text-decoration:none;color:#6e6452;border-right:1px solid #3a352c66;border-bottom:1px solid #3a352c66}
+.ft .y{font:13px/1 var(--sans);letter-spacing:.1em;font-variant-numeric:tabular-nums}
+.ft .n{font:400 32px/1.3 Title,var(--song);margin-top:12px}.ft .n .en{font:italic 400 23px/1.3 var(--en)}
+html[data-lang=both] .ft .n .en{display:block;font-size:16px}
+.ft em{margin-top:auto;font:13px/1.4 var(--sans)}.ft em .en{font:inherit}
+a.ft{background:#23201b;color:#f2e8d6;transition:background-color .25s}a.ft:hover,a.ft:focus-visible{background:#8c2f23}
+@media(max-width:720px){.doors{grid-template-columns:minmax(0,1fr);width:100%;max-width:340px;gap:10px}.door{padding:14px 16px}.door b{font-size:21px}
+ .fg{grid-template-columns:repeat(2,minmax(0,1fr))}.ft{min-height:138px;padding:13px}.ft .n{font-size:27px}.veil{background:#120f0cc9}}
+@media(prefers-reduced-motion:reduce){.wrow{animation:none}}
+</style></head><body>
+<div class="top"><span></span><div class="lang" id="lang" role="group" aria-label="Language"></div></div>
+<header id="cover"><div class="wall" id="wall" aria-hidden="true"></div><div class="veil"></div>
+ <div class="cv"><p class="yrs">1966 — 2026</p>
+  <h1><span class="zh"><span class="nb">妈妈，</span><span class="nb">慈济是什么？</span></span><span class="en" lang="en">Mama, what is Tzu Chi?</span></h1>
+  <nav class="doors" aria-label="怎么看">
+   <a class="door" href="#film" id="play"><b><span class="zh">听妈妈说</span><span class="en" lang="en">Let Mama tell it</span></b><small><span class="zh">第一部分：慈善，3 分 27 秒。其余七个脚印制作中。</span><span class="en" lang="en">Part one: Charity, 3 min 27 s. The other seven footprints are in production.</span></small></a>
+   <a class="door" href="#feet"><b><span class="zh">自己逛</span><span class="en" lang="en">Explore on your own</span></b><small><span class="zh">每一个人、每一件事，都记下了出处。</span><span class="en" lang="en">Every person and event, with its source.</span></small></a>
+  </nav></div>
+</header>
+<section id="feet"><div class="fw"><p class="kick"><span class="zh">六十年的足跡</span><span class="en" lang="en">Sixty years of footsteps</span></p>
+ <h2><span class="zh">四大志业　八大脚印</span><span class="en" lang="en">Four Missions, Eight Footprints</span></h2><div class="fg" id="ft"></div></div></section>
+<footer data-era="dark"><div class="wrap"><span class="zh">本页为样板，尚未经马来西亚慈济分会审核，未发布。女孩与妈妈是说故事的人。照片取自慈济《歷史上的今天》等公开页面；影片中标示的情境画面由 AI 依史料生成，非当年摄影。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs.</span></div></footer>
+<div id="film" hidden><button id="filmx" aria-label="关闭 Close">×</button><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg" src="assets/film/charity.mp4"></video></div>
+<script src="assets/data.js"></script><script src="assets/river/list.js"></script>
+<script>
+(function(){
+ var d=document,root=d.documentElement,K='tc60lang',lang='zh';
+ try{lang=localStorage.getItem(K)||'zh'}catch(e){}
+ root.dataset.lang=lang;
+ var lg=d.getElementById('lang');
+ [['zh','中'],['en','EN'],['both','中/EN']].forEach(function(x){var b=d.createElement('button');b.textContent=x[1];b.setAttribute('aria-pressed',x[0]===lang);
+  b.onclick=function(){lang=x[0];root.dataset.lang=lang;try{localStorage.setItem(K,lang)}catch(e){}[].forEach.call(lg.children,function(c){c.setAttribute('aria-pressed',c===b)})};lg.appendChild(b)});
+ /* 封面：真实老照片满屏往回流，和影片的隧道同一个意思 */
+ var rows=[[],[],[]];RIVER.forEach(function(r,i){rows[i%3].push('<img alt="" src="assets/river/'+r[1]+'.jpg">')});
+ d.getElementById('wall').innerHTML=rows.map(function(r,i){var h=r.join('');return '<div class="wrow" style="--d:'+[150,190,170][i]+'s">'+h+h+'</div>'}).join('');
+ d.getElementById('ft').innerHTML=FOOT.map(function(f){var h='<span class="y">'+f.y+'</span><span class="n"><span class="zh">'+f.zh+'</span><span class="en" lang="en">'+f.en+'</span></span><em>'+(f.on?'<span class="zh">进入 →</span><span class="en" lang="en">Enter →</span>':'<span class="zh">制作中</span><span class="en" lang="en">In production</span>')+'</em>';return f.on?'<a class="ft" href="charity.html">'+h+'</a>':'<div class="ft">'+h+'</div>'}).join('');
+ var fl=d.getElementById('film'),v=d.getElementById('filmv');
+ function close(){v.pause();fl.hidden=true;root.style.overflow=''}
+ d.getElementById('play').addEventListener('click',function(e){e.preventDefault();fl.hidden=false;root.style.overflow='hidden';v.play()});
+ d.getElementById('filmx').addEventListener('click',close);
+ addEventListener('keydown',function(e){if(e.key==='Escape'&&!fl.hidden)close()});
+})();
+</script></body></html>
