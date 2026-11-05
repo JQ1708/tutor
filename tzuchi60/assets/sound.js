@@ -53,7 +53,13 @@
     save(); area = a;
     /* 下一段含同一首就接著放，不重來 */
     if (same) { var f = list[idx].f; list = next; next.forEach(function (x, i) { if (x.f === f) idx = i; }); return; }
-    var go = function () { var s = pos[a] || {}, was = pos.on; list = next; load(s.i || 0, s.t || 0); sync(); if (was && !unlocked) unlock(); };
+    var go = function () {
+      var s = pos[a] || {}, was = pos.on, l = pos[pos.last], o = l && (M[pos.last] || [])[l.i];
+      /* 換頁後同一首接著放 */
+      if (o) next.forEach(function (x, i) { if (x.f === o.f) s = { i: i, t: l.t }; });
+      list = next;
+      load(s.i || 0, s.t || 0); sync(); if (was && !unlocked) unlock();
+    };
     if (el.paused) go(); else fade(0, 900, go);
   }
   el.addEventListener('ended', function () { load(idx + 1, 0); sync(); });
