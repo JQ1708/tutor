@@ -159,4 +159,4 @@ html[data-lang=both] .ch[data-era] .fx-th p{line-height:1.5;margin-bottom:.3em}
 @media (prefers-reduced-motion:reduce){.fx *{transition:none!important}}
 /* 窄屏英文：共用的「← Six stretches」不換行，三顆膠囊擠得下 */
 @media(max-width:430px){html[data-lang=en] .back{white-space:nowrap;padding:9px 10px;font-size:13px}html[data-lang=en] #dots{gap:6px;padding-left:8px;padding-right:8px}html[data-lang=en] .lang button{padding-left:8px;padding-right:8px}}
-@media(max-width:480px){#hero .ai{bottom:12px;left:var(--gut);right:var(--gut)}}
+@media (max-width:600px){html:not([data-lang=zh]) .hero-t{padding-top:54px;padding-bottom:72px}html:not([data-lang=zh]) .hero-t .film{font-size:19px;line-height:1.35}html:not([data-lang=zh]) .hero-t .stop{margin-top:12px}html[data-lang=both] .hero-t h1{font-size:60px}html[data-lang=en] .hero-t h1{font-size:44px}html:not([data-lang=zh]) .hero-t .sub{font-size:14px;line-height:1.6;margin-bottom:1em}html:not([data-lang=zh]) .hero-b .btn{padding:11px 18px}html[data-lang=both] .hero-b{font-size:14px}#hero .ai{left:var(--gut);right:auto;bottom:7px;max-width:calc(100% - 2*var(--gut));width:fit-content;text-align:left}}
