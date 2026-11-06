@@ -140,4 +140,4 @@ html[data-lang=both] .pin.lu b{top:-3.2em}
 .fx.flat .ro-st,.fx.flat .ry-st,.fx.flat .rl-st{flex:none}
 @media(max-width:480px){html[data-lang=en] .back{white-space:nowrap;font-size:12px;padding:8px 9px}html[data-lang=en] #dots{gap:5px;padding-left:6px;padding-right:6px}}
 @media(max-width:480px){h2.t{word-break:normal;overflow-wrap:anywhere}}
-@media(max-width:480px){#hero .ai{bottom:116px;left:var(--gut);right:var(--gut)}}
+@media(max-width:480px){#hero .ai{bottom:12px;left:var(--gut);right:var(--gut)}}
