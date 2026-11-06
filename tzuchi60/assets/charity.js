@@ -156,9 +156,9 @@
         '<span class="bc-t"><span class="bc-y"><b>' + (i + 1) + '</b>' + yr(b) + '</span><span class="bc-h t">' + B(b.h) + '</span><span class="bc-q">' + B(askOf(b)) + '</span></span>' +
         (i === nx ? '<em>' + B(U.start) + '</em>' : '') + (seen[b.id] ? stamp() : '') + '</a>';
     }).join('');
-    return '<section id="hero" data-era="dark"><img class="still" src="assets/ph/' + (PG.still || 'hero') + '.jpg" alt=""><video id="door" muted playsinline preload="auto" poster="assets/ph/' + (PG.poster || 'hero0') + '.jpg" src="assets/film/' + (PG.door || 'door') + '.mp4"></video>' +
+    return '<section id="hero" data-era="dark"><img class="still" src="assets/ph/' + (PG.still || 'hero') + '.jpg" alt="">' + (PG.noDoor ? '' : '<video id="door" muted playsinline preload="auto" poster="assets/ph/' + (PG.poster || 'hero0') + '.jpg" src="assets/film/' + (PG.door || 'door') + '.mp4"></video>') +
       '<div class="hero-t"><p class="film t">' + B(h.film) + '</p><p class="stop">' + B(h.stop) + '</p><h1>' + B(h.title) + '</h1><p class="sub">' + B(h.sub) + '</p>' +
-      '<div class="hero-b"><a class="btn solid" href="#film" id="watch">' + B(h.watch) + '</a><a class="btn" href="#hub" id="read">' + B(h.read) + '</a></div></div><div class="ai">' + B(h.ai) + '</div></section>' +
+      '<div class="hero-b">' + (PG.noFilm ? '<span class="btn solid soon">' + B(h.watch) + '</span>' : '<a class="btn solid" href="#film" id="watch">' + B(h.watch) + '</a>') + '<a class="btn" href="#hub" id="read">' + B(h.read) + '</a></div></div><div class="ai">' + B(h.ai) + '</div></section>' +
       '<section id="hub" data-era="e60"><div class="wrap"><p class="hub-k">' + B(U.hubK) + '</p><h2 class="t">' + B(U.hubH) + '</h2><p class="hub-s">' + B(U.hubS) + '</p><div class="bcs">' + cards + '</div></div></section>' + (PG.after || []).map(function (id) { return chapter(byId[id], true); }).join('') + foot();
   }
   function chapter(c, skipAsk) {
@@ -194,7 +194,7 @@
     try { once = sessionStorage.getItem(PG.doorKey || 'tc60door'); sessionStorage.setItem(PG.doorKey || 'tc60door', '1'); } catch (e) {}
     function showTxt() { hero.classList.add('txt'); }
     function done() { hero.classList.add('done'); showTxt(); }
-    if (reduce || once) { door.remove(); done(); return; }
+    if (!door || reduce || once) { if (door) door.remove(); done(); return; }
     door.addEventListener('timeupdate', function () { if (door.currentTime > (PG.doorT || 5.2)) showTxt(); });
     door.addEventListener('ended', done);
     door.addEventListener('error', done);

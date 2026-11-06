@@ -9,6 +9,9 @@
     return { zh: '《慈濟歷史上的今天》' + s, en: 'Tzu Chi, On This Day, ' + s, url: 'https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_' + d + '-1/' };
   };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
+  var xl = function (p) { /* 雪隆史第一冊，印刷頁碼 */
+    return { zh: '《馬來西亞慈濟史 雪隆分會》（1）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. ' + p };
+  };
   var S = {
     fm28: fm('00028', '一攤血事件'), fm48: fm('00048', '成立貧民施醫義診所'), fm63: fm('00063', '以掘井人的精神，掘到湧泉'),
     fm64: fm('00064', '籌建「佛教慈濟綜合醫院」'), fm70: fm('00070', '福田一方邀天下善士，心蓮萬蕊造慈濟世界'), fm71: fm('00071', '首次舉辦建院義賣'),
@@ -21,6 +24,7 @@
     o960917: otd('19960917'), o961012: otd('19961012'), o970803: otd('19970803'), o201027: otd('20201027'),
     i2: { zh: '慈濟六十週年影響力報告・全球義診', en: 'Tzu Chi 60th anniversary impact report: free clinics worldwide', url: 'https://60impact.tzuchi.org.tw/' },
     i7: { zh: '慈濟六十週年影響力報告・無語良師', en: 'Tzu Chi 60th anniversary impact report: Silent Mentors', url: 'https://60impact.tzuchi.org.tw/' },
+    xlmc: xl('111, 341–342, 344–345, 348–349'), xlkg: xl('360–362'), xlkn: xl('377–383'), xlpd: xl('363–365, 372–373'), xlco: xl('371–372'),
     tp: { zh: '臺北慈濟醫院〈回首來時六十年　愛永流傳不退轉〉', en: 'Taipei Tzu Chi Hospital: Looking back on sixty years', url: 'https://taipei.tzuchi.com.tw/回首來時六十年-愛永流傳不退轉/' }
   };
   var CH = window.CH = { S: S };
@@ -34,7 +38,7 @@
     film: T('媽媽，沒有錢，醫院就不救嗎？', 'Mama, if people have no money, won’t the hospital save them?'),
     stop: T('第二站', 'Second stop'), title: T('醫療', 'Medicine'),
     sub: T('一九七二年，一間借來的店面。<br>一九八六年，花蓮慈濟醫院的門開了。', 'In 1972, a borrowed shopfront.<br>In 1986, the doors of Hualien Tzu Chi Hospital opened.'),
-    watch: T('看影片　3 分 54 秒', 'Watch the film · 3 min 54 s'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　3 分 55 秒', 'Watch the film · 3 min 55 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('AI 情境重建，非當年攝影', 'AI reconstruction, not a historical photograph')
   };
 
@@ -226,6 +230,55 @@
         ],
         q: { zh: '在我跌入生命谷底時，是慈濟拉了我一把，幫助我揮別病痛的陰霾。我想在有生之年，盡我所能地去幫助別人。', en: 'When I fell to the lowest point of my life, Tzu Chi pulled me up and helped me leave the shadow of illness behind. For as long as I live, I want to help others as much as I can.', who: T('李彩珠', 'Lee Chai-Chu') },
         s: ['fm203', 'o970803'] },
+      { k: 'rec', items: [
+        { d: '1998.07.26', zh: '慈濟在沙巴哥打馬魯都，為當地原住民舉行首次義診，嘉惠近兩千位民眾。', en: 'Tzu Chi holds its first free clinic for indigenous villagers at Kota Marudu, Sabah, serving nearly two thousand people.' },
+        { d: '2002.09.03', zh: '吉隆坡人醫會成立，二〇一〇年正名雪隆人醫會。', en: 'The Kuala Lumpur medical association is founded. In 2010 it becomes the Selangor and Kuala Lumpur association.' },
+        { d: '2003.03', zh: '雪隆人醫會在雪蘭莪州烏魯冷岳的卡拜原住民村，首次舉辦發放義診。', en: 'The association holds its first free clinic and distribution at an indigenous village in Hulu Langat, Selangor.' },
+        { d: '2004', zh: '應聯合國難民署邀請，雪隆人醫會第一次為難民舉辦義診。難民大部分來自緬甸。', en: 'At the invitation of the UN refugee agency, the association holds its first free clinic for refugees, most of them from Myanmar.' },
+        { d: '2016.10', zh: '哥打馬魯都山區義診於二〇〇四年因山路安全停辦。這一年，雪隆、亞庇和臺灣的人醫會及慈濟志工動員四百八十餘人重返，提供外科、眼科、牙科、中醫、物理治療、婦科，嘉惠兩千四百多位鄉民。', en: 'Clinics in the Kota Marudu hills had stopped in 2004 because of the dangerous roads. This year over 480 people from the Selangor and Kuala Lumpur, Kota Kinabalu and Taiwan associations and Tzu Chi volunteers went back, serving more than 2,400 villagers.' },
+        { d: '2021.06.19', zh: '吉隆坡靜思堂疫苗接種中心啟動，慈濟成為第一個參與國家計劃的非政府組織。截至同年八月，三萬八千四百六十三人次接種。', en: 'The vaccination centre at the Jing Si Hall in Kuala Lumpur begins work, the first run by a non-governmental organisation under the national programme. By that August it had recorded 38,463 vaccination visits.' }
+      ], s: ['xlmc'] },
+      { k: 'story', lay: 'R', date: '2003.08.24', h: T('巴生義診中心', 'The Klang free clinic'),
+        ph: [{ i: 'xl1_0362_1', c: T('「2002年8月31日巴生共修處啟用，並提供義診服務。」（局部，人物已裁去。照片：雪隆分會提供；《馬來西亞慈濟史 雪隆分會》（1）頁 361）', '“On 31 August 2002 the Klang centre opened and offered free clinics.” (Detail, people cropped out. Photo: Selangor and Kuala Lumpur branch; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 361)') },
+          { i: 'xl1_0363_1', c: T('「2003年8月24日，在眾人的見證之下，慈濟巴生義診中心啟用。」（局部，人物已裁去。照片：許秀愛；《馬來西亞慈濟史 雪隆分會》（1）頁 362）', '“On 24 August 2003, before many witnesses, the Tzu Chi free clinic in Klang opened.” (Detail, people cropped out. Photo: Xu Xiu’ai; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 362)') }],
+        p: [
+          T('巴生聖淘沙社區以印裔低收入戶為主，鄰近住著一群罹患小兒麻痺症的鄉親，生病常常一拖再拖。二〇〇二年，巴生共修處（志工共同學習的會所）啟用，首次在戶外搭帳篷義診。志工林國華、陳銀娘夫婦不忍醫師和病患在炎熱天氣下看診等待，捐出共修處會所後，又捐出兩間店面。',
+            'The Sentosa area of Klang is home mostly to low-income Indian families, with a group of people affected by polio living nearby. When they fell ill they often put off seeing a doctor. In 2002 a Tzu Chi centre opened in Klang, and the first clinic was held in tents outdoors. Volunteers Lin Guohua and Chen Yinniang could not bear to see doctors and patients waiting in the heat. Having given the premises of the centre, they gave two shop lots as well.'),
+          T('開業前，志工到低收入組屋（政府建的公寓）挨家挨戶敲門派傳單。二〇〇三年八月二十四日，巴生「佛教慈濟義診中心」啟用，是慈濟在海外的第四間義診中心，提供內外科、中醫、牙科等免費服務。幾個月後，志工發現許多貧困家庭不知道義診中心，有的擔心收費不敢求診。啟用初期病人不多，志工便到敬老院、殘智障院邀約，兼任司機接送。截至二〇二二年十二月，歷年援助病患共計一萬八千六百三十七人次。',
+            'Before it opened, volunteers knocked on every door in the low-income government flats with leaflets. On 24 August 2003 the Buddhist Tzu Chi Free Clinic in Klang opened, Tzu Chi’s fourth free clinic overseas, offering free medicine, surgery, Chinese medicine and dentistry. After some months volunteers found that many poor families did not know of it, or stayed away for fear of fees. With few patients at first, they went to old folks’ homes and homes for the disabled to invite people, and drove them in themselves. By December 2022 the clinic had recorded 18,637 patient visits.')
+        ],
+        s: ['xlkg'] },
+      { k: 'story', lay: 'T', date: '2003–2016', h: T('肯納亞山', 'Kannayason'),
+        p: [
+          T('肯納亞山（Kannayason A/L Sababathy）住在雪蘭莪州莎亞南，篤信印度教。二十三歲時遭逢車禍，術後右腳日漸腫大，四處求醫，診斷都是必須截肢。二〇〇三年，他到巴生義診中心，適逢休息，便與母親走到旁邊的巴生聯絡處，地板隨著腳步出現血水痕跡。志工請來護理師處理傷口。他原先認為華人佛教團體應該只照顧華人。志工得知他一家生活困頓，當場援助二百令吉，之後列為照顧戶，每週接送他到義診中心護理。',
+            'Kannayason A/L Sababathy lived in Shah Alam, Selangor, and was a devout Hindu. A road accident at twenty-three left his right leg swelling year after year, and every doctor said it must be amputated. In 2003 he came to the Klang clinic on a closed day and went with his mother to the Tzu Chi office next door, his steps leaving traces of blood on the floor. Volunteers called a nurse to dress the wound. He had assumed a Chinese Buddhist group would care only for Chinese. Learning how hard life was for the family, volunteers gave RM200 on the spot, took them into care, and drove him to the clinic every week.'),
+          T('隔年三月，他申請到社會保險金，便請慈濟停止生活補助，自己每天存下二十五仙。二〇〇四年，巴生聯絡處與馬六甲分會提報個案，請花蓮慈濟醫院評估不截肢的可能。十二月二十三日，志工陪同他和母親抵達花蓮慈院。醫療團隊檢查後確定，車禍術後淋巴管完全阻塞，造成續發性淋巴水腫，巨大的腫瘤重達二十二公斤。第一次手術經歷十小時，三週後第二次，再隔月修補。二〇〇五年三月二十九日回到馬來西亞，四月二日他就到巴生義診中心當志工，駕車接送照顧戶。二〇〇八年開設棧板工廠，慈濟結案。',
+            'The next March he obtained social insurance payments and asked Tzu Chi to stop its living aid, and he began saving 25 sen a day. In 2004 the Klang office and the Melaka branch referred his case to Hualien Tzu Chi Hospital, asking whether the leg could be saved. On 23 December a volunteer brought him and his mother there. The doctors found that the lymph vessels had been fully blocked since surgery after the accident, causing secondary lymphoedema, and that the mass weighed 22 kilograms. The first operation took ten hours, the second came three weeks later, and a final repair followed the month after. He returned to Malaysia on 29 March 2005, and on 2 April he began volunteering at the Klang clinic, driving care recipients to their appointments. In 2008 he opened a pallet factory, and Tzu Chi closed his case.'),
+          T('二〇一一年五月，腿傷復發，無法工作，巴生支會重啟個案，補助醫療費，志工定期訪視。兩年後傷勢惡化，在馬大醫療中心進行兩次手術。腿病復發的五年間，他仍多次捐款。二〇一六年十二月五日，右腿截肢；二十七日，因嚴重感染導致多重器官衰竭，於巴生中央醫院往生。',
+            'In May 2011 the leg injury returned and he could no longer work. The Klang branch reopened his case, paid towards his treatment and visited regularly. Two years later it worsened, and he had two operations at University Malaya Medical Centre. In the five years after the relapse he still gave many donations. On 5 December 2016 his right leg was amputated. On the 27th, after severe infection and multiple organ failure, he passed away at Klang’s main hospital.')
+        ],
+        q: { zh: '感恩上人、醫師、護士、志工，給我一隻全新的腳。', en: 'I am grateful to the Master, the doctors, the nurses and the volunteers for giving me a brand new leg.', who: T('肯納亞山，手術後', 'Kannayason, after surgery') },
+        q2: { zh: '這就是愛的接力，肯納亞山送來到臺灣治療，慈濟人實在是無微不至，那一種的疼惜與愛，慈濟人展開了雙手，環抱地球的愛，任何一個地方只要有慈濟人，就是互相接力，感覺那樣的溫馨就好像一家人，真的很感恩。', en: 'This is a relay of love. Kannayason was sent to Taiwan for treatment, and Tzu Chi people cared for him in every detail. With that tenderness and love, Tzu Chi people opened their arms in a love that embraces the earth. Wherever there are Tzu Chi people, they pass the relay to one another, and the warmth feels like one family. I am truly grateful.', who: SHANGREN },
+        s: ['xlkn'] },
+      { k: 'story', lay: 'T', date: '2007.12.02', h: T('吉隆坡義診中心', 'The Kuala Lumpur free clinic'),
+        p: [
+          T('二〇〇三年除夕，慈濟在吉隆坡市區街頭發放，發現很多街友（露宿街頭的人）病了卻未曾想過看診，附近半山芭的低收入戶也一樣。二〇〇七年十二月二日，吉隆坡慈濟義診中心在富都路啟用，星期三、星期日看診。二〇一四年之後調整為門診方式：平日有西醫、內科、牙科、臨床心理科、復檢科、中醫和兒童疫苗接種，假日有婦科、眼科和復健科。',
+            'On New Year’s Eve 2003, at a street distribution in Kuala Lumpur, volunteers found that many homeless people who fell ill had never thought of seeing a doctor. It was the same for low-income families in nearby Pudu. On 2 December 2007 the Tzu Chi free clinic in Kuala Lumpur opened on Jalan Pudu, seeing patients on Wednesdays and Sundays. After 2014 it moved to regular outpatient service: general medicine, internal medicine, dentistry, clinical psychology, follow-up checks, Chinese medicine and child vaccinations on weekdays, and gynaecology, eye care and rehabilitation at weekends.'),
+          T('根據二〇一〇年的調查，馬來西亞超過一千二百個非營利慈善機構中，慈濟義診中心是唯一長期提供免費牙科服務的機構。難民即使預約也要等上數小時，二〇一九年六月，中心聘請全職牙醫，增加門診時段。醫師又注意到有難民因肌肉疼痛反覆就醫，檢查卻無異常，多次詢問生活情況後，發現是心理問題，於是特設臨床心理科門診。',
+            'A 2010 survey of more than 1,200 non-profit charities in Malaysia found the Tzu Chi free clinics to be the only one offering free dental care over the long term. Even with appointments, refugees could wait for hours, so in June 2019 the clinic hired a full-time dentist and added sessions. Doctors also noticed refugees returning again and again with muscle pain and no physical cause. After many talks about their lives, they found the trouble lay in the mind, and set up a clinical psychology service.'),
+          T('醫師符之良二〇一三年加入人醫會，從一週一天增加到四天，並建立預約制度。二〇一五年五月，他決定留在吉隆坡義診中心。截至二〇二二年十二月，吉隆坡慈濟義診中心歷年援助病患共計二十一萬九千二百七十八人次。',
+            'Dr Fu Zhiliang joined the medical association in 2013. One day a week grew to four, and he set up an appointment system. In May 2015 he decided to stay at the Kuala Lumpur clinic. By December 2022 the clinic had recorded 219,278 patient visits.')
+        ],
+        q: { zh: '我以前心量好小，還想著到私人醫院工作，賺更多的錢，但是我想若能把義診中心規劃好，就能讓更多人得到幫助，所以我決定留下來投入更多。', en: 'My heart used to be so small. I still thought of working at a private hospital and earning more. But I thought that if the free clinic could be well planned, more people could be helped, so I decided to stay and give more.', who: T('醫師 符之良', 'Dr Fu Zhiliang') },
+        s: ['xlpd'] },
+      { k: 'story', lay: 'T', date: '2020–2022', h: T('行動管制令下的義診中心', 'The free clinic under movement control'),
+        p: [
+          T('二〇二〇年三月十八日，馬來西亞啟動行動管制令（疫情期間限制民眾外出的全國措施）。義診中心規劃線上問診及藥物配送，醫師透過視訊問診，把藥物郵寄到病患家中；也透過電話或視訊做心理輔導，為物理治療的病人錄製復健運動影片。做散工為生的難民失去收入，三餐不繼，醫護團隊協調志工打包生活用品，逐戶配送。',
+            'On 18 March 2020 Malaysia began its movement control order, a nationwide limit on going out during the pandemic. The free clinic set up online consultations and medicine delivery: doctors saw patients by video and posted medicine to their homes, counselled by phone or video, and recorded exercise videos for physiotherapy patients. Refugees who lived on casual work lost their income and went short of food, so the medical team arranged for volunteers to pack supplies and deliver them door to door.'),
+          T('二〇二〇年七月逐漸解封，難民無力承擔檢測費用，無法向雇主證明未染疫，難以復工。在博特拉大學徐慧儀副教授協助下，博特拉大學教學醫院提供場地，並免費捐贈鼻咽拭紙，由義診中心醫師為難民做 RT-PCR 檢測（新冠病毒檢測）。二〇二一年九月，吉隆坡慈濟義診中心成為定點疫苗接種站，一週三天為十二歲以上的難民施打。至二〇二二年三月，義診中心醫護同仁共為民眾做了一千一百五十三次 PCR 檢測，施打一千九百七十五劑新冠疫苗。',
+            'As restrictions eased from July 2020, refugees could not afford tests, could not prove to employers that they were free of the virus, and could not get back to work. With help from Associate Professor Xu Huiyi of Universiti Putra Malaysia, its teaching hospital gave space and donated swabs free of charge, and the clinic’s doctors tested refugees by RT-PCR, the Covid-19 test. In September 2021 the Kuala Lumpur clinic became a fixed vaccination site, giving refugees aged twelve and over their doses three days a week. By March 2022 its staff had carried out 1,153 PCR tests and given 1,975 doses of Covid-19 vaccine.')
+        ],
+        s: ['xlco'] },
       { k: 'story', lay: 'L', date: '2025.01.12', h: T('一束花', 'A bunch of flowers'),
         ph: [{ i: 'ai_h15', c: T('情境重建：醫生的手。AI 畫面，非當年攝影。', 'Reconstruction: a doctor’s hand. AI image, not a historical photograph.') }, { i: 'ai_h17', c: T('情境重建：獻花。AI 畫面，非當年攝影。', 'Reconstruction: presenting flowers. AI image, not a historical photograph.') }],
         p: [
@@ -272,6 +325,10 @@
     { h: T('醫院', 'Hospitals'), rows: [
       { n: '8', u: T('家醫院', 'hospitals'), l: T('另有一家診所', 'plus one clinic'), w: T('2026 年 5 月', 'May 2026'), s: 'tp' }
     ] },
+    { h: T('馬來西亞', 'Malaysia'), rows: [
+      { n: '219,278', u: T('人次', 'patient visits'), l: T('吉隆坡慈濟義診中心歷年援助病患', 'Tzu Chi free clinic in Kuala Lumpur, all years'), w: T('截至 2022.12', 'to Dec 2022'), s: 'xlpd' },
+      { n: '18,637', u: T('人次', 'patient visits'), l: T('巴生慈濟義診中心歷年援助病患', 'Tzu Chi free clinic in Klang, all years'), w: T('截至 2022.12', 'to Dec 2022'), s: 'xlkg' }
+    ] },
     { h: T('無語良師', 'Silent Mentors'), rows: [
       { n: '1,401', u: T('位', 'Silent Mentors'), l: T('已捐贈，含大體解剖與模擬手術教學，不含病理捐贈', 'Donors so far, for anatomy and simulated surgery teaching, excluding pathology donation'), w: T('截至 2026.03.23', 'to 23 Mar 2026'), s: 'i7', big: 1 },
       { n: '43,721', u: T('位', 'people'), l: T('簽署捐贈志願書', 'Have signed a pledge to donate'), w: T('截至 2026.03.23', 'to 23 Mar 2026'), s: 'i7' },
@@ -315,22 +372,31 @@
     ['1996.10.12', 'clinic people', '慈濟醫事人員聯誼會成立。', 'The medical personnel association is founded.', 'fm199'],
     ['1997.08.03', 'first my', '檳城慈濟洗腎中心啟用，提供家貧腎友免費服務。', 'The Penang dialysis centre opens, offering free care.', 'fm203'],
     ['1998.01.18', 'first clinic', '更名慈濟人醫會，首次為街友舉辦街頭義診。', 'Renamed the Tzu Chi Medical Association; first street clinic for homeless people.', 'fm199'],
+    ['1998.07.26', 'first clinic my', '慈濟在沙巴哥打馬魯都為原住民舉行首次義診，嘉惠近兩千位民眾。', 'First free clinic for indigenous villagers at Kota Marudu, Sabah, serving nearly two thousand people.', 'xlmc'],
     ['1999.03.15', 'hosp', '慈濟玉里分院啟業。', 'Yuli branch opens.', 'fm226'],
     ['2000.03.15', 'hosp', '慈濟關山分院啟用。', 'Guanshan branch opens.', 'fm235'],
     ['2000.08.13', 'hosp', '大林慈院啟業。', 'Dalin Tzu Chi Hospital opens.', 'fm236'],
     ['2002.03.07', 'my', '馬來西亞第二座洗腎中心，日得拉慈濟洗腎中心啟用。', 'Malaysia’s second centre opens in Jitra, Kedah.', 'fm203'],
     ['2002.05.27', 'first people', '全臺首創大體模擬手術教學。', 'Taiwan’s first simulated surgery teaching on donated bodies.', 'fm258'],
+    ['2002.09.03', 'clinic my', '吉隆坡人醫會成立，二〇一〇年正名雪隆人醫會。', 'The Kuala Lumpur medical association is founded; in 2010 it becomes the Selangor and Kuala Lumpur association.', 'xlmc'],
     ['2002.11.28', 'my', '馬來西亞第三座洗腎中心，北海慈濟洗腎中心啟用。', 'Malaysia’s third centre opens in Butterworth.', 'fm203'],
+    ['2003.08.24', 'clinic my', '巴生慈濟義診中心啟用，慈濟在海外的第四間義診中心。', 'The Klang free clinic opens, Tzu Chi’s fourth overseas.', 'xlkg'],
     ['2004.09.25', 'clinic', '定名國際慈濟人醫會。', 'The name Tzu Chi International Medical Association is adopted.', 'fm199'],
+    ['2004.12.23', 'people my', '肯納亞山由志工陪同抵達花蓮慈院；二〇一一年腿傷復發，二〇一六年截肢後往生。', 'Kannayason arrives at Hualien Tzu Chi Hospital with a volunteer. The injury returns in 2011, and he passes away after amputation in 2016.', 'xlkn'],
     ['2005.05.08', 'hosp', '臺北慈濟醫院正式啟業。', 'Taipei Tzu Chi Hospital opens.', 'fm287'],
     ['2007.01.08', 'hosp', '臺中慈濟醫院一期大樓正式啟業。', 'Taichung Tzu Chi Hospital’s first building opens.', 'fm307'],
+    ['2007.12.02', 'clinic my', '吉隆坡慈濟義診中心在富都路啟用。', 'The Kuala Lumpur free clinic opens on Jalan Pudu.', 'xlpd'],
+    ['2016.10', 'clinic my', '雪隆、亞庇和臺灣的人醫會及慈濟志工動員四百八十餘人，赴沙巴哥打馬魯都義診，嘉惠兩千四百多位鄉民。', 'Over 480 people from three medical associations and Tzu Chi volunteers hold a large clinic at Kota Marudu, serving more than 2,400 villagers.', 'xlmc'],
     ['2019.01.05', 'hosp', '斗六門診部升格為地區醫院，名為斗六慈濟醫院。', 'The Douliu outpatient unit becomes Douliu Tzu Chi Hospital.', 'fm428'],
+    ['2020.03.18', 'clinic my', '馬來西亞啟動行動管制令，義診中心規劃線上問診及藥物配送。', 'Malaysia begins its movement control order; the free clinic sets up online consultations and medicine delivery.', 'xlco'],
+    ['2021.06.19', 'clinic my', '吉隆坡靜思堂疫苗接種中心啟動。', 'The vaccination centre at the Jing Si Hall in Kuala Lumpur begins work.', 'xlmc'],
     ['2022.12.12', 'hosp', '三義慈濟中醫醫院揭牌啟用。', 'Sanyi Tzu Chi Chinese Medicine Hospital opens.', 'o201027']
   ];
 
   CH.next = {
     ask: T('媽媽，醫院蓋好了，照顧病人的人才，從哪裡來？', 'Mama, the hospital is built. Where will the people to care for the patients come from?'),
-    stop: T('下一站・教育　製作中', 'Next stop: Education · in progress')
+    stop: T('下一站・教育', 'Next stop: Education'),
+    href: 'education.html'
   };
   CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面；標示「情境重建」的畫面由 AI 依史料生成，非當年攝影。「」內為原文照錄。', 'Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from Tzu Chi’s public On This Day pages. Images marked as reconstructions were generated by AI from the historical record and are not historical photographs. Words inside quotation marks are reproduced from the sources.');
 

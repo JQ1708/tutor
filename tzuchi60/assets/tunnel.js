@@ -74,6 +74,73 @@
     if (HG === undefined) { HG = window.HALL ? HALL() : null; if (HG) HG.load(L, img, 1.3); }
     if (HG) c.drawImage(HG.render(t, Math.round(W * 1.25), Math.round(H * 1.25)), 0, 0, W, H); else HF(c, t, W, H, L);
   }
+  /* 翻書：照片印在書頁上。dir 1 往回翻（書頁由左蓋向右），-1 往前翻。橫屏攤開兩頁，直屏只見右頁。
+     紙色由 m.p0 老到 m.p1：頁面畫好存起來，圖還沒到就先畫白紙，不存。 */
+  var BC = {}, BK = '', BY = '';
+  function hex(s) { return [1, 3, 5].map(function (i) { return parseInt(s.substr(i, 2), 16); }); }
+  function paper(a, b, u) { var x = hex(a), y = hex(b); return 'rgb(' + x.map(function (v, i) { return Math.round(v + (y[i] - v) * u); }).join(',') + ')'; }
+  function leaf(r, u, side, cw, ch, a, b) {
+    var key = r[1] + side + u.toFixed(2), hit = BC[key]; if (hit) return hit;
+    var v = doc.createElement('canvas'), c = v.getContext('2d'), m = img(r), ok = m.complete && m.naturalWidth, col = paper(a, b, u);
+    v.width = cw; v.height = ch;
+    c.fillStyle = col; c.fillRect(0, 0, cw, ch);
+    var w = cw * .82, h = w * 300 / r[2];
+    if (h > ch * .62) { h = ch * .62; w = h * r[2] / 300; }
+    var x = (cw - w) / 2, y = ch * .1 + (ch * .62 - h) / 2;
+    if (ok) {
+      c.drawImage(m, x, y, w, h);
+      c.globalCompositeOperation = 'multiply'; c.globalAlpha = .35 + u * .65; c.fillStyle = col; c.fillRect(x, y, w, h);
+      c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
+    } else { c.fillStyle = 'rgba(70,55,35,.14)'; c.fillRect(x, y, w, h); }
+    c.strokeStyle = 'rgba(70,55,35,.3)'; c.lineWidth = Math.max(1, cw / 420); c.strokeRect(x, y, w, h);
+    c.fillStyle = 'rgba(60,46,28,.8)'; c.textAlign = 'center';
+    if (r[0]) { c.font = Math.round(cw * .05) + 'px Georgia, serif'; c.fillText(r[0], cw / 2, ch * .8); }
+    c.fillStyle = 'rgba(70,55,35,.16)';
+    for (var i = 0; i < 3; i++) c.fillRect(cw * .16, ch * (.85 + i * .03), cw * (i === 2 ? .4 : .68), Math.max(1, ch / 520));
+    /* 靠書脊那一側的陰影 */
+    var g = c.createLinearGradient(side ? 0 : cw, 0, side ? cw * .14 : cw * .86, 0);
+    g.addColorStop(0, 'rgba(50,34,16,.34)'); g.addColorStop(1, 'rgba(50,34,16,0)');
+    c.fillStyle = g; c.fillRect(0, 0, cw, ch);
+    if (ok) BC[key] = v;
+    return v;
+  }
+  function book(c, t, W, H, L, m) {
+    var n = L.length, N = Math.max(1, Math.floor((n - 2) / 2)), wide = W / H > 1.05, dir = m.dir || 1;
+    var ph = wide ? H * .86 : Math.min(H * .8, W * .9 * 1.38), pw = wide ? Math.min(W * .47, ph * .76) : W * .9, sp = wide ? W / 2 : (W - pw) / 2, top = (H - ph) / 2;
+    var cw = Math.round(pw * 1.4), ch = Math.round(ph * 1.4), key = cw + 'x' + ch + (m.p0 || '') + L[0][1];
+    if (key !== BK) { BC = {}; BK = key; }
+    var p0 = m.p0 || '#fbf9f3', p1 = m.p1 || '#d9bd82', den = Math.max(1, 2 * N + 1);
+    function pg(k, side) { var i = 2 * k + side; return leaf(L[i % n], i / den, side, cw, ch, p0, p1); }
+    var q = Math.min(1, t / .72), e = q * q * (3 - 2 * q), u = e * N, k = Math.min(N - 1, Math.floor(u)), f = u - k;
+    f = f * f * (3 - 2 * f);
+    var th = f * Math.PI, sn = Math.sin(th), cs = Math.cos(th), z = 1 + t * .05;
+    c.save(); c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2, -H / 2);
+    /* 書身：紙邊和壓在桌上的影子 */
+    var lx = wide ? sp - pw : sp, tw = wide ? pw * 2 : pw;
+    c.fillStyle = 'rgba(0,0,0,.42)'; c.fillRect(lx - 4, top + 12, tw + 16, ph + 8);
+    c.fillStyle = paper(p0, p1, .6); c.fillRect(lx - 7, top + 3, tw + 14, ph + 2);
+    var A = dir > 0, Lf = pg(A ? k + 1 : k, 0), Rg = pg(A ? k : k + 1, 1);
+    if (wide) c.drawImage(Lf, sp - pw, top, pw, ph);
+    c.drawImage(Rg, sp, top, pw, ph);
+    /* 翻起來那一頁：前半在起手那一側，過了書脊換成另一面 */
+    var first = th < Math.PI / 2, left = A ? first : !first, s = first ? (A ? pg(k, 0) : pg(k, 1)) : (A ? pg(k + 1, 1) : pg(k + 1, 0)), ax = Math.abs(cs), S = 18, D = pw * 3.2, cx = W / 2;
+    if (sn > .001) {
+      c.fillStyle = 'rgba(40,26,12,' + (.3 * sn).toFixed(3) + ')';
+      if (left) { if (wide) c.fillRect(sp - pw, top, pw, ph); } else c.fillRect(sp, top, pw, ph);
+    }
+    for (var j = 0; j < S; j++) {
+      var a0 = j / S, a1 = (j + 1) / S, s0 = D / (D - a0 * pw * sn), s1 = D / (D - a1 * pw * sn), dx = left ? -1 : 1;
+      var x0 = cx + (sp + dx * a0 * pw * ax - cx) * s0, x1 = cx + (sp + dx * a1 * pw * ax - cx) * s1;
+      var xa = Math.min(x0, x1), xw = Math.abs(x1 - x0) + .8, sc = (s0 + s1) / 2, hh = ph * sc, yy = H / 2 - hh / 2;
+      if (xa > W || xa + xw < 0) continue;
+      var sx = (left ? 1 - a1 : a0) * cw;
+      c.drawImage(s, sx, 0, cw / S, ch, xa, yy, xw, hh);
+      if (sn > .001) { c.fillStyle = 'rgba(40,26,12,' + (sn * (.06 + .2 * (1 - a0))).toFixed(3) + ')'; c.fillRect(xa, yy, xw, hh); }
+    }
+    c.restore();
+    var cur = L[(2 * (f > .5 ? k + 1 : k) + 1) % n];
+    BY = cur[0] || '';
+  }
   var M = {
     back: { d: 4400, y: [2026, 1966], from: 1966, to: 2026, bg: '#120f0c', tint: '#a98a55', a0: .05, a1: .86, f: rows(3, 1), pop: 1, close: '#d9cfb8' },
     road: { d: 2400, y: [1969, 1989], from: 1969, to: 1993, bg: '#1d150c', tint: '#c98f3f', a0: .3, a1: .42, f: rows(2, -1), pop: 1 },
@@ -84,7 +151,7 @@
     big: { d: 3000, from: 1966, to: 2025, bg: '#0b0907', tint: '#6b5a3c', a0: .5, a1: .7, f: fly(1, .62, 22), max: 22, close: '#0b0907' }
   };
   /* 別的站自己的隧道：ids 指定照片（見 assets/river/med.js），牆上的年份由長廊自己算 */
-  if (window.TUN_M) Object.keys(TUN_M).forEach(function (k) { var x = TUN_M[k]; x.f = { hall: hall, rows: rows(x.n || 3, x.dir || 1), fall: fall, cols: cols, fly: fly(x.dir || 1, x.spd || 1, 24) }[x.walk]; M[k] = x; });
+  if (window.TUN_M) Object.keys(TUN_M).forEach(function (k) { var x = TUN_M[k]; x.f = { hall: hall, rows: rows(x.n || 3, x.dir || 1), fall: fall, cols: cols, fly: fly(x.dir || 1, x.spd || 1, 24), book: book }[x.walk]; M[k] = x; });
   function list(m) {
     if (m.ids) { var X = {}; (window.RIVER_M || []).forEach(function (r) { X[r[1]] = r; }); return m.ids.map(function (i) { return X[i]; }).filter(Boolean); }
     var L = RV.filter(function (r) { return m.only ? m.only.indexOf(r[0]) >= 0 : r[0] >= m.from && r[0] <= m.to; });
@@ -111,7 +178,7 @@
     var W = innerWidth, H = innerHeight, c = cx;
     c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
     c.fillStyle = m.bg; c.fillRect(0, 0, W, H);
-    m.f(c, t, W, H, L);
+    m.f(c, t, W, H, L, m);
     if (m.pop) for (var i = 0; i < 3; i++) {
       var p = ramp(t, .16 + i * .23, .4 + i * .23);
       if (p > 0 && p < 1) {
@@ -128,13 +195,14 @@
       c.fillStyle = g; c.fillRect(0, 0, W, H);
     }
     /* 問句底下壓一層，照片再亂都讀得到 */
-    var pl = m.plate || 'rgba(8,6,4,', v = c.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W * .62, 240));
-    v.addColorStop(0, pl + '.8)'); v.addColorStop(.55, pl + '.5)'); v.addColorStop(1, pl + '0)');
+    var pa, pl = m.plate || 'rgba(8,6,4,', v = c.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W * .62, 240));
+    pa = m.pa == null ? 1 : m.pa;
+    v.addColorStop(0, pl + .8 * pa + ')'); v.addColorStop(.55, pl + .5 * pa + ')'); v.addColorStop(1, pl + '0)');
     c.fillStyle = v; c.fillRect(0, 0, W, H);
     if (m.close) { c.globalAlpha = ramp(t, .8, .97); c.fillStyle = m.close; c.fillRect(0, 0, W, H); c.globalAlpha = 1; }
     qe.style.opacity = ramp(t, .08, .2) * (1 - ramp(t, .74, .86));
     /* 只有照片和年份對得上的隧道才跑年份 */
-    ye.textContent = m.walk === 'hall' && HG ? HG.year(t) : m.y ? Math.round(m.y[0] + (m.y[1] - m.y[0]) * Math.min(1, t * 1.1)) : '';
+    ye.textContent = m.walk === 'book' ? BY : m.walk === 'hall' && HG ? HG.year(t) : m.y ? Math.round(m.y[0] + (m.y[1] - m.y[0]) * Math.min(1, t * 1.1)) : '';
     ye.style.opacity = (1 - ramp(t, .84, .94)) * .9;
   }
   function play(key, o) {

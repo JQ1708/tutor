@@ -8,6 +8,9 @@
     return { zh: '《慈濟歷史上的今天》' + s, en: 'Tzu Chi, On This Day, ' + s, url: 'https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_' + d + '-1/' };
   };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
+  var xl = function (p) { /* 雪隆史第一冊，印刷頁碼 */
+    return { zh: '《馬來西亞慈濟史 雪隆分會》（1）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. ' + p };
+  };
   var S = {
     fm27: fm('00027', '三十位家庭主婦慰留上人'), fm28: fm('00028', '一攤血事件'), fm31: fm('00031', '增製嬰兒鞋，護持慈善救濟'), fm32: fm('00032', '竹筒歲月'),
     fm36: fm('00036', '第一例長期照顧戶'), fm37: fm('00037', '建立濟貧「複查」制度'), fm39: fm('00039', '第一間永久屋'),
@@ -31,6 +34,8 @@
     ext: { zh: '慈濟六十特展・臺灣數據圖（統計至 2025.12）', en: 'Tzu Chi 60th Anniversary Exhibition, Taiwan figures (to Dec 2025)' },
     org: { zh: '慈濟基金會〈經濟補助與心靈關懷〉2025', en: 'Tzu Chi Foundation, financial and care figures 2025' },
     my3: { zh: '馬來西亞慈濟報導 2025.11.02', en: 'Tzu Chi Malaysia report, 2 Nov 2025' },
+    xlsb: xl('55–57, 64–67'), xlpt: xl('144–152, 156'), xldv: xl('82, 84–86'), xlgy: xl('133–134'), xlfl: xl('279–290'),
+    xlbr: xl('111–112'), xllg: xl('182'), xlmh: xl('207–208'), xlfs: xl('250–251'),
     mystory: (window.SRC && window.SRC.my) || T('馬來西亞慈濟報導', 'Tzu Chi Malaysia report')
   };
 
@@ -42,7 +47,7 @@
     title: T('慈善', 'Charity'),
     sub: T('一九六六年，三十支竹筒，每人每天五毛錢。<br>截至二〇二五年底，慈善足跡累計觸及一百三十九個國家地區。',
            'In 1966: thirty bamboo banks, fifty cents a day each.<br>By the end of 2025, this charity work had reached 139 countries and regions.'),
-    watch: T('看影片　3 分 27 秒', 'Watch the film · 3 min 27 s'),
+    watch: T('看影片　3 分 35 秒', 'Watch the film · 3 min 35 s'),
     read: T('走這六段路', 'Walk the six stretches'),
     ai: T('AI 情境重建，非當年攝影', 'AI reconstruction, not a historical photograph')
   };
@@ -407,6 +412,63 @@
         ],
         q: { zh: '馬來西亞對我來說，是很遙遠；對你們來說，是很近。但是對我來說，更是貼(心)。有形的是很遠，無形的是很近，知道嗎？', en: 'To me Malaysia is very far; to you it is very near. But to me it is closer still, in the heart. In form it is far. Beyond form it is near. Do you understand?', who: T('證嚴上人', 'Dharma Master Cheng Yen') },
         s: ['o930613'] },
+      { k: 'story', lay: 'L', date: '1994–2010', h: T('雙溪毛糯的竹筒', 'The bamboo banks of Sungai Buloh'),
+        ph: [{ i: 'xl1_0066_1', c: T('「2005年1月30日慈濟舉辦歲末發放，院友們感恩慈濟的幫助，也捐出積蓄回饋。」（局部，只留手與捐款箱。照片：劉玉麗；《馬來西亞慈濟史 雪隆分會》（1）頁 65）', '“On 30 January 2005, at Tzu Chi’s year-end distribution, residents gave from their savings in thanks for the help they had received.” (Detail: hands and donation box only. Photo: Liu Yuli; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 65)') }],
+        p: [
+          T('雪蘭莪州的雙溪毛糯麻瘋病院創立於一九三〇年，收容麻瘋病（漢生病）患者。一九九四年一月十六日，慈濟志工應院區內靜修院邀約，首次走入訪視。院友長期遭社會歧視，起初心存戒備。隔年開始，志工固定每月前往，發放物資、義剪、按摩，協助清掃，維修房屋和輪椅。',
+            'The Sungai Buloh leprosy settlement in Selangor was founded in 1930 to house people with Hansen’s disease. On 16 January 1994 Tzu Chi volunteers first visited, at the invitation of a Buddhist retreat inside the grounds. Long shunned by society, the residents were wary at first. From the following year volunteers came every month, bringing supplies, cutting hair, giving massages, cleaning, and repairing houses and wheelchairs.'),
+          T('「你們對我們這麼好，我們能回報什麼？」院友路士譚問志工。志工宋進滿述說慈濟的因緣，告訴他每天存下一角錢，就可以做善事幫助人。志工再到病院時，路士譚立刻布施三令吉，成為慈濟在病院的第一個會員，還召集十多位院友一起加入。',
+            '“You are so good to us. What can we give back?” resident Lu Shitan asked the volunteers. Volunteer Song Jinman told him how Tzu Chi began, and that ten sen saved each day could be used to help others. When the volunteers next came, Lu gave three ringgit, becoming Tzu Chi’s first member at the settlement, and he gathered more than ten fellow residents to join.'),
+          T('院友有的靠政府補助，有的靠打零工、賣花卉維生，一令吉、一令吉地攢錢。一九九九年臺灣九二一大地震，志工前來關懷時，院友早已拿著竹筒排好隊。二〇一〇年的歲末祝福（年終祝福聚會），院友聽到慈濟正為海地籌募賑災款項，有人義賣盆栽，有人捐出存款。',
+            'Some residents lived on government aid, others on odd jobs and selling flowers, saving one ringgit at a time. After Taiwan’s 921 earthquake in 1999, the residents were already lined up with their bamboo banks when the volunteers arrived. At the year-end gathering of 2010, hearing that Tzu Chi was raising funds for Haiti, some sold potted plants and some gave their savings.')
+        ],
+        q: { zh: '一角錢也可以做善事，我們都可以做到啊！', en: 'Even ten sen can do good. All of us can do that!', who: T('院友 路士譚', 'Lu Shitan, resident') },
+        q2: { zh: '能捐才是福氣，幫助人是不講次數的。', en: 'Being able to give is the blessing. Helping people is not something you keep count of.', who: T('院友 錦緞', 'Jinduan, resident') },
+        more: [
+          T('二〇〇三年三月九日，院區首次舉辦共修聯誼會，之後每月一次，並安排臺灣樂生療養院的病友林葉分享克服病症的經驗。數十位院友發心加入會員。',
+            'On 9 March 2003 the settlement held its first fellowship gathering, which then met monthly. Lin Ye, a patient from Losheng Sanatorium in Taiwan, was invited to speak about overcoming the disease. Dozens of residents chose to become members.')
+        ],
+        s: ['xlsb'] },
+      { k: 'story', lay: 'R', date: '2003–2022', h: T('比打士的待產之家', 'A home for waiting mothers in Pitas'),
+        ph: [{ i: 'xl1_0152_1', c: T('「生命關懷之家竣工啟用。」（局部，人物和標誌已裁去。照片：華景耀；《馬來西亞慈濟史 雪隆分會》（1）頁 151）', '“The Home of Life Care is completed and opened.” (Detail, people and emblem cropped out. Photo: Hua Jingyao; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 151)') }],
+        p: [
+          T('沙巴比打士的山區，孕婦產檢有時要步行兩天山路、穿越溪河。依當時的法條，未到臨盆時間的孕婦不具備病人身分，無法享有床位。護士法麗達回憶，她曾安排一位孕婦到哥打馬魯都診療所待產，因床位不足又被遣送回家，事後追蹤，對方已因難產往生。駐診醫師鄭榮輝向慈濟提出「待產之家」的構想。',
+            'In the hills of Pitas, Sabah, expectant mothers sometimes walked two days and forded rivers to reach a check-up. Under the rules of the time, a woman not yet due did not count as a patient and could have no bed. One nurse recalled sending a mother to wait at the Kota Marudu clinic, only for her to be sent home for lack of beds. When the nurse followed up, the mother had died in childbirth. The resident doctor, Zheng Ronghui, proposed a “waiting home” to Tzu Chi.'),
+          T('志工覓得離比打士診療所五分鐘車程的高腳屋（架高的木屋），向屋主租下。二〇〇三年獲衛生部批准，五月一日啟用，可容納八名待產婦，第二天迎來第一位準媽媽；七月二十九日命名「慈濟生命關懷之家」（Rumah Penyayang Tzu Chi）。鄉村護士依政府醫院的標準鑑定高危險孕婦，憑醫師簽核的表格免費入住；志工跟隨鄉村護士進入部落，以四輪驅動車接送。',
+            'Volunteers found a house on stilts five minutes’ drive from the Pitas clinic and rented it from the owner. The Ministry of Health approved the plan in 2003. The home opened on 1 May with room for eight, and its first mother arrived the next day. On 29 July it was named Rumah Penyayang Tzu Chi. Village nurses assessed high-risk pregnancies by government hospital standards, and a form signed by a doctor gave a free place. Volunteers went with the nurses into the villages and drove the women out by four-wheel drive.'),
+          T('高腳屋逐漸老舊，孕婦上下樓梯不便。二〇一三年五月十六日動工改建平房，二〇一四年一月一日落成，有十個床位。截至二〇二二年，接待待產孕婦二千零四十一人次，迎接新生兒一千六百五十八名。',
+            'The house aged, and the stairs were hard for pregnant women. Work on a single-storey building began on 16 May 2013, and it was finished on 1 January 2014 with ten beds. By 2022 the home had received expectant mothers 2,041 times and welcomed 1,658 newborns.')
+        ],
+        q: { zh: '我們不只是專注在孕婦的身體狀況，也要照顧她們的心。我的任務是二十四小時待命，因為孕婦生產不分晝夜，但我願意奉獻我的時間給慈濟。', en: 'We do not focus only on the mothers’ bodies. We must care for their hearts too. My task is to be on call twenty-four hours a day, because babies come day or night, but I am willing to give my time to Tzu Chi.', who: T('露茜，隔壁雜貨店的老闆娘，負責孕婦登記入住和照顧', 'The shopkeeper next door, who took charge of registering and caring for the mothers') },
+        more: [
+          T('來自邁旦村的萊娜，是首批入住的婦女之一，當時懷著第六胎。她回憶某一次生產，是在十二歲女兒陪同下，凌晨兩點打著火把，翻山越嶺走了五小時，才搭上貨車，到接近市區的地方接受巡迴醫師助產。順利生產後，她歡喜返回部落，也把這個家介紹給部落的媽媽們。',
+            'One of the first women to stay was carrying her sixth child. She remembered an earlier birth: at two in the morning, with her twelve-year-old daughter beside her, she walked five hours over the hills by torchlight before a lorry took her near town, where a visiting doctor helped her deliver. After a safe birth here she went home glad, and told the other mothers of her village about the home.'),
+          T('亞庇路途遙遠，志工無法經常前來，便請隔壁雜貨店的老闆娘露茜協助。五十歲的她為了接送孕婦去考駕照，又學了好幾種方言，主動烹煮三餐。二〇一五年七月三十一日，一位初為人母的媽媽請志工替女兒取名慈喜（Chelsea），紀念這個家第一千個生命誕生。',
+            'Kota Kinabalu was far away and volunteers could not come often, so they asked the shopkeeper next door to help. At fifty she took a driving test so she could carry mothers to hospital, learned several local languages, and took on the cooking herself. On 31 July 2015 a first-time mother asked the volunteers to name her daughter. The name, Ci Xi (Chelsea), marked the joy of the thousandth life born through this home.')
+        ],
+        s: ['xlpt'] },
+      { k: 'story', lay: 'L', date: '2010–2014', h: T('屠妖節發放', 'The Deepavali distribution'),
+        ph: [{ i: 'xl1_0086_1', c: T('「2013年10月27日，雪隆志工走入印度廟舉辦屠妖節發放。」（局部，人物已裁去。照片：林思源；《馬來西亞慈濟史 雪隆分會》（1）頁 85）', '“On 27 October 2013, Selangor and Kuala Lumpur volunteers went to a Hindu temple to hold a Deepavali distribution.” (Detail, people cropped out. Photo: Lin Siyuan; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 85)') }],
+        p: [
+          T('屠妖節是印裔最重要的節日，慈濟的發放日定在每年十月至十一月間。二〇〇八年，志工因新芽助學金（慈濟資助清寒學生的助學金）家訪，走入多間印裔學校和家庭，也邀請印裔照顧戶參加歲末發放。但華印兩裔飲食習慣、過年習俗不同，節目又以華語為主，印裔照顧戶較難有參與感。二〇一〇年九月開始，雪隆分會另設屠妖節發放，十月三十一日首次為印裔照顧戶舉辦。',
+            'Deepavali is the most important festival for Malaysian Indians, and Tzu Chi holds its distribution between October and November each year. In 2008, home visits for the New Sprouts bursary, Tzu Chi’s aid for needy students, took volunteers into many Indian schools and homes, and Indian care recipients were invited to the year-end distribution. But food and new-year customs differed, and the programme was mostly in Mandarin, so it was hard for them to feel part of it. From September 2010 the Selangor and Kuala Lumpur branch set up a separate Deepavali distribution, first held for Indian care recipients on 31 October.'),
+          T('二〇一三年，一位沙登區的慈濟委員帶動志工走入沙登印度廟拜訪，近百位印裔居民成為慈濟會員，廟方委員會主席也表示能借出廟內空間作發放場地。該年十七場發放，從事前討論、場地、報到登記、翻譯、司儀到搬運物資，主要由印度學校教職人員和家長接力完成，共嘉惠一千一百二十四戶印裔家庭。',
+            'In 2013 a Tzu Chi commissioner in Serdang led volunteers on a visit to the Hindu temple there. Nearly a hundred Indian residents became Tzu Chi members, and the chairman of the temple committee offered its space for the distribution. That year’s seventeen sessions, from planning, venue and registration to translation, emceeing and moving supplies, were carried mainly by teachers and parents of Indian schools. In all, 1,124 Indian households were served.'),
+          T('二〇一四年，發放遷至靜思堂舉辦，志工帶著親子體驗為父母浴足、奉茶。在印裔社會裡，浴足代表崇高和尊敬，只有在婚嫁時，孩子拜別父母才會用牛奶為父母洗腳。一個成員多為華人的佛教團體，為印裔族群舉辦印度教傳統慶典並不容易，志工從摸索中學習，年年改進。',
+            'In 2014 the distribution moved to the Jing Si Hall, and volunteers guided children in washing their parents’ feet and serving them tea. In Indian society, washing the feet is a mark of high respect; only at a wedding, when taking leave of their parents, do children wash their parents’ feet with milk. For a Buddhist group whose members are mostly Chinese, holding a traditional Hindu celebration was not easy. Volunteers learned as they went and improved each year.')
+        ],
+        s: ['xldv'] },
+      { k: 'story', lay: 'R', date: '2000–2021', h: T('加雅島', 'Gaya Island'),
+        ph: [{ i: 'xl1_0135_1', c: T('「2008年11月，加雅島發生火災，燒毀逾四十間木屋。」（局部，遠處人影已裁去。照片：劉宏業；《馬來西亞慈濟史 雪隆分會》（1）頁 134）', '“In November 2008 a fire on Gaya Island destroyed more than forty wooden houses.” (Detail, distant figures cropped out. Photo: Liu Hongye; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 134)') }],
+        p: [
+          T('加雅島距亞庇約十分鐘船程，島上約九百多戶。一九七〇年代起，陶蘇格人和巴瑤族等為躲避菲律賓南部戰爭遷徙到此，搭起水上木屋。書中記載，他們並非大馬公民，無法享有醫療、教育及合法工作的權利。',
+            'Gaya Island lies about ten minutes by boat from Kota Kinabalu and has over nine hundred households. From the 1970s Tausug, Bajau and other people fleeing war in the southern Philippines came here and built wooden houses over the water. The book records that they were not Malaysian citizens and had no right to health care, education or legal work.'),
+          T('二〇〇〇年一月，一場火災殃及三十多間海上木屋。亞庇志工勘災（到現場查看災情），發放三千五百令吉與四十包衣物。這是慈濟首次走入加雅島，也是首次有慈善團體主動伸援。',
+            'In January 2000 a fire reached more than thirty houses on the water. Kota Kinabalu volunteers went to assess the damage and gave out RM3,500 and forty bags of clothing. It was Tzu Chi’s first time on Gaya Island, and the first time any charity had come forward to help.'),
+          T('二〇〇八年十一月，甘榜洛烏萊（洛烏萊村）火災燒毀逾四十間木屋，三百多人無家可歸，志工再度前往發放。二〇二〇年五月，疫情期間的行動管制令（限制民眾外出的全國措施）使島民無法出外工作，亞庇志工三次渡海急難發放，嘉惠二百一十八戶、共一千三百五十八人。二〇二一年三月，村子再遭大火，燒毀七十間木屋，慈濟援助七十四戶。',
+            'In November 2008 a fire in Kampung Lok Urai destroyed over forty houses and left more than three hundred people homeless, and volunteers came again. In May 2020, when the pandemic movement control order kept islanders from going out to work, Kota Kinabalu volunteers crossed the water three times with emergency aid for 218 households, 1,358 people. In March 2021 fire struck the village again, destroying seventy houses, and Tzu Chi helped 74 households.')
+        ],
+        s: ['xlgy'] },
       { k: 'story', lay: 'W', date: '2017.03.06', h: T('沙巴的孩子', 'The children of Sabah'),
         ph: [{ i: '20170306-1_01', c: T('水上屋。', 'Stilt houses on the water.') }, { i: '20170306-1_08', c: T('排隊的學童。', 'Pupils in line.') }, { i: '20170306-1_19', c: T('寫字的男孩。', 'A boy writing.') }],
         p: [
@@ -418,6 +480,22 @@
         q: { zh: '我記得我們第一天上課，我們是八點，我們的學生六點就到了。', en: 'I remember our first day of class. We started at eight. Our pupils arrived at six.', who: T('志工 梁菁華', 'Liang Jinghua, volunteer') },
         q2: { zh: '帶著一顆好的心去幫他們的，所以為什麼要怕。', en: 'We went with a good heart to help them, so why be afraid?', who: T('志工 羅珍愛', 'Luo Zhen’ai, volunteer') },
         s: ['o170306'] },
+      { k: 'story', lay: 'L', date: '2021.12', h: T('雪隆水災', 'The Selangor and Kuala Lumpur floods'),
+        ph: [{ i: 'xl1_0286_1', c: T('「水患退去，許多被大水浸泡過的大型傢俱被丟棄在路邊，志工安排多輛大型卡車及推土機前來清理。」（局部，人物已裁去。照片：林振勝；《馬來西亞慈濟史 雪隆分會》（1）頁 285）', '“As the water receded, large pieces of soaked furniture were left at the roadside, and volunteers arranged lorries and bulldozers to clear them.” (Detail, people cropped out. Photo: Lin Zhensheng; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 285)') }],
+        p: [
+          T('二〇二一年十二月十八日，單日雨量超越一個月總和，全國共二百一十個災區，雪蘭莪州九縣中八縣淪陷。當天，巴生志工成立水災行動指揮小組，在環保站烹煮熱食，用四輪驅動車運入災區。一天動員五十位志工、十二輛四輪驅動車，發放二千份熱食，其中八百份由兩家素食餐廳免費供應；隔天共發出六千六百九十七份便當。',
+            'On 18 December 2021 more rain fell in one day than in a normal month. There were 210 disaster areas across the country, and eight of Selangor’s nine districts went under. That day Klang volunteers set up a flood command group, cooked at a recycling station and took meals in by four-wheel drive. In one day fifty volunteers and twelve vehicles delivered two thousand hot meals, eight hundred of them given free by two vegetarian restaurants. The next day 6,697 lunch boxes went out.'),
+          T('皇家武裝部隊以七噸軍用卡車協助把物資運入災區。一位榴槤攤主騰出大部分空間，作為臨時行動中心和熱食定點。食物外送員薩拉胡定號召同行，把熱食送到偏遠地區。',
+            'The Malaysian Armed Forces helped carry supplies in on seven-tonne trucks. A durian seller nearby gave up most of the stall’s space as a temporary base and meal point. Food delivery rider Salahuddin rallied his fellow riders to take hot meals to remote areas.'),
+          T('十二月二十四至二十六日大清掃，動員超過六千六百人次志工。二十五日，莎亞南太子園聚集二千五百位來自雪隆、檳城、吉打、怡保、新山、馬六甲等地的志工與會眾，還有三百名軍人。二〇二二年一月一日、二日，二千人次志工走入雪隆十三個災區，完成一萬零七百七十一戶造冊（逐戶登記），籌備祝福金發放。',
+            'The great clean-up of 24 to 26 December drew over 6,600 volunteer turnouts. On the 25th, 2,500 volunteers and members from Selangor, Kuala Lumpur, Penang, Kedah, Ipoh, Johor Bahru and Melaka gathered in one Shah Alam neighbourhood, with three hundred soldiers. On 1 and 2 January 2022, volunteers made two thousand turnouts into thirteen flooded areas and registered 10,771 households, house by house, for cash aid.')
+        ],
+        q: { zh: '雖然我的生活不好，與其伸手向人拿錢，不如我出錢幫助人。', en: 'My life is not good, but rather than holding out my hand for money, I would sooner give money to help others.', who: T('受災鄉親 羅玉珍，捐出五十令吉時說', 'Luo Yuzhen, whose home was flooded, on giving fifty ringgit') },
+        more: [
+          T('造冊時，志工走進完全沒有任何團體關心的太子園 E 區，發現這裡的外籍勞工急需援助，臨時發放物資。從急難發放、熱食、人醫往診、清掃、造冊到祝福金發放，這場援助長達兩個多月。',
+            'While registering, volunteers went into a section no group had yet reached, found foreign workers there in urgent need, and gave out supplies on the spot. From emergency aid, meals, doctors’ visits and cleaning to registration and cash aid, the relief lasted more than two months.')
+        ],
+        s: ['xlfl'] },
       { k: 'story', lay: 'T', h: T('蒲種的一對母女', 'A mother and daughter in Puchong'),
         p: [
           T('蒲種的林淑芬，起初以為慈濟是詐騙。疫情時家裡負擔不起補習費，女兒魏芷晴參加「愛·伴學」，當時連鏡頭都不敢打開。後來，芷晴站上臺當司儀，母女一起到環保點（資源回收點）付出。',
@@ -482,7 +560,9 @@
     ] },
     { h: T('馬來西亞', 'Malaysia'), rows: [
       { n: '56,749', u: T('名學生', 'students'), l: T('森美蘭、馬六甲、柔佛三州助學累計，共 1,532 萬令吉', 'education aid in three states, RM15.32 million in all'), w: T('截至 2025', 'to 2025'), s: 'my3' },
-      { n: '379', u: T('位學生', 'pupils'), l: T('沙巴三所學習中心', 'at three learning centres in Sabah'), w: T('截至 2025', 'to 2025'), s: 'o170306' }
+      { n: '379', u: T('位學生', 'pupils'), l: T('沙巴三所學習中心', 'at three learning centres in Sabah'), w: T('截至 2025', 'to 2025'), s: 'o170306' },
+      { n: '2,041', u: T('人次', 'stays'), l: T('比打士慈濟生命關懷之家接待待產孕婦；迎接新生兒 1,658 名', 'by expectant mothers at the Pitas home, with 1,658 newborns welcomed'), w: T('截至 2022', 'to 2022'), s: 'xlpt' },
+      { n: '超過 6,600', nen: 'Over 6,600', u: T('人次', 'volunteer turnouts'), l: T('雪隆水災三天大清掃動員志工', 'at the three-day clean-up after the Selangor and Kuala Lumpur floods'), w: T('2021.12.24–26', '24–26 Dec 2021'), s: 'xlfl' }
     ] },
     { h: T('這些錢從哪裡來', 'Where the money comes from'), rows: [
       { n: '93%', u: T('', ''), l: T('捐款人次中，1,000 元以下所佔比例（按人次；金額佔 28%）', 'of donations were NT$1,000 or less, by number; they make up 28% of the amount'), w: T('2024', '2024'), s: 'a1', big: 1 }
@@ -583,22 +663,31 @@
     ['1992.10.10', 'my care', '馬六甲首例機構關懷，馬接峇汝安老院開案。', 'First institutional care in Melaka, at the old folks’ home at Machap Baru.', 'fm145'],
     ['1993.03.04', 'my care home', '鄭金龍老先生成為馬六甲慈濟首位照顧戶，慈濟協助蓋屋。', 'Zheng Jinlong becomes the first care recipient in Melaka, and Tzu Chi helps build his home.', 'fm145'],
     ['1993.08.11', 'my system', '檳城聯絡處成立。', 'The Penang liaison office opens.', 'o930613'],
+    ['1994.01.16', 'my care', '慈濟志工首次走入雪蘭莪州雙溪毛糯麻瘋病院訪視，隔年開始固定每月前往。', 'Volunteers first visit the Sungai Buloh leprosy settlement in Selangor, and from the following year come every month.', 'xlsb'],
     ['1994.04.10', 'my first care', '馬六甲首次現場發放，此後每月第二個星期日。', 'First on-site distribution in Melaka, then every second Sunday of the month.', 'o940410'],
     ['1995.02.18', 'home relief', '尼泊爾三座慈濟村一千四百戶揭碑；六月第四座四百戶交屋。', 'Three villages of 1,400 homes unveiled in Nepal; a fourth of 400 follows in June.', 'o950218'],
     ['1996.12.22', 'system', '從花蓮吉安北昌村、新城佳林村開始推動社區志工。', 'Community volunteering begins in Beichang and Jialin villages, Hualien.', 'fm196'],
     ['1997.08.03', 'my first care', '全馬第一家由非政府組織營運、費用全免的洗腎中心啟用。', 'Malaysia’s first free dialysis centre run by a non-governmental organisation opens.', 'o930613'],
     ['1999.09.21', 'relief home', '九二一地震，慈濟承擔五十一所學校援建。', 'The 921 earthquake. Tzu Chi takes on the rebuilding of fifty-one schools.', 'fm219'],
     ['2000', 'home', '貴州九個慈濟新村，四百多戶。', 'Nine Tzu Chi villages in Guizhou, over 400 homes.', 'fm239'],
+    ['2000.01', 'my relief', '加雅島火災，亞庇志工勘災發放，這是慈濟首次走入加雅島。', 'After a fire on Gaya Island, Kota Kinabalu volunteers assess the damage and give aid: Tzu Chi’s first time on the island.', 'xlgy'],
+    ['2000.06.15', 'my care', '沙巴原住民村的新吊橋「慈濟大愛橋」啟用，慈濟承擔建設費用，與村民合力建造，耗時十八天。', 'A new suspension bridge opens at an indigenous village in Sabah. Tzu Chi paid for it and villagers built it with volunteers in eighteen days.', 'xlbr'],
+    ['2003.05.01', 'my care', '沙巴比打士的待產之家啟用，同年七月二十九日命名「慈濟生命關懷之家」。', 'The waiting home for mothers opens in Pitas, Sabah, and is named Rumah Penyayang Tzu Chi on 29 July.', 'xlpt'],
     ['2003.07.18', 'home', '印尼金卡蓮大愛一村入厝，一千一百戶。', 'The Cengkareng Great Love Village, Jakarta: 1,100 households move in.', 'o030718'],
     ['2004.12.26', 'relief home', '南亞大海嘯，於亞齊及斯里蘭卡援建大愛村三千三百多戶。', 'Indian Ocean tsunami: over 3,300 homes built in Aceh and Sri Lanka.', 'fm282'],
+    ['2005.07.10', 'my care', '吉隆坡慈濟人第一次在冷京扣留營舉辦義診，並協助修復廢棄古井，改善用水。', 'Kuala Lumpur volunteers hold their first free clinic at the Lenggeng detention camp, and repair a disused well to improve the water supply.', 'xllg'],
     ['2006.10.26', 'system', '上人提出「回歸竹筒歲月」。', 'The Master calls for a return to the bamboo-bank days.', 'fm297'],
     ['2008.05.15', 'relief', '緬甸納吉斯風災，首度發放嘉惠二百二十五戶，計九百六十七人。', 'Cyclone Nargis, Myanmar: the first distribution reaches 225 households, 967 people.', 'fm323'],
     ['2009.08', 'relief home', '莫拉克風災，援建六座大愛村，一千三百〇二戶。', 'Typhoon Morakot: six Great Love Villages, 1,302 homes.', 'fm329'],
     ['2009.09', 'relief system', '菲律賓凱莎娜颱風，啟動以工代賑。', 'Typhoon Ketsana, Philippines: work for relief begins.', 'fm332'],
+    ['2010.10.31', 'my care', '雪隆分會首次為印裔照顧戶舉辦屠妖節發放。', 'The Selangor and Kuala Lumpur branch holds its first Deepavali distribution for Indian care recipients.', 'xldv'],
     ['2013.01', 'care', '賴索托發願做玉米撲滿，帶動四十七個村落。', 'Lesotho volunteers vow to save maize. Forty-seven villages take part.', 'fm406'],
+    ['2014.03.08', 'my relief', '馬航 MH370 客機失聯，雪隆分會接獲馬航請求，志工到機場電話服務中心二十四小時輪班接聽家屬來電，並陪伴家屬。', 'Flight MH370 goes missing. At Malaysia Airlines’ request, volunteers take shifts round the clock at the airport call centre to answer families’ calls, and stay beside the families.', 'xlmh'],
     ['2016.03.27', 'first care', '緬甸瑞那滾村首次米撲滿回娘家，九十戶，九十六點四公斤。', 'The rice of Shwe Na Gwin comes home for the first time: ninety households, 96.4 kg.', 'o160327'],
     ['2017.03.06', 'my care', '沙巴斗湖試辦無國籍學習中心，初期五十位孩童。', 'A trial learning centre for stateless children opens in Tawau, Sabah, with fifty pupils.', 'o170306'],
     ['2020.01.15', 'home care', '「安穩家園．美善社區」專案啟動。', 'The Safe Homes, Good Neighbourhoods project begins.', 'o200115'],
+    ['2020.03.18', 'my care', '馬來西亞實施行動管制令第一天，雪隆志工在吉隆坡靜思堂啟動製作防護面罩；中南馬及東馬據點陸續加入，截至二〇二二年累計超過十八萬個。', 'On the first day of Malaysia’s movement control order, volunteers begin making face shields at the Jing Si Hall in Kuala Lumpur. Other centres join in, and by 2022 the total passes 180,000.', 'xlfs'],
+    ['2021.12.18', 'my relief', '雪隆水災，巴生志工當天成立水災行動指揮小組；十二月二十四至二十六日大清掃，動員超過六千六百人次志工。', 'Floods in Selangor and Kuala Lumpur. Klang volunteers form a command group that day; the clean-up of 24 to 26 December draws over 6,600 volunteer turnouts.', 'xlfl'],
     ['2025.03.28', 'relief', '緬甸規模七點七強震，首波大型發放濟助五千戶。', 'Magnitude 7.7 earthquake in Myanmar: the first large distribution reaches 5,000 households.', 'o250330']
   ];
 })();
