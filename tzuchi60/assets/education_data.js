@@ -460,8 +460,9 @@
   ];
 
   CH.next = {
-    ask: T('媽媽，學校以外的人，怎麼聽得到這些故事？', 'Mama, how do people outside the school get to hear these stories?'),
-    stop: T('下一站・人文　製作中', 'Next stop: Humanity · in progress')
+    ask: T('大家為什麼拍手？', 'Why is everyone clapping?'),
+    stop: T('下一站・環保', 'Next stop: Environmental Protection'),
+    href: 'environment.html'
   };
   CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人局部；標示「示意」的畫面為插畫，非當年實物。「」內為原文照錄。', 'Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from Tzu Chi’s public On This Day pages and are cropped to details without people. Images marked as illustrations are drawings, not historical objects. Words inside quotation marks are reproduced from the sources.');
 
