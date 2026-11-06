@@ -29,6 +29,9 @@
     o200115: otd('20200115', '安穩家園．美善社區'), o250330: otd('20250330', '緬甸強震'),
     a1: T('《竹筒歲月・六十影響報告書》行動一', 'Tzu Chi 60th Anniversary Impact Report, Action 1'),
     a2: T('《竹筒歲月・六十影響報告書》行動二', 'Tzu Chi 60th Anniversary Impact Report, Action 2'),
+    fm_tour: fm('00056', '全臺訪貧複查十天'), fm46: fm('00046', '花蓮市成功街大火，奠定救災原則'), fm59: fm('00059', '賽洛瑪颱風重創南臺灣'), fm60: fm('00060', '花蓮縣瑞穗大火'),
+    fm294: fm('00294', '雪隆分會與UNHCR展開難民關懷'), fm468: fm('00468', '莫三比克分會獲准於當地註冊立案'),
+    csr1819: T('《2018–2019 年慈濟永續報告書》', 'Tzu Chi Sustainability Report 2018–2019'), xl102: xl('102, 103'),
     ac: T('《竹筒歲月・六十影響報告書》社區篇', 'Tzu Chi 60th Anniversary Impact Report, Community'),
     exg: { zh: '慈濟六十特展・全球數據圖（統計至 2026.02）', en: 'Tzu Chi 60th Anniversary Exhibition, global figures (to Feb 2026)' },
     ext: { zh: '慈濟六十特展・臺灣數據圖（統計至 2025.12）', en: 'Tzu Chi 60th Anniversary Exhibition, Taiwan figures (to Dec 2025)' },
@@ -47,7 +50,7 @@
     title: T('慈善', 'Charity'),
     sub: T('一九六六年，三十支竹筒，每人每天五毛錢。<br>截至二〇二五年底，慈善足跡累計觸及一百三十九個國家地區。',
            'In 1966: thirty bamboo banks, fifty cents a day each.<br>By the end of 2025, this charity work had reached 139 countries and regions.'),
-    watch: T('看影片　3 分 35 秒', 'Watch the film · 3 min 35 s'),
+    watch: T('看影片　11 分 03 秒', 'Watch the film · 11 min 3 s'),
     read: T('走這六段路', 'Walk the six stretches'),
     ai: T('AI 情境重建，非當年攝影', 'AI reconstruction, not a historical photograph')
   };
@@ -126,10 +129,10 @@
             'After she passed away, Tzu Chi kept caring for the family until life improved. In 1985 her husband, Huang Linxiang, though far from well off, gave a donation towards building the Tzu Chi hospital.')
         ],
         s: ['o670701', 'fm37'] },
-      { k: 'story', lay: 'T', date: '1967.11.01', h: T('李阿拋', 'Li A-pao'),
+      { k: 'story', lay: 'T', date: '1967.12.15', h: T('李阿拋', 'Li A-pao'),
         p: [
-          T('李阿拋老人家八十一歲，雙眼失明，住在木瓜溪旁傾斜的茅草屋，以三粒石頭搭小灶。德慈法師回憶：「上人看到這樣很不忍心」。南華站站長張榮華捐出甘蔗園十坪地，慈濟蓋起一間五坪的空心磚屋，三扇窗，鐵皮屋頂。',
-            'Li A-pao was eighty-one and blind. He lived in a leaning thatched hut by the Mugua River and cooked on three stones. Master De Ci recalled that the Master could not bear to see it. Stationmaster Zhang Ronghua gave ten ping of sugar-cane land, and Tzu Chi built a five-ping hollow-brick house with three windows and an iron roof.'),
+          T('李阿拋老人家八十一歲，雙眼失明，住在木瓜溪旁傾斜的茅草屋，以三粒石頭搭小灶。德慈法師回憶：「上人看到這樣很不忍心」。南華站站長張榮華捐出甘蔗園十坪地，慈濟蓋起一間五坪的空心磚屋，三扇窗，鐵皮屋頂。十一月一日動土，十二月十五日完工入厝。',
+            'Li A-pao was eighty-one and blind. He lived in a leaning thatched hut by the Mugua River and cooked on three stones. Master De Ci recalled that the Master could not bear to see it. Stationmaster Zhang Ronghua gave ten ping of sugar-cane land, and Tzu Chi built a five-ping hollow-brick house with three windows and an iron roof. Work began on 1 November, and he moved in on 15 December.'),
           T('這是慈濟的第一間永久屋。截至二〇二六年二月，慈濟已在十九個國家援建超過二萬六千戶永久住宅。',
             'It was Tzu Chi’s first permanent house. By February 2026 Tzu Chi had built more than 26,000 permanent homes in nineteen countries.')
         ],
@@ -149,6 +152,14 @@
         { d: '1969.10.16', zh: '艾爾西颱風過後，臺東大南村大火，燒毀一百四十八戶。慈濟以二萬餘元購置毛毯，親手送到每一戶。這是慈濟第一次大型賑災。', en: 'After Typhoon Elsie, a fire in Danan Village, Taitung, destroyed 148 households. Tzu Chi spent over NT$20,000 on blankets and delivered one to each household by hand. It was Tzu Chi’s first large-scale relief.' },
         { d: '1970.01.30', zh: '靜思精舍（上人與弟子修行的道場）賑濟二百餘人，此後每年舉辦，並增每月常態發放。', en: 'Relief for over 200 people at the Jing Si Abode, held every year afterwards and joined by regular monthly distributions.' }
       ], s: ['fm43', 'fm45'] },
+      { k: 'story', lay: 'T', date: '1970.11.27', h: T('名冊之外的十六戶', 'Sixteen households off the list'),
+        p: [
+          T('一九七〇年十一月二十七日晚上，花蓮成功街大火，延燒仁愛街、福建街，七十多戶、三百多人無家可歸。十二月六日，慈濟依市公所的災戶名冊，為七十二戶致送慰問金。',
+            'On the night of 27 November 1970 a fire on Chenggong Street in Hualien spread to two more streets and left over seventy households, more than 300 people, without a home. On 6 December Tzu Chi gave relief money to the 72 households on the city office’s list.'),
+          T('可是有十六戶不在名冊上，他們沒有報戶口。警察機關和市公所查過，他們確實住在那裡，受災屬實。十二月十日，慈濟補發了慰問金。',
+            'But sixteen households were not on the list, because they had never registered there. The police and the city office confirmed that they lived there and had lost their homes. On 10 December Tzu Chi gave them relief money too.')
+        ],
+        s: ['fm46'] },
       { k: 'story', lay: 'W', date: '1973.10', h: T('娜拉風災', 'Typhoon Nora'),
         ph: [{ i: '19731024-1_01', c: T('洪水沖毀屋舍。', 'A house swept by floodwater.') }, { i: '19731024-1_02', c: T('斷橋。', 'A broken bridge.') }, { i: '19731024-1_04', c: T('打包毛毯。', 'Packing blankets.') }],
         p: [T('風災過後，一百多位委員沿門募款，嘉惠六百七十一個家庭。勘災（實地查看災情）、造冊、發放，這套做法自此定下。',
@@ -165,8 +176,15 @@
         q: { zh: '要找土地不容易，所以上人說要趕快蓋，要不然那些災民怎麼辦，所以才把精舍的土地挪出來，說我們後面的土地來蓋6棟，給那些孤兒跟寡婦。', en: 'Land was not easy to find, so the Master said we must build quickly, or what would those people do? So the Abode’s own land was set aside: six houses on the land behind us, for the orphans and widows.', who: T('德慈法師', 'Master De Ci') },
         s: ['o750905', 'fm55'] },
       { k: 'rec', items: [
-        { d: '1976.12.04', zh: '十天環島訪貧（至 12 月 13 日），複查一百二十戶，張有傳醫師隨車義診。', en: 'A ten-day journey round the island to visit people in need, to 13 December. 120 households reviewed, with Dr Zhang Youchuan seeing patients along the way.' }
-      ], s: ['fm_tour'] }
+        { d: '1976.12.04', zh: '上人和委員搭一部遊覽車，十天環島訪貧（至 12 月 13 日），複查一百二十戶，張有傳醫師隨車義診。一路陪著走的，是豐濱的遊覽車司機黃海松、遊覽小姐黃秀梅，看了一戶又一戶，兩位各捐出三千元和一千二百元。', en: 'The Master and commissioners took one coach on a ten-day journey round the island to visit people in need, to 13 December. 120 households were reviewed, with Dr Zhang Youchuan seeing patients along the way. The driver Huang Haisong and coach attendant Huang Xiumei, from Fengbin, stayed with them throughout. After seeing one home after another, they gave NT$3,000 and NT$1,200 of their own.' }
+      ], s: ['fm_tour'] },
+      { k: 'story', lay: 'T', date: '1977.04', h: T('自己的家也燒了', 'Her own home burned too'),
+        p: [T('一九七七年四月十一日，花蓮瑞穗大火，七十九戶全被燒毀。當時瑞穗只有兩位慈濟委員，其中的林秋英，自己也是受災戶。她放下面目全非的家當，先去協助其他受災戶，直到全部安頓妥善。許多受災鄉親因此加入慈濟。',
+              'On 11 April 1977 a fire in Ruisui, Hualien, destroyed all 79 households on the street. There were only two Tzu Chi commissioners in Ruisui, and one of them, Lin Qiuying, had lost her own home. She left what remained of her belongings and went to help the others until all were settled. Many of those affected went on to join Tzu Chi.')],
+        s: ['fm60'] },
+      { k: 'rec', items: [
+        { d: '1977.07', zh: '賽洛瑪、薇拉颱風接連過境。委員分組逐戶勘查，九月發放。賑濟完成後，屏東、高雄、基隆仍有五十二戶需要長期濟助：災難過去了，慈濟人的關懷還在繼續。', en: 'Typhoons Thelma and Vera struck in turn. Commissioners surveyed each household, and aid went out in September. Afterwards 52 households in Pingtung, Kaohsiung and Keelung still needed long-term care. The storm had passed, and the care went on.' }
+      ], s: ['fm59'] }
     ] },
 
   /* ───────── 1980 年代 ───────── */
@@ -333,6 +351,11 @@
         more: [T('八十二歲的農民烏山丁說：「離世前也想跟大家一起行善，多多少少出一分力。」二〇二四年，烏善丁與妻女三人皆受證成為慈濟志工。',
                  'A farmer of eighty-two said that before leaving this world he too wanted to do good with everyone, and give what strength he could. In 2024 the Taikkyi farmer, his wife and his daughter all became certified Tzu Chi volunteers.')],
         s: ['o160327'] },
+      { k: 'story', lay: 'T', date: '2012.07', h: T('我更該學', 'All the more reason to learn'),
+        p: [T('二〇一二年七月，莫三比克青年麥奎爾．諾沙，隨蔡岱霖搭十個小時的巴士，到南非德本認識慈濟。他跟著志工下鄉訪視，看見「他們不是用物資去關懷，而是用『心』去關懷」。',
+              'In July 2012 Migual Neusa, a young man from Mozambique, rode a bus for ten hours with Cai Dailin to Durban in South Africa to learn about Tzu Chi. He went out on home visits with the volunteers and saw that they cared “not with goods, but with the heart”.')],
+        q: { zh: '身為當地人，我更該向慈濟學習如何幫助當地人。', en: 'As a local, I have all the more reason to learn from Tzu Chi how to help local people.', who: T('莫三比克志工 麥奎爾．諾沙', 'Migual Neusa, volunteer, Mozambique') },
+        s: ['fm468'] },
       { k: 'story', lay: 'T', date: '2013.01', h: T('賴索托的玉米', 'Maize in Lesotho'),
         p: [
           T('二〇〇九年十一月，慈濟捐玉米種子予五百二十戶馬都崁農民。翌年豐收，農民自發捐出作物；九月風災，三十一戶受災鄉親領到的玉米粉，就是這些農民所捐。',
@@ -350,6 +373,14 @@
     h: T('走進去', 'Walking in'),
     lead: T('上人說：「苦難的人走不出來，有福的人要走進去。」', 'The Master said: “Those who suffer cannot walk out. Those who are blessed must walk in.”'),
     b: [
+      { k: 'story', lay: 'T', date: '2013', h: T('一箱蝸牛', 'A box of snails'),
+        p: [
+          T('二〇一三年，臺南有一個小學三年級的孩子，爸爸中風，話說不清楚了。他唯一傾訴的對象，是養在頂樓的一箱蝸牛。',
+            'In 2013 a third-grader in Tainan had a father who could no longer speak clearly after a stroke. The only one he talked to was a box of snails he kept on the roof.'),
+          T('鄰居是慈濟志工，發現了，通報社工，一起來訪視。志工從蝸牛聊起，慢慢和孩子說上了話。知道他功課落後，志工邀成功大學的慈青開了課輔班。六年裡，他四次獲得慈濟的新芽獎學金。',
+            'A neighbour who was a Tzu Chi volunteer noticed and told the social workers, and they visited together. The volunteers began with the snails, and slowly the boy began to talk. When they learned he had fallen behind at school, they asked Tzu Chi Collegiate Association students at National Cheng Kung University to start a tutoring class. Over six years he received Tzu Chi’s New Sprouts scholarship four times.')
+        ],
+        s: ['csr1819'] },
       { k: 'story', lay: 'R', date: '2020.01.15', h: T('安穩家園．美善社區', 'Safe homes, good neighbourhoods'),
         ph: [{ i: '20200115-1_09', c: T('長者扶著新裝的扶手。', 'An elder holding a newly fitted handrail.') }, { i: '20200115-1_05', c: T('師兄安裝扶手。', 'A volunteer fitting a handrail.') }],
         p: [
@@ -358,7 +389,9 @@
           T('二〇二二至二〇二四年，修繕七千九百四十三戶，走過二百三十五個鄉鎮，投入五萬四千九百〇五人次志工。遠至澎湖、馬祖，建材跳島運送。',
             'From 2022 to 2024, 7,943 homes were repaired across 235 townships, with 54,905 volunteer shifts. The work reached Penghu and Matsu, with materials shipped from island to island.')
         ],
-        more: [T('臺中北屯八十多歲的徐玉秀阿媽，老屋需要修繕，志工與她溝通了三個月、施工八天，每天往返五六十公里。志工蔡明模對她說：「你不給我施工，我看我晚上回去會睡不著，會失眠。」',
+        more: [T('同在臺中北屯，山坡上住著一位獨居的阿嬤。廁所在屋外三十多公尺的陡坡上，要過小鐵橋，沿路沒有燈，也沒有欄杆。她曾經兩次在夜裡走去如廁，被毒蛇咬傷。志工要幫她改，她一再婉拒，請兒子女兒來勸，她才點頭。慈濟人為她修補屋頂，在屋角裝設衛浴，讓她在家安心洗澡、如廁。',
+                 'Also in Beitun, Taichung, a grandmother lived alone on a hillside. Her toilet was more than thirty metres away down a steep slope, across a small iron bridge, with no lights and no railing. Twice, walking there at night, she was bitten by a venomous snake. She kept declining help until her son and daughter came to persuade her. Volunteers then mended her roof and built a bathroom in a corner of the house.'),
+               T('臺中北屯八十多歲的徐玉秀阿媽，老屋需要修繕，志工與她溝通了三個月、施工八天，每天往返五六十公里。志工蔡明模對她說：「你不給我施工，我看我晚上回去會睡不著，會失眠。」',
                  'In Taichung, Grandma Xu Yuxiu, in her eighties, took three months of talking and eight days of work, with volunteers driving fifty or sixty kilometres each day. Volunteer Cai Mingmo told her he would not be able to sleep if she did not let him do the work.')],
         s: ['fm456', 'o200115', 'ac'] },
       { k: 'rec', items: [
@@ -447,6 +480,26 @@
             'Kota Kinabalu was far away and volunteers could not come often, so they asked the shopkeeper next door to help. At fifty she took a driving test so she could carry mothers to hospital, learned several local languages, and took on the cooking herself. On 31 July 2015 a first-time mother asked the volunteers to name her daughter. The name, Ci Xi (Chelsea), marked the joy of the thousandth life born through this home.')
         ],
         s: ['xlpt'] },
+      { k: 'story', lay: 'T', date: '2008.01.03', h: T('我也要上學', 'I want to go to school too'),
+        p: [
+          T('二〇〇八年一月三日，吉隆坡安邦蓮花苑，社區難民學校開學了，這是聯合國難民署和慈濟合作，為難民孩子辦的學校。一個十一歲半的小女孩，揹起了書包。以前每天早上，她看著學生巴士在家附近繞，跟媽媽說：「我也要上學。」',
+            'On 3 January 2008 a community refugee school opened at Ampang in Kuala Lumpur, run by the UNHCR together with Tzu Chi. A girl of eleven and a half put on a school bag. Every morning before that, she had watched the school bus circle near her home and told her mother: “I want to go to school too.”')
+        ],
+        q: { zh: '我們不能給孩子什麼，只要孩子長大以後，即使父母不在了，他們依然能靠著知識，擁有生活的能力、走出自己的未來，就是我們最感安慰的事。', en: 'We cannot give our children anything. If they grow up able to live by what they know, and walk into their own future even when their parents are gone, that is our greatest comfort.', who: T('難民孩子的母親', 'A refugee mother') },
+        s: ['fm294'] },
+      { k: 'story', lay: 'T', date: '2012–2018', h: T('江可俐', 'Jiang Keli'),
+        p: [
+          T('吉隆坡的江可俐，父母靠輪椅代步，以製藤為生。中學五年，她都領慈濟的助學金。二〇一二年，她要讀大學先修班，一年學費七千令吉，付不出來，苦惱要不要先去打工。她向慈濟申請，評估之後，慈濟繼續補助。',
+            'Jiang Keli of Kuala Lumpur grew up with parents who used wheelchairs and made a living from rattan. For five years of secondary school she received Tzu Chi’s education aid. In 2012 she was accepted for a pre-university course at RM7,000 a year, could not pay, and wondered whether to work first. She applied to Tzu Chi, and after assessment the aid continued.'),
+          T('二〇一八年，她畢業，成為合格的中醫師。工作穩定之後，她抽假日到吉隆坡義診中心輪值門診。',
+            'She graduated in 2018 as a qualified Chinese medicine physician. Once her work was steady, she began giving her days off to the clinic rota at the Kuala Lumpur free clinic.')
+        ],
+        s: ['xl102'] },
+      { k: 'story', lay: 'T', date: '2014.07', h: T('成績單和竹筒', 'Report cards and bamboo banks'),
+        p: [T('二〇一四年七月，雪隆分會的新芽助學金發放典禮上，受惠的學生也認領竹筒，約好四個月後，把成績單、親子聯絡簿和竹筒，一起帶回吉隆坡靜思堂。',
+              'At the Selangor and Kuala Lumpur branch’s New Sprouts bursary ceremony in July 2014, the students who received aid also took home bamboo banks. They agreed to bring back their report cards, parent-teacher books and banks to the Kuala Lumpur Jing Si Hall four months later.')],
+        q: { zh: '看到這一次回來的孩子們，每一個都會投竹筒，真的很感動。', en: 'Seeing the children who came back this time, every one of them dropping coins into a bamboo bank, was truly moving.', who: T('志工 劉豐鎂', 'Liu Fengmei, volunteer') },
+        s: ['xl102'] },
       { k: 'story', lay: 'L', date: '2010–2014', h: T('屠妖節發放', 'The Deepavali distribution'),
         ph: [{ i: 'xl1_0086_1', c: T('「2013年10月27日，雪隆志工走入印度廟舉辦屠妖節發放。」（局部，人物已裁去。照片：林思源；《馬來西亞慈濟史 雪隆分會》（1）頁 85）', '“On 27 October 2013, Selangor and Kuala Lumpur volunteers went to a Hindu temple to hold a Deepavali distribution.” (Detail, people cropped out. Photo: Lin Siyuan; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 85)') }],
         p: [
@@ -644,15 +697,18 @@
     ['1966.06', 'first care', '林曾老太太成為第一位長期照顧戶，每月濟助三百元。', 'Lin Zeng becomes the first long-term care recipient, at NT$300 a month.', 'fm36'],
     ['1967', 'system', '建立複查制度，每三個月回訪一次。', 'The follow-up system begins: a return visit every three months.', 'fm37'],
     ['1967.07.20', 'first system', '《慈濟》月刊創刊。', 'The Tzu Chi monthly is first published.', 'o670720'],
-    ['1967.11.01', 'first home', '第一間永久屋：李阿拋老人家的五坪空心磚屋。', 'The first permanent house, five ping of hollow brick, for Li A-pao.', 'fm39'],
+    ['1967.12.15', 'first home', '第一間永久屋完工入厝：李阿拋老人家的五坪空心磚屋，十一月一日動土。', 'The first permanent house, five ping of hollow brick, is finished for Li A-pao. Work began on 1 November.', 'fm39'],
     ['1969.02.09', 'first care', '普明寺首次冬令發放，嘉惠四十戶、二百多人。', 'First winter distribution at Pu Ming Temple: forty households, over 200 people.', 'fm43'],
     ['1969.10.16', 'first relief', '艾爾西颱風，臺東大南村大火燒毀一百四十八戶，首次大型賑災。', 'After Typhoon Elsie, a fire destroys 148 households in Danan: the first large-scale relief.', 'fm45'],
     ['1970.01.30', 'care', '靜思精舍賑濟二百餘人，此後每年舉辦，並增每月常態發放。', 'Relief for over 200 people at the Jing Si Abode, repeated every year, with regular monthly distributions added.', 'fm43'],
+    ['1970.11.27', 'relief', '花蓮成功街大火，慈濟依名冊致送七十二戶，再補發未報戶口的十六戶。', 'Fire on Chenggong Street, Hualien: 72 households on the list receive relief money, then sixteen unregistered households too.', 'fm46'],
     ['1971.11.11', 'home', '娜定颱風後，買地建屋三間，名「嘉里小築」。', 'After Typhoon Nadine, land is bought and three houses are built at Jiali.', 'fm_nadine'],
     ['1973.10', 'relief system', '娜拉風災，一百多位委員沿門募款，嘉惠六百七十一個家庭，勘災、造冊、發放自此定下。', 'Typhoon Nora: over a hundred commissioners raise funds door to door and help 671 families. Assessment, listing and distribution become the method.', 'o731024'],
     ['1975.12', 'home', '妮娜颱風後於精舍土地動土「妮娜小築」，翌年三月完工。', 'After Typhoon Nina, Nina Cottages are begun on the Abode’s land and finished the following March.', 'o750905'],
     ['1976.06', 'home care', '「康樂小築」安頓無力重建、單身無依的長者。', 'Kangle Cottages take in elders living alone who cannot rebuild.', 'o750905'],
     ['1976.12.04', 'care', '十天環島訪貧，複查一百二十戶，張有傳醫師隨車義診。', 'A ten-day journey round the island: 120 households reviewed, with Dr Zhang Youchuan seeing patients.', 'fm_tour'],
+    ['1977.04.11', 'relief', '花蓮瑞穗大火，七十九戶燒毀。委員林秋英自己受災，仍先安頓其他鄉親。', 'Fire in Ruisui, Hualien: 79 households destroyed. Commissioner Lin Qiuying, who lost her own home, helps the others first.', 'fm60'],
+    ['1977.07', 'relief care', '賽洛瑪、薇拉颱風，賑濟後五十二戶轉為長期濟助。', 'Typhoons Thelma and Vera. After the relief, 52 households move into long-term care.', 'fm59'],
     ['1978.09', 'care', '上人首次探訪樂生療養院，隨後整修房屋，設癱瘓病房。', 'The Master first visits Losheng Sanatorium. Tzu Chi repairs the buildings and sets up a ward.', 'fm93'],
     ['1980.01.16', 'system', '財團法人臺灣省佛教慈濟慈善事業基金會立案。', 'The Tzu Chi Foundation is registered.', 'fm65'],
     ['1980.10.27', 'care', '樂生院友募集六萬一千九百元，響應慈濟醫院籌建。', 'Losheng residents raise NT$61,900 for the planned hospital.', 'fm93'],

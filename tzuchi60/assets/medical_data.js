@@ -20,6 +20,7 @@
     fm187: fm('00187', '上人呼籲大體捐贈'), fm199: fm('00199', '成立「慈濟醫事人員聯誼會」'), fm203: fm('00203', '海外第一間洗腎中心'),
     fm226: fm('00226', '玉里慈濟醫院啟業'), fm235: fm('00235', '關山慈濟醫院啟業'), fm236: fm('00236', '大林慈濟醫院啟業'),
     fm258: fm('00258', '慈濟大學首創「大體模擬手術教學」'), fm287: fm('00287', '臺北慈濟醫院啟業'), fm307: fm('00307', '臺中慈濟醫院啟業'), fm428: fm('00428', '斗六慈濟醫院啟業'),
+    fm269: fm('00269', '花蓮慈院成首例連體嬰手術'), o960809: otd('19960809'), xl345: xl('345'),
     o720910: otd('19720910'), o840424: otd('19840424'), o860309: otd('19860309'), o860817: otd('19860817'),
     o960917: otd('19960917'), o961012: otd('19961012'), o970803: otd('19970803'), o201027: otd('20201027'),
     i2: { zh: '慈濟六十週年影響力報告・全球義診', en: 'Tzu Chi 60th anniversary impact report: free clinics worldwide', url: 'https://60impact.tzuchi.org.tw/' },
@@ -38,7 +39,7 @@
     film: T('媽媽，沒有錢，醫院就不救嗎？', 'Mama, if people have no money, won’t the hospital save them?'),
     stop: T('第二站', 'Second stop'), title: T('醫療', 'Medicine'),
     sub: T('一九七二年，一間借來的店面。<br>一九八六年，花蓮慈濟醫院的門開了。', 'In 1972, a borrowed shopfront.<br>In 1986, the doors of Hualien Tzu Chi Hospital opened.'),
-    watch: T('看影片　3 分 55 秒', 'Watch the film · 3 min 55 s'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　9 分 46 秒', 'Watch the film · 9 min 46 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('AI 情境重建，非當年攝影', 'AI reconstruction, not a historical photograph')
   };
 
@@ -165,6 +166,35 @@
     ] },
 
     /* 五 */
+    { id: 'm5h', era: 'e90', y: '1999–2019', h: T('開在需要的地方', 'Where hospitals were needed'), nav: T('開在需要的地方', 'Where hospitals were needed'), ask: T('媽媽，花蓮有醫院了。那別的地方呢？', 'Mama, Hualien has a hospital now. What about other places?'), b: [
+      { k: 'story', lay: 'T', date: '1999.03.15', h: T('慈濟貧民義診', 'A sign by the door'),
+        p: [
+          T('花東縱谷的山路彎彎曲曲，鄉下和山上的人，等到痛了，才要到花蓮看病。玉里的曹葦醫師，醫院旁邊很早就掛著一塊牌子：慈濟貧民義診。他在生命的最後，把醫院託付給上人。一九九九年三月十五日，玉里慈濟醫院啟業。',
+            'The mountain roads of the East Rift Valley wind a long way, and people in the villages and hills waited until the pain was bad before going to Hualien. Beside Dr Cao Wei’s hospital in Yuli, a sign had long been hanging: Tzu Chi free clinic for the poor. Near the end of his life, he entrusted the hospital to the Master. Yuli Tzu Chi Hospital opened on 15 March 1999.'),
+          T('這裡的鄉親務農。二〇〇三年十月，張玉麟院長配合他們的作息，開了早上六點的晨間門診。',
+            'The people here are farmers. In October 2003 Superintendent Zhang Yulin matched their working day and opened a morning clinic that starts at six.')
+        ],
+        s: ['fm226'] },
+      { k: 'story', lay: 'T', date: '2000', h: T('哪裡需要我', 'Wherever I am needed'),
+        p: [T('二〇〇〇年，臺東關山也有了慈濟醫院。護理長蘇雅慧本來計畫轉做醫務行政，面談過了，也去上了課。關山分院急需人力，她就答應接下這分職務。',
+              'In 2000 Guanshan in Taitung had a Tzu Chi hospital too. Head nurse Su Yahui had planned to move into administration, and had passed the interview and taken the classes. Guanshan urgently needed people, so she agreed to take the post.')],
+        q: { zh: '慈濟哪裏需要我，我就到哪裏！', en: 'Wherever Tzu Chi needs me, I will go.', who: T('護理長 蘇雅慧', 'Su Yahui, head nurse') },
+        s: ['fm235'] },
+      { k: 'story', lay: 'T', date: '2003.10.21', h: T('散步去看病', 'A walk to the doctor'),
+        p: [T('雲林斗六，門診部開放的第一天，一位七十七歲的老先生，由老伴扶著來看病。他常常頭暈，以前要叫計程車，要等子女請假回來。現在，兩老散步就到了。',
+              'On the first day the outpatient clinic opened in Douliu, Yunlin, a man of seventy-seven came in on his wife’s arm. He often felt dizzy, and used to need a taxi, or to wait for his children to take leave and come home. Now the two of them could walk there.')],
+        s: ['fm428'] },
+      { k: 'rec', items: [
+        { d: '1999.03.15', zh: '玉里分院啟業。', en: 'Yuli branch opens.' },
+        { d: '2000.03.15', zh: '關山分院啟用，與花蓮慈院、玉里分院連成東部醫療網。', en: 'Guanshan branch opens, joining Hualien and Yuli in an eastern care network.' },
+        { d: '2000.08.13', zh: '大林慈院啟業。', en: 'Dalin Tzu Chi Hospital opens.' },
+        { d: '2005.05.08', zh: '臺北慈濟醫院啟業。', en: 'Taipei Tzu Chi Hospital opens.' },
+        { d: '2007.01.08', zh: '臺中慈濟醫院啟業。', en: 'Taichung Tzu Chi Hospital opens.' },
+        { d: '2019.01.05', zh: '斗六慈濟醫院啟業。', en: 'Douliu Tzu Chi Hospital opens.' },
+        { d: '2022.12.12', zh: '三義慈濟中醫醫院揭牌啟用。', en: 'Sanyi Tzu Chi Chinese Medicine Hospital opens.' }
+      ], s: ['fm226', 'fm235', 'fm236', 'fm287', 'fm307', 'fm428', 'o201027'] }
+    ] },
+
     { id: 'm5a', era: 'e90', y: '走進家門', yen: 'Into homes', nav: T('走進家門', 'Into homes'), ask: T('媽媽，走不到醫院的人呢？', 'Mama, what about people who can’t reach a hospital?'), b: [
       { k: 'story', lay: 'R', h: T('「推」車', 'A van that had to be pushed'),
         ph: [{ i: '19961012-1_06', c: T('往診（醫護到家中看診），走進照顧戶的家門。', 'A home visit.') }],
@@ -183,16 +213,53 @@
         q: { zh: '一次就醫都要1千多元，我哪有錢。', en: 'One doctor’s visit costs over a thousand dollars. Where would I get the money?', who: T('一位街友', 'A homeless man') },
         q2: { zh: '苦的，就是苦在偏遠地區，或是老病沒有人照顧的，在暗角裡，在邊緣的，他們也都在渴望著，期待著，真有人去關心他們。', en: 'The suffering is in remote places, among the old and sick with no one to care for them, in dark corners, at the margins. They too are longing and hoping that someone will truly come and care.', who: SHANGREN },
         s: ['fm199', 'o961012'] },
-      { k: 'rec', items: [
-        { d: '1999.03.15', zh: '玉里分院啟業。', en: 'Yuli branch opens.' },
-        { d: '2000.03.15', zh: '關山分院啟用，與花蓮慈院、玉里分院連成東部醫療網。', en: 'Guanshan branch opens, joining Hualien and Yuli in an eastern care network.' },
-        { d: '2000.08.13', zh: '大林慈院啟業。', en: 'Dalin Tzu Chi Hospital opens.' },
-        { d: '2005.05.08', zh: '臺北慈濟醫院啟業。', en: 'Taipei Tzu Chi Hospital opens.' },
-        { d: '2007.01.08', zh: '臺中慈濟醫院啟業。', en: 'Taichung Tzu Chi Hospital opens.' },
-        { d: '2019.01.05', zh: '斗六慈濟醫院啟業。', en: 'Douliu Tzu Chi Hospital opens.' },
-        { d: '2022.12.12', zh: '三義慈濟中醫醫院揭牌啟用。', en: 'Sanyi Tzu Chi Chinese Medicine Hospital opens.' }
-      ], s: ['fm226', 'fm235', 'fm236', 'fm287', 'fm307', 'fm428', 'o201027'] }
+      { k: 'story', lay: 'T', date: '1992', h: T('把藥寄到島上', 'Medicine by post'),
+        p: [
+          T('高雄的陳神發醫師，一九九二年開始到離島義診。風大的那幾個月，就改用郵寄，把藥寄到島上，由當地慈濟人和村鄉長，發給義診戶。',
+            'From 1992 Dr Chen Shenfa of Kaohsiung ran free clinics on the outlying islands. In the windy months the medicine went by post, and local Tzu Chi volunteers and village heads handed it out.'),
+          T('慈濟人醫會的緣起，是菲律賓的醫師們，他們常到偏遠山鄉、貧苦離島義診。一九九六年，慈濟的醫事人員組織起來，走到今天，就是國際慈濟人醫會（TIMA）。',
+            'The Tzu Chi medical association began with doctors in the Philippines, who held free clinics in remote hills and poor islands. In 1996 Tzu Chi’s medical workers organised, and today that is the Tzu Chi International Medical Association (TIMA).')
+        ],
+        s: ['fm199'] },
+      { k: 'story', lay: 'T', h: T('洗廁所的醫師', 'The doctor who cleaned the toilet'),
+        p: [T('臺中慈院的陳慶元醫師，從北部的醫學中心來。跟著人醫會下鄉義診，他看到院長為案家掃地擦玻璃，自己就去洗廁所。',
+              'Dr Chen Qingyuan came to Taichung Tzu Chi Hospital from a medical centre in the north. On a rural free clinic he saw the superintendent sweeping and wiping windows for a family, and went to wash the toilet himself.')],
+        q: { zh: '醫療過程必須標準化，但是行醫必須有愛。透過走入社區，我重新找回醫者的初發心。', en: 'Medical procedure must be standardised, but practising medicine must have love. By walking into the community I found again a doctor’s first aspiration.', who: T('陳慶元醫師', 'Dr Chen Qingyuan') },
+        s: ['fm307'] },
+      { k: 'story', lay: 'T', h: T('一路笑嘻嘻', 'Smiling all the way'),
+        p: [T('臺中慈院開了共乘車，接東勢山城的長者來看病。',
+              'Taichung Tzu Chi Hospital started a shared van to bring elders from the hill town of Dongshi to their appointments.')],
+        q: { zh: '看病本來不是一件快樂的事，但長輩們總是一路笑嘻嘻交談著。', en: 'Seeing a doctor is not usually a happy thing, but the elders always chat and smile the whole way.', who: T('隨車志工 孔憲芝', 'Kong Xianzhi, volunteer on the van') },
+        s: ['fm307'] },
+      { k: 'story', lay: 'T', date: '2000', h: T('兩張牙椅', 'Two dental chairs'),
+        p: [T('海外也是一樣。一九九三年，美國洛杉磯的義診中心開始運作，這是慈濟海外第一所醫療機構。牙科儀器笨重，到了偏遠地方，電壓還不夠。二〇〇〇年，他們把兩張牙椅，裝進一部車。車開到哪裡，慈濟的醫療服務，就到哪裡。',
+              'Overseas it was the same. In 1993 the free clinic in Los Angeles began work, the first Tzu Chi medical facility outside Taiwan. Dental equipment was heavy, and in remote places the power fell short. In 2000 they fitted two dental chairs into a van. Wherever the van went, Tzu Chi’s care went too.')],
+        s: ['fm166'] },
+      { k: 'story', lay: 'T', date: '2003', h: T('愛的接力', 'A relay of love'),
+        p: [T('二〇〇三年四月，菲律賓一對連體嬰來到花蓮。兩個多月的準備，六月二十八日，六個小時的手術，這是花蓮慈院的第一例。',
+              'In April 2003 conjoined twins from the Philippines came to Hualien. After more than two months of preparation came six hours of surgery on 28 June, the hospital’s first such case.')],
+        q: { zh: '這是一場愛的接力，也是跨國界的醫療與慈善的結合。', en: 'This was a relay of love, and a joining of medicine and charity across borders.', who: T('慈濟基金會副總執行長 林碧玉', 'Lin Biyu, deputy CEO, Tzu Chi Foundation') },
+        s: ['fm269'] }
     ] },
+
+    { id: 'm5c', era: 'e00', y: '1996', h: T('治不好，還可以陪', 'If it can’t be cured, we can still stay'), nav: T('還可以陪', 'We can still stay'), ask: T('媽媽，如果，治不好了呢？', 'Mama, what if it can’t be cured?'), b: [
+      { k: 'story', lay: 'T', date: '1996.08.09', h: T('心蓮病房', 'The Heart Lotus Ward'),
+        p: [
+          T('一九九六年八月九日，花蓮慈院的心蓮病房啟用。',
+            'On 9 August 1996 the Heart Lotus Ward opened at Hualien Tzu Chi Hospital.'),
+          T('二〇二二年，曾經是廚師的阿龍師，在這裡突然想吃蒸蛋。志工馬上去做。他吃了三口，說：「失敗。」他說：「其實我很會做這個，我朋友都說我做得很好吃。」醫護就透過視訊，讓阿龍師指導志工去買菜，煮一碗番茄麵。原本只能接受照顧的人，又成了傳授手藝的人。',
+            'In 2022 A-Long, once a chef, suddenly wanted steamed egg here. A volunteer made it at once. He took three bites and said, “Failed.” Then he said, “I’m actually very good at this. My friends all say mine is delicious.” So over video, the care team let him guide volunteers through the shopping and the cooking of a bowl of tomato noodles. The man who could only be looked after had become a teacher of his craft again.')
+        ],
+        q: { zh: '雖然在身體上充滿了病苦，可是需要一顆解脫的心境，所以就把它叫做心蓮病房。', en: 'Though the body is full of pain, it needs a heart at ease. So we named it the Heart Lotus Ward.', who: SHANGREN },
+        s: ['o960809'] },
+      { k: 'rec', items: [
+        { d: '2008', zh: '臺中慈院中藥臨床試驗中心啟用，希望建立高品質及可信賴的中藥臨床試驗平臺。醫院裡的研究，一步一步驗證清楚。', en: 'The Chinese medicine clinical trial centre at Taichung Tzu Chi Hospital begins work, to build a trial platform of high quality that can be trusted. Research in the hospitals goes step by step, and checks each step.' }
+      ], s: ['fm307'] },
+      { k: 'story', lay: 'T', h: T('另一個腳印', 'Another footprint'),
+        p: [T('還有一條路，是把骨髓，從一個人，送到另一個人。那是另一個腳印，我們以後再走。',
+              'There is one more road: bone marrow, carried from one person to another. That is another footprint, and we will walk it later.')] }
+    ] },
+
     { id: 'm5b', era: 'e00', y: '1995', h: T('把自己交給下一代', 'Giving oneself to the next generation'), nav: T('無語良師', 'Silent Mentors'), b: [
       { k: 'story', lay: 'R', date: '1995.02.03', h: T('無語良師', 'Silent Mentors'),
         ph: [{ i: '19960917-1_10', c: T('模擬手術教學。', 'Simulated surgery teaching.') }],
@@ -235,9 +302,11 @@
         { d: '2002.09.03', zh: '吉隆坡人醫會成立，二〇一〇年正名雪隆人醫會。', en: 'The Kuala Lumpur medical association is founded. In 2010 it becomes the Selangor and Kuala Lumpur association.' },
         { d: '2003.03', zh: '雪隆人醫會在雪蘭莪州烏魯冷岳的卡拜原住民村，首次舉辦發放義診。', en: 'The association holds its first free clinic and distribution at an indigenous village in Hulu Langat, Selangor.' },
         { d: '2004', zh: '應聯合國難民署邀請，雪隆人醫會第一次為難民舉辦義診。難民大部分來自緬甸。', en: 'At the invitation of the UN refugee agency, the association holds its first free clinic for refugees, most of them from Myanmar.' },
+        { d: '2002–2014', zh: '北海洗腎中心十年間服務一百零七位貧困腎友。空位不夠了，就把樓上的佛堂擴建成洗腎中心，二〇一四年三月十七日啟用。', en: 'In ten years the Butterworth dialysis centre served 107 kidney patients in need. When places ran out, the Buddha hall upstairs was rebuilt as part of the centre, opening on 17 March 2014.' },
         { d: '2016.10', zh: '哥打馬魯都山區義診於二〇〇四年因山路安全停辦。這一年，雪隆、亞庇和臺灣的人醫會及慈濟志工動員四百八十餘人重返，提供外科、眼科、牙科、中醫、物理治療、婦科，嘉惠兩千四百多位鄉民。', en: 'Clinics in the Kota Marudu hills had stopped in 2004 because of the dangerous roads. This year over 480 people from the Selangor and Kuala Lumpur, Kota Kinabalu and Taiwan associations and Tzu Chi volunteers went back, serving more than 2,400 villagers.' },
-        { d: '2021.06.19', zh: '吉隆坡靜思堂疫苗接種中心啟動，慈濟成為第一個參與國家計劃的非政府組織。截至同年八月，三萬八千四百六十三人次接種。', en: 'The vaccination centre at the Jing Si Hall in Kuala Lumpur begins work, the first run by a non-governmental organisation under the national programme. By that August it had recorded 38,463 vaccination visits.' }
-      ], s: ['xlmc'] },
+        { d: '2021.06.19', zh: '吉隆坡靜思堂疫苗接種中心啟動，慈濟成為第一個參與國家計劃的非政府組織。截至同年八月，三萬八千四百六十三人次接種。', en: 'The vaccination centre at the Jing Si Hall in Kuala Lumpur begins work, the first run by a non-governmental organisation under the national programme. By that August it had recorded 38,463 vaccination visits.' },
+        { d: '截至 2022', zh: '慈濟在沙巴的亞庇、山打根、斗湖，累計辦了五十場義診。', en: 'By 2022 Tzu Chi had held 50 free clinics at Kota Kinabalu, Sandakan and Tawau in Sabah.' }
+      ], s: ['xlmc', 'fm203', 'xl345'] },
       { k: 'story', lay: 'R', date: '2003.08.24', h: T('巴生義診中心', 'The Klang free clinic'),
         ph: [{ i: 'xl1_0362_1', c: T('「2002年8月31日巴生共修處啟用，並提供義診服務。」（局部，人物已裁去。照片：雪隆分會提供；《馬來西亞慈濟史 雪隆分會》（1）頁 361）', '“On 31 August 2002 the Klang centre opened and offered free clinics.” (Detail, people cropped out. Photo: Selangor and Kuala Lumpur branch; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 361)') },
           { i: 'xl1_0363_1', c: T('「2003年8月24日，在眾人的見證之下，慈濟巴生義診中心啟用。」（局部，人物已裁去。照片：許秀愛；《馬來西亞慈濟史 雪隆分會》（1）頁 362）', '“On 24 August 2003, before many witnesses, the Tzu Chi free clinic in Klang opened.” (Detail, people cropped out. Photo: Xu Xiu’ai; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 362)') }],
@@ -300,7 +369,7 @@
     { id: 'm2', y: '1966–84', h: T('一個更大的心願', 'A larger wish'), ch: ['m2a'], cover: '19840424-1_13', tun: 'm_rows' },
     { id: 'm3', y: '1980–86', h: T('一塊磚，一把沙', 'A brick, a handful of sand'), ch: ['m3a'], cover: '19860309-1_05', tun: 'm_fall' },
     { id: 'm4', y: '1986', h: T('門開了', 'The doors open'), ch: ['m4a'], cover: '19860817-1_00', tun: 'm_fly' },
-    { id: 'm5', y: T('走進家門', 'Into homes'), h: T('走進家門，也把自己交給下一代', 'Into homes, and into the next generation’s hands'), ch: ['m5a', 'm5b'], cover: '19961012-1_06', tun: 'm_cols' },
+    { id: 'm5', y: T('走進家門', 'Into homes'), h: T('走進家門，也把自己交給下一代', 'Into homes, and into the next generation’s hands'), ch: ['m5h', 'm5a', 'm5c', 'm5b'], cover: '19961012-1_06', tun: 'm_cols' },
     { id: 'm6', y: T('馬來西亞', 'Malaysia'), h: T('在馬來西亞', 'In Malaysia'), ch: ['m6a'], cover: '19970803-1_02', tun: 'm_my' }
   ];
   CH.ui = {
@@ -368,6 +437,7 @@
     ['1986.12', 'clinic', '義診所結束看診，貧戶可依義診券至花蓮慈院免費就醫。', 'The free clinic closes; vouchers continue free care at the hospital.', 'fm48'],
     ['1993.11.01', 'first clinic', '美國義診中心，慈濟海外第一所醫療機構。', 'The US free clinic, Tzu Chi’s first medical facility overseas.', 'fm166'],
     ['1995.02.03', 'first people', '林蕙敏女士往生，家屬遵循遺願捐贈遺體給慈濟醫學院。', 'Ms. Lin Hui-Min passes away and her family donates her body as she wished.', 'fm187'],
+    ['1996.08.09', 'hosp', '花蓮慈院心蓮病房啟用。', 'The Heart Lotus Ward opens at Hualien.', 'o960809'],
     ['1996.09.17', 'people', '大體解剖教學實習室啟用。', 'The anatomy teaching lab opens.', 'o960917'],
     ['1996.10.12', 'clinic people', '慈濟醫事人員聯誼會成立。', 'The medical personnel association is founded.', 'fm199'],
     ['1997.08.03', 'first my', '檳城慈濟洗腎中心啟用，提供家貧腎友免費服務。', 'The Penang dialysis centre opens, offering free care.', 'fm203'],
@@ -380,6 +450,7 @@
     ['2002.05.27', 'first people', '全臺首創大體模擬手術教學。', 'Taiwan’s first simulated surgery teaching on donated bodies.', 'fm258'],
     ['2002.09.03', 'clinic my', '吉隆坡人醫會成立，二〇一〇年正名雪隆人醫會。', 'The Kuala Lumpur medical association is founded; in 2010 it becomes the Selangor and Kuala Lumpur association.', 'xlmc'],
     ['2002.11.28', 'my', '馬來西亞第三座洗腎中心，北海慈濟洗腎中心啟用。', 'Malaysia’s third centre opens in Butterworth.', 'fm203'],
+    ['2003.06.28', 'hosp', '花蓮慈院完成首例連體嬰分割手術。', 'Hualien completes its first separation of conjoined twins.', 'fm269'],
     ['2003.08.24', 'clinic my', '巴生慈濟義診中心啟用，慈濟在海外的第四間義診中心。', 'The Klang free clinic opens, Tzu Chi’s fourth overseas.', 'xlkg'],
     ['2004.09.25', 'clinic', '定名國際慈濟人醫會。', 'The name Tzu Chi International Medical Association is adopted.', 'fm199'],
     ['2004.12.23', 'people my', '肯納亞山由志工陪同抵達花蓮慈院；二〇一一年腿傷復發，二〇一六年截肢後往生。', 'Kannayason arrives at Hualien Tzu Chi Hospital with a volunteer. The injury returns in 2011, and he passes away after amputation in 2016.', 'xlkn'],
