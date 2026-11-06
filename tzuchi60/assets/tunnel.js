@@ -240,7 +240,7 @@
       var id = y * nc + x, px = (x + .75) * ww, py = top + y * wh * 1.22, w = ww * .66, h = wh * .82, on = rnd(id + 5) * .92 + .04 < lit;
       c.fillStyle = '#0b0f17'; c.fillRect(px, py, w, h);
       if (on) {
-        var r = L[(id * 7) % L.length], im = img(r), age = Math.min(1, (lit - rnd(id + 5) * .92) * 7);
+        var r = L[Math.floor(rnd(id + 11) * L.length) % L.length], im = img(r), age = Math.min(1, (lit - rnd(id + 5) * .92) * 7);
         c.globalAlpha = age;
         if (im.complete && im.naturalWidth) { var ch = im.naturalHeight, cw = ch * w / h; if (cw > im.naturalWidth) { cw = im.naturalWidth; ch = cw * h / w; } c.drawImage(im, (im.naturalWidth - cw) / 2, (im.naturalHeight - ch) / 2, cw, ch, px, py, w, h); }
         c.fillStyle = warm; c.globalAlpha = age * .3; c.fillRect(px, py, w, h);
