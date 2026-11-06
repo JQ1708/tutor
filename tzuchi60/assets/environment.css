@@ -176,3 +176,6 @@ html[data-lang=both] .sp-p b.en{margin-top:26px;font-size:13px}
 .fx.flat .bt-st{height:170px}
 /* EN 窄屏：返回鈕文字由 charity.js 定，較長，這裡讓頂欄維持一行 */
 @media(max-width:480px){html[data-lang=en] .back{white-space:nowrap;font-size:12px;padding:8px 9px}html[data-lang=en] #dots{gap:5px;padding-left:6px;padding-right:6px}}
+
+/* 手機英文：Environmental 一個字比螢幕寬，52px 會被切掉 */
+@media(max-width:480px){html[data-lang=en] .hero-t h1 .en{font-size:10.5vw}}
