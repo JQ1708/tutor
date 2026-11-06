@@ -141,6 +141,141 @@
     var cur = L[(2 * (f > .5 ? k + 1 : k) + 1) % n];
     BY = cur[0] || '';
   }
+  /* 織線（環保）：照片切成經線，一排排緯線穿過去，織成一條毯子。m.yarn 兩個色 */
+  function weave(c, t, W, H, L, m) {
+    var y2 = m.yarn || ['#7c8b8f', '#a9b4ae'], sw = Math.max(26, Math.min(44, W / 22)), nc = Math.ceil(W / sw) + 1, k = W < 640 ? 5 : 8, th = H / 2, rh = sw * .62, nr = Math.ceil(H / rh) + 1, q = Math.min(1, t / .8);
+    for (var j = 0; j < nc; j++) {
+      var dy = Math.sin(j * .9 + t * 5) * 7 + (j % 2 ? -1 : 1) * t * 80;
+      for (var v = -1; v < 3; v++) {
+        var r = L[(Math.floor(j / k) * 3 + v + 1 + 40) % L.length], im = img(r), x = j * sw, y = v * th + dy;
+        if (im.complete && im.naturalWidth) { var sx = (j % k) / k * im.naturalWidth; c.drawImage(im, sx, 0, im.naturalWidth / k, im.naturalHeight, x, y, sw - 2, th - 2); }
+        else { c.fillStyle = '#5c5242'; c.fillRect(x, y, sw - 2, th - 2); }
+      }
+    }
+    for (var i = 0; i < nr; i++) {
+      var o = Math.pow(q, 1.3) * (nr + 6) - i, f = Math.min(1, Math.max(0, o / 6));
+      if (f <= 0) continue;
+      var len = W * f, yy = H - (i + 1) * rh;
+      c.fillStyle = y2[i % 2];
+      for (var u = 0; u < nc; u++) {
+        var xx = u * sw; if ((u + i) % 2) continue;
+        if (i % 2 ? xx + sw < W - len : xx > len) continue;
+        c.fillRect(xx - 1, yy, sw + 2, rh - 1);
+      }
+      if (f >= 1 && q > .55) { c.globalAlpha = ramp(q, .55, 1); c.fillRect(0, yy, W, rh - 1); c.globalAlpha = 1; }
+      c.fillStyle = 'rgba(30,26,20,.16)'; c.fillRect(0, yy + rh - 2, Math.max(len, f >= 1 ? W : 0), 1);
+    }
+  }
+  /* 航線（國際賑災）：世界點陣地圖上一條線飛過 m.pts [經度,緯度,地名]，到一站貼一張照片 */
+  var WC = null, WK = '';
+  function wmap(sc, dot) {
+    var key = sc.toFixed(2) + dot; if (WK === key) return WC;
+    var G = window.WORLD, v = doc.createElement('canvas'), g = v.getContext('2d'), s = G.step * sc;
+    v.width = Math.ceil(G.w * s); v.height = Math.ceil(G.r.length * s); g.fillStyle = dot;
+    G.r.forEach(function (row, y) { for (var x = 0; x < G.w; x++) if (parseInt(row[x >> 2], 16) >> (3 - x % 4) & 1) { g.beginPath(); g.arc((x + .5) * s, (y + .5) * s, s * .3, 0, 6.283); g.fill(); } });
+    WC = v; WK = key; return v;
+  }
+  function route(c, t, W, H, L, m) {
+    var G = window.WORLD; if (!G) return HF(c, t, W, H, L);
+    var P = m.pts || [], rowsN = G.r.length, sc = Math.max(W / (G.w * G.step), H / (rowsN * G.step) * .92) * (m.zoom || 1), mp = wmap(sc, m.dot || 'rgba(210,190,150,.5)');
+    function pt(p) { return [(p[0] + 180) * sc, (G.top - p[1]) * sc]; }
+    var n = P.length - 1, u = Math.min(1, t / .8) * n, k = Math.min(n - 1, Math.floor(u)), f = u - k; f = f * f * (3 - 2 * f);
+    var a = pt(P[k]), b = pt(P[k + 1]), cx0 = a[0] + (b[0] - a[0]) * f, cy0 = a[1] + (b[1] - a[1]) * f;
+    var ox = Math.min(0, Math.max(W - mp.width, W / 2 - cx0)), oy = Math.min(0, Math.max(H - mp.height, H / 2 - cy0));
+    if (mp.width < W) ox = (W - mp.width) / 2; if (mp.height < H) oy = (H - mp.height) / 2;
+    c.drawImage(mp, ox, oy);
+    c.strokeStyle = m.line || '#e7c98a'; c.lineWidth = 2; c.setLineDash([7, 6]); c.beginPath();
+    for (var i = 0; i <= k + 1; i++) {
+      var q = pt(P[i]), e = i <= k ? q : [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
+      if (i) { var pv = pt(P[i - 1]), mx = (pv[0] + e[0]) / 2, my = (pv[1] + e[1]) / 2 - Math.hypot(e[0] - pv[0], e[1] - pv[1]) * .16; c.quadraticCurveTo(mx + ox, my + oy, e[0] + ox, e[1] + oy); } else c.moveTo(e[0] + ox, e[1] + oy);
+    }
+    c.stroke(); c.setLineDash([]);
+    for (i = 0; i <= n; i++) if (i <= k + (f > .96 ? 1 : 0)) {
+      q = pt(P[i]); c.fillStyle = m.line || '#e7c98a'; c.beginPath(); c.arc(q[0] + ox, q[1] + oy, 4.5, 0, 6.283); c.fill();
+      var age = u - i; if (age > -.04 && age < .95) {
+        var r = L[i % L.length], h = Math.min(H * .3, W * .42) * (.9 + Math.min(age, .3) * .3), w = h * r[2] / 300, x = q[0] + ox + (q[0] + ox > W / 2 ? -w - 16 : 16), y = q[1] + oy - h * .6;
+        ph(c, r, Math.max(8, Math.min(W - w - 8, x)), Math.max(8, Math.min(H - h - 8, y)), w, h, Math.min(1, (age + .04) * 8) * Math.min(1, (.95 - age) * 6), (i % 2 ? 1 : -1) * .03, 5);
+      }
+    }
+    BY = P[Math.round(u)] ? P[Math.round(u)][2] || '' : '';
+  }
+  /* 配對（骨髓）：滿牆小格掃過去一格格暗下，最後只剩兩格對上，紅線連起來，推進那一格 */
+  var MC = null, MK = '', MN = -1;
+  function match(c, t, W, H, L, m) {
+    var s = Math.max(30, Math.min(52, W / 16)), nx = Math.ceil(W / s), ny = Math.ceil(H / s), done = L.filter(function (r) { var i = img(r); return i.complete && i.naturalWidth; }).length, key = W + 'x' + H + L[0][1];
+    if (key !== MK || done !== MN) {
+      MC = MC || doc.createElement('canvas'); MC.width = W; MC.height = H; var g = MC.getContext('2d'); g.fillStyle = m.bg; g.fillRect(0, 0, W, H);
+      for (var y = 0; y < ny; y++) for (var x = 0; x < nx; x++) { var r0 = L[Math.floor(rnd(x * 31 + y * 7) * L.length)], im = img(r0); if (im.complete && im.naturalWidth) { var a = rnd(x + y * 91) * .5; g.drawImage(im, a * im.naturalWidth, 0, im.naturalHeight * .9, im.naturalHeight * .9, x * s + 1, y * s + 1, s - 2, s - 2); } else { g.fillStyle = '#463c35'; g.fillRect(x * s + 1, y * s + 1, s - 2, s - 2); } }
+      MK = key; MN = done;
+    }
+    var hot = m.hot || '#d9493f', ax = Math.floor(nx * .22), ay = Math.floor(ny * .38), bx = Math.floor(nx * .74), by = Math.floor(ny * .62), z = ramp(t, .68, .98), zz = z * z * (3 - 2 * z), sc = Math.pow(Math.max(W, H) / s * 1.15, zz), cxp = (bx + .5) * s, cyp = (by + .5) * s, sw = ramp(t, .04, .5);
+    c.save(); c.translate(cxp + (W / 2 - cxp) * zz, cyp + (H / 2 - cyp) * zz); c.scale(sc, sc); c.translate(-cxp, -cyp);
+    c.drawImage(MC, 0, 0, W, H);
+    c.fillStyle = m.bg;
+    for (var i = 0; i < ny; i++) for (var j = 0; j < nx; j++) {
+      var o = ramp(sw, rnd(j * 13 + i * 57) * .8, rnd(j * 13 + i * 57) * .8 + .2);
+      if (o > 0 && !(j === ax && i === ay) && !(j === bx && i === by)) { c.globalAlpha = o * .93; c.fillRect(j * s, i * s, s, s); }
+    }
+    c.globalAlpha = 1;
+    var lk = ramp(t, .5, .66);
+    if (lk > 0) {
+      var p0 = [(ax + .5) * s, (ay + .5) * s], p1 = [cxp, cyp];
+      c.strokeStyle = hot; c.lineWidth = 2 / Math.sqrt(sc); c.beginPath(); c.moveTo(p0[0], p0[1]); c.lineTo(p0[0] + (p1[0] - p0[0]) * lk, p0[1] + (p1[1] - p0[1]) * lk); c.stroke();
+      c.lineWidth = 2.5 / Math.sqrt(sc); c.strokeRect(ax * s, ay * s, s, s); if (lk >= 1) c.strokeRect(bx * s, by * s, s, s);
+    }
+    var r1 = L[(m.end || 0) % L.length], ie = img(r1);
+    if (z > 0 && ie.complete && ie.naturalWidth) { c.globalAlpha = ramp(z, 0, .5); var w1 = ie.naturalHeight * .9; c.drawImage(ie, (ie.naturalWidth - w1) / 2, 0, w1, ie.naturalHeight * .9, bx * s + 1, by * s + 1, s - 2, s - 2); c.globalAlpha = 1; }
+    c.restore();
+  }
+  /* 窗燈（社區）：夜裡的街屋，一扇扇窗亮起來，窗裡是舊照，鏡頭慢慢退到整條街 */
+  function lights(c, t, W, H, L, m) {
+    var wide = W > H, nc = wide ? 12 : 6, nrw = wide ? 5 : 8, ww = W / (nc + 1), wh = ww * (wide ? .86 : 1.1), bw = (nc + 1) * ww, top = H - nrw * wh * 1.22 - H * .05, z = 1.7 - .7 * Math.pow(ramp(t, 0, .8), .8), warm = m.warm || '#f0c070', lit = Math.pow(ramp(t, .04, .8), 1.25);
+    c.save(); c.translate(W * (m.fx || .5), H * .62); c.scale(z, z); c.translate(-W * (m.fx || .5), -H * .62);
+    for (var b = 0; b < nc; b += 3) {
+      var hh = rnd(b + 3) * wh * 1.1, x0 = (b + .5) * ww - ww * .35;
+      c.fillStyle = b % 2 ? '#141a26' : '#10151f'; c.fillRect(x0, top - hh - wh * .3, ww * 3, H);
+      c.fillStyle = 'rgba(255,255,255,.04)'; c.fillRect(x0, top - hh - wh * .3, ww * 3, 3);
+    }
+    for (var y = 0; y < nrw; y++) for (var x = 0; x < nc; x++) {
+      var id = y * nc + x, px = (x + .75) * ww, py = top + y * wh * 1.22, w = ww * .66, h = wh * .82, on = rnd(id + 5) * .92 + .04 < lit;
+      c.fillStyle = '#0b0f17'; c.fillRect(px, py, w, h);
+      if (on) {
+        var r = L[(id * 7) % L.length], im = img(r), age = Math.min(1, (lit - rnd(id + 5) * .92) * 7);
+        c.globalAlpha = age;
+        if (im.complete && im.naturalWidth) { var ch = im.naturalHeight, cw = ch * w / h; if (cw > im.naturalWidth) { cw = im.naturalWidth; ch = cw * h / w; } c.drawImage(im, (im.naturalWidth - cw) / 2, (im.naturalHeight - ch) / 2, cw, ch, px, py, w, h); }
+        c.fillStyle = warm; c.globalAlpha = age * .3; c.fillRect(px, py, w, h);
+        c.globalAlpha = age * .55; c.strokeStyle = warm; c.lineWidth = 1.5; c.strokeRect(px, py, w, h);
+        c.globalAlpha = 1;
+      }
+      c.fillStyle = 'rgba(0,0,0,.5)'; c.fillRect(px + w / 2 - .75, py, 1.5, h);
+    }
+    c.restore();
+  }
+  /* 膠卷（人文）：底片帶一格格滾過，格邊印年份，最後中間一格放大，掃描線亮成螢幕。m.dir 1 往下 */
+  function reel(c, t, W, H, L, m) {
+    var n = W > H ? 3 : 2, fw = W > H ? Math.min(W * .26, H * .46) : W * .62, gap = fw * .16, fh = fw * .74, dir = m.dir || 1, sp = Math.pow(t, 1.15) * H * 3.4, z = ramp(t, .66, .96), zz = z * z * (3 - 2 * z), mid = n === 3 ? 1 : 0;
+    function strip(si, x, spd, rot, off) {
+      var hole = fw * .06, sw = fw + hole * 5, s = (dir > 0 ? sp : -sp) * spd + off, step = fh + gap * .4, k0 = Math.floor(-s / step) - 1;
+      c.save(); c.translate(x, H / 2); c.rotate(rot); c.translate(-sw / 2, -H / 2);
+      c.fillStyle = '#17120e'; c.fillRect(0, -H, sw, H * 3);
+      for (var q = k0; q < k0 + Math.ceil(H * 1.6 / step) + 3; q++) {
+        var y = q * step + s, r = L[((q + si * 5) % L.length + L.length) % L.length];
+        ph(c, r, hole * 2.5, y, fw, fh, 1);
+        c.fillStyle = 'rgba(236,222,190,.82)'; c.font = Math.round(hole * 1.15) + 'px Georgia, serif';
+        if (r[0]) { c.save(); c.translate(sw - hole * .7, y + fh * .5); c.rotate(1.5708); c.textAlign = 'center'; c.fillText(r[0], 0, 0); c.restore(); }
+        if (si === mid && y < H / 2 && y + fh > H / 2) BY = r[0] || '';
+        for (var u = 0; u < 5; u++) { c.fillStyle = '#efe7d6'; var hy = y + u * step / 5; c.fillRect(hole * .7, hy, hole * 1.1, hole * .8); c.fillRect(sw - hole * 1.8, hy, hole * 1.1, hole * .8); }
+      }
+      c.restore();
+    }
+    if (n === 3) { strip(0, W * .17, .8, -.05, 40); strip(2, W * .83, .92, .05, 90); }
+    else strip(1, W * .9, .8, .04, 60);
+    c.save(); c.translate(n === 3 ? W / 2 : W * .4, H / 2); c.scale(1 + zz * 2.6, 1 + zz * 2.6); c.translate(-(n === 3 ? W / 2 : W * .4), -H / 2);
+    strip(mid, n === 3 ? W / 2 : W * .4, 1, 0, 0);
+    c.restore();
+    if (z > 0) { c.fillStyle = 'rgba(8,8,10,' + (.3 * z).toFixed(2) + ')'; for (var y = 0; y < H; y += 4) c.fillRect(0, y, W, 2); }
+    if (rnd(Math.floor(t * 60)) > .86) { c.fillStyle = 'rgba(255,245,220,.05)'; c.fillRect(0, 0, W, H); }
+  }
   var M = {
     back: { d: 4400, y: [2026, 1966], from: 1966, to: 2026, bg: '#120f0c', tint: '#a98a55', a0: .05, a1: .86, f: rows(3, 1), pop: 1, close: '#d9cfb8' },
     road: { d: 2400, y: [1969, 1989], from: 1969, to: 1993, bg: '#1d150c', tint: '#c98f3f', a0: .3, a1: .42, f: rows(2, -1), pop: 1 },
@@ -151,7 +286,7 @@
     big: { d: 3000, from: 1966, to: 2025, bg: '#0b0907', tint: '#6b5a3c', a0: .5, a1: .7, f: fly(1, .62, 22), max: 22, close: '#0b0907' }
   };
   /* 別的站自己的隧道：ids 指定照片（見 assets/river/med.js），牆上的年份由長廊自己算 */
-  if (window.TUN_M) Object.keys(TUN_M).forEach(function (k) { var x = TUN_M[k]; x.f = { hall: hall, rows: rows(x.n || 3, x.dir || 1), fall: fall, cols: cols, fly: fly(x.dir || 1, x.spd || 1, 24), book: book }[x.walk]; M[k] = x; });
+  if (window.TUN_M) Object.keys(TUN_M).forEach(function (k) { var x = TUN_M[k]; x.f = { hall: hall, rows: rows(x.n || 3, x.dir || 1), fall: fall, cols: cols, fly: fly(x.dir || 1, x.spd || 1, 24), book: book, weave: weave, route: route, match: match, lights: lights, reel: reel }[x.walk]; M[k] = x; });
   function list(m) {
     if (m.ids) { var X = {}; (window.RIVER_M || []).forEach(function (r) { X[r[1]] = r; }); return m.ids.map(function (i) { return X[i]; }).filter(Boolean); }
     var L = RV.filter(function (r) { return m.only ? m.only.indexOf(r[0]) >= 0 : r[0] >= m.from && r[0] <= m.to; });
@@ -202,7 +337,7 @@
     if (m.close) { c.globalAlpha = ramp(t, .8, .97); c.fillStyle = m.close; c.fillRect(0, 0, W, H); c.globalAlpha = 1; }
     qe.style.opacity = ramp(t, .08, .2) * (1 - ramp(t, .74, .86));
     /* 只有照片和年份對得上的隧道才跑年份 */
-    ye.textContent = m.walk === 'book' ? BY : m.walk === 'hall' && HG ? HG.year(t) : m.y ? Math.round(m.y[0] + (m.y[1] - m.y[0]) * Math.min(1, t * 1.1)) : '';
+    ye.textContent = m.walk === 'book' || m.walk === 'route' || m.walk === 'reel' ? BY : m.walk === 'hall' && HG ? HG.year(t) : m.y ? Math.round(m.y[0] + (m.y[1] - m.y[0]) * Math.min(1, t * 1.1)) : '';
     ye.style.opacity = (1 - ramp(t, .84, .94)) * .9;
   }
   function play(key, o) {

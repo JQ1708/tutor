@@ -147,7 +147,7 @@
   function yr(b) { return typeof b.y === 'string' ? b.y : B(b.y); }
   function tx(o) { return (lang === 'en' ? o.en : o.zh).replace(/<[^>]+>/g, ''); }
   function stamp() { return '<span class="stamp t" aria-hidden="true">' + B(U.walked) + '</span>'; }
-  function foot() { return '<footer data-era="dark"><div class="wrap">' + B(CH.footer) + '</div></footer>'; }
+  function foot() { var mu = ((window.TC60_MUSIC || {})[KEY] || [])[0]; return '<footer data-era="dark"><div class="wrap">' + B(CH.footer) + (mu ? '<br><span class="zh">配樂：' + mu.t + '。</span><span class="en" lang="en">Music: Da Ai Drama theme, instrumental.</span>' : '') + '</div></footer>'; }
   function hubHTML() {
     var h = CH.hero, nx = -1;
     BL.some(function (b, i) { if (!seen[b.id]) { nx = i; return true; } });

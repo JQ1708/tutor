@@ -117,9 +117,9 @@ a.stp small{font-weight:600}
   <svg class="d" viewBox="0 0 1000 520" aria-hidden="true"><path class="pa" pathLength="100" d="M110,130 C200,60 280,200 370,130 S540,60 630,130 S800,200 890,130 C990,130 990,390 890,390 C800,320 720,460 630,390 S460,320 370,390 S200,460 110,390"/><path class="pw" pathLength="100" d="M110,130 C200,60 280,200 370,130 S540,60 630,130 S800,200 890,130 C990,130 990,390 890,390 C800,320 720,460 630,390 S460,320 370,390 S200,460 110,390"/></svg>
   <svg class="m" viewBox="0 0 360 640" aria-hidden="true"><path class="pa" pathLength="100" d="M90,75 C150,40 210,110 270,75 C345,75 345,235 270,235 C210,200 150,270 90,235 C15,235 15,405 90,405 C150,370 210,440 270,405 C345,405 345,565 270,565 C210,530 150,600 90,565"/><path class="pw" pathLength="100" d="M90,75 C150,40 210,110 270,75 C345,75 345,235 270,235 C210,200 150,270 90,235 C15,235 15,405 90,405 C150,370 210,440 270,405 C345,405 345,565 270,565 C210,530 150,600 90,565"/></svg>
  </div>
- <p class="alt"><a href="#film" id="play"><span class="zh">想直接看？看影片　慈善篇 3 分 35 秒</span><span class="en" lang="en">Rather watch? The Charity film, 3 min 35 s</span></a><button id="replay"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
+ <p class="alt"><span class="zh">想直接看影片？</span><span class="en" lang="en">Rather watch a film?</span> <a href="#film" class="pl" data-f="charity" data-p="hero"><span class="zh">慈善 11 分 03 秒</span><span class="en" lang="en">Charity, 11 min 3 s</span></a>　<a href="#film" class="pl" data-f="medical" data-p="hero_m"><span class="zh">醫療 9 分 46 秒</span><span class="en" lang="en">Medical, 9 min 46 s</span></a>　<a href="#film" class="pl" data-f="education" data-p="hero_e"><span class="zh">教育 10 分 11 秒</span><span class="en" lang="en">Education, 10 min 11 s</span></a><button id="replay"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
 </div></section>
-<footer data-era="dark"><div class="wrap"><span class="zh">本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片取自慈濟《歷史上的今天》等公開頁面；影片中標示的情境畫面由 AI 依史料生成，非當年攝影。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs.</span></div></footer>
+<footer data-era="dark"><div class="wrap"><span class="zh">本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片取自慈濟《歷史上的今天》等公開頁面；影片中標示的情境畫面由 AI 依史料生成，非當年攝影。配樂：開經偈（靜思僧團）。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs. Music: Opening Verse (Jing Si Abode).</span></div></footer>
 <div id="film" hidden><button id="filmx" aria-label="關閉 Close">×</button><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg" src="assets/film/charity.mp4"></video></div>
 <script src="assets/data.js"></script><script src="assets/music/list.js"></script><script src="assets/sound.js"></script>
 <script>
@@ -134,7 +134,7 @@ a.stp small{font-weight:600}
  /* 八個腳印照年份排成一條路：上排往右走，下排走回來；四大志業是大章 */
  var P=[[11,25],[37,25],[63,25],[89,25],[89,75],[63,75],[37,75],[11,75]],Q=[[25,11.7],[75,11.7],[75,36.7],[25,36.7],[25,63.3],[75,63.3],[75,88.3],[25,88.3]],
   order=['charity','medical','education','environment','relief','marrow','community','culture'],big={charity:1,medical:1,education:1,culture:1},n=0,done=0;
- var sn={charity:0,medical:0,education:0};try{(JSON.parse(localStorage.getItem('tc60seen'))||[]).forEach(function(id){if(/^b\d/.test(id))sn.charity++;else if(/^m\d/.test(id))sn.medical++;else if(/^e\d/.test(id))sn.education++})}catch(e){}
+ var sn={},PX={b:'charity',m:'medical',e:'education',v:'environment',r:'relief',w:'marrow',c:'community',u:'culture'};try{(JSON.parse(localStorage.getItem('tc60seen'))||[]).forEach(function(id){var k=PX[id[0]];if(k&&/^[a-z]\d/.test(id))sn[k]=(sn[k]||0)+1})}catch(e){}
  var map=d.getElementById('map'),by={};FOOT.forEach(function(f){by[f.k]=f});
  order.forEach(function(k,i){var f=by[k],on=f.on,n=sn[k]||0,e=d.createElement(on?'a':'div');
   e.className='stp'+(big[k]?' big':'');
@@ -143,7 +143,7 @@ a.stp small{font-weight:600}
   e.innerHTML='<span class="c"><span class="zh">'+(f.zh.length>3?f.zh.slice(0,2)+'<br>'+f.zh.slice(2):f.zh)+'</span><span class="en" lang="en">'+f.en+'</span></span><small>'+(on?(n?'<span class="zh">走過 '+n+'／6</span><span class="en" lang="en">'+n+' of 6 walked</span>':f.y+(i?' <span class="zh">走進來</span><span class="en" lang="en">Step in</span>':' <span class="zh">從這裡開始</span><span class="en" lang="en">Start here</span>')):f.y+' <span class="zh">製作中</span><span class="en" lang="en">in production</span>')+'</small>';
   map.appendChild(e)});
  /* 走過的路染色：每站六段，一站走完就到下一站門口 */
- [].forEach.call(d.querySelectorAll('.pw'),function(p){var t=Math.min(sn.charity,6)+Math.min(sn.medical,6)+Math.min(sn.education,6),w=t/6*100/7;p.style.strokeDasharray=w+' 100';p.style.opacity=t?1:0});
+ [].forEach.call(d.querySelectorAll('.pw'),function(p){var t=Object.keys(sn).reduce(function(x,k){return x+Math.min(sn[k],6)},0),w=Math.min(100,t/6*100/7);p.style.strokeDasharray=w+' 100';p.style.opacity=t?1:0});
  function showRoad(){map.classList.add('on')}
 
  /* 片頭 */
@@ -165,7 +165,7 @@ a.stp small{font-weight:600}
  if(window.SND)SND.area('home');
  var fl=d.getElementById('film'),v=d.getElementById('filmv');
  function close(){v.pause();fl.hidden=true;root.style.overflow=''}
- d.getElementById('play').addEventListener('click',function(e){e.preventDefault();fl.hidden=false;root.style.overflow='hidden';v.play()});
+ [].forEach.call(d.querySelectorAll('.pl'),function(a){a.addEventListener('click',function(e){e.preventDefault();var f='assets/film/'+a.dataset.f+'.mp4';if(v.getAttribute('src')!==f){v.poster='assets/ph/'+a.dataset.p+'.jpg';v.src=f}fl.hidden=false;root.style.overflow='hidden';v.play()})});
  d.getElementById('filmx').addEventListener('click',close);
  addEventListener('keydown',function(e){if(e.key==='Escape'&&!fl.hidden)close()});
 })();
