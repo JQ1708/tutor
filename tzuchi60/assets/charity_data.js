@@ -12,6 +12,13 @@
     return { zh: '《馬來西亞慈濟史 雪隆分會（一）》頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. ' + p };
   };
   var S = {
+    o230220: otd('20230220'),
+    o230913: otd('20230913'),
+    xl2914: { zh: '《馬來西亞慈濟史 雪隆分會（二）》頁 914', en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 2, p. 914' },
+    nLAfire: { zh: '慈濟美國〈慈濟美國圓滿第一輪山火賑災發放〉2025.01.21', en: 'Tzu Chi USA: first round of wildfire distributions, 21 Jan 2025', url: 'https://tzuchi.us/zh/blog/press-release-la-wild-fire-first-distribution-jan-2025' },
+    nMiri: { zh: '馬來西亞慈濟〈愛心相伴 驅散心霾〉', en: 'Tzu Chi Malaysia news report on the Miri distribution', url: 'https://www.tzuchi.my/zh/慈济新知/慈济报导/社区志工纪实/cat/慈善纪实/爱心相伴-驱散心霾' },
+    nBintulu: { zh: '馬來西亞慈濟〈用祝福與愛 與你跨越災難〉2025.02.23', en: 'Tzu Chi Malaysia news report on the Bintulu distribution, 23 Feb 2025', url: 'https://tzuchi.my/zh/慈济新知/慈济报导/社区志工纪实/cat/慈善纪实/用祝福与爱-与你跨越灾难' },
+    nRoh: { zh: '慈濟全球網〈A Long Road to Canada for a Paralyzed Rohingya Refugee〉2026.08.19', en: 'Tzu Chi Global: A Long Road to Canada for a Paralyzed Rohingya Refugee, 19 Aug 2026', url: 'https://global.tzuchi.org/a-long-road-to-canada-for-a-paralyzed-rohingya-refugee' },
     nPutra: { zh: '慈濟馬來西亞〈布高原氣爆發放　走在最前做到最後〉', en: 'Tzu Chi Malaysia: distribution after the Putra Heights gas explosion', url: 'https://tzuchi.my/zh/%E6%85%88%E6%B5%8E%E6%96%B0%E7%9F%A5/%E6%85%88%E6%B5%8E%E6%8A%A5%E5%AF%BC/%E7%A4%BE%E5%8C%BA%E5%BF%97%E5%B7%A5%E7%BA%AA%E5%AE%9E/cat/%E6%85%88%E5%96%84%E7%BA%AA%E5%AE%9E/%E5%B8%83%E9%AB%98%E5%8E%9F%E6%B0%94%E7%88%86%E5%8F%91%E6%94%BE-%E8%B5%B0%E5%9C%A8%E6%9C%80%E5%89%8D%E5%81%9A%E5%88%B0%E6%9C%80%E5%90%8E' },
     fm27: fm('00027', '三十位家庭主婦慰留上人'), fm28: fm('00028', '一攤血事件'), fm31: fm('00031', '增製嬰兒鞋，護持慈善救濟'), fm32: fm('00032', '竹筒歲月'),
     fm36: fm('00036', '第一例長期照顧戶'), fm37: fm('00037', '建立濟貧「複查」制度'), fm39: fm('00039', '第一間永久屋'),
@@ -749,7 +756,15 @@
     ['2020.01.15', 'home care', '「安穩家園．美善社區」專案啟動。', 'The Safe Homes, Good Neighbourhoods project begins.', 'o200115'],
     ['2020.03.18', 'my care', '馬來西亞實施行動管制令第一天，雪隆志工在吉隆坡靜思堂啟動製作防護面罩；中南馬及東馬據點陸續加入，截至二〇二二年累計超過十八萬個。', 'On the first day of Malaysia’s movement control order, volunteers begin making face shields at the Jing Si Hall in Kuala Lumpur. Other centres join in, and by 2022 the total passes 180,000.', 'xlfs'],
     ['2021.12.18', 'my relief', '雪隆水災，巴生志工當天成立水災行動指揮小組；十二月二十四至二十六日大清掃，動員超過六千六百人次志工。', 'Floods in Selangor and Kuala Lumpur. Klang volunteers form a command group that day; the clean-up of 24 to 26 December draws over 6,600 volunteer turnouts.', 'xlfl'],
+    ['2022.03.11–20', 'relief', '援助烏克蘭行動動員逾 2,400 人次，打包逾 2 萬箱物資。', 'The Ukraine aid effort draws over 2,400 turnouts and packs more than 20,000 boxes of supplies.', 'o230220'],
+    ['2023.02.09–20', 'relief', '土耳其賑災物資在慈濟內湖聯絡處整理裝箱，志工與社會大眾逾 1 萬 1 千人次投入，裝箱逾 3 萬 4 千箱。', 'Supplies for Turkey are sorted and packed at the Tzu Chi Neihu office. Volunteers and the public put in over 11,000 turnouts and fill more than 34,000 boxes.', 'o230220'],
+    ['2023.04.15', 'my care system', '雪隆慈濟推動「Kita 1 Keluarga 3.0 守望相助」紓困計劃，持續關懷生計受疫情影響的家庭。', 'Tzu Chi in Kuala Lumpur and Selangor runs the Kita 1 Keluarga 3.0 programme, continuing to care for families whose livelihoods the pandemic affected.', 'xl2914'],
+    ['2024.10.27', 'home', '印度思龍加村 36 間大愛屋完成移交。', '36 Great Love houses are handed over in a village in India.', 'o230913'],
+    ['2025.01.18', 'relief', '洛杉磯山火第一輪發放，慈濟美國在聖谷愛滿地、西洛杉磯兩個聯絡處同時舉辦，分別嘉惠 50 戶與 37 戶。', 'First round of distributions after the Los Angeles wildfires: Tzu Chi USA serves 50 households at its San Gabriel Valley service centre and 37 at West Los Angeles.', 'nLAfire'],
+    ['2025.02.23', 'my relief', '砂拉越美里豪雨成災，又逢土石流，志工在兩地舉辦祝福金發放，嘉惠 526 戶。', 'After floods and landslides in Miri, Sarawak, volunteers hold distributions at two sites, reaching 526 households.', 'nMiri'],
+    ['2025.02.23', 'my relief first', '慈濟首次在民都魯舉辦大型發放，兩場水災祝福金發放嘉惠 1,742 個家庭。', 'Tzu Chi’s first large distribution in Bintulu: two sessions after the floods reach 1,742 families.', 'nBintulu'],
     ['2025.03.28', 'relief', '緬甸規模七點七強震，首波大型發放濟助五千戶。', 'Magnitude 7.7 earthquake in Myanmar: the first large distribution reaches 5,000 households.', 'o250330'],
-    ['2025.04.20', 'my relief', '布特拉高原氣爆後，雪隆志工逐戶家訪造冊，分三場發放祝福金，嘉惠 226 戶。', 'After the Putra Heights gas explosion, volunteers in Selangor and Kuala Lumpur visit each household, then hold three distributions reaching 226 families.', 'nPutra']
+    ['2025.04.20', 'my relief', '布特拉高原氣爆後，雪隆志工逐戶家訪造冊，分三場發放祝福金，嘉惠 226 戶。', 'After the Putra Heights gas explosion, volunteers in Selangor and Kuala Lumpur visit each household, then hold three distributions reaching 226 families.', 'nPutra'],
+    ['2026.04.12', 'my care', '加影的安養院裡，志工來和一位癱瘓的羅興亞難民話別。六年來，志工為他送日用品和藥物；兩天後，他啟程赴加拿大，與十四年未見的家人團聚。', 'At a nursing home in Kajang, volunteers say goodbye to a paralysed Rohingya refugee. For six years a volunteer has brought him daily necessities and medicine. Two days later he leaves for Canada, to rejoin the family he has not seen in fourteen years.', 'nRoh']
   ];
 })();

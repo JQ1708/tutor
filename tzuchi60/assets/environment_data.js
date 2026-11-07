@@ -6,6 +6,7 @@
   var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會（二）》頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 2, p. ' + p }; };
 
   var S = {
+    nCheng: { zh: '馬來西亞慈濟〈義賣聚人氣　凝聚社區善力量〉2026.09.13', en: 'Tzu Chi Malaysia news report on the Cheng centre, 13 Sep 2026', url: 'https://www.tzuchi.my/zh/慈济新知/慈济报导/社区志工纪实/cat/慈善纪实/义卖聚人气凝聚社区善力量' },
     o230409: otd('20230409'),
     nEarth: { zh: '慈濟全球網〈The Earth: Our Shared Responsibility〉', en: 'Tzu Chi Global: The Earth, Our Shared Responsibility', url: 'https://global.tzuchi.org/the-earth-our-shared-responsibility' },
     nPlog: { zh: '慈濟全球網〈Malaysia’s Plogging Event Mobilizes Thousands for Clean-Up〉', en: 'Tzu Chi Global: Malaysia’s Plogging Event Mobilizes Thousands for Clean-Up', url: 'https://global.tzuchi.org/malaysias-plogging-event-mobilizes-thousands-for-clean-up' },
@@ -408,7 +409,8 @@
     ['2024.04.23', 'source', '慈濟在 Plantārium 與 21 家企業、7 所學校合作，推動永續飲食教育', 'Tzu Chi partners with 21 companies and seven schools for sustainability education', 'nEarth'],
     ['2025.06.29', 'my', '雪隆慈濟環保三十年撿跑，全馬 52 處逾 8,400 人參與，兩小時清出垃圾 3,937 公斤，另回收資源 3,646 公斤', 'Thirty years of recycling are marked with a plogging event: over 8,400 people at 52 sites across Malaysia collect 3,937 kg of rubbish in two hours and recycle a further 3,646 kg', 'nPlog'],
     ['2025.10.07', 'my', '雪隆慈濟獲馬來西亞人居榮譽獎「城市危機應對傑出組織」類別第二名', 'Tzu Chi KL & Selangor takes second place in the Outstanding Organisation for Urban Crisis Response category of the 2025 Malaysia Scroll of Honour Award', 'nScroll'],
-    ['2025.10.16', 'my station', '馬六甲慈濟環保教育站接待東甲 12 人參訪團，交流資源分類', 'The Tzu Chi Recycling Education Centre in Melaka hosts a 12-member delegation from Johor', 'nBubur']
+    ['2025.10.16', 'my station', '馬六甲慈濟環保教育站接待東甲 12 人參訪團，交流資源分類', 'The Tzu Chi Recycling Education Centre in Melaka hosts a 12-member delegation from Johor', 'nBubur'],
+    ['2026.09.13', 'my station', '馬六甲晉巷工業區環保教育站正式啟用，每週一、四、六開放', 'A new Recycling Education Centre opens in the Cheng industrial area, Melaka, open on Mondays, Thursdays and Saturdays', 'nCheng']
   ];
 
   CH.next = { ask: T('那麼遠的人，我們也要管嗎？', 'Those people so far away, should we care for them too?'), stop: T('下一站・國際賑災', 'Next stop: International Relief'), href: 'relief.html', tun: 'v_r' };

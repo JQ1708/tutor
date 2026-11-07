@@ -5,6 +5,10 @@
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
 
   var S = {
+    wms: { zh: '慈濟骨髓幹細胞中心官網・里程碑', en: 'Tzu Chi Stem Cells Center: milestones', url: 'https://btcscc.tzuchi.com.tw/zh_hant/milestones' },
+    w25409: { zh: '慈善新聞網〈造血幹細胞捐贈教育訓練 台大癌醫為志工釋疑解惑〉2025.03.15', en: 'Charity news report on donor training, 15 Mar 2025', url: 'https://www.tcnews.com.tw/news/item/25409.html' },
+    w7000: { zh: '慈濟全球社區網〈從0到7000 見證生命奇蹟〉', en: 'Tzu Chi community news: From 0 to 7,000', url: 'https://tcopen.tzuchi-org.tw/community/?Itemid=420&catid=177:2016-08-30-03-30-53&id=130721:12B2D0E0771611F0AB75C426B294EE68&option=com_content&view=article' },
+    w260102: { zh: '慈濟骨髓幹細胞中心公告，2026.01.02', en: 'Tzu Chi Stem Cells Center notice, 2 Jan 2026', url: 'https://btcscc.tzuchi.com.tw/zh_hant/announcements/260102' },
     f062: fm('00062', '信己無私，信人有愛'),
     f160: fm('00160', '救人一命，無損己身'),
     f161: fm('00161', '設立「慈濟基金會骨髓捐贈資料中心」'),
@@ -323,7 +327,7 @@
     { id: 'VlqyxaAejEA', zh: '慈濟六十：骨髓幹細胞中心', en: 'Tzu Chi at 60: the Stem Cells Center', y: '2026' }
   ];
 
-  CH.filters = [['all', T('全部', 'All')], ['law', T('法令與成立', 'Law and founding')], ['drive', T('驗血建檔', 'Drives')], ['lab', T('檢驗與中心', 'Laboratory')], ['care', T('陪伴與相見', 'Care and meetings')], ['cross', T('跨海接力', 'Across borders')]];
+  CH.filters = [['all', T('全部', 'All')], ['law', T('法令與成立', 'Law and founding')], ['drive', T('驗血建檔', 'Drives')], ['lab', T('檢驗與中心', 'Laboratory')], ['care', T('陪伴與相見', 'Care and meetings')], ['cross', T('跨海接力', 'Across borders')], ['my', T('馬來西亞', 'Malaysia')]];
   CH.records = [
     ['1992.09', 'law', '溫文玲返國，呼籲開放骨髓移植以三親等以內或配偶為限的條例。', 'Wen Wen-ling returns to Taiwan and calls for the kinship limit on marrow transplants to be lifted.', 'f161'],
     ['1992.11.15', 'drive', '慈濟美國分會為溫文玲舉行血液測試活動。', 'The Tzu Chi USA branch holds a blood testing drive for Wen Wen-ling.', 'f161'],
@@ -341,11 +345,11 @@
     ['1994', 'law', '溫文玲往生。', 'Wen Wen-ling passes away.', 'f161'],
     ['1994', 'care', '「慈濟骨髓捐贈關懷小組」成立。', 'The marrow donation care team is set up.', 'f161'],
     ['1994', 'care', '臺灣首例非親屬間骨髓移植獲得成功。', 'The first unrelated transplant in Taiwan succeeds.', 'o931020'],
-    ['1994.09.26', 'cross', '臺灣慈濟骨髓資料庫第一次跨國供髓，送到新加坡中央醫院，受者是馬來西亞籍少女。', 'The Tzu Chi registry’s first supply across a border, to Singapore General Hospital, for a Malaysian girl.', 'w94'],
-    ['1994.12.05', 'cross', '這位少女辭世，十六歲。', 'The girl dies at sixteen.', 'w94'],
-    ['1995', 'cross', '劉濟雨帶一車馬六甲志工到新加坡抽血建檔。', 'Liu Chi-yu takes Melaka volunteers to Singapore to register.', 'wlin'],
+    ['1994.09.26', 'cross my', '臺灣慈濟骨髓資料庫第一次跨國供髓，送到新加坡中央醫院，受者是馬來西亞籍少女。', 'The Tzu Chi registry’s first supply across a border, to Singapore General Hospital, for a Malaysian girl.', 'w94'],
+    ['1994.12.05', 'cross my', '這位少女辭世，十六歲。', 'The girl dies at sixteen.', 'w94'],
+    ['1995', 'cross my', '劉濟雨帶一車馬六甲志工到新加坡抽血建檔。', 'Liu Chi-yu takes Melaka volunteers to Singapore to register.', 'wlin'],
     ['1995.05.14', 'care', '受贈者魏志祥與捐贈者葉美菁相見。', 'The recipient Wei Chih-hsiang meets the donor Yeh Mei-ching.', 'o931020'],
-    ['1996.01', 'cross', '林秋麗在新加坡捐髓。', 'Lin Chiu-li donates in Singapore.', 'wlin'],
+    ['1996.01', 'cross my', '林秋麗在新加坡捐髓。', 'Lin Chiu-li donates in Singapore.', 'wlin'],
     ['1996.09', 'care', '楊承運配對成功，在駕照上寫下那段話。', 'Yang Cheng-yun is matched and writes his words on his licence.', 'f161'],
     ['1997.11.08', 'lab', '免疫基因實驗室正式啟用，由李政道博士主持。', 'The immunogenetics laboratory opens, led by Dr. Lee Cheng-tao.', 'o931020'],
     ['1998.07', 'lab', '臍帶血庫成立。', 'The cord blood bank is set up.', 'o931020'],
@@ -353,6 +357,12 @@
     ['2002.04.30', 'lab', '正式改制為「慈濟骨髓幹細胞中心」。', 'Reorganised as the Tzu Chi Stem Cells Center.', 'f161'],
     ['2019.01.18', 'cross', '主任楊國梁護送造血幹細胞從花蓮到烏魯木齊，至十九日交付。', 'Director Yang Kuo-liang escorts stem cells from Hualien to Urumqi, delivering them on the 19th.', 'wxj'],
     ['2020.04', 'cross', '新加坡取髓人員包機到花蓮，落地不入境，在空橋下交接。', 'Collection staff from Singapore land at Hualien and take the handover without entering the country.', 'w20'],
+    ['2023.02.07', 'cross', '骨髓幹細胞中心恢復海外取髓業務，瑞典是疫情後第一個來臺取髓的國家。', 'The Stem Cells Center resumes overseas collection. Sweden is the first country to come to Taiwan for it after the pandemic.', 'wms'],
+    ['2023.10.07–08', 'care cross my', '三十周年相見歡，公開場 13 位受贈者與家人到場，其中兩位受贈者來自越南及馬來西亞。', 'At the thirtieth anniversary reunion, 13 recipients and their families attend the public session. Two of the recipients come from Vietnam and Malaysia.', 'wms'],
+    ['2024.04.22', 'lab cross', '花蓮再度強震，豪雨又讓鐵公路中斷，骨髓幹細胞中心協調把原訂 24、25 日在花蓮捐贈的個案改至臺北慈院。', 'Another strong earthquake hits Hualien and heavy rain cuts road and rail. The Stem Cells Center arranges for donations planned in Hualien on the 24th and 25th to move to Taipei Tzu Chi Hospital.', 'wms'],
+    ['2025', 'lab', '開春接獲 WMDA 進階認證證書，慈濟再度獲得 Full Standards。', 'Early in the year, the WMDA advanced certificate arrives: Tzu Chi again holds Full Standards.', 'w25409'],
+    ['2025.08.12', 'lab care', '骨髓幹細胞中心舉行記者會：截至七月底，累計完成 7,006 筆骨髓移植。', 'At a press conference, the Stem Cells Center reports 7,006 transplants completed by the end of July.', 'w7000'],
+    ['2026.02.01', 'lab law', '調整後的 HLA 配型檢驗優免方案試行一年，病患可勾選三位潛在捐贈者，做四個位點的高解析檢驗。', 'A revised fee waiver for HLA typing begins a one-year trial. Patients can select three potential donors for high-resolution typing at four loci.', 'w260102'],
     ['2026.07.31', 'drive', '累計建檔 498,066 筆，完成捐贈 7,281 例，跨越 31 個國家地區。', '498,066 records and 7,281 completed donations, reaching 31 countries and regions.', 'o931020'],
     ['2026.08.30', 'drive', '驗血建檔活動首次採用「口腔黏膜拭子採樣」。', 'A registration drive uses a mouth swab for the first time.', 'o931020']
   ];

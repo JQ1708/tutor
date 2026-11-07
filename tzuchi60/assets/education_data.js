@@ -5,6 +5,12 @@
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
   var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會（一）》頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. ' + p }; };
   var S = {
+    o230409: otd('20230409'),
+    o060912: otd('20060912'),
+    o090213: otd('20090213'),
+    xl2914: { zh: '《馬來西亞慈濟史 雪隆分會（二）》頁 914', en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 2, p. 914' },
+    nTcis: { zh: '馬來西亞慈濟〈TCISKL’s Pioneering Primary Cohort Marks Graduation〉2025.11.26', en: 'Tzu Chi Malaysia: TCISKL’s Pioneering Primary Cohort Marks Graduation, 26 Nov 2025', url: 'https://mail.tzuchi.my/en/tzuchi-updates/bulletin/community-news/cat/education/tciskl%E2%80%99s-pioneering-primary-cohort-marks-graduation' },
+    csr2425: { zh: '《2024–2025 年慈濟永續報告書》頁 98', en: 'Tzu Chi Sustainability Report 2024–2025, p. 98' },
     fm114: fm('00114', '籌設慈濟護專'), fm115: fm('00115', '慈濟護專創校'), fm172: fm('00172', '慈濟醫學院創校'), fm152: fm('00152', '慈濟教師聯誼會成立'),
     fm219: fm('00219', '九二一大地震'), fm221: fm('00221', '社會的希望在人才，人才的希望在教育'), fm233: fm('00233', '慈濟大學附屬中小學創校'),
     fm258: fm('00258', '慈濟大學首創「大體模擬手術教學」'), fm295: fm('00295', '泰國清邁慈濟學校創校'), fm312: fm('00312', '臺南慈濟中小學創校'),
@@ -459,8 +465,14 @@
     ['2018.11.26', 'abroad', '滿納海學校改稱滿納海國際學校。', 'Menahel becomes an international school.', 'fm381'],
     ['2020.01.06', 'my school', '吉隆坡慈濟國際學校啟用開學。', 'The Kuala Lumpur school opens.', 'fm465'],
     ['2020.06.12', 'my', '吉隆坡慈濟國際學校因疫情停課，規劃線上課程。', 'The Kuala Lumpur school closes for the pandemic and plans online lessons.', 'fm465'],
+    ['2022.01.03', 'my', '雪隆慈濟「愛・伴學（i‧didik）」線上補習計劃開課。', 'i‧didik, an online tuition programme in Kuala Lumpur and Selangor, begins classes.', 'xl2914'],
+    ['2024', 'my teach', '吉打雙溪大年新民獨中把 600 道 PaGamO 中文題目譯成馬來文。', 'A Chinese independent high school in Sungai Petani, Kedah, translates 600 PaGamO questions from Chinese into Malay.', 'o230409'],
     ['2024.08.01', 'school', '慈濟科技大學與慈濟大學合併。', 'The two universities merge.', 'o880326'],
-    ['2025.11.02', 'my', '馬六甲六百零九位中小學生受惠助學金。', '609 pupils receive bursaries in Malacca.', 'mycz']
+    ['2025', 'school', '慈濟助學累計超過 11 萬人次，志工動員累計超過 36 萬人次。', 'Tzu Chi’s student aid has reached over 110,000 instances by 2025, with over 360,000 volunteer turnouts.', 'o090213'],
+    ['2025.08', 'abroad school', '美國核桃慈濟中學正式成立招生。', 'The Tzu Chi secondary school in Walnut, California, is founded and opens enrolment.', 'o060912'],
+    ['2025.11.02', 'my', '馬六甲六百零九位中小學生受惠助學金。', '609 pupils receive bursaries in Malacca.', 'mycz'],
+    ['2025.11.26', 'my school first', '吉隆坡慈濟國際學校舉行小學結業禮，首批完成六年小學教育的學生畢業。', 'Tzu Chi International School Kuala Lumpur celebrates the graduation of its pioneering cohort after six years of primary education.', 'nTcis'],
+    ['2026.01.06', 'teach', '慈濟基金會與中華經濟研究院、臺灣威泰經貿公司簽署合作意向書，以青年共學為核心，推動永續發展教育。', 'The Foundation signs a memorandum of understanding with the Chung-Hua Institution for Economic Research and a Taiwanese trading company, to promote sustainability education built on young people learning together.', 'csr2425']
   ];
 
   CH.next = {

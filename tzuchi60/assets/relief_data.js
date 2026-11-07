@@ -7,6 +7,8 @@
   var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會（一）》頁 ' + p, en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. ' + p }; };
 
   var S = {
+    o190322: otd('20190322'),
+    o250928: otd('20250928'),
     nCfw: { zh: '慈濟全球網〈Cash-for-Work Brings Hope to Myanmar’s Disaster-Hit Communities〉', en: 'Tzu Chi Global: Cash-for-Work Brings Hope to Myanmar’s Disaster-Hit Communities', url: 'https://global.tzuchi.org/cash-for-work-brings-hope-to-myanmars-disaster-hit-communities' },
     nAceh: { zh: '慈濟全球網〈Families rebuild lives in North Aceh permanent housing village〉', en: 'Tzu Chi Global: Families rebuild lives in North Aceh permanent housing village', url: 'https://global.tzuchi.org/families-rebuild-lives-in-north-aceh-permanent-housing-village' },
     fm45: fm('00045', '艾爾西颱風，首次大型賑災'),
@@ -474,6 +476,9 @@
     ['2025.04', 'rebuild local', '緬甸強震後，受災居民以工代賑，為寺院搭建臨時住所。', 'After the Myanmar earthquake, residents take part in cash-for-work, building temporary shelters for monasteries.', 'nCfw'],
     ['2025.05.15', 'my', '馬來西亞志工帶動當地承包商和以工代賑志工搭建，至 6 月 15 日完成 87 間。', 'Malaysian volunteers begin building with local contractors; 87 are done by 15 June.', 'tcm'],
     ['2025.06.11', 'rebuild local', '莫三比克庫拉大愛村交屋，這一輪 171 戶入住。', 'Handover at Cura Great Love Village, Mozambique; 171 households move in this round.', 'tcm'],
+    ['2025.09', 'rebuild', '莫三比克最大的瓜拉瓜拉大愛村，與十所學校同步移交。', 'Guara-Guara Great Love Village, the largest in Mozambique, is handed over together with ten schools.', 'o190322'],
+    ['2025.09.26', 'rebuild', '馬太鞍溪堰塞湖溢流，泥流重創花蓮光復。慈濟動員全臺上萬名志工；花蓮靜思堂的宗門營改成實務課，600 多位學員走進光復巷弄清淤。', 'The Mataian Creek barrier lake overflows and mud buries Guangfu, Hualien. Tzu Chi mobilises over ten thousand volunteers across Taiwan. A training camp at the Hualien Jing Si Hall turns into practical work, and more than 600 participants go into the lanes of Guangfu to clear the mud.', 'o250928'],
+    ['2025.10.04', 'rebuild', '光復開始發放每戶 5 萬元急難慰問金，共嘉惠 2,670 戶受災鄉親。', 'Emergency aid of NT$50,000 per household begins in Guangfu, reaching 2,670 households in all.', 'o250928'],
     ['2026.06.04', 'rebuild', '印尼慈濟與地方政府合作，北亞齊永久屋交屋，首批 40 戶入住。', 'Tzu Chi Indonesia and the local government hand over permanent homes in North Aceh; the first 40 households move in.', 'nAceh']
   ];
 

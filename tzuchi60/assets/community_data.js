@@ -7,6 +7,10 @@
   var im = function (z, e) { return { zh: '慈濟六十週年影響力報告・' + z, en: 'Tzu Chi 60th anniversary impact report: ' + e, url: 'https://60impact.tzuchi.org.tw/' }; };
 
   var S = {
+    nFuju: { zh: '馬來西亞慈濟〈輔具重生 讓愛延續〉2025.09.20', en: 'Tzu Chi Malaysia news report on the assistive devices centre, 20 Sep 2025', url: 'https://www.tzuchi.my/zh/慈济新知/慈济报导/社区志工纪实/cat/辅具重生-让爱延续' },
+    nGL: { zh: '慈善新聞網，慈濟光隆日照中心揭牌，2026.01.08', en: 'Charity news report on the Guanglong day centre, 8 Jan 2026', url: 'https://www.tcnews.com.tw/news/item/28198.html' },
+    nElder: { zh: '馬來西亞慈濟〈長者學堂讓晚年走出新節奏〉2026.04.15', en: 'Tzu Chi Malaysia news report on the seniors’ classes, 15 Apr 2026', url: 'https://www.tzuchi.my/zh/慈济新知/慈济报导/社区志工纪实/cat/慈善纪实/长者学堂让晚年走出新节奏' },
+    nFam: { zh: '馬來西亞慈濟〈社區家庭日 情牽照顧戶〉2026.08.02', en: 'Tzu Chi Malaysia news report on Community Family Day, 2 Aug 2026', url: 'https://www.tzuchi.my/zh/慈济新知/慈济报导/社区志工纪实/cat/慈善纪实/社区家庭日-情牵照顾户' },
     nBeds: { zh: '慈濟全球網〈New beds bring comfort to Selangor Care Home〉', en: 'Tzu Chi Global: New beds bring comfort to Selangor Care Home', url: 'https://global.tzuchi.org/new-beds-bring-comfort-to-selangor-care-home' },
     f145: fm('00145', '馬來西亞慈濟人開始個案訪視'),
     f146: fm('00146', '日本分會於東京成立'),
@@ -379,8 +383,13 @@
     ['2020', 'home', '居家修繕個案徐玉秀家，歷經三個月的溝通與長達八天的施工。', 'A home repair case: the Xu home took three months of talks and eight days of work.', 'o200115'],
     ['2021.03.19', 'home', '安美專案在澎湖縣啟動。', 'The project begins in Penghu County.', 'o200115'],
     ['2023.05.02', 'home', '安美專案延伸到馬祖。', 'The project reaches Matsu.', 'o200115'],
+    ['2025', 'dis', '二〇二〇至二〇二五年，7,199 位慈濟志工或職工取得防災士資格。', 'From 2020 to 2025, 7,199 Tzu Chi volunteers and staff qualify as disaster preparedness officers.', 'ia3'],
+    ['2025', 'my day', '吉隆坡慈濟醫療輔具服務中心成立一年來，無償借出醫療病床 368 次、輪椅 612 次，受惠超過 1,700 人次。', 'In its first year, the Kuala Lumpur assistive devices service centre lends hospital beds 368 times and wheelchairs 612 times at no charge, serving people over 1,700 times.', 'nFuju'],
     ['2025.07.15', 'my', '250 位志工為新古毛 Taman Sinar Harapan 關懷機構送入 40 張不鏽鋼病床。', '250 volunteers bring 40 stainless steel beds to the Taman Sinar Harapan care home in Kuala Kubu Bharu.', 'nBeds'],
-    ['2025.10', 'home', '遍及 22 個縣市、299 個鄉鎮，16,167 戶完成修繕。', 'Reaches 299 townships in 22 counties and cities, with repairs completed for 16,167 households.', 'o200115']
+    ['2025.10', 'home', '遍及 22 個縣市、299 個鄉鎮，16,167 戶完成修繕。', 'Reaches 299 townships in 22 counties and cities, with repairs completed for 16,167 households.', 'o200115'],
+    ['2026.01.08', 'day', '慈濟光隆日照中心在基隆光隆家商校園揭牌開幕，目前可為 48 位長者服務。', 'The Tzu Chi Guanglong day centre opens on a school campus in Keelung, with room for 48 older people at present.', 'nGL'],
+    ['2026.03.04、09', 'my day', '馬六甲長者學堂在愛極樂、馬六甲園區開課，改為每週固定上課，八十多位長者報名。', 'The Melaka seniors’ classes begin at Ayer Keroh and the Melaka campus, now held every week. More than 80 older people sign up.', 'nElder'],
+    ['2026.08.02', 'my day', '節慶活動轉型回歸社區，社區家庭日在雪隆九個場次舉辦，280 戶、866 位照顧戶及家屬出席。', 'Festive events return to the neighbourhoods: Community Family Day is held at nine sites in Kuala Lumpur and Selangor, with 280 households and 866 care recipients and family members attending.', 'nFam']
   ];
 
   CH.next = { ask: T('媽媽，這些你怎麼都知道？', 'Mum, how do you know all this?'), stop: T('下一站・人文', 'Next stop: Humanistic Culture'), href: 'culture.html', tun: 'c_u' };
