@@ -3,7 +3,7 @@
   var T = function (zh, en) { return { zh: zh, en: en }; };
   var otd = function (d, tail) { var s = d.slice(0, 4) + '.' + d.slice(4, 6) + '.' + d.slice(6, 8); return { zh: '《慈濟歷史上的今天》' + s, en: 'Tzu Chi, On This Day, ' + s, url: 'https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_' + d + (tail === undefined ? '-1' : tail) + '/' }; };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
-  var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會》（2）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 2, p. ' + p }; };
+  var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會（二）》頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 2, p. ' + p }; };
 
   var S = {
     u438: fm('00438', '臺東慈善紀錄片《如常》上映'),
@@ -418,7 +418,7 @@
   ];
 
   CH.next = { ask: T('八個腳印，走完了。', 'All eight footprints have been walked.'), stop: T('全系列最後一站', 'The last stop of the journey') };
-  CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人局部；馬來西亞的照片取自《馬來西亞慈濟史 雪隆分會》（2）。標示「示意」的畫面為插畫，非當年實物。「」內為原文照錄，英文為本頁翻譯，僅供閱讀。', 'This page is a draft. It has not been reviewed by the Tzu Chi Malaysia branch and is not published. The girl and her mother are storytellers. Unless noted, photographs come from the public Tzu Chi On This Day pages and are cropped to details without people; Malaysian photographs come from the History of Tzu Chi Malaysia, vol. 2. Anything marked as an illustration is not an original object. Words in quotation marks are verbatim in Chinese; the English is this page’s own translation, for reading only.');
+  CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人局部；馬來西亞的照片取自《馬來西亞慈濟史 雪隆分會（二）》。標示「示意」的畫面為插畫，非當年實物。「」內為原文照錄，英文為本頁翻譯，僅供閱讀。', 'This page is a draft. It has not been reviewed by the Tzu Chi Malaysia branch and is not published. The girl and her mother are storytellers. Unless noted, photographs come from the public Tzu Chi On This Day pages and are cropped to details without people; Malaysian photographs come from the History of Tzu Chi Malaysia, vol. 2. Anything marked as an illustration is not an original object. Words in quotation marks are verbatim in Chinese; the English is this page’s own translation, for reading only.');
 
   /* 隧道：reel 走法，墨黑紙白，六段照片不重複主角，方向交替 */
   window.TUN_M = window.TUN_M || {};

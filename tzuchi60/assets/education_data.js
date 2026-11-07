@@ -3,7 +3,7 @@
   var T = function (zh, en) { return { zh: zh, en: en }; };
   var otd = function (d) { var s = d.slice(0, 4) + '.' + d.slice(4, 6) + '.' + d.slice(6, 8); return { zh: '《慈濟歷史上的今天》' + s, en: 'Tzu Chi, On This Day, ' + s, url: 'https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_' + d + '-1/' }; };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
-  var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會》（1）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. ' + p }; };
+  var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會（一）》頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. ' + p }; };
   var S = {
     fm114: fm('00114', '籌設慈濟護專'), fm115: fm('00115', '慈濟護專創校'), fm172: fm('00172', '慈濟醫學院創校'), fm152: fm('00152', '慈濟教師聯誼會成立'),
     fm219: fm('00219', '九二一大地震'), fm221: fm('00221', '社會的希望在人才，人才的希望在教育'), fm233: fm('00233', '慈濟大學附屬中小學創校'),

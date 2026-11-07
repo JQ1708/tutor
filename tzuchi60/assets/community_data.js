@@ -3,7 +3,7 @@
   var T = function (zh, en) { return { zh: zh, en: en }; };
   var otd = function (d, tail) { var s = d.slice(0, 4) + '.' + d.slice(4, 6) + '.' + d.slice(6, 8); return { zh: '《慈濟歷史上的今天》' + s, en: 'Tzu Chi, On This Day, ' + s, url: 'https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_' + d + (tail === undefined ? '-1' : tail) + '/' }; };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
-  var xl = function (v, p) { return { zh: '《馬來西亞慈濟史 雪隆分會》（' + v + '）頁 ' + p, en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. ' + v + ', p. ' + p }; };
+  var xl = function (v, p) { return { zh: '《馬來西亞慈濟史 雪隆分會（' + ({1:'一',2:'二'})[v] + '）》頁 ' + p, en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. ' + v + ', p. ' + p }; };
   var im = function (z, e) { return { zh: '慈濟六十週年影響力報告・' + z, en: 'Tzu Chi 60th anniversary impact report: ' + e, url: 'https://60impact.tzuchi.org.tw/' }; };
 
   var S = {
@@ -248,7 +248,7 @@
     { id: 'c6b', era: 'my', y: '2007–2025', nav: T('下班以後', 'After work'), b: [
       { k: 'night', bare: 1, h: T('下班以後', 'After work'),
         lead: T('大多數志工和民眾白天要上班，下班後才有時間做環保。二〇〇七年底，雪隆慈濟開始嘗試夜間環保，當時環保站較少，也沒有回收商願意夜晚來載，推行不易。雙溪毛糯的志工把一棟雙層店屋裝修成環保站，也是如此。', 'Most volunteers and residents work during the day, and have time for recycling only after work. In late 2007, Tzu Chi in Selangor and Kuala Lumpur began trying evening recycling. There were few stations then, and no collector willing to come at night, so it was not easy. It was the same when volunteers in Sungai Buloh turned a two-storey shophouse into a station.'),
-        q: { zh: '大多數的志工都是上班族，只能利用下班或假日的時間整理', en: 'Most of the volunteers were office workers, and could only do the work after hours or on holidays.', who: T('《馬來西亞慈濟史 雪隆分會》（2）', 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 2') },
+        q: { zh: '大多數的志工都是上班族，只能利用下班或假日的時間整理', en: 'Most of the volunteers were office workers, and could only do the work after hours or on holidays.', who: T('《馬來西亞慈濟史 雪隆分會（二）》', 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 2') },
         note: T('店屋和燈是示意。截至二〇二二年，雪隆分會轄下約一半的環保站都帶動夜間環保。', 'The shophouses and lights are illustrations. By 2022, about half the stations under the branch were running evening recycling.'),
         s: ['x2637', 'x2640'] },
       { k: 'story', lay: 'T', date: '2010–2011', h: T('一個協力組，一個環保站', 'One team, one station'),
@@ -384,7 +384,7 @@
   ];
 
   CH.next = { ask: T('媽媽，這些你怎麼都知道？', 'Mum, how do you know all this?'), stop: T('下一站・人文', 'Next stop: Humanistic Culture'), href: 'culture.html', tun: 'c_u' };
-  CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人臉的局部，拍攝年份多未載明；馬來西亞的照片取自《馬來西亞慈濟史 雪隆分會》。入口、封面、隧道和標示「示意」的窗、燈、門、便當、卷尺、扶手是插畫，不是實物。「」內為原文照錄，英文為本頁翻譯，僅供閱讀。', 'This page is a draft. It has not been reviewed by the Tzu Chi Malaysia branch and is not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from the public Tzu Chi, On This Day pages and are cropped to details without faces; most do not give a year. Photographs from Malaysia come from the History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch. The windows, lamps, doors, lunch box, tape measure and handrails on the entrance, covers, tunnels and anything marked as an illustration are drawings, not real objects. Text in quotation marks is reproduced from the original Chinese, and the English is this page’s translation, for reading only.');
+  CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人臉的局部，拍攝年份多未載明；馬來西亞的照片取自《馬來西亞慈濟史 雪隆分會》。入口、封面、隧道和標示「示意」的窗、燈、門、便當、卷尺、扶手是插畫，不是實物。「」內為原文照錄，英文為本頁翻譯，僅供閱讀。', 'This page is a draft. It has not been reviewed by the Tzu Chi Malaysia branch and is not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from the public Tzu Chi, On This Day pages and are cropped to details without faces; most do not give a year. Photographs from Malaysia come from the History of Tzu Chi Malaysia: KL & Selangor Branch. The windows, lamps, doors, lunch box, tape measure and handrails on the entrance, covers, tunnels and anything marked as an illustration are drawings, not real objects. Text in quotation marks is reproduced from the original Chinese, and the English is this page’s translation, for reading only.');
 
   /* 隧道：六段都走 lights，參數各不相同；去人文那條走 reel */
   window.TUN_M = window.TUN_M || {};

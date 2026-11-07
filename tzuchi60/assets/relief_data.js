@@ -4,7 +4,7 @@
   var dd = function (zh, en) { return '<span class="zh">' + zh + '</span><span class="en" lang="en">' + en + '</span>'; };
   var otd = function (d) { var s = d.slice(0, 4) + '.' + d.slice(4, 6) + '.' + d.slice(6, 8); return { zh: '《慈濟歷史上的今天》' + s, en: 'Tzu Chi, On This Day, ' + s, url: 'https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_' + d + '-1/' }; };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
-  var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會》（1）PDF 頁 ' + p, en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, PDF p. ' + p }; };
+  var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會（一）》頁 ' + p, en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. ' + p }; };
 
   var S = {
     nCfw: { zh: '慈濟全球網〈Cash-for-Work Brings Hope to Myanmar’s Disaster-Hit Communities〉', en: 'Tzu Chi Global: Cash-for-Work Brings Hope to Myanmar’s Disaster-Hit Communities', url: 'https://global.tzuchi.org/cash-for-work-brings-hope-to-myanmars-disaster-hit-communities' },
@@ -43,7 +43,7 @@
     r21: { zh: '《慈濟 2021 年報》PDF 頁 8', en: 'Tzu Chi Annual Report 2021, PDF p. 8' },
     tcm: { zh: '《慈濟月刊》第 704 期，2025.07.01', en: 'Tzu Chi Monthly, no. 704, 1 Jul 2025', url: 'https://tcmonthly.tzuchiculture.org.tw/?p=73239' },
     rice: { zh: '慈濟國際人道援助會〈一粒米中藏日月 靜思香積飯〉', en: 'Tzu Chi International Humanitarian Aid Association, on Jing Si instant rice', url: 'https://www.tzuchi-org.tw/tihaa/index.php/2015-11-20-07-05-36/2015-12-08-01-37-38/2015-12-08-01-37-41' },
-    x43: xl('43'), x44: xl('44'), x45: xl('45'), x47: xl('47'), x280: xl('280–283'), x289: xl('289'), x292: xl('292'), x286: xl('286')
+    x43: xl('42'), x44: xl('43'), x45: xl('44'), x47: xl('46'), x280: xl('279–282'), x289: xl('288'), x292: xl('291'), x286: xl('285')
   };
   var CH = window.CH = { S: S };
   var SHANGREN = T('證嚴上人', 'Dharma Master Cheng Yen');
@@ -328,7 +328,7 @@
             T('二〇二一年初水患正逢動管令，志工改為逐戶發放和小場次發放，截至 2 月 19 日，各項協助共 3,122 戶次受惠。', 'The floods of early 2021 came under movement controls, so volunteers went from door to door and held small sessions. By 19 February, assistance of all kinds had reached 3,122 household visits.'),
             T('同年年底雪隆大水是另一場災難。志工向居民借了三艘小船，又用七噸大型軍用卡車把熱食送進去；一位榴漣攤主允准攤位做大清掃的臨時行動中心；一位外送員號召同行，把熱食送到偏遠地區的受災鄉親手中。之後依名冊登門訪查，把資料輸入 Zoho 系統，其中還有兩百多筆名單差異，包括重複造冊、查無此人。', 'The great Selangor flood at the end of that year was a separate disaster. Volunteers borrowed three small boats from residents and rode a seven-tonne army truck to bring in hot meals. A durian stall owner lent his stall as a temporary centre for the big clean-up. A delivery rider rallied fellow riders to carry meals to remote survivors. Then volunteers visited homes from the lists and entered the data in Zoho; more than two hundred entries still differed, including duplicates and people who could not be found.')
           ],
-          ph: [{ i: 'r_mud', c: T('二〇二一年底水患退去，泡過水的傢俱堆在路邊（局部）。攝影：林振勝。取自《馬來西亞慈濟史 雪隆分會》（1）。', 'After the floods of late 2021, soaked furniture piled by the road, detail. Photo: Lin Zhensheng. From History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1.') }],
+          ph: [{ i: 'r_mud', c: T('二〇二一年底水患退去，泡過水的傢俱堆在路邊（局部）。攝影：林振勝。取自《馬來西亞慈濟史 雪隆分會（一）》。', 'After the floods of late 2021, soaked furniture piled by the road, detail. Photo: Lin Zhensheng. From History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1.') }],
           s: ['fm282', 'fm476', 'x280', 'x286', 'x292']
         },
         {

@@ -9,7 +9,7 @@
   };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
   var xl = function (p) { /* 雪隆史第一冊，印刷頁碼 */
-    return { zh: '《馬來西亞慈濟史 雪隆分會》（1）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. ' + p };
+    return { zh: '《馬來西亞慈濟史 雪隆分會（一）》頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. ' + p };
   };
   var S = {
     nPutra: { zh: '慈濟馬來西亞〈布高原氣爆發放　走在最前做到最後〉', en: 'Tzu Chi Malaysia: distribution after the Putra Heights gas explosion', url: 'https://tzuchi.my/zh/%E6%85%88%E6%B5%8E%E6%96%B0%E7%9F%A5/%E6%85%88%E6%B5%8E%E6%8A%A5%E5%AF%BC/%E7%A4%BE%E5%8C%BA%E5%BF%97%E5%B7%A5%E7%BA%AA%E5%AE%9E/cat/%E6%85%88%E5%96%84%E7%BA%AA%E5%AE%9E/%E5%B8%83%E9%AB%98%E5%8E%9F%E6%B0%94%E7%88%86%E5%8F%91%E6%94%BE-%E8%B5%B0%E5%9C%A8%E6%9C%80%E5%89%8D%E5%81%9A%E5%88%B0%E6%9C%80%E5%90%8E' },
@@ -447,7 +447,7 @@
         q: { zh: '馬來西亞對我來說，是很遙遠；對你們來說，是很近。但是對我來說，更是貼(心)。有形的是很遠，無形的是很近，知道嗎？', en: 'To me Malaysia is very far; to you it is very near. But to me it is closer still, in the heart. In form it is far. Beyond form it is near. Do you understand?', who: T('證嚴上人', 'Dharma Master Cheng Yen') },
         s: ['o930613'] },
       { k: 'story', lay: 'L', date: '1994–2010', h: T('雙溪毛糯的竹筒', 'The bamboo banks of Sungai Buloh'),
-        ph: [{ i: 'xl1_0066_1', c: T('「2005年1月30日慈濟舉辦歲末發放，院友們感恩慈濟的幫助，也捐出積蓄回饋。」（局部，只留手與捐款箱。照片：劉玉麗；《馬來西亞慈濟史 雪隆分會》（1）頁 65）', '“On 30 January 2005, at Tzu Chi’s year-end distribution, residents gave from their savings in thanks for the help they had received.” (Detail: hands and donation box only. Photo: Liu Yuli; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 65)') }],
+        ph: [{ i: 'xl1_0066_1', c: T('「2005年1月30日慈濟舉辦歲末發放，院友們感恩慈濟的幫助，也捐出積蓄回饋。」（局部，只留手與捐款箱。照片：劉玉麗；《馬來西亞慈濟史 雪隆分會（一）》頁 65）', '“On 30 January 2005, at Tzu Chi’s year-end distribution, residents gave from their savings in thanks for the help they had received.” (Detail: hands and donation box only. Photo: Liu Yuli; History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. 65)') }],
         p: [
           T('雪蘭莪州的雙溪毛糯麻瘋病院創立於一九三〇年，收容麻瘋病（漢生病）患者。一九九四年一月十六日，慈濟志工應院區內靜修院邀約，首次走入訪視。院友長期遭社會歧視，起初心存戒備。隔年開始，志工固定每月前往，發放物資、義剪、按摩，協助清掃，維修房屋和輪椅。',
             'The Sungai Buloh leprosy settlement in Selangor was founded in 1930 to house people with Hansen’s disease. On 16 January 1994 Tzu Chi volunteers first visited, at the invitation of a Buddhist retreat inside the grounds. Long shunned by society, the residents were wary at first. From the following year volunteers came every month, bringing supplies, cutting hair, giving massages, cleaning, and repairing houses and wheelchairs.'),
@@ -464,7 +464,7 @@
         ],
         s: ['xlsb'] },
       { k: 'story', lay: 'R', date: '2003–2022', h: T('比打士的待產之家', 'A home for waiting mothers in Pitas'),
-        ph: [{ i: 'xl1_0152_1', c: T('「生命關懷之家竣工啟用。」（局部，人物和標誌已裁去。照片：華景耀；《馬來西亞慈濟史 雪隆分會》（1）頁 151）', '“The Home of Life Care is completed and opened.” (Detail, people and emblem cropped out. Photo: Hua Jingyao; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 151)') }],
+        ph: [{ i: 'xl1_0152_1', c: T('「生命關懷之家竣工啟用。」（局部，人物和標誌已裁去。照片：華景耀；《馬來西亞慈濟史 雪隆分會（一）》頁 151）', '“The Home of Life Care is completed and opened.” (Detail, people and emblem cropped out. Photo: Hua Jingyao; History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. 151)') }],
         p: [
           T('沙巴比打士的山區，孕婦產檢有時要步行兩天山路、穿越溪河。依當時的法條，未到臨盆時間的孕婦不具備病人身分，無法享有床位。護士法麗達回憶，她曾安排一位孕婦到哥打馬魯都診療所待產，因床位不足又被遣送回家，事後追蹤，對方已因難產往生。駐診醫師鄭榮輝向慈濟提出「待產之家」的構想。',
             'In the hills of Pitas, Sabah, expectant mothers sometimes walked two days and forded rivers to reach a check-up. Under the rules of the time, a woman not yet due did not count as a patient and could have no bed. One nurse recalled sending a mother to wait at the Kota Marudu clinic, only for her to be sent home for lack of beds. When the nurse followed up, the mother had died in childbirth. The resident doctor, Zheng Ronghui, proposed a “waiting home” to Tzu Chi.'),
@@ -502,7 +502,7 @@
         q: { zh: '看到這一次回來的孩子們，每一個都會投竹筒，真的很感動。', en: 'Seeing the children who came back this time, every one of them dropping coins into a bamboo bank, was truly moving.', who: T('志工 劉豐鎂', 'Liu Fengmei, volunteer') },
         s: ['xl102'] },
       { k: 'story', lay: 'L', date: '2010–2014', h: T('屠妖節發放', 'The Deepavali distribution'),
-        ph: [{ i: 'xl1_0086_1', c: T('「2013年10月27日，雪隆志工走入印度廟舉辦屠妖節發放。」（局部，人物已裁去。照片：林思源；《馬來西亞慈濟史 雪隆分會》（1）頁 85）', '“On 27 October 2013, Selangor and Kuala Lumpur volunteers went to a Hindu temple to hold a Deepavali distribution.” (Detail, people cropped out. Photo: Lin Siyuan; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 85)') }],
+        ph: [{ i: 'xl1_0086_1', c: T('「2013年10月27日，雪隆志工走入印度廟舉辦屠妖節發放。」（局部，人物已裁去。照片：林思源；《馬來西亞慈濟史 雪隆分會（一）》頁 85）', '“On 27 October 2013, Selangor and Kuala Lumpur volunteers went to a Hindu temple to hold a Deepavali distribution.” (Detail, people cropped out. Photo: Lin Siyuan; History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. 85)') }],
         p: [
           T('屠妖節是印裔最重要的節日，慈濟的發放日定在每年十月至十一月間。二〇〇八年，志工因新芽助學金（慈濟資助清寒學生的助學金）家訪，走入多間印裔學校和家庭，也邀請印裔照顧戶參加歲末發放。但華印兩裔飲食習慣、過年習俗不同，節目又以華語為主，印裔照顧戶較難有參與感。二〇一〇年九月開始，雪隆分會另設屠妖節發放，十月三十一日首次為印裔照顧戶舉辦。',
             'Deepavali is the most important festival for Malaysian Indians, and Tzu Chi holds its distribution between October and November each year. In 2008, home visits for the New Sprouts bursary, Tzu Chi’s aid for needy students, took volunteers into many Indian schools and homes, and Indian care recipients were invited to the year-end distribution. But food and new-year customs differed, and the programme was mostly in Mandarin, so it was hard for them to feel part of it. From September 2010 the Selangor and Kuala Lumpur branch set up a separate Deepavali distribution, first held for Indian care recipients on 31 October.'),
@@ -513,7 +513,7 @@
         ],
         s: ['xldv'] },
       { k: 'story', lay: 'R', date: '2000–2021', h: T('加雅島', 'Gaya Island'),
-        ph: [{ i: 'xl1_0135_1', c: T('「2008年11月，加雅島發生火災，燒毀逾四十間木屋。」（局部，遠處人影已裁去。照片：劉宏業；《馬來西亞慈濟史 雪隆分會》（1）頁 134）', '“In November 2008 a fire on Gaya Island destroyed more than forty wooden houses.” (Detail, distant figures cropped out. Photo: Liu Hongye; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 134)') }],
+        ph: [{ i: 'xl1_0135_1', c: T('「2008年11月，加雅島發生火災，燒毀逾四十間木屋。」（局部，遠處人影已裁去。照片：劉宏業；《馬來西亞慈濟史 雪隆分會（一）》頁 134）', '“In November 2008 a fire on Gaya Island destroyed more than forty wooden houses.” (Detail, distant figures cropped out. Photo: Liu Hongye; History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. 134)') }],
         p: [
           T('加雅島距亞庇約十分鐘船程，島上約九百多戶。一九七〇年代起，陶蘇格人和巴瑤族等為躲避菲律賓南部戰爭遷徙到此，搭起水上木屋。書中記載，他們並非大馬公民，無法享有醫療、教育及合法工作的權利。',
             'Gaya Island lies about ten minutes by boat from Kota Kinabalu and has over nine hundred households. From the 1970s Tausug, Bajau and other people fleeing war in the southern Philippines came here and built wooden houses over the water. The book records that they were not Malaysian citizens and had no right to health care, education or legal work.'),
@@ -535,7 +535,7 @@
         q2: { zh: '帶著一顆好的心去幫他們的，所以為什麼要怕。', en: 'We went with a good heart to help them, so why be afraid?', who: T('志工 羅珍愛', 'Luo Zhen’ai, volunteer') },
         s: ['o170306'] },
       { k: 'story', lay: 'L', date: '2021.12', h: T('雪隆水災', 'The Selangor and Kuala Lumpur floods'),
-        ph: [{ i: 'xl1_0286_1', c: T('「水患退去，許多被大水浸泡過的大型傢俱被丟棄在路邊，志工安排多輛大型卡車及推土機前來清理。」（局部，人物已裁去。照片：林振勝；《馬來西亞慈濟史 雪隆分會》（1）頁 285）', '“As the water receded, large pieces of soaked furniture were left at the roadside, and volunteers arranged lorries and bulldozers to clear them.” (Detail, people cropped out. Photo: Lin Zhensheng; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 285)') }],
+        ph: [{ i: 'xl1_0286_1', c: T('「水患退去，許多被大水浸泡過的大型傢俱被丟棄在路邊，志工安排多輛大型卡車及推土機前來清理。」（局部，人物已裁去。照片：林振勝；《馬來西亞慈濟史 雪隆分會（一）》頁 285）', '“As the water receded, large pieces of soaked furniture were left at the roadside, and volunteers arranged lorries and bulldozers to clear them.” (Detail, people cropped out. Photo: Lin Zhensheng; History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. 285)') }],
         p: [
           T('二〇二一年十二月十八日，單日雨量超越一個月總和，全國共二百一十個災區，雪蘭莪州九縣中八縣淪陷。當天，巴生志工成立水災行動指揮小組，在環保站烹煮熱食，用四輪驅動車運入災區。一天動員五十位志工、十二輛四輪驅動車，發放二千份熱食，其中八百份由兩家素食餐廳免費供應；隔天共發出六千六百九十七份便當。',
             'On 18 December 2021 more rain fell in one day than in a normal month. There were 210 disaster areas across the country, and eight of Selangor’s nine districts went under. That day Klang volunteers set up a flood command group, cooked at a recycling centre and took meals in by four-wheel drive. In one day fifty volunteers and twelve vehicles delivered two thousand hot meals, eight hundred of them given free by two vegetarian restaurants. The next day 6,697 lunch boxes went out.'),

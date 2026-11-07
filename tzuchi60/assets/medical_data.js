@@ -10,7 +10,7 @@
   };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
   var xl = function (p) { /* 雪隆史第一冊，印刷頁碼 */
-    return { zh: '《馬來西亞慈濟史 雪隆分會》（1）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. ' + p };
+    return { zh: '《馬來西亞慈濟史 雪隆分會（一）》頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. ' + p };
   };
   var S = {
     o230609: otd('20230609'),
@@ -315,8 +315,8 @@
         { d: '截至 2022', zh: '慈濟在沙巴的亞庇、山打根、斗湖，累計辦了五十場義診。', en: 'By 2022 Tzu Chi had held 50 free clinics at Kota Kinabalu, Sandakan and Tawau in Sabah.' }
       ], s: ['xlmc', 'fm203', 'xl345'] },
       { k: 'story', lay: 'R', date: '2003.08.24', h: T('巴生義診中心', 'The Klang free clinic'),
-        ph: [{ i: 'xl1_0362_1', c: T('「2002年8月31日巴生共修處啟用，並提供義診服務。」（局部，人物已裁去。照片：雪隆分會提供；《馬來西亞慈濟史 雪隆分會》（1）頁 361）', '“On 31 August 2002 the Klang centre opened and offered free clinics.” (Detail, people cropped out. Photo: Selangor and Kuala Lumpur branch; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 361)') },
-          { i: 'xl1_0363_1', c: T('「2003年8月24日，在眾人的見證之下，慈濟巴生義診中心啟用。」（局部，人物已裁去。照片：許秀愛；《馬來西亞慈濟史 雪隆分會》（1）頁 362）', '“On 24 August 2003, before many witnesses, the Tzu Chi free clinic in Klang opened.” (Detail, people cropped out. Photo: Xu Xiu’ai; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 362)') }],
+        ph: [{ i: 'xl1_0362_1', c: T('「2002年8月31日巴生共修處啟用，並提供義診服務。」（局部，人物已裁去。照片：雪隆分會提供；《馬來西亞慈濟史 雪隆分會（一）》頁 361）', '“On 31 August 2002 the Klang centre opened and offered free clinics.” (Detail, people cropped out. Photo: Selangor and Kuala Lumpur branch; History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. 361)') },
+          { i: 'xl1_0363_1', c: T('「2003年8月24日，在眾人的見證之下，慈濟巴生義診中心啟用。」（局部，人物已裁去。照片：許秀愛；《馬來西亞慈濟史 雪隆分會（一）》頁 362）', '“On 24 August 2003, before many witnesses, the Tzu Chi free clinic in Klang opened.” (Detail, people cropped out. Photo: Xu Xiu’ai; History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1, p. 362)') }],
         p: [
           T('巴生聖淘沙社區以印裔低收入戶為主，鄰近住著一群罹患小兒麻痺症的鄉親，生病常常一拖再拖。二〇〇二年，巴生共修處（志工共同學習的會所）啟用，首次在戶外搭帳篷義診。志工林國華、陳銀娘夫婦不忍醫師和病患在炎熱天氣下看診等待，捐出共修處會所後，又捐出兩間店面。',
             'The Sentosa area of Klang is home mostly to low-income Indian families, with a group of people affected by polio living nearby. When they fell ill they often put off seeing a doctor. In 2002 a Tzu Chi centre opened in Klang, and the first clinic was held in tents outdoors. Volunteers Lin Guohua and Chen Yinniang could not bear to see doctors and patients waiting in the heat. Having given the premises of the centre, they gave two shop lots as well.'),

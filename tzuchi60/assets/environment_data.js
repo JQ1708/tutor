@@ -3,7 +3,7 @@
   var T = function (zh, en) { return { zh: zh, en: en }; };
   var otd = function (d) { var s = d.slice(0, 4) + '.' + d.slice(4, 6) + '.' + d.slice(6, 8); return { zh: '《慈濟歷史上的今天》' + s, en: 'Tzu Chi, On This Day, ' + s, url: 'https://tzuchiculture.org/tzuchi_60th_anniversary/onthisday/onthisday_' + d + '-1/' }; };
   var fm = function (n, t) { return { zh: '慈濟法脈資料庫 ' + n + '〈' + t + '〉', en: 'Tzu Chi Dharma Lineage Archive, no. ' + n }; };
-  var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會》（2）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 2, p. ' + p }; };
+  var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會（二）》頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 2, p. ' + p }; };
 
   var S = {
     o230409: otd('20230409'),
