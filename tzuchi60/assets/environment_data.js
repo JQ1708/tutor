@@ -188,7 +188,7 @@
         { k: 'photos', ph: [{ i: 'v_yarn', c: cap('再生紗線的紗筒局部。', 'Detail of spools of recycled yarn.') }, { i: 'v_mill', c: cap('灰色毯面局部。', 'Detail of a grey blanket surface.') }, { i: 'v_fold', c: cap('疊好的毛毯局部。', 'Detail of folded blankets.') }] },
         { k: 'story', lay: 'R', date: '2007.04', h: T('第一次送往災區', 'To a disaster area for the first time'),
           p: [T('二〇〇七年四月七日，菲律賓馬尼拉近郊的曼達盧永市發生大火，三千多戶住屋燒成灰燼。上人提起可以從臺灣運送衣物與環保毛毯救災，菲律賓航空陳永栽董事長當場表示，菲航可以免費協助空運。', 'On 7 April 2007 a fire swept through Mandaluyong on the edge of Manila, and more than three thousand homes burned down. When the Master raised the idea of sending clothes and eco-blankets from Taiwan, Philippine Airlines chairman Lucio Tan said at once that the airline could carry them free of charge.'),
-            T('環保毛毯首次應用於國際賑災。回收的瓶子，開始走到災民手上。', 'It was the first time eco-blankets had been used in international relief. Collected bottles had begun to reach people who had lost their homes.')],
+            T('環保毛毯首次應用於國際賑災。回收的瓶子製成毛毯，送到受災鄉親手上。', 'It was the first time eco-blankets had been used in international relief. Collected bottles had begun to reach people who had lost their homes.')],
           s: ['fm304'] },
         { k: 'story', lay: 'L', date: '2008', h: T('二〇〇八年底，大愛感恩', 'Da Ai Technology, late 2008'),
           ph: [{ i: 'v_shirt', c: cap('再生材質製成的環保衫局部，衣上標示照原樣。', 'Detail of a garment made from recycled material. Its label is shown as it is.') }],
@@ -200,7 +200,7 @@
         { k: 'story', lay: 'T', h: T('這毛毯非常溫暖', 'This blanket is very warm'),
           p: [T('二〇〇六年起，回收的寶特瓶透過專業製程化身成環保毛毯，成為海內外賑災發放的好幫手。一位烏克蘭難民凱特這樣說：', 'From 2006 recycled bottles, through skilled processing, became eco-blankets, a great help in relief distributions at home and abroad. Kate, a Ukrainian refugee, said this:')],
           q: { zh: '我沒想到說，這裡早上會這麼冷，這毛毯非常溫暖，而且我媽告訴我，這又是寶特瓶做的，這樣對環境很友善，這樣非常地好。', en: 'I did not expect it to be so cold here in the morning. This blanket is very warm, and my mother told me it is made from plastic bottles too, which is kind to the environment. That is very good.', who: T('凱特　烏克蘭難民', 'Kate, a Ukrainian refugee') },
-          more: [T('一支瓶子從一雙手裡出發，走到了另一雙需要它的手裡。', 'A bottle set out from one pair of hands and reached another pair that needed it.')],
+          more: [T('志工用心分類，回收的瓶子製成毛毯，送到有需要的鄉親手上。從資源分類做起，人人都能付出。', 'Volunteers sort with care, and collected bottles become blankets for those in need. Starting with sorting, everyone can give.')],
           note: T('她受訪的時間、地點和年齡，原文未載，本頁也不寫她收到哪一批毛毯。', 'The source does not give the date or place of the interview or her age, and this page does not say which shipment of blankets she received.'),
           s: ['o101017'] }
       ] },

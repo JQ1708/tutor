@@ -27,12 +27,12 @@ window.CHARITY = {
   ask: { zh: '媽媽，為什麼要每天存五毛？<br>一次給，不是比較快嗎？', en: 'Mama, why fifty cents every day?<br>Wouldn’t it be faster to give it all at once?' },
 
   bamboo: [
-    { zh: '1966 年春天，花蓮。一位年輕的法師要離開了，三十位信眾捨不得，上書慰留。這位法師，就是後來大家稱為證嚴上人的人。', en: 'Spring 1966, Hualien. A young Buddhist nun was about to leave, and thirty devotees wrote pleading for the nun to stay. That nun is the person the world now knows as Dharma Master Cheng Yen.' },
+    { zh: '1966 年春天，花蓮。一位年輕的法師即將離開，三十位信眾不捨，上書慰留。這位法師，就是後來大家尊稱為證嚴上人的師父。', en: 'Spring 1966, Hualien. A young Buddhist nun was about to leave, and thirty devotees wrote pleading for the nun to stay. That nun is the one revered today as Dharma Master Cheng Yen.' },
     { zh: '上人說，想留我，那麼每個人都要每天存五毛錢行善。', en: 'If you want me to stay, the Master said, then each of you must save fifty cents a day to do good.', srcs: ['fm_shoes'] },
     { zh: '竹竿鋸成竹筒，三十位家庭主婦，一人一支。每天提起菜籃出門之前，先把買菜錢省下的五毛投進去。', en: 'A length of bamboo was sawn into tubes, one for each of thirty housewives. Every day, before picking up the basket for the market, each dropped in fifty cents saved from her grocery money.' },
     { zh: '有人跟上人說：師父，我一個月繳十五塊就好啦。', en: 'Some said: Master, I’ll just pay fifteen dollars a month.' },
     { q: '我說我會算啦，我懂啦，但是我只要求你，每天五毛，總而言之我要你天天一念善心，每天一念善心', qen: 'I can do the sum, I understand. But all I ask is fifty cents every day. What I want is for you to have one kind thought, every single day.', who: { zh: '證嚴上人', en: 'Dharma Master Cheng Yen' }, src: 'otd660414' },
-    { zh: '所以答案是：上人要的從來不是那十五塊。上人要的是每一天，有那麼一刻，你想到了別人。', en: 'So that is the answer. It was never about the fifteen dollars. It was about one moment, each day, of thinking of someone else.' },
+    { zh: '不是那十五塊。是每一天，動一念善心，想到苦難的人。', en: 'It was never about the fifteen dollars. It was about one kind thought, each day, for those who suffer.' },
     { zh: '她們提著菜籃到市場，遇到朋友就說：', en: 'At the market, basket in hand, they told their friends:' },
     { q: '我今天買菜要省五毛錢。', qen: 'Today I’m saving fifty cents on the groceries.', who: { zh: '當年的家庭主婦，上人 1985 年轉述', en: 'a housewife of the time, as recalled by the Master in 1985' }, src: 'fm_bamboo' },
     { zh: '朋友問，省來做什麼？話就這樣一個傳一個。另一邊，上人和弟子每人每天多縫一雙嬰兒鞋。這兩筆加起來，一個月 1,170 元，就是慈濟最早的基金。', en: 'What for? their friends asked, and so word passed from one to the next. Meanwhile the Master and the disciples each sewed one extra pair of baby shoes a day. Together that came to NT$1,170 a month: the very first Tzu Chi fund.', srcs: ['fm_bamboo', 'fm_shoes'] }
@@ -42,7 +42,7 @@ window.CHARITY = {
     {
       key: 'lin', img: 'D', name: { zh: '林曾', en: 'Lin Zeng' }, tag: { zh: '第一位長期照顧戶 · 1966', en: 'First long-term care recipient · 1966' },
       body: [
-        { zh: '八十六歲。從福建來臺灣找丈夫，丈夫已經不在，她回不去了。一個人住在花蓮市場小巷裡，三個榻榻米大的破房子。', en: 'She was eighty-six. She had come from Fujian to find her husband, only to learn he had died, and she could not go back. She lived alone down a market alley in Hualien, in a broken room the size of three tatami mats.' },
+        { zh: '八十六歲。從福建來臺灣尋夫，丈夫已往生，她回不去了。獨居花蓮市場小巷，一間三個榻榻米大的小屋。', en: 'She was eighty-six. She had come from Fujian to find her husband, only to learn he had died, and she could not go back. She lived alone down a market alley in Hualien, in a small room the size of three tatami mats.' },
         { zh: '陳貞如聽說了，和妹妹陳雪卿天天送飯，刮風下雨都去。功德會成立的第二個月，她把老太太提報上來。從 1966 年 6 月起，每月三百元，請人燒飯照料，一直到老太太 1970 年往生。', en: 'Chen Zhenru heard about her and, with her sister Chen Xueqing, brought meals every day, wind or rain. In the foundation’s second month she reported the case. From June 1966 it paid NT$300 a month, with someone hired to cook and care for her, until she passed away in 1970.' }
       ],
       src: ['fm_lin'], video: 'yJgW0e23ZCs'
@@ -51,7 +51,7 @@ window.CHARITY = {
       key: 'lu', img: null, name: { zh: '盧丹桂', en: 'Lu Dan-gui' }, tag: { zh: '第一個醫療個案 · 1966', en: 'First medical case · 1966' },
       body: [
         { zh: '菜販，五個孩子的媽媽，青光眼看不見了。鄰居李時拿一本孩子寫字的簿子，在菜市場替她募款，不夠，才來找剛成立一個月的功德會。功德會把她送到宜蘭羅東開刀。', en: 'A vegetable seller and mother of five, blinded by glaucoma. Her neighbour Li Shi took a child’s exercise book round the market to raise money. It was not enough, so she came to the month-old foundation, which sent Lu to Luodong for surgery.' },
-        { zh: '手術沒能救回她的眼睛。1967 年 1 月，她離開了人世。這件憾事，慈濟記到今天。', en: 'The surgery could not save her sight. In January 1967 she passed away. Tzu Chi has carried that sorrow ever since.' },
+        { zh: '手術後，她的視力未能恢復。1967 年 1 月，她往生。', en: 'After the surgery her sight did not return. In January 1967 she passed away.' },
         { q: '感覺很愧疚，所以我們又開始了說，三個月要複查(回訪)一次，這就是經一事長一智。', qen: 'I felt deep remorse. So we began to say: every three months there must be a return visit. That is how we learned from what happened.', who: { zh: '證嚴上人', en: 'Dharma Master Cheng Yen' }, src: 'otd670701' },
         { zh: '幫過一次不算幫完，要回去看。慈濟的訪視複查從這裡開始。1985 年，她的先生捐出善款幫助建院。', en: 'Helping once is not finished; you must go back and look. Tzu Chi’s follow-up visits began here. In 1985 her husband donated to help build the hospital.' }
       ],
@@ -61,7 +61,7 @@ window.CHARITY = {
       key: 'li', img: 'E', name: { zh: '李阿拋', en: 'Li A-pao' }, tag: { zh: '第一間永久屋 · 1967', en: 'First permanent house · 1967' },
       body: [
         { zh: '八十一歲，雙眼失明，住在已經傾斜的茅草屋。上人和委員去看他，他正蹲在屋角摸一把草，要在三粒石頭搭的小灶上起火。', en: 'He was eighty-one and blind, living in a leaning thatched hut. When the Master and volunteers visited, he was crouching in a corner, feeling for a handful of grass to light a stove made of three stones.' },
-        { zh: '火星只要飛到茅草上，這個家就沒了。南華站站長張榮華捐出甘蔗園裡的十坪地。1967 年 11 月 1 日動土，一間五坪大的空心磚屋，三扇窗，鐵皮屋頂。慈濟蓋的第一間房子。', en: 'One spark on the thatch and his home would be gone. Station master Zhang Ronghua gave ten ping of his sugar-cane field. Ground was broken on 1 November 1967 for a five-ping hollow-brick house with three windows and a tin roof: the first house Tzu Chi ever built.' }
+        { zh: '南華站站長張榮華捐出甘蔗園裡的十坪地。1967 年 11 月 1 日動土，一間五坪大的空心磚屋，三扇窗，鐵皮屋頂。慈濟蓋的第一間房子。', en: 'Station master Zhang Ronghua gave ten ping of his sugar-cane field. Ground was broken on 1 November 1967 for a five-ping hollow-brick house with three windows and a tin roof: the first house Tzu Chi ever built.' }
       ],
       src: ['fm_house'], video: '2Jn9Zl_hfTo'
     }
@@ -87,14 +87,14 @@ window.CHARITY = {
     { d: { zh: '1969.10.16', en: '16 Oct 1969' }, place: { zh: '花蓮崇德村、臺東大南村', en: 'Chongde, Hualien and Danan, Taitung' }, t: { zh: '第一次大型賑災', en: 'The first large-scale relief' }, b: { zh: '艾爾西颱風重創花東，大南村一場大火燒毀一百四十八戶。二萬餘元買毛毯，每戶一件，親手送到。', en: 'Typhoon Elsie struck the east coast, and a fire destroyed 148 homes in Danan. Over NT$20,000 bought blankets, one for each household, delivered by hand.' }, tags: ['first', 'relief'], src: ['fm_elsie'], video: '6xnIwXa4LSo' },
     { d: { zh: '1970.01.30', en: '30 Jan 1970' }, place: { zh: '花蓮靜思精舍', en: 'Jing Si Abode, Hualien' }, t: { zh: '冬令發放年年做下去', en: 'Winter distribution becomes a yearly promise' }, b: { zh: '賑濟二百餘人。此後每年舉辦，並增加每月常態發放。', en: 'More than two hundred people were helped. It has been held every year since, with monthly distributions added.' }, tags: ['care', 'system'], src: ['fm_winter'] },
     { d: { zh: '1971.11.11', en: '11 Nov 1971' }, place: { zh: '花蓮新城鄉嘉里村', en: 'Jiali, Xincheng, Hualien' }, t: { zh: '嘉里小築', en: 'The Jiali cottages' }, b: { zh: '娜定颱風之後，為受災的長期照顧戶買地建屋三間。', en: 'After Typhoon Nadine, land was bought and three houses built for long-term care recipients who had lost theirs.' }, tags: ['home', 'relief'], src: ['fm_nadine'] },
-    { d: { zh: '1973.10', en: 'Oct 1973' }, place: { zh: '花蓮、臺東', en: 'Hualien and Taitung' }, t: { zh: '娜拉風災，賑災有了模式', en: 'Typhoon Nora: a way of doing relief takes shape' }, b: { zh: '當時只有一百多位委員，沿門募款，幫助了 671 個家庭。勘災、造冊、發放的做法從此定下。', en: 'With only a hundred-odd commissioners collecting door to door, 671 families were helped. Surveying, registering and distributing became the method.' }, tags: ['relief', 'system'], src: ['otd731024', 'fm_nora'] },
+    { d: { zh: '1973.10', en: 'Oct 1973' }, place: { zh: '花蓮、臺東', en: 'Hualien and Taitung' }, t: { zh: '娜拉風災，賑災有了模式', en: 'Typhoon Nora: a way of doing relief takes shape' }, b: { zh: '當時只有一百多位委員，沿門募款，嘉惠 671 個家庭。勘災、造冊、發放的做法從此定下。', en: 'With only a hundred-odd commissioners collecting door to door, 671 families were helped. Surveying, registering and distributing became the method.' }, tags: ['relief', 'system'], src: ['otd731024', 'fm_nora'] },
     { d: { zh: '1976.12.04–13', en: '4–13 Dec 1976' }, place: { zh: '臺灣全島', en: 'Around Taiwan' }, t: { zh: '十天環島訪貧', en: 'Ten days around the island' }, b: { zh: '一部遊覽車繞臺灣一圈，複查一百二十戶，張有傳醫師隨車義診。', en: 'One tour bus went round Taiwan to revisit 120 households, with Dr Zhang Youchuan offering free care along the way.' }, tags: ['care', 'system'], src: ['fm_tour'] },
     { d: { zh: '1978.09', en: 'Sept 1978' }, place: { zh: '新莊樂生療養院', en: 'Losheng Sanatorium, Xinzhuang' }, t: { zh: '走進樂生', en: 'Into Losheng' }, b: { zh: '上人首次探訪，隨後為院友整修房屋，設置癱瘓病房。', en: 'After the Master’s first visit, residents’ houses were repaired and a ward for paralysed patients was set up.' }, tags: ['care'], src: ['fm_losheng'] }
   ],
 
   grew: {
-    zh: '六十年後，慈濟自己的捐款資料顯示：一千元以下的小額捐款，佔總人次 93%。<br>撐起這一切的，到今天還是很多人的一點點。',
-    en: 'Sixty years on, Tzu Chi’s own donor data shows that gifts under NT$1,000 make up 93% of all donations by count.<br>What holds it all up, to this day, is a little from a great many people.',
+    zh: '六十年後，慈濟自己的捐款資料顯示：一千元以下的小額捐款，佔總人次 93%。<br>匯聚這分力量的，至今仍是無數人一點一滴的愛心。',
+    en: 'Sixty years on, Tzu Chi’s own donor data shows that gifts under NT$1,000 make up 93% of all donations by count.<br>What gathers this strength, to this day, is the love of countless people, a little at a time.',
     src: ['impact']
   },
 
@@ -105,8 +105,8 @@ window.CHARITY = {
       { zh: '2015 年緬甸水患，農民烏善丁領到慈濟的稻種，也聽到「日存一把米」。他當場請購五十個塑膠桶，志工先給十個，其餘他自掏腰包補齊，挨家挨戶送去。', en: 'After the 2015 floods in Myanmar, farmer U Shan Ding received rice seed from Tzu Chi and heard about saving a handful of rice a day. On the spot he asked to buy fifty plastic buckets. Volunteers had ten to give; he paid for the rest himself and took them door to door.' },
       { zh: '他的妻子多丹丹乃，每天煮飯前抓一把米放進桶裡。', en: 'His wife puts a handful of rice in the bucket every day before she cooks.' },
       { q: '心裡祝福我的這一把米，能幫助更多有需要的人。', qen: 'In my heart I bless this handful of rice, that it may help more people in need.', who: { zh: '多丹丹乃', en: 'U Shan Ding’s wife' }, src: 'otd160327' },
-      { zh: '2016 年 3 月 27 日，瑞那滾村九十戶把米捐回來，兩大袋，96.4 公斤。被幫的人，開始幫人了。', en: 'On 27 March 2016 ninety households in Shwe Na Gwin village brought their rice back: two large sacks, 96.4 kilograms. The people who had been helped had begun to help.' },
-      { zh: '隔著半個世紀，她做的和花蓮那三十位主婦是同一件事。今天，緬甸農村的米撲滿已捐出超過 26 萬公斤大米。', en: 'Half a century apart, she does what those thirty housewives in Hualien did. Today Myanmar’s village rice banks have given more than 260,000 kilograms of rice.', srcs: ['impact'] }
+      { zh: '2016 年 3 月 27 日，瑞那滾村九十戶把米捐回來，兩大袋，96.4 公斤。受過幫助的人，也開始幫助別人了。', en: 'On 27 March 2016 ninety households in Shwe Na Gwin village brought their rice back: two large sacks, 96.4 kilograms. The people who had been helped had begun to help.' },
+      { zh: '隔著半個世紀，她和花蓮那三十位主婦，是同一分心。今天，緬甸農村的米撲滿已捐出超過 26 萬公斤大米。從日存一把米做起，人人都能付出。', en: 'Half a century apart, she shares one heart with those thirty housewives in Hualien. Today Myanmar’s village rice banks have given more than 260,000 kilograms of rice. Starting from a handful of rice a day, everyone can give.', srcs: ['impact'] }
     ],
     src: ['otd160327', 'impact']
   },
@@ -146,7 +146,7 @@ window.CHARITY = {
 
   end: {
     head: { zh: '今天，你也可以投下一枚', en: 'Today, you can drop one in too' },
-    body: { zh: '不用很多。每天一點點，每天想到別人一次。', en: 'It need not be much. A little each day, and one thought of someone else.' }
+    body: { zh: '不用很多。每天一點一滴，每天想到別人一次。', en: 'It need not be much. A little each day, and one thought of someone else.' }
   }
 };
 

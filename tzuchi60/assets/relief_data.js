@@ -68,7 +68,7 @@
   CH.hero = {
     film: T('那麼遠的人，我們也要管嗎？', 'People so far away: are they ours to care for?'),
     stop: T('第五站', 'Fifth stop'), title: T('國際賑災', 'International Relief'),
-    sub: T('一開始，善款是轉交出去的。<br>後來親手交到災民手上，再由當地人接著照顧當地人。', 'At first the donations were passed on through others.<br>Later they went hand to hand, and then local people took up the care of their own.'),
+    sub: T('一開始，善款是轉交出去的。<br>後來親手交到受災鄉親手上，再由當地人接著照顧當地人。', 'At first the donations were passed on through others.<br>Later they went hand to hand, and then local people took up the care of their own.'),
     watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('莫三比克的路　局部　取自《慈濟歷史上的今天》', 'A road in Mozambique, detail, from Tzu Chi, On This Day')
   };
@@ -134,7 +134,7 @@
           k: 'story', lay: 'L', date: '1991.10', h: T('天氣已經涼了', 'The weather had already turned cold'),
           p: [
             T('十月，全椒第一次發放，送上救助金和禦寒衣物。衛生衣是臨時買的，顏色不一，沒有標幟，志工要自己燙上去。', 'In October came the first distribution in Quanjiao: relief money and warm clothing. The thermal undershirts were bought at short notice in mixed colours and carried no emblem, so volunteers ironed it on themselves.'),
-            T('發放時，有官員一直催老人家快一點。林勝勝師姊把年長的災民當成自己的母親，在一旁勸著。', 'During the distribution, officials kept urging the elderly to hurry. Volunteer Lin Shengsheng, who saw the elderly survivors as her own mother, spoke up beside them.')
+            T('發放時，有官員一直催老人家快一點。林勝勝師姊把年長的受災鄉親當成自己的母親，在一旁勸著。', 'During the distribution, officials kept urging the elderly to hurry. Volunteer Lin Shengsheng, who saw the elderly survivors as her own mother, spoke up beside them.')
           ],
           q: { zh: '那時候天氣已經涼了，那，上人說臨時買個衛生衣。……把標幟，燙在我們的衛生衣上面。', en: 'The weather had already turned cold, so the Master said to buy thermal undershirts at short notice. … We ironed the emblem onto the undershirts.', who: T('許玉摘', 'Xu Yuzhai') },
           q2: { zh: '我在旁邊我就說不急、不急、慢慢來、慢慢來。結果我這樣講了幾次之後，他們的領導也跟著我說，不急、不急、慢慢來。', en: 'Standing beside them I said, no hurry, no hurry, take your time, take your time. After I had said it a few times, their leader began saying it with me: no hurry, no hurry, take your time.', who: T('林勝勝', 'Lin Shengsheng') },
@@ -144,7 +144,7 @@
         {
           k: 'story', date: '1992.01.04', h: T('這個房子是您的', 'This house is yours'),
           p: [
-            T('財產、房子、農田全被洪水沖光，災民成了無家可歸的「三光戶」。一九九二年一月四日，全椒慈濟村舉行啟用移交，王端正把證件交到村民手上。', 'Belongings, houses and fields had all been swept away, and survivors became homeless households left with nothing. On 4 January 1992, at the handover of the Tzu Chi village in Quanjiao, Wang Duanzheng placed the papers in villagers’ hands.'),
+            T('財產、房子、農田全被洪水沖光，受災鄉親成了無家可歸的「三光戶」。一九九二年一月四日，全椒慈濟村舉行啟用移交，王端正把證件交到村民手上。', 'Belongings, houses and fields had all been swept away, and survivors became homeless households left with nothing. On 4 January 1992, at the handover of the Tzu Chi village in Quanjiao, Wang Duanzheng placed the papers in villagers’ hands.'),
             T('同年六月六日，二十九個慈濟村 1513 戶領到「土地使用證」及「房屋所有權證」。蓋好房子只是一半，住的人要站得穩，那張紙也要交到手上。', 'On 6 June that year, 1,513 households in 29 Tzu Chi villages received land-use certificates and house ownership certificates. Building was only half the work. For people to stand firm, that sheet of paper had to reach their hands as well.')
           ],
           q: { zh: '這是房屋所有權證，房屋是您的。這裡，土地使用證，你要保管好，不能夠轉讓，不要賣掉。', en: 'This is the house ownership certificate. The house is yours. And here is the land-use certificate. Keep it safe. It cannot be transferred. Do not sell it.', who: T('王端正', 'Wang Duanzheng') },
@@ -255,7 +255,7 @@
           items: [
             { n: T('福慧床', 'Fu Hui bed'), i: 'r_bed', b: T('這裡說的是二〇一四年這一代：僅 15 公斤，展開長 202.1、寬 75、高 28 公分，收合約 13.3×75×61.3 公分，承重 150 公斤以上，不需螺絲扳手。二〇一四年二月在菲律賓海燕災區發放，是問世後首次用於國際賑災。', 'This is the 2014 model: only 15 kg; 202.1 × 75 × 28 cm open, about 13.3 × 75 × 61.3 cm folded; holds over 150 kg; no screws or spanners. Distributed in the Typhoon Haiyan area in February 2014, its first use in international relief.'), s: ['fm338'] },
             { n: T('香積飯', 'Jing Si instant rice'), art: 'bag', b: T('把白米變成沖泡式乾燥飯，不是自熱包。只要有乾淨水即能沖泡，用冷開水也可以。', 'White rice made into a dried rice that is soaked, not a self-heating meal. Clean water is all it needs, and even cold water works.'), s: ['c15b', 'c20', 'rice'] },
-            { n: T('環保毛毯', 'Eco blanket'), art: 'blanket', b: T('二〇〇六年九月三十日，人援會呈上回收綠色保特瓶製成的長纖毛毯；二〇〇七年四月首次用於國際賑災，送到菲律賓的火災災民手上。', 'On 30 September 2006, a long-fibre blanket made from recycled green plastic bottles was presented to the Master. In April 2007 it was first used in international relief, for fire survivors in the Philippines.'), s: ['fm304'] },
+            { n: T('環保毛毯', 'Eco blanket'), art: 'blanket', b: T('二〇〇六年九月三十日，人援會呈上回收綠色保特瓶製成的長纖毛毯；二〇〇七年四月首次用於國際賑災，送到菲律賓的火災受災鄉親手上。', 'On 30 September 2006, a long-fibre blanket made from recycled green plastic bottles was presented to the Master. In April 2007 it was first used in international relief, for fire survivors in the Philippines.'), s: ['fm304'] },
             { n: T('簡易組合屋', 'Simple prefab house'), art: 'house', b: T('二〇一〇年送到海地的版本：一座約四十公斤，搭配墊高板，一至一個半小時搭好。圖為示意。', 'The version sent to Haiti in 2010: about 40 kg each, used with a raised floor panel, and up in one to one and a half hours. The drawing is an illustration.'), s: ['fm338'] },
             { n: T('現值卡', 'Cash-value card'), art: 'card', b: T('法脈記二〇〇五年美國卡崔娜颶風時，慈濟首次發放現值卡。圖為示意。', 'The Dharma Lineage Archive records that Tzu Chi first gave out cash-value cards after Hurricane Katrina in 2005. The drawing is an illustration.'), s: ['fm293'] }
           ]
@@ -264,7 +264,7 @@
       ]
     },
     {
-      id: 'r5a', era: 'e20', y: '2008–2025', nav: T('換他們站起來', 'Their turn to stand'), ask: T('志工走了以後呢？', 'And after the volunteers leave?'),
+      id: 'r5a', era: 'e20', y: '2008–2025', nav: T('鄉親接力付出', 'Local people carry it on'), ask: T('志工走了以後呢？', 'And after the volunteers leave?'),
       b: [
         {
           k: 'story', lay: 'R', date: '2009.10', h: T('這裡是我們自己居住的地方', 'This is where we ourselves live'),
@@ -326,7 +326,7 @@
           p: [
             T('二〇〇四年海嘯那天，馬來西亞的慈濟人兵分三路。一大早緊急召開救援小組，攤開地圖研究路徑；當天就供應熱食，並發放應急金予罹難者家屬。', 'On the day of the 2004 tsunami, Tzu Chi members in Malaysia split into three groups. They met urgently at dawn and spread out a map to study the roads. That same day they brought hot food and gave emergency money to bereaved families.'),
             T('二〇二一年初水患正逢動管令，志工改為逐戶發放和小場次發放，截至 2 月 19 日，各項協助共 3,122 戶次受惠。', 'The floods of early 2021 came under movement controls, so volunteers went from door to door and held small sessions. By 19 February, assistance of all kinds had reached 3,122 household visits.'),
-            T('同年年底雪隆大水是另一場災難。志工向居民借了三艘小船，又用七噸大型軍用卡車把熱食送進去；一位榴漣攤主允准攤位做大清掃的臨時行動中心；一位外送員號召同行，把熱食送到偏遠災民手中。之後依名冊登門訪查，把資料輸入 Zoho 系統，其中還有兩百多筆名單差異，包括重複造冊、查無此人。', 'The great Selangor flood at the end of that year was a separate disaster. Volunteers borrowed three small boats from residents and rode a seven-tonne army truck to bring in hot meals. A durian stall owner lent his stall as a temporary centre for the big clean-up. A delivery rider rallied fellow riders to carry meals to remote survivors. Then volunteers visited homes from the lists and entered the data in Zoho; more than two hundred entries still differed, including duplicates and people who could not be found.')
+            T('同年年底雪隆大水是另一場災難。志工向居民借了三艘小船，又用七噸大型軍用卡車把熱食送進去；一位榴漣攤主允准攤位做大清掃的臨時行動中心；一位外送員號召同行，把熱食送到偏遠地區的受災鄉親手中。之後依名冊登門訪查，把資料輸入 Zoho 系統，其中還有兩百多筆名單差異，包括重複造冊、查無此人。', 'The great Selangor flood at the end of that year was a separate disaster. Volunteers borrowed three small boats from residents and rode a seven-tonne army truck to bring in hot meals. A durian stall owner lent his stall as a temporary centre for the big clean-up. A delivery rider rallied fellow riders to carry meals to remote survivors. Then volunteers visited homes from the lists and entered the data in Zoho; more than two hundred entries still differed, including duplicates and people who could not be found.')
           ],
           ph: [{ i: 'r_mud', c: T('二〇二一年底水患退去，泡過水的傢俱堆在路邊（局部）。攝影：林振勝。取自《馬來西亞慈濟史 雪隆分會》（1）。', 'After the floods of late 2021, soaked furniture piled by the road, detail. Photo: Lin Zhensheng. From History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1.') }],
           s: ['fm282', 'fm476', 'x280', 'x286', 'x292']
@@ -370,7 +370,7 @@
     { id: 'r2', y: '1991–1993', h: T('親手交到手上', 'Hand to hand'), ch: ['r2a'], cover: '19910715-1_03', tun: 'r_2' },
     { id: 'r3', y: '2002–2022', h: T('一站一站走出去', 'One stop at a time'), ch: ['r3a'], cover: 'r_kali', tun: 'r_3' },
     { id: 'r4', y: T('現場', 'On site'), h: T('到了現場，每天做什麼', 'On site, day by day'), ch: ['r4a'], cover: 'relief_blanket', tun: 'r_4' },
-    { id: 'r5', y: '2008–2025', h: T('換他們站起來', 'Their turn to stand'), ch: ['r5a'], cover: '20080504-1_24', tun: 'r_5' },
+    { id: 'r5', y: '2008–2025', h: T('鄉親接力付出', 'Local people carry it on'), ch: ['r5a'], cover: '20080504-1_24', tun: 'r_5' },
     { id: 'r6', y: T('馬來西亞', 'Malaysia'), h: T('在馬來西亞', 'In Malaysia'), ch: ['r6a'], cover: 'r_ham', tun: 'r_6' }
   ];
 

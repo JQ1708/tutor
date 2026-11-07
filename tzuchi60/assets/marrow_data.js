@@ -41,7 +41,7 @@
   CH.hero = {
     film: T('不認識的人，也能救嗎？', 'Can you save someone you have never met?'),
     stop: T('第六站', 'Sixth stop'), title: T('骨髓捐贈', 'Bone Marrow Donation'),
-    sub: T('一位病人回國請命，推開一扇只開給親人的門。<br>從此，一個個陌生人留下資料等著，等到那一天被找到。', 'A patient came home to plead for others, and pushed open a door that was open only to family.<br>Since then, one stranger after another has left their details and waited for the day they are found.'),
+    sub: T('一位病人回國請命，醫界與慈濟人共同投入，推動非親屬骨髓捐贈。<br>此後，許多人留下資料，等待配對助人的因緣。', 'A patient came home to plead for others, and doctors and Tzu Chi people worked together to open marrow donation between strangers.<br>Since then, many have left their details and await the chance of a match.'),
     watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('手臂的局部，取自《慈濟歷史上的今天》，拍攝日未載', 'Detail of an arm. From Tzu Chi, On This Day; date of photograph not given')
   };
@@ -79,7 +79,7 @@
       { k: 'quote', big: 1, zh: '『救命』不能拖延，雖然這是一項高難度的工作，但慈濟責無旁貸，此事不做則已，要做就要做成功。', en: 'Saving lives cannot wait. This is very difficult work, but Tzu Chi cannot turn away from it. Either we do not do it at all, or we do it and see it through.', who: SR('一九九三年', '1993'), s: ['f161'] },
       { k: 'story', lay: 'T', date: '1993.05.18', h: T('門開了', 'The door opened'),
         p: [T('一九九三年五月十八日，李政道博士在榮總人員陪同下來到靜思精舍，和上人廣泛交換成立國內第一座骨髓庫的事宜。同一天，立法院宣布通過器官移植修正案。', 'On 18 May 1993, Dr. Lee Cheng-tao came to the Jing Si Abode with staff of Veterans General Hospital and talked at length with the Master about setting up the country’s first marrow registry. That same day, the Legislative Yuan announced the passing of the organ transplant amendment.'),
-          T('一九九四年，溫文玲往生。這扇門，是她回到臺灣，一步一步推開的。', 'In 1994, Wen Wen-ling passed away. She had come home and pushed this door open, step by step.')],
+          T('一九九四年，溫文玲往生。這扇門的開啟，凝聚了溫文玲、醫界與慈濟人的共同努力。', 'In 1994, Wen Wen-ling passed away. Opening this door took the joint effort of Wen Wen-ling, the medical community and Tzu Chi people.')],
         q: { zh: '生命是無價的，所以還是決定要做。', en: 'Life is beyond price, and so we still decided to do it.', who: SR('一九九七年十二月九日', '9 December 1997') },
         note: T('李政道的名字，一九九三年的原文寫作「李正道」。', 'In the original 1993 text, the Chinese characters for Dr. Lee’s name are written slightly differently.'),
         s: ['f161', 'f160'] }
@@ -186,13 +186,13 @@
     ] },
     { id: 'w4b', era: 'heart', y: '1993–2026', nav: T('怕針的人', 'Afraid of needles'), b: [
       { k: 'story', lay: 'R', date: '1993–2026', h: T('不是龍骨水', 'Not spinal fluid'),
-        p: [T('當年許多人誤以為，捐髓是從脊椎抽取「龍骨水」。其實骨髓遍布全身的骨骼，尤其是扁平骨，是人體的造血組織。一九九三年時，抽取骨髓是從臀部兩側骨盆的腸骨。', 'Many people at the time wrongly believed that marrow was drawn from the spine as “dragon bone water”. In fact marrow lies throughout the bones of the body, especially the flat bones, and it is where blood is made. In 1993, marrow was drawn from the iliac bones on either side of the pelvis.'),
+        p: [T('當年許多人誤以為，捐髓是從脊椎抽取「龍骨水」。骨髓遍布全身的骨骼，尤其是扁平骨，是人體的造血組織。一九九三年時，抽取骨髓是從臀部兩側骨盆的腸骨。', 'Many people at the time wrongly believed that marrow was drawn from the spine as “dragon bone water”. In fact marrow lies throughout the bones of the body, especially the flat bones, and it is where blood is made. In 1993, marrow was drawn from the iliac bones on either side of the pelvis.'),
           T('後來又有周邊血的方式。如今非親屬造血幹細胞捐贈中，有超過九成採用周邊血。', 'Later came collection from peripheral blood. Today, more than nine in ten unrelated stem cell donations use peripheral blood.')],
         note: T('這是歷史說明，不是就醫指引。', 'This is an account of history, not medical guidance.'),
         ph: [{ i: 'w_iv', c: otdC('手臂接著管線的局部。', 'Detail of an arm connected to tubing.') }, { i: 'w_machine', c: otdC('醫院裡的採集機器。', 'Collection machines in a hospital.') }],
         s: ['f161', 'o930120', 'o931020'] },
       { k: 'story', lay: 'T', date: '', h: T('怕打針、怕見血的人', 'Afraid of needles and blood'),
-        p: [T('傅昭榮接受骨髓移植八個月後，再度復發。醫師建議，試著找原來的捐髓者再幫忙一次。他不知道對方願不願意，沒想到慈濟志工傳回消息：捐髓者願意再捐。', 'Eight months after his marrow transplant, Fu Chao-jung relapsed. His doctor suggested trying to ask the original donor to help once more. He did not know whether the donor would agree. Then Tzu Chi volunteers brought word back: the donor was willing to give again.'),
+        p: [T('傅昭榮接受骨髓移植八個月後，再度復發。醫師建議，試著找原來的捐髓者再幫忙一次。慈濟志工傳回消息：捐髓者願意再捐。', 'Eight months after his marrow transplant, Fu Chao-jung relapsed. His doctor suggested trying to ask the original donor to help once more. Tzu Chi volunteers brought word back: the donor was willing to give again.'),
           T('那位捐髓者是張林楷，當時二十一歲，怕打針、怕見血，一年內做了兩次幹細胞捐贈。第一次全身麻醉，從臀部上方的腸骨處抽取；第二次採周邊血。', 'The donor was Chang Lin-kai, then twenty-one, who was afraid of needles and of blood. Within a year he donated stem cells twice. The first time, under general anaesthetic, cells were drawn from the iliac bone above the hip. The second time, they came from peripheral blood.')],
         q: { zh: '手臂上的長針插入那一剎那，幸虧大林慈濟醫院的護理長善巧引導，讓我安心', en: 'At the moment the long needle went into my arm, thankfully the head nurse at Dalin Tzu Chi Hospital guided me skilfully and put me at ease.', who: T('張林楷', 'Chang Lin-kai') },
         more: [T('他也說，接下來看著血液在眼前輸送，還是很驚恐。後來兩人相見，傅昭榮說，他「賺到第二次的人生」。', 'He also said that watching the blood flow past his eyes afterwards was still frightening. When the two later met, Fu said he had “gained a second life”.')],
@@ -264,7 +264,7 @@
       { k: 'story', lay: 'T', date: '2026.07.31', h: T('有人願意', 'Someone was willing'),
         p: [T('截至二〇二六年七月三十一日，累計建檔志願捐贈人數達 498,066 筆，完成捐贈案例達 7,281 例，跨越 31 個國家地區。', 'As of 31 July 2026, the registry held 498,066 volunteer donor records, with 7,281 completed donations reaching 31 countries and regions.'),
           T('這是完成的捐贈，不是獲救的人數。配對不等於完成捐贈，捐贈也不保證救活。', 'These are completed donations, not lives saved. A match is not a donation, and a donation is no guarantee of a life saved.'),
-          T('不認識的人，也能救嗎？能說的是這一件事：在這條路的兩端，都有人願意。', 'Can you save someone you have never met? What can be said is this: at both ends of this road, there were people who were willing.')],
+          T('這條路的兩端，都有人願意為不認識的人付出。', 'At both ends of this road, there were people willing to give for someone they had never met.')],
         s: ['o931020'] },
       { k: 'quote', big: 1, zh: '讓大家知道「救人一命，無損己身」，有捐贈的人，才有得救的人。', en: 'Let everyone know: save a life, with no harm to yourself. Only when there are people who give can there be people who are saved.', who: SR('一九九七年十二月九日', '9 December 1997'), s: ['f160'] }
     ] },

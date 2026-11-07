@@ -165,7 +165,7 @@
       { k: 'story', lay: 'R', date: '1986.08.17', h: T('病房裡的人', 'The people in the wards'),
         ph: [{ i: 'ai_h12', c: T('情境重建：握著病人的手。AI 畫面，非當年攝影。', 'Reconstruction: holding a patient’s hand. AI image, not a historical photograph.') }],
         p: [
-          T('啟業這一天，志工顏惠美、杜張瑤珍及陳卿子攜手組隊，走入病房膚慰病人（親手撫觸、陪伴安慰），這是「志工服務隊」最早期的雛型。', 'On opening day the volunteers Yen Hui-Mei, Tu Chang Yao-Chen and Chen Ching-Tzu formed a team and walked into the wards to comfort patients. This was the earliest form of the volunteer service team.'),
+          T('啟業這一天，志工顏惠美、杜張瑤珍及陳卿子攜手組隊，走入病房膚慰病人（親手撫觸、關懷陪伴），這是「志工服務隊」最早期的雛型。', 'On opening day the volunteers Yen Hui-Mei, Tu Chang Yao-Chen and Chen Ching-Tzu formed a team and walked into the wards to comfort patients. This was the earliest form of the volunteer service team.'),
           T('十二月七日，「慈濟服務隊」首期招募一百五十餘位志工，並於十五日正式服務。志工把阿公阿媽當作親人；護理長陳惠蘭說，志工就像病人與醫護之間的潤滑劑。', 'On 7 December the Tzu Chi Service Team held its first training for over 150 recruits, and service began on the 15th. Volunteers treated the elderly patients as family. Head nurse Chen Hui-Lan described them as the lubricant between patients and staff.')
         ],
         more: [T('志工自稱是「活動的服務台」，證嚴上人則讚譽志工為「慈濟醫院軟體中的軟體」。', 'The volunteers called themselves “a walking service desk.” The Master praised them as “the software within the software of Tzu Chi Hospital.”')],
@@ -254,8 +254,8 @@
         p: [
           T('一九九六年八月九日，花蓮慈院的心蓮病房啟用。',
             'On 9 August 1996 the Heart Lotus Ward opened at Hualien Tzu Chi Hospital.'),
-          T('二〇二二年，曾經是廚師的阿龍師，在這裡突然想吃蒸蛋。志工馬上去做。他吃了三口，說：「失敗。」他說：「其實我很會做這個，我朋友都說我做得很好吃。」醫護就透過視訊，讓阿龍師指導志工去買菜，煮一碗番茄麵。原本只能接受照顧的人，又成了傳授手藝的人。',
-            'In 2022 A-Long, once a chef, suddenly wanted steamed egg here. A volunteer made it at once. He took three bites and said, “Failed.” Then he said, “I’m actually very good at this. My friends all say mine is delicious.” So over video, the care team let him guide volunteers through the shopping and the cooking of a bowl of tomato noodles. The man who could only be looked after had become a teacher of his craft again.')
+          T('二〇二二年，曾經是廚師的阿龍師，在這裡突然想吃蒸蛋。志工馬上去做。他吃了三口，說：「失敗。」他說：「其實我很會做這個，我朋友都說我做得很好吃。」醫護就透過視訊，讓阿龍師指導志工去買菜，煮一碗番茄麵。阿龍師也再次成為傳授手藝的人。',
+            'In 2022 A-Long, once a chef, suddenly wanted steamed egg here. A volunteer made it at once. He took three bites and said, “Failed.” Then he said, “I’m actually very good at this. My friends all say mine is delicious.” So over video, the care team let him guide volunteers through the shopping and the cooking of a bowl of tomato noodles. A-Long was once again a teacher of his craft.')
         ],
         q: { zh: '雖然在身體上充滿了病苦，可是需要一顆解脫的心境，所以就把它叫做心蓮病房。', en: 'Though the body is full of pain, it needs a heart at ease. So we named it the Heart Lotus Ward.', who: SHANGREN },
         s: ['o960809'] },

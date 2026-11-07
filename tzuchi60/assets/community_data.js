@@ -263,7 +263,7 @@
         s: ['x123', 'x2662'] },
       { k: 'story', lay: 'T', date: '2025.07.15', h: T('把床換好', 'New beds'),
         p: [T('二〇二五年七月十五日，二百五十位志工來到雪蘭莪新古毛的 Taman Sinar Harapan 關懷機構，把四十張不鏽鋼病床組裝後送入院舍，另帶來三十二張防水床墊、四十九個防水枕頭。慈濟自一九九六年起持續關懷這裡。志工平日到場，看見舊床鏽蝕、部分院友沒有床褥，便依院友的需要籌備替換。', 'On 15 July 2025, 250 volunteers came to the Taman Sinar Harapan care home in Kuala Kubu Bharu, Selangor. They assembled 40 stainless steel beds and brought them in, with 32 waterproof mattresses and 49 waterproof pillows. Tzu Chi has cared for this home since 1996. On their regular visits, volunteers had seen rusted beds and residents without mattresses, and prepared the replacements around what residents needed.'),
-          T('六段路走下來，能說的是這一件事：從遠處趕來的人，慢慢成了住在這裡的人。平日彼此認得，有事才叫得動。', 'After six stretches, this much can be said: those who once rushed in from afar slowly became people who live here. Knowing one another in ordinary times is what lets people answer when something happens.')],
+          T('六段路走下來，慈濟人把關懷帶回自己住的社區。從平日認識鄰里做起，人人都能付出一分關懷。', 'After six stretches, Tzu Chi volunteers have carried care back to the communities where they live. Starting by knowing one’s neighbours, everyone can offer care.')],
         s: ['nBeds'] }
     ] },
 

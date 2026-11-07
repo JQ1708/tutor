@@ -68,7 +68,7 @@
     /* 1 鋼板上的第一筆 */
     { id: 'u1a', era: 'e60', y: '1967', nav: T('鋼板上的第一筆', 'The first lines on a steel plate'), ask: T('媽媽，這些你怎麼都知道？', 'Mama, how do you know all this?'), b: [
       { k: 'plate', bare: 1,
-        lead: T('徵信，就是把善款和救濟的去向交代清楚，讓出錢的人看得見。', 'Zhengxin means accounting openly for where donations and relief go, so that those who give can see it.'),
+        lead: T('徵信，就是把善款和救濟的去向交代清楚，讓捐款人看得見。', 'Zhengxin means accounting openly for where donations and relief go, so that those who give can see it.'),
         q: { zh: '還沒有月刊之前，每個月我們都用手在鋼板謄寫徵信，就讓出錢的人能了解他的錢交出來，而且我們救濟到什麼樣的人。', en: 'Before there was a monthly, every month we copied out the accounts by hand on a steel plate, so that those who gave could understand where their money went and what kind of people we were helping.', who: T('證嚴上人', 'Dharma Master Cheng Yen') },
         note: T('鋼板和版面都是示意，不是當年原物，線條也不是真實名單。手寫徵信開始的日期，查到的資料沒有寫明。', 'The steel plate and page layouts are illustrations, not the originals, and the lines are not real lists. The sources found do not state when the handwritten accounts began.'),
         s: ['o670720'] },
