@@ -6,6 +6,11 @@
   var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會》（2）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 2, p. ' + p }; };
 
   var S = {
+    o230409: otd('20230409'),
+    nEarth: { zh: '慈濟全球網〈The Earth: Our Shared Responsibility〉', en: 'Tzu Chi Global: The Earth, Our Shared Responsibility', url: 'https://global.tzuchi.org/the-earth-our-shared-responsibility' },
+    nPlog: { zh: '慈濟全球網〈Malaysia’s Plogging Event Mobilizes Thousands for Clean-Up〉', en: 'Tzu Chi Global: Malaysia’s Plogging Event Mobilizes Thousands for Clean-Up', url: 'https://global.tzuchi.org/malaysias-plogging-event-mobilizes-thousands-for-clean-up' },
+    nScroll: { zh: '慈濟全球網〈Urban resilience efforts honored in Malaysia〉', en: 'Tzu Chi Global: Urban resilience efforts honored in Malaysia', url: 'https://global.tzuchi.org/urban-resilience-efforts-honored-in-malaysia-2' },
+    nBubur: { zh: '慈濟全球網〈Bubur Cha Cha inspires recycling lessons in Malaysia〉', en: 'Tzu Chi Global: Bubur Cha Cha inspires recycling lessons in Malaysia', url: 'https://global.tzuchi.org/bubur-cha-cha-inspires-recycling-lessons-in-malaysia' },
     fm35: fm('00035', '一眼觀時千眼觀，一手動時千手動'),
     fm127: fm('00127', '用鼓掌的雙手做環保'),
     fm174: fm('00174', '慈濟全面推動環保餐具'),
@@ -247,7 +252,7 @@
           s: ['xa'] },
         { k: 'story', lay: 'R', date: '1997–2000', h: T('東馬：沒有回收商的時候', 'East Malaysia: when there was no dealer'),
           ph: [{ i: 'v_kch', c: T('古晉承恩花園環保站招牌局部。照片：雪隆分會提供。', 'Part of the sign at the Cheng’en Garden station in Kuching. Photo: Selangor and Kuala Lumpur Branch.') }],
-          p: [T('一九九八年，雪隆分會轄下東馬地區的第一個環保站在古晉成立。民眾黃永福把輝盛區承恩花園一間獨立式住宅借給慈濟。', 'In 1998 the first recycling station in East Malaysia under the Selangor and Kuala Lumpur Branch opened in Kuching, when Huang Yong-fu lent Tzu Chi a detached house.'),
+          p: [T('一九九八年，雪隆分會轄下東馬地區的第一個環保站在古晉成立。民眾黃永福把輝盛區承恩花園一間獨立式住宅借給慈濟。', 'In 1998 the first recycling centre in East Malaysia under the Selangor and Kuala Lumpur Branch opened in Kuching, when Huang Yong-fu lent Tzu Chi a detached house.'),
             T('沙巴的路更難走。亞庇慈濟人一九九七年開始，卻苦無回收商，最後找到距離亞庇兩百公里的金馬尼士回收廠。一九九八年一月正式展開，五月機器故障，暫停回收紙類；八月回收廠因資金問題關閉，所有回收活動暫停。', 'Sabah was harder. Tzu Chi people in Kota Kinabalu began in 1997 but could find no dealer, until they reached a plant two hundred kilometres away. Work began properly in January 1998. In May the machines broke down and paper stopped; in August the plant closed for lack of funds and all collection stopped.'),
             T('一九九九年四月，距離亞庇六公里外的必打丹回收廠願意配合。二〇〇〇年三月，回收廠再次面臨關閉。亞庇志工黃靖發為了讓環保持續，發心收購，命名為「綠淨環保有限公司」。', 'In April 1999 another plant, six kilometres from Kota Kinabalu, agreed to work with them. In March 2000 it too faced closure. To keep the work going, the Kota Kinabalu volunteer Huang Jing-fa bought it and gave it a new company name.')],
           s: ['xb', 'xc'] },
@@ -282,15 +287,19 @@
           s: ['xh'] },
         { k: 'story', lay: 'R', date: '2019', h: T('開車進來的環保站', 'The drive-through station'),
           ph: [{ i: 'v_board', c: T('車尾廂裡整理好的紙板局部。照片：顏偉明。', 'Detail of sorted cardboard in a car boot. Photo: Yan Wei-ming.') }],
-          p: [T('二〇一九年，雪隆的哥打哥文寧環保教育站啟用，也叫「得來速」環保站。居民把車開進站內，把整理好的回收物分別放入分類鐵箱，即可離去，不影響交通，成為全馬首座自助式環保站。站裡有教育區、閱讀區和占地最廣的分類區。', 'In 2019 the Kota Kemuning environmental education station opened, known as the drive-through station. Residents drive in, put their sorted recyclables into steel bins and leave without holding up traffic. It became the first self-service station in Malaysia. It has an education area, a reading area and, largest of all, a sorting area.'),
+          p: [T('二〇一九年，雪隆的哥打哥文寧環保教育站啟用，也叫「得來速」環保站。居民把車開進站內，把整理好的回收物分別放入分類鐵箱，即可離去，不影響交通，成為全馬首座自助式環保站。站裡有教育區、閱讀區和占地最廣的分類區。', 'In 2019 the Kota Kemuning environmental education station opened, known as the drive-through station. Residents drive in, put their sorted recyclables into steel bins and leave without holding up traffic. It became the first self-service station in Malaysia. It has an education area, a reading area and, largest of all, a sorting area.')],
+          s: ['xg'] },
+        { k: 'story', lay: 'T', date: '2025.06.29', h: T('彎下腰的雙手', 'Hands that bend down'),
+          p: [T('二〇二五年六月二十九日，雪隆慈濟舉辦環保三十年撿跑，全馬五十二個地點同步參與，逾八千四百人一邊行走、一邊拾起路旁廢棄物。兩小時清出垃圾 3,937 公斤，另回收資源 3,646 公斤。', 'On 29 June 2025, Tzu Chi KL & Selangor marked thirty years of recycling with a plogging event. More than 8,400 people at 52 sites across Malaysia walked and picked up litter along the way. In two hours they collected 3,937 kg of rubbish and recycled a further 3,646 kg.'),
+            T('家庭、學生、企業與地方代表一起走。在環保站分類的雙手，這一天走上了社區的街道。', 'Families, students, companies and local representatives walked together. The hands that sort at the centres went out that day onto community streets.'),
             T('從一塊告示板到全馬各地的環保站，靠的都是一雙雙願意動手的手。下一雙手，可以是你的。', 'From one notice board to stations across Malaysia, it has all rested on hands willing to work. The next pair could be yours.')],
-          s: ['xg'] }
+          s: ['nPlog'] }
       ] },
 
     /* ───── 數字 ───── */
     { id: 'vnum', era: 'num', y: '數字', yen: 'Numbers', h: T('數字裡的環保', 'Environmental protection in numbers'), nav: T('數字', 'Numbers'), b: [{ k: 'ledger' }] },
-    /* ───── 全記錄 ───── */
-    { id: 'vall', era: 'all', y: '全記錄', yen: 'Archive', h: T('全記錄', 'The full record'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('全記錄與影片', 'Archive and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
+    /* ───── 沿革 ───── */
+    { id: 'vall', era: 'all', y: '沿革', yen: 'Timeline', h: T('沿革與影音', 'Timeline and films'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('沿革與影音', 'Timeline and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
   ];
 
   CH.blocks = [
@@ -332,12 +341,12 @@
       { n: '473,485', u: T('人次', 'visits'), l: T('互動人數。人次，同一人多次參加都算', 'interactions. One person taking part more than once counts each time'), w: T('2020–2025 年', '2020–2025'), s: 'i60' }
     ] },
     { h: T('全馬', 'Malaysia'), rows: [
-      { n: '154', u: T('個', ''), l: T('環保站', 'recycling stations'), w: T('2024.12.31', '31 Dec 2024'), s: 'al24', big: 1 },
+      { n: '154', u: T('個', ''), l: T('環保站', 'recycling centres'), w: T('2024.12.31', '31 Dec 2024'), s: 'al24', big: 1 },
       { n: '776', u: T('個', ''), l: T('社區環保點', 'community recycling points'), w: T('2024.12.31', '31 Dec 2024'), s: 'al24' },
       { n: '12,720', u: T('位', ''), l: T('環保志工', 'recycling volunteers'), w: T('2024.12.31', '31 Dec 2024'), s: 'al24' }
     ] },
     { h: T('雪隆分會轄下', 'Selangor and Kuala Lumpur Branch'), rows: [
-      { n: '97', u: T('個', ''), l: T('環保站', 'recycling stations'), w: T('截至 2022 年', 'To 2022'), s: 'xn' },
+      { n: '97', u: T('個', ''), l: T('環保站', 'recycling centres'), w: T('截至 2022 年', 'To 2022'), s: 'xn' },
       { n: '348', u: T('個', ''), l: T('環保點', 'recycling points'), w: T('截至 2022 年', 'To 2022'), s: 'xn' }
     ] }
   ];
@@ -348,7 +357,12 @@
     { id: 'jRaieNWO3Vw', zh: '人援會研發環保毛毯', en: 'The humanitarian aid association develops eco-blankets', y: '2006' },
     { id: 'tEWSMbsvhTA', zh: '慈悲的後盾', en: 'The backing of compassion', y: '2008' },
     { id: '7uo8FFYLYmk', zh: '清淨在源頭', en: 'Clean at the source', y: '2010' },
-    { id: 'RwYr8dLjSlk', zh: '環保站社區關懷', en: 'Community care at recycling stations', y: '2015' }
+    { id: 'RwYr8dLjSlk', zh: '環保站社區關懷', en: 'Community care at recycling stations', y: '2015' },
+    { id: 'E4Lp75IvHJ8', zh: '檳城直落巴巷淨灘', en: 'A beach clean-up at Teluk Bahang, Penang', y: '2025' },
+    { id: 'hCwwA9_baIY', zh: '全國人居獎傑出組織', en: 'A national award for Tzu Chi in Malaysia', y: '2025' },
+    { id: 'CK8drV6Gx7Q', zh: '慈濟開啟環保志業', en: 'How Tzu Chi’s recycling work began', y: '2026' },
+    { id: 'LA6FpHKNbNc', zh: '環保講座入校園', en: 'An environmental talk at a school in Penang', y: '2026' },
+    { id: 'vTTCaJy-rc4', zh: '環保防災勇士 PK 賽在馬來西亞', en: 'The PaGamO contest in Malaysia', y: '2026' }
   ];
 
   CH.filters = [['all', T('全部', 'All')], ['first', T('第一次', 'Firsts')], ['station', T('環保站', 'Stations')], ['bottle', T('寶特瓶', 'Bottles')], ['source', T('源頭', 'Source')], ['world', T('國際', 'International')], ['my', T('馬來西亞', 'Malaysia')]];
@@ -386,7 +400,15 @@
     ['2016', 'my', '吉膽島環保站升格為環保教育站', 'The Pulau Ketam station becomes an education station', 'xh'],
     ['2019.01.09', 'world', '慈濟基金會取得聯合國環境署非政府組織觀察員身分', 'The Foundation gains UNEP observer status', 'fm429'],
     ['2019', 'my first', '哥打哥文寧環保教育站啟用，全馬首座自助式環保站', 'The Kota Kemuning station opens, Malaysia’s first self-service station', 'xg'],
-    ['2020.07.16', 'source', '行動環保教育車在嘉義首度亮相', 'The mobile education truck makes its debut in Chiayi', 'o200716']
+    ['2020.07.16', 'source', '行動環保教育車在嘉義首度亮相', 'The mobile education truck makes its debut in Chiayi', 'o200716'],
+    ['2021.08.30', 'source', '環保防災勇士 PK 賽起跑，第一年近一千所學校參賽', 'The PaGamO environmental and disaster-prevention contest begins, with nearly 1,000 schools in its first year', 'o230409'],
+    ['2022.03.27', 'source world', '首屆環保防災勇士 PK 賽總決賽，美國、加拿大、新加坡、馬來西亞、印尼等六國 145 位選手在線參與國際盃', 'First finals of the contest: 145 players from six countries, including the United States, Canada, Singapore, Malaysia and Indonesia, join the international cup online', 'o230409'],
+    ['2023.04.09', 'source world', '第二屆 PaGamO 環保防災勇士 PK 賽全球總決賽，選手從近兩千所學校選拔而出', 'Second global finals of the PaGamO contest, with players chosen from nearly 2,000 schools', 'o230409'],
+    ['2023.06.05', 'source', '慈濟在臺北啟動 Plantārium 蔬食共創空間', 'Tzu Chi launches Plantārium, a plant-based lifestyle space in Taipei', 'nEarth'],
+    ['2024.04.23', 'source', '慈濟在 Plantārium 與 21 家企業、7 所學校合作，推動永續飲食教育', 'Tzu Chi partners with 21 companies and seven schools for sustainability education', 'nEarth'],
+    ['2025.06.29', 'my', '雪隆慈濟環保三十年撿跑，全馬 52 處逾 8,400 人參與，兩小時清出垃圾 3,937 公斤，另回收資源 3,646 公斤', 'Thirty years of recycling are marked with a plogging event: over 8,400 people at 52 sites across Malaysia collect 3,937 kg of rubbish in two hours and recycle a further 3,646 kg', 'nPlog'],
+    ['2025.10.07', 'my', '雪隆慈濟獲馬來西亞人居榮譽獎「城市危機應對傑出組織」類別第二名', 'Tzu Chi KL & Selangor takes second place in the Outstanding Organisation for Urban Crisis Response category of the 2025 Malaysia Scroll of Honour Award', 'nScroll'],
+    ['2025.10.16', 'my station', '馬六甲慈濟環保教育站接待東甲 12 人參訪團，交流資源分類', 'The Tzu Chi Recycling Education Centre in Melaka hosts a 12-member delegation from Johor', 'nBubur']
   ];
 
   CH.next = { ask: T('那麼遠的人，我們也要管嗎？', 'Those people so far away, should we care for them too?'), stop: T('下一站・國際賑災', 'Next stop: International Relief'), href: 'relief.html', tun: 'v_r' };

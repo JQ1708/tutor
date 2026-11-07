@@ -13,6 +13,13 @@
     return { zh: '《馬來西亞慈濟史 雪隆分會》（1）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. ' + p };
   };
   var S = {
+    o230609: otd('20230609'),
+    o240102: otd('20240102'),
+    o250319: otd('20250319'),
+    nMuar: { zh: '慈濟全球網〈Medical training empowers Muar volunteers〉', en: 'Tzu Chi Global: Medical training empowers Muar volunteers', url: 'https://global.tzuchi.org/medical-training-empowers-muar-volunteers' },
+    nPanji: { zh: '慈濟全球網〈Free clinic supports stateless families in Sabah, Malaysia〉', en: 'Tzu Chi Global: Free clinic supports stateless families in Sabah, Malaysia', url: 'https://global.tzuchi.org/free-clinic-supports-stateless-families-in-sabah-malaysia' },
+    nTv8412: { zh: '馬來西亞慈濟影視新聞 8412', en: 'Tzu Chi Malaysia video news 8412', url: 'https://tvms.tzuchi.com.my/news/8412' },
+    nTv8436: { zh: '馬來西亞慈濟影視新聞 8436', en: 'Tzu Chi Malaysia video news 8436', url: 'https://tvms.tzuchi.com.my/news/8436' },
     fm28: fm('00028', '一攤血事件'), fm48: fm('00048', '成立貧民施醫義診所'), fm63: fm('00063', '以掘井人的精神，掘到湧泉'),
     fm64: fm('00064', '籌建「佛教慈濟綜合醫院」'), fm70: fm('00070', '福田一方邀天下善士，心蓮萬蕊造慈濟世界'), fm71: fm('00071', '首次舉辦建院義賣'),
     fm75: fm('00075', '花蓮慈濟醫院第一次動土'), fm82: fm('00082', '花蓮慈濟醫院第二次動土'), fm91: fm('00091', '花蓮慈濟醫院啟業'),
@@ -359,9 +366,9 @@
       { k: 'quote', big: 1, zh: '除了謝謝他，還有告訴他，希望自己可以為慈濟多做一些！', en: 'Besides thanking him, I also told him I hope I can do more for Tzu Chi!', who: T('黃春玲', 'Huang Chun-Ling'), s: ['my'] }
     ] },
 
-    /* 卡片下方：數字和全紀錄 */
+    /* 卡片下方：數字和沿革 */
     { id: 'mnum', era: 'num', y: '數字', yen: 'Numbers', h: T('數字裡的醫療', 'Medicine in numbers'), nav: T('數字', 'Numbers'), b: [{ k: 'ledger' }] },
-    { id: 'mall', era: 'all', y: '全記錄', yen: 'Archive', h: T('全記錄', 'The full record'), lead: T('醫療沿革與影片，都可以自己翻。', 'The timeline and films are here for you to explore.'), nav: T('全記錄與影片', 'Archive and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
+    { id: 'mall', era: 'all', y: '沿革', yen: 'Timeline', h: T('沿革與影音', 'Timeline and films'), lead: T('醫療沿革與影片，都可以自己翻。', 'The timeline and films are here for you to explore.'), nav: T('沿革與影音', 'Timeline and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
   ];
 
   CH.blocks = [
@@ -414,7 +421,11 @@
     { id: 'P6s-XOr2YLE', zh: '上人呼籲大體捐贈', en: 'The call for body donation', y: '1995' },
     { id: 'bxq_uzDpH7E', zh: '成立「慈濟醫事人員聯誼會」', en: 'The medical personnel association', y: '1996' },
     { id: 'jNbY_WWeX4o', zh: '海外第一間洗腎中心', en: 'The first overseas dialysis centre', y: '1997' },
-    { id: 'oDmH4B90NQQ', zh: '慈濟大學首創「大體模擬手術教學」', en: 'Simulated surgery teaching begins', y: '2002' }
+    { id: 'oDmH4B90NQQ', zh: '慈濟大學首創「大體模擬手術教學」', en: 'Simulated surgery teaching begins', y: '2002' },
+    { id: 'MRVDAGfAv3I', zh: '洗腎　滌心', en: 'Dialysis, and inner renewal', y: '2025' },
+    { id: 'gHocuvYTKH4', zh: '沙巴拿篤聯合義診', en: 'A joint free clinic in Lahad Datu, Sabah', y: '2025' },
+    { id: 'qj3SgX5U1pY', zh: '淡屬慈濟在文德甲舉辦大型義診', en: 'A large free clinic in Mentakab', y: '2026' },
+    { id: 'P4D-_ccSca4', zh: '2026 年國際慈濟人醫年會：人醫三十', en: 'The 2026 TIMA convention: thirty years', y: '2026' }
   ];
 
   CH.filters = [['all', T('全部', 'All')], ['first', T('第一次', 'Firsts')], ['clinic', T('義診', 'Free clinics')], ['hosp', T('醫院', 'Hospitals')], ['people', T('人', 'People')], ['my', T('馬來西亞', 'Malaysia')]];
@@ -461,7 +472,15 @@
     ['2019.01.05', 'hosp', '斗六門診部升格為地區醫院，名為斗六慈濟醫院。', 'The Douliu outpatient unit becomes Douliu Tzu Chi Hospital.', 'fm428'],
     ['2020.03.18', 'clinic my', '馬來西亞啟動行動管制令，義診中心規劃線上問診及藥物配送。', 'Malaysia begins its movement control order; the free clinic sets up online consultations and medicine delivery.', 'xlco'],
     ['2021.06.19', 'clinic my', '吉隆坡靜思堂疫苗接種中心啟動。', 'The vaccination centre at the Jing Si Hall in Kuala Lumpur begins work.', 'xlmc'],
-    ['2022.12.12', 'hosp', '三義慈濟中醫醫院揭牌啟用。', 'Sanyi Tzu Chi Chinese Medicine Hospital opens.', 'o201027']
+    ['2022.12.12', 'hosp', '三義慈濟中醫醫院揭牌啟用。', 'Sanyi Tzu Chi Chinese Medicine Hospital opens.', 'o201027'],
+    ['2023.06.09', 'people', '慈濟慈發處與慈濟大學將原鄉健康促進實務發表於國際期刊《Technium Journal》。', 'Tzu Chi’s charity team and Tzu Chi University publish their health promotion work in indigenous communities in the international journal Technium.', 'o230609'],
+    ['2024.01.02', 'first hosp', '花蓮慈濟醫院完成臺灣首例健保給付 CAR-T 治療。', 'Hualien Tzu Chi Hospital carries out Taiwan’s first CAR-T treatment covered by National Health Insurance.', 'o240102'],
+    ['2024.11.16', 'clinic', '加拿大慈濟成立金星銀髮村中醫服務點。', 'Tzu Chi Canada sets up a Chinese medicine service point at a seniors’ village.', 'o250319'],
+    ['2025.04.07', 'hosp', '加拿大溫哥華慈濟中醫門診及教學中心開幕。', 'The Tzu Chi Chinese medicine clinic and teaching centre in Vancouver, Canada, opens.', 'o250319'],
+    ['2025.08.03', 'my people', '麻坡慈濟舉辦慈善醫療工作坊，四位人醫會專業人員為 91 位志工分享醫療與照護知識。', 'Four TIMA professionals share caregiving knowledge with 91 volunteers at a workshop in Muar.', 'nMuar'],
+    ['2026.06.14', 'clinic my', '雪隆人醫會與拿篤慈濟志工再赴沙巴 Kampung Panji，為無國籍居民提供義診。', 'TIMA and Lahad Datu volunteers return to Kampung Panji, Sabah, with a free clinic for stateless residents.', 'nPanji'],
+    ['2026.10.10–11', 'clinic my', '檳城與雪隆人醫會在吉打華玲政府醫院舉辦白內障義診，兩天為約 110 位患者完成手術。', 'TIMA teams from Penang and from Selangor and Kuala Lumpur hold a free cataract clinic at Baling Hospital in Kedah, completing surgery for about 110 patients in two days.', 'nTv8412'],
+    ['2026.10.13', 'my', '馬來西亞慈濟醫療輔具中心開幕，集中整理二手輔具，供有需要者再使用。', 'Tzu Chi Malaysia’s assistive devices centre opens, gathering second-hand devices for those who need them.', 'nTv8436']
   ];
 
   CH.next = {

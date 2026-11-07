@@ -343,18 +343,18 @@
           s: ['mycz'] }
       ] },
 
-    /* ───── 數字、全記錄 ───── */
+    /* ───── 數字、沿革 ───── */
     { id: 'enum', era: 'num', y: '數字', yen: 'Numbers', h: T('數字裡的教育', 'Education in numbers'), nav: T('數字', 'Numbers'),
       b: [
         { k: 'ledger' },
         { k: 'dist', h: T('教育機構全球分布', 'Tzu Chi education institutions worldwide'), w: T('統計截至 2024.12.31', 'to 31 Dec 2024'), my: T('其中在馬來西亞', 'of which in Malaysia'), all: T('全球', 'Worldwide'),
           note: T('各類性質不同，不相加成一個總數。', 'These are different kinds of institution and are not added into one total.'), s: ['tced'],
-          rows: [[T('人文學校', 'Humanities schools'), 36, 0], [T('幼兒園', 'Kindergartens'), 25, 10], [T('中小學', 'Primary and secondary schools'), 7, 1], [T('安親班', 'After-school care'), 4, 4], [T('高中', 'Senior high schools'), 2, 0], [T('托兒所', 'Nurseries'), 2, 0], [T('大學', 'University'), 1, 0], [T('中醫學院', 'College of Chinese Medicine'), 1, 0], [T('小學', 'Primary school'), 1, 0], [T('靜思華語學院', 'Jing Si Chinese language school'), 1, 0]] },
+          rows: [[T('人文學校', 'Tzu Chi Academies'), 36, 0], [T('幼兒園', 'Kindergartens'), 25, 10], [T('中小學', 'Primary and secondary schools'), 7, 1], [T('安親班', 'After-school care'), 4, 4], [T('高中', 'Senior high schools'), 2, 0], [T('托兒所', 'Nurseries'), 2, 0], [T('大學', 'University'), 1, 0], [T('中醫學院', 'College of Chinese Medicine'), 1, 0], [T('小學', 'Primary school'), 1, 0], [T('靜思華語學院', 'Jing Si Chinese language school'), 1, 0]] },
         { k: 'bars', h: T('臺灣獎助學金受惠人次', 'Scholarships and bursaries in Taiwan: recipients'), u: T('人次', 'person-times'), s: ['rep'], rows: [[2022, 22913], [2023, 23976], [2024, 31871], [2025, 26507]] },
         { k: 'bars', h: T('臺灣獎助學金支出', 'Scholarships and bursaries in Taiwan: spending'), u: T('新臺幣元', 'NT$'), s: ['rep'], rows: [[2021, 440225846], [2022, 411088465], [2023, 389801439], [2024, 379913037], [2025, 343282753]] },
         { k: 'bars', h: T('教育志業支出', 'Education mission: spending'), u: T('新臺幣元', 'NT$'), s: ['rep'], rows: [[2021, 829869834], [2022, 715452701], [2023, 842754777], [2024, 840886980], [2025, 716312976]] }
       ] },
-    { id: 'eall', era: 'all', y: '全記錄', yen: 'Archive', h: T('全記錄', 'The full record'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('全記錄與影片', 'Archive and films'),
+    { id: 'eall', era: 'all', y: '沿革', yen: 'Timeline', h: T('沿革與影音', 'Timeline and films'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('沿革與影音', 'Timeline and films'),
       b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
   ];
 
@@ -407,7 +407,11 @@
     { id: 'oDmH4B90NQQ', zh: '慈濟大學首創「大體模擬手術教學」', en: 'Simulated surgery teaching begins', y: '2002' },
     { id: 'SXVYH8HBNvQ', zh: '泰國清邁慈濟學校創校', en: 'The Tzu Chi School in Chiang Mai', y: '2005' },
     { id: 'bfDHNZyw9l0', zh: '土耳其慈濟開辦「滿納海中小學」', en: 'The Menahel School in Türkiye', y: '2015' },
-    { id: '23SXzZSSLD8', zh: '馬來西亞吉隆坡慈濟國際學校創校', en: 'Tzu Chi International School Kuala Lumpur', y: '2020' }
+    { id: '23SXzZSSLD8', zh: '馬來西亞吉隆坡慈濟國際學校創校', en: 'Tzu Chi International School Kuala Lumpur', y: '2020' },
+    { id: 'XQ4jcAXT8HE', zh: '教育是希望：慈濟教育志業團隊齊聚精舍', en: 'Education is hope: Tzu Chi educators gather at the Abode', y: '2025' },
+    { id: '3C2BzuXsx6Y', zh: '紅樹林裡的求學路', en: 'A journey to education, deep in the mangroves', y: '2026' },
+    { id: 'jL6yPpPwYyo', zh: '吉隆坡慈濟學校慈少成長營', en: 'A growth camp for Teenagers at Tzu Chi International School Kuala Lumpur', y: '2026' },
+    { id: 'TajYPwoZDvg', zh: 'i·didik 課輔班', en: 'The i·didik tuition class', y: '2026' }
   ];
 
   CH.filters = [['all', T('全部', 'All')], ['first', T('第一次', 'Firsts')], ['school', T('建校', 'Schools')], ['teach', T('老師', 'Teachers')], ['quake', T('九二一', 'Earthquake')], ['abroad', T('海外', 'Abroad')], ['my', T('馬來西亞', 'Malaysia')]];

@@ -12,6 +12,7 @@
     return { zh: '《馬來西亞慈濟史 雪隆分會》（1）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. ' + p };
   };
   var S = {
+    nPutra: { zh: '慈濟馬來西亞〈布高原氣爆發放　走在最前做到最後〉', en: 'Tzu Chi Malaysia: distribution after the Putra Heights gas explosion', url: 'https://tzuchi.my/zh/%E6%85%88%E6%B5%8E%E6%96%B0%E7%9F%A5/%E6%85%88%E6%B5%8E%E6%8A%A5%E5%AF%BC/%E7%A4%BE%E5%8C%BA%E5%BF%97%E5%B7%A5%E7%BA%AA%E5%AE%9E/cat/%E6%85%88%E5%96%84%E7%BA%AA%E5%AE%9E/%E5%B8%83%E9%AB%98%E5%8E%9F%E6%B0%94%E7%88%86%E5%8F%91%E6%94%BE-%E8%B5%B0%E5%9C%A8%E6%9C%80%E5%89%8D%E5%81%9A%E5%88%B0%E6%9C%80%E5%90%8E' },
     fm27: fm('00027', '三十位家庭主婦慰留上人'), fm28: fm('00028', '一攤血事件'), fm31: fm('00031', '增製嬰兒鞋，護持慈善救濟'), fm32: fm('00032', '竹筒歲月'),
     fm36: fm('00036', '第一例長期照顧戶'), fm37: fm('00037', '建立濟貧「複查」制度'), fm39: fm('00039', '第一間永久屋'),
     fm43: fm('00043', '第一次舉行冬令發放'), fm45: fm('00045', '艾爾西颱風，首次大型賑災'), fm55: fm('00055', '妮娜風災重創，為孤兒寡母建房'),
@@ -100,7 +101,7 @@
     ask: T('媽媽，省下來的錢，給了誰？', 'Mama, who did the saved money go to?'),
     h: T('最早的照顧戶', 'The first care recipients'),
     lead: T('照顧戶，是慈濟長期濟助的家庭。一九六七年七月二十日，《慈濟》月刊創刊，頭版刊的不是功德會，是一位老人家。',
-            'Care recipients are the households Tzu Chi looks after over the long term. When the Tzu Chi monthly first appeared on 20 July 1967, its front page was not about the association. It was about one old woman.'),
+            'Care recipients are the households Tzu Chi looks after over the long term. When the Tzu Chi Monthly first appeared on 20 July 1967, its front page was not about the association. It was about one old woman.'),
     b: [
       { k: 'story', lay: 'R', date: '1966.06', h: T('林曾', 'Lin Zeng'),
         ph: [{ i: '19670720-1_00', c: T('《慈濟》創刊號頭版，標題〈寡居貧病老婦林曾獲慈濟會長期救助〉。', 'Front page of the first issue: “Widowed, poor and ailing, Lin Zeng receives long-term aid from Tzu Chi.”') }],
@@ -169,7 +170,7 @@
         ph: [{ i: '19750905-1_07', c: T('早年援建的房屋。', 'Houses built in the early years.') }],
         p: [
           T('一九七五年八月三日，強烈颱風妮娜登陸花蓮，新城、秀林受災最重。九月五日，《慈濟》月刊一〇七期刊出上人親撰的捐助啟示。',
-            'On 3 August 1975 the severe Typhoon Nina struck Hualien, with Xincheng and Xiulin worst hit. On 5 September, issue 107 of the Tzu Chi monthly carried an appeal written by the Master herself.'),
+            'On 3 August 1975 the severe Typhoon Nina struck Hualien, with Xincheng and Xiulin worst hit. On 5 September, issue 107 of the Tzu Chi Monthly carried an appeal written by the Master herself.'),
           T('找地不易，精舍挪出自己的土地。同年十二月動土，翌年三月完工，安置寡母孤女。一九七六年六月，「康樂小築」安頓無力重建、單身無依的長者。住戶陳才爺爺在此住到一百零四歲。',
             'Land was hard to find, so the Abode gave up its own. Work began that December and finished the following March, housing widows and their daughters. In June 1976 Kangle Cottages took in elderly people living alone who could not rebuild. One resident, Grandpa Chen Cai, lived there to the age of 104.')
         ],
@@ -537,7 +538,7 @@
         ph: [{ i: 'xl1_0286_1', c: T('「水患退去，許多被大水浸泡過的大型傢俱被丟棄在路邊，志工安排多輛大型卡車及推土機前來清理。」（局部，人物已裁去。照片：林振勝；《馬來西亞慈濟史 雪隆分會》（1）頁 285）', '“As the water receded, large pieces of soaked furniture were left at the roadside, and volunteers arranged lorries and bulldozers to clear them.” (Detail, people cropped out. Photo: Lin Zhensheng; History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, p. 285)') }],
         p: [
           T('二〇二一年十二月十八日，單日雨量超越一個月總和，全國共二百一十個災區，雪蘭莪州九縣中八縣淪陷。當天，巴生志工成立水災行動指揮小組，在環保站烹煮熱食，用四輪驅動車運入災區。一天動員五十位志工、十二輛四輪驅動車，發放二千份熱食，其中八百份由兩家素食餐廳免費供應；隔天共發出六千六百九十七份便當。',
-            'On 18 December 2021 more rain fell in one day than in a normal month. There were 210 disaster areas across the country, and eight of Selangor’s nine districts went under. That day Klang volunteers set up a flood command group, cooked at a recycling station and took meals in by four-wheel drive. In one day fifty volunteers and twelve vehicles delivered two thousand hot meals, eight hundred of them given free by two vegetarian restaurants. The next day 6,697 lunch boxes went out.'),
+            'On 18 December 2021 more rain fell in one day than in a normal month. There were 210 disaster areas across the country, and eight of Selangor’s nine districts went under. That day Klang volunteers set up a flood command group, cooked at a recycling centre and took meals in by four-wheel drive. In one day fifty volunteers and twelve vehicles delivered two thousand hot meals, eight hundred of them given free by two vegetarian restaurants. The next day 6,697 lunch boxes went out.'),
           T('皇家武裝部隊以七噸軍用卡車協助把物資運入災區。一位榴槤攤主騰出大部分空間，作為臨時行動中心和熱食定點。食物外送員薩拉胡定號召同行，把熱食送到偏遠地區。',
             'The Malaysian Armed Forces helped carry supplies in on seven-tonne trucks. A durian seller nearby gave up most of the stall’s space as a temporary base and meal point. Food delivery rider Salahuddin rallied his fellow riders to take hot meals to remote areas.'),
           T('十二月二十四至二十六日大清掃，動員超過六千六百人次志工。二十五日，莎亞南太子園聚集二千五百位來自雪隆、檳城、吉打、怡保、新山、馬六甲等地的志工與會眾，還有三百名軍人。二〇二二年一月一日、二日，二千人次志工走入雪隆十三個災區，完成一萬零七百七十一戶造冊（逐戶登記），籌備祝福金發放。',
@@ -557,6 +558,10 @@
             'In Negeri Sembilan, Melaka and Johor, education aid had reached 56,749 students and RM15.32 million by 2025.')
         ],
         s: ['mystory', 'my3'] },
+      { k: 'story', lay: 'T', date: '2025.04.20', h: T('走在最前，做到最後', 'First to arrive, there to the end'),
+        p: [T('二〇二五年四月一日，雪蘭莪布特拉高原發生氣爆。志工當天勘災，到清真寺設立的疏散中心關懷，接著逐戶家訪造冊，依屋損輕重評估。四月二十日，在梳邦大班鎮慈濟共修處分三場發放祝福金，以現值卡嘉惠 226 戶家庭。', 'On 1 April 2025, a gas explosion struck Putra Heights in Selangor. Volunteers assessed the damage that day, gave care at an evacuation centre set up at a mosque, then visited each household and recorded the damage. On 20 April, at a Tzu Chi centre in Subang, three distributions of cash-value cards reached 226 families.')],
+        q: { zh: '慈濟人的關懷是一股很大的精神支持，讓我們可以向前看。', en: 'Tzu Chi’s care is a great spiritual support. It lets us look ahead.', who: T('羅永輝，居民', 'A resident of Putra Heights') },
+        s: ['nPutra'] },
       { k: 'vids', ids: [['DcSw8PD24dQ', T('水災過後愛延續　竹筒回娘家', 'After the floods, the bamboo banks come home')], ['6adIh2JbZpY', T('竹筒歲月啟善念　翻轉手心種福田', 'From receiving to giving: the bamboo banks in Malaysia')]] }
     ] },
 
@@ -573,9 +578,9 @@
     ask: T('媽媽，我也可以嗎？', 'Mama, can I do it too?'),
     b: [{ k: 'you' }] },
 
-  /* ───────── 全記錄 ───────── */
-  { id: 'call', era: 'all', y: '全記錄', yen: 'Archive', nav: T('全記錄與影片', 'Full record and films'),
-    h: T('全記錄', 'The full record'),
+  /* ───────── 沿革 ───────── */
+  { id: 'call', era: 'all', y: '沿革', yen: 'Timeline', nav: T('沿革與影音', 'Timeline and films'),
+    h: T('沿革與影音', 'Timeline and films'),
     lead: T('慈善沿革與影片，都可以自己翻。', 'The record and the films, for you to browse.'),
     b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
   ];
@@ -640,7 +645,7 @@
     linkNote: T('報名志工、本地分會的入口，待分會確認後補上。', 'Links for volunteering and local branches will be added once confirmed by the Malaysia branch.')
   };
 
-  /* 數字和全記錄放在六段路下面，跟醫療同一結構 */
+  /* 數字和沿革放在六段路下面，跟醫療同一結構 */
   CH.page = { after: ['cnum', 'call'] };
 
   /* 六段路：只重組現成章節，不改內容。cover 是段首照片，tun 是這段的時空隧道 */
@@ -689,14 +694,14 @@
   CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面；標示「情境重建」的畫面由 AI 依史料生成，非當年攝影。「」內為原文照錄。',
                 'Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from Tzu Chi’s public On This Day pages. Images marked as reconstructions are AI-generated from the record and are not historical photographs.');
 
-  /* 慈善沿革全記錄：t 決定 filter */
+  /* 慈善沿革沿革：t 決定 filter */
   CH.filters = [['all', T('全部', 'All')], ['first', T('第一次', 'Firsts')], ['care', T('照顧', 'Care')], ['home', T('建屋', 'Homes')], ['relief', T('賑災', 'Relief')], ['system', T('制度', 'Systems')], ['my', T('馬來西亞', 'Malaysia')]];
   CH.records = [
     ['1966.04.14', 'first system', '佛教克難慈濟功德會於花蓮佳民村普明寺成立，三十支竹筒，每人每日五毛。', 'The association is founded at Pu Ming Temple, Hualien, with thirty bamboo banks at fifty cents a day each.', 'fm27'],
     ['1966.05', 'first care', '李時提報盧丹桂，第一例醫療個案，同年七月送羅東開刀。', 'Li Shi reports Lu Dangui, the first medical case. She goes to Luodong for surgery that July.', 'o670701'],
     ['1966.06', 'first care', '林曾老太太成為第一位長期照顧戶，每月濟助三百元。', 'Lin Zeng becomes the first long-term care recipient, at NT$300 a month.', 'fm36'],
     ['1967', 'system', '建立複查制度，每三個月回訪一次。', 'The follow-up system begins: a return visit every three months.', 'fm37'],
-    ['1967.07.20', 'first system', '《慈濟》月刊創刊。', 'The Tzu Chi monthly is first published.', 'o670720'],
+    ['1967.07.20', 'first system', '《慈濟》月刊創刊。', 'The Tzu Chi Monthly is first published.', 'o670720'],
     ['1967.12.15', 'first home', '第一間永久屋完工入厝：李阿拋老人家的五坪空心磚屋，十一月一日動土。', 'The first permanent house, five ping of hollow brick, is finished for Li A-pao. Work began on 1 November.', 'fm39'],
     ['1969.02.09', 'first care', '普明寺首次冬令發放，嘉惠四十戶、二百多人。', 'First winter distribution at Pu Ming Temple: forty households, over 200 people.', 'fm43'],
     ['1969.10.16', 'first relief', '艾爾西颱風，臺東大南村大火燒毀一百四十八戶，首次大型賑災。', 'After Typhoon Elsie, a fire destroys 148 households in Danan: the first large-scale relief.', 'fm45'],
@@ -744,6 +749,7 @@
     ['2020.01.15', 'home care', '「安穩家園．美善社區」專案啟動。', 'The Safe Homes, Good Neighbourhoods project begins.', 'o200115'],
     ['2020.03.18', 'my care', '馬來西亞實施行動管制令第一天，雪隆志工在吉隆坡靜思堂啟動製作防護面罩；中南馬及東馬據點陸續加入，截至二〇二二年累計超過十八萬個。', 'On the first day of Malaysia’s movement control order, volunteers begin making face shields at the Jing Si Hall in Kuala Lumpur. Other centres join in, and by 2022 the total passes 180,000.', 'xlfs'],
     ['2021.12.18', 'my relief', '雪隆水災，巴生志工當天成立水災行動指揮小組；十二月二十四至二十六日大清掃，動員超過六千六百人次志工。', 'Floods in Selangor and Kuala Lumpur. Klang volunteers form a command group that day; the clean-up of 24 to 26 December draws over 6,600 volunteer turnouts.', 'xlfl'],
-    ['2025.03.28', 'relief', '緬甸規模七點七強震，首波大型發放濟助五千戶。', 'Magnitude 7.7 earthquake in Myanmar: the first large distribution reaches 5,000 households.', 'o250330']
+    ['2025.03.28', 'relief', '緬甸規模七點七強震，首波大型發放濟助五千戶。', 'Magnitude 7.7 earthquake in Myanmar: the first large distribution reaches 5,000 households.', 'o250330'],
+    ['2025.04.20', 'my relief', '布特拉高原氣爆後，雪隆志工逐戶家訪造冊，分三場發放祝福金，嘉惠 226 戶。', 'After the Putra Heights gas explosion, volunteers in Selangor and Kuala Lumpur visit each household, then hold three distributions reaching 226 families.', 'nPutra']
   ];
 })();

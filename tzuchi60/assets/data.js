@@ -136,7 +136,12 @@ window.CHARITY = {
     { id: 'Jo7gfa9klQ8', zh: '緬甸米撲滿善效應 用愛鋪出菩提道', en: 'Myanmar: the rice banks and the road they built', y: '2023' },
     { id: 'B47fCb01Ekk', zh: '緬甸米撲滿故事 烏善丁伉儷親身說法', en: 'Myanmar: U Shan Ding and his wife tell the rice-bank story', y: '2023' },
     { id: 'DcSw8PD24dQ', zh: '水災過後愛延續 竹筒回娘家繼續助人', en: 'Malaysia: after the flood, the bamboo banks come home', y: '馬來西亞 Malaysia' },
-    { id: '6adIh2JbZpY', zh: '竹筒歲月啟善念 翻轉手心種福田', en: 'Malaysia: care recipients take up the bamboo bank', y: '馬來西亞 Malaysia' }
+    { id: '6adIh2JbZpY', zh: '竹筒歲月啟善念 翻轉手心種福田', en: 'Malaysia: care recipients take up the bamboo bank', y: '馬來西亞 Malaysia' },
+    { id: 'ggbrvkKL9Ng', zh: '募心募愛，小錢行大善', en: 'Small sums, great good', y: '2025' },
+    { id: 'DaNR5J6htJs', zh: '臺灣資深志工到雪隆分享訪視經驗', en: 'Senior volunteers from Taiwan share home-visit experience in Selangor and Kuala Lumpur', y: '2026' },
+    { id: 'ns8OSeeeHYE', zh: '德州分會三十五周年，回歸竹筒歲月', en: 'Tzu Chi Texas at 35 returns to the Bamboo Bank Era', y: '2026' },
+    { id: 'Bm6P5nIEuuo', zh: '為照顧戶清理粉刷住家', en: 'Cleaning and repainting a care recipient’s home', y: '2026' },
+    { id: 'SQRtgsTIvsQ', zh: '吉打慈善工作坊', en: 'A charity workshop in Kedah', y: '2026' }
   ],
 
   end: {
@@ -149,11 +154,11 @@ window.FOOT = [
   { k: 'charity', zh: '慈善', en: 'Charity', y: '1966', on: true },
   { k: 'medical', zh: '醫療', en: 'Medicine', y: '1972', on: true },
   { k: 'education', zh: '教育', en: 'Education', y: '1989', on: true },
-  { k: 'environment', zh: '環保', en: 'Environment', y: '1990', on: true },
-  { k: 'relief', zh: '國際賑災', en: 'Global Relief', y: '1991', on: true },
-  { k: 'marrow', zh: '骨髓捐贈', en: 'Marrow Donation', y: '1993', on: true },
-  { k: 'community', zh: '社區志工', en: 'Community', y: '1996', on: true },
-  { k: 'culture', zh: '人文', en: 'Humanity', y: '1998', on: true }
+  { k: 'environment', zh: '環保', en: 'Environmental Protection', y: '1990', on: true },
+  { k: 'relief', zh: '國際賑災', en: 'International Relief', y: '1991', on: true },
+  { k: 'marrow', zh: '骨髓捐贈', en: 'Bone Marrow Donation', y: '1993', on: true },
+  { k: 'community', zh: '社區志工', en: 'Community Volunteerism', y: '1996', on: true },
+  { k: 'culture', zh: '人文', en: 'Humanistic Culture', y: '1998', on: true }
 ];
 
 /* 隧道裡經過的年份。y 決定出現位置。 */

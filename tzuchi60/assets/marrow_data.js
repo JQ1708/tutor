@@ -40,7 +40,7 @@
 
   CH.hero = {
     film: T('不認識的人，也能救嗎？', 'Can you save someone you have never met?'),
-    stop: T('第六站', 'Sixth stop'), title: T('骨髓捐贈', 'Marrow Donation'),
+    stop: T('第六站', 'Sixth stop'), title: T('骨髓捐贈', 'Bone Marrow Donation'),
     sub: T('一位病人回國請命，推開一扇只開給親人的門。<br>從此，一個個陌生人留下資料等著，等到那一天被找到。', 'A patient came home to plead for others, and pushed open a door that was open only to family.<br>Since then, one stranger after another has left their details and waited for the day they are found.'),
     watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('手臂的局部，取自《慈濟歷史上的今天》，拍攝日未載', 'Detail of an arm. From Tzu Chi, On This Day; date of photograph not given')
@@ -270,7 +270,7 @@
     ] },
 
     { id: 'wnum', era: 'num', y: '數字', yen: 'Numbers', h: T('數字裡的骨髓捐贈', 'Marrow donation in numbers'), nav: T('數字', 'Numbers'), b: [{ k: 'ledger' }] },
-    { id: 'wall', era: 'all', y: '全記錄', yen: 'Archive', h: T('全記錄', 'The full record'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('全記錄與影片', 'Archive and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
+    { id: 'wall', era: 'all', y: '沿革', yen: 'Timeline', h: T('沿革與影音', 'Timeline and films'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('沿革與影音', 'Timeline and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
   ];
 
   CH.blocks = [
@@ -283,7 +283,7 @@
   ];
 
   CH.ui = {
-    hubK: T('骨髓捐贈', 'Marrow Donation'), hubH: T('六段路，從一扇門走到兩個陌生人', 'Six stretches, from a door to two strangers'), hubS: T('一段一段走。走完一段，就蓋一個章。', 'Walk them one at a time. Each one you finish earns a stamp.'),
+    hubK: T('骨髓捐贈', 'Bone Marrow Donation'), hubH: T('六段路，從一扇門走到兩個陌生人', 'Six stretches, from a door to two strangers'), hubS: T('一段一段走。走完一段，就蓋一個章。', 'Walk them one at a time. Each one you finish earns a stamp.'),
     start: T('從這裡開始', 'Start here'), walked: T('走過了', 'Walked'), nextTun: T('下一個時空隧道', 'Next time tunnel'), nextOf: T('下一段', 'Next'), back: T('回六段路', 'Back to the six stretches'), road: T('回八大腳印', 'Back to the Eight Footprints'),
     skip: T('跳過', 'Skip'), left: T('這一段還有', 'Still ahead'), leftU: T('個故事', 'stories'), seg: T('第 {n} 段／共 6 段', 'Part {n} of 6'), done: T('走完了這一段', 'You finished this part'), recH: T('骨髓捐贈沿革', 'Timeline')
   };
@@ -316,8 +316,11 @@
 
   CH.films = [
     { id: 'OeyVJWuuV7k', zh: '救人一命，無損己身', en: 'Save a life, with no harm to yourself', y: '1993' },
-    { id: 'HUPX93UxQlo', zh: '髓緣大愛：點亮血液疾病生命曙光', en: 'Tzu Chi, On This Day: marrow donation', y: '1993–2026' },
-    { id: 'BsTTu5hnGww', zh: '大愛新聞：送髓到新疆', en: 'Da Ai News: carrying stem cells to Xinjiang', y: '2019' }
+    { id: 'BsTTu5hnGww', zh: '大愛新聞：送髓到新疆', en: 'Da Ai News: carrying stem cells to Xinjiang', y: '2019' },
+    { id: 'z-9E_mWp_rw', zh: '成功配對七千例', en: 'Seven thousand matches at the Stem Cells Center', y: '2025' },
+    { id: '93XqWGxigac', zh: '髓緣相見歡：三十二周年', en: 'Donors and recipients meet at the 32nd anniversary', y: '2025' },
+    { id: 'mbt3b_Az4sA', zh: '骨髓捐贈釋疑', en: 'Questions about bone marrow donation, answered', y: '2026' },
+    { id: 'VlqyxaAejEA', zh: '慈濟六十：骨髓幹細胞中心', en: 'Tzu Chi at 60: the Stem Cells Center', y: '2026' }
   ];
 
   CH.filters = [['all', T('全部', 'All')], ['law', T('法令與成立', 'Law and founding')], ['drive', T('驗血建檔', 'Drives')], ['lab', T('檢驗與中心', 'Laboratory')], ['care', T('陪伴與相見', 'Care and meetings')], ['cross', T('跨海接力', 'Across borders')]];
@@ -354,7 +357,7 @@
     ['2026.08.30', 'drive', '驗血建檔活動首次採用「口腔黏膜拭子採樣」。', 'A registration drive uses a mouth swab for the first time.', 'o931020']
   ];
 
-  CH.next = { ask: T('那我們隔壁的阿婆呢？', 'And what about the old lady next door?'), stop: T('下一站・社區志工', 'Next stop: Community Volunteers'), href: 'community.html', tun: 'w_c' };
+  CH.next = { ask: T('那我們隔壁的阿婆呢？', 'And what about the old lady next door?'), stop: T('下一站・社區志工', 'Next stop: Community Volunteerism'), href: 'community.html', tun: 'w_c' };
   CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人臉的局部，拍攝年份多未載明。標示「示意」的畫面為插畫，非當年實物。「」內為原文照錄，英文為本頁翻譯，僅供閱讀。', 'This page is a draft. It has not been reviewed by the Tzu Chi Malaysia branch and is not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from the public Tzu Chi, On This Day pages and are cropped to details without faces; most do not give a year. Images marked as illustrations are drawings, not the original objects. Text in quotation marks is reproduced from the original Chinese, and the English is this page’s translation, for reading only.');
 
   /* 隧道：match 走法，近白紙底、深紅線，六段照片和參數都不同 */

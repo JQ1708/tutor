@@ -6,6 +6,14 @@
   var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會》（2）頁 ' + p.replace(/, /g, '、'), en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 2, p. ' + p }; };
 
   var S = {
+    u438: fm('00438', '臺東慈善紀錄片《如常》上映'),
+    o230729: otd('20230729'),
+    o240704: otd('20240704'),
+    o240502: otd('20240502'),
+    o250711: otd('20250711'),
+    nM700: { zh: '《慈濟》月刊二〇二五年三月號', en: 'Tzu Chi Monthly, March 2025', url: 'https://tcmonthly.tzuchiculture.org.tw/?p=68849' },
+    nHs29: { zh: '慈濟人文〈29放光．慈濟60〉報導', en: 'Report on the Huashan exhibition', url: 'https://www.tcnews.com.tw/culture/item/29921.html' },
+    nYt26: { zh: 'YouTube〈記錄大型經藏演繹　捕捉美善感動瞬間〉', en: 'YouTube: recording a large sutra adaptation', url: 'https://www.youtube.com/watch?v=zv9OK_k7o8M' },
     f038: fm('00038', '《慈濟》月刊創刊'),
     f087: fm('00087', '信為道源功德母，長養一切諸善根'),
     f089: fm('00089', '第一個廣播節目「慈濟世界」'),
@@ -50,7 +58,7 @@
 
   CH.hero = {
     film: T('媽媽，這些你怎麼都知道？', 'Mama, how do you know all this?'),
-    stop: T('第八站', 'Eighth stop'), title: T('人文', 'Humanity'),
+    stop: T('第八站', 'Eighth stop'), title: T('人文', 'Humanistic Culture'),
     sub: T('有人一路記下來。<br>先讓每一筆錢看得見，再讓每一個人的故事聽得見、看得見。', 'Someone kept writing it down.<br>First so that every donation could be seen, then so that every person’s story could be heard and seen.'),
     watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('底片畫面為示意，格內是三張照片的局部：製播設備、《慈濟》創刊號報頭、吉隆坡靜思堂', 'The film strip is an illustration. Its frames are details of three photographs: broadcast equipment, the masthead of the first issue of Tzu Chi, and the Jing Si Hall in Kuala Lumpur')
@@ -167,7 +175,7 @@
 
     /* 4 文史流芳 */
     { id: 'u4a', era: 'e00', y: '1989–2004', nav: T('沒有掌聲的工作', 'Work without applause'), ask: T('那是誰在記的？', 'Who was writing it down?'), b: [
-      { k: 'quote', big: 1, zh: '人文就是「人品典範，文史流芳」。慈濟的文史從四十二年前開始，早期雖然只是很簡單地用鋼板、鋼筆謄寫下來的徵信，但是留下了慈濟完整的紀錄，就可以流芳百世。', en: 'Humanity means people of exemplary character, and a written history that endures. Tzu Chi’s history began forty-two years ago. In the early days it was only accounts copied out simply with a steel plate and a pen, but they left a complete record of Tzu Chi, and that can last for generations.', who: SR('2009.07.20', '20 July 2009'), s: ['f302'] },
+      { k: 'quote', big: 1, zh: '人文就是「人品典範，文史流芳」。慈濟的文史從四十二年前開始，早期雖然只是很簡單地用鋼板、鋼筆謄寫下來的徵信，但是留下了慈濟完整的紀錄，就可以流芳百世。', en: 'Humanistic culture means people of exemplary character, and a written history that endures. Tzu Chi’s history began forty-two years ago. In the early days it was only accounts copied out simply with a steel plate and a pen, but they left a complete record of Tzu Chi, and that can last for generations.', who: SR('2009.07.20', '20 July 2009'), s: ['f302'] },
       { k: 'three', bare: 1, labels: [T('文字', 'Words'), T('相片', 'Photographs'), T('影像', 'Video')], end: T('三合一', 'Three in one'),
         q: { zh: '影像、相片、文字三合一，這才是完整文宣。', en: 'Video, photographs and words, three in one: only that is a complete record.', who: SR('2002.12.06', '6 December 2002') },
         t: T('二〇〇三年，筆耕、攝影、影視三支志工隊伍開始整合。', 'In 2003, the volunteer writers, photographers and video teams began to come together.'),
@@ -191,7 +199,7 @@
         p: [T('二〇〇四年十二月二十四日，上人把四大志業裡的「文化」改稱「人文」。', 'On 24 December 2004, the Master renamed “culture” among the four missions as “humanity”.'),
           T('二〇〇五年一月一日，慈濟人文志業中心啟用，大愛臺和平面出版、廣播、《經典》等單位遷入關渡。二〇〇八年，基金會完成法人更名，名稱裡的「文化」也改為「人文」，三月五日起對外使用。', 'On 1 January 2005, the Humanitarian Centre opened in Guandu, and Da Ai, the publishing and radio units and Rhythms moved in. In 2008 the foundation’s legal name changed too, with “culture” replaced by “humanity” from 5 March.')],
         q: { zh: '過去我都是說慈善、醫療、教育、文化，我現在把文化改成人文。', en: 'In the past I always said charity, medicine, education and culture. Now I am changing culture to humanity.', who: SR('2004.12.24', '24 December 2004') },
-        q2: { zh: '人文是為人群而付出，讓自己的生命真正亮麗起來；', en: 'Humanity is giving for others, and so letting one’s own life truly shine.', who: SR('2004.12.24', '24 December 2004') },
+        q2: { zh: '人文是為人群而付出，讓自己的生命真正亮麗起來；', en: 'Humanistic culture is giving for others, and so letting one’s own life truly shine.', who: SR('2004.12.24', '24 December 2004') },
         ph: [{ i: 'u_stone', c: T('「守護慧命的磐石」銅牌局部，二〇〇五年一月一日。取自《慈濟歷史上的今天》。', 'Detail of a bronze plaque dated 1 January 2005. From Tzu Chi, On This Day.') }],
         s: ['f291', 'o991010'] },
       { k: 'quote', zh: '「文」就是文史流芳。歷史要記錄下來，才會真正永遠地流傳下去。', en: '“Wen” means a written history that endures. History must be recorded before it can truly be passed down for ever.', who: SR('2006.06.02', '2 June 2006'), s: ['f302'] }
@@ -222,7 +230,7 @@
         ph: [{ i: 'u_sutra', c: T('經藏演繹遠景。取自《慈濟歷史上的今天》，拍攝日未載。', 'A distant view of a sutra adaptation performance. From Tzu Chi, On This Day; date of photograph not given.') }, { i: 'u_drum', c: T('經藏演繹的鼓和舞臺局部。取自《慈濟歷史上的今天》，拍攝日未載。', 'Detail of drums on the stage. From Tzu Chi, On This Day; date of photograph not given.') }],
         s: ['x593', 'f241', 'o160430'] },
       { k: 'story', lay: 'T', date: '2006.06.22', h: T('一杯茶', 'A cup of tea'),
-        p: [T('人文也在一杯茶裡。上人說到靜思茶道課程的用意：', 'Humanity is also found in a cup of tea. The Master spoke of why the Jing Si tea course began:')],
+        p: [T('人文也在一杯茶裡。上人說到靜思茶道課程的用意：', 'Humanistic culture is also found in a cup of tea. The Master spoke of why the Jing Si tea course began:')],
         q: { zh: '成立靜思茶道課程，是希望透過茶道，強調禮儀形象、以茶會友的風氣，更期盼人人涵養美善心念。', en: 'We set up the Jing Si tea course hoping that, through the way of tea, we can stress courtesy and bearing and the custom of meeting friends over tea, and above all that everyone will nurture good and beautiful thoughts.', who: SR('2006.06.22', '22 June 2006') },
         s: ['f301'] }
     ] },
@@ -268,7 +276,7 @@
         s: ['x510'] },
       { k: 'photos', lay: 'one', ph: [{ i: 'u_files', c: T('馬來西亞慈濟史教育訓練工作坊上的檔案夾，2013 年 11 月。照片：胡玉美。', 'Files at a Tzu Chi Malaysia history workshop, November 2013. Photo: Hu Yumei.') }] }
     ] },
-    { id: 'u6c', era: 'my', y: '2011–2015', nav: T('搭船到吉膽島', 'By boat to Pulau Ketam'), b: [
+    { id: 'u6c', era: 'my', y: '2011–2026', nav: T('搭船到吉膽島', 'By boat to Pulau Ketam'), b: [
       { k: 'story', lay: 'R', date: '2015.07.04', h: T('《法譬如水》', 'Water of Dharma'),
         p: [T('二〇一一年六月起，雪隆和馬六甲分會陸續啟動《法譬如水慈悲三昧水懺講記》讀書會。巴生手語種子溫寶玉（慈璵）與團隊，把《法譬如水》從巴生傳到萬津、適耕莊、大港、沙白安南，「甚至是搭船到吉膽島」。', 'From June 2011, the Selangor and Kuala Lumpur and Melaka branches began reading groups on the Water Repentance. In Klang, sign-language seed teacher Wen Baoyu (Ci Yu) and her team carried the work to Banting, Sekinchan, Sungai Besar and Sabak Bernam, and even by boat to Pulau Ketam.'),
           T('二〇一四年十一月，雪隆分會成立「心鼓隊」，隊員由實業組志工組成。他們不僅在桌上練，也把大腿當鼓。', 'In November 2014 the branch formed the Heart Drum Team from business volunteers, who practised on tabletops and even on their own thighs.'),
@@ -279,20 +287,24 @@
         p: [T('二〇一五年八月三十日，吉隆坡靜思堂講經堂正式啟用。', 'On 30 August 2015, the lecture hall of the Kuala Lumpur Jing Si Hall officially opened.')],
         ph: [{ i: 'u_kl', c: T('吉隆坡靜思堂外觀。照片：朱國財。', 'The Kuala Lumpur Jing Si Hall. Photo: Zhu Guocai.') }],
         s: ['x582'] },
+      { k: 'story', lay: 'T', date: '2026', h: T('會場很暗', 'A dark hall'),
+        p: [T('慈濟新山支會與峇株巴轄聯絡處推出《無量義．再現》經藏演繹，超過千人參與。為了記錄下來，除了當地真善美志工，六位檳城真善美志工也跨區來支援。', 'Tzu Chi in Johor Bahru and Batu Pahat presented a sutra adaptation with more than a thousand people taking part. To record it, six documenting volunteers from Penang crossed over to join the local team.')],
+        q: { zh: '拍攝遇到的困難主要是，因為整個會場都很暗，所以我們就是要，去找有光線打到人身上的時候。', en: 'The main difficulty in filming was that the whole hall was dark, so we had to look for the moments when light fell on people.', who: T('謝佳宇，慈濟志工', 'A Tzu Chi volunteer') },
+        s: ['nYt26'] },
       { k: 'eight', bare: 1, ask: T('媽媽，那我現在看的是什麼？', 'Mama, so what am I watching now?'),
         h: T('你現在看的這些，就是這個腳印。', 'What you are watching now is this footprint.'),
         t: T('前面七站的故事，都有人替我們留了下來。有人用鋼板，有人用話筒，有人用鏡頭，後來還有人用一支手機。', 'Someone kept the stories of the first seven stops for us. Some used a steel plate, some a microphone, some a lens, and later some a mobile phone.'),
         g1: T('四大志業', 'The four missions'), g2: T('再加四個腳印', 'And four more footprints'),
-        items: [T('慈善', 'Charity'), T('醫療', 'Medicine'), T('教育', 'Education'), T('人文', 'Humanity'), T('國際賑災', 'Global Relief'), T('骨髓捐贈', 'Marrow Donation'), T('環保', 'Environment'), T('社區志工', 'Community')],
+        items: [T('慈善', 'Charity'), T('醫療', 'Medicine'), T('教育', 'Education'), T('人文', 'Humanistic Culture'), T('國際賑災', 'International Relief'), T('骨髓捐贈', 'Bone Marrow Donation'), T('環保', 'Environmental Protection'), T('社區志工', 'Community Volunteerism')],
         q: T('法脈資料庫記述環保志工幹部：「人人都是一步八腳印，步步踏實。」', 'The Dharma Lineage Archive says of recycling volunteer leaders: “Everyone takes one step and leaves eight footprints, each step firm on the ground.”'),
         s: ['f304'] }
     ] },
 
-    /* 數字與全記錄 */
-    { id: 'unum', era: 'num', y: '數字', yen: 'Numbers', h: T('數字裡的人文', 'Humanity in numbers'), nav: T('數字', 'Numbers'), b: [
+    /* 數字與沿革 */
+    { id: 'unum', era: 'num', y: '數字', yen: 'Numbers', h: T('數字裡的人文', 'Humanistic Culture in numbers'), nav: T('數字', 'Numbers'), b: [
       { k: 'ledger' }, { k: 'usub' }
     ] },
-    { id: 'uall', era: 'all', y: '全記錄', yen: 'Archive', h: T('全記錄', 'The full record'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('全記錄與影片', 'Archive and films'), b: [
+    { id: 'uall', era: 'all', y: '沿革', yen: 'Timeline', h: T('沿革與影音', 'Timeline and films'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('沿革與影音', 'Timeline and films'), b: [
       { k: 'films' }, { k: 'records' }, { k: 'sources' }
     ] }
   ];
@@ -303,11 +315,11 @@
     { id: 'u3', y: '2003–2026', h: T('報真導正', 'Report truly, guide rightly'), ch: ['u3a', 'u3b'], cover: 'u_ctrl', tun: 'u_b3' },
     { id: 'u4', y: '1989–2008', h: T('文史流芳', 'A history that endures'), ch: ['u4a', 'u4b'], cover: 'u_stone', tun: 'u_b4' },
     { id: 'u5', y: '1992–2025', h: T('走進生活', 'Into daily life'), ch: ['u5a', 'u5b'], cover: 'u_shop', tun: 'u_b5' },
-    { id: 'u6', y: '1992–2022', h: T('在馬來西亞', 'In Malaysia'), ch: ['u6a', 'u6b', 'u6c'], cover: 'u_kl', tun: 'u_b6' }
+    { id: 'u6', y: '1992–2026', h: T('在馬來西亞', 'In Malaysia'), ch: ['u6a', 'u6b', 'u6c'], cover: 'u_kl', tun: 'u_b6' }
   ];
 
   CH.ui = {
-    hubK: T('人文', 'Humanity'), hubH: T('六段路，從鋼板走到鏡頭', 'Six stretches, from a steel plate to a lens'), hubS: T('一段一段走。走完一段，就蓋一個章。', 'Walk them one at a time. Each one you finish earns a stamp.'),
+    hubK: T('人文', 'Humanistic Culture'), hubH: T('六段路，從鋼板走到鏡頭', 'Six stretches, from a steel plate to a lens'), hubS: T('一段一段走。走完一段，就蓋一個章。', 'Walk them one at a time. Each one you finish earns a stamp.'),
     start: T('從這裡開始', 'Start here'), walked: T('走過了', 'Walked'), nextTun: T('下一個時空隧道', 'Next time tunnel'), nextOf: T('下一段', 'Next'), back: T('回六段路', 'Back to the six stretches'), road: T('回八大腳印', 'Back to the Eight Footprints'),
     skip: T('跳過', 'Skip'), left: T('這一段還有', 'Still ahead'), leftU: T('個故事', 'stories'), seg: T('第 {n} 段／共 6 段', 'Part {n} of 6'), done: T('走完了這一段', 'You finished this part'), recH: T('人文沿革', 'Timeline')
   };
@@ -337,13 +349,17 @@
   CH.ledgerNote = T('這些數字年份和範圍都不同，各自獨立，不相加。全球收視、頻道數、節目總數、真善美人數和演繹累計，目前沒有可靠的統一數字，本頁不寫。', 'These figures cover different years and places. Each stands alone, and they are not added together. Global audiences, channel counts, total programmes, documentary volunteer numbers and cumulative performances have no reliable single figure at present, so they are left out.');
 
   CH.films = [
-    { id: '-VCdpZVGH84', zh: '《慈濟》月刊創刊', en: 'Tzu Chi monthly launched', y: '1967' },
+    { id: '-VCdpZVGH84', zh: '《慈濟》月刊創刊', en: 'Tzu Chi Monthly launched', y: '1967' },
     { id: 'e3if2yPsjtA', zh: '第一個廣播節目《慈濟世界》', en: 'The first radio programme', y: '1985' },
     { id: '0Trd4kJAZtU', zh: '《慈濟道侶》創刊', en: 'Tzu Chi Companions launched', y: '1986' },
     { id: 'PVRIRw8-Ut4', zh: '《證嚴法師靜思語》出版', en: 'Jing Si Aphorisms published', y: '1989' },
     { id: 'ziK32AG-qLM', zh: '大愛電視臺開播', en: 'Da Ai Television begins', y: '1998' },
     { id: '3jdZ1mt7toM', zh: '《經典》雜誌創刊', en: 'Rhythms magazine launched', y: '1998' },
-    { id: 'Svlsmbthwho', zh: '「文化三合一志工」成立', en: 'The three-in-one volunteers', y: '2003' }
+    { id: 'Svlsmbthwho', zh: '「文化三合一志工」成立', en: 'The three-in-one volunteers', y: '2003' },
+    { id: 'ktZ_TRQRaO8', zh: '人文真善美志工：為時代做見證，為慈濟寫歷史', en: 'Documenting volunteers: bearing witness to the times', y: '2025' },
+    { id: 'WF0IwNEO_iA', zh: '《無量義．再現》經藏演繹', en: 'A sutra adaptation in Johor Bahru and Batu Pahat', y: '2026' },
+    { id: 'zv9OK_k7o8M', zh: '記錄大型經藏演繹', en: 'Documenting volunteers record a sutra adaptation', y: '2026' },
+    { id: 'hWaAfaMNwRQ', zh: '真善美志工到底在忙什麼？', en: 'What documenting volunteers do behind the scenes', y: '2026' }
   ];
 
   CH.filters = [['all', T('全部', 'All')], ['print', T('刊物與出版', 'Print')], ['air', T('廣播與電視', 'Radio and TV')], ['rec', T('記錄志工', 'Recording')], ['live', T('書軒與舞臺', 'Shops and stage')], ['my', T('馬來西亞', 'Malaysia')]];
@@ -390,7 +406,15 @@
     ['2013.12.03', 'rec my', '大馬版圖像編輯系統「3in1」開發完成。', 'The Malaysian image system “3in1” is completed.', 'x509'],
     ['2015.07.04', 'live my', '首場《法譬如水》經藏演繹在吉隆坡演出。', 'First performance of Water of Dharma in Kuala Lumpur.', 'x599'],
     ['2015.08.30', 'my', '吉隆坡靜思堂講經堂啟用。', 'The lecture hall of the Kuala Lumpur Jing Si Hall opens.', 'x582'],
-    ['2017.12.15', 'rec my', '首度舉辦「簡易手機錄影及剪輯工作坊」。', 'The first workshop on phone filming and editing.', 'x510']
+    ['2017.12.15', 'rec my', '首度舉辦「簡易手機錄影及剪輯工作坊」。', 'The first workshop on phone filming and editing.', 'x510'],
+    ['2019.06.28', 'air', '慈濟製播的臺東慈善紀錄片《如常》於全臺 28 家戲院上映。', 'A Tzu Chi documentary on charity work in Taitung opens in 28 cinemas across Taiwan.', 'u438'],
+    ['2023.07.29', 'live', '《無量義法髓頌》經藏演繹在彰化體育場展開，二〇二三年全年共演出 18 場。', 'A sutra adaptation opens at the Changhua stadium; 18 performances are held during 2023.', 'o230729'],
+    ['2024.07.04', 'live my', '慈濟科技大學親善大使團 23 位學生展開星馬巡演，九場演出吸引逾萬人觀賞。', 'Twenty-three student ambassadors from Tzu Chi University of Science and Technology begin a tour of Singapore and Malaysia; nine shows draw over 10,000 people.', 'o240704'],
+    ['2024.09.01', 'air my', '星馬慈濟團隊推展在地傳法，尼泊爾版《祈禱》於菩提電視臺首播。', 'With Tzu Chi teams from Singapore and Malaysia, the Nepal edition of Prayer premieres on Bodhi TV.', 'o240502'],
+    ['2025.03', 'print', '《慈濟》月刊三月號邁入第七百期。', 'Tzu Chi Monthly reaches its 700th issue.', 'nM700'],
+    ['2025.07.11', 'print', '歷經兩年修護，國立臺灣圖書館團隊將七冊《法華經》古籍恭呈上人。', 'After two years of restoration, a National Taiwan Library team presents seven volumes of the Lotus Sutra to Master Cheng Yen.', 'o250711'],
+    ['2026.02.03', 'print', '臺北國際書展重現《古蘭經》與《法華經》的修復過程。', 'The Taipei International Book Exhibition shows the restoration of the Quran and the Lotus Sutra.', 'o250711'],
+    ['2026.07.03', 'live', '慈濟人文在華山開展「29放光．慈濟60」特展，十天展期結合劇場、講座與蔬食市集。', 'A ten-day exhibition opens at Huashan 1914 in Taipei, with theatre, talks and a vegetarian market.', 'nHs29']
   ];
 
   CH.next = { ask: T('八個腳印，走完了。', 'All eight footprints have been walked.'), stop: T('全系列最後一站', 'The last stop of the journey') };

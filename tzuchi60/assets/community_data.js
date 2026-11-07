@@ -7,6 +7,7 @@
   var im = function (z, e) { return { zh: '慈濟六十週年影響力報告・' + z, en: 'Tzu Chi 60th anniversary impact report: ' + e, url: 'https://60impact.tzuchi.org.tw/' }; };
 
   var S = {
+    nBeds: { zh: '慈濟全球網〈New beds bring comfort to Selangor Care Home〉', en: 'Tzu Chi Global: New beds bring comfort to Selangor Care Home', url: 'https://global.tzuchi.org/new-beds-bring-comfort-to-selangor-care-home' },
     f145: fm('00145', '馬來西亞慈濟人開始個案訪視'),
     f146: fm('00146', '日本分會於東京成立'),
     f169: fm('00169', '香港聯絡處於灣仔成立'),
@@ -47,7 +48,7 @@
 
   CH.hero = {
     film: T('那我們隔壁的阿婆呢？', 'And what about the old lady next door?'),
-    stop: T('第七站', 'Seventh stop'), title: T('社區志工', 'Community Volunteers'),
+    stop: T('第七站', 'Seventh stop'), title: T('社區志工', 'Community Volunteerism'),
     sub: T('颱風過後，志工從遠處趕來，受災戶的鄰居卻無法及時關心。<br>從此，慈濟人按住處分組，把關懷帶回自己住的街上。', 'After a typhoon, volunteers rushed in from far away, yet the neighbours of those affected could not reach them in time.<br>From then on, Tzu Chi volunteers were grouped by where they live, and brought their care home to their own street.'),
     watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('窗、燈、門和扶手是示意插畫，不是實景', 'The windows, lamp, door and handrail are illustrations, not a real street')
@@ -244,27 +245,30 @@
         q: { zh: '能捐才是福氣，幫助人是不講次數的。', en: 'Being able to give is the real blessing. Helping others is not something you count.', who: T('院友錦緞', 'Jin-duan, a resident') },
         s: ['x165'] }
     ] },
-    { id: 'c6b', era: 'my', y: '2007–2022', nav: T('下班以後', 'After work'), b: [
+    { id: 'c6b', era: 'my', y: '2007–2025', nav: T('下班以後', 'After work'), b: [
       { k: 'night', bare: 1, h: T('下班以後', 'After work'),
         lead: T('大多數志工和民眾白天要上班，下班後才有時間做環保。二〇〇七年底，雪隆慈濟開始嘗試夜間環保，當時環保站較少，也沒有回收商願意夜晚來載，推行不易。雙溪毛糯的志工把一棟雙層店屋裝修成環保站，也是如此。', 'Most volunteers and residents work during the day, and have time for recycling only after work. In late 2007, Tzu Chi in Selangor and Kuala Lumpur began trying evening recycling. There were few stations then, and no collector willing to come at night, so it was not easy. It was the same when volunteers in Sungai Buloh turned a two-storey shophouse into a station.'),
         q: { zh: '大多數的志工都是上班族，只能利用下班或假日的時間整理', en: 'Most of the volunteers were office workers, and could only do the work after hours or on holidays.', who: T('《馬來西亞慈濟史 雪隆分會》（2）', 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 2') },
         note: T('店屋和燈是示意。截至二〇二二年，雪隆分會轄下約一半的環保站都帶動夜間環保。', 'The shophouses and lights are illustrations. By 2022, about half the stations under the branch were running evening recycling.'),
         s: ['x2637', 'x2640'] },
       { k: 'story', lay: 'T', date: '2010–2011', h: T('一個協力組，一個環保站', 'One team, one station'),
-        p: [T('二〇一〇年十一月，雪隆分會執行長簡慈露走訪社區各環保站。十八日到吉隆坡的郊外嶺環保站，看到志工與社區居民互相關心，和樂融融。', 'In November 2010, branch CEO Jian Ci-lu visited recycling stations in the community. On the 18th she came to the Jiaowailing station in Kuala Lumpur, and saw volunteers and residents looking out for one another in harmony.'),
+        p: [T('二〇一〇年十一月，雪隆分會執行長簡慈露走訪社區各環保站。十八日到吉隆坡的郊外嶺環保站，看到志工與社區居民互相關心，和樂融融。', 'In November 2010, branch CEO Jian Ci-lu visited recycling centres in the community. On the 18th she came to the Jiaowailing station in Kuala Lumpur, and saw volunteers and residents looking out for one another in harmony.'),
           T('十一月二十九日，她回到臺灣，向上人發願，喊出「一協一站」：期盼以慈濟志工團體中的最小單位，一個協力組負責一個環保站，做為努力的方向。', 'On 29 November, back in Taiwan, she made a vow to Master Cheng Yen and called out the goal of one team, one station: the hope that the smallest unit among volunteers, a Joint Effort team, would take charge of one station. It was a direction to work toward.'),
           T('這是努力的方向，不是全部社區都已做到。環保站的故事，環保那一站已經講過，這裡看的是誰在動手：住在附近、下了班的人。', 'This was a goal, not a claim that every community had got there. The stories of the stations themselves are told at the recycling stop. What matters here is who did the work: people who live nearby, after their day’s job.')],
         s: ['x2635'] },
       { k: 'cards', ph: [{ i: 'comm_night', c: T('大城堡環保站夜景，局部。照片：李文傑。', 'The Dachengbao station at night. Detail. Photo: Li Wen-jie.') }, { i: 'comm_bags', c: T('夜間環保，局部。照片：李文傑。', 'Evening recycling. Detail. Photo: Li Wen-jie.') }], s: ['x2637'] },
       { k: 'photos', lay: 'one', ph: [{ i: 'comm_kl', c: T('吉隆坡靜思堂外觀。二〇一〇年九月十六日動土，二〇一四年五月十一日啟用。照片：朱國財。', 'The Kuala Lumpur Jing Si Hall from outside. Ground was broken on 16 September 2010, and it opened on 11 May 2014. Photo: Zhu Guo-cai.') }] },
       { k: 'story', lay: 'T', date: '2022', h: T('那我們隔壁的阿婆呢？', 'And what about the old lady next door?'),
-        p: [T('截至二〇二二年，雪隆分會及轄下據點有志工 10,087 人，受證慈誠、委員 3,101 人。這是雪隆及轄下的數字，不是全馬。古晉支會轄下約有三百位志工。', 'By 2022, the Selangor and Kuala Lumpur branch and its local offices had 10,087 volunteers, including 3,101 certified commissioners and Faith Corps members. These are branch figures, not figures for all of Malaysia. The Kuching branch had about three hundred volunteers.'),
+        p: [T('截至二〇二二年，雪隆分會及轄下據點有志工 10,087 人，受證慈誠、委員 3,101 人。這是雪隆及轄下的數字，不是全馬。古晉支會轄下約有三百位志工。', 'By 2022, the Selangor and Kuala Lumpur branch and its local offices had 10,087 volunteers, including 3,101 certified commissioners and Faith Corps members. These are branch figures, not figures for all of Malaysia. The Kuching branch had about three hundred volunteers.')],
+        s: ['x123', 'x2662'] },
+      { k: 'story', lay: 'T', date: '2025.07.15', h: T('把床換好', 'New beds'),
+        p: [T('二〇二五年七月十五日，二百五十位志工來到雪蘭莪新古毛的 Taman Sinar Harapan 關懷機構，把四十張不鏽鋼病床組裝後送入院舍，另帶來三十二張防水床墊、四十九個防水枕頭。慈濟自一九九六年起持續關懷這裡。志工平日到場，看見舊床鏽蝕、部分院友沒有床褥，便依院友的需要籌備替換。', 'On 15 July 2025, 250 volunteers came to the Taman Sinar Harapan care home in Kuala Kubu Bharu, Selangor. They assembled 40 stainless steel beds and brought them in, with 32 waterproof mattresses and 49 waterproof pillows. Tzu Chi has cared for this home since 1996. On their regular visits, volunteers had seen rusted beds and residents without mattresses, and prepared the replacements around what residents needed.'),
           T('六段路走下來，能說的是這一件事：從遠處趕來的人，慢慢成了住在這裡的人。平日彼此認得，有事才叫得動。', 'After six stretches, this much can be said: those who once rushed in from afar slowly became people who live here. Knowing one another in ordinary times is what lets people answer when something happens.')],
-        s: ['x123', 'x2662'] }
+        s: ['nBeds'] }
     ] },
 
     { id: 'cnum', era: 'num', y: '數字', yen: 'Numbers', h: T('數字裡的社區志工', 'Community volunteers in numbers'), nav: T('數字', 'Numbers'), b: [{ k: 'ledger' }] },
-    { id: 'call', era: 'all', y: '全記錄', yen: 'Archive', h: T('全記錄', 'The full record'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('全記錄與影片', 'Archive and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
+    { id: 'call', era: 'all', y: '沿革', yen: 'Timeline', h: T('沿革與影音', 'Timeline and films'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('沿革與影音', 'Timeline and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
   ];
 
   CH.blocks = [
@@ -273,11 +277,11 @@
     { id: 'c3', y: '1998–2020', h: T('平常的日子', 'Ordinary days'), ch: ['c3a', 'c3b'], cover: 'c_bento', tun: 'c_b3' },
     { id: 'c4', y: '1997–2024', h: T('災難來的時候', 'When disaster comes'), ch: ['c4a', 'c4b'], cover: 'c_legs', tun: 'c_b4' },
     { id: 'c5', y: '2020–2025', h: T('一支扶手之前', 'Before one handrail'), ch: ['c5a', 'c5b'], cover: '20200115-1_09', tun: 'c_b5' },
-    { id: 'c6', y: '1993–2022', h: T('在馬來西亞', 'In Malaysia'), ch: ['c6a', 'c6b'], cover: 'comm_kl', tun: 'c_b6' }
+    { id: 'c6', y: '1993–2025', h: T('在馬來西亞', 'In Malaysia'), ch: ['c6a', 'c6b'], cover: 'comm_kl', tun: 'c_b6' }
   ];
 
   CH.ui = {
-    hubK: T('社區志工', 'Community Volunteers'), hubH: T('六段路，從遠處走回自己住的街', 'Six stretches, from far away back to your own street'), hubS: T('一段一段走。走完一段，就蓋一個章。', 'Walk them one at a time. Each one you finish earns a stamp.'),
+    hubK: T('社區志工', 'Community Volunteerism'), hubH: T('六段路，從遠處走回自己住的街', 'Six stretches, from far away back to your own street'), hubS: T('一段一段走。走完一段，就蓋一個章。', 'Walk them one at a time. Each one you finish earns a stamp.'),
     start: T('從這裡開始', 'Start here'), walked: T('走過了', 'Walked'), nextTun: T('下一個時空隧道', 'Next time tunnel'), nextOf: T('下一段', 'Next'), back: T('回六段路', 'Back to the six stretches'), road: T('回八大腳印', 'Back to the Eight Footprints'),
     skip: T('跳過', 'Skip'), left: T('這一段還有', 'Still ahead'), leftU: T('個故事', 'stories'), seg: T('第 {n} 段／共 6 段', 'Part {n} of 6'), done: T('走完了這一段', 'You finished this part'), recH: T('社區志工沿革', 'Timeline')
   };
@@ -310,12 +314,12 @@
       { n: '10,087', u: T('人', 'people'), l: T('志工', 'Volunteers'), w: WX, s: 'x123', big: 1 },
       { n: '3,101', u: T('人', 'people'), l: T('受證慈誠、委員', 'Certified Faith Corps members and commissioners'), w: WX, s: 'x123' },
       { n: '676,486', u: T('人', 'people'), l: T('會員', 'Members'), w: WX, s: 'x123' },
-      { n: '97', u: T('個', 'stations'), l: T('環保站', 'Recycling stations'), w: WX, s: 'x2637' },
+      { n: '97', u: T('個', 'centres'), l: T('環保站', 'Recycling centres'), w: WX, s: 'x2637' },
       { n: '17', u: T('個', 'stations'), l: T('環保教育站', 'Recycling education stations'), w: WX, s: 'x2637' },
       { n: '348', u: T('個', 'points'), l: T('環保點', 'Recycling points'), w: WX, s: 'x2612' }
     ] },
     { h: T('在馬來西亞：古晉', 'In Malaysia: Kuching'), rows: [
-      { n: '4', u: T('間', 'stations'), l: T('環保站', 'Recycling stations'), w: WK, s: 'x2662' },
+      { n: '4', u: T('間', 'centres'), l: T('環保站', 'Recycling centres'), w: WK, s: 'x2662' },
       { n: '27', u: T('個', 'points'), l: T('社區環保點', 'Community recycling points'), w: WK, s: 'x2662' },
       { n: '約 300', nen: 'About 300', u: T('位', 'people'), l: T('志工', 'Volunteers'), w: WK, s: 'x2662' }
     ] }
@@ -326,11 +330,15 @@
     { id: 'VIzdkYJVEIU', zh: '賀伯颱風', en: 'Typhoon Herb', y: '1996' },
     { id: 'l0fVU0Ljj54', zh: '溫妮颱風', en: 'Typhoon Winnie', y: '1997' },
     { id: '9WtwGThB9lE', zh: '九二一大地震', en: 'The 21 September earthquake', y: '1999' },
-    { id: 'K9xLhCqpxtc', zh: '四門', en: 'The four groups', y: '2003' },
-    { id: 'N7PcGxuFN4k', zh: '四法', en: 'The four principles', y: '2003' },
+    { id: 'K9xLhCqpxtc', zh: '四法', en: 'The four principles', y: '2003' },
+    { id: 'N7PcGxuFN4k', zh: '四門', en: 'The four groups', y: '2003' },
     { id: 'RwYr8dLjSlk', zh: '社區照顧關懷據點', en: 'Community care centres', y: '2015' },
     { id: 'MNoACTB8ltU', zh: '苗栗日照中心', en: 'Miaoli day centre', y: '2019' },
-    { id: '7F3Z8388YUk', zh: '安美專案', en: 'Safe Homes, Good Communities', y: '2020' }
+    { id: '7F3Z8388YUk', zh: '安美專案', en: 'Safe Homes, Good Communities', y: '2020' },
+    { id: 'yucGJvnD0rc', zh: '吉蘭丹靜思堂築願之路', en: 'Building towards a Jing Si Hall in Kelantan', y: '2025' },
+    { id: 'WYsxB8keMCY', zh: '慈濟光隆日照中心', en: 'The Guanglong day-care centre', y: '2026' },
+    { id: 'CMsH-GYxNn0', zh: '慈濟長者學堂', en: 'A senior learning programme in Melaka', y: '2026' },
+    { id: 'EjutwnrNWys', zh: '馬六甲環保教育站蔬食義賣', en: 'A vegetarian charity sale at a Recycling Education Centre in Melaka', y: '2026' }
   ];
   CH.filters = [['all', T('全部', 'All')], ['org', T('組織', 'Organisation')], ['day', T('平常的日子', 'Ordinary days')], ['dis', T('災難與防災', 'Disaster and preparedness')], ['home', T('居家安全', 'Home safety')], ['my', T('馬來西亞', 'Malaysia')], ['over', T('其他海外', 'Other overseas')]];
   CH.records = [
@@ -355,7 +363,7 @@
     ['2006', 'my', '古晉落實社區化，每月同時在各自的社區做環保。', 'Kuching organises by community, and volunteers recycle in their own neighbourhoods at the same time each month.', 'x2662'],
     ['2007 年底', 'my', '雪隆慈濟開始嘗試夜間環保。', 'Tzu Chi in Selangor and Kuala Lumpur begins trying evening recycling.', 'x2637'],
     ['2009.08.13', 'dis', '八八水災，當日動員志工約八千人。', 'After the Typhoon Morakot floods, about eight thousand volunteers are mobilised on this day.', 'f329'],
-    ['2010.11.18', 'my', '簡慈露參訪吉隆坡郊外嶺環保站。', 'Jian Ci-lu visits the Jiaowailing recycling station in Kuala Lumpur.', 'x2635'],
+    ['2010.11.18', 'my', '簡慈露參訪吉隆坡郊外嶺環保站。', 'Jian Ci-lu visits the Jiaowailing recycling centre in Kuala Lumpur.', 'x2635'],
     ['2010.11.29', 'my', '簡慈露向上人發願「一協一站」。', 'Jian Ci-lu vows to Master Cheng Yen: one team, one station.', 'x2635'],
     ['2011.04.17', 'my', '雙溪毛糯太子園環保站啟用，是「一協一站」推動後的第一個環保站。', 'The first station under one team, one station opens in Sungai Buloh.', 'x2640'],
     ['2012.06.12', 'over', '東京百草園共修處啟用。', 'The Hundred Herbs Garden practice space opens in Tokyo.', 'f146'],
@@ -371,10 +379,11 @@
     ['2020', 'home', '居家修繕個案徐玉秀家，歷經三個月的溝通與長達八天的施工。', 'A home repair case: the Xu home took three months of talks and eight days of work.', 'o200115'],
     ['2021.03.19', 'home', '安美專案在澎湖縣啟動。', 'The project begins in Penghu County.', 'o200115'],
     ['2023.05.02', 'home', '安美專案延伸到馬祖。', 'The project reaches Matsu.', 'o200115'],
+    ['2025.07.15', 'my', '250 位志工為新古毛 Taman Sinar Harapan 關懷機構送入 40 張不鏽鋼病床。', '250 volunteers bring 40 stainless steel beds to the Taman Sinar Harapan care home in Kuala Kubu Bharu.', 'nBeds'],
     ['2025.10', 'home', '遍及 22 個縣市、299 個鄉鎮，16,167 戶完成修繕。', 'Reaches 299 townships in 22 counties and cities, with repairs completed for 16,167 households.', 'o200115']
   ];
 
-  CH.next = { ask: T('媽媽，這些你怎麼都知道？', 'Mum, how do you know all this?'), stop: T('下一站・人文', 'Next stop: Culture'), href: 'culture.html', tun: 'c_u' };
+  CH.next = { ask: T('媽媽，這些你怎麼都知道？', 'Mum, how do you know all this?'), stop: T('下一站・人文', 'Next stop: Humanistic Culture'), href: 'culture.html', tun: 'c_u' };
   CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人臉的局部，拍攝年份多未載明；馬來西亞的照片取自《馬來西亞慈濟史 雪隆分會》。入口、封面、隧道和標示「示意」的窗、燈、門、便當、卷尺、扶手是插畫，不是實物。「」內為原文照錄，英文為本頁翻譯，僅供閱讀。', 'This page is a draft. It has not been reviewed by the Tzu Chi Malaysia branch and is not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from the public Tzu Chi, On This Day pages and are cropped to details without faces; most do not give a year. Photographs from Malaysia come from the History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch. The windows, lamps, doors, lunch box, tape measure and handrails on the entrance, covers, tunnels and anything marked as an illustration are drawings, not real objects. Text in quotation marks is reproduced from the original Chinese, and the English is this page’s translation, for reading only.');
 
   /* 隧道：六段都走 lights，參數各不相同；去人文那條走 reel */

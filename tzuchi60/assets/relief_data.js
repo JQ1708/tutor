@@ -7,6 +7,8 @@
   var xl = function (p) { return { zh: '《馬來西亞慈濟史 雪隆分會》（1）PDF 頁 ' + p, en: 'History of Tzu Chi Malaysia: Selangor and Kuala Lumpur Branch, vol. 1, PDF p. ' + p }; };
 
   var S = {
+    nCfw: { zh: '慈濟全球網〈Cash-for-Work Brings Hope to Myanmar’s Disaster-Hit Communities〉', en: 'Tzu Chi Global: Cash-for-Work Brings Hope to Myanmar’s Disaster-Hit Communities', url: 'https://global.tzuchi.org/cash-for-work-brings-hope-to-myanmars-disaster-hit-communities' },
+    nAceh: { zh: '慈濟全球網〈Families rebuild lives in North Aceh permanent housing village〉', en: 'Tzu Chi Global: Families rebuild lives in North Aceh permanent housing village', url: 'https://global.tzuchi.org/families-rebuild-lives-in-north-aceh-permanent-housing-village' },
     fm45: fm('00045', '艾爾西颱風，首次大型賑災'),
     fm54: fm('00054', '無緣大慈，同體大悲'),
     fm138: fm('00138', '哥奇颶風侵襲孟加拉'),
@@ -360,7 +362,7 @@
       ]
     },
     { id: 'rnum', era: 'num', y: '數字', yen: 'Numbers', h: T('數字裡的國際賑災', 'International relief in numbers'), nav: T('數字', 'Numbers'), b: [{ k: 'ledger' }] },
-    { id: 'rall', era: 'all', y: '全記錄', yen: 'Archive', h: T('全記錄', 'The full record'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('全記錄與影片', 'Archive and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
+    { id: 'rall', era: 'all', y: '沿革', yen: 'Timeline', h: T('沿革與影音', 'Timeline and films'), lead: T('六段路之外的日期和原始出處，都在這裡。', 'Dates and original sources beyond the six stretches are all here.'), nav: T('沿革與影音', 'Timeline and films'), b: [{ k: 'films' }, { k: 'records' }, { k: 'sources' }] }
   ];
 
   CH.blocks = [
@@ -421,7 +423,11 @@
     { id: 'w4Hy7QvAnvc', zh: '緬甸納吉斯風災，帶動米撲滿', en: 'Cyclone Nargis and the rice banks', y: '2008' },
     { id: '8XEAPjamSAo', zh: '慈濟研發福慧床', en: 'Developing the Fu Hui bed', y: '2010' },
     { id: 'Oc3IOO9tj6U', zh: '日本三一一複合式大災難', en: 'Japan, 11 March 2011', y: '2011' },
-    { id: '-zx7su8cNQA', zh: '尼泊爾強震', en: 'The Nepal earthquake', y: '2015' }
+    { id: '-zx7su8cNQA', zh: '尼泊爾強震', en: 'The Nepal earthquake', y: '2015' },
+    { id: 'ef8b3GqA_HY', zh: '大馬慈濟人投入緬甸強震救援', en: 'Malaysian volunteers at the Myanmar earthquake', y: '2025' },
+    { id: '1FEdvf_8W7E', zh: '微光匯聚成希望：緬甸賑災實錄', en: 'Malaysian and Myanmar volunteers bring beds and supplies to earthquake survivors', y: '2025' },
+    { id: 'XJVlsSuixRY', zh: '跨越千年的慈悲約定：尼泊爾', en: 'A promise across a thousand years: Nepal', y: '2026' },
+    { id: 'n89qHB-8kUk', zh: '尼泊爾洪災，慈濟總動員', en: 'Tzu Chi in Nepal after the floods', y: '2026' }
   ];
 
   CH.filters = [['all', T('全部', 'All')], ['start', T('起步', 'First steps')], ['rebuild', T('重建', 'Rebuilding')], ['local', T('在地接棒', 'Local hands')], ['object', T('物件', 'Objects')], ['my', T('馬來西亞', 'Malaysia')]];
@@ -465,11 +471,13 @@
     ['2022.03.05', 'start', '波茲南，慈濟在波蘭的首場發放。', 'Poznań: Tzu Chi’s first distribution in Poland.', 'o220224'],
     ['2024.02.23', 'local my', '四十六位印度本土志工領受灰衣。', '46 local Indian volunteers receive grey uniforms.', 'o240223'],
     ['2025.03.28', 'rebuild', '緬甸規模 7.7 地震。', 'A magnitude 7.7 earthquake strikes Myanmar.', 'o250330'],
+    ['2025.04', 'rebuild local', '緬甸強震後，受災居民以工代賑，為寺院搭建臨時住所。', 'After the Myanmar earthquake, residents take part in cash-for-work, building temporary shelters for monasteries.', 'nCfw'],
     ['2025.05.15', 'my', '馬來西亞志工帶動當地承包商和以工代賑志工搭建，至 6 月 15 日完成 87 間。', 'Malaysian volunteers begin building with local contractors; 87 are done by 15 June.', 'tcm'],
-    ['2025.06.11', 'rebuild local', '莫三比克庫拉大愛村交屋，這一輪 171 戶入住。', 'Handover at Cura Great Love Village, Mozambique; 171 households move in this round.', 'tcm']
+    ['2025.06.11', 'rebuild local', '莫三比克庫拉大愛村交屋，這一輪 171 戶入住。', 'Handover at Cura Great Love Village, Mozambique; 171 households move in this round.', 'tcm'],
+    ['2026.06.04', 'rebuild', '印尼慈濟與地方政府合作，北亞齊永久屋交屋，首批 40 戶入住。', 'Tzu Chi Indonesia and the local government hand over permanent homes in North Aceh; the first 40 households move in.', 'nAceh']
   ];
 
-  CH.next = { ask: T('不認識的人，也能救嗎？', 'Can we save someone we have never met?'), stop: T('下一站・骨髓捐贈', 'Next stop: Marrow Donation'), href: 'marrow.html', tun: 'r_w' };
+  CH.next = { ask: T('不認識的人，也能救嗎？', 'Can we save someone we have never met?'), stop: T('下一站・骨髓捐贈', 'Next stop: Bone Marrow Donation'), href: 'marrow.html', tun: 'r_w' };
 
   CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成局部；標示「示意」的畫面為插畫，非當年實物。「」內為原文照錄。', 'Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Unless noted, photos are from the public pages of Tzu Chi, On This Day, cropped to details. Scenes marked as illustrations are not real objects of the time. Words inside quotation marks are taken from the sources; their English is a plain translation.');
 
