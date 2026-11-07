@@ -284,6 +284,8 @@
     scrollTo(0, 0);
     wire();
     if (hub) doc.getElementById('hub').scrollIntoView();
+    /* 數字、沿革是 hub 裡的章節，直連 hash 要落到那一節 */
+    else if (!m && ((CH.page && CH.page.after) || []).indexOf(location.hash.slice(1)) > -1) { var ae = doc.getElementById(location.hash.slice(1)); if (ae) ae.scrollIntoView(); }
   }
   /* 換段都走時空隧道；瀏覽器上一頁不走 */
   function go(i) {
