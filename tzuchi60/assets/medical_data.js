@@ -46,7 +46,7 @@
     film: T('媽媽，沒有錢，醫院就不救嗎？', 'Mama, if people have no money, won’t the hospital save them?'),
     stop: T('第二站', 'Second stop'), title: T('醫療', 'Medicine'),
     sub: T('一九七二年，一間借來的店面。<br>一九八六年，花蓮慈濟醫院的門開了。', 'In 1972, a borrowed shopfront.<br>In 1986, the doors of Hualien Tzu Chi Hospital opened.'),
-    watch: T('看影片　9 分 46 秒', 'Watch the film · 9 min 46 s'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　9 分 47 秒', 'Watch the film · 9 min 47 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('AI 情境重建，非當年攝影', 'AI reconstruction, not a historical photograph')
   };
 

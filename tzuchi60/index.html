@@ -68,6 +68,10 @@ html[data-lang=both] .i-t .en{display:block;font-size:.4em;margin-top:.4em}
 .gc b{display:block;font:400 clamp(24px,3.2vw,34px)/1.35 Title,var(--song)}.gc b .en{font:italic 400 .8em/1.3 var(--en)}
 .gc small{display:block;margin-top:8px;font:14px/1.6 var(--sans);color:#5d5444}.gc small .en{font:inherit}
 .gc .off{opacity:.62;cursor:default}
+#filmx{position:absolute;top:14px;right:16px;z-index:2;width:44px;height:44px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#f2e8d6;font-size:28px;line-height:1;cursor:pointer}
+#film .fbox{width:min(1200px,100%);max-height:100%;display:flex;flex-direction:column;gap:12px}#film .fbox video{width:100%;max-height:calc(100svh - 150px)}
+#chap{display:flex;flex-wrap:wrap;gap:6px 8px;justify-content:center}#chap button{font:14px/1.4 var(--sans);color:#f2e8d6;background:none;border:1px solid #f2e8d64d;border-radius:99px;padding:5px 13px;cursor:pointer}#chap button .en{font:inherit}
+#chap button.on{background:#f2e8d6;color:#1a1510;border-color:#f2e8d6}html[data-lang=both] #chap button .en{margin-left:.4em}
 @media(max-width:720px){.gc{grid-template-columns:1fr}}
 #road{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:64px var(--gut) 34px}
 .fw{width:min(1040px,100%);margin:0 auto}
@@ -125,7 +129,7 @@ a.stp small{font-weight:600}
 <section id="gate"><div class="fw"><p class="kick"><span class="zh">媽媽，慈濟是什麼？</span><span class="en" lang="en">Mama, what is Tzu Chi?</span></p>
  <h1><span class="zh">四大志業　八大腳印</span><span class="en" lang="en">Four Missions, Eight Footprints</span></h1>
  <div class="gc"><a href="#road" id="g-read"><b><span class="zh">走進八大腳印</span><span class="en" lang="en">Walk the Eight Footprints</span></b><small><span class="zh">一步一步讀，每個腳印裡也有它的影片</span><span class="en" lang="en">Read at your own pace; each footprint has its own film</span></small></a>
- <div class="off" id="g-film" aria-disabled="true"><b><span class="zh">看總影片</span><span class="en" lang="en">Watch the full film</span></b><small><span class="zh">八個腳印，一次看完・製作中</span><span class="en" lang="en">All eight footprints in one film · in production</span></small></div></div>
+ <a href="#film" id="g-film"><b><span class="zh">看總影片</span><span class="en" lang="en">Watch the full film</span></b><small><span class="zh">八個腳印，一次看完・36 分鐘（初剪）</span><span class="en" lang="en">All eight footprints in one film · 36 min (rough cut)</span></small></a></div>
  <p class="alt"><button id="replay2"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
 </div></section>
 <section id="road"><div class="fw"><p class="kick"><span class="zh">媽媽，慈濟是什麼？</span><span class="en" lang="en">Mama, what is Tzu Chi?</span></p>
@@ -137,7 +141,7 @@ a.stp small{font-weight:600}
  <p class="alt"><button id="replay"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
 </div></section>
 <footer data-era="dark"><div class="wrap"><span class="zh">本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片取自慈濟《歷史上的今天》等公開頁面；影片中標示的情境畫面由 AI 依史料生成，非當年攝影。配樂：開經偈（靜思僧團）。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs. Music: Opening Verse (Jing Si Abode).</span></div></footer>
-<div id="film" hidden><button id="filmx" aria-label="關閉 Close">×</button><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg" src="assets/film/charity.mp4"></video></div>
+<div id="film" hidden><button id="filmx" aria-label="關閉 Close">×</button><div class="fbox"><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg"></video><nav id="chap" aria-label="章節 Chapters"></nav></div></div>
 <script src="assets/data.js"></script><script src="assets/music/list.js"></script><script src="assets/sound.js"></script>
 <script>
 (function(){
@@ -184,7 +188,14 @@ a.stp small{font-weight:600}
  if(window.SND)SND.area('home');
  var fl=d.getElementById('film'),v=d.getElementById('filmv');
  function close(){v.pause();fl.hidden=true;root.style.overflow=''}
- [].forEach.call(d.querySelectorAll('.pl'),function(a){a.addEventListener('click',function(e){e.preventDefault();var f='assets/film/'+a.dataset.f+'.mp4';if(v.getAttribute('src')!==f){v.poster='assets/ph/'+a.dataset.p+'.jpg';v.src=f}fl.hidden=false;root.style.overflow='hidden';v.play()})});
+ var FB='https://jq1708.github.io/tzuchi60-film/full/',CN=[['慈善','Charity'],['醫療','Medicine'],['教育','Education'],['環保','Environment'],['國際賑災','Relief'],['骨髓捐贈','Marrow'],['社區志工','Community'],['人文','Culture']],cur=-1,pre=d.createElement('video'),chap=d.getElementById('chap');
+ pre.preload='auto';pre.muted=true;
+ CN.forEach(function(n,k){var b=d.createElement('button');b.innerHTML='<span class="zh">'+(k+1)+'・'+n[0]+'</span><span class="en" lang="en">'+(k+1)+' · '+n[1]+'</span>';b.onclick=function(){play(k)};chap.appendChild(b)});
+ function src(k){return FB+('0'+(k+1)).slice(-2)+'.mp4'}
+ function play(k){cur=k;v.src=src(k);v.play();[].forEach.call(chap.children,function(b,x){b.classList.toggle('on',x===k)})}
+ v.addEventListener('ended',function(){if(cur>=0&&cur<CN.length-1)play(cur+1)});
+ v.addEventListener('timeupdate',function(){if(cur>=0&&cur<CN.length-1&&v.duration&&v.duration-v.currentTime<40&&pre.getAttribute('src')!==src(cur+1))pre.src=src(cur+1)});
+ d.getElementById('g-film').addEventListener('click',function(e){e.preventDefault();fl.hidden=false;root.style.overflow='hidden';if(cur<0)play(0);else v.play()});
  d.getElementById('filmx').addEventListener('click',close);
  addEventListener('keydown',function(e){if(e.key==='Escape'&&!fl.hidden)close()});
 })();

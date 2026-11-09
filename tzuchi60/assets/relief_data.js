@@ -65,13 +65,13 @@
   window.RIVER_M = (window.RIVER_M || []).concat(Object.keys(SZ).filter(function (k) { return k !== 'hero_r'; }).map(function (k) { return [0, k, Math.round(SZ[k][0] / SZ[k][1] * 300)]; }));
   window.RIVER_M = window.RIVER_M.concat([[2023, 'r_fire', 692], [1991, 'r_box', 402], [1991, 'r_flood', 403], [1991, 'r_news', 409], [2005, 'r_ruin', 406], [2008, 'r_seed', 533], [2008, 'r_can', 533], [0, 'r_aceh', 164], [2025, 'r_bamboo', 560], [2025, 'r_pack', 424], [2025, 'r_class', 333], [0, 'r_blank', 487]]);
 
-  CH.page = { key: 'relief', pre: 'r', title: '國際賑災｜那麼遠的人，我們也要管嗎？', still: 'hero_r', noDoor: 1, noFilm: 1, after: ['rnum', 'rall'] };
+  CH.page = { key: 'relief', pre: 'r', title: '國際賑災｜那麼遠的人，我們也要管嗎？', still: 'hero_r', noDoor: 1, after: ['rnum', 'rall'] };
 
   CH.hero = {
     film: T('那麼遠的人，我們也要管嗎？', 'People so far away: are they ours to care for?'),
     stop: T('第五站', 'Fifth stop'), title: T('國際賑災', 'International Relief'),
     sub: T('一開始，善款是轉交出去的。<br>後來親手交到受災鄉親手上，再由當地人接著照顧當地人。', 'At first the donations were passed on through others.<br>Later they went hand to hand, and then local people took up the care of their own.'),
-    watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　6 分 26 秒', 'Watch the film · 6 min 26 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('莫三比克的路　局部　取自《慈濟歷史上的今天》', 'A road in Mozambique, detail, from Tzu Chi, On This Day')
   };
 

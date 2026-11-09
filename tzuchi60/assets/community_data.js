@@ -48,13 +48,13 @@
     [0, 'mc_steel', 398], [0, 'mc_pot', 389], [0, 'mc_wall', 214], [0, 'mc_fans', 654], [0, 'mc_night', 609], [0, 'mc_bags', 474]
   ]);
 
-  CH.page = { key: 'community', pre: 'c', title: '社區志工｜那我們隔壁的阿婆呢？', still: 'hero_c', noDoor: 1, noFilm: 1, after: ['cnum', 'call'] };
+  CH.page = { key: 'community', pre: 'c', title: '社區志工｜那我們隔壁的阿婆呢？', still: 'hero_c', noDoor: 1, after: ['cnum', 'call'] };
 
   CH.hero = {
     film: T('那我們隔壁的阿婆呢？', 'And what about the old lady next door?'),
     stop: T('第七站', 'Seventh stop'), title: T('社區志工', 'Community Volunteerism'),
     sub: T('颱風過後，志工從遠處趕來，受災戶的鄰居卻無法及時關心。<br>從此，慈濟人按住處分組，把關懷帶回自己住的街上。', 'After a typhoon, volunteers rushed in from far away, yet the neighbours of those affected could not reach them in time.<br>From then on, Tzu Chi volunteers were grouped by where they live, and brought their care home to their own street.'),
-    watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　5 分 58 秒', 'Watch the film · 5 min 58 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('窗、燈、門和扶手是示意插畫，不是實景', 'The windows, lamp, door and handrail are illustrations, not a real street')
   };
 

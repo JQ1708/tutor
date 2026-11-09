@@ -54,13 +54,13 @@
   var KEY = { hero: 'hero_u' };
   window.RIVER_M = (window.RIVER_M || []).concat(Object.keys(YR).map(function (k) { var z = SZ[KEY[k] || 'u_' + k]; return [YR[k], 'cu_' + k, Math.round(z[0] / z[1] * 300)]; }));
 
-  CH.page = { key: 'culture', pre: 'u', title: '人文｜媽媽，這些你怎麼都知道？', still: 'hero_u', noDoor: 1, noFilm: 1, after: ['unum', 'uall'] };
+  CH.page = { key: 'culture', pre: 'u', title: '人文｜媽媽，這些你怎麼都知道？', still: 'hero_u', noDoor: 1, after: ['unum', 'uall'] };
 
   CH.hero = {
     film: T('媽媽，這些你怎麼都知道？', 'Mama, how do you know all this?'),
     stop: T('第八站', 'Eighth stop'), title: T('人文', 'Humanistic Culture'),
     sub: T('有人一路記下來。<br>先讓每一筆錢看得見，再讓每一個人的故事聽得見、看得見。', 'Someone kept writing it down.<br>First so that every donation could be seen, then so that every person’s story could be heard and seen.'),
-    watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　6 分 36 秒', 'Watch the film · 6 min 36 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('底片畫面為示意，格內是三張照片的局部：製播設備、《慈濟》創刊號報頭、吉隆坡靜思堂', 'The film strip is an illustration. Its frames are details of three photographs: broadcast equipment, the masthead of the first issue of Tzu Chi, and the Jing Si Hall in Kuala Lumpur')
   };
 

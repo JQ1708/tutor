@@ -48,13 +48,13 @@
   /* 進入國際賑災的隧道用 1991 的真圖：報紙、募款箱、水淹房舍 */
   window.RIVER_M = window.RIVER_M.concat([[1991, 'v_r1', 410], [1991, 'v_r2', 402], [1991, 'v_r3', 404]]);
 
-  CH.page = { key: 'environment', pre: 'v', title: '環保｜大家為什麼拍手？', still: 'hero_v', noDoor: 1, noFilm: 1, after: ['vnum', 'vall'] };
+  CH.page = { key: 'environment', pre: 'v', title: '環保｜大家為什麼拍手？', still: 'hero_v', noDoor: 1, after: ['vnum', 'vall'] };
 
   CH.hero = {
     film: T('大家為什麼拍手？', 'Why is everyone clapping?'),
     stop: T('第四站', 'Fourth stop'), title: T('環保', 'Environmental Protection'),
     sub: T('一句話之後，有人回家就動手。<br>一條街跟著做，分得夠細的瓶子，走到了災區。', 'After one sentence, someone went home and began.<br>A street joined in, and bottles sorted finely enough travelled to disaster areas.'),
-    watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　8 分 03 秒', 'Watch the film · 8 min 3 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('回收的寶特瓶與綠色瓶片　局部　取自《慈濟歷史上的今天》', 'Recycled bottles and green flakes, detail, from Tzu Chi, On This Day')
   };
 

@@ -40,13 +40,13 @@
     [[0, 'mw_hero', 533], [0, 'mw_arm', 673]],
     Object.keys(ZS).map(function (k) { return [0, 'mw_' + k, ZS[k]]; }));
 
-  CH.page = { key: 'marrow', pre: 'w', title: '骨髓捐贈｜不認識的人，也能救嗎？', still: 'hero_w', noDoor: 1, noFilm: 1, after: ['wnum', 'wall'] };
+  CH.page = { key: 'marrow', pre: 'w', title: '骨髓捐贈｜不認識的人，也能救嗎？', still: 'hero_w', noDoor: 1, after: ['wnum', 'wall'] };
 
   CH.hero = {
     film: T('不認識的人，也能救嗎？', 'Can you save someone you have never met?'),
     stop: T('第六站', 'Sixth stop'), title: T('骨髓捐贈', 'Bone Marrow Donation'),
     sub: T('一位病人回國請命，醫界與慈濟人共同投入，推動非親屬骨髓捐贈。<br>此後，許多人留下資料，等待配對助人的因緣。', 'A patient came home to plead for others, and doctors and Tzu Chi people worked together to open marrow donation between strangers.<br>Since then, many have left their details and await the chance of a match.'),
-    watch: T('影片製作中', 'Film in production'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　7 分 17 秒', 'Watch the film · 7 min 17 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('手臂的局部，取自《慈濟歷史上的今天》，拍攝日未載', 'Detail of an arm. From Tzu Chi, On This Day; date of photograph not given')
   };
 

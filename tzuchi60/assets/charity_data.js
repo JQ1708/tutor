@@ -58,7 +58,7 @@
     title: T('慈善', 'Charity'),
     sub: T('一九六六年，三十支竹筒，每人每天五毛錢。<br>截至二〇二五年底，慈善足跡累計觸及一百三十九個國家地區。',
            'In 1966: thirty bamboo banks, fifty cents a day each.<br>By the end of 2025, this charity work had reached 139 countries and regions.'),
-    watch: T('看影片　11 分 03 秒', 'Watch the film · 11 min 3 s'),
+    watch: T('看影片　10 分 39 秒', 'Watch the film · 10 min 39 s'),
     read: T('走這六段路', 'Walk the six stretches'),
     ai: T('AI 情境重建，非當年攝影', 'AI reconstruction, not a historical photograph')
   };
