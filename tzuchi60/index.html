@@ -5,7 +5,9 @@
 <script>
 /* 片頭只在第一次來時播；從區塊走回來、或喜歡少動畫的人直接看路線 */
 (function(){var seen=0;try{seen=localStorage.getItem('tc60intro')}catch(e){}
- if(!seen&&location.hash!=='#road'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro')})();
+ var back=location.hash==='#road'||/\/(charity|medical|education|environment|relief|marrow|community|culture)\.html/.test(document.referrer);
+ if(!back)document.documentElement.classList.add('gate');
+ if(!seen&&!back&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro')})();
 </script>
 <style>
 #intro{display:none}
@@ -58,11 +60,20 @@ html[data-lang=both] .i-t .en{display:block;font-size:.4em;margin-top:.4em}
 @keyframes tin{from{opacity:0;transform:translateY(calc(-50% + 12px))}to{opacity:1;transform:translateY(-50%)}}
 .i-skip{position:absolute;right:var(--gut);bottom:18px;z-index:3;padding:11px 18px;border-radius:99px;font:14px/1 var(--sans);color:#3b2a17;background:#eee5d2cc;box-shadow:inset 0 0 0 1px #3b2a1766}.i-skip .en{font:inherit}
 .i-ai{position:absolute;left:var(--gut);bottom:24px;z-index:3;font:12px/1 var(--sans);color:#6b5a42}.i-ai .en{font:inherit}
+#gate{display:none}html.gate #gate{display:flex}html.gate #road{display:none}
+#gate{min-height:100vh;min-height:100svh;align-items:center;padding:64px var(--gut) 40px}
+.gc{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,26px);margin-top:clamp(28px,5vh,48px)}
+.gc a,.gc div{display:block;padding:clamp(22px,3.4vw,34px);border-radius:14px;background:#f6f0e2;box-shadow:inset 0 0 0 1px #3b2a1733,0 6px 22px #3b2a1714;color:#2c261d;text-decoration:none;text-align:center}
+.gc a:hover,.gc a:focus-visible{box-shadow:inset 0 0 0 1.5px #3b2a1799,0 10px 28px #3b2a1724}
+.gc b{display:block;font:400 clamp(24px,3.2vw,34px)/1.35 Title,var(--song)}.gc b .en{font:italic 400 .8em/1.3 var(--en)}
+.gc small{display:block;margin-top:8px;font:14px/1.6 var(--sans);color:#5d5444}.gc small .en{font:inherit}
+.gc .off{opacity:.62;cursor:default}
+@media(max-width:720px){.gc{grid-template-columns:1fr}}
 #road{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:64px var(--gut) 34px}
 .fw{width:min(1040px,100%);margin:0 auto}
 .kick{font:15px/1.5 var(--sans);letter-spacing:.2em;color:#5d5444;margin:0 0 2px;text-align:center}.kick .en{font:inherit}
-#road h1{font:400 clamp(36px,6vw,64px)/1.3 Title,var(--song);margin:0;text-align:center;text-wrap:balance}#road h1 .en{font:italic 400 clamp(30px,4.6vw,50px)/1.3 var(--en)}
-html[data-lang=both] #road h1 .en{display:block;font-size:.5em}
+#road h1,#gate h1{font:400 clamp(36px,6vw,64px)/1.3 Title,var(--song);margin:0;text-align:center;text-wrap:balance}#road h1 .en,#gate h1 .en{font:italic 400 clamp(30px,4.6vw,50px)/1.3 var(--en)}
+html[data-lang=both] #road h1 .en,html[data-lang=both] #gate h1 .en{display:block;font-size:.5em}
 .map{position:relative;aspect-ratio:1000/520;margin:clamp(6px,2vh,20px) auto 0;max-height:62vh;max-width:calc(62vh*1000/520)}
 .map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.map svg.m{display:none}
 .map path{fill:none;stroke-linecap:round}
@@ -111,13 +122,19 @@ a.stp small{font-weight:600}
  <button class="i-skip" id="iskip"><span class="zh">跳過</span><span class="en" lang="en">Skip</span></button>
 </div>
 <div class="top"><span></span><div class="lang" id="lang" role="group" aria-label="Language"></div></div>
+<section id="gate"><div class="fw"><p class="kick"><span class="zh">媽媽，慈濟是什麼？</span><span class="en" lang="en">Mama, what is Tzu Chi?</span></p>
+ <h1><span class="zh">四大志業　八大腳印</span><span class="en" lang="en">Four Missions, Eight Footprints</span></h1>
+ <div class="gc"><a href="#road" id="g-read"><b><span class="zh">走進八大腳印</span><span class="en" lang="en">Walk the Eight Footprints</span></b><small><span class="zh">一步一步讀，每個腳印裡也有它的影片</span><span class="en" lang="en">Read at your own pace; each footprint has its own film</span></small></a>
+ <div class="off" id="g-film" aria-disabled="true"><b><span class="zh">看總影片</span><span class="en" lang="en">Watch the full film</span></b><small><span class="zh">八個腳印，一次看完・製作中</span><span class="en" lang="en">All eight footprints in one film · in production</span></small></div></div>
+ <p class="alt"><button id="replay2"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
+</div></section>
 <section id="road"><div class="fw"><p class="kick"><span class="zh">媽媽，慈濟是什麼？</span><span class="en" lang="en">Mama, what is Tzu Chi?</span></p>
  <h1><span class="zh">四大志業　八大腳印</span><span class="en" lang="en">Four Missions, Eight Footprints</span></h1>
  <div class="map" id="map">
   <svg class="d" viewBox="0 0 1000 520" aria-hidden="true"><path class="pa" pathLength="100" d="M110,130 C200,60 280,200 370,130 S540,60 630,130 S800,200 890,130 C990,130 990,390 890,390 C800,320 720,460 630,390 S460,320 370,390 S200,460 110,390"/><path class="pw" pathLength="100" d="M110,130 C200,60 280,200 370,130 S540,60 630,130 S800,200 890,130 C990,130 990,390 890,390 C800,320 720,460 630,390 S460,320 370,390 S200,460 110,390"/></svg>
   <svg class="m" viewBox="0 0 360 640" aria-hidden="true"><path class="pa" pathLength="100" d="M90,75 C150,40 210,110 270,75 C345,75 345,235 270,235 C210,200 150,270 90,235 C15,235 15,405 90,405 C150,370 210,440 270,405 C345,405 345,565 270,565 C210,530 150,600 90,565"/><path class="pw" pathLength="100" d="M90,75 C150,40 210,110 270,75 C345,75 345,235 270,235 C210,200 150,270 90,235 C15,235 15,405 90,405 C150,370 210,440 270,405 C345,405 345,565 270,565 C210,530 150,600 90,565"/></svg>
  </div>
- <p class="alt"><span class="zh">想直接看影片？</span><span class="en" lang="en">Rather watch a film?</span> <a href="#film" class="pl" data-f="charity" data-p="hero"><span class="zh">慈善 11 分 03 秒</span><span class="en" lang="en">Charity, 11 min 3 s</span></a>　<a href="#film" class="pl" data-f="medical" data-p="hero_m"><span class="zh">醫療 9 分 46 秒</span><span class="en" lang="en">Medical, 9 min 46 s</span></a>　<a href="#film" class="pl" data-f="education" data-p="hero_e"><span class="zh">教育 10 分 11 秒</span><span class="en" lang="en">Education, 10 min 11 s</span></a><button id="replay"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
+ <p class="alt"><button id="replay"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
 </div></section>
 <footer data-era="dark"><div class="wrap"><span class="zh">本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片取自慈濟《歷史上的今天》等公開頁面；影片中標示的情境畫面由 AI 依史料生成，非當年攝影。配樂：開經偈（靜思僧團）。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs. Music: Opening Verse (Jing Si Abode).</span></div></footer>
 <div id="film" hidden><button id="filmx" aria-label="關閉 Close">×</button><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg" src="assets/film/charity.mp4"></video></div>
@@ -150,7 +167,7 @@ a.stp small{font-weight:600}
  var I=d.getElementById('intro'),ended=false,lv='',C=['#7d9a4a','#9bb25c','#6f8f3f','#b7b866'];
  for(var i=0;i<16;i++)lv+='<span class="i-l" style="--x:'+(6+i*5.6+(i%3)*2)+'%;--c:'+C[i%4]+';--w:'+(i%2?46:-38)+'px;--t:'+(3.2+i%4*.5)+'s;--d:'+(10+i%8*.42)+'s"></span>';
  d.getElementById('leaves').innerHTML=lv;
- function finish(){if(ended)return;ended=true;try{localStorage.setItem('tc60intro','1')}catch(e){}root.classList.remove('intro');I.classList.remove('go');showRoad()}
+ function finish(){if(ended)return;ended=true;try{localStorage.setItem('tc60intro','1')}catch(e){}root.classList.remove('intro');I.classList.remove('go');if(!root.classList.contains('gate'))showRoad()}
  function start(){
   ended=false;
   var im=[].slice.call(I.querySelectorAll('.i-nun,.i-hand,.i-sap')),go=false;
@@ -159,8 +176,10 @@ a.stp small{font-weight:600}
   setTimeout(run,2500);
  }
  d.getElementById('iskip').onclick=finish;
- d.getElementById('replay').onclick=function(){map.classList.remove('on');root.classList.add('intro');scrollTo(0,0);start()};
- if(root.classList.contains('intro'))start();else showRoad();
+ function replay(){map.classList.remove('on');root.classList.add('intro','gate');scrollTo(0,0);start()}
+ d.getElementById('replay').onclick=replay;d.getElementById('replay2').onclick=replay;
+ d.getElementById('g-read').onclick=function(e){e.preventDefault();root.classList.remove('gate');try{history.replaceState(null,'','#road')}catch(x){}scrollTo(0,0);showRoad()};
+ if(root.classList.contains('intro'))start();else if(!root.classList.contains('gate'))showRoad();
 
  if(window.SND)SND.area('home');
  var fl=d.getElementById('film'),v=d.getElementById('filmv');

@@ -45,7 +45,7 @@
     film: T('媽媽，醫院蓋好了，照顧病人的人才，從哪裡來？', 'Mama, the hospital is built. Where will the people to care for the patients come from?'),
     stop: T('第三站', 'Third stop'), title: T('教育', 'Education'),
     sub: T('從幼兒園、小學、中學到大學，一格一格連起來。<br>教的是專業，也是怎樣待人。', 'From kindergarten, primary and secondary school to university, one step joined to the next.<br>Teaching a profession, and how to treat people.'),
-    watch: T('看影片　10 分 11 秒', 'Watch the film · 10 min 11 s'), read: T('走這六段路', 'Walk the six stretches'),
+    watch: T('看影片　10 分 20 秒', 'Watch the film · 10 min 20 s'), read: T('走這六段路', 'Walk the six stretches'),
     ai: T('慈濟護專校舍局部　取自《慈濟歷史上的今天》', 'Part of the nursing college, from Tzu Chi, On This Day')
   };
 
