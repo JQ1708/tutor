@@ -3,11 +3,11 @@
 <title>媽媽，慈濟是什麼？</title><meta name="robots" content="noindex">
 <link rel="stylesheet" href="assets/charity_font.css"><link rel="stylesheet" href="assets/charity.css">
 <script>
-/* 片頭只在第一次來時播；從區塊走回來、或喜歡少動畫的人直接看路線 */
-(function(){var seen=0;try{seen=localStorage.getItem('tc60intro')}catch(e){}
+/* 每次打開首頁都先播片頭（不能跳過）；從區塊走回來才直接看路線 */
+(function(){
  var back=location.hash==='#road'||/\/(charity|medical|education|environment|relief|marrow|community|culture)\.html/.test(document.referrer);
  if(!back)document.documentElement.classList.add('gate');
- if(!seen&&!back&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro')})();
+ if(!back)document.documentElement.classList.add('intro')})();
 </script>
 <style>
 #intro{display:none}
@@ -69,9 +69,6 @@ html[data-lang=both] .i-t .en{display:block;font-size:.4em;margin-top:.4em}
 .gc small{display:block;margin-top:8px;font:14px/1.6 var(--sans);color:#5d5444}.gc small .en{font:inherit}
 .gc .off{opacity:.62;cursor:default}
 #filmx{position:absolute;top:14px;right:16px;z-index:2;width:44px;height:44px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#f2e8d6;font-size:28px;line-height:1;cursor:pointer}
-#film .fbox{width:min(1200px,100%);max-height:100%;display:flex;flex-direction:column;gap:12px}#film .fbox video{width:100%;max-height:calc(100svh - 150px)}
-#chap{display:flex;flex-wrap:wrap;gap:6px 8px;justify-content:center}#chap button{font:14px/1.4 var(--sans);color:#f2e8d6;background:none;border:1px solid #f2e8d64d;border-radius:99px;padding:5px 13px;cursor:pointer}#chap button .en{font:inherit}
-#chap button.on{background:#f2e8d6;color:#1a1510;border-color:#f2e8d6}html[data-lang=both] #chap button .en{margin-left:.4em}
 @media(max-width:720px){.gc{grid-template-columns:1fr}}
 #road{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:64px var(--gut) 34px}
 .fw{width:min(1040px,100%);margin:0 auto}
@@ -123,7 +120,6 @@ a.stp small{font-weight:600}
  <p class="i-t"><span class="zh"><span class="nb">慈濟 60 週年，</span><span class="nb">一路走來</span></span><span class="en" lang="en">Tzu Chi at 60: the road we have walked</span></p>
  </div>
  <span class="i-ai"><span class="zh">插畫由 AI 繪製</span><span class="en" lang="en">Illustrations made with AI</span></span>
- <button class="i-skip" id="iskip"><span class="zh">跳過</span><span class="en" lang="en">Skip</span></button>
 </div>
 <div class="top"><span></span><div class="lang" id="lang" role="group" aria-label="Language"></div></div>
 <section id="gate"><div class="fw"><p class="kick"><span class="zh">媽媽，慈濟是什麼？</span><span class="en" lang="en">Mama, what is Tzu Chi?</span></p>
@@ -141,7 +137,7 @@ a.stp small{font-weight:600}
  <p class="alt"><button id="replay"><span class="zh">重看片頭</span><span class="en" lang="en">Replay the intro</span></button></p>
 </div></section>
 <footer data-era="dark"><div class="wrap"><span class="zh">本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片取自慈濟《歷史上的今天》等公開頁面；影片中標示的情境畫面由 AI 依史料生成，非當年攝影。配樂：開經偈（靜思僧團）。</span><span class="en" lang="en">Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Photographs come from Tzu Chi’s public pages, including On This Day; scenes marked in the film are AI-generated from the record and are not historical photographs. Music: Opening Verse (Jing Si Abode).</span></div></footer>
-<div id="film" hidden><button id="filmx" aria-label="關閉 Close">×</button><div class="fbox"><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg"></video><nav id="chap" aria-label="章節 Chapters"></nav></div></div>
+<div id="film" hidden><button id="filmx" aria-label="關閉 Close">×</button><video id="filmv" controls playsinline preload="none" poster="assets/ph/hero.jpg"></video></div>
 <script src="assets/data.js"></script><script src="assets/music/list.js"></script><script src="assets/sound.js"></script>
 <script>
 (function(){
@@ -171,7 +167,7 @@ a.stp small{font-weight:600}
  var I=d.getElementById('intro'),ended=false,lv='',C=['#7d9a4a','#9bb25c','#6f8f3f','#b7b866'];
  for(var i=0;i<16;i++)lv+='<span class="i-l" style="--x:'+(6+i*5.6+(i%3)*2)+'%;--c:'+C[i%4]+';--w:'+(i%2?46:-38)+'px;--t:'+(3.2+i%4*.5)+'s;--d:'+(10+i%8*.42)+'s"></span>';
  d.getElementById('leaves').innerHTML=lv;
- function finish(){if(ended)return;ended=true;try{localStorage.setItem('tc60intro','1')}catch(e){}root.classList.remove('intro');I.classList.remove('go');if(!root.classList.contains('gate'))showRoad()}
+ function finish(){if(ended)return;ended=true;root.classList.remove('intro');I.classList.remove('go');if(!root.classList.contains('gate'))showRoad()}
  function start(){
   ended=false;
   var im=[].slice.call(I.querySelectorAll('.i-nun,.i-hand,.i-sap')),go=false;
@@ -179,7 +175,6 @@ a.stp small{font-weight:600}
   Promise.all(im.map(function(m){return m.decode?m.decode().catch(function(){}):0})).then(run);
   setTimeout(run,2500);
  }
- d.getElementById('iskip').onclick=finish;
  function replay(){map.classList.remove('on');root.classList.add('intro','gate');scrollTo(0,0);start()}
  d.getElementById('replay').onclick=replay;d.getElementById('replay2').onclick=replay;
  d.getElementById('g-read').onclick=function(e){e.preventDefault();root.classList.remove('gate');try{history.replaceState(null,'','#road')}catch(x){}scrollTo(0,0);showRoad()};
@@ -187,15 +182,18 @@ a.stp small{font-weight:600}
 
  if(window.SND)SND.area('home');
  var fl=d.getElementById('film'),v=d.getElementById('filmv');
- function close(){v.pause();fl.hidden=true;root.style.overflow=''}
- var FB='https://jq1708.github.io/tzuchi60-film/full/',CN=[['慈善','Charity'],['醫療','Medicine'],['教育','Education'],['環保','Environment'],['國際賑災','Relief'],['骨髓捐贈','Marrow'],['社區志工','Community'],['人文','Culture']],cur=-1,pre=d.createElement('video'),chap=d.getElementById('chap');
+ function fsOn(){var r=fl.requestFullscreen||fl.webkitRequestFullscreen;if(r){try{var p=r.call(fl);if(p&&p.catch)p.catch(function(){})}catch(x){}}else{v.removeAttribute('playsinline');v.removeAttribute('webkit-playsinline');if(v.readyState&&v.webkitEnterFullscreen)try{v.webkitEnterFullscreen()}catch(x){}}}
+ function close(){v.pause();fl.hidden=true;root.style.overflow='';var el=d.fullscreenElement||d.webkitFullscreenElement;if(el)(d.exitFullscreen||d.webkitExitFullscreen).call(d)}
+ ['fullscreenchange','webkitfullscreenchange'].forEach(function(n){d.addEventListener(n,function(){if(!(d.fullscreenElement||d.webkitFullscreenElement)&&!fl.hidden)close()})});
+ /* iPhone 原生全屏：一章播完會自動退出全屏、接著播下一章，所以只有中途按「完成」才關 */
+ v.addEventListener('webkitendfullscreen',function(){if(!v.ended&&!fl.hidden)close()});
+ var FB='https://jq1708.github.io/tzuchi60-film/full/',CN=[['慈善','Charity'],['醫療','Medicine'],['教育','Education'],['環保','Environment'],['國際賑災','Relief'],['骨髓捐贈','Marrow'],['社區志工','Community'],['人文','Culture']],cur=-1,pre=d.createElement('video');
  pre.preload='auto';pre.muted=true;
- CN.forEach(function(n,k){var b=d.createElement('button');b.innerHTML='<span class="zh">'+(k+1)+'・'+n[0]+'</span><span class="en" lang="en">'+(k+1)+' · '+n[1]+'</span>';b.onclick=function(){play(k)};chap.appendChild(b)});
  function src(k){return FB+('0'+(k+1)).slice(-2)+'.mp4'}
- function play(k){cur=k;v.src=src(k);v.play();[].forEach.call(chap.children,function(b,x){b.classList.toggle('on',x===k)})}
+ function play(k){cur=k;v.src=src(k);v.play()}
  v.addEventListener('ended',function(){if(cur>=0&&cur<CN.length-1)play(cur+1)});
  v.addEventListener('timeupdate',function(){if(cur>=0&&cur<CN.length-1&&v.duration&&v.duration-v.currentTime<40&&pre.getAttribute('src')!==src(cur+1))pre.src=src(cur+1)});
- d.getElementById('g-film').addEventListener('click',function(e){e.preventDefault();fl.hidden=false;root.style.overflow='hidden';if(cur<0)play(0);else v.play()});
+ d.getElementById('g-film').addEventListener('click',function(e){e.preventDefault();fl.hidden=false;root.style.overflow='hidden';fsOn();if(cur<0)play(0);else v.play()});
  d.getElementById('filmx').addEventListener('click',close);
  addEventListener('keydown',function(e){if(e.key==='Escape'&&!fl.hidden)close()});
 })();

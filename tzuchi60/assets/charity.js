@@ -293,13 +293,20 @@
     if (!window.TUN) { location.hash = tg; return; }
     TUN.play(b.tun, { q: tx(askOf(b)), skip: tx(U.skip), mid: function () { if (location.hash === tg) render(); else location.hash = tg; } });
   }
+  /* 影片一律全屏：整個影片框進全屏；iPhone 不支援就用原生播放器全屏 */
+  function fsOn(box, v) {
+    var r = box.requestFullscreen || box.webkitRequestFullscreen;
+    if (r) { try { var p = r.call(box); if (p && p.catch) p.catch(function () {}); } catch (x) {} }
+    else { v.removeAttribute('playsinline'); v.removeAttribute('webkit-playsinline'); if (v.readyState && v.webkitEnterFullscreen) try { v.webkitEnterFullscreen(); } catch (x) {} } /* iPhone：拿掉 playsinline，play() 就會用原生全屏 */
+  }
+  function fsOff() { var el = doc.fullscreenElement || doc.webkitFullscreenElement; if (el) (doc.exitFullscreen || doc.webkitExitFullscreen).call(doc); }
   doc.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('[data-go]');
     if (a) { e.preventDefault(); toc.hidden = true; go(+a.dataset.go); return; }
     var w = e.target.closest && e.target.closest('#watch,#read,#toroad');
     if (!w) return;
     e.preventDefault();
-    if (w.id === 'watch') { fl.hidden = false; root.style.overflow = 'hidden'; fv.play(); }
+    if (w.id === 'watch') { fl.hidden = false; root.style.overflow = 'hidden'; fsOn(fl, fv); fv.play(); }
     else if (w.id === 'read') doc.getElementById('hub').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
     else {
       var to = CH.next.href || 'index.html#road';
@@ -340,7 +347,10 @@
 
   /* 影片 */
   var fl = doc.getElementById('film'), fv = doc.getElementById('filmv');
-  function closeFilm() { fv.pause(); fl.hidden = true; root.style.overflow = ''; }
+  function closeFilm() { fv.pause(); fl.hidden = true; root.style.overflow = ''; fsOff(); }
+  /* 用戶自己退出全屏（Esc／系統按鈕）就順手關掉影片框 */
+  ['fullscreenchange', 'webkitfullscreenchange'].forEach(function (n) { doc.addEventListener(n, function () { if (!(doc.fullscreenElement || doc.webkitFullscreenElement) && !fl.hidden) closeFilm(); }); });
+  fv.addEventListener('webkitendfullscreen', function () { if (!fl.hidden) closeFilm(); });
   doc.getElementById('filmx').onclick = closeFilm;
   addEventListener('keydown', function (e) { if (e.key !== 'Escape') return; if (!lb.hidden) closeLb(); if (!fl.hidden) closeFilm(); });
 
