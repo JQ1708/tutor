@@ -66,7 +66,7 @@ function xlChapter(id) {
     for (var k in links) links[k].classList.toggle('on', cur && cur.id === k);
     if (cur) {
       var a = links[cur.id];
-      if (a && window.innerWidth <= 1180) { var rt = a.parentNode.parentNode.parentNode; var x = a.offsetLeft - 24; if (Math.abs(rt.scrollLeft - x) > 40) rt.scrollTo({ left: x, behavior: 'smooth' }); }
+      var rt = a && a.closest('.route'); if (rt && rt.scrollWidth > rt.clientWidth + 4) { var x = a.offsetLeft - 24; if (Math.abs(rt.scrollLeft - x) > 40) rt.scrollTo({ left: x, behavior: 'smooth' }); }
       if (seen.indexOf(cur.id) < 0) { seen.push(cur.id); XL.set(id + ':seen', seen); a && a.classList.add('seen'); }
       XL.set('progress', { ch: id, sec: cur.id, label: cur.getAttribute('data-sec'), t: Date.now() });
       if (cur.id === 'look') { var d = XL.get('done', []); if (d.indexOf(id) < 0) { d.push(id); XL.set('done', d); } }
@@ -131,4 +131,63 @@ function xlChapter(id) {
       lb.classList.add('on');
     });
   });
+
+  /* 進場：導航員、重點筆、卡片（手機版） */
+  var rvs = [].slice.call(document.querySelectorAll('.rv, .tx, .key, .quiz .ans'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    rvs.forEach(function (el) { io.observe(el); });
+  } else rvs.forEach(function (el) { el.classList.add('in'); });
+
+  /* 猜一猜 */
+  [].forEach.call(document.querySelectorAll('.quiz'), function (qz) {
+    var key = id + ':quiz:' + (qz.id || ''), got = XL.get(key, null);
+    var bs = [].slice.call(qz.querySelectorAll('.opts button'));
+    function show(v) {
+      bs.forEach(function (b) { b.classList.toggle('picked', b.getAttribute('data-v') === v); b.classList.toggle('ok', b.hasAttribute('data-ok')); });
+      qz.classList.add('done');
+      var fb = qz.querySelector('.fb'), ok = bs.filter(function (b) { return b.getAttribute('data-v') === v; })[0];
+      if (fb) fb.textContent = ok && ok.hasAttribute('data-ok') ? qz.getAttribute('data-yes') : qz.getAttribute('data-no');
+      var a = qz.querySelector('.ans'); a && a.classList.add('in');
+    }
+    bs.forEach(function (b) { b.addEventListener('click', function () { if (qz.classList.contains('done')) return; got = b.getAttribute('data-v'); XL.set(key, got); show(got); }); });
+    if (got) show(got);
+  });
+
+  /* 隨身小夥伴：每進一個場景冒一句；畫面上有導航員時先躲起來 */
+  var bd = document.querySelector('.buddy');
+  if (bd) {
+    var face = bd.querySelector('.face img'), bb = bd.querySelector('.bb'), lastSec = null, hideT, pend = null;
+    var vis = 0, says = [].slice.call(document.querySelectorAll('.say, .pause, .duo, #nextNav, .ch-head'));
+    function talk(who, txt) {
+      face.src = 'assets/nav/' + (who === '小川' ? 'chuan' : 'he') + '_face.png';
+      bb.innerHTML = '<span class="who">' + who + '</span>' + txt;
+      bd.classList.add('talk'); clearTimeout(hideT); hideT = setTimeout(function () { bd.classList.remove('talk'); }, 4200);
+    }
+    if ('IntersectionObserver' in window) {
+      var io2 = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { e.target._v = e.isIntersecting; });
+        vis = says.filter(function (s) { return s._v; }).length;
+        bd.classList.toggle('away', vis > 0);
+        if (!vis && pend) { var p = pend; pend = null; setTimeout(function () { if (!bd.classList.contains('away') && lastSec === p.sec) talk(p.who, p.t); }, 500); }
+      }, { rootMargin: '-68% 0px 0px 0px' });  /* 只在畫面下方三成有導航員時才躲，免得疊在一起 */
+      says.forEach(function (s) { io2.observe(s); });
+    }
+    bd.querySelector('.face').addEventListener('click', function () {
+      var s = lastSec && lastSec.getAttribute('data-tap');
+      talk(lastSec && lastSec.getAttribute('data-who') || '小禾', s || '慢慢讀，不用急～');
+    });
+    window.addEventListener('scroll', function () {
+      var cur = null;
+      secs.forEach(function (s) { if (s.getBoundingClientRect().top < window.innerHeight * .5) cur = s; });
+      if (cur && cur !== lastSec) {
+        lastSec = cur;
+        var t = cur.getAttribute('data-buddy');
+        var w = cur.getAttribute('data-who') || '小禾';
+        if (t) { if (bd.classList.contains('away')) pend = { sec: cur, who: w, t: t }; else talk(w, t); }
+      }
+    }, { passive: true });
+  }
 }
