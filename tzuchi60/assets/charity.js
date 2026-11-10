@@ -263,7 +263,11 @@
           var t = e.target;
           t.classList.add('in'); rio.unobserve(t);
           if (t.classList.contains('cu')) run(t);
-          if (t.classList.contains('bn')) { mark(BL[cur].id); paintToc(); }
+          if (t.classList.contains('bn')) {
+            /* 快甩時觀察器可能整塊跳過：到了「走完」章，上面沒進場的一併進場，藥丸才不會還數著它 */
+            doc.querySelectorAll('.b.rv:not(.in)').forEach(function (b) { b.classList.add('in'); rio.unobserve(b); });
+            mark(BL[cur].id); paintToc();
+          }
           paintPill();
         });
       }, { rootMargin: '0px 0px -8% 0px' });
