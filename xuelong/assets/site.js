@@ -51,13 +51,22 @@ function xlIndex() {
     html += '<details class="grp"' + (hasReady ? ' open' : '') + '><summary>' + g.part +
       ' <span class="cnt">' + g.items.length + ' 章</span><span class="bar">原書 p.' + first.ps + '–' + last.pe + '</span></summary><ol class="chs">';
     g.items.forEach(function (c) {
-      var ok = ready.indexOf(c.id) > -1, isDone = done.indexOf(c.id) > -1;
+      var parts = c.split ? c.split.map(function (lab, i) { return { lab: lab, id: i ? c.id + '-' + (i + 1) : c.id }; }) : [{ lab: '', id: c.id }];
+      var ok = ready.indexOf(c.id) > -1, isDone = done.indexOf(parts[parts.length - 1].id) > -1;
       var tt = '<span class="tt">' + c.t + (c.s ? '<small>' + c.s + '</small>' : '') + '</span>';
-      var st = '<span class="st">' + (ok ? '<span class="tag red">樣章・可閱讀</span> ' : '') +
-        'p.' + c.ps + '–' + c.pe + '　約 ' + XL.mins(c.chars) + ' 分鐘' + (c.split ? '　分' + c.split.join('／') : '') + (ok ? '' : '　籌備中') + '</span>';
-      var inner = '<span class="no">' + c.n + '</span>' + tt + st;
-      html += '<li class="' + (ok ? 'ready' : '') + (isDone ? ' done' : '') + '">' +
-        (ok ? '<a href="' + c.id + '.html" style="display:contents">' + inner + '</a>' : inner) + '</li>';
+      var info = 'p.' + c.ps + '–' + c.pe + '　約 ' + XL.mins(c.chars) + ' 分鐘' + (ok ? '' : '　籌備中');
+      var cls = (ok ? 'ready' : '') + (isDone ? ' done' : '') + (c.split ? ' sp' : '');
+      var no = '<span class="no">' + c.n + '</span>';
+      if (ok && c.split) {
+        var pk = parts.map(function (q) {
+          var on = ready.indexOf(q.id) > -1, d = done.indexOf(q.id) > -1;
+          return on ? '<a class="pt' + (d ? ' done' : '') + '" href="' + q.id + '.html">' + q.lab + '篇' + (d ? ' ✓' : '') + '</a>' : '<span class="pt off">' + q.lab + '篇</span>';
+        }).join('');
+        html += '<li class="' + cls + '"><a href="' + c.id + '.html" style="display:contents">' + no + tt + '</a><span class="st">' + info + '<span class="pts">' + pk + '</span></span></li>';
+      } else {
+        var inner = no + tt + '<span class="st">' + info + (c.split ? '　分' + c.split.join('／') : '') + '</span>';
+        html += '<li class="' + cls + '">' + (ok ? '<a href="' + c.id + '.html" style="display:contents">' + inner + '</a>' : inner) + '</li>';
+      }
     });
     html += '</ol></details>';
   });
