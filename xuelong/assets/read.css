@@ -267,6 +267,28 @@ footer.site{border-top:1px solid var(--line);font-family:var(--sans);font-size:1
 .topbar-in .fsw{margin-left:auto}.pct+.fsw{margin-left:0}
 @media (max-width:440px){.pct{display:none}.pct+.fsw{margin-left:auto}}
 
+
+/* 新元件（build.py）：可點的上一章／下一章、數字卡、前後對照、分篇標 */
+.topbar+main .ch-head{margin-top:1.6rem}
+.next a{display:block;border:1px solid #E7C9BE;border-radius:16px;padding:.8rem 1rem;background:var(--card);color:inherit;text-decoration:none}
+.next a strong{color:var(--red-2)}
+.ch-head h1 small.pt{display:block;font-size:.55em;letter-spacing:.2em;color:var(--muted);font-weight:600}
+.stats{margin:1.8rem 0;font-family:var(--sans)}
+.stats .lab{font-size:1.17rem;font-weight:700;display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.stats ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.stats li{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:14px;padding:.7rem .8rem;line-height:1.5}
+.stats li b{display:block;font:700 2rem/1.2 var(--serif);color:var(--red)}
+.stats li span{display:block;font-size:1.2rem}
+.stats li cite{display:block;font-style:normal;font-size:0.95rem;color:var(--muted)}
+.vs-h{display:grid;grid-template-columns:1fr 1.6rem 1fr;margin:.9rem 0 .4rem;font-weight:700;color:var(--c);font-size:1.3rem}
+.vs-h span:last-child{grid-column:3}
+.vs{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.vs li{display:grid;grid-template-columns:1fr 1.6rem 1fr;align-items:center}
+.vs .a,.vs .b{border-radius:14px;padding:.7rem .8rem;font-size:1.4rem;line-height:1.65}
+.vs .a{background:#EFEAE0;color:var(--ink-2)}
+.vs .b{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c)}
+.vs .to{text-align:center;color:var(--c);font-weight:700}
+
 /* fs-std:begin（tools/fs_std.py 產生，勿手改） */
 html.fs-s body{font-size:18px;line-height:1.9}
 html.fs-s .tag{font-size:.6rem}
@@ -345,4 +367,10 @@ html.fs-s .lb p{font-size:.8rem}
   html.fs-s .say.big>img{height:210px}
   html.fs-s .ch-head h1{font-size:2.5rem}
 }
+html.fs-s .stats .lab{font-size:0.78rem}
+html.fs-s .stats li b{font:700 1.6rem/1.2 var(--serif)}
+html.fs-s .stats li span{font-size:0.8rem}
+html.fs-s .stats li cite{font-size:0.633rem}
+html.fs-s .vs-h{font-size:0.867rem}
+html.fs-s .vs .a,html.fs-s .vs .b{font-size:0.933rem}
 /* fs-std:end */
