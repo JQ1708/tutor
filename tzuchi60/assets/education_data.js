@@ -56,8 +56,8 @@
       b: [
         { k: 'story', lay: 'L', date: '1988', h: T('十二所護專，都在西部', 'Twelve nursing colleges, all in the west'),
           ph: [{ i: 'e_gate', c: T('花蓮山腳下的慈濟護專校舍局部。確切拍攝日期不詳。取自《慈濟歷史上的今天》。', 'Part of the Tzu Chi nursing college at the foot of the mountains in Hualien. Exact date unknown. From Tzu Chi, On This Day.') }],
-          p: [T('當時，臺灣有十二所護專，都在西部。東部缺少職業學校，也缺少就業的機會；花蓮慈濟醫院啟業之後，同樣缺少醫護人員。', 'At the time, Taiwan had twelve nursing colleges, and all of them were in the west. The east was short of vocational schools and short of work, and once the Tzu Chi hospital in Hualien opened, it was short of nurses as well.'),
-            T('一九八八年三月二十六日，慈濟基金會向教育部提出申請，要在花蓮設立一所護理專科學校。校地在花蓮市建國路，共十公頃，離慈濟醫院約三公里。學校全部採公費，免繳學雜費，使家庭清寒的少女也有深造的機會。', 'On 26 March 1988 the Tzu Chi Foundation applied to the Ministry of Education to found a nursing college in Hualien. The site was ten hectares on Jianguo Road, about three kilometres from the hospital. Every place would be publicly funded, with no tuition or fees, so that girls from families of limited means could also study further.')],
+          p: [T('當時，臺灣有十二所護專，都在西部。東部缺少職業學校，也缺少就業的機會；花蓮慈濟醫院啟業之後，同樣缺少醫護人員。', 'At the time, Taiwan had twelve nursing colleges, and all of them were in the west. The east was short of vocational schools and short of work, and Hualien Tzu Chi Hospital also faced a shortage of medical and nursing staff after it opened.'),
+            T('一九八八年三月二十六日，慈濟基金會向教育部提出申請，要在花蓮設立一所護理專科學校。校地在花蓮市建國路，共十公頃，離慈濟醫院約三公里。學校全部採公費，免繳學雜費，使家庭清寒的少女也有深造的機會。', 'On 26 March 1988 the Tzu Chi Foundation applied to the Ministry of Education to found a nursing college in Hualien. The site was ten hectares on Jianguo Road, about three kilometres from the hospital. Every place would be funded by the Tzu Chi Foundation, with tuition and fees waived, so that girls from families of limited means could also pursue further studies.')],
           q: { zh: '首要目的當然是為了東部的少女。', en: 'The first purpose, of course, was the young women of the east.', who: SHANGREN },
           q2: { zh: '再加上慈濟醫院成立以後，也缺少醫護人員。', en: 'And after the Tzu Chi hospital was founded, it too was short of medical staff.', who: SHANGREN },
           s: ['fm115'] },
@@ -83,7 +83,7 @@
                 'When the courses were planned, a class on the philosophy of life was set aside beyond nursing itself, taught by Hung Chien Ching-hui. The report says it was “in pursuit of a full meaning of life”.')],
           s: ['fm115'] },
         { k: 'story', lay: 'T', h: T('一畢業就有工作', 'A job on graduation'),
-          p: [T('公費生的學雜費全免，畢業後必須在慈濟醫院服務滿兩年。慈濟護專另有原住民學生免費就讀的政策。', 'Publicly funded students paid no tuition or fees, and on graduating had to serve two full years at the Tzu Chi hospital. The college also let Indigenous students study free of charge.'),
+          p: [T('公費生的學雜費全免，畢業後必須在慈濟醫院服務滿兩年。慈濟護專另有原住民學生免費就讀的政策。', 'Students funded by the Tzu Chi Foundation paid no tuition or fees and had to serve at Tzu Chi Hospital for two full years after graduation. The college also let Indigenous students study free of charge.'),
             T('太魯閣族的黃小英，父親打臨時工，每學期三萬多元的學雜費，是很大的負擔。成為公費生的兩年，她很少跟家裏拿錢；後來服務於慈院神經外科病房。那兩年的服務義務，對她是一種保障和安定。她是萬榮鄉西林村第一位就讀慈濟護專的學生，媽媽逢人就鼓勵前往就讀。據她粗略估計，村內讀護專的約有十五人。', 'Huang Hsiao-ying, who is Truku, had a father in casual work, and fees of over NT$30,000 a term weighed heavily. For her two funded years she rarely asked her family for money, and she went on to work on the hospital’s neurosurgery ward. The two-year service, to her, meant security. She was the first from Xilin village in Wanrong to attend the college, and her mother encouraged everyone she met to apply. By her rough count, about fifteen from the village had gone to the college.'),
             T('五專部的太魯閣族學生正建梅，父親是水泥工，母親做麵攤生意，在家排行老二。免費就學的政策，讓父母不用再為她的學雜生活費發愁。', 'Cheng Chien-mei, a Truku student in the five-year course, was the second child of a construction worker and a noodle-stall owner. The free-study policy spared her parents the worry of paying for her schooling and upkeep.'),
             T('這就是創校的用意：增加東部少女就學、就業的機會，也培養能在東部生根的護理人才。', 'This was what the school was founded for: more chances for the young women of the east to study and to work, and nurses who would stay.')],
@@ -95,7 +95,7 @@
 
     /* ───── 第二段 ───── */
     { id: 'e2a', era: 'e80', y: '1989', nav: T('懿德母姊', 'Mothers and sisters'),
-      ask: T('媽媽，護士只要會打針、換藥就好了嗎？', 'Mama, does a nurse only need to know injections and dressings?'),
+      ask: T('媽媽，護士只要會打針、換藥就好了嗎？', 'Mama, does a nurse only need to know how to give injections and change dressings?'),
       b: [
         { k: 'story', lay: 'T', date: '1989.10.25', h: T('三位委員，九位學生', 'Three commissioners, nine students'),
           p: [T('開學後一個多月，慈濟「懿德母姊會」成立。懿德，是女人的德行。三十六位慈濟資深委員分為十二組，一百零七位學生也分為十二組，每三位委員照顧、輔導九位學生。', 'A little over a month after term began, the Yide Mothers and Sisters Association was formed. Yide means a woman’s virtue. Thirty-six senior commissioners were divided into twelve groups, and so were the 107 students, so that each three commissioners looked after nine students.'),
@@ -108,7 +108,7 @@
           who: T('《慈濟道侶》82 期，1989.12.04', 'Tzu Chi Companions, no. 82, 4 Dec 1989'),
           note: T('示意畫面，非校歌實際手勢。', 'An illustration, not the actual signs of the song.'), s: ['fm115'] },
         { k: 'story', lay: 'T', h: T('一年十個學生', 'Ten students a year'),
-          p: [T('公費的擔子不輕。培養一位學生，一年約需十二萬元。一位陳老先生向上人問起能為護專負擔些什麼，聽了之後，表示一年要負擔十位學生的全部費用。一所學校，就這樣由許多人一起撐起來。', 'Public funding was no small load. One student cost about NT$120,000 a year. An elderly Mr Chen asked the Master what he could take on for the college, and on hearing the answer offered to meet all the costs of ten students a year. A school was carried in this way, by many people together.')],
+          p: [T('公費的擔子不輕。培養一位學生，一年約需十二萬元。一位陳老先生向上人問起能為護專負擔些什麼，聽了之後，表示一年要負擔十位學生的全部費用。一所學校，就這樣由許多人一起撐起來。', 'Funding the students was a substantial commitment for Tzu Chi. One student cost about NT$120,000 a year. An elderly Mr Chen asked the Master what he could take on for the college, and on hearing the answer offered to meet all the costs of ten students a year. A school was carried in this way, by many people together.')],
           q: { zh: '要培養一個學生一年約需十二萬元啊！', en: 'To train one student takes about one hundred and twenty thousand dollars a year!', who: SHANGREN },
           note: T('這裡記的是他當時的發心，後續情形原文未載。', 'This records what he offered at the time. The source does not say what followed.'),
           s: ['fm115'] }
@@ -123,13 +123,13 @@
           q: { zh: '唯有自己多充實、蒐集資料，並藉助團體的分工合作，才能克竟其功。', en: 'Only by building up our own knowledge, gathering material and dividing the work as a team could we see it through.', who: T('籌備委員會首次會議紀事', 'Report of the committee’s first meeting') },
           s: ['fm172', 'o941016'] },
         { k: 'story', lay: 'T', h: T('鯉魚潭', 'Liyu Lake'),
-          p: [T('大學預定地的事，花蓮縣長到精舍，問是否可以換個地方，列舉了三塊土地，其中一塊在鯉魚潭附近，風景美麗，近百甲。上人繞潭一圈，看那些山和清澈的潭水，實在是念書的好地方。看過之後，上人說這個地方用不得。委員問為什麼，是不是不喜歡。', 'The Hualien County magistrate came to the Abode to ask whether the university site might be moved, and listed three plots of land. One lay near Liyu Lake, close to a hundred hectares of fine scenery. The Master went around the lake and saw the mountains and the clear water: truly a fine place to study. Afterwards she said it could not be used. Commissioners asked why, and whether she disliked it.')],
+          p: [T('大學預定地的事，花蓮縣長到精舍，問是否可以換個地方，列舉了三塊土地，其中一塊在鯉魚潭附近，風景美麗，近百甲。上人繞潭一圈，看那些山和清澈的潭水，實在是念書的好地方。看過之後，上人說這個地方用不得。委員問為什麼，是不是不喜歡。', 'The Hualien County magistrate came to the Abode to ask whether the university site might be moved, and listed three plots of land. One lay near Liyu Lake, nearly 100 jia (a traditional Taiwanese unit of land area) of fine scenery. The Master went around the lake and saw the mountains and the clear water: truly a fine place to study. Afterwards she said it could not be used. Commissioners asked why, and whether she disliked it.')],
           q: { zh: '我太喜歡了，就是因為我太喜歡它，所以不忍心佔有它、破壞它！', en: 'I like it too much. It is because I like it so much that I cannot bear to occupy it and damage it!', who: SHANGREN },
           s: ['fm172'] },
         { k: 'story', lay: 'T', date: '2002.05.27–30', h: T('怎樣學', 'How to learn'),
           p: [T('慈濟大學進行全臺首創的「大體模擬手術教學」。大體老師是捐出自己遺體、讓學生學習的人；課程結束後，師生為五位大體老師舉辦感恩追思會。二〇〇三年九月，模擬實境教學手術室和追思堂啟用。', 'Tzu Chi University ran Taiwan’s first simulated surgery course using donated bodies. Those who give their bodies for students to learn from are honoured as teachers. When the course ended, a memorial service of thanks was held for the five of them. A simulated operating theatre and a memorial hall opened in September 2003.'),
             T('學的不只是手術。「醫師還要全程參與人文儀式，與家屬對談，了解大體老師的生平和願望」，先認識這個人，再學習技術。', 'What is learned is more than surgery. Doctors “also take part in the whole humanistic ceremony and talk with the family, learning about the teacher’s life and wishes.” They come to know the person before they learn the technique.')],
-          q: { zh: '尤其是與老師及同學們的緊密互動，有一家人的感覺，是我學習生涯中難忘的經驗。', en: 'Above all the close bond with teachers and classmates felt like family. It is something I will not forget from my years of study.', who: T('林佳慧　慈濟大學護理研究所學生', 'Lin Chia-hui, graduate nursing student, Tzu Chi University') },
+          q: { zh: '尤其是與老師及同學們的緊密互動，有一家人的感覺，是我學習生涯中難忘的經驗。', en: 'Above all the close bond with teachers and classmates felt like family. It is something I will not forget from my years of study.', who: T('林佳慧　慈濟大學護理研究所學生（二〇〇六年《慈濟月刊》報導）', 'Lin Chia-hui, graduate nursing student, Tzu Chi University, quoted in Tzu Chi Monthly, 2006') },
           s: ['fm258', 'fm172'] },
         { k: 'story', lay: 'T', h: T('不只有醫學', 'More than medicine'),
           p: [T('一九九四年，慈濟醫學院開學，同一年，護理研究所也開始招生。二〇〇〇年，醫學院改制，成為慈濟大學。今天的慈濟大學，不只有醫學：護理、藥學、公衛、社工、心理、傳播、語文、資工、永續防災，都在這裡。',
@@ -162,7 +162,7 @@
         { k: 'story', lay: 'R', date: '1992.07.23', h: T('教聯會成立', 'The association is founded'),
           ph: [{ i: 'e_book', c: T('靜思語教學教材《大愛引航》封面。取自《慈濟歷史上的今天》。', 'Cover of Great Love Guiding the Way, a Jing Si Aphorisms teaching text. From Tzu Chi, On This Day.') }],
           p: [T('「慈濟教師聯誼會」（簡稱教聯會）正式成立。靜思語是上人的短句開示，老師們把它編成教材，帶進課堂；一九九九年五月三十一日，教聯會編訂的靜思語教學教材《大愛引航》，由靜思文化正式出版。', 'The Tzu Chi Teachers’ Association was formally founded. Jing Si Aphorisms are the Master’s short teachings, and teachers worked them into lessons. On 31 May 1999 the association’s teaching text, Great Love Guiding the Way, was published.'),
-            T('自一九九三年起，又針對兒童、青少年、家長開辦系列課程，其中的大愛媽媽成長班，培訓家長走進校園。時至今日，全球已在九個國家地區成立教聯會。', 'From 1993 a series of courses began for children, teenagers and parents, among them the Da Ai Mothers’ classes. Today teachers’ associations exist in nine countries and regions.')],
+            T('自一九九三年起，又針對兒童、青少年、家長開辦系列課程，其中的大愛媽媽成長班，培訓家長走進校園。時至今日，全球已在九個國家地區成立教聯會。', 'From 1993 a series of courses began for children, teenagers and parents, among them the Da Ai Mothers’ classes that trained parents to serve in schools. Today teachers’ associations exist in nine countries and regions.')],
           s: ['fm152', 'tzed', 'o920723'] }
       ] },
     { id: 'e3b', era: 'e00', y: '1999–2007', nav: T('從幼稚園到大學', 'From kindergarten to university'),
@@ -175,7 +175,7 @@
           s: ['fm233'] },
         { k: 'story', lay: 'T', date: '2000', h: T('反哺', 'What the child gave back'),
           p: [T('一位徐媽媽，在家教孩子靜思語。有一次孩子犯錯，她發了脾氣。孩子道歉之後，對她說：「不要拿別人的錯誤來懲罰自己。」她說，這是「教學相長」，和孩子一起成長。',
-                'A mother surnamed Xu taught her child Jing Si Aphorisms at home. Once, when the child did wrong, she lost her temper. After apologising, the child told her, “Don’t punish yourself for someone else’s mistake.” She said teaching and learning had grown together, and she was growing with her child.')],
+                'A mother surnamed Xu taught her child Jing Si Aphorisms at home. Once, when the child did wrong, she lost her temper. After apologising, the child told her, “Don’t punish yourself for someone else’s mistake.” She described it as learning from each other and growing together with her child.')],
           s: ['fm233'] },
         { k: 'story', lay: 'T', date: '2000', h: T('還有四年就退休', 'Four years from retirement'),
           p: [T('蘇啟民老師，還有四年就可以從公立學校退休，夫妻倆還是放棄北部熟悉的環境，來到慈濟任教。',
@@ -266,7 +266,7 @@
       b: [
         { k: 'story', lay: 'T', date: '1998–2006', h: T('沙巴蘭巴達', 'Lanbada, Sabah'),
           p: [T('一九九八年，沙巴志工因義診之緣，接觸當地原住民杜順族。孩子要走八到十個小時的山路，才能到達當地唯一的正規小學蘭巴達，家長只能讓孩子寄宿學校旁的克難宿舍。宿舍沒有水、電、供食，孩子們常以鹽巴配飯充飢。志工隨即協助修繕宿舍，並提供生活物資。', 'In 1998, a free clinic brought Sabah volunteers into contact with the Dusun people. The only regular primary school, at Lanbada, lay eight to ten hours’ walk away by mountain path, so children boarded in a rough dormitory beside it, with no water, electricity or meals. They often ate rice with salt. Volunteers repaired the building and brought supplies.'),
-            T('二〇〇三年，沙巴大學慈青（慈濟的大專青年）梁慧敏等人啟動「原住民清寒寄宿生關懷及領養計劃」，每月送物資、輔導課業。這裡的領養是宿舍關懷計劃，不是法律上的收養。截至二〇〇六年，沙大慈青共關懷哥打馬魯都、根地咬及科優露三地六間中小學宿舍，幫助原住民學童讀到高中畢業、進入護士學院，「甚至有兩位考上沙巴大學，也加入慈青的行列」。', 'In 2003 the Tzu Chi Collegiate Youth at Universiti Malaysia Sabah, prompted by Liang Huimin, began a care and sponsorship plan for Indigenous boarders, bringing supplies and tutoring every month. Here “sponsorship” means caring for the dormitories, not legal adoption. By 2006 they served six school dormitories in Kota Marudu, Keningau and Kiulu, and helped children finish secondary school and enter nursing college. Two “won places at Universiti Malaysia Sabah and joined the Collegiate Youth themselves.”')],
+            T('二〇〇三年，沙巴大學慈青（慈濟的大專青年）梁慧敏等人啟動「原住民清寒寄宿生關懷及領養計劃」，每月送物資、輔導課業。這裡的領養是宿舍關懷計劃，不是法律上的收養。截至二〇〇六年，沙大慈青共關懷哥打馬魯都、根地咬及科優露三地六間中小學宿舍，幫助原住民學童讀到高中畢業、進入護士學院，「甚至有兩位考上沙巴大學，也加入慈青的行列」。', 'In 2003 Tzu Ching (Collegiate Group) members at Universiti Malaysia Sabah, prompted by Liang Huimin, began a care and sponsorship plan for Indigenous boarders, bringing supplies and tutoring every month. Here “sponsorship” means caring for the dormitories, not legal adoption. By 2006 they served six school dormitories in Kota Marudu, Keningau and Kiulu, and helped children finish secondary school and enter nursing college. Two “won places at Universiti Malaysia Sabah and joined Tzu Ching themselves.”')],
           s: ['xlbd'] },
         { k: 'story', lay: 'T', date: '2005–06', h: T('士拉央', 'Selayang'),
           p: [T('士拉央緬甸難民宗教學校的孩童，出生在馬來西亞，但礙於難民身分，無法接受國民正規教育。二〇〇五年七月，慈濟吉隆坡支會補助學校場地租金及教師薪資。慈青學長和拉曼大學慈青也到校教學，協助輔導課業。', 'The children of the Myanmar refugee religious school in Selayang were born in Malaysia, but as refugees they could not enter the national school system. In July 2005, Tzu Chi’s Kuala Lumpur office began paying the school’s rent and teachers’ salaries. Senior Collegiate Youth and students from Universiti Tunku Abdul Rahman came to teach and to help with homework.'),
@@ -287,7 +287,7 @@
           s: ['fm465', 'fm152', 'xlhh'] },
         { k: 'story', lay: 'T', date: '2005.03.05', h: T('大愛媽媽走進教室', 'Da Ai Mothers in the classroom'),
           p: [T('吉隆坡大愛媽媽首屆成長班開課，「共有59位學員」，學習用故事、話劇、手語和美勞陪孩子認識好話。推動小組奔走吉隆坡和巴生的華小，十月八日，首次進入十五碑聖德華小。', 'The first Da Ai Mothers’ class in Kuala Lumpur began with 59 participants, learning to share good words with children through stories, drama, sign and craft. The team went from school to school in Kuala Lumpur and Klang, and on 8 October entered their first, the Shengde Chinese primary school.'),
-            T('初期常在禮堂面對上百名學生，檢討之後，二〇〇七年起改為小班制。她們又設計好話箱，讓學生把讚美、肯定與感恩寫下投入。進校的學校，至二〇一九年時增加至十三所。', 'At first they often faced a hall of a hundred or more, and from 2007, after review, they moved into classes. They also made a box where pupils could post notes of praise and thanks. By 2019 the schools they visited had grown to thirteen.')],
+            T('初期常在禮堂面對上百名學生，檢討之後，二〇〇七年起改為小班制。她們又設計好話箱，讓學生把讚美、肯定與感恩寫下投入。至二〇一九年，大愛媽媽走進的學校已增加至十三所。', 'At first they often faced a hall of a hundred or more, and from 2007, after review, they moved into classes. They also made a box where pupils could post notes of praise and thanks. By 2019 the schools they visited had grown to thirteen.')],
           s: ['xlmm'] },
         { k: 'story', lay: 'L', date: '2014–15', h: T('放下藤鞭', 'Laying down the cane'),
           ph: [{ i: 'e_board', c: T('吉隆坡志工林泰伸前往士拉央宗教學校，投入難民教育。（局部。照片：李文傑）', 'Kuala Lumpur volunteer Lin Taishen teaching refugee children at the religious school in Selayang. (Detail. Photo: Li Wenjie)') }],
@@ -301,7 +301,7 @@
       b: [
         { k: 'story', lay: 'T', date: '2012.10', h: T('奶瓶裝米', 'Baby bottles full of rice'),
           p: [T('二〇〇一年起，馬來西亞也有了慈濟的幼兒園。家長把孩子送來接受人文薰陶，也開始期待更完善的教育體系。',
-                'From 2001, Malaysia too had Tzu Chi kindergartens. Parents sent their children for a humanities grounding, and began to hope for a fuller school system.'),
+                'From 2001, Malaysia too had Tzu Chi kindergartens. Parents sent their children to develop character and learn Tzu Chi’s humanistic values, and began to hope for a more complete school system.'),
             T('二〇一二年十月，檳城、峇六拜、北海、高淵四所大愛幼兒園，推動「奶瓶米撲滿」。孩子把不再用的奶瓶，拿來裝米。三十位孩子戒掉了奶瓶，大家一共募集了七十四桶米撲滿，用來籌募教育中心和洗腎中心的建設基金。',
               'In October 2012 four Da Ai kindergartens, in Penang, Bayan Lepas, Butterworth and Nibong Tebal, ran a baby-bottle rice bank. The children filled the bottles they no longer used with rice. Thirty children gave up the bottle, and together they gathered 74 buckets, to help raise funds for an education centre and a dialysis centre.')],
           q: { zh: '有一些他6歲的時候，還會使用奶瓶，來喝奶，這習慣不可以把它帶到小學。', en: 'Some still drink milk from a bottle at six. That habit can’t come with them to primary school.', who: T('大愛幼兒園老師 張麗婷', 'Zhang Liting, Da Ai kindergarten teacher') },
@@ -323,12 +323,12 @@
           p: [T('幼兒園之後，家長和老師希望人文教育能接下去。一所學校，要靠眾人一點一滴蓋起來。', 'Parents and teachers wanted this education to continue after kindergarten. A school had to be built drop by drop, by many hands.'),
             T('志工胡桂雲二〇一六年八月起推動每份五元的素食愛心便當，所得援助水災；在閩南語中，「5元」音近「有緣」。二〇一七年籌募建校基金後，她把義賣所得全數捐給建校基金。', 'From August 2016 the volunteer Hu Guiyun sold five-ringgit vegetarian lunches for flood relief. In Hokkien, “five ringgit” sounds like “having an affinity”. Once the school fund began in 2017, she gave all the proceeds to it.'),
             T('謝曉秋鼓勵母親劉泗妹以素食義賣響應。一生沒有機會受教育的劉泗妹，製作素參峇辣椒醬、阿雜，後來的素粽與椰漿飯也常搶購一空。醫師林連水的病人拉克瑪妮聽聞義賣，「一家七人徹夜未眠，準備500份椰漿飯」。', 'Xie Xiaoqiu encouraged her mother, Liu Simei, to take part with vegetarian food. Having never had the chance of schooling herself, she made sambal and acar, and later her rice dumplings and nasi lemak sold out too. A patient of Dr Lin Lianshui heard about the sale, and “her family of seven stayed up all night preparing 500 packets of nasi lemak.”')],
-          q: { zh: '只要我還健在，就算吉隆坡慈濟國際學校已經落成，或我已經圓滿榮董，我都要繼續募款。', en: 'As long as I am alive, even after the school is finished, I will keep on raising funds.', who: T('劉泗妹', 'Liu Simei') },
+          q: { zh: '只要我還健在，就算吉隆坡慈濟國際學校已經落成，或我已經圓滿榮董，我都要繼續募款。', en: 'As long as I am alive, I will keep raising funds, even after Tzu Chi International School Kuala Lumpur has been completed or I have fulfilled my donation commitment as an honorary board member.', who: T('劉泗妹', 'Liu Simei') },
           s: ['xlfd', 'xlsc'] },
         { k: 'story', lay: 'L', date: '2020.01.06', h: T('開學', 'First day'),
           ph: [{ i: 'e_kl', c: T('2020年1月6日，吉隆坡慈濟國際學校啟用開學。（局部。照片：莊貴賀）', '6 January 2020: Tzu Chi International School Kuala Lumpur opens. (Detail. Photo: Zhuang Guihe)') }],
           p: [T('二〇一五年十二月二日，馬來西亞政府將吉隆坡市土地批准予雪隆慈濟分會辦校；二〇一六年三月十八日取得教育部的國際學校辦校准證。二〇一七年九月十六日動土，占地三點一公頃。二〇二〇年一月六日開學，首批迎來七百五十名學生。', 'On 2 December 2015 the Malaysian government approved land in Kuala Lumpur for the school, and on 18 March 2016 the Ministry of Education granted a permit for an international school. Ground was broken on 16 September 2017 on 3.1 hectares. It opened on 6 January 2020 with 750 students.'),
-            T('開學才兩個多月，疫情和行動管制令就讓學校停課。老師重新排時間表，研究教學軟體，把課搬到線上。音樂、美術、體育和人文課都保留下來，每週還有一堂心理輔導；圖書館開了得來速，讓學生借書。', 'Barely two months later, the pandemic and the Movement Control Order closed the school. Teachers redrew the timetable, learned new software and moved lessons online. Music, art, sport and humanities all stayed, with a weekly counselling lesson, and the library opened a drive-through for borrowing.')],
+            T('開學才兩個多月，疫情和行動管制令就讓學校停課。老師重新排時間表，研究教學軟體，把課搬到線上。音樂、美術、體育和人文課都保留下來，每週還有一堂心理輔導；圖書館開了得來速，讓學生借書。', 'Barely two months later, the pandemic and the Movement Control Order closed the school. Teachers redrew the timetable, learned new software and moved lessons online. Music, art, sport and classes in Tzu Chi’s humanistic values all stayed, with a weekly counselling lesson, and the library opened a drive-through for borrowing.')],
           note: T('首屆學生七百五十位；校舍全部竣工後，預計可容納三千五百位學生。', 'The first intake was 750 pupils. Once fully built, the school is expected to hold 3,500.'),
           s: ['fm465', 'xlsc'] },
         { k: 'online', bare: 1, q: T('同時，校方要求，師生在家中線上學習，仍必須穿制服、梳妝整齊。', 'At the same time, the school required teachers and students learning online at home still to wear uniform and be neatly groomed.'),
@@ -338,7 +338,7 @@
           q: { zh: '你們勇於接受挑戰，而且都做得非常棒，你們讓我很震撼。', en: 'You took on the challenge bravely and you all did wonderfully. You have amazed me.', who: T('林秀莉　吉隆坡慈濟國際學校校長（2020 年 9 月大愛新聞，見慈濟法脈資料庫 00465）', 'Lin Xiuli, principal (Da Ai News, Sept 2020; Dharma Lineage Archive no. 00465)') },
           s: ['fm465'] },
         { k: 'story', lay: 'T', date: '1997–2025', h: T('讀下去', 'Staying in school'),
-          p: [T('校舍之外，還有許多孩子要靠一筆助學金才讀得下去。慈濟獎助學金計劃自一九九七年推動，截至二〇二五年，累計惠及森美蘭、馬六甲及柔佛三州共五萬六千七百四十九名學生，發放總金額達一千五百三十二萬令吉。二〇二五年十一月二日，馬六甲又有六百零九位來自各族群的中小學生受惠。', 'Beyond the schools are the many children who stay in class because of a bursary. Tzu Chi’s bursary plan began in 1997, and by 2025 had reached 56,749 students in Negeri Sembilan, Malacca and Johor, with RM15.32 million given out. On 2 November 2025 in Malacca, 609 more primary and secondary pupils of every community received theirs.'),
+          p: [T('校舍之外，還有許多孩子要靠一筆助學金才讀得下去。慈濟獎助學金計劃自一九九七年推動，截至二〇二五年，累計惠及森美蘭、馬六甲及柔佛三州共五萬六千七百四十九名學生，發放總金額達一千五百三十二萬令吉。二〇二五年十一月二日，馬六甲的獎助學金頒發典禮共有六百零九位來自各族群的中小學生受惠。', 'Beyond the schools are the many children who stay in class because of a bursary. Tzu Chi’s bursary plan began in 1997, and by 2025 had reached 56,749 students in Negeri Sembilan, Malacca and Johor, with RM15.32 million given out. On 2 November 2025, 609 primary and secondary pupils from different communities received bursaries at the presentation ceremonies in Malacca.'),
             T('商學系三年級的白雯詩，二十三歲，每週工作四天，二〇二四年二月起獲得補助。她也參與食物銀行的服務。受過幫助的人，也開始幫助別人。', 'Bai Wenshi, twenty-three and in her third year of business studies, works four days a week and has had support since February 2024. She also serves at a food bank. Those who have been helped begin to help others.')],
           q: { zh: '幫助別人，其實也讓自己變得更有力量。', en: 'Helping others also makes you stronger yourself.', who: T('白雯詩　大學生', 'Bai Wenshi, university student') },
           s: ['mycz'] },
@@ -400,7 +400,7 @@
       { n: '56,749', u: T('名學生', 'students'), l: T('森美蘭、馬六甲、柔佛三州助學累計受惠', 'Reached by bursaries in Negeri Sembilan, Malacca and Johor'), w: T('1997 年起，截至 2025 年', '1997 to 2025'), s: 'mycz', big: 1 },
       { n: '1,532 萬', nen: 'RM15.32 million', u: T('令吉', 'ringgit'), l: T('上述三州發放總金額', 'Total given out in those three states'), w: T('截至 2025 年', 'to 2025'), s: 'mycz' },
       { n: '750', u: T('位', 'students'), l: T('吉隆坡慈濟國際學校首屆招收', 'First intake of the Kuala Lumpur school'), w: T('2020.01', 'Jan 2020'), s: 'xlsc' },
-      { n: '13', u: T('所', 'schools'), l: T('吉隆坡大愛媽媽進校的學校', 'Schools visited by Da Ai Mothers in Kuala Lumpur'), w: T('至 2019 年', 'to 2019'), s: 'xlmm' }
+      { n: '13', u: T('所', 'schools'), l: T('吉隆坡大愛媽媽服務的學校', 'Schools served by Da Ai Mothers in Kuala Lumpur'), w: T('至 2019 年', 'to 2019'), s: 'xlmm' }
     ] }
   ];
   CH.ledgerNote = T('人次：同一人多次受惠，每次都算一次。三州助學的「名學生」，原文未說明是否已跨年去重。各項來源和統計範圍不同，不互相加總。本頁不列全球與全馬助學總數，以及教聯會人數，目前查不到確值。', 'Person-times count each occasion, so one person may be counted more than once. The source for the three-state bursaries does not say whether students are de-duplicated across years. Sources and scopes differ, so figures are not added together. Worldwide and all-Malaysia bursary totals and association membership are left out, as no firm figures are available.');
@@ -480,7 +480,7 @@
     stop: T('下一站・環保', 'Next stop: Environmental Protection'),
     href: 'environment.html'
   };
-  CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人局部；標示「示意」的畫面為插畫，非當年實物。「」內為原文照錄。', 'Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from Tzu Chi’s public On This Day pages and are cropped to details without people. Images marked as illustrations are drawings, not historical objects. Words inside quotation marks are reproduced from the sources.');
+  CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面，已裁成無人局部；標示「示意」的畫面為插畫，非當年實物。「」內為原文照錄。', 'Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from Tzu Chi’s public On This Day pages and are cropped to details without people. Images marked as illustrations are drawings, not historical objects. Words inside quotation marks are reproduced from the Chinese sources listed with each section; the English is a translation.');
 
   /* 翻書隧道：全用 walk:'book'。dir 1 往回翻，-1 往前翻 */
   window.TUN_M = window.TUN_M || {};

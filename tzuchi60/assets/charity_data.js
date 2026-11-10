@@ -45,7 +45,7 @@
     ext: { zh: '慈濟六十特展・臺灣數據圖（統計至 2025.12）', en: 'Tzu Chi 60th Anniversary Exhibition, Taiwan figures (to Dec 2025)' },
     org: { zh: '慈濟基金會〈經濟補助與心靈關懷〉2025', en: 'Tzu Chi Foundation, financial and care figures 2025' },
     my3: { zh: '馬來西亞慈濟報導 2025.11.02', en: 'Tzu Chi Malaysia report, 2 Nov 2025' },
-    xlsb: xl('55–57, 64–67'), xlpt: xl('144–152, 156'), xldv: xl('82, 84–86'), xlgy: xl('133–134'), xlfl: xl('279–290'),
+    xlsb: xl('55–57, 64–67'), xlpt: xl('143–152, 156'), xldv: xl('82, 84–86'), xlgy: xl('133–134'), xlfl: xl('279–290'),
     xlbr: xl('111–112'), xllg: xl('182'), xlmh: xl('207–208'), xlfs: xl('250–251'),
     mystory: (window.SRC && window.SRC.my) || T('馬來西亞慈濟報導', 'Tzu Chi Malaysia report')
   };
@@ -78,9 +78,9 @@
         ph: [{ i: '19660414-1_02', c: T('硬幣投入竹筒。', 'A coin going into the bamboo bank.') }],
         p: [
           T('這年初春，證嚴上人在鳳林的醫院門口，見到地上一攤血。一位原住民婦女繳不起保證金，未獲收治。上人發願：五百個人，就有一千隻手、一千隻眼，隨處聞聲救苦。',
-            'Early that spring, in Fenglin, the Master saw a pool of blood at a hospital entrance. An Indigenous woman had been turned away because her family could not pay the deposit. She made a vow: five hundred people would mean a thousand hands and a thousand eyes, ready to answer suffering wherever it was.'),
-          T('一時找不到五百位，就以現有的三十位開始。一九六六年四月十四日，農曆三月二十四，「佛教克難慈濟功德會」在花蓮佳民村普明寺成立。',
-            'Five hundred could not be found at once, so they began with the thirty there were. On 14 April 1966 the Tzu Chi Merit Association was founded at Pu Ming Temple in Jiamin Village, Hualien.')
+            'Early that spring, in Fenglin, Dharma Master Cheng Yen saw a pool of blood at a hospital entrance. An Indigenous woman had been turned away because her family could not pay the deposit. She made a vow: five hundred people would mean a thousand hands and a thousand eyes, ready to answer suffering wherever it was.'),
+          T('一時找不到五百位，就以現有的三十位開始。一九六六年五月十四日，農曆三月二十四，「佛教克難慈濟功德會」在花蓮佳民村普明寺成立。',
+            'Five hundred could not be found at once, so they began with the thirty there were. On 14 May 1966 the Tzu Chi Merit Association was founded at Pu Ming Temple in Jiamin Village, Hualien.')
         ],
         more: [
           T('當時有人質疑：連兩三元的車錢都沒有，怎麼做救濟工作？上人提出的辦法是兩筆：寺中六位常住眾，每人每天多做一雙嬰兒鞋；三十位家庭主婦，每人每天買菜前先投五毛錢到竹筒。',
@@ -113,8 +113,8 @@
       { k: 'story', lay: 'R', date: '1966.06', h: T('林曾', 'Lin Zeng'),
         ph: [{ i: '19670720-1_00', c: T('《慈濟》創刊號頭版，標題〈寡居貧病老婦林曾獲慈濟會長期救助〉。', 'Front page of the first issue: “Widowed, poor and ailing, Lin Zeng receives long-term aid from Tzu Chi.”') }],
         p: [
-          T('林曾老太太八十六歲，從福建來臺尋夫，丈夫已往生，獨居花蓮市場小巷，一間三榻榻米大的小屋。一九六六年二月起，陳貞如與妹妹陳雪卿每日為她送菜飯，不論刮風下雨。',
-            'Lin Zeng was eighty-six. She had come from Fujian looking for her husband and found he was gone. She lived alone in a three-tatami room in an alley by the Hualien market. From February 1966, Chen Zhenru and her sister Chen Xueqing brought her meals every day, in wind or rain.'),
+          T('八十六歲的林曾老太太，年輕時從福建來臺尋夫，丈夫已往生。她獨居花蓮市場小巷，一間三榻榻米大的小屋。一九六六年二月起，陳貞如與妹妹陳雪卿每日為她送菜飯，不論刮風下雨。',
+            'Lin Zeng was eighty-six. As a young woman she had come from Fujian looking for her husband, who had already died. She lived alone in a three-tatami room in an alley by the Hualien market. From February 1966, Chen Zhenru and her sister Chen Xueqing brought her meals every day, in wind or rain.'),
           T('同年六月，功德會開始每月濟助三百元。林曾老太太成為慈濟第一位長期照顧戶。',
             'That June the association began giving her NT$300 each month. She became Tzu Chi’s first long-term care recipient.')
         ],
@@ -246,12 +246,12 @@
           T('這年五、六月，華東華中洪澇，十九個省份、兩億兩千多萬人受災。七月十五日，上人在彰化公開呼籲賑災。當時兩岸相對疏離，在臺灣發起大陸賑災募款，困難重重，慈濟人首次走上街頭募款。',
             'That May and June, floods struck nineteen provinces across eastern and central China, affecting over 220 million people. On 15 July, in Changhua, the Master publicly called for relief. Relations across the strait were distant and raising funds in Taiwan for the mainland was hard. Tzu Chi volunteers took to the streets to raise funds for the first time.'),
           T('賑災定下五項原則：直接、重點、尊重、及時、務實。此後援建三省四縣十一所學校、慈濟新村三千多戶、敬老院一百五十八間。',
-            'Five principles were set for relief: direct, focused, respectful, timely, practical. Tzu Chi went on to build eleven schools, over three thousand homes and 158 rooms for the elderly across three provinces and four counties.')
+            'Five principles were set for relief: direct, focused, respectful, timely, practical. Tzu Chi went on to build eleven schools, over three thousand homes and 158 homes for older people across three provinces and four counties.')
         ],
         q: { zh: '賑災要救的是無辜災民，不是政黨；我們應以誠意感化民眾冷漠的心。', en: 'Relief is meant to save innocent people, not political parties. We should move cold hearts with sincerity.', who: T('證嚴上人', 'Dharma Master Cheng Yen') },
         s: ['fm140', 'o910715'] },
       { k: 'five', items: [T('直接', 'Direct'), T('重點', 'Focused'), T('尊重', 'Respectful'), T('及時', 'Timely'), T('務實', 'Practical')] },
-      { k: 'quote', big: 1, zh: '我現在深深體會說，一粒米中藏日月，諸位瞭解我的意思嗎？這時候，一粒米大過須彌山。', en: 'I now deeply understand that the sun and moon are held in one grain of rice. Do you see what I mean? At a time like this, one grain of rice is greater than Mount Sumeru.', who: T('證嚴上人，一九九一年八月二十五日', 'Dharma Master Cheng Yen, 25 August 1991'), s: ['o910715'] },
+      { k: 'quote', big: 1, zh: '我現在深深體會說，一粒米中藏日月，諸位了解我的意思嗎？這時候，一粒米大過須彌山。', en: 'I now deeply understand that the sun and moon are held in one grain of rice. Do you see what I mean? At a time like this, one grain of rice is greater than Mount Sumeru.', who: T('證嚴上人，一九九一年八月二十五日', 'Dharma Master Cheng Yen, 25 August 1991'), s: ['o910715'] },
       { k: 'photos', lay: 'three', ph: [{ i: '19910715-1_03', c: T('報上的「一粒米中藏日月」。', 'A newspaper headline with the phrase.') }, { i: '19910715-1_18', c: T('發放前核對名冊。', 'Checking the list before a distribution.') }, { i: '19910715-1_21', c: T('援建的房舍。', 'Homes built with Tzu Chi’s help.') }] },
       { k: 'rec', items: [
         { d: '1991.05', zh: '哥奇颶風重創孟加拉。美國慈濟人發起「一人一元美金」，上人發起「一人省下一個麵包錢」。六月二十五日，捐贈美金十五萬七千一百四十九元予紅十字會。', en: 'A cyclone devastates Bangladesh. Tzu Chi USA launches “one person, one dollar”; the Master asks each person to save the price of one bread roll. On 25 June, US$157,149 goes to the Red Cross.' },
@@ -300,19 +300,19 @@
         { d: '2004.12.26', zh: '南亞大海嘯。慈濟於印尼亞齊及斯里蘭卡援建大愛村，共三千三百多戶，並援建學校。', en: 'The Indian Ocean tsunami. Tzu Chi builds Great Love Villages in Aceh and Sri Lanka, over 3,300 homes, along with schools.' }
       ], s: ['fm239', 'fm282'] },
       { k: 'photos', lay: 'three', ph: [{ i: '20050924-1_01', c: T('海嘯後的廢墟。', 'Ruins after the tsunami.') }, { i: '20050924-1_06', c: T('大愛村的藍色屋頂。', 'The blue roofs of a Great Love Village.') }, { i: '20050924-1_13', c: T('村中的一對夫婦。', 'A couple in the village.') }] },
-      { k: 'story', lay: 'R', date: '2009', h: T('莫拉克與以工代賑', 'Morakot, and work for relief'),
+      { k: 'story', lay: 'R', date: '2009', h: T('莫拉克與以工代賑', 'Morakot, and cash-for-work'),
         ph: [{ i: '20090806-1_13', c: T('大愛村。', 'A Great Love Village.') }, { i: '20090806-1_06', c: T('涉水搬運物資。', 'Carrying supplies through water.') }],
         p: [
           T('二〇〇九年八月莫拉克風災，慈濟啟動長期復建「六安計畫」，援建六座大愛村，一千三百〇二戶。',
-            'After Typhoon Morakot in August 2009, Tzu Chi built six Great Love Villages with 1,302 homes.'),
+            'After Typhoon Morakot in August 2009, Tzu Chi launched its long-term Six Areas of Stability reconstruction plan and helped build six Great Love Villages with 1,302 homes.'),
           T('同年九月，菲律賓凱莎娜颱風。慈濟啟動「以工代賑」（請受災鄉親一同清理家園，並給予酬勞），鄉親不只領取援助，也親手重建。此後海地、尼泊爾、緬甸都沿用。',
-            'That September, after Typhoon Ketsana in the Philippines, Tzu Chi began “work for relief”: people affected were paid to clean up their own neighbourhoods, rebuilding with their own hands. The approach was later used in Haiti, Nepal and Myanmar.')
+            'That September, after Typhoon Ketsana in the Philippines, Tzu Chi launched a cash-for-work programme, providing financial assistance to affected residents as they helped clean up their own neighbourhoods. The approach was later used in Haiti, Nepal and Myanmar.')
         ],
         s: ['fm329', 'fm332'] },
       { k: 'rec', items: [
         { d: '2010.01', zh: '海地強震。以工供糧，推動返校，援建學校、幼兒園。', en: 'Haiti earthquake. Food for work, a return-to-school programme, and new schools and kindergartens.' },
         { d: '2013.11', zh: '菲律賓海燕風災。於獨魯萬市援建大愛村與簡易教室。', en: 'Typhoon Haiyan. Great Love Villages and simple classrooms in Tacloban.' },
-        { d: '2015.04', zh: '尼泊爾強震。義診、以工代賑，搭建簡易教室。', en: 'Nepal earthquake. Free clinics, work for relief, and simple classrooms.' }
+        { d: '2015.04', zh: '尼泊爾強震。義診、以工代賑，搭建簡易教室。', en: 'Nepal earthquake. Free clinics, cash-for-work, and simple classrooms.' }
       ], s: ['fm339', 'fm363', 'fm379'] }
     ] },
 
@@ -368,8 +368,8 @@
         p: [
           T('二〇〇九年十一月，慈濟捐玉米種子予五百二十戶馬都崁農民。翌年豐收，農民自發捐出作物；九月風災，三十一戶受災鄉親領到的玉米粉，就是這些農民所捐。',
             'In November 2009 Tzu Chi gave maize seed to 520 farming households in Matukeng. After the next year’s good harvest the farmers chose to give back, and the maize meal handed to thirty-one storm-hit households that September was what they had given.'),
-          T('二〇一三年一月，當地志工聽到緬甸米撲滿，因賴索托不產稻米，發願做「玉米撲滿」。此後帶動四十七個村落存玉米、高粱，濟助貧戶。',
-            'In January 2013 local volunteers heard about Myanmar’s rice banks. Lesotho grows no rice, so they vowed to start maize banks. Forty-seven villages came to save maize and sorghum for households in need.')
+          T('二〇一三年一月，當地志工聽到緬甸米撲滿，因賴索托不產稻米，發願做「玉米撲滿」。到二〇一八年六月，賴索托在四十七個村落推動「竹筒歲月」，並在十六個村莊推廣「糧食撲滿」，存下玉米、高粱濟助貧戶。',
+            'In January 2013 local volunteers heard about Myanmar’s rice banks. Lesotho grows no rice, so they vowed to start maize banks. By June 2018 the Bamboo Bank Era had reached forty-seven villages in Lesotho, and food banks of maize and sorghum for households in need had spread to sixteen.')
         ],
         s: ['fm406'] },
       { k: 'quote', big: 1, zh: '竹筒歲月啟悲心，人多、力大，福就大，不論貧富貴賤，金錢多寡，一人一日一善行，滴水成河、粒米成籮，匯聚愛的力量，將慈善清流，救助苦難眾生。', en: 'The bamboo-bank years awaken compassion. Many people bring great strength and great blessings. Rich or poor, with much or little, one person, one good deed, one day: drops become a river, grains fill a basket, and love gathers to bring relief to all who suffer.', who: T('證嚴法師', 'Dharma Master Cheng Yen'), s: ['a1'] }
@@ -379,12 +379,12 @@
   { id: 'c20', era: 'e20', y: '2020–26', nav: T('走進去', 'Walking in'),
     ask: T('媽媽，現在還有人這樣做嗎？', 'Mama, are people still doing this now?'),
     h: T('走進去', 'Walking in'),
-    lead: T('上人說：「苦難的人走不出來，有福的人要走進去。」', 'The Master said: “Those who suffer cannot walk out. Those who are blessed must walk in.”'),
+    lead: T('慈濟秉持「苦難的人走不出來，有福的人要走進去」的精神，走入社區關懷。', 'Guided by the principle that those who are blessed should reach out to people in hardship, Tzu Chi brings care into communities.'),
     b: [
       { k: 'story', lay: 'T', date: '2013', h: T('一箱蝸牛', 'A box of snails'),
         p: [
           T('二〇一三年，臺南有一個小學三年級的孩子，爸爸中風，話說不清楚了。他唯一傾訴的對象，是養在頂樓的一箱蝸牛。',
-            'In 2013 a third-grader in Tainan had a father who could no longer speak clearly after a stroke. The only one he talked to was a box of snails he kept on the roof.'),
+            'In 2013 a third-grader in Tainan had a father who could no longer speak clearly after a stroke. His only companions and confidants were the snails he kept in a box on the roof.'),
           T('鄰居是慈濟志工，發現了，通報社工，一起來訪視。志工從蝸牛聊起，慢慢和孩子說上了話。知道他功課落後，志工邀成功大學的慈青開了課輔班。六年裡，他四次獲得慈濟的新芽獎學金。',
             'A neighbour who was a Tzu Chi volunteer noticed and told the social workers, and they visited together. The volunteers began with the snails, and slowly the boy began to talk. When they learned he had fallen behind at school, they asked Tzu Chi Collegiate Association students at National Cheng Kung University to start a tutoring class. Over six years he received Tzu Chi’s New Sprouts scholarship four times.')
         ],
@@ -398,7 +398,7 @@
             'From 2022 to 2024, 7,943 homes were repaired across 235 townships, with 54,905 volunteer shifts. The work reached Penghu and Matsu, with materials shipped from island to island.')
         ],
         more: [T('同在臺中北屯，山坡上住著一位獨居的阿嬤。廁所在屋外三十多公尺的陡坡上，要過小鐵橋，沿路沒有燈，也沒有欄杆。她曾經兩次在夜裡走去如廁，被毒蛇咬傷。志工要幫她改，她一再婉拒，請兒子女兒來勸，她才點頭。慈濟人為她修補屋頂，在屋角裝設衛浴，讓她在家安心洗澡、如廁。',
-                 'Also in Beitun, Taichung, a grandmother lived alone on a hillside. Her toilet was more than thirty metres away down a steep slope, across a small iron bridge, with no lights and no railing. Twice, walking there at night, she was bitten by a venomous snake. She kept declining help until her son and daughter came to persuade her. Volunteers then mended her roof and built a bathroom in a corner of the house.'),
+                 'Also in Beitun, Taichung, a grandmother lived alone on a hillside. Her toilet was on a steep slope more than thirty metres from the house, across a small iron bridge, with no lights or railing along the way. Twice, walking there at night, she was bitten by a venomous snake. She kept declining help until her son and daughter came to persuade her. Volunteers then mended her roof and built a bathroom in a corner of the house.'),
                T('臺中北屯八十多歲的徐玉秀阿媽，老屋需要修繕，志工與她溝通了三個月、施工八天，每天往返五六十公里。志工蔡明模對她說：「你不給我施工，我看我晚上回去會睡不著，會失眠。」',
                  'In Taichung, Grandma Xu Yuxiu, in her eighties, took three months of talking and eight days of work, with volunteers driving fifty or sixty kilometres each day. Volunteer Cai Mingmo told her he would not be able to sleep if she did not let him do the work.')],
         s: ['fm456', 'o200115', 'ac'] },
@@ -408,8 +408,8 @@
       { k: 'story', lay: 'W', full: 1, date: '2025.03.28', h: T('緬甸強震', 'The Myanmar earthquake'),
         ph: [{ i: '20250330-1_07', c: T('等候發放的長隊。', 'A long line waiting for aid.') }, { i: '20250330-1_19', c: T('師姊與婦女一同舀米。', 'A volunteer and a woman scooping rice together.') }, { i: '20250330-1_16', c: T('簡易教室。', 'A simple classroom.') }, { i: '20250330-1_17', c: T('孩子。', 'Children.') }],
         p: [
-          T('二〇二五年三月二十八日，緬甸規模七點七強震，實皆省、曼德勒重創，約三千八百人罹難，約六萬棟建築倒塌。仰光志工組勘災團，趕赴六百二十公里外的曼德勒。物資短缺，志工一家店一家店地買。',
-            'On 28 March 2025 a magnitude 7.7 earthquake struck Myanmar, devastating Sagaing and Mandalay. About 3,800 people died and about 60,000 buildings fell. Volunteers from Yangon set out for Mandalay, 620 kilometres away. Supplies were short, so they bought them shop by shop.'),
+          T('二〇二五年三月二十八日，緬甸規模七點七強震，實皆省、曼德勒重創，罹難人數高達三千八百人，約六萬棟建築倒塌。仰光志工組勘災團，趕赴六百二十公里外的曼德勒。物資短缺，志工一家店一家店地買。',
+            'On 28 March 2025 a magnitude 7.7 earthquake struck Myanmar, devastating Sagaing and Mandalay. As many as 3,800 people lost their lives and about 60,000 buildings fell. Volunteers from Yangon set out for Mandalay, 620 kilometres away. Supplies were short, so they bought them shop by shop.'),
           T('首波大型發放濟助五千戶，馬來西亞空軍接力運送物資。以工代賑邀約鄉親為寺院搭建臨時住所，震後六個月內協助八十三所學校完成二百四十七間簡易教室。物資嘉惠近二十二萬人。',
             'The first large distribution reached 5,000 households, with the Royal Malaysian Air Force helping to carry supplies. People were paid to build temporary shelters for monasteries, and within six months 247 simple classrooms stood at 83 schools. Nearly 220,000 people received material aid.'),
           T('受助的鄉親，也有人手心向下（從領受轉為付出）。薩雷寺院學校的師生響應米撲滿，每天存下一把米。學生密內說：「能夠佈施幫助他人，這個概念我很喜歡，所以我才會存米。」',
@@ -514,7 +514,7 @@
           T('屠妖節是印裔最重要的節日，慈濟的發放日定在每年十月至十一月間。二〇〇八年，志工因新芽助學金（慈濟資助清寒學生的助學金）家訪，走入多間印裔學校和家庭，也邀請印裔照顧戶參加歲末發放。但華印兩裔飲食習慣、過年習俗不同，節目又以華語為主，印裔照顧戶較難有參與感。二〇一〇年九月開始，雪隆分會另設屠妖節發放，十月三十一日首次為印裔照顧戶舉辦。',
             'Deepavali is the most important festival for Malaysian Indians, and Tzu Chi holds its distribution between October and November each year. In 2008, home visits for the New Sprouts bursary, Tzu Chi’s aid for needy students, took volunteers into many Indian schools and homes, and Indian care recipients were invited to the year-end distribution. But food and new-year customs differed, and the programme was mostly in Mandarin, so it was hard for them to feel part of it. From September 2010 the Selangor and Kuala Lumpur branch set up a separate Deepavali distribution, first held for Indian care recipients on 31 October.'),
           T('二〇一三年，一位沙登區的慈濟委員帶動志工走入沙登印度廟拜訪，近百位印裔居民成為慈濟會員，廟方委員會主席也表示能借出廟內空間作發放場地。該年十七場發放，從事前討論、場地、報到登記、翻譯、司儀到搬運物資，主要由印度學校教職人員和家長接力完成，共嘉惠一千一百二十四戶印裔家庭。',
-            'In 2013 a Tzu Chi commissioner in Serdang led volunteers on a visit to the Hindu temple there. Nearly a hundred Indian residents became Tzu Chi members, and the chairman of the temple committee offered its space for the distribution. That year’s seventeen sessions, from planning, venue and registration to translation, emceeing and moving supplies, were carried mainly by teachers and parents of Indian schools. In all, 1,124 Indian households were served.'),
+            'In 2013 a Tzu Chi commissioner in Serdang led volunteers on a visit to the Hindu temple there. Nearly a hundred Indian residents became Tzu Chi members, and the chairman of the temple committee offered its space for the distribution. That year’s seventeen sessions, from planning, venue and registration to translation, emceeing and moving supplies, were carried out mainly by staff and parents from local schools serving the Indian community. In all, 1,124 Indian households were served.'),
           T('二〇一四年，發放遷至靜思堂舉辦，志工帶著親子體驗為父母浴足、奉茶。在印裔社會裡，浴足代表崇高和尊敬，只有在婚嫁時，孩子拜別父母才會用牛奶為父母洗腳。一個成員多為華人的佛教團體，為印裔族群舉辦印度教傳統慶典並不容易，志工從摸索中學習，年年改進。',
             'In 2014 the distribution moved to the Jing Si Hall, and volunteers guided children in washing their parents’ feet and serving them tea. In Indian society, washing the feet is a mark of high respect; only at a wedding, when taking leave of their parents, do children wash their parents’ feet with milk. For a Buddhist group whose members are mostly Chinese, holding a traditional Hindu celebration was not easy. Volunteers learned as they went and improved each year.')
         ],
@@ -549,7 +549,7 @@
           T('皇家武裝部隊以七噸軍用卡車協助把物資運入災區。一位榴槤攤主騰出大部分空間，作為臨時行動中心和熱食定點。食物外送員薩拉胡定號召同行，把熱食送到偏遠地區。',
             'The Malaysian Armed Forces helped carry supplies in on seven-tonne trucks. A durian seller nearby gave up most of the stall’s space as a temporary base and meal point. Food delivery rider Salahuddin rallied his fellow riders to take hot meals to remote areas.'),
           T('十二月二十四至二十六日大清掃，動員超過六千六百人次志工。二十五日，莎亞南太子園聚集二千五百位來自雪隆、檳城、吉打、怡保、新山、馬六甲等地的志工與會眾，還有三百名軍人。二〇二二年一月一日、二日，二千人次志工走入雪隆十三個災區，完成一萬零七百七十一戶造冊（逐戶登記），籌備祝福金發放。',
-            'The great clean-up of 24 to 26 December drew over 6,600 volunteer turnouts. On the 25th, 2,500 volunteers and members from Selangor, Kuala Lumpur, Penang, Kedah, Ipoh, Johor Bahru and Melaka gathered in one Shah Alam neighbourhood, with three hundred soldiers. On 1 and 2 January 2022, volunteers made two thousand turnouts into thirteen flooded areas and registered 10,771 households, house by house, for cash aid.')
+            'The great clean-up of 24 to 26 December drew over 6,600 volunteer turnouts. On the 25th, 2,500 volunteers and members from Selangor, Kuala Lumpur, Penang, Kedah, Ipoh, Johor Bahru and Melaka gathered in one Shah Alam neighbourhood, with three hundred soldiers. On 1 and 2 January 2022, volunteers contributed a total of 2,000 service attendances across thirteen flood-affected areas in Selangor and Kuala Lumpur, registering 10,771 households, house by house, for cash aid.')
         ],
         q: { zh: '雖然我的生活不好，與其伸手向人拿錢，不如我出錢幫助人。', en: 'My life is not good, but rather than holding out my hand for money, I would sooner give money to help others.', who: T('受災鄉親 羅玉珍，捐出五十令吉時說', 'Luo Yuzhen, whose home was flooded, on giving fifty ringgit') },
         more: [
@@ -602,7 +602,7 @@
       '竹竿鋸成竹筒，一人一支。每天提菜籃出門之前，先把買菜錢省下的五毛投進去。她們到了市場，遇到朋友就說：<b>「我今天買菜要省五毛錢。」</b>',
       '話就這樣一個傳一個。另一邊，六位常住眾（住在寺中修行的人）每人每天多做一雙嬰兒鞋。兩筆合計，一個月一千一百七十元，是慈濟最早的基金。'
     ],
-    en: '<b>SPRING 1966 · HUALIEN, TAIWAN</b>&ensp;A young nun was about to leave. Thirty women signed a letter asking her to stay. If you want me to stay, she said, each of you must save fifty cents a day to do good. At the market they told their friends: “Today I’m saving fifty cents from the groceries.”'
+    en: '<b>SPRING 1966 · HUALIEN, TAIWAN</b>&ensp;A young Buddhist nun was preparing to leave. Thirty disciples signed a petition asking her to stay. Dharma Master Cheng Yen asked each of them to save NT$0.50 every day to help people in need. Each received a bamboo bank and put in the money saved from buying groceries before going to the market, where they told their friends: “Today I’m saving fifty cents on the groceries.” Meanwhile, the six resident members each made one extra pair of baby shoes a day. Together, these efforts raised NT$1,170 a month, Tzu Chi’s earliest fund.'
   };
 
   CH.ledger = [
@@ -615,7 +615,7 @@
       { n: '超過 26 萬', nen: 'Over 260,000', u: T('公斤', 'kg'), l: T('米撲滿存下的大米', 'of rice saved in rice banks'), w: '', s: 'a1' }
     ] },
     { h: T('臺灣', 'Taiwan'), rows: [
-      { n: '322,936', u: T('戶次', 'household visits'), l: T('弱勢家庭扶助，22 縣市', 'support for families in need, 22 counties and cities'), w: T('2025 單年', '2025 alone'), s: 'ext', big: 1 },
+      { n: '322,936', u: T('戶次', 'instances of household assistance'), l: T('弱勢家庭扶助，22 縣市', 'support for families in need, 22 counties and cities'), w: T('2025 單年', '2025 alone'), s: 'ext', big: 1 },
       { n: '17,201', u: T('件', 'cases'), l: T('急難補助', 'emergency aid'), w: T('2025 單年', '2025 alone'), s: 'org' },
       { n: '13,343', u: T('件', 'cases'), l: T('提報個案', 'new cases reported'), w: T('2025 單年', '2025 alone'), s: 'org' },
       { n: '8,699', u: T('戶', 'homes'), l: T('居家安全改善與房屋修繕', 'home safety and repairs'), w: T('2025', '2025'), s: 'ext' },
@@ -633,7 +633,7 @@
       { n: '93%', u: T('', ''), l: T('捐款人次中，1,000 元以下所佔比例（按人次；金額佔 28%）', 'of donations were NT$1,000 or less, by number; they make up 28% of the amount'), w: T('2024', '2024'), s: 'a1', big: 1 }
     ] }
   ];
-  CH.ledgerNote = T('戶次：同一戶一年內多次受助，每次都算一次。人次同理。', 'Household visits and instances count each occasion of help, so one household or person may be counted more than once in a year.');
+  CH.ledgerNote = T('戶次：同一戶一年內多次受助，每次都算一次。人次同理。', 'Each occasion of assistance is counted separately, so the same household or person may be counted more than once in a year.');
   CH.ledgerOld = [
     [T('1969.02.09　首次冬令發放', '9 Feb 1969, first winter distribution'), T('40 戶', '40 households')],
     [T('截至 1983　救濟金額總計', 'Relief to 1983'), T('1 億 5 千多萬元', 'over NT$150 million')]
@@ -689,7 +689,7 @@
     unit: T('億元', '×100 million NT$'),
     rows: [[2016, 46.33], [2017, 54.52], [2018, 38.95], [2019, 42.05], [2020, 52.32], [2021, 111.65], [2022, 61.14], [2023, 64.47], [2024, 70.9], [2025, 87.5]],
     mark: { 2021: T('含 BNT 疫苗採購捐贈', 'Includes the BNT vaccine purchase and donation') },
-    note: T('取自慈濟基金會歷年年報與慈善年度報告。不含教育志業、業務發展基金提撥與海外當地自行支出；各年報告分類略有不同，2025 年為年報圖表讀數。', 'From Tzu Chi Foundation annual and charity reports. Excludes the education mission, transfers to the operating fund and spending raised overseas; categories vary slightly by year; the 2025 figure is read from the report’s chart.'),
+    note: T('取自慈濟基金會歷年年報與慈善年度報告。不含教育志業、業務發展基金提撥與海外當地自行支出；各年報告分類略有不同，2025 年為年報圖表讀數。', 'From Tzu Chi Foundation annual and charity reports. Excludes the education mission, transfers to the operating fund and expenditure funded and incurred locally by overseas branches; categories vary slightly by year; the 2025 figure is read from the report’s chart.'),
     table: T('看數字表', 'Show the table')
   };
   CH.next = {
@@ -699,12 +699,12 @@
   };
 
   CH.footer = T('本頁為樣板，尚未經馬來西亞慈濟分會審核，未發佈。女孩與媽媽是說故事的人。照片除另有說明外，取自慈濟《歷史上的今天》公開頁面；標示「情境重建」的畫面由 AI 依史料生成，非當年攝影。「」內為原文照錄。',
-                'Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from Tzu Chi’s public On This Day pages. Images marked as reconstructions are AI-generated from the record and are not historical photographs.');
+                'Sample only: not yet reviewed by Tzu Chi Malaysia and not published. The girl and her mother are storytellers. Unless stated otherwise, photographs come from Tzu Chi’s public On This Day pages. Images marked as reconstructions are AI-generated from the record and are not historical photographs. Words inside quotation marks are reproduced from the sources.');
 
   /* 慈善沿革沿革：t 決定 filter */
   CH.filters = [['all', T('全部', 'All')], ['first', T('第一次', 'Firsts')], ['care', T('照顧', 'Care')], ['home', T('建屋', 'Homes')], ['relief', T('賑災', 'Relief')], ['system', T('制度', 'Systems')], ['my', T('馬來西亞', 'Malaysia')]];
   CH.records = [
-    ['1966.04.14', 'first system', '佛教克難慈濟功德會於花蓮佳民村普明寺成立，三十支竹筒，每人每日五毛。', 'The association is founded at Pu Ming Temple, Hualien, with thirty bamboo banks at fifty cents a day each.', 'fm27'],
+    ['1966.05.14', 'first system', '佛教克難慈濟功德會於花蓮佳民村普明寺成立，三十支竹筒，每人每日五毛。', 'The association is founded at Pu Ming Temple, Hualien, with thirty bamboo banks at fifty cents a day each.', 'fm27'],
     ['1966.05', 'first care', '李時提報盧丹桂，第一例醫療個案，同年七月送羅東開刀。', 'Li Shi reports Lu Dangui, the first medical case. She goes to Luodong for surgery that July.', 'o670701'],
     ['1966.06', 'first care', '林曾老太太成為第一位長期照顧戶，每月濟助三百元。', 'Lin Zeng becomes the first long-term care recipient, at NT$300 a month.', 'fm36'],
     ['1967', 'system', '建立複查制度，每三個月回訪一次。', 'The follow-up system begins: a return visit every three months.', 'fm37'],
@@ -747,9 +747,9 @@
     ['2006.10.26', 'system', '上人提出「回歸竹筒歲月」。', 'The Master calls for a return to the bamboo-bank days.', 'fm297'],
     ['2008.05.15', 'relief', '緬甸納吉斯風災，首度發放嘉惠二百二十五戶，計九百六十七人。', 'Cyclone Nargis, Myanmar: the first distribution reaches 225 households, 967 people.', 'fm323'],
     ['2009.08', 'relief home', '莫拉克風災，援建六座大愛村，一千三百〇二戶。', 'Typhoon Morakot: six Great Love Villages, 1,302 homes.', 'fm329'],
-    ['2009.09', 'relief system', '菲律賓凱莎娜颱風，啟動以工代賑。', 'Typhoon Ketsana, Philippines: work for relief begins.', 'fm332'],
+    ['2009.09', 'relief system', '菲律賓凱莎娜颱風，啟動以工代賑。', 'Typhoon Ketsana, Philippines: cash-for-work begins.', 'fm332'],
     ['2010.10.31', 'my care', '雪隆分會首次為印裔照顧戶舉辦屠妖節發放。', 'The Selangor and Kuala Lumpur branch holds its first Deepavali distribution for Indian care recipients.', 'xldv'],
-    ['2013.01', 'care', '賴索托發願做玉米撲滿，帶動四十七個村落。', 'Lesotho volunteers vow to save maize. Forty-seven villages take part.', 'fm406'],
+    ['2013.01', 'care', '賴索托發願做玉米撲滿；至 2018 年，竹筒歲月推到四十七村、糧食撲滿十六村。', 'Lesotho volunteers vow to save maize. By 2018 the Bamboo Bank Era reaches 47 villages and food banks 16.', 'fm406'],
     ['2014.03.08', 'my relief', '馬航 MH370 客機失聯，雪隆分會接獲馬航請求，志工到機場電話服務中心二十四小時輪班接聽家屬來電，並陪伴家屬。', 'Flight MH370 goes missing. At Malaysia Airlines’ request, volunteers take shifts round the clock at the airport call centre to answer families’ calls, and stay beside the families.', 'xlmh'],
     ['2016.03.27', 'first care', '緬甸瑞那滾村首次米撲滿回娘家，九十戶，九十六點四公斤。', 'The rice of Shwe Na Gwin comes home for the first time: ninety households, 96.4 kg.', 'o160327'],
     ['2017.03.06', 'my care', '沙巴斗湖試辦無國籍學習中心，初期五十位孩童。', 'A trial learning centre for stateless children opens in Tawau, Sabah, with fifty pupils.', 'o170306'],

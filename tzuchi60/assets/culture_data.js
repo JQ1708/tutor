@@ -35,7 +35,7 @@
     imp: { zh: '慈濟六十周年官網〈非洲大地一步一腳印 緬懷朱金財足跡〉', en: 'Tzu Chi 60th anniversary site: remembering Zhu Jincai in Africa' },
     tca: { zh: '慈濟加拿大官網〈靜思語〉，二〇二四年出版三十五周年介紹', en: 'Tzu Chi Canada: Jing Si Aphorisms, 2024 anniversary page', url: 'https://tzuchi.ca/zh-hant/zh-hant-master-cheng-yen/jing-si-aphorisms/' },
     daai: { zh: '慈濟人文志業官網〈大愛之友〉', en: 'Tzu Chi Culture: Friends of Da Ai', url: 'https://tzuchiculture.org/daai-friends/' },
-    tcd: { zh: '慈濟文史資料庫《衲履足跡》2009.04.24–25〈火爐熱地，轉為清涼〉', en: 'Tzu Chi archive, Footprints of a Monk, 24–25 April 2009', url: 'https://tcdata.tzuchi-org.tw/asset/detail/20231214-071901936-2901?keyword=%E7%99%BC%E6%94%BE' },
+    tcd: { zh: '慈濟文史資料庫《衲履足跡》2009.04.24–25〈火爐熱地，轉為清涼〉', en: 'Tzu Chi archive, 《衲履足跡》, 24–25 April 2009', url: 'https://tcdata.tzuchi-org.tw/asset/detail/20231214-071901936-2901?keyword=%E7%99%BC%E6%94%BE' },
     x495: xl('495'), x497: xl('497'), x499: xl('499'), x500: xl('500'), x503: xl('503'), x505: xl('505'), x508: xl('508'), x509: xl('509'), x510: xl('510'), x511: xl('511'), x512: xl('512'), x513: xl('513'), x514: xl('514–515'),
     x582: xl('582'), x593: xl('593'), x595: xl('595'), x597: xl('597'), x599: xl('599'), x600: xl('600'), x601: xl('601'), x603: xl('603')
   };
@@ -85,13 +85,13 @@
     ] },
     { id: 'u1b', era: 'e70', y: '1968–2007', nav: T('名單越來越長', 'A growing record'), b: [
       { k: 'story', lay: 'T', date: '1973', h: T('容納更多徵信名單', 'Room for more accounts'),
-        p: [T('一九七三年八月五日第 82 期起，為便利讀者閱讀及保存，並容納更多徵信名單與會務報導，《慈濟》由報紙型改為十六開雜誌型。', 'From issue 82 on 5 August 1973, Tzu Chi changed from a newspaper to a magazine, making it easier to read and keep, and leaving room for more accounts and reports on the foundation’s work.')],
+        p: [T('一九七三年八月五日第 82 期起，為便利讀者閱讀及保存，並容納更多徵信名單與會務報導，《慈濟》由報紙型改為十六開雜誌型。', 'From issue 82 on 5 August 1973, Tzu Chi changed from a newspaper to a magazine in 16-kai format, making it easier to read and keep, and leaving room for more accounts and reports on the foundation’s work.')],
         q: { zh: '徵信的工作很辛苦，要很認真、很謹慎地做好誠與信的本分。', en: 'The work of accounting is hard. It must be done earnestly and carefully, as our duty of sincerity and trust.', who: T('證嚴上人', 'Dharma Master Cheng Yen') },
         note: T('本頁只講徵信的做法，不展示任何捐款人或受助人的名單。', 'This page describes how the accounts were kept. It does not show any list of donors or recipients.'),
         s: ['f038', 'f087'] },
       { k: 'rec', items: [
         { d: '1968', zh: '由半月刊改為月刊。', en: 'Changed from twice a month to monthly.' },
-        { d: '1973.08.05', zh: '第 82 期起，改為十六開雜誌型。', en: 'From issue 82, a magazine format.' },
+        { d: '1973.08.05', zh: '第 82 期起，改為十六開雜誌型。', en: 'From issue 82, the publication adopted a 16-kai magazine format.' },
         { d: '1988.09', zh: '第 263 期起，「每月徵信」改為「年度徵信」。', en: 'From issue 263, monthly accounts became annual accounts.' },
         { d: '1998.01', zh: '第 374 期起，全面改為彩色印刷。', en: 'From issue 374, printed entirely in colour.' },
         { d: '2007.04.01', zh: '推出電子雜誌。', en: 'An electronic edition began.' }
@@ -109,7 +109,7 @@
         s: ['f089', 'f209'] },
       { k: 'story', lay: 'T', date: '1985.11.16', h: T('「明天我來講。」', '“I will do it tomorrow.”'),
         p: [T('一九八五年十一月十六日，天南電臺開始在北部地區播出《慈濟世界》，這是慈濟第一個廣播節目。林義傑了解慈濟和上人的悲願後，將「歡樂之聲」撥出一小時，每天清晨五點五十分到六點五十分說慈濟事。', 'On 16 November 1985, Tiannan Radio began broadcasting Tzu Chi World in northern Taiwan, the first Tzu Chi radio programme. After learning about Tzu Chi and the Master’s vow, Lin Yi-chieh gave up one hour of his programme, and from 5:50 to 6:50 each morning it told Tzu Chi’s stories.'),
-          T('由於對慈濟認識尚淺，節目無法讓聽眾了解慈濟。開播三天的節目不能停，在舅舅公司擔任會計的柯美玉，就這樣走進了播音室。', 'At first the programme knew too little of Tzu Chi to explain it to listeners. It was only three days old and could not stop, so Ko Mei-yu, an accountant at her uncle’s company, stepped into the studio.')],
+          T('由於對慈濟認識尚淺，節目無法讓聽眾了解慈濟。開播三天的節目不能停，在舅舅公司擔任會計的柯美玉，就這樣走進了播音室。', 'At first, the programme did not give listeners a clear understanding of Tzu Chi. It had been on air for only three days and had to continue, so Ko Mei-yu, an accountant at her uncle’s company, stepped into the studio.')],
         q: { zh: '明天我來講。', en: 'I will do it tomorrow.', who: T('柯美玉', 'Ko Mei-yu') },
         more: [T('一九九一年十月十二日，慈濟臺北分會竣工啟用，設立錄音室，廣播單位有了自己的家。二〇〇五年九月一日，大愛網路電臺開播。', 'On 12 October 1991 the Taipei branch opened with a recording studio, and the radio team had a home of its own. On 1 September 2005 an internet radio service began.')],
         s: ['f089'] },
@@ -126,8 +126,8 @@
     { id: 'u2b', era: 'e90', y: '1995–1998', nav: T('看得見', 'Seen'), ask: T('那電視呢？', 'And television?'), b: [
       { k: 'quote', zh: '所以很久以前我就一直想，若是能有個電視節目，每天都有一段慈濟新聞，能向大家報告我們在台灣做了什麼事？國外的慈濟人為當地付出了多少？', en: 'So for a long time I have been thinking: if there could be a television programme, with a piece of Tzu Chi news every day, we could report to everyone what we have done in Taiwan, and how much Tzu Chi people abroad have given where they are.', who: SR('1995.11.25', '25 November 1995'), s: ['f182'] },
       { k: 'story', lay: 'R', date: '1998.01.01', h: T('下午三點二十分', 'Twenty past three in the afternoon'),
-        p: [T('一九九七年十一月十九日，大愛臺與新聞局簽約，租用公視大樓四至六樓和兩個攝影棚，工作人員月底陸續遷入。', 'On 19 November 1997, Da Ai signed a lease for three floors and two studios of the Public Television building, and staff began moving in by the end of the month.'),
-          T('一九九八年一月一日下午三點二十分，上人與行政院長蕭萬長共同按鈕，大愛電視臺的電波向四方發散。當天臺北中正紀念堂與花蓮靜思堂道侶廣場，同步舉行「大愛讓世界亮起來」開播晚會。', 'At 3:20 in the afternoon on 1 January 1998, the Master and Premier Vincent Siew pressed the button together, and Da Ai’s signal went out. That day a launch evening was held at once in Taipei and Hualien.')],
+        p: [T('一九九七年十一月十九日，大愛臺與新聞局簽約，租用公視大樓四至六樓和兩個攝影棚，工作人員月底陸續遷入。', 'On 19 November 1997, Da Ai TV signed an agreement with the Government Information Office to lease the fourth to sixth floors and two studios in the Public Television building. and staff began moving in by the end of the month.'),
+          T('一九九八年一月一日下午三點二十分，上人與行政院長蕭萬長共同按鈕，大愛電視臺的電波向四方發散。當天臺北中正紀念堂與花蓮靜思堂道侶廣場，同步舉行「大愛讓世界亮起來」開播晚會。', 'At 3:20 in the afternoon on 1 January 1998, the Master and Premier Vincent Siew pressed the button together, and Da Ai TV’s signal went out. Launch celebrations titled “Great Love Lights Up the World” were held simultaneously at Chiang Kai-shek Memorial Hall in Taipei and Daolu Plaza at Jing Si Hall in Hualien.')],
         q: { zh: '不只是慈濟世界的好人好事，就是社會上別的團體有什麼好事，我們照樣報導啊！', en: 'Not only the good people and good deeds of the Tzu Chi world. When other groups in society do something good, we will report that just the same.', who: SR('1997.04.06', '6 April 1997') },
         ph: [{ i: 'u_deck', c: T('電視製播設備局部。取自《慈濟歷史上的今天》，拍攝日未載。', 'Detail of broadcast equipment. From Tzu Chi, On This Day; date of photograph not given.') }],
         s: ['f209', 'f182', 'o980103'] },
@@ -150,7 +150,7 @@
         note: T('六道是作業，不是六個人。', 'These are six stages of work, not six people.'),
         s: ['f291'] },
       { k: 'story', lay: 'L', date: '2009', h: T('不以廣告招商', 'Without advertising'),
-        p: [T('大愛臺的戲劇和新聞不同。《大愛劇場》以真人真事為本，由演員重演，不是紀錄片。', 'Da Ai’s dramas are different from its news. Da Ai Drama is based on real people and real events, re-enacted by actors. It is not documentary.'),
+        p: [T('大愛臺的戲劇和新聞不同。《大愛劇場》以真人真事為本，由演員重演，不是紀錄片。', 'Da Ai’s dramas are different from its news. Da Ai Drama is based on real people and events, re-enacted by actors. It is not a documentary.'),
           T('護持這座電視臺的，有大眾的愛心，也有環保志工。回收物資賣掉之後，幫助做大愛臺。', 'The station is sustained by the love of the public, and by recycling volunteers too. What they collect is sold to help support Da Ai.')],
         q: { zh: '大愛臺不同於商業電視臺，不以廣告招商，而是以大眾的愛心點滴灌溉；', en: 'Da Ai is different from commercial stations. It does not seek advertising, but is nourished drop by drop by the love of the public.', who: SR('2009.12.07', '7 December 2009') },
         q2: { zh: '感恩環保志工，把浪費的資源再回收再製，收回來的東西賣掉之後，幫助師父做大愛台，', en: 'I am grateful to the recycling volunteers, who take wasted resources and recycle them. What they collect is sold, and it helps me run Da Ai.', who: SR('2005.01.02', '2 January 2005') },
@@ -164,7 +164,7 @@
         q: { zh: '我死後不要回臺灣，我要長眠於辛巴威，五生五世都留在辛巴威，成為有力量的辛巴威人，陪伴他們、翻轉他們的貧窮。', en: 'When I die I do not want to go back to Taiwan. I want to rest in Zimbabwe, stay in Zimbabwe for five lifetimes, and become a Zimbabwean with the strength to accompany them and turn their poverty around.', who: T('朱金財', 'Zhu Jincai') },
         s: ['imp'] },
       { k: 'story', lay: 'T', h: T('在家看大愛臺的太太', 'Watching Da Ai at home'),
-        p: [T('馬來西亞的志工林文交，一九九七年接觸慈濟，與家人的相處有了改變。《衲履足跡》記述，「太太就在家「偷」看大愛台」，後來夫妻一起同行。', 'Lin Wenjiao, a volunteer in Malaysia, came to Tzu Chi in 1997, and the way he treated his family changed. Footprints of a Monk records that his wife watched Da Ai at home on the quiet, and that the two later walked this road together.')],
+        p: [T('馬來西亞的志工林文交，一九九七年接觸慈濟，與家人的相處有了改變。《衲履足跡》記述，「太太就在家『偷』看大愛台」，後來夫妻一起同行。', 'Lin Wenjiao, a volunteer in Malaysia, came to Tzu Chi in 1997, and the way he treated his family changed. Footprints of a Monk records that his wife watched Da Ai at home on the quiet, and that the two later walked this road together.')],
         s: ['tcd'] },
       { k: 'story', lay: 'R', date: '2006', h: T('跨過語言', 'Across languages'),
         p: [T('二〇〇六年二月十五日，慈濟傳播文化基金會在印尼雅加達成立的大愛電視無線臺試播，這是慈濟跨國設立無線電視臺的首例。', 'On 15 February 2006, a Da Ai broadcast station set up in Jakarta, Indonesia, began test transmission, the first time Tzu Chi had set up a broadcast station in another country.'),
@@ -191,14 +191,14 @@
       { k: 'story', lay: 'T', date: '2003–2004', h: T('工地裡的日誌', 'A diary on the building site'),
         p: [T('人文志業中心二〇〇二年底動工，翌年四月起，文化志工輪班記錄每日施工點滴。曾美姬第一次走進關渡園區，覺得工地需要一位全心記錄者，便決定試試看，這一試，就試了一年半。', 'Work on the Humanitarian Centre began at the end of 2002, and from the following April culture volunteers took turns recording each day on site. When Tseng Mei-chi first walked in, she felt the site needed someone recording full time. She decided to try, and stayed a year and a half.'),
           T('她身穿藍衣藍褲，頭戴工安帽，腰間繫著安全繩索，把當日工程進度與見聞詳細記載下來。一次冷雨強風中，她全身濕透，仍護著數位相機，以凍僵的雙手，把工程人員的身影留了下來。', 'In blue work clothes and a safety helmet, a safety line at her waist, she wrote down each day’s progress and what she saw. Once, soaked through in cold wind and rain, she shielded her digital camera and, with frozen hands, kept a record of the workers.')],
-        q: { zh: '要完成文化記錄任務，真的很不容易，而且這是一件最沒有掌聲的工作。', en: 'Completing the task of recording is truly not easy, and it is work that gets the least applause of all.', who: T('法脈資料庫報導所引，這句未標明說話人', 'Quoted in an archive report; this line does not name its speaker') },
+        q: { zh: '要完成文化記錄任務，真的很不容易，而且這是一件最沒有掌聲的工作。', en: 'Completing the task of recording is truly not easy, and it is work that gets the least applause of all.', who: T('《慈濟月刊》457 期，二〇〇四年十二月二十五日，原文未明示此句說話者', 'Tzu Chi Monthly, no. 457, 25 December 2004. The speaker of this sentence is not explicitly identified.') },
         s: ['f291'] }
     ] },
-    { id: 'u4b', era: 'e20', y: '2004–2008', nav: T('文化改人文', 'From culture to humanity'), b: [
-      { k: 'story', lay: 'R', date: '2004–2008', h: T('把文化改成人文', 'Changing “culture” to “humanity”'),
-        p: [T('二〇〇四年十二月二十四日，上人把四大志業裡的「文化」改稱「人文」。', 'On 24 December 2004, the Master renamed “culture” among the four missions as “humanity”.'),
-          T('二〇〇五年一月一日，慈濟人文志業中心啟用，大愛臺和平面出版、廣播、《經典》等單位遷入關渡。二〇〇八年，基金會完成法人更名，名稱裡的「文化」也改為「人文」，三月五日起對外使用。', 'On 1 January 2005, the Humanitarian Centre opened in Guandu, and Da Ai, the publishing and radio units and Rhythms moved in. In 2008 the foundation’s legal name changed too, with “culture” replaced by “humanity” from 5 March.')],
-        q: { zh: '過去我都是說慈善、醫療、教育、文化，我現在把文化改成人文。', en: 'In the past I always said charity, medicine, education and culture. Now I am changing culture to humanity.', who: SR('2004.12.24', '24 December 2004') },
+    { id: 'u4b', era: 'e20', y: '2004–2008', nav: T('文化改人文', 'From Culture to Humanistic Culture'), b: [
+      { k: 'story', lay: 'R', date: '2004–2008', h: T('把文化改成人文', 'Changing “Culture” to “Humanistic Culture”'),
+        p: [T('二〇〇四年十二月二十四日，上人把四大志業裡的「文化」改稱「人文」。', 'On 24 December 2004, the Master renamed the fourth of Tzu Chi’s four missions from “Culture” to “Humanistic Culture”.'),
+          T('二〇〇五年一月一日，慈濟人文志業中心啟用，大愛臺和平面出版、廣播、《經典》等單位遷入關渡。二〇〇八年，基金會完成法人更名，名稱裡的「文化」也改為「人文」，三月五日起對外使用。', 'On 1 January 2005, the Humanitarian Centre opened in Guandu, and Da Ai, the publishing and radio units and Rhythms moved in. In 2008 the media foundation completed registration of its new Chinese legal name, replacing 文化 with 人文, and began using it publicly on 5 March.')],
+        q: { zh: '過去我都是說慈善、醫療、教育、文化，我現在把文化改成人文。', en: 'In the past I always said charity, medicine, education and culture. Now I am changing culture to humanistic culture.', who: SR('2004.12.24', '24 December 2004') },
         q2: { zh: '人文是為人群而付出，讓自己的生命真正亮麗起來；', en: 'Humanistic culture is giving for others, and so letting one’s own life truly shine.', who: SR('2004.12.24', '24 December 2004') },
         ph: [{ i: 'u_stone', c: T('「守護慧命的磐石」銅牌局部，二〇〇五年一月一日。取自《慈濟歷史上的今天》。', 'Detail of a bronze plaque dated 1 January 2005. From Tzu Chi, On This Day.') }],
         s: ['f291', 'o991010'] },
@@ -218,8 +218,8 @@
         s: ['o020305'] },
       { k: 'story', lay: 'T', date: '2024', h: T('八百多萬冊，23 種語言', 'Over eight million copies, 23 languages'),
         p: [T('二〇二四年官網周年介紹記載，《靜思語》出版以來發行八百多萬冊，翻譯成 23 種語言。', 'A 2024 anniversary page on the official site records that Jing Si Aphorisms has reached over eight million copies since publication, in 23 languages.'),
-          T('每一種語言背後都有翻譯的人。德文版的譯者陸西華，是這樣下筆的：', 'Behind each language is someone translating. Lu Hsi-hua, who worked on the German edition, went about it like this:')],
-        q: { zh: '我先把中文版《靜思語》看懂了，再看看英文版的翻譯，然後再想想如何用德語表達。', en: 'First I made sure I understood the Chinese Jing Si Aphorisms, then I read the English translation, and then I thought about how to say it in German.', who: T('陸西華', 'Lu Hsi-hua') },
+          T('每一種語言背後都有翻譯的人。德文版的譯者陸西華，是這樣下筆的：', 'Behind each language is a translator. Gertraude Roth Li, who translated the German edition, described her approach as follows.')],
+        q: { zh: '我先把中文版《靜思語》看懂了，再看看英文版的翻譯，然後再想想如何用德語表達。', en: 'First I made sure I understood the Chinese Jing Si Aphorisms, then I read the English translation, and then I thought about how to say it in German.', who: T('陸西華', 'Gertraude Roth Li') },
         s: ['tca', 'f118'] }
     ] },
     { id: 'u5b', era: 'e20', y: '1992–2007', nav: T('手語和舞臺', 'Sign and stage'), b: [
@@ -249,7 +249,7 @@
         s: ['x511'] },
       { k: 'story', lay: 'T', date: '2004.09.18', h: T('與心靈對話的社區客廳', 'A community living room for quiet conversation'),
         p: [T('二〇〇四年三月，林孝式到花蓮參加實業家靜思生活營。返馬後，他借出空間，同年九月十八日，吉隆坡靜思書軒啟用，「營造一個與心靈對話的社區客廳」。', 'In March 2004, Lin Xiaoshi joined a Jing Si retreat for business people in Hualien. Back in Malaysia he offered the space, and on 18 September that year the Kuala Lumpur shop opened, meant to be a community living room for quiet conversation with oneself.'),
-          T('書軒不為營利而設，專款經營，完全沒動用慈濟會員的捐款。這裡提供飲品和閱讀環境，有時也舉辦講座、讀書會、電影觀賞會。至二〇二二年，雪隆分會轄下聯絡據點共有十二間靜思書軒。', 'The shops are not set up for profit. They run on separate funds and use no members’ donations. They offer drinks and a place to read, and sometimes talks, reading groups and film screenings. By 2022 there were twelve shops at centres under the Selangor and Kuala Lumpur branch.')],
+          T('書軒不為營利而設，專款經營，完全沒動用慈濟會員的捐款。這裡提供飲品和閱讀環境，有時也舉辦講座、讀書會、電影觀賞會。至二〇二二年，雪隆分會轄下聯絡據點共有十二間靜思書軒。', 'The shops are not set up for profit. They run on separate funds and use no members’ donations. They offer drinks and a place to read, and sometimes talks, reading groups and film screenings. By 2022 there were twelve shops at centres under the Tzu Chi KL & Selangor Branch and its local offices.')],
         s: ['x511', 'x512'] }
     ] },
     { id: 'u6b', era: 'my', y: '1992–2022', nav: T('扛著機器的人', 'Those who carried the camera'), b: [
@@ -260,7 +260,7 @@
         p: [T('陳貴州（濟為）二〇〇四年投入人文真善美志工行列，一開始對錄影不熟悉，經過同仁林妍君耐心教導，才慢慢嘗試獨立拍攝。二〇〇六年，他承擔人文真善美幹事，也開始陪伴新手志工。', 'Chen Guizhou (Ji Wei) joined the volunteer documentary team in 2004. He knew little about filming until colleague Lin Yanjun patiently taught him, and little by little he tried working alone. In 2006 he took on the team’s coordination and began guiding newcomers.')],
         q: { zh: '只好一邊扛著機器，慢慢摸索，一邊找尋有心想加入人文真善美的有緣人。', en: 'All I could do was carry the camera, feel my way along, and at the same time look for people who wanted to join.', who: T('陳貴州', 'Chen Guizhou') },
         ph: [{ i: 'u_tripod', c: T('影視課程研習營的三腳架，馬六甲分會，1999.12.03。照片：馬六甲分會提供。', 'A tripod at a video training camp, Melaka branch, 3 December 1999. Photo: Melaka branch.') }],
-        s: ['x513', 'x497'] },
+        s: ['x512', 'x513', 'x497'] },
       { k: 'story', lay: 'T', date: '2004', h: T('步行半小時，去學電腦', 'A half-hour walk to learn the computer'),
         p: [T('二〇〇四年斯里蘭卡發生海嘯，陳金香到當地參與國際賑災。她不懂得操作電腦，手寫的稿件得靠其他志工幫忙打字。看到夥伴要剪輯畫面，還要協助她，她下定決心要學會。', 'After the 2004 tsunami, Chen Jinxiang went to Sri Lanka with the relief work. She could not use a computer, so others had to type up her handwritten reports. Seeing colleagues give up their rest to help her, she resolved to learn.'),
           T('回國後，她天天抱著電腦，步行半小時到鄰近的靜思書軒請教同仁，從零學起。有志工說不知如何提筆，她這樣分享：', 'Back home she carried her computer every day on a half-hour walk to the nearest Jing Si shop to ask colleagues for help, starting from nothing. When volunteers say they do not know how to begin writing, she tells them:')],
@@ -288,15 +288,15 @@
         ph: [{ i: 'u_kl', c: T('吉隆坡靜思堂外觀。照片：朱國財。', 'The Kuala Lumpur Jing Si Hall. Photo: Zhu Guocai.') }],
         s: ['x582'] },
       { k: 'story', lay: 'T', date: '2026', h: T('會場很暗', 'A dark hall'),
-        p: [T('慈濟新山支會與峇株巴轄聯絡處推出《無量義．再現》經藏演繹，超過千人參與。為了記錄下來，除了當地真善美志工，六位檳城真善美志工也跨區來支援。', 'Tzu Chi in Johor Bahru and Batu Pahat presented a sutra adaptation with more than a thousand people taking part. To record it, six documenting volunteers from Penang crossed over to join the local team.')],
-        q: { zh: '拍攝遇到的困難主要是，因為整個會場都很暗，所以我們就是要，去找有光線打到人身上的時候。', en: 'The main difficulty in filming was that the whole hall was dark, so we had to look for the moments when light fell on people.', who: T('謝佳宇，慈濟志工', 'A Tzu Chi volunteer') },
+        p: [T('慈濟新山支會與峇株巴轄聯絡處推出《無量義．再現》經藏演繹，超過千人參與。為了記錄下來，除了當地真善美志工，六位檳城真善美志工也跨區來支援。', 'Tzu Chi in Johor Bahru and Batu Pahat presented a sutra adaptation with more than a thousand people taking part. To record it, six documentary volunteers from Penang crossed over to join the local team.')],
+        q: { zh: '拍攝遇到的困難主要是，因為整個會場都很暗，所以我們就是要，去找有光線打到人身上的時候。', en: 'The main difficulty in filming was that the whole hall was dark, so we had to look for the moments when light fell on people.', who: T('謝佳宇，慈濟志工', '謝佳宇, a Tzu Chi volunteer') },
         s: ['nYt26'] },
       { k: 'eight', bare: 1, ask: T('媽媽，那我現在看的是什麼？', 'Mama, so what am I watching now?'),
         h: T('你現在看的這些，就是這個腳印。', 'What you are watching now is this footprint.'),
         t: T('前面七站的故事，都有人替我們留了下來。有人用鋼板，有人用話筒，有人用鏡頭，後來還有人用一支手機。', 'Someone kept the stories of the first seven stops for us. Some used a steel plate, some a microphone, some a lens, and later some a mobile phone.'),
         g1: T('四大志業', 'The four missions'), g2: T('再加四個腳印', 'And four more footprints'),
         items: [T('慈善', 'Charity'), T('醫療', 'Medicine'), T('教育', 'Education'), T('人文', 'Humanistic Culture'), T('國際賑災', 'International Relief'), T('骨髓捐贈', 'Bone Marrow Donation'), T('環保', 'Environmental Protection'), T('社區志工', 'Community Volunteerism')],
-        q: T('法脈資料庫記述環保志工幹部：「人人都是一步八腳印，步步踏實。」', 'The Dharma Lineage Archive says of recycling volunteer leaders: “Everyone takes one step and leaves eight footprints, each step firm on the ground.”'),
+        q: T('相關記錄寫道，全臺環保志工幹部不只承擔環保，也投入其他腳印：「人人都是一步八腳印，步步踏實。」', 'The record notes that recycling volunteer leaders take part in the other footprints as well: “Everyone takes one step and leaves eight footprints, each step firm on the ground.”'),
         s: ['f304'] }
     ] },
 
@@ -356,10 +356,10 @@
     { id: 'ziK32AG-qLM', zh: '大愛電視臺開播', en: 'Da Ai Television begins', y: '1998' },
     { id: '3jdZ1mt7toM', zh: '《經典》雜誌創刊', en: 'Rhythms magazine launched', y: '1998' },
     { id: 'Svlsmbthwho', zh: '「文化三合一志工」成立', en: 'The three-in-one volunteers', y: '2003' },
-    { id: 'ktZ_TRQRaO8', zh: '人文真善美志工：為時代做見證，為慈濟寫歷史', en: 'Documenting volunteers: bearing witness to the times', y: '2025' },
+    { id: 'ktZ_TRQRaO8', zh: '人文真善美志工：為時代做見證，為慈濟寫歷史', en: 'Documentary volunteers bear witness to the times and record Tzu Chi’s history', y: '2025' },
     { id: 'WF0IwNEO_iA', zh: '《無量義．再現》經藏演繹', en: 'A sutra adaptation in Johor Bahru and Batu Pahat', y: '2026' },
-    { id: 'zv9OK_k7o8M', zh: '記錄大型經藏演繹', en: 'Documenting volunteers record a sutra adaptation', y: '2026' },
-    { id: 'hWaAfaMNwRQ', zh: '真善美志工到底在忙什麼？', en: 'What documenting volunteers do behind the scenes', y: '2026' }
+    { id: 'zv9OK_k7o8M', zh: '記錄大型經藏演繹', en: 'Documentary volunteers record a large-scale sutra adaptation', y: '2026' },
+    { id: 'hWaAfaMNwRQ', zh: '真善美志工到底在忙什麼？', en: 'What documentary volunteers do behind the scenes', y: '2026' }
   ];
 
   CH.filters = [['all', T('全部', 'All')], ['print', T('刊物與出版', 'Print')], ['air', T('廣播與電視', 'Radio and TV')], ['rec', T('記錄志工', 'Recording')], ['live', T('書軒與舞臺', 'Shops and stage')], ['my', T('馬來西亞', 'Malaysia')]];
@@ -394,7 +394,7 @@
     ['2003.02.22', 'rec', '關渡慈濟園區研習課程，布達三合一整合的理念。', 'The three-in-one idea is announced at a course in Guandu.', 'f271'],
     ['2003.07.04', 'live', '《藥師如來十二大願》音樂手語劇全臺巡迴，共三十一場。', 'The Twelve Great Vows of the Medicine Buddha tours Taiwan, 31 performances.', 'f241'],
     ['2004.09.18', 'live my', '吉隆坡靜思書軒啟用。', 'The Kuala Lumpur shop opens.', 'x511'],
-    ['2004.12.24', 'rec', '上人把「文化」改稱「人文」。', 'The Master renames “culture” as “humanity”.', 'f291'],
+    ['2004.12.24', 'rec', '上人把「文化」改稱「人文」。', 'The Master renames the mission from “Culture” to “Humanistic Culture”.', 'f291'],
     ['2005.01.01', 'air', '大愛全數位製播系統完工啟用。', 'Da Ai’s all-digital system comes into use.', 'f291'],
     ['2005.09.01', 'air', '慈濟大愛網路電臺開播。', 'Internet radio begins.', 'f089'],
     ['2006.02.15', 'air', '印尼雅加達大愛電視無線臺試播。', 'Test transmission from the Da Ai station in Jakarta.', 'f291'],
@@ -441,7 +441,7 @@
     var A = api(), lines = '', i;
     for (i = 0; i < 12; i++) lines += '<i style="--i:' + i + ';--w:' + (72 + (i * 37) % 26) + '%"></i>';
     var ch = b.q.zh.split('').map(function (c, n) { return '<i style="--i:' + n + '">' + c + '</i>'; }).join('');
-    var steps = [['-1', '.5', T('手寫徵信', 'Handwritten accounts')], ['.5', '.64', T('1967　報紙型，四個版', '1967: a four-page newspaper')], ['.64', '.77', T('1973　十六開雜誌型', '1973: a magazine')], ['.77', '.88', T('1998　全面彩色印刷', '1998: full colour')], ['.88', '9', T('2007　電子雜誌', '2007: an e-magazine')]];
+    var steps = [['-1', '.5', T('手寫徵信', 'Handwritten accounts')], ['.5', '.64', T('1967　報紙型，四個版', '1967: a four-page newspaper')], ['.64', '.77', T('1973　十六開雜誌型', '1973: 16-kai magazine format')], ['.77', '.88', T('1998　全面彩色印刷', '1998: full colour')], ['.88', '9', T('2007　電子雜誌', '2007: an e-magazine')]];
     var pages = steps.map(function (s, n) { return '<div class="pl-l pl-' + n + '" style="--a:' + s[0] + ';--b:' + s[1] + '">' + (n === 0 ? '<div class="pl-g">' + lines + '</div>' : '<b></b><span></span>') + '</div>'; }).join('');
     var labs = steps.map(function (s) { return '<span class="pl-y" style="--a:' + s[0] + ';--b:' + s[1] + '">' + A.B(s[2]) + '</span>'; }).join('');
     return '<section class="fx fx-pl" data-fx><div class="fx-s"><div class="pl-w"><div class="pl-c"><div class="pl-o" aria-hidden="true">' + pages + '</div><p class="pl-k">' + labs + '</p></div><div class="pl-t">' + A.B(b.lead, 'p') +

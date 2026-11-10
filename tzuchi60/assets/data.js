@@ -28,7 +28,7 @@ window.CHARITY = {
 
   bamboo: [
     { zh: '1966 年春天，花蓮。一位年輕的法師即將離開，三十位信眾不捨，上書慰留。這位法師，就是後來大家尊稱為證嚴上人的師父。', en: 'Spring 1966, Hualien. A young Buddhist nun was about to leave, and thirty devotees wrote pleading for the nun to stay. That nun is the one revered today as Dharma Master Cheng Yen.' },
-    { zh: '上人說，想留我，那麼每個人都要每天存五毛錢行善。', en: 'If you want me to stay, the Master said, then each of you must save fifty cents a day to do good.', srcs: ['fm_shoes'] },
+    { zh: '上人請每個人每天存五毛錢行善，讓慈善工作得以持續。', en: 'Dharma Master Cheng Yen asked each person to save NT$0.50 a day to sustain the charitable work.', srcs: ['fm_shoes'] },
     { zh: '竹竿鋸成竹筒，三十位家庭主婦，一人一支。每天提起菜籃出門之前，先把買菜錢省下的五毛投進去。', en: 'A length of bamboo was sawn into tubes, one for each of thirty housewives. Every day, before picking up the basket for the market, each dropped in fifty cents saved from her grocery money.' },
     { zh: '有人跟上人說：師父，我一個月繳十五塊就好啦。', en: 'Some said: Master, I’ll just pay fifteen dollars a month.' },
     { q: '我說我會算啦，我懂啦，但是我只要求你，每天五毛，總而言之我要你天天一念善心，每天一念善心', qen: 'I can do the sum, I understand. But all I ask is fifty cents every day. What I want is for you to have one kind thought, every single day.', who: { zh: '證嚴上人', en: 'Dharma Master Cheng Yen' }, src: 'otd660414' },
@@ -43,7 +43,7 @@ window.CHARITY = {
       key: 'lin', img: 'D', name: { zh: '林曾', en: 'Lin Zeng' }, tag: { zh: '第一位長期照顧戶 · 1966', en: 'First long-term care recipient · 1966' },
       body: [
         { zh: '八十六歲。從福建來臺灣尋夫，丈夫已往生，她回不去了。獨居花蓮市場小巷，一間三個榻榻米大的小屋。', en: 'She was eighty-six. She had come from Fujian to find her husband, only to learn he had died, and she could not go back. She lived alone down a market alley in Hualien, in a small room the size of three tatami mats.' },
-        { zh: '陳貞如聽說了，和妹妹陳雪卿天天送飯，刮風下雨都去。功德會成立的第二個月，她把老太太提報上來。從 1966 年 6 月起，每月三百元，請人燒飯照料，一直到老太太 1970 年往生。', en: 'Chen Zhenru heard about her and, with her sister Chen Xueqing, brought meals every day, wind or rain. In the foundation’s second month she reported the case. From June 1966 it paid NT$300 a month, with someone hired to cook and care for her, until she passed away in 1970.' }
+        { zh: '陳貞如聽說了，和妹妹陳雪卿天天送飯，刮風下雨都去。功德會成立的第二個月，她把老太太提報上來。從 1966 年 6 月起，每月三百元，請人燒飯照料；1969 年 6 月增至四百元，一直到 1970 年 2 月 3 日老太太往生。', en: 'Chen Zhenru heard about her and, with her sister Chen Xueqing, brought meals every day, wind or rain. In the foundation’s second month she reported the case. From June 1966 it paid NT$300 a month, with someone hired to cook and care for her. This rose to NT$400 in June 1969 and continued until she passed away on 3 February 1970.' }
       ],
       src: ['fm_lin'], video: 'yJgW0e23ZCs'
     },
@@ -78,9 +78,9 @@ window.CHARITY = {
 
   records: [
     { d: { zh: '1966 · 農曆三月二十四', en: '1966 · 24th of the 3rd lunar month' }, place: { zh: '花蓮佳民村普明寺', en: 'Pu Ming Temple, Hualien' }, t: { zh: '克難慈濟功德會成立', en: 'The Buddhist Compassion Relief Merit Society is founded' }, b: { zh: '三十位家庭主婦、三十支竹筒，每人每天五毛。', en: 'Thirty housewives, thirty bamboo tubes, fifty cents a day each.' }, tags: ['first', 'system'], src: ['fm_found', 'otd660414'], video: 'UckBwx-XZvo' },
-    { d: { zh: '1966', en: '1966' }, place: { zh: '花蓮', en: 'Hualien' }, t: { zh: '每人每天多縫一雙嬰兒鞋', en: 'One extra pair of baby shoes a day' }, b: { zh: '一雙四元。一半作生活費，一半作濟貧基金。', en: 'Four dollars a pair. Half for living costs, half for the relief fund.' }, tags: ['system'], src: ['fm_shoes'] },
+    { d: { zh: '1966', en: '1966' }, place: { zh: '花蓮', en: 'Hualien' }, t: { zh: '每人每天多縫一雙嬰兒鞋', en: 'One extra pair of baby shoes a day' }, b: { zh: '原有的嬰兒鞋收入作生活費，每人每天另多縫一雙，每雙四元，六人每天共二十四元作濟貧基金。', en: 'The existing baby-shoe income covered living expenses. Each of the six members made one extra pair a day at NT$4 a pair, raising NT$24 daily for the relief fund.' }, tags: ['system'], src: ['fm_shoes'] },
     { d: { zh: '1966.05', en: 'May 1966' }, place: { zh: '花蓮、宜蘭羅東', en: 'Hualien and Luodong' }, t: { zh: '第一個醫療個案：盧丹桂', en: 'First medical case: Lu Dan-gui' }, b: { zh: '鄰居李時提報，功德會送她到羅東開刀。', en: 'Reported by her neighbour Li Shi; the foundation sent her to Luodong for surgery.' }, tags: ['first', 'care'], src: ['otd670701'] },
-    { d: { zh: '1966.06', en: 'June 1966' }, place: { zh: '花蓮', en: 'Hualien' }, t: { zh: '第一位長期照顧戶：林曾', en: 'First long-term care recipient: Lin Zeng' }, b: { zh: '每月三百元，請人燒飯照料，直到 1970 年老太太往生。', en: 'NT$300 a month and a carer, until she passed away in 1970.' }, tags: ['first', 'care'], src: ['fm_lin'], video: 'yJgW0e23ZCs' },
+    { d: { zh: '1966.06', en: 'June 1966' }, place: { zh: '花蓮', en: 'Hualien' }, t: { zh: '第一位長期照顧戶：林曾', en: 'First long-term care recipient: Lin Zeng' }, b: { zh: '每月三百元，請人燒飯照料；1969 年 6 月增至四百元，直到 1970 年 2 月 3 日老太太往生。', en: 'NT$300 a month and a carer from June 1966, NT$400 from June 1969, until she passed away on 3 February 1970.' }, tags: ['first', 'care'], src: ['fm_lin'], video: 'yJgW0e23ZCs' },
     { d: { zh: '1967', en: '1967' }, place: { zh: '花蓮', en: 'Hualien' }, t: { zh: '建立複查制度', en: 'The follow-up system begins' }, b: { zh: '每三個月回到案家，看看生活過得怎樣。', en: 'Every three months, a return visit to see how the family is living.' }, tags: ['first', 'system'], src: ['otd670701', 'fm_review'], video: 's8BcltTSpow', note: { zh: '資料裡月份有異文（1967.01／1967.06），這裡只寫年份。', en: 'Sources differ on the month, so only the year is given.' } },
     { d: { zh: '1967.11.01', en: '1 Nov 1967' }, place: { zh: '花蓮吉安', en: 'Ji’an, Hualien' }, t: { zh: '第一間永久屋：李阿拋', en: 'First permanent house: Li A-pao' }, b: { zh: '五坪空心磚屋，張榮華捐地。', en: 'A five-ping hollow-brick house on land given by Zhang Ronghua.' }, tags: ['first', 'home'], src: ['fm_house'], video: '2Jn9Zl_hfTo', note: { zh: '上人後來回憶時也說過四坪、由里長撥地，這裡依當年的記載。', en: 'Later recollections mention four ping and land allotted by the village chief; this follows the record of the time.' } },
     { d: { zh: '1969.02.09', en: '9 Feb 1969' }, place: { zh: '花蓮普明寺', en: 'Pu Ming Temple, Hualien' }, t: { zh: '第一次冬令發放', en: 'The first winter distribution' }, b: { zh: '四十戶、二百多人。除了物資，還備素筵款待照顧戶。', en: 'Forty households, over two hundred people. Besides supplies, a vegetarian meal was served for them.' }, tags: ['first', 'care'], src: ['fm_winter'], video: 'ho_lyp8uYS4' },
@@ -94,7 +94,7 @@ window.CHARITY = {
 
   grew: {
     zh: '六十年後，慈濟自己的捐款資料顯示：一千元以下的小額捐款，佔總人次 93%。<br>匯聚這分力量的，至今仍是無數人一點一滴的愛心。',
-    en: 'Sixty years on, Tzu Chi’s own donor data shows that gifts under NT$1,000 make up 93% of all donations by count.<br>What gathers this strength, to this day, is the love of countless people, a little at a time.',
+    en: 'In 2024, donations of NT$1,000 or less accounted for 93% of Tzu Chi’s donation transactions.<br>What gathers this strength, to this day, is the love of countless people, a little at a time.',
     src: ['impact']
   },
 
@@ -115,7 +115,7 @@ window.CHARITY = {
     head: { zh: '在馬來西亞', en: 'In Malaysia' },
     body: [
       { zh: '蒲種的林淑芬，一開始以為慈濟是詐騙。疫情時家裡負擔不起補習費，女兒魏芷晴參加了「愛·伴學」，起初連鏡頭都不敢打開。', en: 'In Puchong, Lin Shufen first thought Tzu Chi was a scam. During the pandemic the family could not afford tuition, and her daughter joined the I-Didik learning programme, at first too shy even to turn on her camera.' },
-      { zh: '後來，女孩站上台當司儀。', en: 'Later, that girl stood on stage as an emcee.' },
+      { zh: '後來，女孩站上臺當司儀。', en: 'Later, that girl stood on stage as an emcee.' },
       { q: '她帶著芷晴在環保點付出', qen: 'She brought her daughter along to give their time at the recycling point.', who: { zh: '馬來西亞慈濟報道', en: 'Tzu Chi Malaysia report' }, src: 'my' }
     ],
     src: ['my']
@@ -168,7 +168,7 @@ window.TUNNEL = [
   { y: 1998, zh: '大愛台開播', en: 'Da Ai TV goes on air' },
   { y: 1993, zh: '骨髓捐贈，救一個不認識的人', en: 'Marrow donation: saving a stranger' },
   { y: 1991, zh: '華東水災，慈濟人走上街頭募款', en: 'East China floods: volunteers take to the streets to raise funds' },
-  { y: 1990, zh: '「用鼓掌的雙手做環保」', en: '“Use the hands that clap to recycle”' },
+  { y: 1990, zh: '「用鼓掌的雙手做環保」', en: '“Use your applauding hands to protect the environment”' },
   { y: 1989, zh: '護專開學', en: 'The nursing college opens' },
   { y: 1986, zh: '花蓮慈濟醫院啟業', en: 'Hualien Tzu Chi Hospital opens' },
   { y: 1967, zh: '一間五坪的小屋', en: 'A five-ping house', img: 'E' },

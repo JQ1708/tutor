@@ -29,7 +29,7 @@
     o030831: otd('20030831'), o200115: otd('20200115'),
     ist: im('故事', 'stories'), ico: im('社區網絡的深耕共伴', 'community networks'), ia3: im('行動三', 'Action 3'),
     r24: { zh: '《慈濟 2024 年報》頁 9–10', en: 'Tzu Chi Annual Report 2024, pp. 9–10' },
-    x17: xl(1, '22'), x123: xl(1, '23'), x127: xl(1, '27'), x165: xl(1, '65'),
+    x17: xl(1, '22'), x123: xl(1, '23'), x127: xl(1, '27'), x1727: xl(1, '22, 27'), x165: xl(1, '64–65'),
     x2612: xl(2, '612'), x2635: xl(2, '635–636'), x2637: xl(2, '637–638'), x2640: xl(2, '640'), x2662: xl(2, '662')
   };
   var CH = window.CH = { S: S };
@@ -72,7 +72,7 @@
       { k: 'story', lay: 'T', date: '1996', h: T('分組跟著人，不跟著地方', 'Groups followed people, not places'),
         p: [T('早期慈濟的志工網絡依人際關係形成，各分組的成員橫跨不同的地理區域，人力的集結費時。', 'In the early years, Tzu Chi’s volunteer network grew through personal ties. Members of one group lived across different areas, and it took time to bring people together.'),
           T('賀伯颱風造成中南部海水倒灌，南投縣山洪爆發，多人遭土石流活埋。慈濟人跨縣市援助，受災戶的鄰居卻無法及時關心。', 'Typhoon Herb drove seawater inland in central and southern Taiwan, and flash floods in Nantou County buried many people under mudslides. Tzu Chi volunteers crossed county lines to help, yet the neighbours of those affected could not reach them in time.'),
-          T('有此經驗，上人提出醞釀已久的構想，將志工編組改由以社區為單位，也期盼提倡「里仁為美」的美德，讓關懷的風氣在鄰里間滋長。', 'With this experience, Master Cheng Yen put forward an idea she had long been considering: to organise volunteers by community, and to encourage the old virtue of a good neighbourhood, so that care could grow among neighbours.')],
+          T('有此經驗，上人提出醞釀已久的構想，將志工編組改為以社區為單位，也期盼提倡「里仁為美」的美德，讓關懷的風氣在鄰里間滋長。', 'With this experience, Master Cheng Yen put forward an idea she had long been considering: to organise volunteers by community, and to encourage the old virtue of a good neighbourhood, so that care could grow among neighbours.')],
         q: { zh: '唯有對當地熟悉，平日磨合出彼此的默契，才能在急難發生的當下，做最有效率的動員。', en: 'Only by knowing a place well, and building an understanding with one another day by day, can people mobilise most effectively when an emergency strikes.', who: T('《慈濟月刊》625 期〈鄰里互助的價值〉，二〇一八年十二月一日', 'Tzu Chi Monthly, no. 625, 1 December 2018') },
         s: ['f196', 'ist'] }
     ] },
@@ -82,7 +82,7 @@
         p: [T('這一天是慈濟北區委員聯誼座談。上人談到，現代的社區左鄰右舍互不相識，聽到樓上有人求救，也不敢探頭看看。', 'That day, Tzu Chi commissioners of the northern region met for a discussion. Master Cheng Yen spoke of modern neighbourhoods where people do not know those next door, and where someone hearing a cry for help upstairs dares not even look out.'),
           T('有人告訴上人，從近鄰做起較困難，因為天天會碰面，容易暴露個人的缺點。', 'Someone told her it was harder to begin with close neighbours, because you see them every day and your faults are easily exposed.')],
         q: { zh: '就因為如此，所以更應該從敦親睦鄰做起，請左鄰右舍大家來督促，自己就會提高警惕心注意言行。', en: 'It is for this very reason that we should begin with our neighbours. Ask those around you to keep you on your toes, and you will be more careful in what you say and do.', who: SR('一九九六年十二月十四日', '14 December 1996') },
-        q2: { zh: '社區就是我們修行的好道場', en: 'The community is our good place of practice.', who: SR('一九九六年十二月十四日', '14 December 1996') },
+        q2: { zh: '社區就是我們修行的好道場', en: 'The community is an ideal place for our spiritual practice.', who: SR('一九九六年十二月十四日', '14 December 1996') },
         s: ['f196'] }
     ] },
 
@@ -104,17 +104,17 @@
     ] },
     { id: 'c2b', era: 'e00', y: '2003', nav: T('像一個球', 'Like a ball'), b: [
       { k: 'story', lay: 'T', date: '2003', h: T('沒有上一層', 'No level above'),
-        p: [T('二〇〇三年，上人正式宣布調整志工組織架構，以合心、和氣、互愛、協力為名，實施功能分組。八月三十一日至九月七日，上人行腳全臺，向弟子宣布這項更動。', 'In 2003, Master Cheng Yen formally announced a new structure for volunteers, named Harmony of Hearts, Peace, Mutual Love, and Joint Effort, with groups organised by function. From 31 August to 7 September she travelled around Taiwan and announced the change to her disciples.'),
-          T('四組的分工是「合心承擔傳承、和氣負責布達、互愛進行規畫、協力落實執行」。', 'The division of work was this: Harmony of Hearts carries on the legacy, Peace passes on information, Mutual Love does the planning, and Joint Effort puts things into practice.')],
-        q: { zh: '「合心、和氣、互愛、協力」就像一個球，合心不一定在上面，不是一階一階，也不是上一層，所以沒有「上面的這麼說」，而是一層一層合心，合抱起來就是圓的，是真的平等。', en: 'Harmony of Hearts, Peace, Mutual Love and Joint Effort are like a ball. Harmony of Hearts is not necessarily on top. It is not a staircase, nor a level above, so there is no such thing as “those above said so”. Layer by layer, hearts come together, and held together they form a sphere. That is true equality.', who: SR('二〇〇三年七月二十七日', '27 July 2003') },
+        p: [T('二〇〇三年，上人正式宣布調整志工組織架構，以合心、和氣、互愛、協力為名，實施功能分組。八月三十一日至九月七日，上人行腳全臺，向弟子宣布這項更動。', 'In 2003, Master Cheng Yen formally announced a new structure for volunteers, based on unity, harmony, mutual love and concerted effort, with groups organised by function. From 31 August to 7 September she travelled around Taiwan and announced the change to her disciples.'),
+          T('四組的分工是「合心承擔傳承、和氣負責布達、互愛進行規畫、協力落實執行」。', 'The division of work was this: Unity teams carry on the legacy, Harmony teams communicate information, Mutual Love teams handle planning, and Concerted Effort teams put plans into practice.')],
+        q: { zh: '「合心、和氣、互愛、協力」就像一個球，合心不一定在上面，不是一階一階，也不是上一層，所以沒有「上面的這麼說」，而是一層一層合心，合抱起來就是圓的，是真的平等。', en: 'Unity, Harmony, Mutual Love and Concerted Effort are like a ball. Unity is not necessarily on top. It is not a staircase, nor a level above, so there is no such thing as “those above said so”. Layer by layer, hearts come together, and held together they form a sphere. That is true equality.', who: SR('二〇〇三年七月二十七日', '27 July 2003') },
         s: ['f265', 'o030831'] },
       { k: 'story', lay: 'T', date: '2003', h: T('二十個人', 'Twenty people'),
-        p: [T('協力組是慈濟志工團體中的最小單位。', 'The Joint Effort team is the smallest unit among Tzu Chi volunteers.')],
-        q: { zh: '一組協力組若超過二十人就要分組，帶起來才會很溫馨。組長要瞭解這二十個人的家庭背景、心態等等。像媽媽照顧幾個孩子，或是一個姊姊帶幾個弟弟、妹妹一樣，關懷他的心理，關懷他的行動，要很有家的味道，小組愈小愈精，關懷愈密。', en: 'If a Joint Effort team has more than twenty people, it should divide, so that leading it stays warm. The leader should know these twenty people’s family background and state of mind, like a mother looking after a few children, or an elder sister with her younger brothers and sisters. Care about how they feel and what they do. It should feel like home. The smaller the group, the finer it is, and the closer the care.', who: SR('二〇〇三年七月二十七日', '27 July 2003') },
+        p: [T('協力組是慈濟志工團體中的最小單位。', 'The Concerted Effort team is the smallest unit among Tzu Chi volunteers.')],
+        q: { zh: '一組協力組若超過二十人就要分組，帶起來才會很溫馨。組長要瞭解這二十個人的家庭背景、心態等等。像媽媽照顧幾個孩子，或是一個姊姊帶幾個弟弟、妹妹一樣，關懷他的心理，關懷他的行動，要很有家的味道，小組愈小愈精，關懷愈密。', en: 'If a Concerted Effort team has more than twenty people, it should divide, so that leading it stays warm. The leader should know these twenty people’s family background and state of mind, like a mother looking after a few children, or an elder sister with her younger brothers and sisters. Care about how they feel and what they do. It should feel like home. The smaller the group, the finer it is, and the closer the care.', who: SR('二〇〇三年七月二十七日', '27 July 2003') },
         s: ['f265', 'x2635'] },
       { k: 'rec', items: [
         { d: '1997.08', zh: '香港分會遷往九龍塘，灣仔舊會址改為共修處，作為港島區志工開會共修的處所。', en: 'The Hong Kong branch moves to Kowloon Tong. Its old premises in Wan Chai become a place for Hong Kong Island volunteers to meet and practise.' },
-        { d: '2012.06.12', zh: '東京八王子僅十坪大的「百草園」共修處啟用，是東京除了分會之外的第一個社區道場。', en: 'A small practice space of ten ping, the Hundred Herbs Garden, opens in Hachioji, Tokyo. It is the first community practice centre in Tokyo apart from the branch office.' }
+        { d: '2012.06.12', zh: '東京八王子僅十坪大的「百草園」共修處啟用，是東京除了分會之外的第一個社區道場。', en: 'A small community practice space of ten ping (about 33 square metres) opens in Hachioji, Tokyo. It is the first community practice centre in Tokyo apart from the branch office.' }
       ], s: ['f169', 'f146'] }
     ] },
 
@@ -154,7 +154,7 @@
     /* 4 災難來的時候 */
     { id: 'c4a', era: 'e90', y: '1997–1999', nav: T('好厝邊', 'Good neighbours'), ask: T('燈都滅了，怎麼辦？', 'When the lights go out, what then?'), b: [
       { k: 'story', lay: 'T', date: '1997.08.18', h: T('居民搬來鍋碗瓢盆', 'Residents brought their pots and pans'),
-        p: [T('一九九七年八月十八日，溫妮颱風帶來豪雨，汐止林肯大郡擋土牆崩塌，造成二十八人死亡，近五十人輕重傷，兩百戶房屋毀損。', 'On 18 August 1997, heavy rain from Typhoon Winnie brought down a retaining wall at the Lincoln Mansions in Xizhi. Twenty-eight people died, nearly fifty were injured, and two hundred homes were damaged.'),
+        p: [T('一九九七年八月十八日，溫妮颱風帶來豪雨，汐止林肯大郡擋土牆崩塌，造成二十八人往生，近五十人輕重傷，兩百戶房屋毀損。', 'On 18 August 1997, heavy rain from Typhoon Winnie brought down a retaining wall at the Lincoln Mansions in Xizhi. Twenty-eight people died, nearly fifty were injured, and two hundred homes were damaged.'),
           T('慈濟志工正式區域化的時間不算長，成效已在這次風災中顯現。內湖、士林、新莊的災情，均由當區委員就近動員協助。', 'Tzu Chi volunteers had not been organised by area for long, but the results showed in this storm. In Neihu, Shilin and Xinzhuang, commissioners of each area mobilised on the spot.')],
         q: { zh: '在地緣人脈上的優勢，省下不少人員調度的時間，而熱食烹煮供應，也因平日即掌握區域內各項資源，熟悉市場、超商所在，採買、運送過程迅速完成', en: 'Being on the spot and knowing people saved much of the time needed to deploy volunteers. Hot meals too were supplied quickly, because volunteers already knew the local resources and where the markets and shops were, and buying and delivery were soon done.', who: DY },
         more: [T('林肯大郡災變一發生，住在社區內的黃明輝聯合鄰居加入搶救，也立即聯絡汐止地區慈濟人前來支援。', 'When the Lincoln Mansions disaster struck, Huang Ming-hui, who lived in the complex, joined neighbours in the rescue and immediately called Tzu Chi volunteers in Xizhi for support.'),
@@ -166,7 +166,7 @@
         s: ['f219'] },
       { k: 'photos', lay: 'one', ph: [{ i: 'c_pot', c: otdC('九二一之後，師姊為鄉親煮食。大鍋局部。', 'After the 21 September earthquake, Tzu Chi sisters cook for people affected. Detail of the pots.') }] },
       { k: 'story', lay: 'T', date: '1999.09.24', h: T('平時熟悉鄰里', 'Knowing the neighbourhood in ordinary times'),
-        p: [T('地震後第三天，上人趕赴臺中，肯定慈濟人平時落實社區志工，熟悉鄰里、主動關懷，因此才能在這次災變中迅速動員。', 'On 24 September, Master Cheng Yen hurried to Taichung. She affirmed that because Tzu Chi people had put the community volunteer system into practice, knew their neighbourhoods and reached out in ordinary times, they were able to mobilise quickly in this disaster.'),
+        p: [T('一九九九年九月二十四日，上人趕赴臺中，肯定慈濟人平時落實社區志工，熟悉鄰里、主動關懷，因此才能在這次災變中迅速動員。', 'On 24 September, Master Cheng Yen hurried to Taichung. She affirmed that because Tzu Chi people had put the community volunteer system into practice, knew their neighbourhoods and reached out in ordinary times, they were able to mobilise quickly in this disaster.'),
           T('九二一的記錄這樣總結：「落實社區志工，發揮了互助合作的功能。」', 'The record of the earthquake sums it up: putting community volunteering into practice brought mutual help and cooperation into play.')],
         s: ['f196', 'f219'] }
     ] },
@@ -210,7 +210,7 @@
       { k: 'obj', o: 'bento', c: T('便當是示意。', 'The lunch box is an illustration.') },
       { k: 'photos', lay: 'one', ph: [{ i: '20200115-1_09', c: otdC('白牆上的扶手和手，局部。', 'A handrail on a white wall, and a hand. Detail.') }] },
       { k: 'story', lay: 'T', date: '2021.03.29', h: T('最後一件事', 'The last job'),
-        p: [T('臺北萬華一戶兩老的家，鋪好止滑地板和扶手之後，志工再動員做家具的復位和大掃除。「包括衛浴、廚房、牆壁、門縫等支微細節處，志工都沒忽略」。', 'At the home of an elderly couple in Wanhua, Taipei, once the non-slip floor and handrails were in, volunteers returned to put the furniture back and clean the house. Bathroom, kitchen, walls, even the gaps around the doors: they missed nothing.')],
+        p: [T('在臺北萬華一對年長夫妻的家中，志工鋪好止滑地板、裝妥扶手後，再動員將家具復位並大掃除，連衛浴、廚房、牆壁和門縫等細節都仔細清理。', 'At the home of an elderly couple in Wanhua, Taipei, once the non-slip floor and handrails were in, volunteers returned to put the furniture back and clean the house. Bathroom, kitchen, walls, even the gaps around the doors: they missed nothing.')],
         s: ['f456'] }
     ] },
     { id: 'c5b', era: 'heart', y: '2020–2025', nav: T('一戶一戶', 'One home at a time'), b: [
@@ -252,18 +252,18 @@
     { id: 'c6b', era: 'my', y: '2007–2025', nav: T('下班以後', 'After work'), b: [
       { k: 'night', bare: 1, h: T('下班以後', 'After work'),
         lead: T('大多數志工和民眾白天要上班，下班後才有時間做環保。二〇〇七年底，雪隆慈濟開始嘗試夜間環保，當時環保站較少，也沒有回收商願意夜晚來載，推行不易。雙溪毛糯的志工把一棟雙層店屋裝修成環保站，也是如此。', 'Most volunteers and residents work during the day, and have time for recycling only after work. In late 2007, Tzu Chi in Selangor and Kuala Lumpur began trying evening recycling. There were few stations then, and no collector willing to come at night, so it was not easy. It was the same when volunteers in Sungai Buloh turned a two-storey shophouse into a station.'),
-        q: { zh: '大多數的志工都是上班族，只能利用下班或假日的時間整理', en: 'Most of the volunteers were office workers, and could only do the work after hours or on holidays.', who: T('《馬來西亞慈濟史 雪隆分會（二）》', 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 2') },
+        q: { zh: '大多數的志工都是上班族，只能利用下班或假日的時間整理', en: 'Most of the volunteers had jobs and could only do the work after work or on their days off.', who: T('《馬來西亞慈濟史 雪隆分會（二）》', 'History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 2') },
         note: T('店屋和燈是示意。截至二〇二二年，雪隆分會轄下約一半的環保站都帶動夜間環保。', 'The shophouses and lights are illustrations. By 2022, about half the stations under the branch were running evening recycling.'),
         s: ['x2637', 'x2640'] },
       { k: 'story', lay: 'T', date: '2010–2011', h: T('一個協力組，一個環保站', 'One team, one station'),
         p: [T('二〇一〇年十一月，雪隆分會執行長簡慈露走訪社區各環保站。十八日到吉隆坡的郊外嶺環保站，看到志工與社區居民互相關心，和樂融融。', 'In November 2010, branch CEO Jian Ci-lu visited recycling centres in the community. On the 18th she came to the Jiaowailing station in Kuala Lumpur, and saw volunteers and residents looking out for one another in harmony.'),
-          T('十一月二十九日，她回到臺灣，向上人發願，喊出「一協一站」：期盼以慈濟志工團體中的最小單位，一個協力組負責一個環保站，做為努力的方向。', 'On 29 November, back in Taiwan, she made a vow to Master Cheng Yen and called out the goal of one team, one station: the hope that the smallest unit among volunteers, a Joint Effort team, would take charge of one station. It was a direction to work toward.'),
+          T('十一月二十九日，她回到臺灣，向上人發願，喊出「一協一站」：期盼以慈濟志工團體中的最小單位，一個協力組負責一個環保站，做為努力的方向。', 'On 29 November, back in Taiwan, she made a vow to Master Cheng Yen and called out the goal of one team, one station: the hope that the smallest unit among volunteers, a Concerted Effort team, would take charge of one station. It was a direction to work toward.'),
           T('這是努力的方向，不是全部社區都已做到。環保站的故事，環保那一站已經講過，這裡看的是誰在動手：住在附近、下了班的人。', 'This was a goal, not a claim that every community had got there. The stories of the stations themselves are told at the recycling stop. What matters here is who did the work: people who live nearby, after their day’s job.')],
         s: ['x2635'] },
       { k: 'cards', ph: [{ i: 'comm_night', c: T('大城堡環保站夜景，局部。照片：李文傑。', 'The Dachengbao station at night. Detail. Photo: Li Wen-jie.') }, { i: 'comm_bags', c: T('夜間環保，局部。照片：李文傑。', 'Evening recycling. Detail. Photo: Li Wen-jie.') }], s: ['x2637'] },
       { k: 'photos', lay: 'one', ph: [{ i: 'comm_kl', c: T('吉隆坡靜思堂外觀。二〇一〇年九月十六日動土，二〇一四年五月十一日啟用。照片：朱國財。', 'The Kuala Lumpur Jing Si Hall from outside. Ground was broken on 16 September 2010, and it opened on 11 May 2014. Photo: Zhu Guo-cai.') }] },
       { k: 'story', lay: 'T', date: '2022', h: T('那我們隔壁的阿婆呢？', 'And what about the old lady next door?'),
-        p: [T('截至二〇二二年，雪隆分會及轄下據點有志工 10,087 人，受證慈誠、委員 3,101 人。這是雪隆及轄下的數字，不是全馬。古晉支會轄下約有三百位志工。', 'By 2022, the Selangor and Kuala Lumpur branch and its local offices had 10,087 volunteers, including 3,101 certified commissioners and Faith Corps members. These are branch figures, not figures for all of Malaysia. The Kuching branch had about three hundred volunteers.')],
+        p: [T('截至二〇二二年，雪隆分會及轄下據點有志工 10,087 人，受證慈誠、委員 3,101 人。這是雪隆及轄下的數字，不是全馬。古晉支會轄下約有三百位志工。', 'As of 2022, the Tzu Chi KL & Selangor Branch and its local offices reported 10,087 volunteers and 3,101 certified Faith Corps members and commissioners. These are branch figures, not figures for all of Malaysia. The Kuching branch had about three hundred volunteers.')],
         s: ['x123', 'x2662'] },
       { k: 'story', lay: 'T', date: '2025.07.15', h: T('把床換好', 'New beds'),
         p: [T('二〇二五年七月十五日，二百五十位志工來到雪蘭莪新古毛的 Taman Sinar Harapan 關懷機構，把四十張不鏽鋼病床組裝後送入院舍，另帶來三十二張防水床墊、四十九個防水枕頭。慈濟自一九九六年起持續關懷這裡。志工平日到場，看見舊床鏽蝕、部分院友沒有床褥，便依院友的需要籌備替換。', 'On 15 July 2025, 250 volunteers came to the Taman Sinar Harapan care home in Kuala Kubu Bharu, Selangor. They assembled 40 stainless steel beds and brought them in, with 32 waterproof mattresses and 49 waterproof pillows. Tzu Chi has cared for this home since 1996. On their regular visits, volunteers had seen rusted beds and residents without mattresses, and prepared the replacements around what residents needed.'),
@@ -347,7 +347,7 @@
   CH.filters = [['all', T('全部', 'All')], ['org', T('組織', 'Organisation')], ['day', T('平常的日子', 'Ordinary days')], ['dis', T('災難與防災', 'Disaster and preparedness')], ['home', T('居家安全', 'Home safety')], ['my', T('馬來西亞', 'Malaysia')], ['over', T('其他海外', 'Other overseas')]];
   CH.records = [
     ['1993.10.14', 'my', '馬六甲慈濟人為貧病的李先生一家修建廚房，感動鄰居捐助建材。', 'Melaka volunteers rebuild the kitchen of Mr. Li’s family, and neighbours donate building materials.', 'f145'],
-    ['1996.02', 'my', '吉隆坡聯絡處正式成立。年表另記為一九九五年。', 'The Kuala Lumpur liaison office is formally founded. A chronology gives 1995.', 'x17'],
+    ['1996.02', 'my', '吉隆坡聯絡處正式成立。年表另記為一九九五年。', 'The Kuala Lumpur liaison office is formally founded. A chronology gives 1995.', 'x1727'],
     ['1996.08.07', 'org', '上人赴各地關懷災情，呼籲推動「社區志工」理念。', 'Master Cheng Yen visits disaster areas and calls for the community volunteer idea.', 'f196'],
     ['1996.10.20', 'my', '吉隆坡聯絡處新會所舉行成立典禮。', 'A ceremony opens the new premises of the Kuala Lumpur liaison office.', 'f145'],
     ['1996.12.10', 'org', '上人呼籲以社區為單位的慈濟志工服務計畫。', 'Master Cheng Yen calls for a volunteer service plan based on the community.', 'f196'],

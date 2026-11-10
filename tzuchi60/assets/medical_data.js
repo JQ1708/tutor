@@ -58,7 +58,7 @@
       { k: 'story', lay: 'R', date: '1972.09.10', h: T('借來的店面', 'A borrowed shopfront'),
         ph: [{ i: '19720910-1_01', c: T('義診所門口的招牌。', 'The signboard at the clinic door.') }],
         p: [
-          T('慈濟功德會借用花蓮市仁愛街二十八號，成立貧民施醫義診所。店面是德慈師父的俗家母親黃阿奶老太太提供的住家樓下。', 'The Tzu Chi Merit Society borrowed 28 Ren’ai Street in Hualien and opened a free clinic for the poor. The shopfront was the ground floor of a home offered by Huang A-Nai, the lay mother of Master De Ci.'),
+          T('慈濟功德會借用花蓮市仁愛街二十八號，成立貧民施醫義診所。店面是德慈師父的俗家母親黃阿奶老太太提供的住家樓下。', 'The Tzu Chi Merit Association borrowed 28 Ren’ai Street in Hualien and opened a free clinic for the poor. The shopfront was the ground floor of the home provided by Huang A-Nai, Master De Ci’s mother.'),
           T('志工早早打掃整理，五十多坪的空間裡，掛號、看診、調藥的動線一應俱全。在地藥房義務提供藥品。', 'Volunteers came early to clean. In a little over fifty ping of floor space they laid out a path from registration to consultation to dispensing. A local pharmacy supplied medicine without charge.'),
           T('當時社會普遍貧困，許多人生病捨不得花錢就醫。義診所一開，孤老無依、長期罹病的鄉親不斷前來。有人建議，是不是規定持有政府發放的「貧民證」，或是先做身家調查。', 'Hardship was widespread, and many people would not spend money on a doctor. Once the clinic opened, the elderly and alone and the chronically ill kept coming. Some suggested requiring a government poverty certificate, or checking each family’s background first.')
         ],
@@ -94,7 +94,7 @@
       { k: 'story', lay: 'R', date: '1966', h: T('八千元', 'Eight thousand dollars'),
         ph: [{ i: 'ai_h1', c: T('情境重建：東部的鄉間道路。AI 畫面，非當年攝影。', 'Reconstruction: a country road in eastern Taiwan. AI image, not a historical photograph.') }],
         p: [
-          T('早在慈濟成立那一年的初春，證嚴上人到鳳林探病，在醫院門口看到地上的一攤血。旁人說，一位原住民婦女小產，被送到醫院，因為繳不出八千元的保證金，又被抬了回去。', 'In early spring of the year Tzu Chi began, the Master went to Fenglin to visit a patient and saw a pool of blood on the ground at the hospital door. Bystanders told her that an Indigenous woman had miscarried and been brought there, but could not pay a deposit of eight thousand dollars and was carried away again.'),
+          T('早在慈濟成立那一年的初春，證嚴上人到鳳林探病，在醫院門口看到地上的一攤血。旁人說，一位原住民婦女小產，被送到醫院，因為繳不出八千元的保證金，又被抬了回去。', 'In early spring of the year Tzu Chi began, Dharma Master Cheng Yen went to Fenglin to visit a patient and saw a pool of blood on the ground at the hospital door. Bystanders told her that an Indigenous woman had miscarried and been brought there, but could not pay a deposit of eight thousand dollars and was carried away again.'),
           T('上人當時沒有見到那位婦女，只看到那一攤血。', 'The Master never saw the woman herself. She saw only the blood.')
         ],
         q: { zh: '難道一條人命只值八千元？', en: 'Could a human life be worth only eight thousand dollars?', who: SHANGREN },
@@ -165,8 +165,8 @@
       { k: 'story', lay: 'R', date: '1986.08.17', h: T('病房裡的人', 'The people in the wards'),
         ph: [{ i: 'ai_h12', c: T('情境重建：握著病人的手。AI 畫面，非當年攝影。', 'Reconstruction: holding a patient’s hand. AI image, not a historical photograph.') }],
         p: [
-          T('啟業這一天，志工顏惠美、杜張瑤珍及陳卿子攜手組隊，走入病房膚慰病人（親手撫觸、關懷陪伴），這是「志工服務隊」最早期的雛型。', 'On opening day the volunteers Yen Hui-Mei, Tu Chang Yao-Chen and Chen Ching-Tzu formed a team and walked into the wards to comfort patients. This was the earliest form of the volunteer service team.'),
-          T('十二月七日，「慈濟服務隊」首期招募一百五十餘位志工，並於十五日正式服務。志工把阿公阿媽當作親人；護理長陳惠蘭說，志工就像病人與醫護之間的潤滑劑。', 'On 7 December the Tzu Chi Service Team held its first training for over 150 recruits, and service began on the 15th. Volunteers treated the elderly patients as family. Head nurse Chen Hui-Lan described them as the lubricant between patients and staff.')
+          T('啟業這一天，志工顏惠美、杜張瑤珍及陳卿子攜手組隊，走入病房關懷陪伴病人，這是「志工服務隊」最早期的雛型。', 'On opening day the volunteers Yen Hui-Mei, Tu Chang Yao-Chen and Chen Ching-Tzu formed a team and walked into the wards to comfort patients. This was the earliest form of the volunteer service team.'),
+          T('十二月七日，「慈濟服務隊」首期招募一百五十餘位志工，並舉行第一期訓練大會，於十五日正式服務。志工把阿公阿媽當作親人；護理長陳惠蘭說，志工就像病人與醫護之間的潤滑劑。', 'On 7 December the Tzu Chi Service Team held its first training for over 150 recruits, and service began on the 15th. Volunteers treated the elderly patients as family. Head nurse Chen Hui-Lan described them as the lubricant between patients and staff.')
         ],
         more: [T('志工自稱是「活動的服務台」，證嚴上人則讚譽志工為「慈濟醫院軟體中的軟體」。', 'The volunteers called themselves “a walking service desk.” The Master praised them as “the software within the software of Tzu Chi Hospital.”')],
         s: ['fm98', 'o860817'] }
@@ -214,7 +214,7 @@
         ph: [{ i: '19961012-1_15', c: T('二〇〇六年印尼中爪哇強震，點滴瓶掛在香蕉樹上。', 'After the 2006 Central Java earthquake, a drip bag hung from a banana tree.') }],
         p: [
           T('一九九六年十月十二日，慈濟醫事人員聯誼會成立。一九九八年一月十八日更名為慈濟人醫會，並首次為街友舉辦街頭義診。', 'The Tzu Chi medical personnel association was founded on 12 October 1996. On 18 January 1998 it took the name Tzu Chi Medical Association and held its first street clinic for homeless people.'),
-          T('那一天，在萬華龍山寺對面的停車場，四十五位人醫會成員及五十位慈濟人，為三百五十五位街友檢診。', 'That day, in a car park across from Wanhua’s Longshan Temple, 45 association members and 50 Tzu Chi volunteers examined 355 homeless people.'),
+          T('那一天，在萬華龍山寺對面的停車場，四十五位人醫會成員及五十位慈濟人，為三百五十五位街友檢診。', 'That day, in a car park across from Wanhua’s Longshan Temple, 45 members of the Tzu Chi International Medical Association (TIMA) and 50 Tzu Chi volunteers examined 355 homeless people.'),
           T('二〇〇四年，定名為國際慈濟人醫會。', 'In 2004 it took the name Tzu Chi International Medical Association.')
         ],
         q: { zh: '一次就醫都要1千多元，我哪有錢。', en: 'One doctor’s visit costs over a thousand dollars. Where would I get the money?', who: T('一位街友', 'A homeless man') },
@@ -222,10 +222,10 @@
         s: ['fm199', 'o961012'] },
       { k: 'story', lay: 'T', date: '1992', h: T('把藥寄到島上', 'Medicine by post'),
         p: [
-          T('高雄的陳神發醫師，一九九二年開始到離島義診。風大的那幾個月，就改用郵寄，把藥寄到島上，由當地慈濟人和村鄉長，發給義診戶。',
+          T('高雄的陳神發醫師，一九九二年開始到離島義診。風大的那幾個月，就改用郵寄，把藥寄到島上，由當地慈濟人與村、鄉長發放給義診戶。',
             'From 1992 Dr Chen Shenfa of Kaohsiung ran free clinics on the outlying islands. In the windy months the medicine went by post, and local Tzu Chi volunteers and village heads handed it out.'),
           T('慈濟人醫會的緣起，是菲律賓的醫師們，他們常到偏遠山鄉、貧苦離島義診。一九九六年，慈濟的醫事人員組織起來，走到今天，就是國際慈濟人醫會（TIMA）。',
-            'The Tzu Chi medical association began with doctors in the Philippines, who held free clinics in remote hills and poor islands. In 1996 Tzu Chi’s medical workers organised, and today that is the Tzu Chi International Medical Association (TIMA).')
+            'Tzu Chi’s medical outreach began with doctors in the Philippines, who held free clinics in remote hills and poor islands. In 1996 Tzu Chi’s medical workers organised, and today that is the Tzu Chi International Medical Association (TIMA).')
         ],
         s: ['fm199'] },
       { k: 'story', lay: 'T', h: T('洗廁所的醫師', 'The doctor who cleaned the toilet'),
@@ -272,7 +272,7 @@
         ph: [{ i: '19960917-1_10', c: T('模擬手術教學。', 'Simulated surgery teaching.') }],
         p: [
           T('一九九四年底，慈濟醫學院接到彰化林蕙敏女士的電話，表達遺體捐贈的意願。隔年二月三日，林女士往生，家屬遵循遺願，捐贈遺體給慈濟醫學院。', 'At the end of 1994 Tzu Chi College of Medicine received a call from Ms. Lin Hui-Min of Changhua, who wished to donate her body. On 3 February 1995 she passed away, and her family honoured her wish.'),
-          T('三月四日，上人提及這分因緣，呼籲大體捐贈。慈濟人尊稱捐贈遺體的人為「大體老師」、「無語良師」。', 'On 4 March the Master spoke of this and called for body donation. Tzu Chi people honour those who choose to donate as “Great Teachers” or “Silent Mentors.”'),
+          T('三月四日，上人提及這分因緣，呼籲大體捐贈。慈濟人尊稱捐贈遺體的人為「大體老師」、「無語良師」。', 'On 4 March the Master spoke of this and called for body donation. Tzu Chi people honour those who choose to donate as “Cadaveric Teachers” or “Silent Mentors.”'),
           T('一九九六年九月十七日，大體解剖教學實習室啟用。二〇〇二年五月，慈濟大學全臺首創大體模擬手術教學。', 'The anatomy teaching lab opened on 17 September 1996. In May 2002 Tzu Chi University began Taiwan’s first simulated surgery teaching on donated bodies.')
         ],
         q: { zh: '大體老師完完整整地交在你手裏，你學習完了之後，至少要把大體老師完完整整復原，完完整整的交還給家人，然後一起送大體老師去火化，所以這是一個託付，對同學來講，就是實踐自己的承諾。', en: 'The Silent Mentor is placed whole in your hands. When your learning is done, you must at the least restore the Mentor whole, return the Mentor whole to the family, and accompany the Mentor to cremation together. So this is an entrustment. For students, it is keeping a promise.', who: T('曾國藩', 'Tseng Kuo-Fan') },
@@ -300,17 +300,17 @@
       { k: 'story', lay: 'R', h: T('半數成了志工', 'Half became volunteers'),
         p: [
           T('二〇〇二年的報導裡，接受洗腎中心免費服務的五十四位腎友中，有半數左右成為志工。阿里義務打掃，也整理園藝。李彩珠每週兩次跟著志工到腎友家關懷。', 'A 2002 report found that of the 54 patients receiving free care, about half had become volunteers. Ali swept and tended the garden. Lee Chai-Chu joined volunteers twice a week on visits to other patients’ homes.'),
-          T('治療一直在繼續，洗腎中心的費用負擔也一直都在。許多腎友翻轉手心，從受助到付出，投入環保志業。腎友張梅英勸鄰里留下報紙與紙箱，大概有一百多間人家響應。', 'Treatment does not end, and neither does its cost. Many patients turned their hands from receiving to giving and took up recycling. One of them, Chang Mei-Ying, collected newspapers and cartons from more than a hundred homes.')
+          T('治療一直在繼續，洗腎中心的費用負擔也一直都在。許多腎友翻轉手心，從受助到付出，投入環保志業。腎友張梅英勸鄰里留下報紙與紙箱，大概有一百多間人家響應。', 'Dialysis treatment continues, and so does the financial burden on the centre. Many patients have moved from receiving help to giving it through recycling. One of them, Chang Mei-Ying, encouraged more than a hundred neighbouring households to save newspapers and cartons for collection.')
         ],
         q: { zh: '在我跌入生命谷底時，是慈濟拉了我一把，幫助我揮別病痛的陰霾。我想在有生之年，盡我所能地去幫助別人。', en: 'When I fell to the lowest point of my life, Tzu Chi pulled me up and helped me leave the shadow of illness behind. For as long as I live, I want to help others as much as I can.', who: T('李彩珠', 'Lee Chai-Chu') },
         s: ['fm203', 'o970803'] },
       { k: 'rec', items: [
         { d: '1998.07.26', zh: '慈濟在沙巴哥打馬魯都，為當地原住民舉行首次義診，嘉惠近兩千位民眾。', en: 'Tzu Chi holds its first free clinic for indigenous villagers at Kota Marudu, Sabah, serving nearly two thousand people.' },
-        { d: '2002.09.03', zh: '吉隆坡人醫會成立，二〇一〇年正名雪隆人醫會。', en: 'The Kuala Lumpur medical association is founded. In 2010 it becomes the Selangor and Kuala Lumpur association.' },
-        { d: '2003.03', zh: '雪隆人醫會在雪蘭莪州烏魯冷岳的卡拜原住民村，首次舉辦發放義診。', en: 'The association holds its first free clinic and distribution at an indigenous village in Hulu Langat, Selangor.' },
-        { d: '2004', zh: '應聯合國難民署邀請，雪隆人醫會第一次為難民舉辦義診。難民大部分來自緬甸。', en: 'At the invitation of the UN refugee agency, the association holds its first free clinic for refugees, most of them from Myanmar.' },
+        { d: '2002.09.03', zh: '吉隆坡人醫會成立，二〇一〇年正名雪隆人醫會。', en: 'The Kuala Lumpur TIMA chapter is founded. In 2010 it is renamed the Selangor and Kuala Lumpur TIMA chapter.' },
+        { d: '2003.03', zh: '雪隆人醫會在雪蘭莪州烏魯冷岳的卡拜原住民村，首次舉辦發放義診。', en: 'TIMA holds its first free clinic and distribution at an Indigenous village in Hulu Langat, Selangor.' },
+        { d: '2004', zh: '應聯合國難民署邀請，雪隆人醫會第一次為難民舉辦義診。難民大部分來自緬甸。', en: 'At the invitation of the UN refugee agency, TIMA holds its first free clinic for refugees, most of them from Myanmar.' },
         { d: '2002–2014', zh: '北海洗腎中心十年間服務一百零七位貧困腎友。空位不夠了，就把樓上的佛堂擴建成洗腎中心，二〇一四年三月十七日啟用。', en: 'In ten years the Butterworth dialysis centre served 107 kidney patients in need. When places ran out, the Buddha hall upstairs was rebuilt as part of the centre, opening on 17 March 2014.' },
-        { d: '2016.10', zh: '哥打馬魯都山區義診於二〇〇四年因山路安全停辦。這一年，雪隆、亞庇和臺灣的人醫會及慈濟志工動員四百八十餘人重返，提供外科、眼科、牙科、中醫、物理治療、婦科，嘉惠兩千四百多位鄉民。', en: 'Clinics in the Kota Marudu hills had stopped in 2004 because of the dangerous roads. This year over 480 people from the Selangor and Kuala Lumpur, Kota Kinabalu and Taiwan associations and Tzu Chi volunteers went back, serving more than 2,400 villagers.' },
+        { d: '2016.10', zh: '哥打馬魯都山區義診於二〇〇四年因山路安全停辦。這一年，雪隆、亞庇和臺灣的人醫會及慈濟志工動員四百八十餘人重返，提供外科、眼科、牙科、中醫、物理治療、婦科，嘉惠兩千四百多位鄉民。', en: 'Clinics in the Kota Marudu hills had stopped in 2004 because of the dangerous roads. This year over 480 TIMA members from Selangor and Kuala Lumpur, Kota Kinabalu and Taiwan, with Tzu Chi volunteers, went back, serving more than 2,400 villagers.' },
         { d: '2021.06.19', zh: '吉隆坡靜思堂疫苗接種中心啟動，慈濟成為第一個參與國家計劃的非政府組織。截至同年八月，三萬八千四百六十三人次接種。', en: 'The vaccination centre at the Jing Si Hall in Kuala Lumpur begins work, the first run by a non-governmental organisation under the national programme. By that August it had recorded 38,463 vaccination visits.' },
         { d: '截至 2022', zh: '慈濟在沙巴的亞庇、山打根、斗湖，累計辦了五十場義診。', en: 'By 2022 Tzu Chi had held 50 free clinics at Kota Kinabalu, Sandakan and Tawau in Sabah.' }
       ], s: ['xlmc', 'fm203', 'xl345'] },
@@ -341,9 +341,9 @@
           T('二〇〇三年除夕，慈濟在吉隆坡市區街頭發放，發現很多街友（露宿街頭的人）病了卻未曾想過看診，附近半山芭的低收入戶也一樣。二〇〇七年十二月二日，吉隆坡慈濟義診中心在富都路啟用，星期三、星期日看診。二〇一四年之後調整為門診方式：平日有西醫、內科、牙科、臨床心理科、復檢科、中醫和兒童疫苗接種，假日有婦科、眼科和復健科。',
             'On New Year’s Eve 2003, at a street distribution in Kuala Lumpur, volunteers found that many homeless people who fell ill had never thought of seeing a doctor. It was the same for low-income families in nearby Pudu. On 2 December 2007 the Tzu Chi free clinic in Kuala Lumpur opened on Jalan Pudu, seeing patients on Wednesdays and Sundays. After 2014 it moved to regular outpatient service: general medicine, internal medicine, dentistry, clinical psychology, follow-up checks, Chinese medicine and child vaccinations on weekdays, and gynaecology, eye care and rehabilitation at weekends.'),
           T('根據二〇一〇年的調查，馬來西亞超過一千二百個非營利慈善機構中，慈濟義診中心是唯一長期提供免費牙科服務的機構。難民即使預約也要等上數小時，二〇一九年六月，中心聘請全職牙醫，增加門診時段。醫師又注意到有難民因肌肉疼痛反覆就醫，檢查卻無異常，多次詢問生活情況後，發現是心理問題，於是特設臨床心理科門診。',
-            'A 2010 survey of more than 1,200 non-profit charities in Malaysia found the Tzu Chi free clinics to be the only one offering free dental care over the long term. Even with appointments, refugees could wait for hours, so in June 2019 the clinic hired a full-time dentist and added sessions. Doctors also noticed refugees returning again and again with muscle pain and no physical cause. After many talks about their lives, they found the trouble lay in the mind, and set up a clinical psychology service.'),
+            'A 2010 survey of more than 1,200 non-profit charities in Malaysia found the Tzu Chi free clinic was the only organisation providing free dental care on a long-term basis. Even with appointments, refugees could wait for hours, so in June 2019 the clinic hired a full-time dentist and added sessions. Doctors also noticed refugees returning again and again with muscle pain and no physical cause. After many talks about their lives, they found the trouble lay in the mind, and set up a clinical psychology service.'),
           T('醫師符之良二〇一三年加入人醫會，從一週一天增加到四天，並建立預約制度。二〇一五年五月，他決定留在吉隆坡義診中心。截至二〇二二年十二月，吉隆坡慈濟義診中心歷年援助病患共計二十一萬九千二百七十八人次。',
-            'Dr Fu Zhiliang joined the medical association in 2013. One day a week grew to four, and he set up an appointment system. In May 2015 he decided to stay at the Kuala Lumpur clinic. By December 2022 the clinic had recorded 219,278 patient visits.')
+            'Dr Fu Zhiliang joined TIMA in 2013. One day a week grew to four, and he set up an appointment system. In May 2015 he decided to stay at the Kuala Lumpur clinic. By December 2022 the clinic had recorded 219,278 patient visits.')
         ],
         q: { zh: '我以前心量好小，還想著到私人醫院工作，賺更多的錢，但是我想若能把義診中心規劃好，就能讓更多人得到幫助，所以我決定留下來投入更多。', en: 'My heart used to be so small. I still thought of working at a private hospital and earning more. But I thought that if the free clinic could be well planned, more people could be helped, so I decided to stay and give more.', who: T('醫師 符之良', 'Dr Fu Zhiliang') },
         s: ['xlpd'] },
@@ -359,7 +359,7 @@
         ph: [{ i: 'ai_h15', c: T('情境重建：醫生的手。AI 畫面，非當年攝影。', 'Reconstruction: a doctor’s hand. AI image, not a historical photograph.') }, { i: 'ai_h17', c: T('情境重建：獻花。AI 畫面，非當年攝影。', 'Reconstruction: presenting flowers. AI image, not a historical photograph.') }],
         p: [
           T('黃春玲跌倒開了刀，沒有力氣工作，擔心手術費。', 'Huang Chun-Ling fell and needed surgery. She no longer had the strength to work and worried about the cost.'),
-          T('後來，她也發心投入，家訪、募款。二〇二五年一月十二日，在吉隆坡靜思堂，她把一束花親手送到鄭醫生手裡。', 'Later she too went out on home visits and to raise funds. On 12 January 2025, at the Jing Si Hall in Kuala Lumpur, she placed a bunch of flowers in the hands of Dr. Cheng, who had come south for the occasion.')
+          T('後來，她也發心投入，家訪、募款。二〇二五年一月十二日，在吉隆坡靜思堂，她把一束花親手送到鄭醫生手裡。', 'Later she too went out on home visits and to raise funds. On 12 January 2025, at the Jing Si Hall in Kuala Lumpur, she placed a bunch of flowers in the hands of Dr. Cheng.')
         ],
         q: { zh: '那個靚仔醫生告訴我，慈濟會幫助你的手術費，不要擔心，他這一番話，我才放下心來。', en: 'That handsome young doctor told me Tzu Chi would help with my surgery fees and not to worry. Only with those words could I set my heart at ease.', who: T('黃春玲', 'Huang Chun-Ling') },
         s: ['my'] },
@@ -395,11 +395,11 @@
     ] },
     { h: T('慈濟人醫會', 'Tzu Chi International Medical Association'), rows: [
       { n: '20,197', u: T('場', 'clinics'), l: T('全球義診累計', 'Free clinics worldwide, cumulative'), w: T('截至 2025.12.31', 'to 31 Dec 2025'), s: 'i2', big: 1 },
-      { n: '4,834,907', u: T('人次', 'people served'), l: T('全球義診服務', 'Served at free clinics worldwide'), w: T('截至 2025.12.31', 'to 31 Dec 2025'), s: 'i2' },
+      { n: '4,834,907', u: T('人次', 'patient visits'), l: T('全球義診服務', 'Served at free clinics worldwide'), w: T('截至 2025.12.31', 'to 31 Dec 2025'), s: 'i2' },
       { n: '59', u: T('個國家地區', 'countries and regions'), l: T('全球義診足跡', 'Reached by these free clinics'), w: T('截至 2025.12.31', 'to 31 Dec 2025'), s: 'i2' }
     ] },
     { h: T('醫院', 'Hospitals'), rows: [
-      { n: '8', u: T('家醫院', 'hospitals'), l: T('另有一家診所', 'plus one clinic'), w: T('2026 年 5 月', 'May 2026'), s: 'tp' }
+      { n: '8', u: T('家醫院', 'hospitals'), l: T('臺灣設有八家慈濟醫院及一家診所', 'In Taiwan: eight Tzu Chi hospitals and one clinic'), w: T('2026 年 5 月', 'May 2026'), s: 'tp' }
     ] },
     { h: T('馬來西亞', 'Malaysia'), rows: [
       { n: '219,278', u: T('人次', 'patient visits'), l: T('吉隆坡慈濟義診中心歷年援助病患', 'Tzu Chi free clinic in Kuala Lumpur, all years'), w: T('截至 2022.12', 'to Dec 2022'), s: 'xlpd' },
@@ -459,7 +459,7 @@
     ['2000.08.13', 'hosp', '大林慈院啟業。', 'Dalin Tzu Chi Hospital opens.', 'fm236'],
     ['2002.03.07', 'my', '馬來西亞第二座洗腎中心，日得拉慈濟洗腎中心啟用。', 'Malaysia’s second centre opens in Jitra, Kedah.', 'fm203'],
     ['2002.05.27', 'first people', '全臺首創大體模擬手術教學。', 'Taiwan’s first simulated surgery teaching on donated bodies.', 'fm258'],
-    ['2002.09.03', 'clinic my', '吉隆坡人醫會成立，二〇一〇年正名雪隆人醫會。', 'The Kuala Lumpur medical association is founded; in 2010 it becomes the Selangor and Kuala Lumpur association.', 'xlmc'],
+    ['2002.09.03', 'clinic my', '吉隆坡人醫會成立，二〇一〇年正名雪隆人醫會。', 'The Kuala Lumpur TIMA chapter is founded; in 2010 it is renamed the Selangor and Kuala Lumpur TIMA chapter.', 'xlmc'],
     ['2002.11.28', 'my', '馬來西亞第三座洗腎中心，北海慈濟洗腎中心啟用。', 'Malaysia’s third centre opens in Butterworth.', 'fm203'],
     ['2003.06.28', 'hosp', '花蓮慈院完成首例連體嬰分割手術。', 'Hualien completes its first separation of conjoined twins.', 'fm269'],
     ['2003.08.24', 'clinic my', '巴生慈濟義診中心啟用，慈濟在海外的第四間義診中心。', 'The Klang free clinic opens, Tzu Chi’s fourth overseas.', 'xlkg'],
@@ -468,7 +468,7 @@
     ['2005.05.08', 'hosp', '臺北慈濟醫院正式啟業。', 'Taipei Tzu Chi Hospital opens.', 'fm287'],
     ['2007.01.08', 'hosp', '臺中慈濟醫院一期大樓正式啟業。', 'Taichung Tzu Chi Hospital’s first building opens.', 'fm307'],
     ['2007.12.02', 'clinic my', '吉隆坡慈濟義診中心在富都路啟用。', 'The Kuala Lumpur free clinic opens on Jalan Pudu.', 'xlpd'],
-    ['2016.10', 'clinic my', '雪隆、亞庇和臺灣的人醫會及慈濟志工動員四百八十餘人，赴沙巴哥打馬魯都義診，嘉惠兩千四百多位鄉民。', 'Over 480 people from three medical associations and Tzu Chi volunteers hold a large clinic at Kota Marudu, serving more than 2,400 villagers.', 'xlmc'],
+    ['2016.10', 'clinic my', '雪隆、亞庇和臺灣的人醫會及慈濟志工動員四百八十餘人，赴沙巴哥打馬魯都義診，嘉惠兩千四百多位鄉民。', 'Over 480 TIMA members from three chapters and Tzu Chi volunteers hold a large clinic at Kota Marudu, serving more than 2,400 villagers.', 'xlmc'],
     ['2019.01.05', 'hosp', '斗六門診部升格為地區醫院，名為斗六慈濟醫院。', 'The Douliu outpatient unit becomes Douliu Tzu Chi Hospital.', 'fm428'],
     ['2020.03.18', 'clinic my', '馬來西亞啟動行動管制令，義診中心規劃線上問診及藥物配送。', 'Malaysia begins its movement control order; the free clinic sets up online consultations and medicine delivery.', 'xlco'],
     ['2021.06.19', 'clinic my', '吉隆坡靜思堂疫苗接種中心啟動。', 'The vaccination centre at the Jing Si Hall in Kuala Lumpur begins work.', 'xlmc'],

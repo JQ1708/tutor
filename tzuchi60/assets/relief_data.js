@@ -85,7 +85,7 @@
             T('慈善站走過一九六九年的臺東大南村，那是慈濟首次發起大型賑災。這一站從海外走起。', 'The charity stop walked through Danan Village, Taitung, in 1969, Tzu Chi’s first large relief effort. This stop begins overseas.'),
             T('一九九一年，熱帶氣旋哥奇襲擊孟加拉。五月十九日，慈濟美國分會、支會和聯絡處發起「援助孟加拉災民運動」。', 'In 1991 a tropical cyclone struck Bangladesh. On 19 May, Tzu Chi’s branches and liaison offices in the United States began a campaign to aid the survivors.'),
             T('五月二十四日下午，爾灣一家頂好超級市場門口，五位隊員穿著白上衣、牛仔褲，帶著兩個鞋盒大小的捐獻盒子和一張支架海報。事前去請示時，李老闆一口答應；見隊員站了很久，又送來剛出爐的包子和果汁。', 'On the afternoon of 24 May, outside a supermarket in Irvine, five members in white shirts and jeans stood with two donation boxes the size of shoeboxes and a poster on a stand. The owner, Mr Lee, had agreed at once when they asked; seeing them stand so long, he brought out freshly steamed buns and juice.'),
-            T('六月二十五日，美國分會執行長黃正義代表捐出美金十五萬七千一百四十九元，交給國際紅十字會洛杉磯分會。這一次，善款是轉交出去的。', 'On 25 June, the US branch’s chief executive Huang Zhengyi gave US$157,149 to the Los Angeles chapter of the Red Cross. This time the donations were passed on through others.')
+            T('六月二十五日，美國分會執行長黃正義代表捐出美金十五萬七千一百四十九元，交給國際紅十字會洛杉磯分會。這一次，善款是轉交出去的。', 'On 25 June, the US branch’s chief executive, Stephen Huang, presented US$157,149 to the Los Angeles chapter of the Red Cross. This time the donations were passed on through others.')
           ],
           q: { zh: '善事豈能不為。', en: 'How could anyone not do a good deed?', who: T('頂好超市李老闆', 'Mr Lee, supermarket owner') },
           q2: { zh: '當然大家都不習慣，尤其華人面子掛不下來，那是第一次我們學習上人的精神，學習佛陀拖缽的精神，學習什麼是無緣(大慈)，什麼是同體(大悲)。', en: 'Of course no one was used to it, and for Chinese people it was hard on one’s pride. That was the first time we learned the Master’s spirit, the spirit of the Buddha with his alms bowl, and learned what great kindness without ties and great compassion as one body mean.', who: T('黃思賢', 'Huang Sixian (Huang Zhengyi’s Dharma name)') },
@@ -154,7 +154,7 @@
         },
         {
           k: 'story', h: T('這一路定下的五個詞', 'Five words settled along the way'),
-          p: [T('法脈把華東這一次，記為建立賑災原則的起點。五個詞的次序，照法脈原文。', 'The Dharma Lineage Archive records the eastern China floods as where the relief principles were set. The order of the five words follows that record.')],
+          p: [T('一九九一年華東、華中水患賑災，建立了「直接、重點、尊重、及時、務實」五項賑災原則。', 'The 1991 relief effort for the floods in eastern and central China established five relief principles, presented here in the order used in the historical record.')],
           s: ['fm140']
         },
         { k: 'five', items: [T('直接', 'Direct'), T('重點', 'Focused'), T('尊重', 'Respectful'), T('及時', 'Timely'), T('務實', 'Practical')] },
@@ -162,7 +162,7 @@
           k: 'story', date: '1993.01.01', h: T('三架小飛機來回三次', 'Three small planes, back and forth three times'),
           p: [
             T('一九九二年八月七日，外蒙紅十字會蘇拉會長到花蓮懇請援助。慈濟籌辦 39 噸生活物資，分 9 架次運抵烏蘭巴托：三架小飛機來回三次，三天內全部運到。志工在當地接應物資、把發放名單造冊。', 'On 7 August 1992, the president of the Mongolian Red Cross came to Hualien to ask for help. Tzu Chi gathered 39 tonnes of daily supplies and flew them to Ulaanbaatar in 9 flights: three small planes went back and forth three times, and all of it arrived within three days. Volunteers on the ground received the goods and compiled the distribution lists.'),
-            T('發放在一九九三年元旦。法脈將蒙古援助稱為首次親赴、親手發放的國際援救；大陸賑災另依其原有章節敘述。', 'The distribution took place on New Year’s Day 1993. The Dharma Lineage Archive calls the Mongolia aid the first international relief delivered in person and by hand; the mainland relief is told in its own chapter.')
+            T('發放在一九九三年元旦。慈濟沿革將蒙古援助記為首次由志工親赴災區、親手發放的國際援救行動；大陸賑災另依其原有章節敘述。', 'The distribution took place on New Year’s Day 1993. Tzu Chi’s historical record describes the Mongolia mission as its first international relief effort in which volunteers went to the affected area and distributed aid in person; the mainland relief is told in its own chapter.')
           ],
           s: ['fm155']
         }
@@ -194,8 +194,8 @@
             {
               y: '2008', at: [104, 31], n: T('汶川', 'Wenchuan'), h: T('四天半的教室', 'A classroom in four and a half days'), i: 'r_wc', c: T('四川，從空中看（局部）。取自《慈濟歷史上的今天》。', 'Sichuan from the air, detail. From Tzu Chi, On This Day.'),
               p: [
-                T('二〇〇八年汶川強震後，慈濟在羅江縣金山鎮設賑災定點。上人憶及九二一的經驗：「只要四天半就能建設起簡易教室，讓師生持續上課、學習」。', 'After the Wenchuan earthquake of 2008, Tzu Chi set up a relief base in Jinshan, Luojiang County. The Master recalled the 1999 Taiwan earthquake: “In just four and a half days a simple classroom can be built, so teachers and students can keep on learning.”'),
-                T('後來援建十三所學校、九十一戶大愛屋，二〇一〇年十一月十九日在洛水中學校區聯合交付。', 'Thirteen schools and 91 Great Love homes followed. The joint handover was held at the Luoshui Middle School campus on 19 November 2010.')
+                T('二〇〇八年汶川強震後，慈濟在羅江縣金山鎮設賑災定點。上人憶及九二一震災後，慈誠志工用四天半搭起簡易教室，讓師生持續上課、學習的經驗。', 'After the Wenchuan earthquake of 2008, Tzu Chi set up a relief base in Jinshan, Luojiang County. The Master recalled how Tzu Chi volunteers had built temporary classrooms in four and a half days after the 1999 Taiwan earthquake, allowing teachers and students to continue their classes.'),
+                T('後來，慈濟援建十三所學校、九十一戶大愛屋。十三所學校於二〇一〇年十一月十九日在洛水中學校區舉行聯合交付啟用儀式。', 'Tzu Chi later helped build thirteen schools and 91 Great Love homes. A joint handover and opening ceremony for the thirteen schools was held at Luoshui Middle School on 19 November 2010.')
               ],
               s: ['fm324']
             },
@@ -241,8 +241,8 @@
             { h: T('通報協調', 'Alert and coordinate'), t: T('二〇一五年尼泊爾強震，花蓮本會成立賑災協調中心，彙整訊息。', 'After the 2015 Nepal earthquake, a relief coordination centre was set up in Hualien to gather information.') },
             { h: T('勘災合規', 'Survey and comply'), t: T('一九九九年土耳其地震，志工先到市政府緊急協調中心告知援助項目，「為了怕資源重疊」。', 'After the 1999 Turkey earthquake, volunteers first told a city emergency centre what they planned, “for fear of overlapping aid.”') },
             { h: T('家訪造冊', 'Visit and list'), t: T('二〇一八年莫三比克，志工來回多次與國家緊急救難中心核對受災名單。', 'In Mozambique in 2018, volunteers went back and forth to check the list of affected people with the national emergency centre.') },
-            { h: T('採購打包', 'Buy and pack'), t: T('二〇二三年土耳其賑災，內湖打包物資，林新益在現場指導：「都要分類分好，要一箱一箱裝。」', 'Packing for Turkey at Neihu in 2023, Lin Xinyi directed on site: “Everything must be sorted properly and packed box by box.”') },
-            { h: T('運送接應', 'Carry and receive'), t: T('一九九三年外蒙，三架小飛機來回三次，志工在當地接應物資。', 'For Mongolia in 1993, three small planes went back and forth three times, and volunteers received the goods on the ground.') },
+            { h: T('採購打包', 'Buy and pack'), t: T('二〇二二年援助烏克蘭難民時，慈濟志工林新益在物資打包現場指導：「都要分類分好，要一箱一箱裝。」', 'While supplies were being packed for Ukrainian refugees in 2022, Tzu Chi volunteer Lin Xinyi instructed: “Everything must be sorted properly and packed box by box.”') },
+            { h: T('運送接應', 'Carry and receive'), t: T('一九九二年底援助蒙古，三架小飛機來回三次，志工在當地接應物資，並於一九九三年元旦發放。', 'For the Mongolia relief effort in late 1992, three small planes made three trips each, and volunteers received the supplies locally for distribution on New Year’s Day 1993.') },
             { h: T('現場發放', 'Hand over'), t: T('二〇二三年土耳其，在滿納海國際學校連續舉辦七場發放。', 'In Turkey in 2023, seven distributions in a row were held at the El Menahil International School.') },
             { h: T('熱食醫療', 'Hot meals and care'), t: T('二〇一五年尼泊爾，勘災醫療團分組義診；巴塔普區提供熱食，教當地以工代賑的香積志工煮香積飯。', 'In Nepal in 2015, the survey and medical team held free clinics. In Bhaktapur hot meals were served, and local cash-for-work kitchen volunteers learned to cook instant rice.') },
             { h: T('以工代賑', 'Cash for work'), t: T('二〇一三年海燕風災，上人慈示「以工代賑」是救濟而非僱用；獨魯萬市安妮伯鎮啟動。', 'After Typhoon Haiyan in 2013, the Master made clear that cash for work is relief, not employment. It began in Anibong, Tacloban.') },
@@ -255,14 +255,14 @@
         {
           k: 'rflip', h: T('五件帶去現場的東西', 'Five things carried to the field'), t: T('點一下卡片，翻到背面看規格和來歷。', 'Tap a card to turn it over for its details and history.'),
           items: [
-            { n: T('福慧床', 'Fu Hui bed'), i: 'r_bed', b: T('這裡說的是二〇一四年這一代：僅 15 公斤，展開長 202.1、寬 75、高 28 公分，收合約 13.3×75×61.3 公分，承重 150 公斤以上，不需螺絲扳手。二〇一四年二月在菲律賓海燕災區發放，是問世後首次用於國際賑災。', 'This is the 2014 model: only 15 kg; 202.1 × 75 × 28 cm open, about 13.3 × 75 × 61.3 cm folded; holds over 150 kg; no screws or spanners. Distributed in the Typhoon Haiyan area in February 2014, its first use in international relief.'), s: ['fm338'] },
-            { n: T('香積飯', 'Jing Si instant rice'), art: 'bag', b: T('把白米變成沖泡式乾燥飯，不是自熱包。只要有乾淨水即能沖泡，用冷開水也可以。', 'White rice made into a dried rice that is soaked, not a self-heating meal. Clean water is all it needs, and even cold water works.'), s: ['c15b', 'c20', 'rice'] },
+            { n: T('福慧床', 'Jing Si Multi-Purpose Folding Bed (Fu Hui bed)'), i: 'r_bed', b: T('這裡說的是二〇一四年這一代：僅 15 公斤，展開長 202.1、寬 75、高 28 公分，收合約 13.3×75×61.3 公分，承重 150 公斤以上，不需螺絲扳手。二〇一四年二月在菲律賓海燕災區發放，是問世後首次用於國際賑災。', 'This is the 2014 model: only 15 kg; 202.1 × 75 × 28 cm open, about 13.3 × 75 × 61.3 cm folded; supports at least 150 kg; no screws or spanners. Distributed in the Typhoon Haiyan area in February 2014, its first use in international relief.'), s: ['fm338'] },
+            { n: T('香積飯', 'Jing Si instant rice'), art: 'bag', b: T('把白米變成沖泡式乾燥飯，不是自熱包。只要有乾淨水即能沖泡，用冷開水也可以。', 'White rice made into a dried rice that is soaked, not a self-heating meal. Clean water is all it needs, and even boiled water that has cooled can be used.'), s: ['c15b', 'c20', 'rice'] },
             { n: T('環保毛毯', 'Eco blanket'), art: 'blanket', b: T('二〇〇六年九月三十日，人援會呈上回收綠色保特瓶製成的長纖毛毯；二〇〇七年四月首次用於國際賑災，送到菲律賓的火災受災鄉親手上。', 'On 30 September 2006, a long-fibre blanket made from recycled green plastic bottles was presented to the Master. In April 2007 it was first used in international relief, for fire survivors in the Philippines.'), s: ['fm304'] },
             { n: T('簡易組合屋', 'Simple prefab house'), art: 'house', b: T('二〇一〇年送到海地的版本：一座約四十公斤，搭配墊高板，一至一個半小時搭好。圖為示意。', 'The version sent to Haiti in 2010: about 40 kg each, used with a raised floor panel, and up in one to one and a half hours. The drawing is an illustration.'), s: ['fm338'] },
-            { n: T('現值卡', 'Cash-value card'), art: 'card', b: T('法脈記二〇〇五年美國卡崔娜颶風時，慈濟首次發放現值卡。圖為示意。', 'The Dharma Lineage Archive records that Tzu Chi first gave out cash-value cards after Hurricane Katrina in 2005. The drawing is an illustration.'), s: ['fm293'] }
+            { n: T('現值卡', 'Cash card'), art: 'card', b: T('二〇〇五年美國卡崔娜颶風後，慈濟首次發放現值卡。圖為示意。', 'After Hurricane Katrina in 2005, Tzu Chi distributed cash cards for the first time. The drawing is an illustration.'), s: ['fm293'] }
           ]
         },
-        { k: 'photos', ph: [{ i: 'relief_blanket', c: T('毛毯交到手上（局部）。取自《慈濟六十週年影響力報告》。', 'A blanket passed into waiting hands, detail. From the Tzu Chi 60th Anniversary Impact Report.') }, { i: 'r_beds', c: cap('緬甸，收起來的福慧床（局部）。', 'Myanmar, Fu Hui beds folded and stacked, detail.') }, { i: 'r_box2', c: cap('尼泊爾賑災的物資箱（局部）。', 'Relief boxes for Nepal, detail.') }, { i: 'r_scale', c: cap('內湖，過磅的箱子（局部）。', 'Neihu, a box on the scale, detail.') }] }
+        { k: 'photos', ph: [{ i: 'relief_blanket', c: T('毛毯交到手上（局部）。取自《慈濟六十週年影響力報告》。', 'A blanket passed into waiting hands, detail. From the Tzu Chi 60th Anniversary Impact Report.') }, { i: 'r_beds', c: cap('緬甸，收起來的福慧床（局部）。', 'Myanmar, Jing Si folding beds folded and stacked, detail.') }, { i: 'r_box2', c: cap('尼泊爾賑災的物資箱（局部）。', 'Relief boxes for Nepal, detail.') }, { i: 'r_scale', c: cap('內湖，過磅的箱子（局部）。', 'Neihu, a box on the scale, detail.') }] }
       ]
     },
     {
@@ -280,10 +280,10 @@
         {
           k: 'story', lay: 'L', date: '2008–2013', h: T('慈悲的財產', 'An inheritance of compassion'),
           p: [
-            T('二〇〇八年五月，納吉斯風災之後，慈濟動員泰國、馬來西亞、臺灣志工和人醫會前往勘災。同年七月起發放稻種與肥料，幫助一萬五千英畝農田延續耕作。', 'In May 2008, after Cyclone Nargis, Tzu Chi sent volunteers from Thailand, Malaysia and Taiwan with its medical association to survey the damage. From July that year it gave out rice seed and fertiliser, helping 15,000 acres of farmland keep being farmed.'),
+            T('二〇〇八年五月，納吉斯風災之後，慈濟動員泰國、馬來西亞、臺灣志工和人醫會前往勘災。同年七月起發放稻種與肥料，幫助一萬五千英畝農田延續耕作。', 'In May 2008, after Cyclone Nargis, Tzu Chi sent volunteers from Thailand, Malaysia and Taiwan, together with doctors from the Tzu Chi International Medical Association (TIMA), to assess the damage. From July that year it gave out rice seed and fertiliser, helping 15,000 acres of farmland keep being farmed.'),
             T('兩位農民受到感動，開始日存一把米助人，帶動十五個村莊儲存「米撲滿」。二〇一三年七月二十七日，慈濟緬甸聯絡處成立。', 'Two farmers were moved to set aside a handful of rice each day for others, and fifteen villages took up the rice bank. On 27 July 2013, the Tzu Chi Myanmar liaison office was founded.')
           ],
-          q: { zh: '上人如果給我一千塊，很快就會用完了。但是感恩上人給我的是慈悲的財產，一輩子都用不完。', en: 'If the Master had given me a thousand, it would soon have been spent. But I am grateful that what she gave me is an inheritance of compassion that a lifetime cannot use up.', who: T('烏丁屯，緬甸志工', 'A volunteer in Myanmar') },
+          q: { zh: '上人如果給我一千塊，很快就會用完了。但是感恩上人給我的是慈悲的財產，一輩子都用不完。', en: 'If the Master had given me a thousand, it would soon have been spent. But I am grateful that what she gave me is an inheritance of compassion that a lifetime cannot use up.', who: T('烏丁屯，緬甸志工', '烏丁屯, a Tzu Chi volunteer in Myanmar') },
           s: ['o080504', 'fm323'],
           ph: [{ i: '20080504-1_24', c: cap('緬甸的稻田（局部）。', 'A rice field in Myanmar, detail.') }, { i: '20080504-1_22', c: cap('一把米放進罐子（局部）。', 'A handful of rice going into a jar, detail.') }]
         },
@@ -291,10 +291,10 @@
           k: 'story', lay: 'R', date: '2025.03.28', h: T('存米的孩子', 'The child who saved rice'),
           p: [
             T('二〇二五年三月二十八日，緬甸發生規模 7.7 地震。慈濟在震後六個月內，陸續協助 83 所學校完成 247 間簡易教室的援建。', 'A magnitude 7.7 earthquake struck Myanmar on 28 March 2025. Within six months, Tzu Chi helped 83 schools complete 247 simple classrooms.'),
-            T('代賑金交到受災的人手上。薩雷寺院學校的師生，也響應存起米撲滿。十七年前的那一把米，還在這片土地上傳著。', 'Cash-for-work pay reached people who had lost much. At a monastery school, teachers and students took up the rice bank too. The handful of rice from seventeen years before was still being passed along in this land.')
+            T('代賑金交到受災的人手上。薩雷寺院學校的師生，也響應存起米撲滿。十七年前的那一把米，還在這片土地上傳著。', 'Cash-for-work pay reached people who had lost much. Teachers and students at 薩雷寺院學校 took up the rice bank too. The handful of rice from seventeen years before was still being passed along in this land.')
           ],
-          q: { zh: '地震時，我的妻子傷到了頭和腳，領到代賑金之後，我會帶她去就醫。', en: 'In the earthquake my wife was hurt in the head and feet. Once I have my relief pay, I will take her to the doctor.', who: T('郭昂國勒，參與以工代賑的居民', 'A resident in the cash-for-work programme') },
-          q2: { zh: '能夠布施幫助他人，這個概念我很喜歡，所以我才會存米。', en: 'Being able to give and help others: I really like that idea. That is why I save rice.', who: T('密內，學生', 'A student') },
+          q: { zh: '地震時，我的妻子傷到了頭和腳，領到代賑金之後，我會帶她去就醫。', en: 'In the earthquake my wife was hurt in the head and feet. Once I have my relief pay, I will take her to the doctor.', who: T('郭昂國勒，參與以工代賑的居民', 'Anguo Guole, a resident taking part in the cash-for-work programme') },
+          q2: { zh: '能夠布施幫助他人，這個概念我很喜歡，所以我才會存米。', en: 'Being able to give and help others: I really like that idea. That is why I save rice.', who: T('密內，學生', '密內, a student') },
           s: ['o250330', 'tcm'],
           ph: [{ i: 'r_green', c: cap('二〇二五年，緬甸倒塌的樓房（局部）。', 'Myanmar, 2025, a collapsed building, detail.') }, { i: 'relief_class', c: T('緬甸的教室（局部）。', 'A classroom in Myanmar, detail.') }, { i: 'relief_pack', c: T('緬甸，分米（局部）。', 'Myanmar, dividing rice, detail.') }]
         },
@@ -305,7 +305,7 @@
           items: [
             { y: '2012', n: T('麥奎爾‧諾沙，莫三比克', 'Migual Neusa, Mozambique'), a: .12, t: T('「原本不懂我為何要來慈濟學習，如今我卻真正的明白，身為當地人，我更該向慈濟學習如何幫助當地人。」', '“I did not understand why I had come to learn from Tzu Chi. Now I truly see: as a local person, I should learn from Tzu Chi how to help local people.”') },
             { y: '2021', n: T('羅玉珍，受災戶', 'Luo Yuzhen, flood survivor'), a: .34, t: T('二〇二一年底水災，志工到家裡打掃。她捐出五十令吉：「雖然我的生活不好，與其伸手向人拿錢，不如我出錢幫助人。」', 'After the floods of late 2021, volunteers helped clean her home. She gave fifty ringgit: “My life is not easy, but rather than hold out my hand for money, I would sooner give money to help others.”') },
-            { y: '2023', n: T('傑內德，土耳其', 'A volunteer in Turkey'), a: .56, t: T('滿納海的老師和校友自發組團，用英語、土耳其語、阿拉伯語當橋梁。「我同時也是慈濟志工，知道發放的內涵與造冊流程」。', 'Teachers and graduates of El Menahil formed their own group and served as a bridge in English, Turkish and Arabic. “I am also a Tzu Chi volunteer, and I know what distributions mean and how the lists are compiled.”') },
+            { y: '2023', n: T('傑內德，土耳其', '傑內德, a volunteer in Turkey'), a: .56, t: T('滿納海的老師和校友自發組團，用英語、土耳其語、阿拉伯語當橋梁。「我同時也是慈濟志工，知道發放的內涵與造冊流程」。', 'Teachers and graduates of El Menahil formed their own group and served as a bridge in English, Turkish and Arabic. “I am also a Tzu Chi volunteer, and I know what distributions mean and how the lists are compiled.”') },
             { y: '2025', n: T('庫拉大愛村，莫三比克', 'Cura Great Love Village, Mozambique'), a: .78, t: T('居民參與營造，也培養就業技能。伊代氣旋後的四個大愛村，到 2025 年 6 月 11 日已建成 867 棟交付使用，這一輪庫拉有 171 戶入住。', 'Residents took part in the building and gained skills for work. In the four Great Love Villages after Cyclone Idai, 867 homes had been completed and handed over by 11 June 2025; in this round at Cura, 171 households moved in.') }
           ],
           note: T('這幾位是各自走到這一步的。不是每個受過幫助的人都要這樣走。', 'Each of them came to this in their own way. Not everyone who has been helped needs to walk this path.'),
@@ -319,7 +319,7 @@
       b: [
         {
           k: 'rties', d: dd('四種角色', 'Four roles'), h: T('從馬來西亞牽出去的線', 'Lines drawn out from Malaysia'),
-          t: T('馬來西亞不只是受災的地方，也是出發的地方。截至 2023 年 3 月，雪隆慈濟人參與逾三十多場國際災難援助。', 'Malaysia is not only a place where disaster strikes. It is also a place people set out from. As of March 2023, Tzu Chi members in Selangor and Kuala Lumpur had joined more than thirty international disaster relief efforts.'),
+          t: T('馬來西亞不只是受災的地方，也是出發的地方。截至 2023 年 3 月，雪隆慈濟人參與三十多場國際災難援助。', 'Malaysia is not only a place where disaster strikes. It is also a place people set out from. As of March 2023, Tzu Chi members in Selangor and Kuala Lumpur had joined more than thirty international disaster relief efforts.'),
           note: T('地圖為示意，只標幾個案例，不是全部，也不是實際路線。', 'The map is an illustration. It marks a few cases, not all of them, and not actual routes.'),
           s: ['x47', 'x43', 'x44', 'fm379', 'o240223', 'tcm']
         },
@@ -327,8 +327,8 @@
           k: 'story', lay: 'R', date: dd('一　國內現場', 'One: at home'), h: T('水來的時候', 'When the water came'),
           p: [
             T('二〇〇四年海嘯那天，馬來西亞的慈濟人兵分三路。一大早緊急召開救援小組，攤開地圖研究路徑；當天就供應熱食，並發放應急金予罹難者家屬。', 'On the day of the 2004 tsunami, Tzu Chi members in Malaysia split into three groups. They met urgently at dawn and spread out a map to study the roads. That same day they brought hot food and gave emergency money to bereaved families.'),
-            T('二〇二一年初水患正逢動管令，志工改為逐戶發放和小場次發放，截至 2 月 19 日，各項協助共 3,122 戶次受惠。', 'The floods of early 2021 came under movement controls, so volunteers went from door to door and held small sessions. By 19 February, assistance of all kinds had reached 3,122 household visits.'),
-            T('同年年底雪隆大水是另一場災難。志工向居民借了三艘小船，又用七噸大型軍用卡車把熱食送進去；一位榴漣攤主允准攤位做大清掃的臨時行動中心；一位外送員號召同行，把熱食送到偏遠地區的受災鄉親手中。之後依名冊登門訪查，把資料輸入 Zoho 系統，其中還有兩百多筆名單差異，包括重複造冊、查無此人。', 'The great Selangor flood at the end of that year was a separate disaster. Volunteers borrowed three small boats from residents and rode a seven-tonne army truck to bring in hot meals. A durian stall owner lent his stall as a temporary centre for the big clean-up. A delivery rider rallied fellow riders to carry meals to remote survivors. Then volunteers visited homes from the lists and entered the data in Zoho; more than two hundred entries still differed, including duplicates and people who could not be found.')
+            T('二〇二一年初水患正逢動管令，志工改為逐戶發放和小場次發放，截至 2 月 19 日，各項協助共 3,122 戶次受惠。', 'The floods of early 2021 came under movement controls, so volunteers went from door to door and held small sessions. By 19 February, assistance had been provided on 3,122 occasions to households, with repeat assistance counted separately.'),
+            T('同年年底雪隆大水是另一場災難。志工向居民借了三艘小船，又用七噸大型軍用卡車把熱食送進去；一位榴槤攤主同意借出攤位，作為大清掃的臨時行動中心；一位外送員號召同行，把熱食送到偏遠地區的受災鄉親手中。之後依名冊登門訪查，把資料輸入 Zoho 系統，其中還有兩百多筆名單差異，包括重複造冊、查無此人。', 'The great Selangor flood at the end of that year was a separate disaster. Volunteers borrowed three small boats from residents and rode a seven-tonne army truck to bring in hot meals. A durian stall owner lent his stall as a temporary centre for the big clean-up. A delivery rider rallied fellow riders to carry meals to remote survivors. Then volunteers visited homes from the lists and entered the data in Zoho; more than two hundred entries still differed, including duplicates and people who could not be found.')
           ],
           ph: [{ i: 'r_mud', c: T('二〇二一年底水患退去，泡過水的傢俱堆在路邊（局部）。攝影：林振勝。取自《馬來西亞慈濟史 雪隆分會（一）》。', 'After the floods of late 2021, soaked furniture piled by the road, detail. Photo: Lin Zhensheng. From History of Tzu Chi Malaysia: KL & Selangor Branch, vol. 1.') }],
           s: ['fm282', 'fm476', 'x280', 'x286', 'x292']
@@ -337,7 +337,7 @@
           k: 'story', lay: 'T', date: dd('二　海外協調', 'Two: coordinating overseas'), h: T('趕往斯里蘭卡', 'Hurrying to Sri Lanka'),
           p: [
             T('海嘯之後，慈濟在泰國曼谷、印尼雅加達、馬來西亞檳城成立救災指揮中心。', 'After the tsunami, Tzu Chi set up relief command centres in Bangkok, Jakarta and Penang.'),
-            T('馬六甲分會的劉濟雨 12 月 29 日趕往斯里蘭卡，負起災後總協調的工作；新馬兩地持續支援醫護、訪視、文字與攝影等人力，分批前往，帶動在地志工居家訪視。', 'Liu Jiyu of the Malacca branch hurried there on 29 December to take on overall coordination after the disaster. Both countries kept sending medical, home-visit, writing and photography volunteers in turns, who led local volunteers in visiting homes.')
+            T('馬六甲分會的劉濟雨 12 月 29 日趕往斯里蘭卡，負起災後總協調的工作；新馬兩地持續支援醫護、訪視、文字與攝影等人力，分批前往，帶動在地志工居家訪視。', 'Liu Jiyu of the Malacca branch hurried there on 29 December to take on overall coordination after the disaster. Singapore and Malaysia continued sending teams of medical, home-visit, writing and photography volunteers, who helped local volunteers conduct home visits.')
           ],
           s: ['fm282', 'x44', 'x45']
         },
@@ -416,18 +416,18 @@
       ]
     }
   ];
-  CH.ledgerNote = T('歷年足跡的名詞照各年原文，統計方式不完全相同，不能當成一條嚴格連續的線。戶和戶次、人和人次、單年和累計，各按原文，不相加。', 'The terms in the yearly footprint follow each year’s text, and the counting differs a little, so they do not form one strict line. Households and household visits, people and attendances, one year and running totals are kept as written and are not added together.');
+  CH.ledgerNote = T('歷年足跡的名詞照各年原文，統計方式不完全相同，不能當成一條嚴格連續的線。戶和戶次、人和人次、單年和累計，各按原文，不相加。', 'The terms in the yearly footprint follow each year’s text, and the counting differs a little, so they do not form one strict line. Households and instances of assistance to households, people and participations, annual figures and cumulative totals are kept separate and are not added together.');
 
   CH.films = [
     { id: 'CSkmVC9ZpBY', zh: '哥奇颶風侵襲孟加拉', en: 'Cyclone in Bangladesh', y: '1991' },
     { id: 'kgH43gone48', zh: '蘇聯解體，蒙古糧荒', en: 'Food shortage in Mongolia', y: '1992' },
     { id: 'CeRqfcRo064', zh: '南亞大海嘯', en: 'The Indian Ocean tsunami', y: '2004' },
     { id: 'w4Hy7QvAnvc', zh: '緬甸納吉斯風災，帶動米撲滿', en: 'Cyclone Nargis and the rice banks', y: '2008' },
-    { id: '8XEAPjamSAo', zh: '慈濟研發福慧床', en: 'Developing the Fu Hui bed', y: '2010' },
+    { id: '8XEAPjamSAo', zh: '慈濟研發福慧床', en: 'Developing the Jing Si folding bed', y: '2010' },
     { id: 'Oc3IOO9tj6U', zh: '日本三一一複合式大災難', en: 'Japan, 11 March 2011', y: '2011' },
     { id: '-zx7su8cNQA', zh: '尼泊爾強震', en: 'The Nepal earthquake', y: '2015' },
     { id: 'ef8b3GqA_HY', zh: '大馬慈濟人投入緬甸強震救援', en: 'Malaysian volunteers at the Myanmar earthquake', y: '2025' },
-    { id: '1FEdvf_8W7E', zh: '微光匯聚成希望：緬甸賑災實錄', en: 'Malaysian and Myanmar volunteers bring beds and supplies to earthquake survivors', y: '2025' },
+    { id: '1FEdvf_8W7E', zh: '微光匯聚成希望：緬甸賑災實錄', en: 'Glimmers of Hope Unite — A Record of Relief in Myanmar', y: '2025' },
     { id: 'XJVlsSuixRY', zh: '跨越千年的慈悲約定：尼泊爾', en: 'A promise across a thousand years: Nepal', y: '2026' },
     { id: 'n89qHB-8kUk', zh: '尼泊爾洪災，慈濟總動員', en: 'Tzu Chi in Nepal after the floods', y: '2026' }
   ];
@@ -455,7 +455,7 @@
     ['2006.04.10', 'rebuild', '漢班托塔第一期 649 戶交屋。', '649 homes in the first phase at Hambantota are handed over.', 'fm282'],
     ['2006.09.30', 'object', '人援會把回收保特瓶製成的長纖毛毯呈給上人。', 'A blanket of recycled bottle fibre is presented to the Master.', 'fm304'],
     ['2007.04', 'object', '環保毛毯首次應用於國際賑災，送往菲律賓。', 'The eco blanket is first used in international relief, in the Philippines.', 'fm304'],
-    ['2008.05.07', 'start my', '動員泰國、馬來西亞、臺灣志工和人醫會前往緬甸勘災。', 'Volunteers from Thailand, Malaysia and Taiwan go to Myanmar to survey the damage.', 'fm323'],
+    ['2008.05.07', 'start my', '動員泰國、馬來西亞、臺灣志工和人醫會前往緬甸勘災。', 'Volunteers from Thailand, Malaysia and Taiwan, together with TIMA doctors, go to Myanmar to assess the damage.', 'fm323'],
     ['2009.10.01', 'local', '馬利僅那市發起以工代賑，10 月 18 日告一段落。', 'Cash for work begins in Marikina, ending on 18 October.', 'fm332'],
     ['2009.12.13', 'rebuild', '亞齊三座大愛村移交印尼政府。', 'Three Great Love Villages in Aceh are handed to the Indonesian government.', 'o050924'],
     ['2010.02.15', 'local', '海地以工代賑改為以工供糧。', 'In Haiti, cash for work becomes food for work.', 'fm339'],
@@ -465,10 +465,10 @@
     ['2011.06.09', 'start', '日本首梯見舞金發放，釜石、陸前高田。', 'The first round of condolence money in Japan, at Kamaishi and Rikuzentakata.', 'fm345'],
     ['2012.07.28', 'local', '德本本土幹部研習會，麥奎爾‧諾沙分享。', 'At a local leaders’ training in Durban, Migual Neusa speaks.', 'fm468'],
     ['2013.07.27', 'local', '慈濟緬甸聯絡處成立。', 'The Tzu Chi Myanmar liaison office is founded.', 'o080504'],
-    ['2014.02.13', 'object', '福慧床在菲律賓發放，問世後首次用於國際賑災。', 'The Fu Hui bed is first used in international relief, in the Philippines.', 'fm338'],
+    ['2014.02.13', 'object', '福慧床在菲律賓發放，問世後首次用於國際賑災。', 'The Jing Si folding bed is first used in international relief, in the Philippines.', 'fm338'],
     ['2015.06.06', 'my', '馬來西亞志工在尼泊爾搭樣品屋，讓承包商學習工法。', 'Malaysian volunteers put up a sample building in Nepal for contractors to learn from.', 'fm379'],
     ['2015.06.27', 'local', '尼泊爾本土志工首次主導發放。', 'Local volunteers in Nepal lead a distribution for the first time.', 'fm379'],
-    ['2021.02.19', 'my', '馬來西亞水患，各項協助共 3,122 戶次受惠。', 'Malaysia floods: assistance reaches 3,122 household visits.', 'fm476'],
+    ['2021.02.19', 'my', '馬來西亞水患，各項協助共 3,122 戶次受惠。', 'Malaysia floods: assistance provided on 3,122 occasions to households, counting repeat assistance separately.', 'fm476'],
     ['2021.12.18', 'my', '雪隆大水，志工啟動救援。', 'Selangor floods: volunteers begin relief.', 'x280'],
     ['2022.03.05', 'start', '波茲南，慈濟在波蘭的首場發放。', 'Poznań: Tzu Chi’s first distribution in Poland.', 'o220224'],
     ['2024.02.23', 'local my', '四十六位印度本土志工領受灰衣。', '46 local Indian volunteers receive grey uniforms.', 'o240223'],
@@ -477,7 +477,7 @@
     ['2025.05.15', 'my', '馬來西亞志工帶動當地承包商和以工代賑志工搭建，至 6 月 15 日完成 87 間。', 'Malaysian volunteers begin building with local contractors; 87 are done by 15 June.', 'tcm'],
     ['2025.06.11', 'rebuild local', '莫三比克庫拉大愛村交屋，這一輪 171 戶入住。', 'Handover at Cura Great Love Village, Mozambique; 171 households move in this round.', 'tcm'],
     ['2025.09', 'rebuild', '莫三比克最大的瓜拉瓜拉大愛村，與十所學校同步移交。', 'Guara-Guara Great Love Village, the largest in Mozambique, is handed over together with ten schools.', 'o190322'],
-    ['2025.09.26', 'rebuild', '馬太鞍溪堰塞湖溢流，泥流重創花蓮光復。慈濟動員全臺上萬名志工；花蓮靜思堂的宗門營改成實務課，600 多位學員走進光復巷弄清淤。', 'The Mataian Creek barrier lake overflows and mud buries Guangfu, Hualien. Tzu Chi mobilises over ten thousand volunteers across Taiwan. A training camp at the Hualien Jing Si Hall turns into practical work, and more than 600 participants go into the lanes of Guangfu to clear the mud.', 'o250928'],
+    ['2025.09.26', 'rebuild', '9 月 23 日，馬太鞍溪堰塞湖溢流，泥流重創花蓮光復。慈濟動員全臺上萬名志工；9 月 26 日，花蓮靜思堂的宗門營改為實務課，600 多位學員走進光復巷弄清淤。', 'On 23 September the Mataian Creek barrier lake overflows and mud devastates Guangfu, Hualien. Tzu Chi mobilises over ten thousand volunteers across Taiwan. On 26 September a training camp at the Hualien Jing Si Hall becomes a practical relief session, and more than 600 participants clear mud from the lanes of Guangfu.', 'o250928'],
     ['2025.10.04', 'rebuild', '光復開始發放每戶 5 萬元急難慰問金，共嘉惠 2,670 戶受災鄉親。', 'Emergency aid of NT$50,000 per household begins in Guangfu, reaching 2,670 households in all.', 'o250928'],
     ['2026.06.04', 'rebuild', '印尼慈濟與地方政府合作，北亞齊永久屋交屋，首批 40 戶入住。', 'Tzu Chi Indonesia and the local government hand over permanent homes in North Aceh; the first 40 households move in.', 'nAceh']
   ];

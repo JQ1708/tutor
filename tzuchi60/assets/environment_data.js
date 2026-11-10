@@ -83,7 +83,7 @@
           s: ['fm127', 'o900823'] },
         { k: 'story', lay: 'L', date: '1990', h: T('一條街跟著做', 'A street joins in'),
           ph: [{ i: 'v_paper', c: cap('堆疊的舊報紙局部，確切年代不詳。', 'Detail of a stack of old newspapers. The date is unknown.') }],
-          p: [T('楊順苓到分會分享之後，黎明社區三十幾位聽到了，也動了起來。二〇一〇年上人回憶這一段，稱之為蝴蝶效應。', 'After Yang shared her story at the branch office, some thirty people from the Liming community heard it and began too. Looking back in 2010, the Master called this a butterfly effect.'),
+          p: [T('楊順苓到分會分享之後，黎明社區三十幾位聽到了，也動了起來。二〇一〇年上人回憶這一段，稱之為蝴蝶效應。', 'After Yang shared her story at the branch office, more than thirty people from the Liming community heard it and began too. Looking back in 2010, the Master called this a butterfly effect.'),
             T('住在臺中黎明新村的簡素絹，在演講後隔月就在自家成立環保點，從左鄰右舍的舊報紙回收做起。志工把市場載來的回收物，一層一層疊在她家庭院。', 'Jian Su-juan of Liming New Village in Taichung set up a recycling point at her home the month after the talk, starting with her neighbours’ old newspapers. Volunteers brought loads from the market and stacked them in her yard.')],
           q: { zh: '沒幾天，我回來就開始做，以前庭院就是像這樣，我就回收回來，放這裡，還有楊素梅師姊、李味師姊，她們就東西載來、疊上去，她們去市場載，載來這邊放。', en: 'Within days I came back and started. The yard used to look like this. I would bring things back and put them here, and Sister Yang Su-mei and Sister Li Wei would bring loads and stack them up. They fetched them from the market and put them here.', who: T('簡素絹', 'Jian Su-juan') },
           note: T('第一個環保點有兩種說法。上人二〇一〇年談到，第一個環保點從楊順苓開始身體力行；《慈濟歷史上的今天》則記簡素絹在自家成立第一個環保點。成立月份也有八月、九月兩說。本頁並列，待分會確認。', 'There are two accounts of the first recycling point. In 2010 the Master said it began with Yang Shun-ling putting the idea into practice; Tzu Chi, On This Day records Jian Su-juan founding it at home. Sources also differ between August and September. Both are given here, pending confirmation by the branch.'),
@@ -188,12 +188,12 @@
           note: T('示意畫面。實際製程在工廠完成，不是用手把瓶子拉成紗。', 'An illustration. The real process takes place in factories. Bottles are not spun into yarn by hand.'), s: ['fm322', 'tcn'] },
         { k: 'photos', ph: [{ i: 'v_yarn', c: cap('再生紗線的紗筒局部。', 'Detail of spools of recycled yarn.') }, { i: 'v_mill', c: cap('灰色毯面局部。', 'Detail of a grey blanket surface.') }, { i: 'v_fold', c: cap('疊好的毛毯局部。', 'Detail of folded blankets.') }] },
         { k: 'story', lay: 'R', date: '2007.04', h: T('第一次送往災區', 'To a disaster area for the first time'),
-          p: [T('二〇〇七年四月七日，菲律賓馬尼拉近郊的曼達盧永市發生大火，燒毀四百多棟房屋，三千多戶無家可歸。上人提起可以從臺灣運送衣物與環保毛毯救災，菲律賓航空陳永栽董事長當場表示，菲航可以免費協助空運。', 'On 7 April 2007 a fire swept through Mandaluyong on the edge of Manila, destroying more than four hundred buildings and leaving more than three thousand households homeless. When the Master raised the idea of sending clothes and eco-blankets from Taiwan, Philippine Airlines chairman Lucio Tan said at once that the airline could carry them free of charge.'),
+          p: [T('二〇〇七年四月七日，菲律賓馬尼拉近郊的曼達盧永市發生大火，三千多戶住屋被焚，無家可歸。上人提起可以從臺灣運送衣物與環保毛毯救災，菲律賓航空陳永栽董事長當場表示，菲航可以免費協助空運。', 'On 7 April 2007 a fire swept through Mandaluyong on the edge of Manila, destroying the homes of more than three thousand households. When the Master raised the idea of sending clothes and eco-blankets from Taiwan, Philippine Airlines chairman Lucio Tan said at once that the airline could carry them free of charge.'),
             T('環保毛毯首次應用於國際賑災。回收的瓶子製成毛毯，送到受災鄉親手上。', 'It was the first time eco-blankets had been used in international relief. Collected bottles had begun to reach people who had lost their homes.')],
           s: ['fm304'] },
-        { k: 'story', lay: 'L', date: '2008', h: T('二〇〇八年底，大愛感恩', 'Da Ai Technology, late 2008'),
+        { k: 'story', lay: 'L', date: '2008', h: T('二〇〇八年底，大愛感恩', 'DA.AI Technology, late 2008'),
           ph: [{ i: 'v_shirt', c: cap('再生材質製成的環保衫局部，衣上標示照原樣。', 'Detail of a garment made from recycled material. Its label is shown as it is.') }],
-          p: [T('二〇〇八年底，黃華德、魏應充、李鼎銘、高明善、林家和五位實業家志工，出資成立大愛感恩科技公司。蘋果綠的毛毯、圍巾，全由綠色寶特瓶製成，全程不加染劑。吊牌上記著寶特瓶被回收送進工廠、製成瓶片及酯粒、抽紗織布到成衣的日期。', 'In late 2008, five volunteers in business, Huang Hua-de, Wei Ying-chung, Li Ding-ming, Kao Ming-shan and Lin Jia-he, put up the money for Da Ai Technology. Its apple-green blankets and scarves are made entirely from green bottles with no dye. Each tag records the dates on which the bottles reached the factory, became flakes and pellets, and were spun, woven and made up.')],
+          p: [T('二〇〇八年底，黃華德、魏應充、李鼎銘、高明善、林家和五位實業家志工，出資成立大愛感恩科技公司。蘋果綠的毛毯、圍巾，全由綠色寶特瓶製成，全程不加染劑。吊牌上記著寶特瓶被回收送進工廠、製成瓶片及酯粒、抽紗織布到成衣的日期。', 'In late 2008, five volunteers in business, Huang Hua-de, Wei Ying-chung, Li Ding-ming, Kao Ming-shan and Lin Jia-he, put up the money for DA.AI Technology. Its apple-green blankets and scarves are made entirely from green bottles with no dye. Each tag records the dates on which the bottles reached the factory, became flakes and pellets, and were spun, woven and made up.')],
           q: { zh: '它是一個『非營利』的營利事業，也就是必須有利潤才能夠維持，但盈餘全部回饋慈濟基金會做四大志業後盾。', en: 'It is a “non-profit” for-profit business. It has to make a profit to keep going, but all of it goes back to the Tzu Chi Foundation to support the four missions.', who: T('黃華德', 'Huang Hua-de') },
           more: [T('工廠的前面，是環保站。宜蘭區環保幹事陳龍泉為志工代言，說他們一大早四點就出門，撿寶特瓶、厚紙板。當地的寶特瓶壓成瓶磚運到再生處理廠，平均一個批次就多達四十萬支。', 'Ahead of the factory stands the station. Chen Long-quan, a coordinator in Yilan, said the volunteers leave home at four in the morning to gather bottles and cardboard. Pressed into bricks and sent to the recycling plant, one batch there averages as many as 400,000 bottles.')],
           q2: { zh: '那些老菩薩每天都在那邊蹲著分類瓶罐，我真的非常感動！', en: 'Those elder bodhisattvas crouch there every day sorting bottles and cans. I am truly moved!', who: T('黃華德', 'Huang Hua-de') },
@@ -283,7 +283,7 @@
           s: ['xh'] },
         { k: 'story', lay: 'L', h: T('每趟出海，十多袋垃圾', 'More than ten sacks from every trip'),
           ph: [{ i: 'v_boat', c: T('志工蔡福汶經常駕駛著自己的小船，收集海中的垃圾。局部。照片：蔡福汶提供。', 'The volunteer Cai Fu-wen often takes his own small boat out to gather rubbish from the sea. Detail. Photo: courtesy of Cai Fu-wen.') }, { i: 'v_iron', c: T('吉膽島的環保鐵籠局部。照片：覃平福。', 'Detail of a recycling cage on Pulau Ketam. Photo: Qin Ping-fu.') }],
-          p: [T('蔡福汶當了二十多年漁夫，常在捕魚時看到海面上的垃圾，每一趟出海都撈起十多袋。別人認為這沒有意義，他仍然做下去。環保站初成立時空間狹窄，空氣裡有後方工廠的刺鼻化學味，他就在裡面處理分類。島上的環保鐵籠和漁網回收袋，都出自他的巧手。', 'Cai Fu-wen fished for more than twenty years. He often saw rubbish on the water, and on each trip he hauled in ten or more sacks. Others saw no point in it, and he carried on. When the station opened it was cramped, the air sharp with chemicals from the factory behind, and he sorted in there all the same. The island’s steel cages and fishing-net bags are his own design.')],
+          p: [T('蔡福汶當了二十多年漁夫，常在捕魚時看到海面上的垃圾，每一趟出海都撈起十多袋。別人認為這沒有意義，他仍然做下去。環保站初成立時空間狹窄，空氣裡有後方工廠的刺鼻化學味，他就在裡面處理分類。島上的環保鐵籠和漁網回收袋，都出自他的巧手。', 'Cai Fu-wen fished for more than twenty years. He often saw rubbish on the water, and on each trip he hauled in more than ten sacks. Others saw no point in it, and he carried on. When the station opened it was cramped, the air sharp with chemicals from the factory behind, and he sorted in there all the same. The island’s steel cages and fishing-net bags are his own design.')],
           q: { zh: '剛開始的時候最辛苦，志工非常少，若沒有工作，我一吃飽就會去做環保，做到凌晨', en: 'The beginning was the hardest. There were very few volunteers. When I had no work I would go and do recycling as soon as I had eaten, until the early hours.', who: T('蔡福汶', 'Cai Fu-wen') },
           s: ['xh'] },
         { k: 'story', lay: 'R', date: '2019', h: T('開車進來的環保站', 'The drive-through station'),
@@ -323,8 +323,8 @@
   CH.ledger = [
     { h: T('臺灣', 'Taiwan'), rows: [
       { n: '92,520', u: T('位', 'people'), l: T('環保志工', 'recycling volunteers'), w: T('2024 年底', 'End of 2024'), s: 'i4', big: 1 },
-      { n: '78,299,856', u: T('公斤', 'kg'), l: T('回收量，單一年度', 'recycled in a single year'), w: T('2025 年', '2025'), s: 'i60' },
-      { n: '1,704,516,281', u: T('公斤', 'kg'), l: T('紙類回收總重量，累計', 'paper recycled, cumulative'), w: T('1992–2025 年', '1992–2025'), s: 'i60' },
+      { n: '78,299,856', u: T('公斤', 'kg'), l: T('回收量約數，單一年度', 'Approximately, recycled in a single year'), w: T('2025 年', '2025'), s: 'i60' },
+      { n: '1,704,516,281', u: T('公斤', 'kg'), l: T('紙類回收總重量約數，累計', 'Approximately, paper recycled, cumulative'), w: T('1992–2025 年', '1992–2025'), s: 'i60' },
       { n: '3,400多萬', nen: 'Over 34 million', u: T('棵', 'trees'), l: T('上一項紙類重量換算成二十年生大樹。這是重量換算，不是真的種了這麼多樹', 'the paper above converted into 20-year-old trees. This is a conversion by weight, not trees actually planted'), w: T('1992–2025 年', '1992–2025'), s: 'i60' }
     ] },
     { h: T('全球', 'Worldwide'), rows: [
@@ -391,7 +391,7 @@
     ['2006.09.30', 'bottle', '人援會呈上回收綠色寶特瓶製成的長纖毛毯', 'The association presents a long-fibre blanket made from green bottles', 'fm304'],
     ['2007.04', 'bottle first', '環保毛毯首次應用於國際賑災，送往菲律賓', 'Eco-blankets used in international relief for the first time, in the Philippines', 'fm304'],
     ['2007 年底', 'my', '雪隆試推夜間環保', 'The branch tries evening recycling', 'xe'],
-    ['2008 年底', 'bottle', '五位實業家志工出資成立大愛感恩科技公司', 'Five volunteers in business found Da Ai Technology', 'fm322'],
+    ['2008 年底', 'bottle', '五位實業家志工出資成立大愛感恩科技公司', 'Five volunteers in business found DA.AI Technology', 'fm322'],
     ['2010', 'source', '慈濟環保二十年，上人呼籲清淨在源頭', 'At twenty years, the Master calls for cleanliness at the source', 'fm335'],
     ['2010.11.29', 'my', '雪隆慈濟人向上人發願「一協一站」', 'Branch volunteers vow “one team, one station”', 'xe'],
     ['2011.04.17', 'my', '雙溪毛糯太子園環保站啟用', 'The Sungai Buloh Sri Putra station opens', 'xf'],
@@ -409,7 +409,7 @@
     ['2024.04.23', 'source', '慈濟在 Plantārium 與 21 家企業、7 所學校合作，推動永續飲食教育', 'Tzu Chi partners with 21 companies and seven schools for sustainability education', 'nEarth'],
     ['2025.06.29', 'my', '雪隆慈濟環保三十年撿跑，全馬 52 處逾 8,400 人參與，兩小時清出垃圾 3,937 公斤，另回收資源 3,646 公斤', 'Thirty years of recycling are marked with a plogging event: over 8,400 people at 52 sites across Malaysia collect 3,937 kg of rubbish in two hours and recycle a further 3,646 kg', 'nPlog'],
     ['2025.10.07', 'my', '雪隆慈濟獲馬來西亞人居榮譽獎「城市危機應對傑出組織」類別第二名', 'Tzu Chi KL & Selangor takes second place in the Outstanding Organisation for Urban Crisis Response category of the 2025 Malaysia Scroll of Honour Award', 'nScroll'],
-    ['2025.10.16', 'my station', '馬六甲慈濟環保教育站接待東甲 12 人參訪團，交流資源分類', 'The Tzu Chi Recycling Education Centre in Melaka hosts a 12-member delegation from Johor', 'nBubur'],
+    ['2025.10.16', 'my station', '馬六甲慈濟環保教育站接待東甲 12 人參訪團，交流資源分類', 'The Tzu Chi Environmental Education Station in Ayer Keroh, Melaka, hosts a 12-member delegation from Johor', 'nBubur'],
     ['2026.09.13', 'my station', '馬六甲晉巷工業區環保教育站正式啟用，每週一、四、六開放', 'A new Recycling Education Centre opens in the Cheng industrial area, Melaka, open on Mondays, Thursdays and Saturdays', 'nCheng']
   ];
 
