@@ -257,3 +257,92 @@ footer.site{border-top:1px solid var(--line);font-family:var(--sans);font-size:1
   .js .rv,.js .say.rv>img,.js .say.rv .bubble{transition:none;opacity:1;transform:none}
   mark{transition:none}.buddy .face{animation:none}
 }
+
+/* 字體大小切換（大字＝預設；標準＝html.fs-s） */
+.fsw{display:inline-flex;flex:none;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:#fffaf2;font-family:var(--sans)}
+.fsw button{font:500 15px/1 var(--sans);padding:.5em .75em;border:0;background:none;color:var(--muted);cursor:pointer}
+.fsw button+button{border-left:1px solid var(--line)}
+.fsw button[data-fs="l"]{font-size:18px;font-weight:700}
+.fsw button[aria-pressed="true"]{background:var(--red);color:#fff}
+.topbar-in .fsw{margin-left:auto}.pct+.fsw{margin-left:0}
+@media (max-width:440px){.pct{display:none}.pct+.fsw{margin-left:auto}}
+
+/* fs-std:begin（tools/fs_std.py 產生，勿手改） */
+html.fs-s body{font-size:18px;line-height:1.9}
+html.fs-s .tag{font-size:.6rem}
+html.fs-s .topbar-in{font-size:.8rem}
+html.fs-s .route a{font-size:.74rem}
+html.fs-s .hero-ph .cr{font-size:.6rem}
+html.fs-s .ch-head .part{font-size:.74rem}
+html.fs-s .ch-head h1{font-size:2.15rem}
+html.fs-s .ch-head h2{font-size:1.1rem}
+html.fs-s .meta{font-size:.72rem}
+html.fs-s .qcard p{font-size:1.18rem}
+html.fs-s .say>img{height:150px}
+html.fs-s .say.big>img{height:190px}
+html.fs-s .bubble{font-size:.9rem}
+html.fs-s .who{font-size:.66rem}
+html.fs-s .sc-h .no{font-size:.7rem}
+html.fs-s .sc-h h3{font-size:1.5rem}
+html.fs-s .sc-h p{font-size:.8rem}
+html.fs-s .tx .pg{font-size:.64rem}
+html.fs-s .voice p{font-size:1.16rem}
+html.fs-s .voice .by{font-size:.72rem}
+html.fs-s .key p{font-size:1.32rem}
+html.fs-s .key .pg{font-size:.64rem}
+html.fs-s figure.ph figcaption{font-size:.74rem}
+html.fs-s .tlw .lab{font-size:.78rem}
+html.fs-s .tlw .lab small{font-size:.68rem}
+html.fs-s .tl li{font-size:.76rem}
+html.fs-s .tl li b{font-size:1.35rem}
+html.fs-s .tl li cite{font-size:.62rem}
+html.fs-s .card{font-size:1rem}
+html.fs-s .chip{font-size:.86rem}
+html.fs-s .fb{font-size:.84rem}
+html.fs-s .quiz .opts button{font-size:.9rem}
+html.fs-s .quiz.done .opts button.ok::after{font-size:.74rem}
+html.fs-s .quiz .ans{font-size:1rem}
+html.fs-s .quiz .ans .pg{font-size:.64rem}
+html.fs-s .pause .t{font-size:.9rem}
+html.fs-s .pause .skip{font-size:.74rem}
+html.fs-s .pick button{font-size:.95rem}
+html.fs-s .pick button small{font-size:.7rem}
+html.fs-s .pick-fb blockquote{font-size:1rem}
+html.fs-s .pick-fb p{font-size:.82rem}
+html.fs-s .look-h .no{font-size:.72rem}
+html.fs-s .look-h h3{font-size:1.8rem}
+html.fs-s .look-h p{font-size:.9rem}
+html.fs-s .st-n{width:2.6rem;height:2.6rem;font:700 1.35rem/2.6rem var(--serif)}
+html.fs-s .st-h h4{font-size:1.55rem}
+html.fs-s .st-h p{font-size:.9rem}
+html.fs-s .st-ask p{font-size:1rem}
+html.fs-s .st-ask p b{font-size:.75rem}
+html.fs-s .kw{font-size:1.18rem}
+html.fs-s .st cite{font-size:.75rem}
+html.fs-s .st p{font-size:1rem}
+html.fs-s .chain .arr{font-size:.9rem}
+html.fs-s .chain .arr span::before{font-size:1.1rem}
+html.fs-s .yearly i{font-size:.95rem}
+html.fs-s .tline .yr{font:700 1.45rem/1.2 var(--serif)}
+html.fs-s .ripple li>div{padding:.9rem 1rem 1rem 4.4rem}
+html.fs-s .ripple small{font-size:.75rem}
+html.fs-s .ripple .ring{left:1.55rem;top:1.45rem}
+html.fs-s .caveat{font-size:.88rem}
+html.fs-s .note label{font-size:1.05rem}
+html.fs-s .note small{font-size:.85rem}
+html.fs-s .note textarea{font-size:1rem}
+html.fs-s .note .saved{font-size:.72rem}
+html.fs-s .next small{font-size:.68rem}
+html.fs-s .next strong{font-size:1rem}
+html.fs-s .next span{font-size:.72rem}
+html.fs-s footer.site{font-size:.72rem}
+html.fs-s .buddy .bb{font-size:.8rem}
+html.fs-s .buddy .bb .who{font-size:.6rem}
+html.fs-s .lb p{font-size:.8rem}
+@media (min-width:640px){
+  html.fs-s body{font-size:19px}
+  html.fs-s .say>img{height:170px}
+  html.fs-s .say.big>img{height:210px}
+  html.fs-s .ch-head h1{font-size:2.5rem}
+}
+/* fs-std:end */

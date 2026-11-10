@@ -8,6 +8,32 @@ var XL = (function () {
   return { get: get, set: set, mins: mins, ch: ch, title: title };
 })();
 
+/* 字體大小：大字（預設）／標準（html.fs-s），切換時保住正在讀的位置 */
+(function () {
+  var root = document.documentElement;
+  function mark(v) {
+    [].forEach.call(document.querySelectorAll('[data-fs]'), function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-fs') === v));
+    });
+  }
+  function apply(v) {
+    var el = document.elementFromPoint(innerWidth / 2, innerHeight * 0.45);
+    var y0 = el ? el.getBoundingClientRect().top : 0;
+    root.classList.toggle('fs-s', v === 's');
+    mark(v);
+    if (el) window.scrollBy(0, el.getBoundingClientRect().top - y0);
+    window.dispatchEvent(new Event('resize'));
+  }
+  mark(XL.get('fs', 'l') === 's' ? 's' : 'l');
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-fs]');
+    if (!b) return;
+    var v = b.getAttribute('data-fs');
+    XL.set('fs', v);
+    apply(v);
+  });
+})();
+
 /* ---------- 首頁 ---------- */
 function xlIndex() {
   var list = window.XL_CHAPTERS, ready = window.XL_READY, done = XL.get('done', []);
