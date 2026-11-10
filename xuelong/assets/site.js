@@ -160,7 +160,7 @@ function xlChapter(id) {
   var bd = document.querySelector('.buddy');
   if (bd) {
     var face = bd.querySelector('.face img'), bb = bd.querySelector('.bb'), lastSec = null, hideT, pend = null;
-    var vis = 0, says = [].slice.call(document.querySelectorAll('.say, .pause, .duo, #nextNav, .ch-head'));
+    var vis = 0, says = [].slice.call(document.querySelectorAll('.say, .pause, .duo, .st-ask, #nextNav, .ch-head'));
     function talk(who, txt) {
       face.src = 'assets/nav/' + (who === '小川' ? 'chuan' : 'he') + '_face.png';
       bb.innerHTML = '<span class="who">' + who + '</span>' + txt;
