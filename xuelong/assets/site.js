@@ -139,6 +139,7 @@ function xlChapter(id) {
   function showB() {
     btns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-v') === pk); });
     var fb = document.getElementById('pickFb');
+    if (!fb) return;
     var b = btns.filter(function (x) { return x.getAttribute('data-v') === pk; })[0];
     if (!b) { fb.classList.remove('on'); return; }
     fb.querySelector('blockquote').textContent = b.getAttribute('data-q');
