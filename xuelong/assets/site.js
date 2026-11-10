@@ -192,6 +192,16 @@ function xlChapter(id) {
     if (got) show(got);
   });
 
+  /* 直幅照片被裁成橫幅時，焦點往上移，免得切掉人頭（2026-11-10 設計審核） */
+  [].forEach.call(document.querySelectorAll('.hero-ph img, .ripple .wide, .tline .wide, .chain .th'), function (im) {
+    function fit() {
+      if (im.naturalHeight <= im.naturalWidth * 1.05) return;
+      if (im.classList.contains('wide')) { im.style.aspectRatio = '4/5'; im.style.objectPosition = '50% 40%'; }
+      else im.style.objectPosition = '50% 8%';
+    }
+    if (im.complete) fit(); else im.addEventListener('load', fit);
+  });
+
   /* 隨身小夥伴：每進一個場景冒一句；畫面上有導航員時先躲起來 */
   var bd = document.querySelector('.buddy');
   if (bd) {
@@ -211,6 +221,7 @@ function xlChapter(id) {
       }, { rootMargin: '-68% 0px 0px 0px' });  /* 只在畫面下方三成有導航員時才躲，免得疊在一起 */
       says.forEach(function (s) { io2.observe(s); });
     }
+    bb.addEventListener('click', function () { clearTimeout(hideT); bd.classList.remove('talk'); });  /* 點泡泡立刻收起 */
     bd.querySelector('.face').addEventListener('click', function () {
       var s = lastSec && lastSec.getAttribute('data-tap');
       talk(lastSec && lastSec.getAttribute('data-who') || '小禾', s || '慢慢讀，不用急～');

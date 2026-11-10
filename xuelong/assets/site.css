@@ -1,7 +1,7 @@
 /* 馬來西亞慈濟史・雪隆分會 線上共讀版 */
 :root{
   --paper:#F7F1E6; --paper-2:#EFE6D5; --card:#FBF7EF; --hero:#FAEEDD;
-  --ink:#2A251F; --ink-2:#574E43; --muted:#8A8070; --line:#DDD2BF;
+  --ink:#2A251F; --ink-2:#574E43; --muted:#6E6454; --line:#DDD2BF;
   --red:#B03A2A; --red-2:#8E2D20; --red-soft:#F3DED5;
   --blue:#5B79B4; --navy:#2E3A5C; --guide:#EEF1F7; --guide-line:#C9D3E6;
   --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
@@ -18,7 +18,7 @@ button{font:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* ---------- 共用：標籤、按鈕、對話泡泡 ---------- */
-.tag{display:inline-block;font-family:var(--sans);font-size:.93rem;letter-spacing:.12em;padding:.15em .7em;border-radius:99px;border:1px solid var(--guide-line);color:var(--navy);background:var(--guide);vertical-align:middle;line-height:1.7;white-space:nowrap}
+.tag{display:inline-block;font-family:var(--sans);font-size:1rem;letter-spacing:.12em;padding:.15em .7em;border-radius:99px;border:1px solid var(--guide-line);color:var(--navy);background:var(--guide);vertical-align:middle;line-height:1.7;white-space:nowrap}
 .tag.red{border-color:#E4B9AC;color:var(--red-2);background:var(--red-soft)}
 .btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--sans);font-size:1.35rem;font-weight:500;padding:.75em 1.5em;border-radius:99px;text-decoration:none;border:1.5px solid var(--ink);transition:transform .15s,background .15s;cursor:pointer;background:transparent}
 .btn:hover{transform:translateY(-2px)}
@@ -86,7 +86,7 @@ ol.chs li .pts{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end;ma
 ol.chs li .pt{display:inline-block;font-size:1.08rem;padding:.2em .9em;border-radius:99px;border:1px solid #E4B9AC;color:var(--red-2);background:var(--red-soft);text-decoration:none;white-space:nowrap}
 ol.chs li .pt.done{background:#fff}
 ol.chs li .pt.off{color:var(--muted);border-color:var(--guide-line);background:none}
-html.fs-s ol.chs li .pt{font-size:.74rem}
+html.fs-s ol.chs li .pt{font-size:.9rem}
 @media (max-width:640px){ol.chs li .pts{justify-content:flex-start}}
 footer.site{border-top:1px solid var(--line);font-family:var(--sans);font-size:1.17rem;color:var(--muted);line-height:1.9;padding:2rem;text-align:center}
 
@@ -273,80 +273,88 @@ figure.ph.tall{float:right;width:46%;margin:.4rem -3rem 1rem 1.6rem}
 
 /* 字體大小切換（大字＝預設；標準＝html.fs-s） */
 .fsw{display:inline-flex;flex:none;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:#fffaf2;font-family:var(--sans)}
-.fsw button{font:500 15px/1 var(--sans);padding:.5em .75em;border:0;background:none;color:var(--muted);cursor:pointer}
+.fsw button{font:500 16px/1 var(--sans);padding:.5em .75em;border:0;background:none;color:var(--muted);cursor:pointer}
 .fsw button+button{border-left:1px solid var(--line)}
 .fsw button[data-fs="l"]{font-size:18px;font-weight:700}
 .fsw button[aria-pressed="true"]{background:var(--red);color:#fff}
 .fsw-hero{position:absolute;top:.8rem;right:1rem;z-index:5;box-shadow:0 2px 8px rgba(60,40,20,.15)}
 
+/* 設計審核修正（2026-11-10）：用 body 前綴，標準字產生器不會蓋掉 */
+body .fsw button{min-height:44px;min-width:44px}
+body ol.chs li .pt{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px}
+body ol.chs li .pts{gap:.6rem}
+body .chip{min-height:44px;min-width:44px}
+body .hero h1,body .ch-hero h1{text-wrap:balance}
+body .topbar-in>a{display:inline-flex;align-items:center;min-height:44px}
+
 /* fs-std:begin（tools/fs_std.py 產生，勿手改） */
 html.fs-s body{font-size:20px;line-height:1.85}
-html.fs-s .tag{font-size:.62rem}
+html.fs-s .tag{font-size:14px}
 html.fs-s .btn{font-size:.9rem}
 html.fs-s .bubble{font-size:.88rem}
-html.fs-s .who{font-size:.68rem}
-html.fs-s .kicker{font-size:.78rem}
+html.fs-s .who{font-size:14px}
+html.fs-s .kicker{font-size:14px}
 html.fs-s .hero h1 small{font-size:1.5rem}
-html.fs-s .hero .seal{font-size:.8rem}
+html.fs-s .hero .seal{font-size:14px}
 html.fs-s .hero p.lead{font-size:1rem}
 html.fs-s .resume{font-size:.88rem}
-html.fs-s .resume em{font-size:.78rem}
+html.fs-s .resume em{font-size:14px}
 html.fs-s .how h2,html.fs-s .dir h2{font-size:1.9rem}
 html.fs-s .step i{font-size:1.6rem}
 html.fs-s .step b{font-size:1rem}
-html.fs-s .step p{font-size:.82rem}
-html.fs-s .legend{font-size:.78rem;gap:1rem}
-html.fs-s .vol{font-size:.75rem}
+html.fs-s .step p{font-size:14px}
+html.fs-s .legend{font-size:14px;gap:1rem}
+html.fs-s .vol{font-size:14px}
 html.fs-s details.grp>summary{font-size:1.25rem}
 html.fs-s details.grp>summary::before{font-size:1rem}
-html.fs-s summary .cnt{font-size:.78rem}
-html.fs-s summary .bar{font-size:.75rem}
-html.fs-s ol.chs li .no{font-size:.78rem}
+html.fs-s summary .cnt{font-size:14px}
+html.fs-s summary .bar{font-size:14px}
+html.fs-s ol.chs li .no{font-size:14px}
 html.fs-s ol.chs li .tt{font-size:1.02rem}
-html.fs-s ol.chs li .tt small{font-size:.76rem}
-html.fs-s ol.chs li .st{font-size:.72rem}
-html.fs-s footer.site{font-size:.78rem}
-html.fs-s .topbar{font-size:.82rem}
-html.fs-s .ch-hero .part{font-size:.8rem}
+html.fs-s ol.chs li .tt small{font-size:14px}
+html.fs-s ol.chs li .st{font-size:14px}
+html.fs-s footer.site{font-size:14px}
+html.fs-s .topbar{font-size:14px}
+html.fs-s .ch-hero .part{font-size:14px}
 html.fs-s .ch-hero h2{font-size:1.4rem}
-html.fs-s .meta{font-size:.8rem}
+html.fs-s .meta{font-size:14px}
 html.fs-s .qcard p{font-size:1.3rem}
-html.fs-s .route{font-size:.82rem}
-html.fs-s .route b{font-size:.7rem}
-html.fs-s .route li a small{font-size:.7rem}
+html.fs-s .route{font-size:14px}
+html.fs-s .route b{font-size:14px}
+html.fs-s .route li a small{font-size:14px}
 html.fs-s .guide{font-size:.95rem}
 html.fs-s .guide h3{font-size:1.4rem}
 html.fs-s .chip{font-size:.88rem}
-html.fs-s .ask .fb{font-size:.86rem}
-html.fs-s .scene-h .no{font-size:.78rem}
+html.fs-s .ask .fb{font-size:14px}
+html.fs-s .scene-h .no{font-size:14px}
 html.fs-s .scene-h h3{font-size:1.75rem}
-html.fs-s .scene-h p{font-size:.86rem}
-html.fs-s .scene-h .pg{font-size:.74rem}
+html.fs-s .scene-h p{font-size:14px}
+html.fs-s .scene-h .pg{font-size:14px}
 html.fs-s .orig h4{font-size:1.3rem}
 html.fs-s .orig h5{font-size:1.08rem}
-html.fs-s .orig p[data-p]::before{font-size:.68rem}
-html.fs-s figure.ph figcaption{font-size:.8rem}
+html.fs-s .orig p[data-p]::before{font-size:14px}
+html.fs-s figure.ph figcaption{font-size:14px}
 html.fs-s .pause .t{font-size:.92rem}
-html.fs-s .pause .skip{font-size:.78rem}
+html.fs-s .pause .skip{font-size:14px}
 html.fs-s .pick button{font-size:.9rem}
-html.fs-s .pick button small{font-size:.74rem}
+html.fs-s .pick button small{font-size:14px}
 html.fs-s .pick-fb blockquote{font-size:1rem}
-html.fs-s .look-h .no{font-size:.78rem}
+html.fs-s .look-h .no{font-size:14px}
 html.fs-s .look-h h3{font-size:2rem}
-html.fs-s .look-h p{font-size:.86rem}
+html.fs-s .look-h p{font-size:14px}
 html.fs-s .col h4{font-size:1.25rem}
-html.fs-s .col .sub{font-size:.74rem}
-html.fs-s .col li{font-size:.86rem}
-html.fs-s .col li cite{font-size:.7rem}
-html.fs-s .caveat{font-size:.78rem}
+html.fs-s .col .sub{font-size:14px}
+html.fs-s .col li{font-size:14px}
+html.fs-s .col li cite{font-size:14px}
+html.fs-s .caveat{font-size:14px}
 html.fs-s .note label{font-size:.95rem}
-html.fs-s .note small{font-size:.74rem}
+html.fs-s .note small{font-size:14px}
 html.fs-s .note textarea{font-size:1rem}
-html.fs-s .note .saved{font-size:.74rem}
-html.fs-s .next small{font-size:.72rem}
+html.fs-s .note .saved{font-size:14px}
+html.fs-s .next small{font-size:14px}
 html.fs-s .next strong{font-size:1.05rem}
-html.fs-s .next span{font-size:.76rem}
-html.fs-s .lb p{font-size:.85rem}
+html.fs-s .next span{font-size:14px}
+html.fs-s .lb p{font-size:14px}
 @media (max-width:640px){
   html.fs-s body{font-size:18px}
   html.fs-s ol.chs li{grid-template-columns:2rem 1fr}
