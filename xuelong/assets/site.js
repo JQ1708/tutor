@@ -238,3 +238,18 @@ function xlChapter(id) {
     }, { passive: true });
   }
 }
+
+/* 影片：點縮圖才載入 youtube-nocookie（2026-11-14） */
+(function () {
+  [].forEach.call(document.querySelectorAll('.vid-box'), function (b) {
+    b.addEventListener('click', function () {
+      if (b.querySelector('iframe')) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + b.dataset.id + '?autoplay=1&rel=0&playsinline=1&start=' + (b.dataset.start || 0);
+      f.title = b.getAttribute('aria-label') || '影片';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      b.innerHTML = ''; b.appendChild(f); b.style.cursor = 'default';
+    });
+  });
+})();

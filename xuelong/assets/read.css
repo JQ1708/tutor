@@ -390,3 +390,19 @@ html.fs-s .stats li cite{font-size:14px}
 html.fs-s .vs-h{font-size:14px}
 html.fs-s .vs .a,html.fs-s .vs .b{font-size:0.933rem}
 /* fs-std:end */
+
+/* 影片（2026-11-14）：先顯示縮圖，點了才載入 YouTube；body 前綴，標準字產生器不會蓋掉 */
+body figure.vid{margin:1.8rem -1rem}
+body .vid-lead{font-family:var(--sans);font-size:1.2rem;line-height:1.7;color:var(--navy);margin:0 1rem .6rem}
+body .vid-box{position:relative;display:block;width:100%;aspect-ratio:16/9;background:#1d1a16;border:0;padding:0;cursor:pointer;overflow:hidden}
+body .vid-box img{width:100%;height:100%;object-fit:cover;display:block;opacity:.88}
+body .vid-box .play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:rgba(176,58,42,.92);box-shadow:0 4px 18px rgba(0,0,0,.45)}
+body .vid-box .play::after{content:"";position:absolute;left:33px;top:24px;border-style:solid;border-width:18px 0 18px 29px;border-color:transparent transparent transparent #fff}
+body .vid-box .len{position:absolute;right:.6rem;bottom:.6rem;font-family:var(--sans);font-size:1.05rem;color:#fff;background:rgba(0,0,0,.72);border-radius:6px;padding:.1em .5em}
+body .vid-box .hint{position:absolute;left:0;right:0;top:calc(50% + 52px);text-align:center;font-family:var(--sans);font-size:1.15rem;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+body .vid-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+body figure.vid figcaption{font-family:var(--sans);font-size:1.11rem;line-height:1.7;color:var(--ink-2);margin:.5rem 1rem 0;padding-left:.7rem;border-left:2px solid var(--line)}
+body figure.vid figcaption .yr{display:inline-block;font-size:1rem;color:var(--red-2);background:var(--red-soft);border-radius:99px;padding:0 .6em;margin-right:.35em;white-space:nowrap}
+body figure.vid figcaption span.src{color:var(--muted);white-space:nowrap}
+@media (min-width:640px){body figure.vid{margin-left:0;margin-right:0}body .vid-box{border-radius:6px}body .vid-lead,body figure.vid figcaption{margin-left:0;margin-right:0}}
+html.fs-s body figure.vid figcaption,html.fs-s body .vid-lead{font-size:14px}
