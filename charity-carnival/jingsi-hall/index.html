@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f5ee">
+<meta name="description" content="慈济巴生静思堂筹募建设基金。认识静思堂、查看工程进度及捐款方式。">
+<title>慈济巴生静思堂｜筹募建设基金</title>
+<style>
+@font-face {
+  font-family: "Noto Serif SC";
+  src: url("fonts/noto-serif-sc.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20, U+2c, U+2e, U+30-34, U+36, U+38-39, U+41-46, U+48-4d, U+4f, U+52-54, U+57, U+59, U+61-69, U+6b-77, U+79-7a, U+b7, U+2013, U+2019, U+3001-3002, U+4e00, U+4e0a-4e0b, U+4e0d-4e0e, U+4e25, U+4e3a, U+4e3e, U+4e48, U+4e8c, U+4e8e, U+4eae, U+4eba, U+4ec0, U+4ee3, U+4eec, U+4f17, U+4f1a, U+4f34, U+4f4f, U+4f59, U+4f5b, U+4fdd, U+4fee, U+5185, U+51c0, U+5230, U+529f, U+52a8, U+52df, U+5341, U+534e, U+5374, U+5386, U+53d1, U+53ea, U+53f0, U+540e, U+542c, U+542f, U+5584, U+5609, U+5728, U+5730, U+573a, U+5757, U+57fa, U+5802, U+5904, U+5907, U+591a, U+5927, U+5954, U+59cb, U+5b83, U+5b89, U+5bfb, U+5c31, U+5c5e, U+5de5, U+5df4, U+5e0c, U+5e26, U+5e74, U+5ea6-5ea7, U+5ef6, U+5efa, U+5f00, U+5f85, U+5fc3, U+5fd7, U+5ff5, U+601d, U+60a8, U+60b2, U+6148, U+6167, U+6210-6211, U+6270, U+627e, U+6350, U+63a8, U+6458, U+652f, U+6559, U+6599, U+65b9, U+65bd, U+65f6, U+660e, U+662f, U+667a, U+6696-6697, U+66f4, U+6700, U+6709, U+671b, U+6735, U+6765, U+6982, U+6b3e, U+6b63, U+6bb5, U+6c47, U+6ca1, U+6cd5, U+6ce8, U+6d3b, U+6d4e, U+6df1, U+6e05, U+6e29, U+6e7e, U+70b9, U+7167, U+7231, U+73af, U+74e6, U+751f, U+7535, U+7684, U+771f, U+7816, U+793a, U+793e, U+798f, U+7a0b, U+7a7a, U+7b49, U+7b51, U+7b79, U+7eb7, U+7ec8, U+7ecf, U+7edc, U+7eed, U+7f18, U+7f8e, U+8015, U+8054, U+80fd, U+81ea, U+82e6, U+83b2, U+8981, U+89c5, U+89d2, U+8ba1, U+8bbe, U+8bc1, U+8bf4, U+8d44, U+8d70, U+8d77, U+8eab, U+8fd9, U+8fdb, U+9053, U+90ae, U+90e8, U+91d1, U+957f, U+95f4, U+95fb, U+966a, U+96be, U+9700, U+9759, U+987f, U+ff0c, U+ff1a;
+}
+@font-face {
+  font-family: "Noto Sans SC";
+  src: url("fonts/noto-sans-sc.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20, U+2c-2e, U+30-3a, U+40-5a, U+61-7a, U+b7, U+201c-201d, U+3001-3002, U+3010-3011, U+4e00, U+4e0a-4e0b, U+4e0d-4e0e, U+4e16, U+4e1a, U+4e25, U+4e2a, U+4e2d, U+4e3a-4e3b, U+4e3e, U+4e48-4e49, U+4e4b, U+4e5f-4e60, U+4e66, U+4e86, U+4e8b-4e8c, U+4e8e, U+4e94, U+4e9a, U+4ea6, U+4ea9, U+4eae, U+4eb2, U+4eba, U+4ec0, U+4eca, U+4ecd, U+4ed8, U+4ee3, U+4ee5, U+4eec, U+4f17, U+4f1a, U+4f20, U+4f34, U+4f4f, U+4f53, U+4f55, U+4f59, U+4f5b-4f5c, U+4f7f, U+4f9b, U+4fbf, U+4fdd, U+4fee, U+501f, U+50a8, U+5149, U+514b, U+514d, U+5165, U+5168, U+516b-516c, U+5171, U+5173, U+5178, U+5185, U+5199, U+51b5, U+51c0, U+51cf, U+51dd, U+521b, U+5230, U+5236, U+526a, U+529b, U+529e-529f, U+52a8, U+52bf, U+52df, U+5305, U+5316, U+533a-533b, U+5341, U+5347, U+534a, U+534e, U+5355, U+5360, U+5370, U+5373-5374, U+5386, U+53a8, U+53ca, U+53d1, U+53d6, U+53e3, U+53ea, U+53ef-53f0, U+53f2, U+53f7, U+540c-540e, U+5411, U+542c, U+542f, U+543e, U+5458, U+547d, U+548c, U+54c1, U+5584, U+5609, U+56db, U+56de, U+56e2, U+56ed, U+56fd-56fe, U+571f, U+5728, U+5730, U+573a, U+5740, U+5750, U+5757, U+578b, U+57f9-57fa, U+5802, U+586b, U+5883, U+5904, U+5907, U+590d, U+5916, U+591a, U+5927, U+5929, U+5949, U+5954, U+597d, U+5982, U+59cb, U+59d3, U+5a18, U+5b50, U+5b66, U+5b83, U+5b88-5b89, U+5b8f, U+5b9a, U+5b9e, U+5ba3-5ba4, U+5bb6, U+5bb9, U+5bc4, U+5bfa-5bfc, U+5c06, U+5c0f, U+5c31, U+5c55, U+5c5e, U+5de5, U+5df2, U+5df4, U+5e02-5e03, U+5e08, U+5e0c, U+5e26, U+5e38, U+5e73-5e74, U+5e76, U+5e7f, U+5e87, U+5e94, U+5e97, U+5e99, U+5e9c, U+5ea6-5ea7, U+5eca, U+5ef6, U+5efa, U+5f00, U+5f0f, U+5f18, U+5f31, U+5f53, U+5f71, U+5f85, U+5f97, U+5fb7, U+5fc3, U+5fd7, U+5ff5, U+6000-6001, U+601d, U+6055, U+60a8, U+60b2, U+60c5, U+60df, U+60f3, U+610f, U+6148, U+6167, U+6210-6211, U+6237, U+623f-6240, U+624b, U+6253, U+6263, U+626c, U+6270, U+627e-627f, U+62a4-62a5, U+62cd, U+62d3, U+62dc, U+6301, U+6350, U+636e, U+63a8, U+63d0, U+6458, U+652f, U+6536, U+653e-653f, U+6559, U+6570, U+6574, U+6577, U+6587, U+6599, U+65b0, U+65b9, U+65bd, U+65c1, U+65e0, U+65e5, U+65e9, U+65f6, U+660e, U+662f, U+667a, U+6696-6697, U+66f4, U+6700, U+6708-6709, U+671b, U+671f, U+672c, U+6735, U+6765, U+6797, U+6807, U+683c, U+6869, U+690d, U+697c, U+6982, U+6b21-6b22, U+6b3e, U+6b63-6b64, U+6bb5, U+6bc5, U+6bcf, U+6bd7, U+6c34, U+6c38, U+6c47, U+6ca1, U+6cb3, U+6cd5, U+6ce8, U+6d32, U+6d3b, U+6d4e, U+6df1, U+6e05, U+6e29, U+6e7e, U+6ef4, U+6f14, U+706f, U+707e, U+70b9, U+7136, U+7167, U+718f, U+7231, U+7269, U+7387, U+73af-73b0, U+7403, U+7406, U+74e6, U+751f, U+7528, U+7533, U+7535, U+753b, U+7559, U+7597, U+7684, U+76d6, U+76ee, U+76f8, U+770b, U+771f, U+7801, U+7816, U+78b3, U+793a, U+793c, U+793e, U+7948, U+795e, U+798f, U+79c9, U+79ef, U+79fb, U+7a0b, U+7a0e, U+7a7a, U+7acb, U+7ad9, U+7b26, U+7b49, U+7b51, U+7b79, U+7cbe, U+7d22, U+7eaa, U+7eb7, U+7ec8, U+7ece-7ecf, U+7edc, U+7eed, U+7eff, U+7f18, U+7f6e, U+7f8e, U+800c, U+8015, U+8054, U+805a, U+80b2, U+80fd, U+819c, U+81ea, U+81f3-81f4, U+822a, U+8282, U+82b1, U+82e6, U+82f1, U+83b2, U+83e9, U+8428, U+843d, U+8499, U+85cf, U+867d, U+884c, U+88c5, U+897f, U+8981, U+8986, U+89c2, U+89c5-89c6, U+89d2, U+8ba1, U+8bad, U+8bb2, U+8bbe, U+8bc1, U+8bca, U+8bdd, U+8bed, U+8bf2, U+8bf4, U+8bf7, U+8bfb, U+8bfe, U+8d26, U+8d2b, U+8d44, U+8d48, U+8d60, U+8d70, U+8d77, U+8db3, U+8def, U+8df3, U+8df5, U+8eab, U+8f69, U+8f6c, U+8fb9, U+8fc1, U+8fc5, U+8fd1, U+8fd4, U+8fd9, U+8fdb, U+8ff9, U+9009, U+901f-9020, U+904d, U+9053, U+9080, U+90ae, U+90bb, U+90e8, U+91c7, U+91cc-91cd, U+91d1, U+9488, U+94b1, U+94f6, U+9547, U+957f, U+95f4, U+95fb, U+9640, U+9644-9645, U+9648, U+966a, U+9676, U+96be, U+96e8, U+96ea, U+9700, U+9759, U+9762, U+9879-987a, U+987f, U+9884, U+9891, U+989d, U+98ce, U+9910, U+9999, U+9a6c, U+9aa8, U+9ad3, U+ff08-ff09, U+ff0c, U+ff0f, U+ff1a-ff1b;
+}
+:root {
+  color-scheme: light;
+  --navy: #1c2541;
+  --ink: #293246;
+  --muted: #515b6a;
+  --paper: #f8f5ee;
+  --white: #fffdf8;
+  --blue-paper: #edf0f3;
+  --line: #d9d9d1;
+  --accent: #7a633b;
+  --serif: "Noto Serif SC", "Songti SC", SimSun, "Noto Serif CJK SC", serif;
+  --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: 24px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.8 var(--sans); }
+[hidden] { display: none !important; }
+img, video { display: block; max-inline-size: 100%; }
+img { height: auto; }
+h1, h2, h3, p, figure, blockquote, dl, dd { margin: 0; }
+p + p { margin-top: 14px; }
+h1, h2, h3 { color: var(--navy); font-family: var(--serif); font-weight: 700; line-height: 1.3; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 8.8vw, 4.2rem); letter-spacing: -.035em; }
+h2 { font-size: clamp(1.8rem, 6.4vw, 2.85rem); letter-spacing: -.025em; margin-bottom: 22px; }
+h3 { font-size: clamp(1.2rem, 4.8vw, 1.55rem); margin-bottom: 12px; }
+html[lang="en"] :is(h1, h2, h3, .hero-poem, .closing, .lotus-line, blockquote, time) {
+  font-family: Georgia, "Times New Roman", serif;
+}
+html[lang="en"] h1 { font-size: clamp(2.22rem, 9vw, 4.45rem); }
+a { color: inherit; text-underline-offset: .22em; }
+a:hover { text-decoration-thickness: 2px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid #7c5a25; outline-offset: 4px; }
+.wrap { width: min(100% - 40px, 1144px); margin-inline: auto; }
+.symbols, .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip { position: absolute; inset: 8px auto auto 8px; transform: translateY(-160%); z-index: 2; padding: 8px 12px; background: var(--white); }
+.skip:focus { transform: none; }
+.site-header { background: var(--white); border-bottom: 1px solid var(--line); }
+.header-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.brand { display: block; width: clamp(156px, 42vw, 210px); max-width: 68%; }
+.header-inner nav { display: none; }
+.language { min-height: 44px; min-width: 60px; padding-inline: 13px; font-size: 15px; border: 1px solid #c4cbd0; color: var(--navy); background: transparent; border-radius: 3px; font-weight: 650; }
+.language:hover, .secondary:hover { background: #eaeef0; }
+.hero { display: grid; gap: 28px; padding-block: 42px 54px; }
+.kicker { color: var(--accent); font-size: 15px; font-weight: 700; letter-spacing: .08em; margin-bottom: 9px; }
+html[lang="en"] .kicker { letter-spacing: .055em; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.button { display: inline-flex; align-items: center; justify-content: center; padding: 10px 14px; min-height: 46px; border: 1px solid var(--navy); border-radius: 3px; text-decoration: none; font-size: 15px; line-height: 1.4; font-weight: 700; }
+.primary { background: var(--navy); color: #fff; }
+.primary:hover { background: #34415f; }
+.secondary { color: var(--navy); }
+.hero-image { position: relative; overflow: hidden; border-radius: 5px; background: #dce5ea; }
+.hero-image img { width: 100%; height: 100%; aspect-ratio: 1.26; object-fit: cover; object-position: center 49%; }
+.hero-image figcaption { position: absolute; right: 12px; bottom: 12px; padding: 4px 10px; border-radius: 3px; background: #1c2541; color: white; }
+.hero-poem { padding-left: 14px; border-left: 2px solid #b9a781; font: 16px/1.85 var(--serif); }
+.hero-poem p + p { margin-top: 13px; }
+.section { padding-block: 54px; border-top: 1px solid var(--line); }
+.story-grid, .spaces-grid, .location-grid, .progress-grid, .donation-grid, .carnival-grid, .footer-grid { display: grid; gap: 30px; }
+.origins p, .teaching p, .location-grid p { max-width: 62ch; }
+.history, .milestones { margin: 0 0 0 5px; list-style: none; border-left: 1px solid #abb5c1; padding-left: 20px; }
+.history li, .milestones li { position: relative; padding-bottom: 12px; }
+.history li:last-child, .milestones li:last-child { padding-bottom: 0; }
+.history li::before, .milestones li::before { content: ""; position: absolute; width: 9px; height: 9px; top: .64em; left: -25px; border: 1px solid #788698; background: var(--white); border-radius: 50%; }
+.history li a { display: block; width: fit-content; }
+time { color: var(--navy); font: 700 1.14rem/1.4 var(--serif); font-variant-numeric: tabular-nums; }
+.teaching { display: grid; grid-template-columns: 28px 1fr; gap: 12px; margin-top: 30px; padding: 20px 16px; background: var(--blue-paper); border-radius: 4px; }
+.icon { width: 28px; height: 28px; flex: none; color: #766443; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.teaching .icon { margin-top: 1px; }
+#spaces { background: var(--white); }
+.functions, .activities { padding: 0; margin: 0; list-style: none; }
+.functions { border-top: 1px solid var(--line); }
+.functions li { display: flex; align-items: center; gap: 12px; min-height: 62px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.spaces-grid { margin-block: 32px; }
+.activity-heading { margin-bottom: 14px; }
+.activities { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.activities li { display: flex; align-items: center; gap: 9px; background: var(--paper); padding: 10px; font-size: 15px; line-height: 1.45; min-height: 56px; }
+.activities .icon { width: 22px; height: 22px; }
+.location-grid { align-items: center; gap: 22px; }
+.landmarks { color: var(--muted); }
+.map-image { max-width: 226px; }
+.map-image img, .archive img { border-radius: 3px; }
+figcaption { color: var(--muted); font-size: 15px; line-height: 1.5; }
+.map-image figcaption, .archive figcaption, .video figcaption { margin-top: 8px; }
+.progress { background: var(--blue-paper); }
+.section-intro { margin: -9px 0 22px; }
+.progress-grid { align-items: start; }
+.video video { width: 100%; height: auto; aspect-ratio: 16 / 9; background: var(--navy); border-radius: 5px; }
+.milestones li { padding-bottom: 15px; }
+.milestones p:lang(en) { text-wrap: balance; }
+.milestones .current { font-weight: 700; }
+.milestones .current::before { background: #445c74; }
+.archive { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; border-top: 1px solid #cad0d6; padding-top: 20px; margin-top: 24px; }
+.archive-feature { width: min(100%, 355px); }
+.archive-thumb { max-width: 175px; }
+.archive-thumb.circle-photo { max-width: 124px; }
+.donate { background: var(--navy); color: var(--white); }
+.donate h2, .donate .kicker { color: var(--white); }
+.donate h2 { margin-bottom: 7px; }
+.donate-motto { margin-bottom: 22px; color: #eef0f6; }
+.donation-grid { gap: 12px; }
+.bank-panel, .receipt-panel { background: var(--white); color: var(--ink); padding: 18px 14px; border-radius: 5px; min-width: 0; }
+.bank-details, .receipt-options { border-top: 1px solid var(--line); }
+.bank-row { padding-block: 6px; border-bottom: 1px solid var(--line); }
+.bank-row dt, .receipt-options dt { font-size: 15px; color: var(--muted); }
+.bank-row dd { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.bank-row strong { overflow-wrap: anywhere; font-weight: 750; line-height: 1.45; }
+#account, #reference { font-variant-numeric: tabular-nums; letter-spacing: .025em; }
+.copy { flex: none; min-height: 44px; min-width: 72px; padding: 4px 7px; border: 1px solid #c4cbd0; background: transparent; border-radius: 3px; font-size: 15px; line-height: 1.28; font-weight: 700; }
+.copy:hover { background: var(--blue-paper); }
+.tax { margin-top: 16px; padding: 8px 10px; border-left: 3px solid #9c6c3a; background: #f4e9da; color: #573b23; font-weight: 750; }
+.qr-note { margin-top: 10px; }
+.receipt-panel a, .donation-notes a, .carnival a, address a { overflow-wrap: anywhere; }
+.receipt-options { margin-top: 14px; }
+.receipt-options div { padding-block: 8px; border-bottom: 1px solid var(--line); }
+.receipt-options dd { font-weight: 650; }
+.donation-notes { margin-top: 22px; }
+.donation-notes h3 { color: var(--white); }
+.donation-notes ol { margin: 0; padding-left: 1.45em; }
+.donation-notes li + li { margin-top: 3px; }
+.carnival { background: #f1ede3; }
+.donation-notes li:last-child [lang="en"] a { display: inline-block; max-width: 100%; }
+.carnival .kicker .event-detail { white-space: nowrap; }
+.carnival h2 { margin-bottom: 12px; }
+.lotus-line { display: flex; gap: 10px; align-items: center; color: var(--navy); font: 700 1.4rem/1.4 var(--serif); margin-bottom: 13px; }
+.carnival-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 10px; font-weight: 700; }
+.carnival-link::after { content: "→"; }
+blockquote { border-left: 2px solid #b9a781; padding-left: 14px; color: var(--navy); font: 700 clamp(1.16rem, 4vw, 1.5rem)/1.5 var(--serif); }
+.site-footer { border-top: 1px solid var(--line); background: var(--white); padding-block: 40px; }
+.site-footer h2 { font-size: 1.5rem; margin-bottom: 11px; }
+address { font-size: 15px; font-style: normal; overflow-wrap: anywhere; }
+.closing { font: 700 clamp(1.1rem, 4vw, 1.35rem)/1.6 var(--serif); color: var(--navy); }
+.closing .icon { display: block; margin-bottom: 8px; }
+.closing p + p { margin-top: 3px; }
+@media (min-width: 620px) {
+  .wrap { width: min(100% - 64px, 1144px); }
+  .actions { gap: 12px; }
+  .button { padding-inline: 18px; }
+  .section { padding-block: 72px; }
+  .spaces-grid, .location-grid, .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px; }
+  .location-grid { grid-template-columns: minmax(0, 1fr) auto; }
+  .map-image { margin-right: 18px; }
+  .activities { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .archive-thumb, .archive-thumb.circle-photo { max-width: 218px; }
+  .bank-panel, .receipt-panel { padding: 25px; }
+  .carnival-grid { grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); align-items: center; }
+}
+@media (min-width: 850px) {
+  .header-inner { min-height: 80px; }
+  .header-inner nav { display: flex; gap: clamp(14px, 2.6vw, 39px); align-items: center; margin-left: auto; margin-right: 16px; }
+  .header-inner nav a { padding-block: 10px; font-size: 15px; text-decoration: none; }
+  .header-inner nav a:hover { text-decoration: underline; }
+  .hero { grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); grid-template-rows: auto 1fr; gap: 25px clamp(30px, 4.7vw, 76px); padding-block: 56px 68px; }
+  .hero-title { align-self: start; padding-top: 10px; }
+  .hero-image { grid-column: 2; grid-row: 1 / span 2; }
+  .hero-image img { aspect-ratio: auto; }
+  .hero-poem { align-self: start; padding-left: 18px; }
+  .story-grid { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 64px; }
+  .teaching { grid-template-columns: 35px 1fr; padding: 26px 32px; }
+  .teaching p { max-width: 93ch; }
+  .functions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 30px; }
+  .functions li:last-child { grid-column: span 2; }
+  .activities { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .progress-grid { grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); gap: 40px; }
+  .milestones li { padding-bottom: 22px; }
+  .donation-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 16px; }
+  .donation-notes { margin-top: 26px; }
+  .site-footer { padding-block: 52px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title, .hero-image, .hero-poem { animation: arrive .85s ease-out both; }
+  @keyframes arrive { from { opacity: .12; } to { opacity: 1; } }
+}
+a[href^="mailto:"] { white-space: nowrap; }
+</style>
+</head>
+<body>
+<svg class="symbols" width="0" height="0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><symbol id="icon-lotus" viewBox="0 0 32 32"><path d="M16 26C10 21 10 13 16 5c6 8 6 16 0 21Zm0 0C8 27 3 22 3 14c5 0 8 2 10 5m3 7c8 1 13-4 13-12-5 0-8 2-10 5"/></symbol><symbol id="icon-hands" viewBox="0 0 32 32"><path d="M4 17v6l7 4h10l7-7c2-2-1-4-3-2l-4 3h-6m-11-4h7l5 3h5M16 13l-5-5c-3-3 1-6 5-2 4-4 8-1 5 2Z"/></symbol><symbol id="icon-book" viewBox="0 0 32 32"><path d="M16 9C12 6 7 5 3 7v17c4-2 9-1 13 2 4-3 9-4 13-2V7c-4-2-9-1-13 2Zm0 0v17"/></symbol><symbol id="icon-leaf" viewBox="0 0 32 32"><path d="M5 27c6-9 12-13 20-19M10 21C4 10 15 5 27 5c0 12-5 22-17 16Z"/></symbol><symbol id="icon-home" viewBox="0 0 32 32"><path d="m3 15 13-11 13 11M6 13v14h20V13m-10 3v7m-3.5-3.5h7"/></symbol><symbol id="icon-corridor" viewBox="0 0 32 32"><path d="M5 27V5h22v22M10 27V10h12v17M14 27V14h4v13M3 27h26"/></symbol><symbol id="icon-lamp" viewBox="0 0 32 32"><path d="M16 16c-6 0-6-6 0-12 6 6 6 12 0 12ZM8 22h16c-1 4-4 6-8 6s-7-2-8-6Zm8-6v6"/></symbol><symbol id="icon-pen" viewBox="0 0 32 32"><path d="m7 21-2 6 6-2L26 10a3 3 0 0 0-4-4L7 21Zm12-12 4 4M14 27h13"/></symbol><symbol id="icon-board" viewBox="0 0 32 32"><path d="M5 5h22v17H5zm11 17v6m-5 0h10M9 10h14m-14 5h8"/></symbol><symbol id="icon-heart" viewBox="0 0 32 32"><path d="M16 26 6 16C-1 9 8 2 16 10c8-8 17-1 10 6Z"/></symbol><symbol id="icon-bowl" viewBox="0 0 32 32"><path d="M4 16h24a12 12 0 0 1-24 0Zm7 12h10M12 11c-3-3 3-4 0-7m8 7c-3-3 3-4 0-7"/></symbol><symbol id="icon-people" viewBox="0 0 32 32"><circle cx="11" cy="10" r="4"/><circle cx="23" cy="12" r="3"/><path d="M3 26v-3a8 8 0 0 1 16 0v3m3-7a6 6 0 0 1 7 6v1"/></symbol></svg>
+<a class="skip" href="#main"><span lang="zh-Hans">跳至主要内容</span><span lang="en" hidden>Skip to main content</span></a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#top" class="brand"><img src="img/tzu-chi-logo.png" alt="慈济 Tzu Chi" width="1241" height="221"></a>
+    <nav aria-label="主要导航" data-label-en="Main navigation"><a class="" href="#why"><span lang="zh-Hans">为什么建</span><span lang="en" hidden>Why we are building</span></a><a class="" href="#progress"><span lang="zh-Hans">工程进度</span><span lang="en" hidden>Construction progress</span></a><a class="" href="#donate"><span lang="zh-Hans">如何捐款</span><span lang="en" hidden>How to donate</span></a></nav>
+    <button type="button" class="language" id="language" aria-label="Switch to English"><span lang="en" data-fixed>EN</span><span lang="zh-Hans" data-fixed hidden>中文</span></button>
+  </div>
+</header>
+<main id="main">
+  <section id="top" class="hero wrap">
+    <div class="hero-title">
+      <p class="kicker"><span lang="zh-Hans">筹募建设基金</span><span lang="en" hidden>Construction Fund</span></p>
+      <h1><span lang="zh-Hans">慈济巴生静思堂</span><span lang="en" hidden>Tzu Chi Klang Jing Si Hall</span></h1>
+      <div class="actions"><a class="button primary" href="#donate"><span lang="zh-Hans">我想捐款</span><span lang="en" hidden>Donate</span></a><a class="button secondary" href="#progress"><span lang="zh-Hans">看工程进度</span><span lang="en" hidden>View construction progress</span></a></div>
+    </div>
+    <figure class="hero-image">
+      <img src="img/hall-rendering.webp" width="1024" height="1050" alt="" fetchpriority="high" data-alt-zh="巴生静思堂建筑正面示意" data-alt-en="Architectural rendering of the front of Klang Jing Si Hall">
+      <figcaption><span lang="zh-Hans">示意图</span><span lang="en" hidden>Architectural rendering</span></figcaption>
+    </figure>
+    <div class="hero-poem"><p><span lang="zh-Hans">静思堂，不只是一座建筑，<br>它是慈悲与智慧在人间的延续，<br>更是一方清净福地，<br>启发善念、安顿身心、<br>温暖人心的修心道场。</span><span lang="en" hidden>Jing Si Hall is more than a building.<br>It carries compassion and wisdom forward in the world,<br>a place of peace<br>where kind thoughts arise, body and mind find rest,<br>and hearts grow warm through spiritual practice.</span></p><p><span lang="zh-Hans">在纷扰的时代，<br>我们更需要一处地方，静下心来，<br>听闻佛法，安住身心。</span><span lang="en" hidden>In troubled times,<br>we need a place where we can grow still,<br>listen to the Dharma and settle body and mind.</span></p><p><span lang="zh-Hans">慈济在巴生深耕二十余年，<br>陪伴苦难、推动环保、启发善念，<br>却始终没有一座真正属于大众的清净道场。</span><span lang="en" hidden>Tzu Chi has served Klang for more than twenty years,<br>walking alongside those in hardship, caring for the environment and inspiring kindness.<br>Yet there has never been a pure place of practice here that truly belongs to everyone.</span></p><p id="search-for-site"><span lang="zh-Hans">自2012 年起，志工们发心寻觅，<br>经历十多年的奔走与等待，<br>终于在 2023 年找到这块清净福地。</span><span lang="en" hidden>From 2012, volunteers began searching for a site.<br>After more than a decade of effort and waiting,<br>they finally found this peaceful site in 2023.</span></p></div>
+  </section>
+
+  <section id="why" class="section">
+    <div class="wrap">
+      <h2><span lang="zh-Hans">为什么建静思堂</span><span lang="en" hidden>Why we are building Jing Si Hall</span></h2>
+      <div class="story-grid">
+        <div class="origins">
+          <h3><span lang="zh-Hans">台湾佛教慈济基金会缘起</span><span lang="en" hidden>Origins of the Buddhist Tzu Chi Foundation in Taiwan</span></h3>
+          <p class=""><span lang="zh-Hans">1966年，证严上人于台湾花莲创立佛教克难慈济功德会，在“人克难、事克难、钱克难”的情况下，毅然展开济贫工作；</span><span lang="en" hidden>In 1966, Dharma Master Cheng Yen founded the Buddhist Tzu Chi Merit Society in Hualien, Taiwan. Despite a shortage of people, resources and money, she set out to help those living in poverty.</span></p>
+          <p class=""><span lang="zh-Hans">发展至今，已拓展成为立足台湾、宏观天下，慈悲足迹遍布五大洲的慈善团体。秉持印顺导师“为佛教、为众生”之教诲，在半个世纪以来，致力于推动四大志业、八大法印，即慈善、医疗、教育、人文、骨髓捐赠、国际赈灾、环境保护及社区志工。</span><span lang="en" hidden>From its roots in Taiwan, Tzu Chi has grown into a charity whose work reaches across five continents. Guided by Dharma Master Yin Shun’s teaching to work “for Buddhism and for all living beings”, it has spent the past half-century advancing its Four Missions and Eight Footprints: charity, medicine, education, humanistic culture, bone marrow donation, international disaster relief, environmental protection and community volunteering.</span></p>
+        </div>
+        <div class="local-history">
+          <h3><span lang="zh-Hans">慈济巴生缘起与成长</span><span lang="en" hidden>The beginnings and growth of Tzu Chi Klang</span></h3>
+          <ol class="history"><li><time datetime="2002"><span lang="zh-Hans">2002年</span><span lang="en" hidden>2002</span></time><p class=""><span lang="zh-Hans">巴生慈济共修处成立。当年承蒙志工林国华及陈银娘赠与八间店面作为慈济最早的立足点，展开了行政办事、义诊中心、静思小筑、佛堂、储藏室与厨房的多功能空间。</span><span lang="en" hidden>The Klang Tzu Chi Group Practice Centre was established. Volunteers Lin Guohua (林国华) and Chen Yinniang (陈银娘) donated eight shop units, giving Tzu Chi its first foothold in Klang. The premises housed administrative offices, a free clinic, a small Jing Si reading space, a Buddha hall, storage and a kitchen.</span></p></li><li><time datetime="2003"><span lang="zh-Hans">2003年</span><span lang="en" hidden>2003</span></time><p class=""><span lang="zh-Hans">正式成为慈济巴生联络处</span><span lang="en" hidden>It officially became the Tzu Chi Klang Liaison Office.</span></p></li><li><time datetime="2008"><span lang="zh-Hans">2008年</span><span lang="en" hidden>2008</span></time><p class=""><span lang="zh-Hans">升格为慈济巴生支会。经数年会员与志工的人数成长，空间亦不敷使用。</span><span lang="en" hidden>It became the Tzu Chi Klang Branch. In the years that followed, membership and volunteer numbers grew, and the premises could no longer meet their needs.</span></p></li><li><time datetime="2014"><span lang="zh-Hans">2014年</span><span lang="en" hidden>2014</span></time><p class=""><span lang="zh-Hans">巴生慈济行政办事处及佛堂迁移至市中心大路旁边的办公楼。空间虽能应付日常，惟大型活动仍需借用外地。</span><span lang="en" hidden>Tzu Chi Klang’s administrative office and Buddha hall moved to an office building beside the main road in the town centre. The space met everyday needs, but large events still had to be held elsewhere.</span></p></li>
+            <li><time>2012–2023</time><p class=""><span lang="zh-Hans">自2012 年起，志工们发心寻觅，经历十多年的奔走与等待，终于在 2023 年找到这块清净福地。</span><span lang="en" hidden>From 2012, volunteers began searching for a site. After more than a decade of effort and waiting, they finally found this peaceful site in 2023.</span></p></li>
+          </ol>
+        </div>
+      </div>
+      <aside class="teaching">
+        <svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-lotus"/></svg>
+        <div><h3><span lang="zh-Hans">静思堂 · 证严上人开示摘要</span><span lang="en" hidden>Jing Si Hall · A summary of Dharma Master Cheng Yen’s teachings</span></h3>
+        <p class=""><span lang="zh-Hans">静思堂，是佛陀教育在人间的体现，也是一座为佛教建立的清净精神道场。它不是供奉膜拜的寺庙，而是弘扬佛法、实践菩萨道的所在。遍布全球的静思堂，是慈济人共修精进、培育慈悲与智慧的修行平台，也是推动社会教育、人文关怀的重要中心。在这里，佛法生活化、教育人文化，提供大众一个终身学习、安身安心的好地方。</span><span lang="en" hidden>Jing Si Hall brings the Buddha’s teachings into the world and provides a peaceful place for Buddhist spiritual practice. It is a place to share the Dharma and practise the Bodhisattva path, rather than a temple for worship. Jing Si Halls around the world give Tzu Chi members a place to practise together and cultivate compassion and wisdom. They also serve as important centres for public education and compassionate care. Here, the Dharma becomes part of everyday life, and education centres on human values, offering everyone a place for lifelong learning and peace of mind.</span></p></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="spaces" class="section">
+    <div class="wrap">
+      <h2><span lang="zh-Hans">慈济静思堂空间设计与功能</span><span lang="en" hidden>The spaces and roles of Jing Si Hall</span></h2>
+      <ul class="functions"><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-lotus"/></svg><span lang="zh-Hans">▲ 清净修行的道场，弘扬佛法、安住身心</span><span lang="en" hidden>▲ A place for quiet spiritual practice, sharing the Dharma and settling body and mind</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-hands"/></svg><span lang="zh-Hans">▲ 社区关怀的基地，凝聚善力、陪伴弱势</span><span lang="en" hidden>▲ A base for community care, bringing people together to support those in need</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-book"/></svg><span lang="zh-Hans">▲ 教育熏陶的园地，启发慧命、培育品格</span><span lang="en" hidden>▲ A place for education, nurturing wisdom and character</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-leaf"/></svg><span lang="zh-Hans">▲ 人文环保的空间，净化人心、推广理念</span><span lang="en" hidden>▲ A space for humanistic values and environmental care, cultivating kind hearts and sharing these ideals</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-home"/></svg><span lang="zh-Hans">▲ 灾时守护的中心，迅速动员、提供庇护</span><span lang="en" hidden>▲ A centre for disaster response, mobilising quickly and providing shelter</span></li></ul>
+      <div class="spaces-grid">
+        <div>
+          <h3><span lang="zh-Hans">内部设施</span><span lang="en" hidden>Facilities</span></h3>
+          <p class=""><span lang="zh-Hans">静思堂内部设有：讲经堂、静思书轩、社教中心、行政中心、志工培训中心、文史与影视中心等。</span><span lang="en" hidden>Jing Si Hall will include a Dharma lecture hall, Jing Si Books &amp; Café, a community education centre, an administrative centre, a volunteer training centre, and a centre for culture, history and audiovisual media.</span></p>
+        </div>
+        <div>
+          <h3><span lang="zh-Hans">静思堂建设概念</span><span lang="en" hidden>Design approach</span></h3>
+          <p class=""><span lang="zh-Hans">静思堂内部也以环保绿植建筑为目标，将采自然风、自然光和雨水回收装置，永续生态、节能减碳。</span><span lang="en" hidden>Jing Si Hall is designed as an environmentally friendly building with greenery. Natural ventilation, daylight and rainwater harvesting will support long-term ecological sustainability, save energy and reduce carbon emissions.</span></p>
+        </div>
+      </div>
+      <h3 class="activity-heading"><span lang="zh-Hans">活动与空间</span><span lang="en" hidden>Activities and spaces</span></h3>
+      <ul class="activities"><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-corridor"/></svg><span lang="zh-Hans">文化走廊</span><span lang="en" hidden>Cultural corridor</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-lotus"/></svg><span lang="zh-Hans">讲经堂法会</span><span lang="en" hidden>Dharma assemblies in the lecture hall</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-lamp"/></svg><span lang="zh-Hans">祈福点灯</span><span lang="en" hidden>Prayer and lamp lighting</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-book"/></svg><span lang="zh-Hans">静思书轩</span><span lang="en" hidden>Jing Si Books &amp; Café</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-book"/></svg><span lang="zh-Hans">亲子共读</span><span lang="en" hidden>Family reading</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-pen"/></svg><span lang="zh-Hans">书画社教</span><span lang="en" hidden>Calligraphy and painting classes</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-hands"/></svg><span lang="zh-Hans">手语／志工演绎</span><span lang="en" hidden>Sign language and volunteer performances</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-board"/></svg><span lang="zh-Hans">培训课堂</span><span lang="en" hidden>Training sessions</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-heart"/></svg><span lang="zh-Hans">社区关怀</span><span lang="en" hidden>Community care</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-bowl"/></svg><span lang="zh-Hans">香积供餐</span><span lang="en" hidden>Meal preparation and service</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-leaf"/></svg><span lang="zh-Hans">环保／物资发放</span><span lang="en" hidden>Environmental care and supply distribution</span></li><li><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-people"/></svg><span lang="zh-Hans">社区欢聚</span><span lang="en" hidden>Community gatherings</span></li></ul>
+    </div>
+  </section>
+
+  <section id="location" class="section">
+    <div class="wrap location-grid">
+      <div>
+        <h2><span lang="zh-Hans">慈济巴生静思堂地段</span><span lang="en" hidden>Location of Tzu Chi Klang Jing Si Hall</span></h2>
+        <p class=""><span lang="zh-Hans">巴生静思堂坐落在绿林镇（Bandar Botanic），毗邻是Botanic Club House。整体占地面积2.06英亩，建筑覆盖面积1.66英亩，保留大面积绿地。</span><span lang="en" hidden>Klang Jing Si Hall is in Bandar Botanic, next to the Botanic Club House. The site spans 2.06 acres, with a building footprint of 1.66 acres and a large area set aside as green space.</span></p>
+        <p class="landmarks"><span lang="zh-Hans">附近地标：Botanic Resort Club、AEON Bukit Tinggi、GM Klang</span><span lang="en" hidden>Nearby landmarks: Botanic Resort Club, AEON Bukit Tinggi and GM Klang</span></p>
+      </div>
+      <figure class="map-image"><img src="img/flyer-map.webp" width="226" height="170" alt="" decoding="async"><figcaption><span lang="zh-Hans">宣传单地段地图｜Klang Tzu Chi Jing Si Hall</span><span lang="en" hidden>Location map from the leaflet | Klang Tzu Chi Jing Si Hall</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="progress" class="section progress">
+    <div class="wrap">
+      <h2><span lang="zh-Hans">工程进度</span><span lang="en" hidden>Construction progress</span></h2>
+      <p class="section-intro"><span lang="zh-Hans">2026年动工，预计2028年正式启用。</span><span lang="en" hidden>Construction begins in 2026, with the official opening expected in 2028.</span></p>
+      <div class="progress-grid">
+        <figure class="video">
+          <video src="video/construction-20261011.mp4" poster="img/construction-poster.webp" width="1280" height="720" controls muted playsinline preload="none" aria-labelledby="video-caption"></video>
+          <figcaption id="video-caption"><span lang="zh-Hans">11.10.2026 工地航拍｜整地、打桩</span><span lang="en" hidden>11.10.2026 aerial footage | Site preparation and piling</span></figcaption>
+        </figure>
+        <ol class="milestones"><li><time datetime="2024-11-09">09.11.2024</time><p class=""><span lang="zh-Hans">巴生静思堂动土典礼</span><span lang="en" hidden>Groundbreaking ceremony of Tzu Chi Klang Jing Si Hall</span></p></li><li><time datetime="2026">2026</time><p class=""><span lang="zh-Hans">动工</span><span lang="en" hidden>Construction begins</span></p></li><li class="current"><time datetime="2026-10-11">11.10.2026</time><p class=""><span lang="zh-Hans">航拍：整地、打桩</span><span lang="en" hidden>Aerial footage: site preparation and piling</span></p></li><li><time datetime="2028">2028</time><p class=""><span lang="zh-Hans">预计正式启用</span><span lang="en" hidden>Expected official opening</span></p></li></ol>
+      </div>
+      <div class="archive"><figure class="archive-feature"><img src="img/groundbreaking-aerial.webp" width="940" height="410" alt="" decoding="async"><figcaption><span lang="zh-Hans">动土典礼航拍｜慈济马来西亚新闻画面</span><span lang="en" hidden>Aerial view of the groundbreaking | Tzu Chi Malaysia news footage</span></figcaption></figure><figure class="archive-thumb circle-photo"><img src="img/flyer-groundbreaking.webp" width="104" height="84" alt="" decoding="async"><figcaption><span lang="zh-Hans">▶ 09.11.2024 巴生静思堂动土典礼</span><span lang="en" hidden>▶ 09.11.2024 Klang Jing Si Hall groundbreaking</span></figcaption></figure><figure class="archive-thumb"><img src="img/flyer-press.webp" width="175" height="151" alt="" decoding="async"><figcaption><span lang="zh-Hans">剪报｜慈济与雪政府方针相符</span><span lang="en" hidden>Press clipping | Tzu Chi aligns with Selangor state policy</span></figcaption></figure></div>
+    </div>
+  </section>
+
+  <section id="donate" class="section donate">
+    <div class="wrap">
+      <p class="kicker"><span lang="zh-Hans">邀您一起护法造福</span><span lang="en" hidden>Join us in upholding the Dharma and bringing blessings to others</span></p>
+      <h2><span lang="zh-Hans">筹募建设基金</span><span lang="en" hidden>Construction Fund</span></h2>
+      <p class="donate-motto"><span lang="zh-Hans">点滴成河 · 点滴爱心 · 汇聚大爱</span><span lang="en" hidden>Drops form a river · Each act of kindness · Together, Great Love</span></p>
+      <div class="donation-grid">
+        <div class="bank-panel" id="bank-details">
+          <h3><span lang="zh-Hans">1. 汇款资料</span><span lang="en" hidden>1. Bank transfer details</span></h3>
+          <dl class="bank-details"><div class="bank-row"><dt><span lang="zh-Hans">户名</span><span lang="en" hidden>Account name</span></dt><dd><strong id="holder">YAYASAN TAIWAN BUDDHIST TZU-CHI MALAYSIA</strong><button type="button" class="copy" data-copy="holder"><span lang="zh-Hans">复制</span><span lang="en" hidden>Copy</span></button></dd></div><div class="bank-row"><dt><span lang="zh-Hans">银行</span><span lang="en" hidden>Bank</span></dt><dd><strong id="bank">HSBC</strong><button type="button" class="copy" data-copy="bank"><span lang="zh-Hans">复制</span><span lang="en" hidden>Copy</span></button></dd></div><div class="bank-row"><dt><span lang="zh-Hans">户口号码</span><span lang="en" hidden>Account number</span></dt><dd><strong id="account">3160 2911 5101</strong><button type="button" class="copy" data-copy="account"><span lang="zh-Hans">复制</span><span lang="en" hidden>Copy</span></button></dd></div><div class="bank-row"><dt><span lang="zh-Hans">备注</span><span lang="en" hidden>Transfer reference</span></dt><dd><strong id="reference">JSH-KLANG</strong><button type="button" class="copy" data-copy="reference"><span lang="zh-Hans">复制</span><span lang="en" hidden>Copy</span></button></dd></div></dl>
+          <p class="tax"><span lang="zh-Hans">备注：此项捐款无法扣税</span><span lang="en" hidden>Note: This donation is not tax-deductible.</span></p>
+          <p class="qr-note"><span lang="zh-Hans">DuitNow QR 请向慈济巴生支会索取。</span><span lang="en" hidden>Please contact Tzu Chi Klang Branch for the DuitNow QR code.</span></p>
+        </div>
+        <div class="receipt-panel">
+          <h3><span lang="zh-Hans">2. 捐款后电邮资料</span><span lang="en" hidden>2. Email your details after donating</span></h3>
+          <p><span lang="zh-Hans">请将汇款证明、姓名、电话、地址、电邮及捐款金额电邮至 <a href="mailto:e-donationklg@tzuchi.my">e-donationklg@tzuchi.my</a>，并注明以下选项。</span><span lang="en" hidden>Email your proof of transfer, name, phone number, address, email address and donation amount to <a href="mailto:e-donationklg@tzuchi.my">e-donationklg@tzuchi.my</a>, and indicate your choices below.</span></p>
+          <dl class="receipt-options"><div><dt><span lang="zh-Hans">捐款频率</span><span lang="en" hidden>Donation frequency</span></dt><dd><span lang="zh-Hans">每月捐款</span><span lang="en" hidden>Monthly donation</span> / <span lang="zh-Hans">不定期捐款</span><span lang="en" hidden>Occasional donation</span></dd></div><div><dt><span lang="zh-Hans">付款方式</span><span lang="en" hidden>Payment method</span></dt><dd><span lang="zh-Hans">使用现金</span><span lang="en" hidden>Cash</span> / <span lang="zh-Hans">电子钱包</span><span lang="en" hidden>E-wallet</span> / <span lang="zh-Hans">银行转账</span><span lang="en" hidden>Bank transfer</span></dd></div><div><dt><span lang="zh-Hans">收据方式</span><span lang="en" hidden>Receipt preference</span></dt><dd><span lang="zh-Hans">无需收据</span><span lang="en" hidden>No receipt needed</span> / <span lang="zh-Hans">邮寄收据</span><span lang="en" hidden>Receipt by post</span> / <span lang="zh-Hans">电邮收据</span><span lang="en" hidden>Receipt by email</span></dd></div></dl>
+        </div>
+      </div>
+      <div class="donation-notes">
+        <h3><span lang="zh-Hans">备注说明：</span><span lang="en" hidden>Donation notes</span></h3>
+        <ol><li><span lang="zh-Hans">请在转账备注填写: JSH-KLANG</span><span lang="en" hidden>Enter JSH-KLANG in the transfer reference field.</span></li><li><span lang="zh-Hans">本次捐款将汇入【慈济建设基金】，恕无法申请所得税减免。</span><span lang="en" hidden>This donation goes to the Tzu Chi Construction Fund and is not eligible for an income tax deduction.</span></li><li><span lang="zh-Hans">请提供您的银行汇款单及联络资料，以便开立并邮寄正式收据。</span><span lang="en" hidden>Please provide your bank transfer slip and contact details so that an official receipt can be issued and posted to you.</span></li><li><span lang="zh-Hans">汇款证明可电邮至: <a href="mailto:e-donationklg@tzuchi.my">e-donationklg@tzuchi.my</a></span><span lang="en" hidden>You may email your proof of transfer to: <a href="mailto:e-donationklg@tzuchi.my">e-donationklg@tzuchi.my</a></span></li></ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="carnival" class="section carnival">
+    <div class="wrap carnival-grid">
+      <div>
+        <p class="kicker"><span lang="zh-Hans">吾爱吾家嘉年华 12.12.2026（六）<span class="event-detail">8am–10pm · GM Klang</span></span><span lang="en" hidden>My Beloved Home Carnival · <span class="event-detail">Sat 12.12.2026</span> · <span class="event-detail">8am–10pm · GM Klang</span></span></p>
+        <h2><span lang="zh-Hans">嘉年华募心莲</span><span lang="en" hidden>Carnival Lotus of Love sponsorship</span></h2>
+        <p class="lotus-line"><svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-lotus"/></svg><span lang="zh-Hans">一朵心莲 RM1,000</span><span lang="en" hidden>RM1,000 for one Lotus of Love</span></p>
+        <p><span lang="zh-Hans">汇入<a href="#bank-details">同一户口</a>，汇款备注填写 <strong>FSCS2026-XB</strong>。汇款证明及联络资料请电邮至 <a href="mailto:klang@tzuchi.my">klang@tzuchi.my</a>，以便开立正式收据。同样汇入【慈济建设基金】，恕无法申请所得税减免。欢迎私讯所属和气的志工了解认捐详情。</span><span lang="en" hidden>Transfer to the <a href="#bank-details">same bank account</a> and enter <strong>FSCS2026-XB</strong> as the transfer reference. Email your proof of transfer and contact details to <a href="mailto:klang@tzuchi.my">klang@tzuchi.my</a> so an official receipt can be issued. This also goes to the Tzu Chi Construction Fund and is not eligible for an income tax deduction. Feel free to message your local Tzu Chi volunteers for details.</span></p>
+        <a class="carnival-link" href="../"><span lang="zh-Hans">返回嘉年华主站</span><span lang="en" hidden>Back to the carnival website</span></a>
+      </div>
+      <blockquote><p class=""><span lang="zh-Hans">善念一点 · 善心最美</span><span lang="en" hidden>A kind thought · A kind heart is the most beautiful</span></p></blockquote>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <section aria-labelledby="contact-title">
+      <h2 id="contact-title"><span lang="zh-Hans">联络慈济巴生支会</span><span lang="en" hidden>Contact Tzu Chi Klang Branch</span></h2>
+      <address>TAIWAN BUDDHIST TZU CHI FOUNDATION MALAYSIA (KLANG)<br>No.2618C &amp; 2620C (Third Floor), Wisma Teng Chin,<br>Persiaran Tengku Ampuan, Rahimah, Klang, 41200 Klang, Selangor
+        <br><span lang="zh-Hans">Tel:</span><span lang="en" hidden>Tel:</span> <a href="tel:+60333820066">03-3382 0066</a>
+        <br><span lang="zh-Hans">Email:</span><span lang="en" hidden>Email:</span> <a href="mailto:klang@tzuchi.my">klang@tzuchi.my</a>
+      </address>
+    </section>
+    <div class="closing">
+      <svg class="icon " aria-hidden="true" viewBox="0 0 32 32"><use href="#icon-lotus"/></svg>
+      <p class=""><span lang="zh-Hans">您的爱心，成就静思堂的一砖一瓦。</span><span lang="en" hidden>Your kindness helps build Jing Si Hall, brick by brick.</span></p>
+      <p class=""><span lang="zh-Hans">您的善举，照亮社会暗角带来希望。</span><span lang="en" hidden>Your generosity brings light and hope to those in our community who are too often overlooked.</span></p>
+    </div>
+  </div>
+</footer>
+<div class="sr-only" id="copy-status" role="status"></div>
+<script>
+(() => {
+  const storageKey = 'jingsi-hall-language';
+  const languageButton = document.querySelector('#language');
+  const copyStatus = document.querySelector('#copy-status');
+  const chinese = document.querySelectorAll('[lang="zh-Hans"]:not(html):not([data-fixed])');
+  const english = document.querySelectorAll('[lang="en"]:not([data-fixed])');
+  const copyButtons = document.querySelectorAll('[data-copy]');
+  const labels = document.querySelectorAll('[data-label-en]');
+  const images = document.querySelectorAll('[data-alt-en]');
+  let currentLanguage = 'zh-Hans';
+  let copyFeedback;
+
+  try {
+    if (localStorage.getItem(storageKey) === 'en') currentLanguage = 'en';
+  } catch {}
+
+  function resetCopyFeedback() {
+    clearTimeout(copyFeedback);
+    copyStatus.textContent = '';
+    for (const button of copyButtons) {
+      button.querySelector('[lang="zh-Hans"]').textContent = '复制';
+      button.querySelector('[lang="en"]').textContent = 'Copy';
+    }
+  }
+
+  function setLanguage(language) {
+    currentLanguage = language;
+    const isEnglish = language === 'en';
+    document.documentElement.lang = language;
+    document.title = isEnglish
+      ? 'Tzu Chi Klang Jing Si Hall | Construction Fund'
+      : '慈济巴生静思堂｜筹募建设基金';
+    for (const node of chinese) node.hidden = isEnglish;
+    for (const node of english) node.hidden = !isEnglish;
+    languageButton.querySelector('[lang="en"]').hidden = isEnglish;
+    languageButton.querySelector('[lang="zh-Hans"]').hidden = !isEnglish;
+    languageButton.setAttribute('aria-label', isEnglish ? '切换至中文' : 'Switch to English');
+    for (const node of labels) node.setAttribute('aria-label', isEnglish ? node.dataset.labelEn : '主要导航');
+    for (const node of images) node.alt = isEnglish ? node.dataset.altEn : node.dataset.altZh;
+    for (const button of copyButtons) {
+      const activeLabel = button.closest('dd').previousElementSibling.querySelector('[lang="' + language + '"]').textContent;
+      button.setAttribute('aria-label', isEnglish ? 'Copy ' + activeLabel.toLowerCase() : '复制' + activeLabel);
+    }
+    resetCopyFeedback();
+  }
+
+  function copyWithSelection(value) {
+    const input = document.createElement('textarea');
+    input.value = value;
+    input.readOnly = true;
+    input.style.position = 'fixed';
+    input.style.opacity = '0';
+    document.body.append(input);
+    input.select();
+    try {
+      return document.execCommand('copy');
+    } catch {
+      return false;
+    } finally {
+      input.remove();
+    }
+  }
+
+  languageButton.addEventListener('click', () => {
+    setLanguage(currentLanguage === 'en' ? 'zh-Hans' : 'en');
+    try {
+      localStorage.setItem(storageKey, currentLanguage);
+    } catch {}
+  });
+
+  for (const button of copyButtons) {
+    button.addEventListener('click', async () => {
+      const target = document.getElementById(button.dataset.copy);
+      const value = target.textContent.trim();
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(value);
+        copied = true;
+      } catch {
+        copied = copyWithSelection(value);
+        button.focus({ preventScroll: true });
+      }
+      resetCopyFeedback();
+      const activeLabel = button.querySelector('[lang="' + currentLanguage + '"]');
+      if (copied) {
+        activeLabel.textContent = currentLanguage === 'en' ? 'Copied' : '已复制';
+      } else {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(target);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        activeLabel.textContent = currentLanguage === 'en' ? 'Selected' : '已选取';
+      }
+      copyStatus.textContent = copied
+        ? (currentLanguage === 'en' ? 'Copied to clipboard.' : '已复制到剪贴板。')
+        : (currentLanguage === 'en' ? 'Text selected. Use your device’s copy command.' : '文字已选取，请使用装置的复制功能。');
+      copyFeedback = setTimeout(resetCopyFeedback, 2200);
+    });
+  }
+
+  setLanguage(currentLanguage);
+})();
+</script>
+</body>
+</html>
