@@ -15,14 +15,14 @@
   const awnings = [colors.terra, colors.mustard, colors.olive];
   const locations = [
     [3.3, 1.4, 6.15, '舞台', 'Stage'],
-    [32, -.8, 3.05, 'D1 用餐区', 'Dining Area D1'],
+    [32, -.8, 3.05, 'D1 用餐区', 'D1 Dining Area'],
     [62, -11.4, 4.4, '询问处', 'Info Counter'],
-    [62, .4, 3.25, 'D2 用餐区', 'Dining Area D2'],
+    [62, .4, 3.25, 'D2 用餐区', 'D2 Dining Area'],
     [55.8, 10, 4.1, '静思人文', 'Jing Si Books & Culture'],
     [98, -.3, 4.6, '义卖摊位', 'Charity Stalls'],
     [70.7, 11, 4.05, '游戏区', 'Games Area'],
     [86, 11, 4.6, 'B1 用电摊位', 'B1 Powered Stalls'],
-    [129.3, 0, 3.25, 'D3 募心区', 'Fundraising Corner D3']
+    [129.3, 0, 3.25, 'D3 募心区', 'D3 Fundraising Corner']
   ];
   const style = `
     .venue3d-root {position:relative;width:100%;height:100%;min-height:210px;isolation:isolate;overflow:hidden;background:#f8f4ec;color:#483a30}
