@@ -3,6 +3,8 @@
 
   const CENTER_X = 67.5;
   const CENTER_Z = 0;
+  const ENTRANCE_X = 12;
+  const ENTRANCE_Z = 16.8;
   const DEG = Math.PI / 180;
   const IDLE_MS = 8000;
   const pinOffsets = [[0, -1], [-.7, -.7], [.7, -.7], [-1, 0], [1, 0], [-.7, .7], [.7, .7], [0, 1]];
@@ -31,6 +33,10 @@
     .venue3d-pin {box-sizing:border-box;position:absolute;top:0;left:0;display:grid;place-items:center;padding:0;border:2px solid #fff8eb;border-radius:50%;background:#483a30;color:#fff;font:700 14px/1 system-ui,sans-serif;box-shadow:0 2px 5px #39291f38;pointer-events:auto;cursor:pointer;touch-action:pan-y;user-select:none}
     .venue3d-pin:focus-visible {outline:2px solid #90622d;outline-offset:2px}
     .venue3d-a5 {background:#a65339;border-color:#ffdf92;border-radius:9px;pointer-events:none}
+    .venue3d-entrance,.venue3d-mall {border-radius:8px;white-space:nowrap;font-size:12px}
+    .venue3d-entrance {display:flex;justify-content:center;align-items:center;gap:4px;background:#2a654c;border-color:#f2f8df}
+    .venue3d-entry-arrow {display:block;color:#e2f3c3;font-size:13px;line-height:1}
+    .venue3d-mall {background:#ede6dd;border-color:#fff9ef;color:#4c413a;pointer-events:none;font-size:11px}
     .venue3d-stem {position:absolute;top:0;left:0;width:1px;background:#58422da8;transform-origin:top center}
     .venue3d-compass {position:absolute;right:12px;bottom:10px;width:36px;height:42px;display:grid;justify-items:center;align-content:end;padding-bottom:2px;font:700 12px/1 system-ui,sans-serif;border-radius:12px;background:#fbf6eccf}
     .venue3d-needle {width:14px;height:17px;margin-bottom:4px;background:#534133;clip-path:polygon(50% 0,100% 100%,50% 76%,0 100%)}
@@ -98,6 +104,15 @@
     function shape(name, create) {
       shapes.set(name, own(create()));
     }
+    function facets(points, indices) {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+      geometry.setIndex(indices);
+      const flat = geometry.toNonIndexed();
+      geometry.dispose();
+      flat.computeVertexNormals();
+      return flat;
+    }
     shape('box', () => new THREE.BoxGeometry(1, 1, 1));
     shape('soft', () => {
       const profile = new THREE.Shape();
@@ -118,6 +133,15 @@
     shape('foliage', () => new THREE.IcosahedronGeometry(.5, 1));
     shape('head', () => new THREE.SphereGeometry(.5, 8, 5));
     shape('coat', () => new THREE.CapsuleGeometry(.5, 1, 2, 7).scale(1, .5, 1));
+    shape('gable', () => facets(
+      [-.5, 0, -.5, .5, 0, -.5, -.5, 0, .5, .5, 0, .5, -.5, 1, 0, .5, 1, 0],
+      [0, 4, 1, 1, 4, 5, 4, 2, 5, 5, 2, 3, 0, 2, 4, 1, 5, 3]
+    ));
+    shape('arrow', () => facets(
+      [0, 0, -.5, -.5, 0, -.04, .5, 0, -.04, -.17, 0, -.04, .17, 0, -.04,
+        -.17, 0, .5, .17, 0, .5],
+      [0, 1, 2, 3, 5, 4, 4, 5, 6]
+    ));
     shape('roof', () => {
       const points = [];
       const indices = [];
@@ -177,7 +201,133 @@
       paving.get(kind).push({ x, z, w, d, y, color });
     }
 
+    function surroundings() {
+      const wall = 0xded9d0;
+      const warmRoof = 0xe1d9cb;
+      const railing = 0xb4a89c;
+      const glass = 0x8d999a;
+      const roadPaint = 0xede9de;
+      const entryGreen = 0x51836a;
+      // Reuse the venue's instance groups without casting building shadows onto it.
+      const block = (x, z, w, d, h, color, y = 0, turn = 0) => box(x, z, w, d, h, color, y, turn, false);
+      const column = (x, z, r, h, color, y = 0) => round(x, z, r, h, color, y, false);
+      const mark = (x, z, w, d, color = roadPaint, y = -.129) => block(x, z, w, d, .014, color, y);
+      const arrow = (x, z, w, d, turn, color, y = -.112) => part('arrow', x, y, z, w, 1, d, color, turn, false);
+
+      // Keep the frontages, circulation lane and closest parking row in the model.
+      block(67, 12, 172, 104, .64, 0xb7aea0, -.8);
+      floor('asphalt', 67, 12, 172, 104, -.149, 0xe4e5e7);
+      for (const [start, end] of [[-11, 58.5], [66.5, 141]]) {
+        const x = (start + end) / 2;
+        block(x, 28.4, end - start, 2.6, .14, 0xc9c2b8, -.15);
+        block(x, 30.3, end - start, 1.3, .12, 0xb9a6a0, -.15);
+      }
+      block(67, -27.7, 148, 1.8, .14, 0xc9c4b7, -.15);
+      block(67, -28.65, 148, .22, .17, 0xb6ab9b, -.15);
+      for (let x = 3; x < 138; x += 7.5) {
+        if (Math.abs(x - ENTRANCE_X) > 3) mark(x, 22.1, 3, .125);
+        mark(x, -23.2, 3, .125);
+      }
+      for (const x of [30, 90, 127]) {
+        arrow(x, 24.15, 1.36, 3, Math.PI / 2, roadPaint);
+        arrow(x - 8, -21.75, 1.36, 3, -Math.PI / 2, roadPaint);
+      }
+      arrow(-8.8, 1, 1.45, 3.35, 0, roadPaint);
+      mark(-12.3, 0, .12, 32);
+      mark(144.4, 0, .12, 30);
+
+      const cars = [0xc3c7c9, 0xb6a29a, 0xe1dfd7, 0x9aa8ae, 0xcdc0af];
+      for (let i = 0; i <= 42; i++) {
+        const x = 4 + i * 3;
+        mark(x, -32, .095, 5.6, 0xd9c193);
+        if (i % 4 > 1 || i === 42) continue;
+        const xx = x + 1.5;
+        block(xx, -32, 1.82, 3.88, .72, cars[i % cars.length], -.12);
+        block(xx, -32.12, 1.61, 2.09, .53, glass, .55);
+        block(xx, -32.14, 1.54, 1.68, .11, cars[i % cars.length], 1.06);
+      }
+      mark(67, -34.8, 126, .095, 0xd9c193);
+
+      // The tall frontage on the Zone A side has rounded pale ends and horizontal cladding.
+      const cladding = 0xb89488;
+      block(24, 43.5, 62, 25, .38, railing, -.14);
+      block(24, 44, 57, 22, 3.7, wall, .22);
+      block(25.5, 43.7, 53, 25.8, 15.8, cladding, 4.0);
+      block(25.5, 44.4, 53, 24, .27, warmRoof, 19.8);
+      block(30, 46.5, 19, 8.8, 1.05, wall, 20.03);
+      for (const x of [1.8, 51]) {
+        part('round', x, 11.9, 37.2, 15.8, 15.8, 16.2, wall, 0, false);
+        part('round', x, 3.77, 37.2, 16.2, .49, 16.6, railing, 0, false);
+        part('round', x, 2.02, 38.9, 13.5, 3.5, 14.4, glass, 0, false);
+      }
+      for (let y = 7.6; y < 19; y += 2.15) block(26.3, 30.72, 40.3, .19, .16, 0xc6a69a, y);
+      const fascia = [0xc2a5a1, 0xa7b7b9, 0xc4b78f, 0xb5a5a0, 0xbc918c];
+      for (let i = 0; i < 9; i++) {
+        const x = 7 + i * 4.8;
+        column(x - 1.85, 30.15, .30, 3.95, wall, .01);
+        block(x, 32.96, 4.37, .15, 2.70, glass, .28);
+        block(x, 32.85, .095, .10, 2.62, railing, .31);
+        block(x, 30.62, 4.58, .20, 1.42, fascia[i % fascia.length], 4.16);
+        block(x + .44, 30.47, 2.65, .07, .13, wall, 4.98);
+      }
+
+      // The shallow-roof retail row on the Zone B side and the gap beside the mall.
+      function shopRow(x, w, z, d, wallTone, roofTone, trim) {
+        block(x, z, w, d - 1.4, 4.08, wallTone, -.12);
+        part('gable', x, 3.95, z, w + .6, 1.38, d + .38, roofTone, 0, false);
+        const front = z - d / 2;
+        block(x, front + .29, w + .56, 1.87, .21, trim, 3.47);
+        const bays = Math.round(w / 4.25);
+        for (let i = 0; i < bays; i++) {
+          const span = w / bays;
+          const xx = x - w / 2 + (i + .5) * span;
+          block(xx, front + .57, span - .24, .18, 2.97, glass, .12);
+          block(xx, front + .44, .10, .11, 2.94, wall, .16);
+          block(xx, front - .64, span - .18, .19, .70, fascia[(i + 1) % fascia.length], 3.04);
+          column(xx - span / 2, front - .49, .115, 3.49, trim);
+        }
+      }
+      shopRow(85.9, 36.8, 36, 13.4, wall, 0xdad2bd, 0xc8b375);
+      shopRow(115.7, 19.9, 36, 14.2, 0xc6b5a7, 0xc0a597, 0xb29284);
+      shopRow(137, 20, 44.2, 14.6, 0xc9cec5, 0xb2c0bc, 0x9dacac);
+      for (const x of [113.2, 117.2]) block(x, 38.2, .23, .26, 2.65, railing, 4.9);
+      block(115.2, 38.2, 5.3, .55, 2.9, wall, 7.4);
+      block(114.04, 37.89, 1.65, .09, .83, 0xb99389, 8.48);
+      block(63, 39, 11.7, 2.6, .82, 0xbaa39a, 4.08);
+      block(63, 37.65, 11.7, .22, .61, wall, 4.13);
+      mark(63, 48.4, .12, 12.7);
+      arrow(63, 35.5, 1.2, 2.45, 0, roadPaint);
+
+      // The raised pale cylinder is visible beyond the shop roofs and trees.
+      const towerX = 90;
+      const towerZ = 55.2;
+      column(towerX, towerZ, 5.25, .45, railing, -.1);
+      for (let i = 0; i < 10; i++) {
+        const a = i * Math.PI / 5;
+        column(towerX + 4.55 * Math.cos(a), towerZ + 4.55 * Math.sin(a), .24, 13.2, wall);
+      }
+      for (const y of [5.2, 9.2, 12.95]) column(towerX, towerZ, 5.05, .36, railing, y);
+      column(towerX, towerZ, 5.2, 4.65, 0xd7cbb6, 13.1);
+      column(towerX, towerZ, 5.29, .29, wall, 17.75);
+      column(towerX, towerZ, .79, .47, railing, 17.98);
+      for (const x of [69, 75, 82, 103, 110, 117, 123]) {
+        column(x, 48.7, .19, 2.2, railing);
+        part('foliage', x, 3.15, 48.7, 5.4, 4.3, 4.4, x % 2 ? 0x9fab88 : 0xaab498, x, false);
+      }
+
+      // Wayfinding for a provisional pedestrian approach at the photos' painted crossing.
+      for (let n = 0; n < 6; n++) mark(ENTRANCE_X, 18.8 + n * 1.34, 3.3, .49, 0xccb175);
+      for (const side of [-1, 1]) {
+        const x = ENTRANCE_X + side * 2.6;
+        block(x, ENTRANCE_Z, .54, .54, .25, railing, -.11);
+        block(x, ENTRANCE_Z, .28, .28, 1.99, entryGreen, .11);
+        block(x, ENTRANCE_Z, .32, .32, .25, 0xd7e1b8, 1.84);
+      }
+      arrow(ENTRANCE_X, 15.45, 2.25, 2.95, 0, entryGreen, -.078);
+    }
+
     const { cream, white, ink, wood, terra, olive, mustard, indigo } = colors;
+    surroundings();
     const slab = 0xd6cab8;
     box(CENTER_X, 0, 143, 38, .58, 0xa49680, -.78, 0, false);
     box(CENTER_X, 0, 142, 37, .085, slab, -.2, 0, false);
@@ -189,7 +339,8 @@
     floor('dining', 129.3, 0, 8.8, 30, .042, 0xc6d3ad);
     // Edge strips frame the asphalt. Each pair leaves the four entries open.
     for (const side of [-1, 1]) {
-      for (const x of [30.5, 104.5]) box(x, side * 17.5, 65, .32, .13, slab, -.11, 0, false);
+      const segments = side < 0 ? [[-2, 63], [72, 137]] : [[-2, ENTRANCE_X - 3.2], [ENTRANCE_X + 3.2, 63], [72, 137]];
+      for (const [start, end] of segments) box((start + end) / 2, side * 17.5, end - start, .32, .13, slab, -.11, 0, false);
       for (const z of [-11, 11]) box(CENTER_X + side * 70, z, .32, 12.7, .13, slab, -.11, 0, false);
     }
 
@@ -411,7 +562,8 @@
     }
     for (const side of [-1, 1]) {
       for (const x of [1, 13, 24, 36, 48, 59, 75, 88, 100, 112, 123, 134]) {
-        tree(x + (rnd() - .5) * 1.7, side * 17.08, .77 + rnd() * .26);
+        const besideEntrance = side === 1 && x === 13 ? 5.5 : 0;
+        tree(x + besideEntrance + (rnd() - .5) * 1.7, side * 17.08, .77 + rnd() * .26);
       }
       for (const x of [7, 30, 53, 81, 106, 129]) lamp(x, side * 16.98, -side);
       for (const x of [17, 42, 93, 118]) shrub(x, side * 16.93);
@@ -538,14 +690,23 @@
       const overlay = element('div', 'venue3d-overlay', root);
       const pins = [];
       const project = new THREE.Vector3();
-      function addPin(text, x, z, y, zh, en) {
+      function addPin(text, x, z, y, zh, en, kind = 'number') {
+        const interactive = kind === 'number' || kind === 'entrance';
         const stem = element('span', 'venue3d-stem', overlay);
-        const button = element(zh ? 'button' : 'span', 'venue3d-pin' + (zh ? '' : ' venue3d-a5'), overlay, text);
-        if (zh) button.type = 'button';
-        pins.push({ button, stem, x, z, y, zh, en, tx: 0, ty: 0, sx: 0, sy: 0, half: 0 });
+        const pinClass = kind === 'number' ? 'venue3d-pin' : 'venue3d-pin venue3d-' + kind;
+        const button = element(interactive ? 'button' : 'span', pinClass, overlay, text);
+        if (interactive) button.type = 'button';
+        const pin = { button, stem, x, z, y, zh, en, kind, interactive, tx: 0, ty: 0, sx: 0, sy: 0, half: 0 };
+        pins.push(pin);
+        return pin;
       }
       locations.forEach(([x, z, y, zh, en], i) => addPin(String(i + 1), x, z, y, zh, en));
-      if (highlight) addPin('A5', 79.4, .1, 6.4);
+      if (highlight) addPin('A5', 79.4, .1, 6.4, '', '', 'a5');
+      const entrance = addPin('', ENTRANCE_X, ENTRANCE_Z, 4.6, '正门（推定）', 'Main Entrance (estimated)', 'entrance');
+      const entryArrow = element('span', 'venue3d-entry-arrow', entrance.button, '↑');
+      entryArrow.setAttribute('aria-hidden', 'true');
+      const entryText = element('span', '', entrance.button);
+      const mall = addPin('', 27, 33.5, 24, 'GM Klang 商场', 'GM Klang Mall', 'mall');
       const compass = element('div', 'venue3d-compass', overlay);
       compass.setAttribute('aria-hidden', 'true');
       const needle = element('div', 'venue3d-needle', compass);
@@ -571,8 +732,8 @@
       let lastFrame = 0;
       let idleUntil = 0;
       let dirty = true;
-      let yaw = -26 * DEG;
-      let pitch = 41 * DEG;
+      let yaw = -171 * DEG;
+      let pitch = 48 * DEG;
       let zoom = 1;
       let targetZoom = 1;
       let yawSpeed = 0;
@@ -617,12 +778,26 @@
 
       function setLang(value) {
         lang = value;
+        entryText.textContent = lang === 'en' ? 'Main Entrance' : '正门';
+        mall.button.textContent = mall[lang];
         for (const pin of pins) {
-          if (!pin.zh) continue;
+          if (!pin.interactive) continue;
           pin.button.setAttribute('aria-label', pin[lang]);
           pin.button.setAttribute('aria-expanded', String(selected === pin));
         }
+        sizePins();
         setPopup();
+        if (ready && sized) placeOverlay();
+      }
+
+      function sizePins() {
+        for (const pin of pins) {
+          if (pin.kind === 'entrance') pin.half = lang === 'en' ? 57 : 29;
+          else if (pin.kind === 'mall') pin.half = 49;
+          else pin.half = pin.kind === 'a5' ? pinSize * .79 : pinSize / 2;
+          pin.button.style.width = pin.half * 2 + 'px';
+          pin.button.style.height = pinSize + 'px';
+        }
       }
 
       function setPopup() {
@@ -703,7 +878,7 @@
           pin.button.style.transform = 'translate(' + Math.round(pin.sx - pin.half)
             + 'px,' + Math.round(pin.sy - pinSize / 2) + 'px)';
 
-          project.set(pin.x, .6, pin.z).project(camera);
+          project.set(pin.x, pin.kind === 'mall' ? 19.8 : .6, pin.z).project(camera);
           const x = (project.x + 1) * width / 2;
           const y = (1 - project.y) * height / 2;
           const onScreen = x >= 0 && x <= width && y >= 0 && y <= height;
@@ -723,6 +898,7 @@
         project.set(CENTER_X, 0, CENTER_Z + 10).project(camera);
         const angle = Math.atan2((project.x - x) * width, (project.y - y) * height);
         needle.style.transform = 'rotate(' + angle.toFixed(4) + 'rad)';
+        entryArrow.style.transform = 'rotate(' + (angle + Math.PI).toFixed(4) + 'rad)';
         positionPopup();
       }
 
@@ -734,9 +910,9 @@
         if (!active()) return;
         const firstDrawAt = ready ? 0 : performance.now();
         const aspect = width / height;
-        // Keep the slab in frame as its long side turns towards the camera.
-        const depth = 143 * Math.abs(Math.sin(yaw)) + 38 * Math.abs(Math.cos(yaw));
-        const span = Math.max(156, (depth * Math.sin(pitch) + 10) * aspect) / zoom;
+        // Fit the venue and the nearest façades. The far verge can crop on wide displays.
+        const depth = 143 * Math.abs(Math.sin(yaw)) + 73 * Math.abs(Math.cos(yaw));
+        const span = Math.max(174, (depth * Math.sin(pitch) + 20) * aspect) / zoom;
         camera.left = -span / 2;
         camera.right = span / 2;
         camera.top = span / aspect / 2;
@@ -744,8 +920,8 @@
         camera.updateProjectionMatrix();
         const radius = 165;
         const flat = radius * Math.cos(pitch);
-        camera.position.set(CENTER_X - flat * Math.sin(yaw), 1.35 + radius * Math.sin(pitch), CENTER_Z + flat * Math.cos(yaw));
-        camera.lookAt(CENTER_X, 1.35, CENTER_Z);
+        camera.position.set(CENTER_X - flat * Math.sin(yaw), 4.5 + radius * Math.sin(pitch), 11 + flat * Math.cos(yaw));
+        camera.lookAt(CENTER_X, 4.5, 11);
         renderer.render(scene, camera);
         placeOverlay();
         dirty = false;
@@ -779,11 +955,7 @@
         width = w;
         height = h;
         pinSize = clamp(Math.round(18 + width / 65), 24, 34);
-        for (const pin of pins) {
-          pin.half = pin.zh ? pinSize / 2 : pinSize * .79;
-          pin.button.style.width = pin.half * 2 + 'px';
-          pin.button.style.height = pinSize + 'px';
-        }
+        sizePins();
         if (!contextLost) {
           if (dpr !== nextDpr) renderer.setPixelRatio(nextDpr);
           renderer.setSize(width, height, false);
@@ -873,7 +1045,7 @@
       }
 
       function zoomBy(factor) {
-        targetZoom = clamp(targetZoom * factor, .78, 2.65);
+        targetZoom = clamp(targetZoom * factor, .66, 2.65);
         pause();
         sync();
       }
@@ -977,7 +1149,7 @@
       }
 
       for (const pin of pins) {
-        if (!pin.zh) continue;
+        if (!pin.interactive) continue;
         listen(pin.button, 'pointerdown', () => {
           clearMotion();
           pause();
