@@ -4,7 +4,6 @@
   const CENTER_X = 67.5;
   const CENTER_Z = 0;
   const ENTRANCE_X = 12;
-  const ENTRANCE_Z = 16.8;
   const DEG = Math.PI / 180;
   const IDLE_MS = 8000;
   const pinOffsets = [[0, -1], [-.7, -.7], [.7, -.7], [-1, 0], [1, 0], [-.7, .7], [.7, .7], [0, 1]];
@@ -33,10 +32,7 @@
     .venue3d-pin {box-sizing:border-box;position:absolute;top:0;left:0;display:grid;place-items:center;padding:0;border:2px solid #fff8eb;border-radius:50%;background:#483a30;color:#fff;font:700 14px/1 system-ui,sans-serif;box-shadow:0 2px 5px #39291f38;pointer-events:auto;cursor:pointer;touch-action:pan-y;user-select:none}
     .venue3d-pin:focus-visible {outline:2px solid #90622d;outline-offset:2px}
     .venue3d-a5 {background:#a65339;border-color:#ffdf92;border-radius:9px;pointer-events:none}
-    .venue3d-entrance,.venue3d-mall {border-radius:8px;white-space:nowrap;font-size:12px}
-    .venue3d-entrance {display:flex;justify-content:center;align-items:center;gap:4px;background:#2a654c;border-color:#f2f8df}
-    .venue3d-entry-arrow {display:block;color:#e2f3c3;font-size:13px;line-height:1}
-    .venue3d-mall {background:#ede6dd;border-color:#fff9ef;color:#4c413a;pointer-events:none;font-size:11px}
+    .venue3d-mall {border-radius:8px;white-space:nowrap;background:#ede6dd;border-color:#fff9ef;color:#4c413a;pointer-events:none;font-size:11px}
     .venue3d-stem {position:absolute;top:0;left:0;width:1px;background:#58422da8;transform-origin:top center}
     .venue3d-compass {position:absolute;right:12px;bottom:10px;width:36px;height:42px;display:grid;justify-items:center;align-content:end;padding-bottom:2px;font:700 12px/1 system-ui,sans-serif;border-radius:12px;background:#fbf6eccf}
     .venue3d-needle {width:14px;height:17px;margin-bottom:4px;background:#534133;clip-path:polygon(50% 0,100% 100%,50% 76%,0 100%)}
@@ -207,7 +203,6 @@
       const railing = 0xb4a89c;
       const glass = 0x8d999a;
       const roadPaint = 0xede9de;
-      const entryGreen = 0x51836a;
       // Reuse the venue's instance groups without casting building shadows onto it.
       const block = (x, z, w, d, h, color, y = 0, turn = 0) => box(x, z, w, d, h, color, y, turn, false);
       const column = (x, z, r, h, color, y = 0) => round(x, z, r, h, color, y, false);
@@ -315,15 +310,8 @@
         part('foliage', x, 3.15, 48.7, 5.4, 4.3, 4.4, x % 2 ? 0x9fab88 : 0xaab498, x, false);
       }
 
-      // Wayfinding for a provisional pedestrian approach at the photos' painted crossing.
+      // Painted crossing visible in the site photos.
       for (let n = 0; n < 6; n++) mark(ENTRANCE_X, 18.8 + n * 1.34, 3.3, .49, 0xccb175);
-      for (const side of [-1, 1]) {
-        const x = ENTRANCE_X + side * 2.6;
-        block(x, ENTRANCE_Z, .54, .54, .25, railing, -.11);
-        block(x, ENTRANCE_Z, .28, .28, 1.99, entryGreen, .11);
-        block(x, ENTRANCE_Z, .32, .32, .25, 0xd7e1b8, 1.84);
-      }
-      arrow(ENTRANCE_X, 15.45, 2.25, 2.95, 0, entryGreen, -.078);
     }
 
     const { cream, white, ink, wood, terra, olive, mustard, indigo } = colors;
@@ -691,7 +679,7 @@
       const pins = [];
       const project = new THREE.Vector3();
       function addPin(text, x, z, y, zh, en, kind = 'number') {
-        const interactive = kind === 'number' || kind === 'entrance';
+        const interactive = kind === 'number';
         const stem = element('span', 'venue3d-stem', overlay);
         const pinClass = kind === 'number' ? 'venue3d-pin' : 'venue3d-pin venue3d-' + kind;
         const button = element(interactive ? 'button' : 'span', pinClass, overlay, text);
@@ -702,10 +690,6 @@
       }
       locations.forEach(([x, z, y, zh, en], i) => addPin(String(i + 1), x, z, y, zh, en));
       if (highlight) addPin('A5', 79.4, .1, 6.4, '', '', 'a5');
-      const entrance = addPin('', ENTRANCE_X, ENTRANCE_Z, 4.6, '正门（推定）', 'Main Entrance (estimated)', 'entrance');
-      const entryArrow = element('span', 'venue3d-entry-arrow', entrance.button, '↑');
-      entryArrow.setAttribute('aria-hidden', 'true');
-      const entryText = element('span', '', entrance.button);
       const mall = addPin('', 27, 33.5, 24, 'GM Klang 商场', 'GM Klang Mall', 'mall');
       const compass = element('div', 'venue3d-compass', overlay);
       compass.setAttribute('aria-hidden', 'true');
@@ -778,7 +762,6 @@
 
       function setLang(value) {
         lang = value;
-        entryText.textContent = lang === 'en' ? 'Main Entrance' : '正门';
         mall.button.textContent = mall[lang];
         for (const pin of pins) {
           if (!pin.interactive) continue;
@@ -792,8 +775,7 @@
 
       function sizePins() {
         for (const pin of pins) {
-          if (pin.kind === 'entrance') pin.half = lang === 'en' ? 57 : 29;
-          else if (pin.kind === 'mall') pin.half = 49;
+          if (pin.kind === 'mall') pin.half = 49;
           else pin.half = pin.kind === 'a5' ? pinSize * .79 : pinSize / 2;
           pin.button.style.width = pin.half * 2 + 'px';
           pin.button.style.height = pinSize + 'px';
@@ -898,7 +880,6 @@
         project.set(CENTER_X, 0, CENTER_Z + 10).project(camera);
         const angle = Math.atan2((project.x - x) * width, (project.y - y) * height);
         needle.style.transform = 'rotate(' + angle.toFixed(4) + 'rad)';
-        entryArrow.style.transform = 'rotate(' + (angle + Math.PI).toFixed(4) + 'rad)';
         positionPopup();
       }
 
